@@ -1,0 +1,14 @@
+{
+  "name": "@weerax/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "node -e \"\"",
+    "check": "pnpm type-check"
+  }
+}
+
