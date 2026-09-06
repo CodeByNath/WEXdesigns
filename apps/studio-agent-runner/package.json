@@ -7,8 +7,10 @@
     "build": "tsc -p tsconfig.json",
     "type-check": "tsc -p tsconfig.json --noEmit",
     "lint": "tsc -p tsconfig.json --noEmit",
-    "test": "node -e \"\"",
-    "check": "pnpm type-check"
+    "test": "pnpm build && node dist/validate-contract.js",
+    "check": "pnpm type-check && pnpm test"
+  },
+  "dependencies": {
+    "@weerax/schemas": "workspace:*"
   }
 }
-
