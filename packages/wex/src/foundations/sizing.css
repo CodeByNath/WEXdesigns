@@ -1,0 +1,7 @@
+/*
+ * WEX Global 3-Tier System
+ *
+ * Small, Default, and Large are the only general scale tiers. Tier selection
+ * is inherited through a composition. The source defines no additional CSS
+ * values for this contract, so no local sizing values are introduced here.
+ */

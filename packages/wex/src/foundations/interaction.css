@@ -1,0 +1,32 @@
+:root {
+  --wex-focus-width: 2px;
+}
+
+:root,
+[data-wex-theme="light"] {
+  --wex-color-interactive-primary: var(--wex-color-blue-60);
+  --wex-color-interactive-hover: var(--wex-color-blue-70);
+  --wex-color-interactive-active: var(--wex-color-blue-80);
+  --wex-color-interactive-disabled: var(--wex-color-gray-30);
+
+  --wex-color-surface-interactive: var(--wex-color-gray-10);
+  --wex-color-surface-hover: var(--wex-color-gray-20);
+  --wex-color-surface-active: var(--wex-color-gray-30);
+  --wex-color-surface-selected: var(--wex-color-gray-20);
+
+  --wex-color-focus: var(--wex-color-blue-60);
+}
+
+[data-wex-theme="dark"] {
+  --wex-color-interactive-primary: var(--wex-color-blue-50);
+  --wex-color-interactive-hover: var(--wex-color-blue-40);
+  --wex-color-interactive-active: var(--wex-color-blue-60);
+  --wex-color-interactive-disabled: var(--wex-color-gray-70);
+
+  --wex-color-surface-interactive: var(--wex-color-gray-90);
+  --wex-color-surface-hover: var(--wex-color-gray-80);
+  --wex-color-surface-active: var(--wex-color-gray-70);
+  --wex-color-surface-selected: var(--wex-color-gray-80);
+
+  --wex-color-focus: var(--wex-color-white);
+}

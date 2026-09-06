@@ -1,0 +1,70 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+figure,
+blockquote {
+  margin: 0;
+}
+
+:root {
+  --wex-layout-columns: 12;
+  --wex-layout-grid-gap: var(--wex-space-8);
+
+  --wex-layout-max-wide: 90rem;       /* 1440px */
+  --wex-layout-max-laptop: 75rem;     /* 1200px */
+
+  --wex-layout-page-padding: var(--wex-space-24);
+  --wex-layout-page-padding-compact: var(--wex-space-16);
+}
+
+.wex-page-frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.wex-layout {
+  display: grid;
+  grid-template-columns: repeat(var(--wex-layout-columns), minmax(0, 1fr));
+  gap: var(--wex-layout-grid-gap);
+
+  width: 100%;
+  max-width: var(--wex-layout-max-wide);
+  min-width: 0;
+  padding-inline: var(--wex-layout-page-padding);
+}
+
+@media (max-width: 1440px) {
+  .wex-layout {
+    max-width: var(--wex-layout-max-laptop);
+  }
+}
+
+@media (max-width: 1024px) {
+  .wex-layout {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .wex-layout {
+    max-width: 100%;
+    padding-inline: var(--wex-layout-page-padding-compact);
+  }
+}

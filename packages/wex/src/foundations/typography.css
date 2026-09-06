@@ -1,0 +1,1558 @@
+/* ============================================================
+
+1. WEX CORE TYPOGRAPHY TOKENS
+
+============================================================ */
+
+:root {
+
+/* ----------------------------------------------------------
+
+Font families
+
+---------------------------------------------------------- */
+
+--wex-type-family-sans:
+
+"IBM Plex Sans",
+
+"Helvetica Neue",
+
+Arial,
+
+sans-serif;
+
+/* ----------------------------------------------------------
+
+Font weights
+
+---------------------------------------------------------- */
+
+--wex-type-weight-light: 300;
+
+--wex-type-weight-regular: 400;
+
+--wex-type-weight-semibold: 600;
+
+/* ----------------------------------------------------------
+
+Font styles
+
+---------------------------------------------------------- */
+
+--wex-type-style-normal: normal;
+
+--wex-type-style-italic: italic;
+
+/* ----------------------------------------------------------
+
+Type scale
+
+IBM Plex scale
+
+Base y0 = 12px
+
+---------------------------------------------------------- */
+
+--wex-type-size-12: 0.75rem; /* 12px */
+
+--wex-type-size-14: 0.875rem; /* 14px */
+
+--wex-type-size-16: 1rem; /* 16px */
+
+--wex-type-size-18: 1.125rem; /* 18px */
+
+--wex-type-size-20: 1.25rem; /* 20px */
+
+--wex-type-size-24: 1.5rem; /* 24px */
+
+--wex-type-size-28: 1.75rem; /* 28px */
+
+--wex-type-size-32: 2rem; /* 32px */
+
+--wex-type-size-36: 2.25rem; /* 36px */
+
+--wex-type-size-42: 2.625rem; /* 42px */
+
+--wex-type-size-48: 3rem; /* 48px */
+
+--wex-type-size-54: 3.375rem; /* 54px */
+
+--wex-type-size-60: 3.75rem; /* 60px */
+
+--wex-type-size-68: 4.25rem; /* 68px */
+
+--wex-type-size-76: 4.75rem; /* 76px */
+
+--wex-type-size-84: 5.25rem; /* 84px */
+
+--wex-type-size-92: 5.75rem; /* 92px */
+
+/* ----------------------------------------------------------
+
+Line-height scale
+
+Keep line-height values independent from individual
+
+type styles so they can be reused by future type sets.
+
+---------------------------------------------------------- */
+
+--wex-type-line-height-16: 1rem;
+
+--wex-type-line-height-18: 1.125rem;
+
+--wex-type-line-height-20: 1.25rem;
+
+--wex-type-line-height-22: 1.375rem;
+
+--wex-type-line-height-24: 1.5rem;
+
+--wex-type-line-height-26: 1.625rem;
+
+--wex-type-line-height-28: 1.75rem;
+
+--wex-type-line-height-30: 1.875rem;
+
+--wex-type-line-height-32: 2rem;
+
+--wex-type-line-height-36: 2.25rem;
+
+--wex-type-line-height-40: 2.5rem;
+
+--wex-type-line-height-44: 2.75rem;
+
+--wex-type-line-height-48: 3rem;
+
+--wex-type-line-height-50: 3.125rem;
+
+--wex-type-line-height-52: 3.25rem;
+
+--wex-type-line-height-56: 3.5rem;
+
+--wex-type-line-height-60: 3.75rem;
+
+--wex-type-line-height-64: 4rem;
+
+--wex-type-line-height-72: 4.5rem;
+
+--wex-type-line-height-80: 5rem;
+
+--wex-type-line-height-88: 5.5rem;
+
+--wex-type-line-height-96: 6rem;
+
+/* ----------------------------------------------------------
+
+Letter spacing
+
+---------------------------------------------------------- */
+
+--wex-type-letter-spacing-default: 0;
+
+}
+
+/* ============================================================
+
+2. GLOBAL FONT FOUNDATION
+
+============================================================ */
+
+html {
+
+font-family: var(--wex-type-family-sans);
+
+font-synthesis: none;
+
+text-rendering: optimizeLegibility;
+
+-webkit-font-smoothing: antialiased;
+
+-moz-osx-font-smoothing: grayscale;
+
+}
+
+body {
+
+font-family: inherit;
+
+}
+
+/* ============================================================
+
+3. HEADING TYPE SET
+
+============================================================
+
+Purpose:
+
+Page headings and layout headings.
+
+Do not use this Heading type set for headings contained
+
+inside UI containers or component surfaces.
+
+Architecture:
+
+Heading
+
+├── Small
+
+│ ├── Light
+
+│ ├── Regular
+
+│ └── SemiBold
+
+├── Default
+
+│ ├── Light
+
+│ ├── Regular
+
+│ └── SemiBold
+
+└── Large
+
+├── Light
+
+├── Regular
+
+└── SemiBold
+
+Every weight also supports italic.
+
+============================================================ */
+
+:root {
+
+/* ----------------------------------------------------------
+
+Heading Small
+
+Size: 32px / 2rem
+
+Line height: 40px / 2.5rem
+
+Letter spacing: 0
+
+---------------------------------------------------------- */
+
+--wex-type-heading-small-font-family:
+
+var(--wex-type-family-sans);
+
+--wex-type-heading-small-font-size:
+
+var(--wex-type-size-32);
+
+--wex-type-heading-small-line-height:
+
+var(--wex-type-line-height-40);
+
+--wex-type-heading-small-letter-spacing:
+
+var(--wex-type-letter-spacing-default);
+
+/* ----------------------------------------------------------
+
+Heading Default
+
+Size: 36px / 2.25rem
+
+Line height: 44px / 2.75rem
+
+Letter spacing: 0
+
+---------------------------------------------------------- */
+
+--wex-type-heading-default-font-family:
+
+var(--wex-type-family-sans);
+
+--wex-type-heading-default-font-size:
+
+var(--wex-type-size-36);
+
+--wex-type-heading-default-line-height:
+
+var(--wex-type-line-height-44);
+
+--wex-type-heading-default-letter-spacing:
+
+var(--wex-type-letter-spacing-default);
+
+/* ----------------------------------------------------------
+
+Heading Large
+
+Size: 42px / 2.625rem
+
+Line height: 50px / 3.125rem
+
+Letter spacing: 0
+
+---------------------------------------------------------- */
+
+--wex-type-heading-large-font-family:
+
+var(--wex-type-family-sans);
+
+--wex-type-heading-large-font-size:
+
+var(--wex-type-size-42);
+
+--wex-type-heading-large-line-height:
+
+var(--wex-type-line-height-50);
+
+--wex-type-heading-large-letter-spacing:
+
+var(--wex-type-letter-spacing-default);
+
+}
+
+/* ============================================================
+
+4. BASE HEADING CLASSES
+
+============================================================
+
+These provide size/rhythm only.
+
+Weight and italic variations are layered independently.
+
+This separation is useful for:
+
+- CSS
+
+- design token export
+
+- component systems
+
+- DesignMaster agent resolution
+
+============================================================ */
+
+/* Heading Small */
+
+.wex-type-heading-small {
+
+font-family: var(--wex-type-heading-small-font-family);
+
+font-size: var(--wex-type-heading-small-font-size);
+
+line-height: var(--wex-type-heading-small-line-height);
+
+letter-spacing: var(--wex-type-heading-small-letter-spacing);
+
+}
+
+/* Heading Default */
+
+.wex-type-heading-default {
+
+font-family: var(--wex-type-heading-default-font-family);
+
+font-size: var(--wex-type-heading-default-font-size);
+
+line-height: var(--wex-type-heading-default-line-height);
+
+letter-spacing: var(--wex-type-heading-default-letter-spacing);
+
+}
+
+/* Heading Large */
+
+.wex-type-heading-large {
+
+font-family: var(--wex-type-heading-large-font-family);
+
+font-size: var(--wex-type-heading-large-font-size);
+
+line-height: var(--wex-type-heading-large-line-height);
+
+letter-spacing: var(--wex-type-heading-large-letter-spacing);
+
+}
+
+/* ============================================================
+
+5. WEIGHT MODIFIERS
+
+============================================================ */
+
+.wex-type-light {
+
+font-weight: var(--wex-type-weight-light);
+
+}
+
+.wex-type-regular {
+
+font-weight: var(--wex-type-weight-regular);
+
+}
+
+.wex-type-semibold {
+
+font-weight: var(--wex-type-weight-semibold);
+
+}
+
+/* ============================================================
+
+6. STYLE MODIFIERS
+
+============================================================ */
+
+.wex-type-normal {
+
+font-style: var(--wex-type-style-normal);
+
+}
+
+.wex-type-italic {
+
+font-style: var(--wex-type-style-italic);
+
+}
+
+/* ============================================================
+
+7. COMPLETE HEADING STYLE CLASSES
+
+============================================================
+
+These are the canonical resolved styles.
+
+DesignMaster should eventually resolve directly to one
+
+of these styles rather than composing arbitrary values.
+
+============================================================ */
+
+/* ------------------------------------------------------------
+
+Heading Small — Light
+
+------------------------------------------------------------ */
+
+.wex-type-heading-small-light {
+
+font-family: var(--wex-type-heading-small-font-family);
+
+font-size: var(--wex-type-heading-small-font-size);
+
+font-weight: var(--wex-type-weight-light);
+
+font-style: var(--wex-type-style-normal);
+
+line-height: var(--wex-type-heading-small-line-height);
+
+letter-spacing: var(--wex-type-heading-small-letter-spacing);
+
+}
+
+.wex-type-heading-small-light-italic {
+
+font-family: var(--wex-type-heading-small-font-family);
+
+font-size: var(--wex-type-heading-small-font-size);
+
+font-weight: var(--wex-type-weight-light);
+
+font-style: var(--wex-type-style-italic);
+
+line-height: var(--wex-type-heading-small-line-height);
+
+letter-spacing: var(--wex-type-heading-small-letter-spacing);
+
+}
+
+/* ------------------------------------------------------------
+
+Heading Small — Regular
+
+------------------------------------------------------------ */
+
+.wex-type-heading-small-regular {
+
+font-family: var(--wex-type-heading-small-font-family);
+
+font-size: var(--wex-type-heading-small-font-size);
+
+font-weight: var(--wex-type-weight-regular);
+
+font-style: var(--wex-type-style-normal);
+
+line-height: var(--wex-type-heading-small-line-height);
+
+letter-spacing: var(--wex-type-heading-small-letter-spacing);
+
+}
+
+.wex-type-heading-small-regular-italic {
+
+font-family: var(--wex-type-heading-small-font-family);
+
+font-size: var(--wex-type-heading-small-font-size);
+
+font-weight: var(--wex-type-weight-regular);
+
+font-style: var(--wex-type-style-italic);
+
+line-height: var(--wex-type-heading-small-line-height);
+
+letter-spacing: var(--wex-type-heading-small-letter-spacing);
+
+}
+
+/* ------------------------------------------------------------
+
+Heading Small — SemiBold
+
+------------------------------------------------------------ */
+
+.wex-type-heading-small-semibold {
+
+font-family: var(--wex-type-heading-small-font-family);
+
+font-size: var(--wex-type-heading-small-font-size);
+
+font-weight: var(--wex-type-weight-semibold);
+
+font-style: var(--wex-type-style-normal);
+
+line-height: var(--wex-type-heading-small-line-height);
+
+letter-spacing: var(--wex-type-heading-small-letter-spacing);
+
+}
+
+.wex-type-heading-small-semibold-italic {
+
+font-family: var(--wex-type-heading-small-font-family);
+
+font-size: var(--wex-type-heading-small-font-size);
+
+font-weight: var(--wex-type-weight-semibold);
+
+font-style: var(--wex-type-style-italic);
+
+line-height: var(--wex-type-heading-small-line-height);
+
+letter-spacing: var(--wex-type-heading-small-letter-spacing);
+
+}
+
+/* ------------------------------------------------------------
+
+Heading Default — Light
+
+------------------------------------------------------------ */
+
+.wex-type-heading-default-light {
+
+font-family: var(--wex-type-heading-default-font-family);
+
+font-size: var(--wex-type-heading-default-font-size);
+
+font-weight: var(--wex-type-weight-light);
+
+font-style: var(--wex-type-style-normal);
+
+line-height: var(--wex-type-heading-default-line-height);
+
+letter-spacing: var(--wex-type-heading-default-letter-spacing);
+
+}
+
+.wex-type-heading-default-light-italic {
+
+font-family: var(--wex-type-heading-default-font-family);
+
+font-size: var(--wex-type-heading-default-font-size);
+
+font-weight: var(--wex-type-weight-light);
+
+font-style: var(--wex-type-style-italic);
+
+line-height: var(--wex-type-heading-default-line-height);
+
+letter-spacing: var(--wex-type-heading-default-letter-spacing);
+
+}
+
+/* ------------------------------------------------------------
+
+Heading Default — Regular
+
+------------------------------------------------------------ */
+
+.wex-type-heading-default-regular {
+
+font-family: var(--wex-type-heading-default-font-family);
+
+font-size: var(--wex-type-heading-default-font-size);
+
+font-weight: var(--wex-type-weight-regular);
+
+font-style: var(--wex-type-style-normal);
+
+line-height: var(--wex-type-heading-default-line-height);
+
+letter-spacing: var(--wex-type-heading-default-letter-spacing);
+
+}
+
+.wex-type-heading-default-regular-italic {
+
+font-family: var(--wex-type-heading-default-font-family);
+
+font-size: var(--wex-type-heading-default-font-size);
+
+font-weight: var(--wex-type-weight-regular);
+
+font-style: var(--wex-type-style-italic);
+
+line-height: var(--wex-type-heading-default-line-height);
+
+letter-spacing: var(--wex-type-heading-default-letter-spacing);
+
+}
+
+/* ------------------------------------------------------------
+
+Heading Default — SemiBold
+
+------------------------------------------------------------ */
+
+.wex-type-heading-default-semibold {
+
+font-family: var(--wex-type-heading-default-font-family);
+
+font-size: var(--wex-type-heading-default-font-size);
+
+font-weight: var(--wex-type-weight-semibold);
+
+font-style: var(--wex-type-style-normal);
+
+line-height: var(--wex-type-heading-default-line-height);
+
+letter-spacing: var(--wex-type-heading-default-letter-spacing);
+
+}
+
+.wex-type-heading-default-semibold-italic {
+
+font-family: var(--wex-type-heading-default-font-family);
+
+font-size: var(--wex-type-heading-default-font-size);
+
+font-weight: var(--wex-type-weight-semibold);
+
+font-style: var(--wex-type-style-italic);
+
+line-height: var(--wex-type-heading-default-line-height);
+
+letter-spacing: var(--wex-type-heading-default-letter-spacing);
+
+}
+
+/* ------------------------------------------------------------
+
+Heading Large — Light
+
+------------------------------------------------------------ */
+
+.wex-type-heading-large-light {
+
+font-family: var(--wex-type-heading-large-font-family);
+
+font-size: var(--wex-type-heading-large-font-size);
+
+font-weight: var(--wex-type-weight-light);
+
+font-style: var(--wex-type-style-normal);
+
+line-height: var(--wex-type-heading-large-line-height);
+
+letter-spacing: var(--wex-type-heading-large-letter-spacing);
+
+}
+
+.wex-type-heading-large-light-italic {
+
+font-family: var(--wex-type-heading-large-font-family);
+
+font-size: var(--wex-type-heading-large-font-size);
+
+font-weight: var(--wex-type-weight-light);
+
+font-style: var(--wex-type-style-italic);
+
+line-height: var(--wex-type-heading-large-line-height);
+
+letter-spacing: var(--wex-type-heading-large-letter-spacing);
+
+}
+
+/* ------------------------------------------------------------
+
+Heading Large — Regular
+
+------------------------------------------------------------ */
+
+.wex-type-heading-large-regular {
+
+font-family: var(--wex-type-heading-large-font-family);
+
+font-size: var(--wex-type-heading-large-font-size);
+
+font-weight: var(--wex-type-weight-regular);
+
+font-style: var(--wex-type-style-normal);
+
+line-height: var(--wex-type-heading-large-line-height);
+
+letter-spacing: var(--wex-type-heading-large-letter-spacing);
+
+}
+
+.wex-type-heading-large-regular-italic {
+
+font-family: var(--wex-type-heading-large-font-family);
+
+font-size: var(--wex-type-heading-large-font-size);
+
+font-weight: var(--wex-type-weight-regular);
+
+font-style: var(--wex-type-style-italic);
+
+line-height: var(--wex-type-heading-large-line-height);
+
+letter-spacing: var(--wex-type-heading-large-letter-spacing);
+
+}
+
+/* ------------------------------------------------------------
+
+Heading Large — SemiBold
+
+------------------------------------------------------------ */
+
+.wex-type-heading-large-semibold {
+
+font-family: var(--wex-type-heading-large-font-family);
+
+font-size: var(--wex-type-heading-large-font-size);
+
+font-weight: var(--wex-type-weight-semibold);
+
+font-style: var(--wex-type-style-normal);
+
+line-height: var(--wex-type-heading-large-line-height);
+
+letter-spacing: var(--wex-type-heading-large-letter-spacing);
+
+}
+
+.wex-type-heading-large-semibold-italic {
+
+font-family: var(--wex-type-heading-large-font-family);
+
+font-size: var(--wex-type-heading-large-font-size);
+
+font-weight: var(--wex-type-weight-semibold);
+
+font-style: var(--wex-type-style-italic);
+
+line-height: var(--wex-type-heading-large-line-height);
+
+letter-spacing: var(--wex-type-heading-large-letter-spacing);
+
+}
+
+/* ============================================================
+
+8. TITLE TYPE SET
+
+============================================================
+
+Purpose:
+
+Section headings and component headings.
+
+Title follows the same Small / Default / Large hierarchy,
+weight system and italic emphasis model as Heading.
+
+Architecture:
+
+Title
+├── Small
+│ ├── Light
+│ ├── Regular
+│ └── SemiBold
+├── Default
+│ ├── Light
+│ ├── Regular
+│ └── SemiBold
+└── Large
+├── Light
+├── Regular
+└── SemiBold
+
+Every weight also supports italic.
+
+Primary emphasis:
+
+Small   → Regular / 400
+Default → Regular / 400
+Large   → Light / 300
+
+Ecosystem pairing:
+
+Title Small   pairs with Heading / Navigation / Body Small.
+Title Default pairs with Heading / Navigation / Body Default.
+Title Large   pairs with Heading / Navigation / Body Large.
+
+Do not mix hierarchy tiers inside the same composition.
+
+============================================================ */
+
+:root {
+
+/* ----------------------------------------------------------
+
+Title Small
+
+Size: 24px / 1.5rem
+Line height: 28px / 1.75rem
+Primary weight: 400 / Regular
+Letter spacing: 0
+
+---------------------------------------------------------- */
+
+--wex-type-title-small-font-family:
+
+var(--wex-type-family-sans);
+
+--wex-type-title-small-font-size:
+
+var(--wex-type-size-24);
+
+--wex-type-title-small-line-height:
+
+var(--wex-type-line-height-28);
+
+--wex-type-title-small-letter-spacing:
+
+var(--wex-type-letter-spacing-default);
+
+/* ----------------------------------------------------------
+
+Title Default
+
+Size: 28px / 1.75rem
+Line height: 36px / 2.25rem
+Primary weight: 400 / Regular
+Letter spacing: 0
+
+---------------------------------------------------------- */
+
+--wex-type-title-default-font-family:
+
+var(--wex-type-family-sans);
+
+--wex-type-title-default-font-size:
+
+var(--wex-type-size-28);
+
+--wex-type-title-default-line-height:
+
+var(--wex-type-line-height-36);
+
+--wex-type-title-default-letter-spacing:
+
+var(--wex-type-letter-spacing-default);
+
+/* ----------------------------------------------------------
+
+Title Large
+
+Size: 36px / 2.25rem
+Line height: 44px / 2.75rem
+Primary weight: 300 / Light
+Letter spacing: 0
+
+---------------------------------------------------------- */
+
+--wex-type-title-large-font-family:
+
+var(--wex-type-family-sans);
+
+--wex-type-title-large-font-size:
+
+var(--wex-type-size-36);
+
+--wex-type-title-large-line-height:
+
+var(--wex-type-line-height-44);
+
+--wex-type-title-large-letter-spacing:
+
+var(--wex-type-letter-spacing-default);
+
+}
+
+/* ============================================================
+
+9. BASE TITLE CLASSES
+
+============================================================ */
+
+.wex-type-title-small {
+
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+
+}
+
+.wex-type-title-default {
+
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+
+}
+
+.wex-type-title-large {
+
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+
+}
+
+/* ============================================================
+
+10. COMPLETE TITLE STYLE CLASSES
+
+============================================================
+
+Canonical Title styles. Weight and italic behavior inherits
+from the WEX core typography system used by Heading.
+
+============================================================ */
+
+/* Title Small — Light */
+
+.wex-type-title-small-light {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+.wex-type-title-small-light-italic {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+/* Title Small — Regular */
+
+.wex-type-title-small-regular {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+.wex-type-title-small-regular-italic {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+/* Title Small — SemiBold */
+
+.wex-type-title-small-semibold {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+.wex-type-title-small-semibold-italic {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+/* Title Default — Light */
+
+.wex-type-title-default-light {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+.wex-type-title-default-light-italic {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+/* Title Default — Regular */
+
+.wex-type-title-default-regular {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+.wex-type-title-default-regular-italic {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+/* Title Default — SemiBold */
+
+.wex-type-title-default-semibold {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+.wex-type-title-default-semibold-italic {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+/* Title Large — Light */
+
+.wex-type-title-large-light {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+.wex-type-title-large-light-italic {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+/* Title Large — Regular */
+
+.wex-type-title-large-regular {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+.wex-type-title-large-regular-italic {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+/* Title Large — SemiBold */
+
+.wex-type-title-large-semibold {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+.wex-type-title-large-semibold-italic {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+/* ============================================================
+
+11. SEMANTIC ALIASES
+
+============================================================
+
+Optional semantic aliases.
+
+These are useful when application code should not know
+
+the exact underlying weight.
+
+They can later be changed without changing consuming
+
+components.
+
+============================================================ */
+
+:root {
+
+/* Primary/default Heading selections */
+
+--wex-type-heading-small-primary-weight:
+
+var(--wex-type-weight-regular);
+
+--wex-type-heading-default-primary-weight:
+
+var(--wex-type-weight-regular);
+
+--wex-type-heading-large-primary-weight:
+
+var(--wex-type-weight-regular);
+
+/* Primary/default Title selections */
+
+--wex-type-title-small-primary-weight:
+
+var(--wex-type-weight-regular);
+
+--wex-type-title-default-primary-weight:
+
+var(--wex-type-weight-regular);
+
+--wex-type-title-large-primary-weight:
+
+var(--wex-type-weight-light);
+
+}
+
+/* ============================================================
+
+12. OPTIONAL ELEMENT RESET
+
+============================================================
+
+WEX typography styles should determine heading appearance,
+
+rather than browser defaults.
+
+============================================================ */
+
+h1,
+
+h2,
+
+h3,
+
+h4,
+
+h5,
+
+h6 {
+
+margin: 0;
+
+font-family: inherit;
+
+font-size: inherit;
+
+font-weight: inherit;
+
+line-height: inherit;
+
+}
+
+/* ============================================================
+
+13. NAVIGATION TYPE SET
+
+============================================================
+
+Purpose:
+
+Menus, labels and navigation-facing UI text.
+
+Navigation shares the same Small / Default / Large size tiers
+as Body, but uses SemiBold / 600 only.
+
+Architecture:
+
+Navigation
+├── Small   → 14px / 20px
+├── Default → 16px / 24px
+└── Large   → 20px / 28px
+
+Allowed weight:
+
+SemiBold / 600 only.
+
+Italic remains available as an emphasis modifier where required,
+but Navigation does not expose Light or Regular weights.
+
+Ecosystem pairing:
+
+Navigation Small   pairs with Heading / Title / Body Small.
+Navigation Default pairs with Heading / Title / Body Default.
+Navigation Large   pairs with Heading / Title / Body Large.
+
+============================================================ */
+
+:root {
+
+/* Navigation + Body shared size rhythm */
+
+--wex-type-shared-small-font-size:
+var(--wex-type-size-14);
+
+--wex-type-shared-small-line-height:
+var(--wex-type-line-height-20);
+
+--wex-type-shared-small-letter-spacing:
+0.16px;
+
+--wex-type-shared-default-font-size:
+var(--wex-type-size-16);
+
+--wex-type-shared-default-line-height:
+var(--wex-type-line-height-24);
+
+--wex-type-shared-default-letter-spacing:
+var(--wex-type-letter-spacing-default);
+
+--wex-type-shared-large-font-size:
+var(--wex-type-size-20);
+
+--wex-type-shared-large-line-height:
+var(--wex-type-line-height-28);
+
+--wex-type-shared-large-letter-spacing:
+var(--wex-type-letter-spacing-default);
+
+/* Navigation aliases */
+
+--wex-type-navigation-small-font-family:
+var(--wex-type-family-sans);
+--wex-type-navigation-small-font-size:
+var(--wex-type-shared-small-font-size);
+--wex-type-navigation-small-line-height:
+var(--wex-type-shared-small-line-height);
+--wex-type-navigation-small-letter-spacing:
+var(--wex-type-shared-small-letter-spacing);
+
+--wex-type-navigation-default-font-family:
+var(--wex-type-family-sans);
+--wex-type-navigation-default-font-size:
+var(--wex-type-shared-default-font-size);
+--wex-type-navigation-default-line-height:
+var(--wex-type-shared-default-line-height);
+--wex-type-navigation-default-letter-spacing:
+var(--wex-type-shared-default-letter-spacing);
+
+--wex-type-navigation-large-font-family:
+var(--wex-type-family-sans);
+--wex-type-navigation-large-font-size:
+var(--wex-type-shared-large-font-size);
+--wex-type-navigation-large-line-height:
+var(--wex-type-shared-large-line-height);
+--wex-type-navigation-large-letter-spacing:
+var(--wex-type-shared-large-letter-spacing);
+
+}
+
+.wex-type-navigation-small-semibold,
+.wex-type-navigation-small-semibold-italic,
+.wex-type-navigation-default-semibold,
+.wex-type-navigation-default-semibold-italic,
+.wex-type-navigation-large-semibold,
+.wex-type-navigation-large-semibold-italic {
+font-family: var(--wex-type-family-sans);
+font-weight: var(--wex-type-weight-semibold);
+}
+
+.wex-type-navigation-small-semibold,
+.wex-type-navigation-small-semibold-italic {
+font-size: var(--wex-type-navigation-small-font-size);
+line-height: var(--wex-type-navigation-small-line-height);
+letter-spacing: var(--wex-type-navigation-small-letter-spacing);
+}
+
+.wex-type-navigation-default-semibold,
+.wex-type-navigation-default-semibold-italic {
+font-size: var(--wex-type-navigation-default-font-size);
+line-height: var(--wex-type-navigation-default-line-height);
+letter-spacing: var(--wex-type-navigation-default-letter-spacing);
+}
+
+.wex-type-navigation-large-semibold,
+.wex-type-navigation-large-semibold-italic {
+font-size: var(--wex-type-navigation-large-font-size);
+line-height: var(--wex-type-navigation-large-line-height);
+letter-spacing: var(--wex-type-navigation-large-letter-spacing);
+}
+
+.wex-type-navigation-small-semibold,
+.wex-type-navigation-default-semibold,
+.wex-type-navigation-large-semibold {
+font-style: var(--wex-type-style-normal);
+}
+
+.wex-type-navigation-small-semibold-italic,
+.wex-type-navigation-default-semibold-italic,
+.wex-type-navigation-large-semibold-italic {
+font-style: var(--wex-type-style-italic);
+}
+
+
+/* ============================================================
+
+14. BODY TYPE SET
+
+============================================================
+
+Purpose:
+
+Paragraphs and general reading text.
+
+Body shares the same Small / Default / Large size tiers as
+Navigation, but uses Light / 300 and Regular / 400 only.
+
+Architecture:
+
+Body
+├── Small   → 14px / 20px
+├── Default → 16px / 24px
+└── Large   → 20px / 28px
+
+Allowed weights:
+
+Light / 300
+Regular / 400
+
+SemiBold / 600 is reserved for Navigation and should not be
+compiled as a Body style.
+
+Every allowed Body weight supports italic.
+
+============================================================ */
+
+:root {
+
+--wex-type-body-small-font-family:
+var(--wex-type-family-sans);
+--wex-type-body-small-font-size:
+var(--wex-type-shared-small-font-size);
+--wex-type-body-small-line-height:
+var(--wex-type-shared-small-line-height);
+--wex-type-body-small-letter-spacing:
+var(--wex-type-shared-small-letter-spacing);
+
+--wex-type-body-default-font-family:
+var(--wex-type-family-sans);
+--wex-type-body-default-font-size:
+var(--wex-type-shared-default-font-size);
+--wex-type-body-default-line-height:
+var(--wex-type-shared-default-line-height);
+--wex-type-body-default-letter-spacing:
+var(--wex-type-shared-default-letter-spacing);
+
+--wex-type-body-large-font-family:
+var(--wex-type-family-sans);
+--wex-type-body-large-font-size:
+var(--wex-type-shared-large-font-size);
+--wex-type-body-large-line-height:
+var(--wex-type-shared-large-line-height);
+--wex-type-body-large-letter-spacing:
+var(--wex-type-shared-large-letter-spacing);
+
+}
+
+.wex-type-body-small-light,
+.wex-type-body-small-light-italic,
+.wex-type-body-small-regular,
+.wex-type-body-small-regular-italic,
+.wex-type-body-default-light,
+.wex-type-body-default-light-italic,
+.wex-type-body-default-regular,
+.wex-type-body-default-regular-italic,
+.wex-type-body-large-light,
+.wex-type-body-large-light-italic,
+.wex-type-body-large-regular,
+.wex-type-body-large-regular-italic {
+font-family: var(--wex-type-family-sans);
+}
+
+.wex-type-body-small-light,
+.wex-type-body-small-light-italic,
+.wex-type-body-small-regular,
+.wex-type-body-small-regular-italic {
+font-size: var(--wex-type-body-small-font-size);
+line-height: var(--wex-type-body-small-line-height);
+letter-spacing: var(--wex-type-body-small-letter-spacing);
+}
+
+.wex-type-body-default-light,
+.wex-type-body-default-light-italic,
+.wex-type-body-default-regular,
+.wex-type-body-default-regular-italic {
+font-size: var(--wex-type-body-default-font-size);
+line-height: var(--wex-type-body-default-line-height);
+letter-spacing: var(--wex-type-body-default-letter-spacing);
+}
+
+.wex-type-body-large-light,
+.wex-type-body-large-light-italic,
+.wex-type-body-large-regular,
+.wex-type-body-large-regular-italic {
+font-size: var(--wex-type-body-large-font-size);
+line-height: var(--wex-type-body-large-line-height);
+letter-spacing: var(--wex-type-body-large-letter-spacing);
+}
+
+.wex-type-body-small-light,
+.wex-type-body-default-light,
+.wex-type-body-large-light,
+.wex-type-body-small-light-italic,
+.wex-type-body-default-light-italic,
+.wex-type-body-large-light-italic {
+font-weight: var(--wex-type-weight-light);
+}
+
+.wex-type-body-small-regular,
+.wex-type-body-default-regular,
+.wex-type-body-large-regular,
+.wex-type-body-small-regular-italic,
+.wex-type-body-default-regular-italic,
+.wex-type-body-large-regular-italic {
+font-weight: var(--wex-type-weight-regular);
+}
+
+.wex-type-body-small-light,
+.wex-type-body-small-regular,
+.wex-type-body-default-light,
+.wex-type-body-default-regular,
+.wex-type-body-large-light,
+.wex-type-body-large-regular {
+font-style: var(--wex-type-style-normal);
+}
+
+.wex-type-body-small-light-italic,
+.wex-type-body-small-regular-italic,
+.wex-type-body-default-light-italic,
+.wex-type-body-default-regular-italic,
+.wex-type-body-large-light-italic,
+.wex-type-body-large-regular-italic {
+font-style: var(--wex-type-style-italic);
+}
+
+
+/* ============================================================
+
+15. ICON SIZE SYSTEM
+
+============================================================
+
+Icons are visual symbols used to represent ideas, objects or
+actions. They communicate messages at a glance, afford
+interactivity and draw attention to important information.
+
+Typography pairing guidance:
+
+16px icons are optimised to pair with 14px IBM Plex text.
+20px icons are optimised to pair with 16px IBM Plex text.
+24px and 32px icons are available when larger icons are needed.
+
+Components typically use 16px icons. 20px, 24px and 32px icons
+may also be used within the UI. Icon size should remain
+consistent within the same design context.
+
+============================================================ */
+
+:root {
+
+--wex-icon-size-16: 1rem;
+--wex-icon-size-20: 1.25rem;
+--wex-icon-size-24: 1.5rem;
+--wex-icon-size-32: 2rem;
+
+--wex-icon-size-component-default:
+var(--wex-icon-size-16);
+
+}
+
+/* ============================================================
+
+16. NAVIGATION + BODY SEMANTIC ALIASES
+
+============================================================ */
+
+:root {
+
+--wex-type-navigation-small-primary-weight:
+var(--wex-type-weight-semibold);
+--wex-type-navigation-default-primary-weight:
+var(--wex-type-weight-semibold);
+--wex-type-navigation-large-primary-weight:
+var(--wex-type-weight-semibold);
+
+--wex-type-body-small-primary-weight:
+var(--wex-type-weight-regular);
+--wex-type-body-default-primary-weight:
+var(--wex-type-weight-regular);
+--wex-type-body-large-primary-weight:
+var(--wex-type-weight-regular);
+
+}
