@@ -3,12 +3,22 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "type-check": "tsc -p tsconfig.json --noEmit",
     "lint": "tsc -p tsconfig.json --noEmit",
     "test": "node -e \"\"",
     "check": "pnpm type-check"
+  },
+  "dependencies": {
+    "@weerax/schemas": "workspace:*",
+    "@weerax/wex": "workspace:*"
   }
 }
-
