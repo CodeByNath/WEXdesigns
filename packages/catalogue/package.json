@@ -1,0 +1,13 @@
+{
+  "name": "@weerax/catalogue",
+  "version": "0.0.0",
+  "private": true,
+  "files": ["content"],
+  "scripts": {
+    "build": "node -e \"\"",
+    "type-check": "node -e \"\"",
+    "lint": "node -e \"\"",
+    "test": "node -e \"\"",
+    "check": "node -e \"\""
+  }
+}

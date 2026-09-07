@@ -7,6 +7,7 @@ on:
       - ".github/workflows/deploy-pages.yml"
       - "apps/web-runtime/**"
       - "packages/wex/**"
+      - "packages/catalogue/**"
       - "packages/ui/**"
       - "packages/schemas/**"
       - "package.json"

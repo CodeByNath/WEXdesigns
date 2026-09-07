@@ -23,6 +23,7 @@ function digest(path) {
 
 const manifestPaths = [
   'packages/wex/package.json',
+  'packages/catalogue/package.json',
   'packages/schemas/package.json',
   'packages/adapters/package.json',
   'packages/ui/package.json',
@@ -40,6 +41,10 @@ const internalDependencies = new Map(
 );
 
 assert(internalDependencies.get('@weerax/wex').length === 0, 'WEX has an internal dependency');
+assert(
+  internalDependencies.get('@weerax/catalogue').length === 0,
+  'Catalogue has an internal dependency',
+);
 assert(internalDependencies.get('@weerax/schemas').length === 0, 'Schemas have an internal dependency');
 assert(
   internalDependencies.get('@weerax/adapters').every((name) => name === '@weerax/schemas'),

@@ -31,6 +31,7 @@ DESIGN MASTER COMPOSES; IT DOES NOT INVENT VISUAL VALUES.
 | Location | Purpose |
 | --- | --- |
 | `packages/wex` | Canonical WEX source and organized CSS foundations |
+| `packages/catalogue` | File-backed Elements, Guidelines, and Components structure |
 | `packages/schemas` | Framework-neutral Zod and TypeScript contracts |
 | `packages/adapters` | Reserved framework-neutral domain adapter boundary |
 | `packages/ui` | Reserved shared UI boundary; intentionally contains no components |
@@ -62,7 +63,7 @@ pnpm audit:foundation
 
 ## Live Index
 
-The web runtime publishes WEX as a readable system library. Elements currently covers Grid / Theory, Color, Icons, Pictograms, Motion, Spacing, Themes, and Typography. Guidelines exposes composition rules. Components remains an empty registry until its separately approved phase.
+The web runtime publishes the WEX shell: header, content frame, footer, and theme mechanics. The file-backed catalogue package stores the Elements, Guidelines, and Components structure. Content entry rendering remains gated on an approved serializable contract.
 
 ## Current Phase
 

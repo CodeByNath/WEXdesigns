@@ -12,6 +12,7 @@
     "dev": "vite --host 0.0.0.0"
   },
   "dependencies": {
+    "@weerax/catalogue": "workspace:*",
     "@weerax/schemas": "workspace:*",
     "@weerax/ui": "workspace:*",
     "@weerax/wex": "workspace:*"

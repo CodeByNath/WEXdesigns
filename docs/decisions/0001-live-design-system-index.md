@@ -6,9 +6,9 @@ Accepted
 
 ## Decision
 
-Create a live WEX index in the web-runtime application before beginning shared component implementation.
+Create a live WEX index shell in the web-runtime application before beginning shared component implementation.
 
-The index has three main categories:
+The file-backed catalogue has three main categories:
 
 ```text
 Elements
@@ -29,13 +29,13 @@ Themes
 Typography
 ```
 
-The index renders current WEX foundations and marks Pictograms and Motion as unresolved. It must not invent missing assets, motion values, or component presentation.
+The category structure belongs to `@weerax/catalogue`, not to hardcoded frontend navigation. Entry formats remain unresolved until a serializable content contract is approved.
 
-Guidelines owns readable system rules. Components is an empty registry until component work is separately authorized.
+The live frontend contains only the WEX header, an empty content frame, the footer, and theme mechanics. Future renderers will populate the frame from registered catalogue entries.
 
 ## Boundary
 
-The index is application composition, not a shared component package. `@weerax/ui` remains component-empty. Reusable component code may enter that package only through the approved component workflow.
+The index shell is application composition, not a shared component package. `@weerax/catalogue` owns content organization. `@weerax/ui` remains component-empty. Reusable component code may enter that package only through the approved component workflow.
 
 ## Deployment
 

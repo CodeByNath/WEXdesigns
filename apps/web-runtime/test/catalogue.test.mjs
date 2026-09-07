@@ -1,38 +1,36 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/catalogue.css', import.meta.url), 'utf8');
-const javascript = await readFile(new URL('../src/main.js', import.meta.url), 'utf8');
 const uiBoundary = await readFile(
   new URL('../../../packages/ui/src/index.ts', import.meta.url),
   'utf8',
 );
+const elementDirectories = await readdir(
+  new URL('../../../packages/catalogue/content/elements', import.meta.url),
+);
 
-test('publishes the three main library categories', () => {
-  for (const registry of ['elements', 'guidelines', 'components']) {
-    assert.match(html, new RegExp(`data-view="${registry}"`));
-  }
+test('keeps only the header, content frame, and footer in the index shell', () => {
+  assert.match(html, /<header class="catalogue-header">/);
+  assert.match(html, /<main id="main-content" class="catalogue-content wex-page-frame"/);
+  assert.match(html, /<section class="catalogue-content__surface"/);
+  assert.match(html, /<footer class="catalogue-footer">/);
+  assert.doesNotMatch(html, /data-view=|catalogue-sidebar|foundation-section/);
 });
 
-test('registers the agreed element families', () => {
-  const elements = [
-    'grid',
+test('stores the agreed element families in the catalogue package', () => {
+  assert.deepEqual(elementDirectories.sort(), [
     'color',
+    'grid-theory',
     'icons',
-    'pictograms',
     'motion',
+    'pictograms',
     'spacing',
     'themes',
     'typography',
-  ];
-  for (const element of elements) {
-    assert.match(html, new RegExp(`id="${element}"`));
-  }
-  for (let index = 1; index < elements.length; index += 1) {
-    assert.ok(javascript.indexOf(`'${elements[index - 1]}'`) < javascript.indexOf(`'${elements[index]}'`));
-  }
+  ]);
 });
 
 test('uses the canonical WEX foundation bundle', () => {
