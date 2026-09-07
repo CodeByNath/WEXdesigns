@@ -7,8 +7,8 @@
     "build": "vite build",
     "type-check": "tsc -p tsconfig.json --noEmit",
     "lint": "tsc -p tsconfig.json --noEmit",
-    "test": "node -e \"\"",
-    "check": "pnpm type-check",
+    "test": "node --test test/*.test.mjs",
+    "check": "pnpm type-check && pnpm test",
     "dev": "vite --host 0.0.0.0"
   },
   "dependencies": {

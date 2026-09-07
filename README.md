@@ -35,7 +35,7 @@ DESIGN MASTER COMPOSES; IT DOES NOT INVENT VISUAL VALUES.
 | `packages/adapters` | Reserved framework-neutral domain adapter boundary |
 | `packages/ui` | Reserved shared UI boundary; intentionally contains no components |
 | `apps/studio-agent-runner` | Node contract-validation shell |
-| `apps/web-runtime` | Vite runtime wiring shell; intentionally contains no screen |
+| `apps/web-runtime` | Live WEX index for Elements, Guidelines, and Components |
 | `docs/architecture` | Authority, dependency, composition, and repository maps |
 | `tooling` | Shared TypeScript configuration and foundation checks |
 
@@ -60,9 +60,12 @@ Run the dependency, authority-integrity, CSS-structure, and no-components audit 
 pnpm audit:foundation
 ```
 
+## Live Index
+
+The web runtime publishes WEX as a readable system library. Elements currently covers Grid / Theory, Color, Icons, Pictograms, Motion, Spacing, Themes, and Typography. Guidelines exposes composition rules. Components remains an empty registry until its separately approved phase.
+
 ## Current Phase
 
-The foundation phase is complete in repository structure and source. UI component implementation has not started.
+The foundation and live-index application phases are complete in repository structure and source. Shared UI component implementation has not started.
 
 The next phase is gated. It must begin with separate authorization and a decision about the first shared component type, then define its schema, WEX specification, states, accessibility behavior, atomic structure, tests, and runtime integration.
-

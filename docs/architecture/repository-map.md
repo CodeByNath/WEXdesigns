@@ -7,7 +7,7 @@
 | `@weerax/adapters` | Future domain-owner integration | `@weerax/schemas` | WEX, UI, apps, React, Preact | Domain owners | Boundary only; no adapters implemented |
 | `@weerax/ui` | Future shared rendering and interaction structures | `@weerax/schemas`, `@weerax/wex` | Application-specific domain owners | Shared UI + WEX | Boundary only; no components implemented |
 | `@weerax/studio-agent-runner` | Node validation and future agent/n8n tooling | Required reusable packages | UI presentation ownership | Runtime application | Schema-consumption shell only |
-| `@weerax/web-runtime` | Future browser application assembly | Required reusable packages | Reusable package authority | Runtime application | Vite/schema wiring shell only; no screen |
+| `@weerax/web-runtime` | Live WEX index and future browser application assembly | Required reusable packages | Reusable package authority | Runtime application | Elements, Guidelines, and Components index; no shared components |
 | `@weerax/typescript-config` | Shared strict TypeScript configuration | None | Runtime or presentation code | Repository tooling | Active |
 
 ## Dependency Graph
