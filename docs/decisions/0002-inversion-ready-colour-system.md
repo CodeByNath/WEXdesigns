@@ -30,6 +30,8 @@ The neutral primitives are Black `#000000`, Dark `#161616`, Dark Grey `#393939`,
 - Red provides error, destructive-action, and critical-alert colour.
 - Components consume semantic tokens, not primitive values.
 - Each coloured surface uses its registered `on-*` foreground token.
+- Registered foreground pairings meet WCAG AA contrast for normal text. Black
+  is used on Yellow Dark and Green because White does not meet that threshold.
 
 Light and dark themes change neutral surface and foreground relationships. They do not redefine the Accent, Yellow, Green, or Red families.
 
