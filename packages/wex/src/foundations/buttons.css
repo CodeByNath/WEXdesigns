@@ -2,7 +2,7 @@
  * WEX Button Foundation
  *
  * The canonical authority defines Primary, Secondary, Ghost, and Danger
- * semantics across Small, Default, and Large. Component geometry and the
- * destructive colour palette remain unresolved, so this foundation does not
- * invent button selectors or visual values.
+ * semantics across Small, Default, and Large. The approved colour extension
+ * now supplies destructive semantic roles. Component geometry remains
+ * unresolved, so this foundation does not invent button selectors or values.
  */
