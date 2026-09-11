@@ -1,32 +1,26 @@
 :root {
   --wex-focus-width: 2px;
+
+  --wex-color-interactive-primary: var(--wex-color-accent-base);
+  --wex-color-interactive-hover: var(--wex-color-accent-emphasis);
+  --wex-color-interactive-active: var(--wex-color-accent-emphasis);
+  --wex-color-interactive-selected: var(--wex-color-accent-subtle);
+  --wex-color-focus: var(--wex-color-accent-base);
 }
 
 :root,
 [data-wex-theme="light"] {
-  --wex-color-interactive-primary: var(--wex-color-blue-60);
-  --wex-color-interactive-hover: var(--wex-color-blue-70);
-  --wex-color-interactive-active: var(--wex-color-blue-80);
-  --wex-color-interactive-disabled: var(--wex-color-gray-30);
-
-  --wex-color-surface-interactive: var(--wex-color-gray-10);
-  --wex-color-surface-hover: var(--wex-color-gray-20);
-  --wex-color-surface-active: var(--wex-color-gray-30);
-  --wex-color-surface-selected: var(--wex-color-gray-20);
-
-  --wex-color-focus: var(--wex-color-blue-60);
+  --wex-color-interactive-disabled: var(--wex-color-light-grey);
+  --wex-color-surface-interactive: var(--wex-color-light);
+  --wex-color-surface-hover: var(--wex-color-light-grey);
+  --wex-color-surface-active: var(--wex-color-light-grey);
+  --wex-color-surface-selected: var(--wex-color-accent-subtle);
 }
 
 [data-wex-theme="dark"] {
-  --wex-color-interactive-primary: var(--wex-color-blue-50);
-  --wex-color-interactive-hover: var(--wex-color-blue-40);
-  --wex-color-interactive-active: var(--wex-color-blue-60);
-  --wex-color-interactive-disabled: var(--wex-color-gray-70);
-
-  --wex-color-surface-interactive: var(--wex-color-gray-90);
-  --wex-color-surface-hover: var(--wex-color-gray-80);
-  --wex-color-surface-active: var(--wex-color-gray-70);
-  --wex-color-surface-selected: var(--wex-color-gray-80);
-
-  --wex-color-focus: var(--wex-color-white);
+  --wex-color-interactive-disabled: var(--wex-color-dark-grey);
+  --wex-color-surface-interactive: var(--wex-color-dark);
+  --wex-color-surface-hover: var(--wex-color-dark-grey);
+  --wex-color-surface-active: var(--wex-color-dark-grey);
+  --wex-color-surface-selected: var(--wex-color-accent-emphasis);
 }
