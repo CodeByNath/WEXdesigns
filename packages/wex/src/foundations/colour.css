@@ -44,14 +44,14 @@
   --wex-color-warning-emphasis: var(--wex-color-yellow-dark);
   --wex-color-warning-subtle: var(--wex-color-yellow-light);
   --wex-color-on-warning: var(--wex-color-black);
-  --wex-color-on-warning-emphasis: var(--wex-color-white);
+  --wex-color-on-warning-emphasis: var(--wex-color-black);
   --wex-color-on-warning-subtle: var(--wex-color-black);
 
   /* Success roles remain constant across themes. */
   --wex-color-success: var(--wex-color-green);
   --wex-color-success-emphasis: var(--wex-color-green-dark);
   --wex-color-success-subtle: var(--wex-color-green-light);
-  --wex-color-on-success: var(--wex-color-white);
+  --wex-color-on-success: var(--wex-color-black);
   --wex-color-on-success-emphasis: var(--wex-color-white);
   --wex-color-on-success-subtle: var(--wex-color-black);
 
