@@ -1,94 +1,112 @@
-:root {
-  --wex-color-white: #ffffff;
-  --wex-color-gray-10: #f4f4f4;
-  --wex-color-gray-20: #e0e0e0;
-  --wex-color-gray-30: #c6c6c6;
-  --wex-color-gray-40: #a8a8a8;
-  --wex-color-gray-50: #8d8d8d;
-  --wex-color-gray-60: #6f6f6f;
-  --wex-color-gray-70: #525252;
-  --wex-color-gray-80: #393939;
-  --wex-color-gray-90: #262626;
-  --wex-color-gray-100: #161616;
-  --wex-color-black: #000000;
-}
+/**
+ * WEX colour foundation
+ *
+ * Theme controls foreground/background inversion. Dark and Light colour
+ * variants describe semantic state, hierarchy, and emphasis; they are never
+ * theme assignments.
+ */
 
 :root {
-  --wex-color-blue-10: #edf5ff;
-  --wex-color-blue-20: #d0e2ff;
-  --wex-color-blue-30: #a6c8ff;
-  --wex-color-blue-40: #78a9ff;
-  --wex-color-blue-50: #4589ff;
-  --wex-color-blue-60: #0f62fe;
-  --wex-color-blue-70: #0043ce;
-  --wex-color-blue-80: #002d9c;
-  --wex-color-blue-90: #001d6c;
-  --wex-color-blue-100: #001141;
+  /* Neutral primitives */
+  --wex-color-black: #000000;
+  --wex-color-dark: #161616;
+  --wex-color-dark-grey: #393939;
+  --wex-color-white: #ffffff;
+  --wex-color-light: #f4f4f4;
+  --wex-color-light-grey: #e0e0e0;
+
+  /* Accent primitives */
+  --wex-color-accent: #0f62fe;
+  --wex-color-accent-dark: #0043ce;
+  --wex-color-accent-light: #78a9ff;
+
+  /* Status primitives */
+  --wex-color-yellow: #f1c21b;
+  --wex-color-yellow-dark: #b28600;
+  --wex-color-yellow-light: #fddc69;
+  --wex-color-green: #24a148;
+  --wex-color-green-dark: #198038;
+  --wex-color-green-light: #6fdc8c;
+  --wex-color-red: #da1e28;
+  --wex-color-red-dark: #a2191f;
+  --wex-color-red-light: #fa4d56;
+
+  /* Accent roles remain constant across themes. */
+  --wex-color-accent-base: var(--wex-color-accent);
+  --wex-color-accent-emphasis: var(--wex-color-accent-dark);
+  --wex-color-accent-subtle: var(--wex-color-accent-light);
+  --wex-color-on-accent: var(--wex-color-white);
+  --wex-color-on-accent-emphasis: var(--wex-color-white);
+  --wex-color-on-accent-subtle: var(--wex-color-black);
+
+  /* Warning roles remain constant across themes. */
+  --wex-color-warning: var(--wex-color-yellow);
+  --wex-color-warning-emphasis: var(--wex-color-yellow-dark);
+  --wex-color-warning-subtle: var(--wex-color-yellow-light);
+  --wex-color-on-warning: var(--wex-color-black);
+  --wex-color-on-warning-emphasis: var(--wex-color-black);
+  --wex-color-on-warning-subtle: var(--wex-color-black);
+
+  /* Success roles remain constant across themes. */
+  --wex-color-success: var(--wex-color-green);
+  --wex-color-success-emphasis: var(--wex-color-green-dark);
+  --wex-color-success-subtle: var(--wex-color-green-light);
+  --wex-color-on-success: var(--wex-color-black);
+  --wex-color-on-success-emphasis: var(--wex-color-white);
+  --wex-color-on-success-subtle: var(--wex-color-black);
+
+  /* Error and destructive roles remain constant across themes. */
+  --wex-color-error: var(--wex-color-red);
+  --wex-color-error-emphasis: var(--wex-color-red-dark);
+  --wex-color-error-subtle: var(--wex-color-red-light);
+  --wex-color-on-error: var(--wex-color-white);
+  --wex-color-on-error-emphasis: var(--wex-color-white);
+  --wex-color-on-error-subtle: var(--wex-color-black);
 }
 
 :root,
 [data-wex-theme="light"] {
+  color-scheme: light;
   --wex-color-background: var(--wex-color-white);
 
-  --wex-color-layer-01: var(--wex-color-gray-10);
+  --wex-color-layer-01: var(--wex-color-light);
   --wex-color-layer-02: var(--wex-color-white);
-  --wex-color-layer-03: var(--wex-color-gray-10);
+  --wex-color-layer-03: var(--wex-color-light-grey);
 
-  --wex-color-text-primary: var(--wex-color-gray-100);
-  --wex-color-text-secondary: var(--wex-color-gray-70);
-  --wex-color-text-disabled: var(--wex-color-gray-30);
+  --wex-color-text-primary: var(--wex-color-black);
+  --wex-color-text-secondary: var(--wex-color-dark-grey);
+  --wex-color-text-disabled: var(--wex-color-light-grey);
   --wex-color-text-inverse: var(--wex-color-white);
 
-  --wex-color-icon-primary: var(--wex-color-gray-100);
-  --wex-color-icon-secondary: var(--wex-color-gray-70);
-  --wex-color-icon-disabled: var(--wex-color-gray-30);
+  --wex-color-icon-primary: var(--wex-color-black);
+  --wex-color-icon-secondary: var(--wex-color-dark-grey);
+  --wex-color-icon-disabled: var(--wex-color-light-grey);
   --wex-color-icon-inverse: var(--wex-color-white);
 
-  --wex-color-border-subtle: var(--wex-color-gray-20);
-  --wex-color-border-strong: var(--wex-color-gray-50);
-  --wex-color-border-disabled: var(--wex-color-gray-20);
-
-  --wex-color-interactive-primary: var(--wex-color-blue-60);
-  --wex-color-interactive-hover: var(--wex-color-blue-70);
-  --wex-color-interactive-active: var(--wex-color-blue-80);
-  --wex-color-interactive-disabled: var(--wex-color-gray-30);
-
-  --wex-color-link-primary: var(--wex-color-blue-60);
-  --wex-color-link-hover: var(--wex-color-blue-70);
-
-  --wex-color-focus: var(--wex-color-blue-60);
-  --wex-color-focus-inverse: var(--wex-color-white);
+  --wex-color-border-subtle: var(--wex-color-light-grey);
+  --wex-color-border-strong: var(--wex-color-dark-grey);
+  --wex-color-border-disabled: var(--wex-color-light-grey);
 }
 
 [data-wex-theme="dark"] {
-  --wex-color-background: var(--wex-color-gray-100);
+  color-scheme: dark;
+  --wex-color-background: var(--wex-color-black);
 
-  --wex-color-layer-01: var(--wex-color-gray-90);
-  --wex-color-layer-02: var(--wex-color-gray-80);
-  --wex-color-layer-03: var(--wex-color-gray-70);
+  --wex-color-layer-01: var(--wex-color-dark);
+  --wex-color-layer-02: var(--wex-color-dark-grey);
+  --wex-color-layer-03: var(--wex-color-black);
 
-  --wex-color-text-primary: var(--wex-color-gray-10);
-  --wex-color-text-secondary: var(--wex-color-gray-30);
-  --wex-color-text-disabled: var(--wex-color-gray-70);
-  --wex-color-text-inverse: var(--wex-color-gray-100);
+  --wex-color-text-primary: var(--wex-color-white);
+  --wex-color-text-secondary: var(--wex-color-light-grey);
+  --wex-color-text-disabled: var(--wex-color-dark-grey);
+  --wex-color-text-inverse: var(--wex-color-black);
 
-  --wex-color-icon-primary: var(--wex-color-gray-10);
-  --wex-color-icon-secondary: var(--wex-color-gray-30);
-  --wex-color-icon-disabled: var(--wex-color-gray-70);
-  --wex-color-icon-inverse: var(--wex-color-gray-100);
+  --wex-color-icon-primary: var(--wex-color-white);
+  --wex-color-icon-secondary: var(--wex-color-light-grey);
+  --wex-color-icon-disabled: var(--wex-color-dark-grey);
+  --wex-color-icon-inverse: var(--wex-color-black);
 
-  --wex-color-border-subtle: var(--wex-color-gray-70);
-  --wex-color-border-strong: var(--wex-color-gray-50);
-  --wex-color-border-disabled: var(--wex-color-gray-80);
-
-  --wex-color-interactive-primary: var(--wex-color-blue-50);
-  --wex-color-interactive-hover: var(--wex-color-blue-40);
-  --wex-color-interactive-active: var(--wex-color-blue-60);
-  --wex-color-interactive-disabled: var(--wex-color-gray-70);
-
-  --wex-color-link-primary: var(--wex-color-blue-40);
-  --wex-color-link-hover: var(--wex-color-blue-30);
-
-  --wex-color-focus: var(--wex-color-blue-40);
-  --wex-color-focus-inverse: var(--wex-color-gray-100);
+  --wex-color-border-subtle: var(--wex-color-dark-grey);
+  --wex-color-border-strong: var(--wex-color-light-grey);
+  --wex-color-border-disabled: var(--wex-color-dark-grey);
 }
