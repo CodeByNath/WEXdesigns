@@ -1,26 +1,9 @@
 :root {
   --wex-focus-width: 2px;
 
-  --wex-color-interactive-primary: var(--wex-color-accent-base);
-  --wex-color-interactive-hover: var(--wex-color-accent-emphasis);
-  --wex-color-interactive-active: var(--wex-color-accent-emphasis);
-  --wex-color-interactive-selected: var(--wex-color-accent-subtle);
-  --wex-color-focus: var(--wex-color-accent-base);
-}
-
-:root,
-[data-wex-theme="light"] {
-  --wex-color-interactive-disabled: var(--wex-color-light-grey);
-  --wex-color-surface-interactive: var(--wex-color-light);
-  --wex-color-surface-hover: var(--wex-color-light-grey);
-  --wex-color-surface-active: var(--wex-color-light-grey);
-  --wex-color-surface-selected: var(--wex-color-accent-subtle);
-}
-
-[data-wex-theme="dark"] {
-  --wex-color-interactive-disabled: var(--wex-color-dark-grey);
-  --wex-color-surface-interactive: var(--wex-color-dark);
-  --wex-color-surface-hover: var(--wex-color-dark-grey);
-  --wex-color-surface-active: var(--wex-color-dark-grey);
-  --wex-color-surface-selected: var(--wex-color-accent-emphasis);
+  /* Compatibility aliases resolved by the core colour-token layer. */
+  --wex-color-interactive-primary: var(--wex-color-background-accent);
+  --wex-color-interactive-hover: var(--wex-color-background-accent-hover);
+  --wex-color-interactive-selected: var(--wex-color-background-accent-selected);
+  --wex-color-focus: var(--wex-color-border-focus);
 }
