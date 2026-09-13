@@ -11,7 +11,7 @@
     "build": "node -e \"\"",
     "type-check": "node -e \"\"",
     "lint": "node -e \"\"",
-    "test": "node -e \"\"",
+    "test": "node --test test/*.test.mjs",
     "check": "node -e \"\""
   },
   "dependencies": {
