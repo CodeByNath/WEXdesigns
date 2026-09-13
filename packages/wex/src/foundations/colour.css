@@ -31,82 +31,110 @@
   --wex-color-red-dark: #a2191f;
   --wex-color-red-light: #fa4d56;
 
-  /* Accent roles remain constant across themes. */
-  --wex-color-accent-base: var(--wex-color-accent);
-  --wex-color-accent-emphasis: var(--wex-color-accent-dark);
-  --wex-color-accent-subtle: var(--wex-color-accent-light);
+  /* Accent backgrounds */
+  --wex-color-background-accent: var(--wex-color-accent);
+  --wex-color-background-accent-hover: var(--wex-color-accent-dark);
+  --wex-color-background-accent-selected: var(--wex-color-accent-light);
+
+  /* Status backgrounds follow the same Base, Dark, Light state rhythm. */
+  --wex-color-background-warning: var(--wex-color-yellow);
+  --wex-color-background-warning-hover: var(--wex-color-yellow-dark);
+  --wex-color-background-warning-selected: var(--wex-color-yellow-light);
+  --wex-color-background-success: var(--wex-color-green);
+  --wex-color-background-success-hover: var(--wex-color-green-dark);
+  --wex-color-background-success-selected: var(--wex-color-green-light);
+  --wex-color-background-error: var(--wex-color-red);
+  --wex-color-background-error-hover: var(--wex-color-red-dark);
+  --wex-color-background-error-selected: var(--wex-color-red-light);
+
+  /* Foregrounds paired with accent and status backgrounds. */
   --wex-color-on-accent: var(--wex-color-white);
-  --wex-color-on-accent-emphasis: var(--wex-color-white);
-  --wex-color-on-accent-subtle: var(--wex-color-black);
-
-  /* Warning roles remain constant across themes. */
-  --wex-color-warning: var(--wex-color-yellow);
-  --wex-color-warning-emphasis: var(--wex-color-yellow-dark);
-  --wex-color-warning-subtle: var(--wex-color-yellow-light);
+  --wex-color-on-accent-hover: var(--wex-color-white);
+  --wex-color-on-accent-selected: var(--wex-color-black);
   --wex-color-on-warning: var(--wex-color-black);
-  --wex-color-on-warning-emphasis: var(--wex-color-black);
-  --wex-color-on-warning-subtle: var(--wex-color-black);
-
-  /* Success roles remain constant across themes. */
-  --wex-color-success: var(--wex-color-green);
-  --wex-color-success-emphasis: var(--wex-color-green-dark);
-  --wex-color-success-subtle: var(--wex-color-green-light);
+  --wex-color-on-warning-hover: var(--wex-color-black);
+  --wex-color-on-warning-selected: var(--wex-color-black);
   --wex-color-on-success: var(--wex-color-black);
-  --wex-color-on-success-emphasis: var(--wex-color-white);
-  --wex-color-on-success-subtle: var(--wex-color-black);
-
-  /* Error and destructive roles remain constant across themes. */
-  --wex-color-error: var(--wex-color-red);
-  --wex-color-error-emphasis: var(--wex-color-red-dark);
-  --wex-color-error-subtle: var(--wex-color-red-light);
+  --wex-color-on-success-hover: var(--wex-color-white);
+  --wex-color-on-success-selected: var(--wex-color-black);
   --wex-color-on-error: var(--wex-color-white);
-  --wex-color-on-error-emphasis: var(--wex-color-white);
-  --wex-color-on-error-subtle: var(--wex-color-black);
+  --wex-color-on-error-hover: var(--wex-color-white);
+  --wex-color-on-error-selected: var(--wex-color-black);
+
+  /* Theme-independent borders and icons. */
+  --wex-color-border-interactive: var(--wex-color-accent);
+  --wex-color-border-focus: var(--wex-color-accent);
+  --wex-color-icon-accent: var(--wex-color-accent);
+
+  /* Apply once at the outermost disabled component. */
+  --wex-opacity-disabled: 0.1;
 }
 
 :root,
 [data-wex-theme="light"] {
   color-scheme: light;
-  --wex-color-background: var(--wex-color-white);
 
-  --wex-color-layer-01: var(--wex-color-light);
-  --wex-color-layer-02: var(--wex-color-white);
-  --wex-color-layer-03: var(--wex-color-light-grey);
+  /* Alternating recursive surface rhythm. */
+  --wex-color-background-primary: var(--wex-color-white);
+  --wex-color-background-secondary: var(--wex-color-light);
+
+  --wex-color-border-primary: var(--wex-color-dark-grey);
+  --wex-color-border-subtle: var(--wex-color-light-grey);
 
   --wex-color-text-primary: var(--wex-color-black);
-  --wex-color-text-secondary: var(--wex-color-dark-grey);
-  --wex-color-text-disabled: var(--wex-color-light-grey);
+  --wex-color-text-secondary: var(--wex-color-dark);
+  --wex-color-text-placeholder: var(--wex-color-dark-grey);
+  --wex-color-text-accent: var(--wex-color-accent);
+  --wex-color-text-success: var(--wex-color-green-dark);
+  --wex-color-text-warning: var(--wex-color-black);
+  --wex-color-text-error: var(--wex-color-red);
   --wex-color-text-inverse: var(--wex-color-white);
 
+  --wex-color-link-primary: var(--wex-color-accent);
+  --wex-color-link-secondary: var(--wex-color-accent-dark);
+
   --wex-color-icon-primary: var(--wex-color-black);
-  --wex-color-icon-secondary: var(--wex-color-dark-grey);
-  --wex-color-icon-disabled: var(--wex-color-light-grey);
+  --wex-color-icon-secondary: var(--wex-color-dark);
   --wex-color-icon-inverse: var(--wex-color-white);
 
-  --wex-color-border-subtle: var(--wex-color-light-grey);
-  --wex-color-border-strong: var(--wex-color-dark-grey);
-  --wex-color-border-disabled: var(--wex-color-light-grey);
+  /* Compatibility aliases for the existing WEX surface contract. */
+  --wex-color-background: var(--wex-color-background-primary);
+  --wex-color-layer-01: var(--wex-color-background-secondary);
+  --wex-color-layer-02: var(--wex-color-background-primary);
+  --wex-color-layer-03: var(--wex-color-background-secondary);
+  --wex-color-border-strong: var(--wex-color-border-primary);
 }
 
 [data-wex-theme="dark"] {
   color-scheme: dark;
-  --wex-color-background: var(--wex-color-black);
 
-  --wex-color-layer-01: var(--wex-color-dark);
-  --wex-color-layer-02: var(--wex-color-dark-grey);
-  --wex-color-layer-03: var(--wex-color-black);
+  /* The semantic rhythm stays the same while foreground/surface values invert. */
+  --wex-color-background-primary: var(--wex-color-black);
+  --wex-color-background-secondary: var(--wex-color-dark);
+
+  --wex-color-border-primary: var(--wex-color-light-grey);
+  --wex-color-border-subtle: var(--wex-color-dark-grey);
 
   --wex-color-text-primary: var(--wex-color-white);
-  --wex-color-text-secondary: var(--wex-color-light-grey);
-  --wex-color-text-disabled: var(--wex-color-dark-grey);
+  --wex-color-text-secondary: var(--wex-color-light);
+  --wex-color-text-placeholder: var(--wex-color-light-grey);
+  --wex-color-text-accent: var(--wex-color-accent-light);
+  --wex-color-text-success: var(--wex-color-green-light);
+  --wex-color-text-warning: var(--wex-color-yellow);
+  --wex-color-text-error: var(--wex-color-red-light);
   --wex-color-text-inverse: var(--wex-color-black);
 
+  --wex-color-link-primary: var(--wex-color-accent-light);
+  --wex-color-link-secondary: var(--wex-color-accent-light);
+
   --wex-color-icon-primary: var(--wex-color-white);
-  --wex-color-icon-secondary: var(--wex-color-light-grey);
-  --wex-color-icon-disabled: var(--wex-color-dark-grey);
+  --wex-color-icon-secondary: var(--wex-color-light);
   --wex-color-icon-inverse: var(--wex-color-black);
 
-  --wex-color-border-subtle: var(--wex-color-dark-grey);
-  --wex-color-border-strong: var(--wex-color-light-grey);
-  --wex-color-border-disabled: var(--wex-color-dark-grey);
+  /* Compatibility aliases for the existing WEX surface contract. */
+  --wex-color-background: var(--wex-color-background-primary);
+  --wex-color-layer-01: var(--wex-color-background-secondary);
+  --wex-color-layer-02: var(--wex-color-background-primary);
+  --wex-color-layer-03: var(--wex-color-background-secondary);
+  --wex-color-border-strong: var(--wex-color-border-primary);
 }
