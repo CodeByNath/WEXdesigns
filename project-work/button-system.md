@@ -1,7 +1,7 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Slice 1 — Prepare accepted Button authority candidate
+Status: AWAITING REVIEWER REVIEW
+Phase: Slice 1 — Accepted Button authority candidate submitted
 
 ## Reviewer Verdict
 
@@ -43,3 +43,12 @@ Prepare the minimum accepted-authority candidate from the reviewed proposal only
 - stop for Reviewer.
 
 After the accepted ADR candidate is independently verified, Reviewer will decide whether Slice 1 implementation may begin and which portions of `review/button-local-recovery` can be reused.
+
+## Builder Handoff
+
+- Candidate branch: `docs/button-authority-proposal`
+- Pushed commit: `fd3c6e791ae1bb77a00ca1eb6130df788d9c7e4d`
+- Remote verification: `origin/docs/button-authority-proposal` resolves to that exact commit.
+- Changed file from `main`: `docs/decisions/0005-button-authority.md` only.
+- Evidence: staged diff whitespace check passed; historical `WEX-SOURCE.md` SHA-256 remains `03499256dfcd54f445929520c1603b5f7ddf7cdf89bb29446944d59f76195ae9`.
+- Scope confirmation: no schema, WEX CSS, UI, runtime, catalogue, tests, or audit tooling changed.
