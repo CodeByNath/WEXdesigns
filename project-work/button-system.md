@@ -1,41 +1,26 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Slice 1D — Button semantic-action binding authority resolution
+Status: AWAITING REVIEWER REVIEW
+Phase: Slice 1D submitted — Button semantic-action binding authority proposal
 
-## Reviewer Verdict
+## Submitted Proposal
 
-**Proceed**
+Branch: `docs/button-semantic-action-authority`
+Remote SHA: `15f21729d19c8d8c98df4900531a49ece562e09f` (verified with `git ls-remote`)
 
-Reviewer independently verified `origin/main` is exactly `f514db3d9894ad277aacdea9fcbcc2704c6618c0`. The promotion from prior `main` `ced2d01029f531f3acc6fba370f765ecf0a6bbe9` is the reviewed five-file geometry slice only.
+Changed file: `docs/decisions/0007-button-semantic-action-authority.md` only.
 
-Slice 1C is accepted on `main`: tier classes, Navigation typography, stable 1px border, radius 0, 2px focus offset, and shared Small/Default/Large geometry match ADR 0006 without schema or transient-state widening.
+## Authority Inspected
 
-## Authorised Builder Action
-
-Perform **authority-resolution only** for how an ordinary Button binds to executable product/domain behaviour. Do not implement the binding yet.
-
-Create a dedicated topic branch from current `origin/main` and prepare a Proposed/Draft ADR. Read and cite:
-
-- `docs/architecture/composition-architecture.md`, especially serializable definitions and semantic-command runtime flow;
+- `docs/architecture/composition-architecture.md` for serializable semantic-command flow and runtime/owner boundaries;
 - `packages/schemas/src/actions/semantic-action.schema.ts`;
-- current `packages/schemas/src/components/button.schema.ts`;
-- accepted ADRs 0005 and 0006;
-- current shared Button presentation boundary on `main`.
+- current Button schema and shared presentation boundary;
+- accepted ADRs 0005 and 0006.
 
-The proposal must resolve the minimum contract for:
+## Proposed Binding Model
 
-- whether Button owns/embeds a `SemanticAction`, references one by ID, or is derived from an action;
-- the single source of truth for action label vs Button label so duplicate conflicting labels are impossible;
-- whether an ordinary actionable Button may exist without an action binding, and any explicitly non-actionable/demo exception;
-- the runtime boundary: semantic command + record identity must resolve through the owning runtime/domain handler; no callback/function may enter schema or shared UI;
-- disabled/availability ownership vs domain permission/validation so `disabled` does not become domain authority;
-- whether the current `SemanticAction` fields are sufficient for the first Button use case or expose a real architecture gap. Do not add speculative payload/generalised action machinery without a demonstrated need.
+An actionable ordinary Button embeds one `SemanticAction`; it is neither action-ID-only nor action-derived. `action.label` is the sole actionable Button label, preventing duplicate labels. An actionable Button cannot omit its action; inert documentation examples are explicitly outside product composition/shared runtime. The runtime resolves `(command, recordId)` to the owning domain handler; schemas and shared UI carry no callback/function. `disabled` remains a composition availability hint, while the runtime/domain handler re-checks permission, record state, and validation.
 
-## Exclusions
+The current `SemanticAction` fields are sufficient for the first use case; no payload, generalized action data, or permission field is proposed.
 
-No schema/source changes, runtime implementation, catalogue/demo/Pages work, CSS, geometry, adapters, domain command definitions, icons, toggle/link/dropdown/group variants, or `WEX-SOURCE.md` edits. Recovery-branch action code is evidence only.
-
-## Handoff
-
-Push the authority proposal branch to `origin`, verify the remote SHA, then update this SAME file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA, exact changed files, authority inspected, proposed binding model, unresolved questions, and confirmation that implementation remains unchanged. Stop for Reviewer.
+Unresolved question: none within this authority proposal; acceptance remains Reviewer-owned. No schema, runtime, CSS, geometry, catalogue, Pages, adapter, icon, domain, or historical-source implementation change was made. `pnpm audit:foundation` passes under Node `v24.21.0` / pnpm `11.16.0`.
