@@ -1,7 +1,7 @@
 # Repository Cycle Bootstrap
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Bootstrap — Move approved root cycle entrypoint to `main`
+Status: AWAITING REVIEWER REVIEW
+Phase: Bootstrap — Approved root cycle entrypoint moved to `main`
 
 ## Reviewer Verdict
 
@@ -35,3 +35,10 @@ After `main` is updated:
 5. stop for final Reviewer verification.
 
 Button work remains paused until this bootstrap is verified on `main`.
+
+## Builder Handoff
+
+- Resulting `origin/main` SHA: `0af842c66028f48659d74c870186a74deff4031c`
+- Remote verification: `origin/main` resolves to that exact reviewed commit and contains the approved root `AGENTS.md` content.
+- Changed file from reviewed base `39c22593fb0041a80ffd76ff9f33af3ee3261ef5`: `AGENTS.md` only.
+- Scope confirmation: no additional files were changed while moving the candidate to `main`.
