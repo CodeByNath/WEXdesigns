@@ -13,6 +13,12 @@ Before any project work:
 9. Do not advance until the current phase is accepted or explicitly deferred by the Reviewer.
 10. Never treat `Project-work-instructions` as product architecture authority.
 
+## Cycle Trigger Meaning
+
+For this repository, phrases such as `run the cycle`, `continue the work`, `review the latest work`, or equivalent always mean the **WeeraX Project Cycle**, not the package-manager validation command.
+
+On those triggers, Builder must first fetch/read `origin/Project-work-instructions`, identify the active work file and its `Status`/`Phase`, determine the current actor, and execute only the authorised next action. `pnpm check`, tests, builds, audits, or other validation are steps inside a phase only when the active work file requires them; they are never a substitute for running the project cycle.
+
 Roles are `BUILDER` and `REVIEWER`, not model-specific names.
 
 - Builder may edit authorised source only when the active work file assigns Builder action.
