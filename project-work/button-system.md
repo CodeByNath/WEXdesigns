@@ -1,59 +1,39 @@
 # Button System Work Cycle
 
-Status: PAUSED — REPOSITORY CYCLE BOOTSTRAP REQUIRED  
-Phase: Slice 1 — Button Authority and WEX Foundations
+Status: BUILDER ACTION REQUIRED  
+Phase: Slice 1 — Correct Button authority before implementation review
 
-## Pause Reason
+## Reviewer Verdict
 
-Button work is temporarily paused while `project-work/repository-cycle-bootstrap.md` is the **single active work file**.
+**Stop — architectural risk**
 
-Builder must not perform Button work until Reviewer accepts the bootstrap and explicitly reactivates this file. Do not treat this file as an alternative active assignment while bootstrap is open.
+Bootstrap is accepted. Reviewer then inspected preserved candidate `review/button-local-recovery` at `19795644f033f43a7ebb99617d748fdce2c7e1ea` against its base `39c22593fb0041a80ffd76ff9f33af3ee3261ef5`.
 
-## Reviewer Assignment — resumes only after bootstrap acceptance
+The candidate cannot be accepted as Button authority or moved to `main` yet.
 
-Reviewer authorises Builder to perform **authority-resolution work only** for Slice 1.
+## Blocking Findings
 
-When this file is reactivated, Builder must inspect current `main` authority and prepare the minimum Button ADR/authority proposal needed to resolve the five open decisions below. Builder may update this coordination file with its report, but must not implement Button foundations, tokens, renderer, schemas, adapters, catalogue, or runtime work until Reviewer explicitly approves the authority proposal and issues the next instruction.
+1. Builder crossed the authority gate and implemented the full Button stack before Reviewer approval. The preserved branch changes 19 files, including schema, WEX CSS, shared UI, runtime preview, tests, docs, and validation tooling.
+2. `docs/decisions/0005-button-foundation.md` marks itself **Accepted** even though only Reviewer may approve authority changes.
+3. The candidate closes the variant language as `Primary`, `Secondary`, `Ghost`, `Danger`; the active authority task required resolution of `Primary`, `Neutral`, `Subtle`, `Warning`, and `Danger`. The schema likewise serializes only `primary | secondary | ghost | danger`.
+4. Therefore implementation is currently downstream of an unapproved and materially different component contract.
 
-Only Reviewer may approve or refuse the proposal, issue the phase verdict, authorise implementation, change phase/status, or pass new work.
+The preserved work is evidence, not waste. Do not delete or rewrite the recovery branch.
 
-## Planning Reference
+## Authorised Builder Correction
 
-Use the current approved **WEX Button System: Repository Preparation** as planning context only. Product/system authority remains historical WEX source, accepted ADRs, architecture documents, and verified `main` implementation.
+Perform **authority-resolution only**. Do not alter Button implementation files yet.
 
-## Decisions Builder Must Resolve for Review
+Prepare a corrected Button ADR proposal on a dedicated topic branch from current `main` that:
 
-For each item, Builder must report existing authority, unresolved gap, proposed decision, compatibility/accessibility impact, and exact files that would become authoritative:
+- is `Proposed`/`Draft`, not `Accepted`;
+- resolves the five original decisions: Hover; Pressed; exact Light/Dark mappings for Primary/Neutral/Subtle/Warning/Danger; final component-token names; scoped audit transition;
+- cites existing WEX primitives/semantic authority and identifies only genuinely new Button decisions;
+- explicitly compares the proposed contract against preserved recovery implementation and identifies what could be retained, renamed, corrected, or removed later;
+- does not change schemas, WEX CSS, UI resolver, runtime, tests, catalogue, or historical `WEX-SOURCE.md`.
 
-1. Button Hover rule
-2. Pressed treatment
-3. Exact Light/Dark semantic mappings for Primary, Neutral, Subtle, Warning, and Danger
-4. Final Button component-token names
-5. Audit-transition design from blanket no-components protection to scoped authorised-component protection
+## Handoff
 
-Builder must reuse existing approved WEX primitives/semantics where authority already exists and identify clearly where a genuinely new Button decision is required. Do not invent new primitives merely to complete the task.
+Push the authority-proposal branch to `origin`, verify its remote SHA, then update this SAME file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA, changed files, authority inspected, and unresolved questions. Stop for Reviewer.
 
-## Explicit Exclusions
-
-- No Button renderer or `Button.tsx`.
-- No framework-specific renderer.
-- No Button schemas or SemanticAction migration.
-- No adapters.
-- No catalogue implementation.
-- No web-runtime demo.
-- No Link Button, Dropdown Button, or Button Group.
-- No Button foundation/token implementation before Reviewer approval.
-
-## Builder Evidence Required When Reactivated
-
-Return in this file or linked commit report:
-
-- authoritative files inspected;
-- proposed ADR/authority change;
-- proposed resolution of all five decisions;
-- unresolved questions, if any;
-- changed-file list;
-- commit SHA/ref for coordination/ADR proposal work;
-- confirmation `WEX-SOURCE.md` remains unchanged.
-
-Builder stops after submitting the proposal. Reviewer then independently inspects the pushed work and records one permitted verdict: `Proceed`, `Proceed with safeguards`, or `Stop — architectural risk`.
+Do not merge any Button implementation to `main` until Reviewer approves the Button authority proposal.
