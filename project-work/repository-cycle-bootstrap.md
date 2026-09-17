@@ -1,7 +1,7 @@
 # Repository Cycle Bootstrap
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Bootstrap — Add root cycle entrypoint on `main`
+Status: AWAITING REVIEWER REVIEW
+Phase: Bootstrap — Root cycle entrypoint candidate submitted
 
 ## Reviewer Decision
 
@@ -46,3 +46,12 @@ Do not add WEX architecture, Button rules, component rules, or domain rules to r
 A Builder handoff is incomplete until the pushed candidate is remotely inspectable **and this file says `AWAITING REVIEWER REVIEW`**.
 
 After Reviewer accepts this bootstrap and it reaches `main`, future fresh Builder sessions should discover the cycle correctly without a corrective prompt.
+
+## Builder Handoff
+
+- Candidate branch: `chore/root-cycle-entrypoint`
+- Pushed commit: `0af842c66028f48659d74c870186a74deff4031c`
+- Remote verification: `origin/chore/root-cycle-entrypoint` resolves to that exact commit.
+- Changed file: root `AGENTS.md` only.
+- Evidence: `git diff --check` passed; no package validation was required because the candidate is workflow documentation only.
+- Scope confirmation: no WEX, Button, component, domain, or `main` source was changed.
