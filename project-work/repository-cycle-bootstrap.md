@@ -1,42 +1,45 @@
-# Repository Cycle Bootstrap / Recovery
+# Repository Cycle Bootstrap
 
 Status: BUILDER ACTION REQUIRED  
-Phase: Recovery — Preserve unreviewed local Button work for Reviewer audit
+Phase: Bootstrap — Add root cycle entrypoint on `main`
 
 ## Reviewer Decision
 
-Builder has already completed substantial Button work locally beyond the authorised bootstrap/authority-resolution scope. Do **not** delete, rewrite, continue, merge, or push that work to `main`.
+The durable fix is simple:
 
-The immediate task is evidence preservation only so Reviewer can inspect the actual implementation safely.
+- root `AGENTS.md` on `main` is the cycle entrypoint;
+- `Project-work-instructions/project-work/AGENTS.md` is the workflow authority;
+- active work files under `project-work/` define the current task.
 
-This file is the **single active work file**. `project-work/button-system.md` remains paused until Reviewer completes this recovery audit.
+This file is the **single active work file** until the root entrypoint is accepted. Button work remains paused.
 
-## Authorised Recovery Action
+## Authorised Builder Action
 
-From the local WEXdesigns repository only:
+Create a small isolated work branch from current `origin/main` containing **only** a new root `AGENTS.md`.
 
-1. Stop all implementation work.
-2. Confirm the repo is `CodeByNath/WEXdesigns` and record current branch/base SHA.
-3. Record `git status --short` and the full changed-file list.
-4. Create a dedicated recovery branch from the current local state, preserving the working tree. Use a clearly isolated name such as `review/button-local-recovery`.
-5. Do not alter source content while preparing the branch.
-6. Before commit, exclude only machine/generated artifacts that are not intended repository source, such as `node_modules`, caches, temporary files, `.env` secrets, editor state, or an unintended generated lockfile. Do not "clean up" implementation code.
-7. Commit the preserved repository changes exactly as they stand.
-8. Push the recovery branch to `origin`.
-9. Do **not** merge, rebase onto `main`, open a merge commit, or change `main`.
-10. Stop immediately after the push.
+The root `AGENTS.md` must say, in substance:
 
-## Required Evidence
+1. This repository is `CodeByNath/WEXdesigns` and is independent from sibling repositories.
+2. On `run the cycle`, `continue the work`, `review the latest work`, or equivalent, do not interpret the request as `pnpm check` or another package script.
+3. First fetch `origin/Project-work-instructions`.
+4. Read, from that branch:
+   - `project-work/AGENTS.md`
+   - `project-work/PROJECT-RULES.md` when relevant
+   - the single active work file under `project-work/`
+5. Follow the active file's `Status`, `Phase`, actor, scope, exclusions, evidence requirements, and next action literally.
+6. Builder may not self-approve, self-advance, invent new work, or merge to `main` without Reviewer instruction.
+7. After authorised work, Builder must commit and push the work branch to `origin`, report branch/SHA/evidence, then stop for Reviewer.
+8. Product/system authority remains repository architecture, accepted ADRs, historical WEX source, and verified implementation. The root `AGENTS.md` is workflow bootstrap only.
 
-Report:
+Do not add WEX architecture, Button rules, component rules, or domain rules to root `AGENTS.md`.
 
-- recovery branch name;
-- base `origin/main` SHA the local work started from;
-- recovery commit SHA;
-- exact changed-file list;
-- `git status --short` after commit;
-- confirmation `origin/main` was not changed;
-- confirmation no sibling repository was touched;
-- confirmation no additional Button implementation was performed during recovery.
+## Branch / Handoff
 
-Do not ask the user what to do next. Reviewer will inspect the pushed recovery diff and decide what can be accepted, corrected, split, or rejected.
+- Branch from `origin/main`.
+- Change only root `AGENTS.md`.
+- Commit and push the branch to `origin`.
+- Do not modify or merge `main`.
+- Report exact branch name, pushed SHA, and exact `AGENTS.md` content.
+- Stop for Reviewer.
+
+After Reviewer accepts this bootstrap and it reaches `main`, future fresh Builder sessions should discover the cycle correctly without a corrective prompt.
