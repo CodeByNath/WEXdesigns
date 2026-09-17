@@ -13,13 +13,25 @@ test('resolves a Button through its accepted semantic variant', () => {
       disabled: false,
     }),
     {
-      className: 'wex-button wex-button--neutral',
+      className: 'wex-button wex-button--neutral wex-button--large',
       disabled: false,
       id: 'review',
       label: 'Review',
       tier: 'large',
     },
   );
+});
+
+test('maps every serializable tier to its WEX geometry class', () => {
+  for (const tier of ['small', 'default', 'large']) {
+    const presentation = createButtonPresentation({
+      id: `tier-${tier}`,
+      label: 'Continue',
+      tier,
+    });
+
+    assert.match(presentation.className, new RegExp(`wex-button--${tier}`));
+  }
 });
 
 test('keeps disabled state on the native-control boundary', () => {

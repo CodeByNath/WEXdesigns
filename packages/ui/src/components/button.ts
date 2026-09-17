@@ -21,7 +21,7 @@ export function createButtonPresentation(input: ButtonDefinitionInput): ButtonPr
   const button = ButtonDefinitionSchema.parse(input);
 
   return {
-    className: `wex-button wex-button--${button.variant}`,
+    className: `wex-button wex-button--${button.variant} wex-button--${button.tier}`,
     disabled: button.disabled,
     id: button.id,
     label: button.label,

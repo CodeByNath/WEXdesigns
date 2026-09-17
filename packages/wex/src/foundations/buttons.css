@@ -1,4 +1,4 @@
-/* WEX Button colour and state foundation. Geometry remains intentionally unresolved. */
+/* WEX Button colour, state, and accepted tier-geometry foundation. */
 
 :root,
 [data-wex-theme='light'] {
@@ -122,9 +122,47 @@
 }
 
 .wex-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--wex-button-border-default);
+  border-radius: 0;
   background-color: var(--wex-button-background-default);
-  border-color: var(--wex-button-border-default);
   color: var(--wex-button-foreground-default);
+}
+
+.wex-button--small {
+  min-block-size: var(--wex-space-32);
+  padding-block: var(--wex-space-4);
+  padding-inline: var(--wex-space-12);
+  font-family: var(--wex-type-navigation-small-font-family);
+  font-size: var(--wex-type-navigation-small-font-size);
+  font-weight: var(--wex-type-weight-semibold);
+  line-height: var(--wex-type-navigation-small-line-height);
+  letter-spacing: var(--wex-type-navigation-small-letter-spacing);
+}
+
+.wex-button--default {
+  min-block-size: var(--wex-space-40);
+  padding-block: var(--wex-space-4);
+  padding-inline: var(--wex-space-16);
+  font-family: var(--wex-type-navigation-default-font-family);
+  font-size: var(--wex-type-navigation-default-font-size);
+  font-weight: var(--wex-type-weight-semibold);
+  line-height: var(--wex-type-navigation-default-line-height);
+  letter-spacing: var(--wex-type-navigation-default-letter-spacing);
+}
+
+.wex-button--large {
+  min-block-size: var(--wex-space-48);
+  padding-block: var(--wex-space-8);
+  padding-inline: var(--wex-space-24);
+  font-family: var(--wex-type-navigation-large-font-family);
+  font-size: var(--wex-type-navigation-large-font-size);
+  font-weight: var(--wex-type-weight-semibold);
+  line-height: var(--wex-type-navigation-large-line-height);
+  letter-spacing: var(--wex-type-navigation-large-letter-spacing);
 }
 
 .wex-button:not(:disabled):hover {
@@ -141,6 +179,7 @@
 
 .wex-button:focus-visible {
   outline: var(--wex-focus-width) solid var(--wex-button-focus-outline);
+  outline-offset: var(--wex-space-2);
 }
 
 .wex-button:disabled {
