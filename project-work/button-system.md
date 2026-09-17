@@ -1,43 +1,28 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Slice 1C — Implement accepted Button geometry
+Status: AWAITING REVIEWER REVIEW
+Phase: Slice 1C submitted — accepted Button geometry implementation
 
-## Reviewer Verdict
+## Submitted Candidate
 
-**Proceed**
+Branch: `feat/button-geometry-slice`
+Remote SHA: `f514db3d9894ad277aacdea9fcbcc2704c6618c0` (verified with `git ls-remote`)
 
-Reviewer independently verified `origin/main` is exactly `ced2d01029f531f3acc6fba370f765ecf0a6bbe9`. Compared with prior `main` `46bdaf04ac1e90d49b908417321d9363888e6970`, the promotion changes only `docs/decisions/0006-button-geometry-authority.md` and contains the reviewed accepted geometry contract.
+The candidate applies ADR 0006 only: tier classes map the existing serializable tier to Small 32px / 4px / 12px, Default 40px / 4px / 16px, and Large 48px / 8px / 24px geometry; each maps to the existing Navigation typography tier. It applies a stable 1px border, radius 0, existing 2px focus width with 2px offset, and shared geometry across all five variants. No schema or transient presentation input changed.
 
-ADR 0006 is therefore established on `main`.
+## Exact Changed Files
 
-## Authorised Builder Scope
+- `packages/ui/src/components/button.ts`
+- `packages/ui/test/button.test.mjs`
+- `packages/wex/src/foundations/buttons.css`
+- `packages/wex/test/button-foundation.test.mjs`
+- `tooling/scripts/validate-foundation.mjs`
 
-Create one topic branch from current `origin/main` and implement only the accepted Button geometry:
+## Verification Evidence
 
-- WEX Button geometry for Small / Default / Large exactly as ADR 0006;
-- existing Navigation Small / Default / Large typography mappings;
-- 1px stable border, radius 0, existing 2px focus width, 2px focus offset;
-- content-sized inline width and accepted minimum block sizes/padding;
-- identical geometry across all five Button variants;
-- minimal shared-UI tier class/presentation mapping required to let the existing serializable `tier` select the WEX geometry;
-- focused tests for all three tier mappings and geometry values;
-- minimum audit adjustment only if required to enforce this already-authorised Button geometry boundary.
+- `pnpm -C packages/ui test` — pass
+- `pnpm -C packages/wex test` — pass
+- `pnpm exec node tooling/scripts/validate-foundation.mjs` — pass
+- `pnpm check` — pass under Node `v24.21.0`, pnpm `11.16.0`
 
-Use existing WEX spacing, typography, focus, and Button semantic tokens. Do not introduce new numeric primitives where an accepted token exists.
-
-## Safeguards / Exclusions
-
-- Do not change the Button schema or add new serializable fields.
-- Do not change colour/state authority from ADR 0005.
-- Do not add runtime rendering, catalogue/demo work, GitHub Pages integration, adapters, domain behaviour, actions, icons, icon-only Button, toggle/link/dropdown/group variants, or other component families.
-- Do not modify `WEX-SOURCE.md`.
-- Do not use the preserved recovery branch as authority or cherry-pick it wholesale.
-- Do not add variant-specific geometry.
-- Keep transient hover/pressed/focus state out of serializable definitions and shared presentation inputs.
-
-## Verification / Handoff
-
-Run touched-package tests, foundation audit, and repository `pnpm check` under Node 24. Push the topic branch, verify its remote SHA, and update this SAME file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA, exact changed files, checks, Node/pnpm versions, and unresolved issues. Stop for Reviewer.
-
-No runtime or Pages deployment is authorised in this slice.
+Unresolved issue: none. The complete check reports its existing Turborepo lockfile/output warnings only. No runtime or Pages deployment was performed.
