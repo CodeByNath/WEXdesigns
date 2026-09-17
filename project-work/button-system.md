@@ -1,13 +1,19 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
+Status: PAUSED — REPOSITORY CYCLE BOOTSTRAP REQUIRED  
 Phase: Slice 1 — Button Authority and WEX Foundations
 
-## Reviewer Assignment
+## Pause Reason
+
+Button work is temporarily paused while `project-work/repository-cycle-bootstrap.md` is the **single active work file**.
+
+Builder must not perform Button work until Reviewer accepts the bootstrap and explicitly reactivates this file. Do not treat this file as an alternative active assignment while bootstrap is open.
+
+## Reviewer Assignment — resumes only after bootstrap acceptance
 
 Reviewer authorises Builder to perform **authority-resolution work only** for Slice 1.
 
-Builder must inspect current `main` authority and prepare the minimum Button ADR/authority proposal needed to resolve the five open decisions below. Builder may update this coordination file with its report, but must not implement Button foundations, tokens, renderer, schemas, adapters, catalogue, or runtime work until Reviewer explicitly approves the authority proposal and issues the next instruction.
+When this file is reactivated, Builder must inspect current `main` authority and prepare the minimum Button ADR/authority proposal needed to resolve the five open decisions below. Builder may update this coordination file with its report, but must not implement Button foundations, tokens, renderer, schemas, adapters, catalogue, or runtime work until Reviewer explicitly approves the authority proposal and issues the next instruction.
 
 Only Reviewer may approve or refuse the proposal, issue the phase verdict, authorise implementation, change phase/status, or pass new work.
 
@@ -38,7 +44,7 @@ Builder must reuse existing approved WEX primitives/semantics where authority al
 - No Link Button, Dropdown Button, or Button Group.
 - No Button foundation/token implementation before Reviewer approval.
 
-## Builder Evidence Required This Round
+## Builder Evidence Required When Reactivated
 
 Return in this file or linked commit report:
 
