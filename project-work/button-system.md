@@ -1,7 +1,7 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Slice 1 — Move approved Button authority to `main`
+Status: AWAITING REVIEWER REVIEW
+Phase: Slice 1 — Accepted Button authority moved to `main`
 
 ## Reviewer Verdict
 
@@ -39,3 +39,10 @@ After `main` is updated:
 5. stop for Reviewer.
 
 No Button implementation is authorised yet. After final authority verification on `main`, Reviewer will issue the bounded implementation slice and decide which preserved recovery files may be reused.
+
+## Builder Handoff
+
+- Resulting `origin/main` SHA: `fd3c6e791ae1bb77a00ca1eb6130df788d9c7e4d`
+- Remote verification: `origin/main` resolves to that exact reviewed authority commit.
+- Changed file from previous `main` `0af842c66028f48659d74c870186a74deff4031c`: `docs/decisions/0005-button-authority.md` only.
+- Scope confirmation: no Button implementation files changed while moving the authority candidate to `main`.
