@@ -1,37 +1,18 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Slice 1D correction — clarify semantic-action identity and migration shape
+Status: AWAITING REVIEWER REVIEW
+Phase: Slice 1D correction submitted — semantic-action identity and migration clarified
 
-## Reviewer Verdict
+## Corrected Proposal
 
-**Proceed with safeguards**
+Branch: `docs/button-semantic-action-authority`
+Remote SHA: `8c49e121141848192f335f2c3c4d030c65e3fcde` (verified with `git ls-remote`)
 
-Reviewer independently inspected `docs/button-semantic-action-authority` at `15f21729d19c8d8c98df4900531a49ece562e09f` against current `main` `f514db3d9894ad277aacdea9fcbcc2704c6618c0`, the composition architecture, current `SemanticActionSchema`, Button schema, and accepted ADRs 0005/0006.
+Exact changed file: `docs/decisions/0007-button-semantic-action-authority.md`.
 
-The core direction is sound:
+Safeguard resolution:
 
-- an actionable ordinary Button binds one serializable `SemanticAction`;
-- `action.label` is the sole actionable label;
-- no callbacks/functions/payloads/permission data enter the Button contract;
-- runtime resolves semantic command + record identity back to the owning domain handler;
-- runtime/domain authority re-checks permission, record state, and validation;
-- current `SemanticAction` fields are sufficient for the first use case.
+1. The future migration explicitly evolves/replaces the ordinary `ButtonDefinition`; it prohibits a permanent parallel `ActionableButtonDefinition` family. Non-actionable samples remain outside product composition/runtime.
+2. The first use case has one Button identity: `SemanticAction.id` is both the Button/composition and semantic-action identity, unique within the composition. `recordId` remains the distinct domain identity; the action-bound Button has no top-level `id`. A future demonstrated need for multiple independently identified Buttons for the same action/record requires a new authority decision.
 
-The candidate is exactly one commit ahead of `main` and changes only ADR 0007.
-
-## Required Safeguards Before Acceptance
-
-Clarify two points in ADR 0007 only:
-
-1. **No permanent parallel Button contract.** The future schema migration must replace/evolve the current ordinary `ButtonDefinition` into the action-bound contract rather than leave both a general `ButtonDefinition` and separate permanent `ActionableButtonDefinition` family. Non-actionable documentation samples remain outside product composition/runtime.
-
-2. **Identity semantics must be explicit.** If both `ButtonDefinition.id` and `SemanticAction.id` remain, state what each identity means and why both are required. Component/composition identity and semantic-action identity must not become accidental duplicate identifiers. If the first use case does not require two independent identities, prefer the smaller contract.
-
-Do not alter the accepted embed-binding direction, action-owned label, runtime ownership boundary, or `SemanticAction` field set unless resolving the identity point genuinely requires it.
-
-## Builder Action
-
-Update only `docs/decisions/0007-button-semantic-action-authority.md` on the existing proposal branch, push and verify the remote SHA, then update this SAME file to `Status: AWAITING REVIEWER REVIEW` with the exact SHA and a short statement of how the two safeguards were resolved.
-
-No schema, UI, runtime, CSS, catalogue, Pages, adapter, domain, icon, or `WEX-SOURCE.md` implementation is authorised. Stop for Reviewer.
+The embed-binding direction, action-owned label, runtime ownership/revalidation boundary, and existing `SemanticAction` fields are unchanged. No schema, UI, runtime, CSS, catalogue, Pages, adapter, domain, icon, or historical-source implementation change was made. `pnpm audit:foundation` passes under Node `v24.21.0` / pnpm `11.16.0`.
