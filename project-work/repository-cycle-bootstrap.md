@@ -28,7 +28,7 @@ The root `AGENTS.md` must say, in substance:
    - the single active work file under `project-work/`
 5. Follow the active file's `Status`, `Phase`, actor, scope, exclusions, evidence requirements, and next action literally.
 6. Builder may not self-approve, self-advance, invent new work, or merge to `main` without Reviewer instruction.
-7. After authorised work, Builder must commit and push the work branch to `origin`, report branch/SHA/evidence, then stop for Reviewer.
+7. After authorised work, Builder must commit and push the work branch to `origin`, update the SAME active work file to `Status: AWAITING REVIEWER REVIEW`, record branch/SHA/evidence, and stop.
 8. Product/system authority remains repository architecture, accepted ADRs, historical WEX source, and verified implementation. The root `AGENTS.md` is workflow bootstrap only.
 
 Do not add WEX architecture, Button rules, component rules, or domain rules to root `AGENTS.md`.
@@ -38,8 +38,11 @@ Do not add WEX architecture, Button rules, component rules, or domain rules to r
 - Branch from `origin/main`.
 - Change only root `AGENTS.md`.
 - Commit and push the branch to `origin`.
+- Verify the remote contains the pushed commit.
+- Update this SAME work file to `Status: AWAITING REVIEWER REVIEW` and record the exact branch, pushed SHA, and required evidence.
 - Do not modify or merge `main`.
-- Report exact branch name, pushed SHA, and exact `AGENTS.md` content.
 - Stop for Reviewer.
+
+A Builder handoff is incomplete until the pushed candidate is remotely inspectable **and this file says `AWAITING REVIEWER REVIEW`**.
 
 After Reviewer accepts this bootstrap and it reaches `main`, future fresh Builder sessions should discover the cycle correctly without a corrective prompt.
