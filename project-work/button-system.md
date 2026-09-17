@@ -1,43 +1,37 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Slice 1A — Button contract and WEX presentation foundation
+Status: AWAITING REVIEWER REVIEW
+Phase: Slice 1A submitted — Button contract and WEX presentation foundation
 
-## Reviewer Verdict
+## Submitted Candidate
 
-**Proceed**
+Branch: `feat/button-foundation-slice`
+Remote SHA: `46549a79a138621295889f49288960c5c39d977a` (verified with `git ls-remote`)
 
-Reviewer independently verified `origin/main` at `fd3c6e791ae1bb77a00ca1eb6130df788d9c7e4d` contains the accepted `docs/decisions/0005-button-authority.md` exactly as reviewed. The move from prior `main` changes only that ADR.
+Implements only the authorised Slice 1A contract: closed `primary | neutral | subtle | warning | danger` variants; ordinary default, hover, transient pressed, disabled, and focus states; WEX-owned semantic state tokens with no Button geometry; and platform-neutral shared Button presentation. `secondary`, `ghost`, persistent selection, `aria-pressed`, runtime/catalogue/adapters/domain work, and `WEX-SOURCE.md` changes are absent.
 
-Button authority is therefore established on `main`.
+## Exact Changed Files
 
-## Authorised Builder Scope
+- `apps/web-runtime/test/catalogue.test.mjs`
+- `packages/schemas/src/components/button.schema.ts`
+- `packages/schemas/src/index.ts`
+- `packages/schemas/test/foundation.test.mjs`
+- `packages/ui/package.json`
+- `packages/ui/src/components/button.ts`
+- `packages/ui/src/index.ts`
+- `packages/ui/test/button.test.mjs`
+- `packages/wex/src/foundations/buttons.css`
+- `packages/wex/test/button-foundation.test.mjs`
+- `tooling/scripts/validate-foundation.mjs`
 
-Create one topic branch from current `origin/main` and implement only the first technical Button slice:
+## Verification Evidence
 
-- serializable Button schema using the closed variants `primary | neutral | subtle | warning | danger`;
-- ordinary Button state contract only: default, hover, transient pressed, disabled, focus;
-- WEX-owned Button component-semantic colour/state tokens and presentation rules matching ADR 0005;
-- platform-neutral shared UI presentation/resolution needed to consume that Button contract;
-- focused tests for schema, WEX Button presentation, shared UI boundary, and accessibility-state mechanics;
-- minimum foundation-audit change required to allow **Button only** while continuing to reject unauthorised component families.
+- `pnpm -C packages/schemas test` — pass
+- `pnpm -C packages/ui test` — pass
+- `pnpm -C packages/wex test` — pass
+- `pnpm exec node --test apps/web-runtime/test/catalogue.test.mjs` — pass
+- `pnpm exec node tooling/scripts/validate-foundation.mjs` — pass
+- `pnpm lint` — pass (preliminary Node 22 run)
+- `PATH="/opt/homebrew/opt/node@24/bin:$PATH" pnpm check` — pass, Node `v24.21.0`, pnpm `11.16.0`
 
-The preserved `review/button-local-recovery` branch may be used as implementation evidence, but do not cherry-pick it wholesale. Retain only code that conforms to accepted authority.
-
-## Required Safeguards
-
-- Do not serialize `secondary` or `ghost`; use `neutral` and `subtle` only.
-- Add `warning`.
-- Do not use `aria-pressed` or persistent selected behaviour for ordinary Button.
-- Shared/UI consumer code must consume Button semantic tokens; no raw primitives or theme selectors there.
-- Do not invent Button geometry in this slice: no new padding, radius, dimensions, tier-to-size mappings, or typography values beyond already-authorised generic mechanics.
-- No runtime preview, catalogue work, GitHub Pages integration, adapters, domain behaviour, icons, toggle Button, Link Button, Dropdown Button, Button Group, or other component family.
-- Do not modify `WEX-SOURCE.md`.
-
-## Verification / Handoff
-
-Run the deterministic checks required by the touched packages plus repository `pnpm check` under the repository-supported Node version. If the local runtime is below the declared Node requirement, obtain valid Node 24 verification before handoff.
-
-Push the topic branch to `origin`, verify the remote SHA, then update this SAME file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA, exact changed files, tests/checks, Node version, and any unresolved issue. Stop for Reviewer.
-
-No runtime or Pages deployment is authorised in this slice.
+Unresolved issue: none. The complete check reports pre-existing Turborepo warnings about the intentionally absent lockfile and declared task outputs; it exits successfully. No runtime or Pages deployment was performed.
