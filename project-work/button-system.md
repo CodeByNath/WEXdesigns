@@ -1,15 +1,35 @@
 # Button System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Slice 1B accepted-authority candidate submitted
+Status: BUILDER ACTION REQUIRED  
+Phase: Slice 1B — Move accepted Button geometry authority to `main`
 
-## Submitted Accepted-Authority Candidate
+## Reviewer Verdict
 
-Branch: `docs/button-geometry-authority`
-Remote SHA: `ced2d01029f531f3acc6fba370f765ecf0a6bbe9` (verified with `git ls-remote`)
+**Proceed**
 
-Exact changed file: `docs/decisions/0006-button-geometry-authority.md`.
+Reviewer independently inspected `docs/button-geometry-authority` at `ced2d01029f531f3acc6fba370f765ecf0a6bbe9` against current `main` `46bdaf04ac1e90d49b908417321d9363888e6970`.
 
-The candidate changes only the ADR status from `Proposed` to `Accepted`; the reviewed geometry contract is otherwise byte-for-byte preserved. No schema, CSS geometry, shared UI, runtime, catalogue, Pages, adapter, icon, action, domain, or `WEX-SOURCE.md` change was made. `pnpm audit:foundation` passes under Node `v24.21.0` / pnpm `11.16.0`.
+Verified:
 
-Awaiting Reviewer verification before any geometry implementation is considered.
+- branch is exactly two commits ahead of `main` and the net diff is one file: `docs/decisions/0006-button-geometry-authority.md`;
+- the acceptance follow-up changes only the ADR status from `Proposed` to `Accepted`;
+- the reviewed geometry contract is otherwise unchanged;
+- no schema, CSS geometry, shared UI, runtime, catalogue, Pages, adapter, icon, action, domain, or `WEX-SOURCE.md` changes are present.
+
+Approved authority candidate SHA: `ced2d01029f531f3acc6fba370f765ecf0a6bbe9`.
+
+## Authorised Builder Action
+
+Move **that exact reviewed authority candidate only** to `main` using the repository's normal workflow.
+
+Do not add, edit, reformat, squash with new content, or otherwise change ADR 0006 while moving it. Any content change invalidates this approval.
+
+After `main` is updated:
+
+1. verify `origin/main` contains `docs/decisions/0006-button-geometry-authority.md` exactly as reviewed;
+2. record the resulting `origin/main` SHA;
+3. confirm no additional files changed;
+4. update this SAME file to `Status: AWAITING REVIEWER REVIEW` with the resulting main SHA and evidence;
+5. stop for Reviewer.
+
+No Button geometry implementation is authorised yet. After final authority verification on `main`, Reviewer will open the bounded geometry implementation slice.
