@@ -1,53 +1,42 @@
-# Repository Cycle Bootstrap
+# Repository Cycle Bootstrap / Recovery
 
 Status: BUILDER ACTION REQUIRED  
-Phase: Bootstrap — Make cycle instructions discoverable from `main`
+Phase: Recovery — Preserve unreviewed local Button work for Reviewer audit
 
-## Active Work Rule
+## Reviewer Decision
 
-This is the **single active work file**. All other work areas, including Button, are paused until Reviewer accepts this bootstrap and explicitly reactivates them.
+Builder has already completed substantial Button work locally beyond the authorised bootstrap/authority-resolution scope. Do **not** delete, rewrite, continue, merge, or push that work to `main`.
 
-## Reviewer Assignment
+The immediate task is evidence preservation only so Reviewer can inspect the actual implementation safely.
 
-Reviewer authorises Builder to add the minimum repository-level instruction needed so a Builder opened on `main` understands `run the cycle` without a separate explanatory prompt.
+This file is the **single active work file**. `project-work/button-system.md` remains paused until Reviewer completes this recovery audit.
 
-Current problem: `main` has no root `AGENTS.md`, so a Builder can inspect README/package scripts and incorrectly interpret `run the cycle` as `pnpm check` instead of the WeeraX Project Cycle.
+## Authorised Recovery Action
 
-## Authorised Change
+From the local WEXdesigns repository only:
 
-Add a concise root `AGENTS.md` on `main` that is workflow/bootstrap guidance only. It must:
+1. Stop all implementation work.
+2. Confirm the repo is `CodeByNath/WEXdesigns` and record current branch/base SHA.
+3. Record `git status --short` and the full changed-file list.
+4. Create a dedicated recovery branch from the current local state, preserving the working tree. Use a clearly isolated name such as `review/button-local-recovery`.
+5. Do not alter source content while preparing the branch.
+6. Before commit, exclude only machine/generated artifacts that are not intended repository source, such as `node_modules`, caches, temporary files, `.env` secrets, editor state, or an unintended generated lockfile. Do not "clean up" implementation code.
+7. Commit the preserved repository changes exactly as they stand.
+8. Push the recovery branch to `origin`.
+9. Do **not** merge, rebase onto `main`, open a merge commit, or change `main`.
+10. Stop immediately after the push.
 
-- state this repository is independent from sibling repositories;
-- state that `run the cycle`, `continue the work`, `review the latest work`, or equivalent mean the WeeraX Project Cycle;
-- require fetching/reading `origin/Project-work-instructions` before normal project work;
-- require reading `project-work/AGENTS.md`, `project-work/PROJECT-RULES.md` when relevant, and the single active work file;
-- require following the active file's `Status`, `Phase`, scope, exclusions, and actor literally;
-- state that package validation such as `pnpm check` is only a phase step when required, never the meaning of `run the cycle`;
-- state Builder cannot self-approve, self-advance, invent new work, or ask the user to choose the next task after completion;
-- state only Reviewer may approve/refuse work, pass new Builder work, reactivate paused work, or advance/defer phases;
-- state product/system authority remains repository architecture, ADRs, historical WEX source, and verified implementation; the root `AGENTS.md` must not become WEX architecture authority.
+## Required Evidence
 
-Do not modify product architecture, WEX source, package manifests, lockfiles, or Button implementation as part of this bootstrap.
+Report:
 
-## Completion Behaviour
+- recovery branch name;
+- base `origin/main` SHA the local work started from;
+- recovery commit SHA;
+- exact changed-file list;
+- `git status --short` after commit;
+- confirmation `origin/main` was not changed;
+- confirmation no sibling repository was touched;
+- confirmation no additional Button implementation was performed during recovery.
 
-After completing the authorised task, Builder must:
-
-1. run only the checks required for this bootstrap;
-2. commit and push the change;
-3. report the exact commit SHA, changed files, checks/evidence, and any deviation;
-4. stop immediately;
-5. not ask the user what to build next;
-6. not start Button or any other work;
-7. wait for Reviewer to inspect the pushed state and issue the next instruction through `Project-work-instructions`.
-
-## Evidence Required
-
-Builder must provide:
-
-- commit SHA on the implementation branch;
-- exact `AGENTS.md` contents;
-- confirmation no other source files changed;
-- confirmation a fresh Builder session on `main` would encounter root `AGENTS.md` before interpreting `run the cycle`.
-
-Stop after pushing this bootstrap change. Reviewer will inspect and either approve/refuse it. Button work remains paused until this bootstrap is accepted.
+Do not ask the user what to do next. Reviewer will inspect the pushed recovery diff and decide what can be accepted, corrected, split, or rejected.
