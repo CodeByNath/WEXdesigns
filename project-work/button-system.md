@@ -3,22 +3,29 @@
 Status: BUILDER ACTION REQUIRED  
 Phase: Slice 1 — Button Authority and WEX Foundations
 
+## Reviewer Assignment
+
+Reviewer authorises Builder to perform **authority-resolution work only** for Slice 1.
+
+Builder must inspect current `main` authority and prepare the minimum Button ADR/authority proposal needed to resolve the five open decisions below. Builder may update this coordination file with its report, but must not implement Button foundations, tokens, renderer, schemas, adapters, catalogue, or runtime work until Reviewer explicitly approves the authority proposal and issues the next instruction.
+
+Only Reviewer may approve or refuse the proposal, issue the phase verdict, authorise implementation, change phase/status, or pass new work.
+
 ## Planning Reference
 
-Use the current approved **WEX Button System: Repository Preparation** supplied with this work cycle as the planning authority. Do not copy it into this branch. This file coordinates the work; WEX historical source, accepted ADRs, architecture documents, and verified `main` implementation remain product/system authority.
+Use the current approved **WEX Button System: Repository Preparation** as planning context only. Product/system authority remains historical WEX source, accepted ADRs, architecture documents, and verified `main` implementation.
 
-## Accepted Slice 1 Scope
+## Decisions Builder Must Resolve for Review
 
-- Establish Button ADR authority.
-- Resolve the Button Hover rule.
-- Resolve Pressed treatment.
-- Define Light/Dark semantic mappings for Primary, Neutral, Subtle, Warning, and Danger.
-- Approve Button component-token naming.
-- Add and register Button geometry tokens.
-- Add the shared Content Shimmer foundation.
-- Preserve the historical WEX source unchanged.
-- Transition the blanket no-components audit into scoped authorised-component protection.
-- Add focused foundation, token, and hardcoding tests.
+For each item, Builder must report existing authority, unresolved gap, proposed decision, compatibility/accessibility impact, and exact files that would become authoritative:
+
+1. Button Hover rule
+2. Pressed treatment
+3. Exact Light/Dark semantic mappings for Primary, Neutral, Subtle, Warning, and Danger
+4. Final Button component-token names
+5. Audit-transition design from blanket no-components protection to scoped authorised-component protection
+
+Builder must reuse existing approved WEX primitives/semantics where authority already exists and identify clearly where a genuinely new Button decision is required. Do not invent new primitives merely to complete the task.
 
 ## Explicit Exclusions
 
@@ -29,30 +36,18 @@ Use the current approved **WEX Button System: Repository Preparation** supplied 
 - No catalogue implementation.
 - No web-runtime demo.
 - No Link Button, Dropdown Button, or Button Group.
+- No Button foundation/token implementation before Reviewer approval.
 
-## Current Authority Blockers
+## Builder Evidence Required This Round
 
-Verified `main` does not currently resolve the five decisions below. Builder must record decision requirements and stop before WEX implementation. Do not invent answers merely to continue.
+Return in this file or linked commit report:
 
-Builder must stop before implementation if any of these are still unresolved:
-
-1. Hover authority
-2. Pressed treatment
-3. exact appearance/state semantic mappings
-4. final component-token names
-5. audit-transition design
-
-An architectural requirement must be accepted through the appropriate ADR/authority path before implementation proceeds. Continue using this work file for decision and correction rounds.
-
-## Required Implementation Evidence
-
-When Slice 1 is eventually authorised and implemented, Builder must provide:
-
-- commit SHA;
+- authoritative files inspected;
+- proposed ADR/authority change;
+- proposed resolution of all five decisions;
+- unresolved questions, if any;
 - changed-file list;
-- test/check commands and results;
-- confirmation that the historical WEX authority hash remains unchanged;
-- confirmation that dependency boundaries remain valid;
-- confirmation that no raw or unregistered Button presentation values were introduced.
+- commit SHA/ref for coordination/ADR proposal work;
+- confirmation `WEX-SOURCE.md` remains unchanged.
 
-Builder stops at the Slice 1 boundary. Reviewer then independently inspects the pushed source, diff, and evidence and issues one permitted verdict.
+Builder stops after submitting the proposal. Reviewer then independently inspects the pushed work and records one permitted verdict: `Proceed`, `Proceed with safeguards`, or `Stop — architectural risk`.
