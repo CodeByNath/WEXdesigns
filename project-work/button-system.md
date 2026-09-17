@@ -1,31 +1,43 @@
 # Button System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Slice 1B submitted — Button geometry authority proposal
+Status: BUILDER ACTION REQUIRED  
+Phase: Slice 1B — Prepare accepted Button geometry authority candidate
 
-## Submitted Proposal
+## Reviewer Verdict
 
-Branch: `docs/button-geometry-authority`
-Remote SHA: `88538039435fb15507cd4486a0caf389f5b8ef56` (verified with `git ls-remote`)
+**Proceed**
 
-Changed file: `docs/decisions/0006-button-geometry-authority.md` only.
+Reviewer independently inspected `docs/button-geometry-authority` at `88538039435fb15507cd4486a0caf389f5b8ef56` against current `main` `46bdaf04ac1e90d49b908417321d9363888e6970` and repository authority.
 
-## Authority Inspected
+Verified:
 
-- historical WEX Button Foundation and global-tier guidance in `packages/wex/src/source/WEX-SOURCE.md`;
-- accepted ADRs `0004` and `0005`;
-- verified `main` Button foundation plus current `spacing.css`, `sizing.css`, `typography.css`, and `interaction.css`.
+- candidate is exactly one commit ahead of `main` and changes only `docs/decisions/0006-button-geometry-authority.md`;
+- historical WEX Button authority explicitly maps Small/Default/Large to Navigation Small `14/20/600`, Default `16/24/600`, Large `20/28/600`;
+- global tier authority requires Button tiers to track composition tiers while allowing component-specific measurements;
+- current spacing provides 2/4/8/12/16/24/32/40/48/64px tokens and current interaction authority provides the 2px focus width;
+- no accepted authority currently fixes Button outer size, padding, border width, radius, or focus offset, so ADR 0006 legitimately resolves a component-level gap rather than overriding an existing rule;
+- proposed geometry is shared across all five Button variants and introduces no fourth tier or new primitive.
 
-The ADR identifies the genuine gap: existing authority provides Navigation tier typography, spacing primitives, and a 2px focus width, but no Button outer-size, padding, border-width, radius, or focus-offset decision. It treats recovery-branch geometry as non-authoritative and rejects its conflicting typography.
+Accepted geometry direction:
 
-## Proposed Values
-
-| Tier | Minimum block | Block / inline padding | Typography |
+| Tier | Min block | Block / inline padding | Typography |
 | --- | --- | --- | --- |
-| Small | 32px | 4px / 12px | Navigation Small Semibold, 14px / 20px / 600 |
-| Default | 40px | 4px / 16px | Navigation Default Semibold, 16px / 24px / 600 |
-| Large | 48px | 8px / 24px | Navigation Large Semibold, 20px / 28px / 600 |
+| Small | 32px | 4px / 12px | Navigation Small 14/20/600 |
+| Default | 40px | 4px / 16px | Navigation Default 16/24/600 |
+| Large | 48px | 8px / 24px | Navigation Large 20/28/600 |
 
-All variants share tier geometry. The proposal specifies a stable 1px border, radius 0, 2px focus outline with 2px offset, and no new primitives.
+Also accepted for this Button contract: stable 1px border, radius 0, 2px focus outline using existing focus authority, 2px focus offset, content-sized width, and identical tier geometry across variants.
 
-Unresolved question: none within this authority proposal; acceptance remains Reviewer-owned. No schema, CSS, shared UI, runtime, catalogue, Pages, adapter, icon, domain, or historical-source implementation change was made. `pnpm audit:foundation` passes under Node `v24.21.0` / pnpm `11.16.0`.
+## Authorised Builder Action
+
+Prepare the accepted-authority candidate only:
+
+- change ADR 0006 status from `Proposed` to `Accepted`;
+- preserve the reviewed geometry contract without adding new decisions;
+- do not implement CSS geometry yet;
+- do not change schemas, shared UI, runtime, catalogue, Pages, adapters, icons, actions, toggle/link/dropdown/group variants, domain behaviour, or `WEX-SOURCE.md`;
+- push the authority branch to `origin` and verify the remote SHA;
+- update this SAME file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA and exact changed files;
+- stop for Reviewer.
+
+After the accepted ADR candidate is verified, Reviewer will decide whether the bounded geometry implementation slice may begin.
