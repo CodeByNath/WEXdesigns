@@ -1,7 +1,7 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Slice 1 — Correct Button authority before implementation review
+Status: AWAITING REVIEWER REVIEW
+Phase: Slice 1 — Correct Button authority proposal submitted
 
 ## Reviewer Verdict
 
@@ -37,3 +37,13 @@ Prepare a corrected Button ADR proposal on a dedicated topic branch from current
 Push the authority-proposal branch to `origin`, verify its remote SHA, then update this SAME file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA, changed files, authority inspected, and unresolved questions. Stop for Reviewer.
 
 Do not merge any Button implementation to `main` until Reviewer approves the Button authority proposal.
+
+## Builder Handoff
+
+- Candidate branch: `docs/button-authority-proposal`
+- Pushed commit: `610b1abcd9e383d7e747315561fb26a9ee5c5aa4`
+- Remote verification: `origin/docs/button-authority-proposal` resolves to that exact commit.
+- Changed file: `docs/decisions/0005-button-authority-proposal.md` only.
+- Authority inspected: historical WEX Interaction and Button foundations; accepted decisions 0002 and 0004; verified `main` colour and interaction foundations; repository authority and composition documentation.
+- Unresolved for Reviewer: approval of the five-variant contract; third chromatic swatch as transient pressed treatment; new Button-scoped neutral/subtle pressed tokens. Geometry, icons, and toggle behaviour remain intentionally out of scope.
+- WEX source confirmation: `WEX-SOURCE.md` SHA-256 remains `03499256dfcd54f445929520c1603b5f7ddf7cdf89bb29446944d59f76195ae9`.
