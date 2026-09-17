@@ -1,44 +1,23 @@
 # Repository Cycle Bootstrap
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Bootstrap — Approved root cycle entrypoint moved to `main`
+Status: ACCEPTED  
+Phase: Bootstrap — Root cycle entrypoint verified on `main`
 
 ## Reviewer Verdict
 
 **Proceed**
 
-Reviewer independently inspected candidate branch `chore/root-cycle-entrypoint` at `0af842c66028f48659d74c870186a74deff4031c` against `origin/main` `39c22593fb0041a80ffd76ff9f33af3ee3261ef5`.
+Reviewer independently verified `origin/main` at `0af842c66028f48659d74c870186a74deff4031c` contains the approved root `AGENTS.md` exactly as reviewed.
 
 Verified:
 
-- candidate is exactly one commit ahead of `main`;
-- the only changed file is new root `AGENTS.md`;
-- `AGENTS.md` correctly redirects `run the cycle`, `continue the work`, and equivalent triggers to `origin/Project-work-instructions`;
+- root `AGENTS.md` exists on `main`;
+- it redirects `run the cycle`, `continue the work`, `review the latest work`, and equivalent triggers to `origin/Project-work-instructions`;
 - it requires reading `project-work/AGENTS.md`, relevant `PROJECT-RULES.md`, and the single active work file;
 - it prohibits Builder self-approval/self-advance and requires pushed-branch handoff to `AWAITING REVIEWER REVIEW`;
-- it remains workflow bootstrap only and does not invent WEX architecture.
+- it remains workflow bootstrap only and does not define WEX architecture;
+- no additional files were introduced while moving the reviewed candidate to `main`.
 
-Approved candidate SHA: `0af842c66028f48659d74c870186a74deff4031c`.
+Accepted `main` SHA: `0af842c66028f48659d74c870186a74deff4031c`.
 
-## Authorised Builder Action
-
-Move **that exact reviewed candidate only** to `main` using the repository's normal merge/push workflow.
-
-Do not add, edit, reformat, squash with new content, or otherwise change the approved `AGENTS.md` while moving it to `main`. Any source-content change invalidates this approval and requires another review.
-
-After `main` is updated:
-
-1. verify `origin/main` contains the approved `AGENTS.md` content;
-2. record the exact resulting `origin/main` SHA;
-3. update this SAME file to `Status: AWAITING REVIEWER REVIEW`;
-4. record the resulting `main` SHA and confirmation that no additional files changed;
-5. stop for final Reviewer verification.
-
-Button work remains paused until this bootstrap is verified on `main`.
-
-## Builder Handoff
-
-- Resulting `origin/main` SHA: `0af842c66028f48659d74c870186a74deff4031c`
-- Remote verification: `origin/main` resolves to that exact reviewed commit and contains the approved root `AGENTS.md` content.
-- Changed file from reviewed base `39c22593fb0041a80ffd76ff9f33af3ee3261ef5`: `AGENTS.md` only.
-- Scope confirmation: no additional files were changed while moving the candidate to `main`.
+Bootstrap is closed. Button work may now resume under `project-work/button-system.md`.
