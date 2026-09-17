@@ -17,6 +17,6 @@ content/
 └── components/
 ```
 
-This package owns catalogue content organization, not presentation. The web runtime owns the header, content frame, footer, and future rendering integration. WEX owns presentation rules. Shared component implementation remains in `@weerax/ui` after approval.
+This package owns catalogue content organization, not presentation. The web runtime owns the header, content frame, footer, and rendering integration. WEX owns presentation rules. Shared component implementation belongs in `@weerax/ui` after approval.
 
 The entry file format is intentionally unresolved. A serializable content contract must be agreed before content files are added; this package must not invent a local schema.

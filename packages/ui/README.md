@@ -1,5 +1,5 @@
 # `@weerax/ui`
 
-Reserved boundary for future shared WEX-governed rendering and interaction structures.
+Framework-neutral boundary for shared WEX-governed rendering and interaction structures.
 
-Component implementation has not started. Components require a separately approved phase. This package contains no Button, Text, Card, Drawer, module component, input, demo screen, or speculative component API.
+The first approved component is Button. It resolves serializable Button definitions into presentation data; browser or framework runtimes render that data and route semantic actions to their owning domain handlers. This package does not execute domain commands or depend on a browser framework.

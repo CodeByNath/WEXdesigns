@@ -123,7 +123,29 @@ input:focus-visible,
   min-width: 0;
   min-block-size: 100%;
   margin: 0;
+  padding: var(--wex-space-48);
   background: var(--wex-color-layer-01);
+}
+
+.catalogue-component {
+  display: grid;
+  gap: var(--wex-space-16);
+  max-width: var(--wex-layout-max-laptop);
+}
+
+.catalogue-component > * {
+  margin: 0;
+}
+
+.catalogue-component__eyebrow {
+  color: var(--wex-color-text-secondary);
+}
+
+.catalogue-button-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wex-space-12);
+  align-items: center;
 }
 
 @media (max-width: 1440px) {
@@ -160,5 +182,9 @@ input:focus-visible,
 
   .catalogue-content__frame {
     padding-block: var(--wex-space-32);
+  }
+
+  .catalogue-content__surface {
+    padding: var(--wex-space-24);
   }
 }

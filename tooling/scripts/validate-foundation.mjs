@@ -113,10 +113,15 @@ assert(
   'WEX tier contract changed',
 );
 
-const uiSource = resolve(root, 'packages/ui/src');
-const uiFiles = readdirSync(uiSource).filter((name) => !name.startsWith('.'));
-assert(uiFiles.length === 1 && uiFiles[0] === 'index.ts', 'UI components exist before authorization');
-assert(read('packages/ui/src/index.ts').trim() === 'export {};', 'UI boundary is not empty');
+const buttonSchema = read('packages/schemas/src/components/button.schema.ts');
+assert(buttonSchema.includes("z.enum(['primary', 'secondary', 'ghost', 'danger'])"), 'Button variants changed');
+assert(buttonSchema.includes('WexTierSchema'), 'Button is not governed by WEX tiers');
+const buttonPresentation = read('packages/ui/src/components/button.ts');
+assert(buttonPresentation.includes('createButtonPresentation'), 'Button presentation boundary is missing');
+assert(!buttonPresentation.includes('document.'), 'Shared UI Button depends on the browser runtime');
+assert(buttonPresentation.includes('action: button.action'), 'Button presentation drops semantic actions');
+const buttonFoundation = read('packages/wex/src/foundations/buttons.css');
+assert(buttonFoundation.includes('.wex-button--primary'), 'WEX Button foundation is missing');
 assert(!existsSync(resolve(root, 'test')), 'Repository placeholder still exists');
 
-console.log('Foundation audit passed: authorities, dependencies, CSS structure, tiers, and stop gate are valid.');
+console.log('Foundation audit passed: authorities, dependencies, CSS structure, tiers, and Button boundary are valid.');

@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import {
   EntityIdentifierSchema,
+  ButtonDefinitionSchema,
   SemanticActionSchema,
   WexTierSchema,
 } from '../dist/index.js';
@@ -48,4 +49,21 @@ test('accepts semantic actions without executable callbacks', () => {
 test('keeps the global WEX tier language closed', () => {
   assert.deepEqual(WexTierSchema.options, ['small', 'default', 'large']);
   assert.equal(WexTierSchema.safeParse('compact').success, false);
+});
+
+test('defines Buttons as serializable WEX-tiered semantic controls', () => {
+  assert.deepEqual(
+    ButtonDefinitionSchema.parse({ id: 'publish', label: 'Publish' }),
+    {
+      id: 'publish',
+      label: 'Publish',
+      variant: 'primary',
+      tier: 'default',
+      disabled: false,
+    },
+  );
+  assert.equal(
+    ButtonDefinitionSchema.safeParse({ id: 'Publish', label: 'Publish' }).success,
+    false,
+  );
 });

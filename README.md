@@ -34,7 +34,7 @@ DESIGN MASTER COMPOSES; IT DOES NOT INVENT VISUAL VALUES.
 | `packages/catalogue` | File-backed Elements, Guidelines, and Components structure |
 | `packages/schemas` | Framework-neutral Zod and TypeScript contracts |
 | `packages/adapters` | Reserved framework-neutral domain adapter boundary |
-| `packages/ui` | Reserved shared UI boundary; intentionally contains no components |
+| `packages/ui` | Shared, framework-neutral component presentation structures |
 | `apps/studio-agent-runner` | Node contract-validation shell |
 | `apps/web-runtime` | Live WEX index for Elements, Guidelines, and Components |
 | `docs/architecture` | Authority, dependency, composition, and repository maps |
@@ -67,6 +67,6 @@ The web runtime publishes the WEX shell: header, content frame, footer, and them
 
 ## Current Phase
 
-The foundation and live-index application phases are complete in repository structure and source. Shared UI component implementation has not started.
+The foundation and live-index application phases are complete. The first shared component type, Button, is implemented as a serializable contract, WEX foundation, platform-neutral presentation model, and live runtime preview.
 
-The next phase is gated. It must begin with separate authorization and a decision about the first shared component type, then define its schema, WEX specification, states, accessibility behavior, atomic structure, tests, and runtime integration.
+Further component types remain gated. Each requires a decision covering its schema, WEX specification, states, accessibility behaviour, atomic structure, tests, and runtime integration.

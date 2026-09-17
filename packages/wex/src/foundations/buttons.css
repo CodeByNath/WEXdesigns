@@ -1,8 +1,99 @@
-/*
- * WEX Button Foundation
- *
- * The canonical authority defines Primary, Secondary, Ghost, and Danger
- * semantics across Small, Default, and Large. The approved colour extension
- * now supplies destructive semantic roles. Component geometry remains
- * unresolved, so this foundation does not invent button selectors or values.
- */
+/* WEX Button Foundation — geometry and states approved in decision 0005. */
+
+.wex-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wex-space-8);
+  border: 1px solid transparent;
+  border-radius: 0;
+  font: inherit;
+  font-weight: var(--wex-type-weight-semibold);
+  letter-spacing: var(--wex-type-letter-spacing-default);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.wex-button--small {
+  min-block-size: var(--wex-space-32);
+  padding: var(--wex-space-4) var(--wex-space-12);
+  font-size: var(--wex-type-size-12);
+  line-height: var(--wex-type-line-height-16);
+}
+
+.wex-button--default {
+  min-block-size: var(--wex-space-40);
+  padding: var(--wex-space-8) var(--wex-space-16);
+  font-size: var(--wex-type-size-14);
+  line-height: var(--wex-type-line-height-20);
+}
+
+.wex-button--large {
+  min-block-size: var(--wex-space-48);
+  padding: var(--wex-space-12) var(--wex-space-24);
+  font-size: var(--wex-type-size-16);
+  line-height: var(--wex-type-line-height-24);
+}
+
+.wex-button--primary {
+  background: var(--wex-color-background-accent);
+  color: var(--wex-color-on-accent);
+}
+
+.wex-button--primary:hover {
+  background: var(--wex-color-background-accent-hover);
+  color: var(--wex-color-on-accent-hover);
+}
+
+.wex-button--primary:active,
+.wex-button--primary[aria-pressed='true'] {
+  background: var(--wex-color-background-accent-selected);
+  color: var(--wex-color-on-accent-selected);
+}
+
+.wex-button--secondary {
+  border-color: var(--wex-color-border-interactive);
+  background: var(--wex-color-background-primary);
+  color: var(--wex-color-text-accent);
+}
+
+.wex-button--secondary:hover,
+.wex-button--secondary:active,
+.wex-button--secondary[aria-pressed='true'],
+.wex-button--ghost:hover,
+.wex-button--ghost:active,
+.wex-button--ghost[aria-pressed='true'] {
+  background: var(--wex-color-background-secondary);
+}
+
+.wex-button--ghost {
+  background: transparent;
+  color: var(--wex-color-text-accent);
+}
+
+.wex-button--danger {
+  background: var(--wex-color-background-error);
+  color: var(--wex-color-on-error);
+}
+
+.wex-button--danger:hover {
+  background: var(--wex-color-background-error-hover);
+  color: var(--wex-color-on-error-hover);
+}
+
+.wex-button--danger:active,
+.wex-button--danger[aria-pressed='true'] {
+  background: var(--wex-color-background-error-selected);
+  color: var(--wex-color-on-error-selected);
+}
+
+.wex-button:focus-visible {
+  outline: var(--wex-focus-width) solid var(--wex-color-focus);
+  outline-offset: var(--wex-space-2);
+}
+
+.wex-button:disabled {
+  opacity: var(--wex-opacity-disabled);
+  cursor: not-allowed;
+}
