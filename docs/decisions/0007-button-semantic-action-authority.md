@@ -15,18 +15,21 @@ Proposed — authority resolution only; schema and runtime implementation requir
 
 An ordinary actionable Button embeds one `SemanticAction`; it does not reference a separately resolved action ID and is not derived solely from an action. The Button remains the component contract for variant, tier, and authored availability, while the nested action supplies executable semantic intent.
 
-The future actionable shape is conceptually:
+The future schema migration evolves the existing ordinary `ButtonDefinition` into this action-bound contract. It must not retain a permanent parallel general `ButtonDefinition` and separate `ActionableButtonDefinition` family.
+
+The future `ButtonDefinition` shape is conceptually:
 
 ```text
-ActionableButtonDefinition
-├── id              // Button/component identity
+ButtonDefinition
 ├── action          // SemanticAction: id, label, command, recordId
 ├── variant
 ├── tier
 └── disabled
 ```
 
-`action.label` is the only actionable Button label. An actionable definition must not also carry a Button `label`, so contradictory labels cannot serialize. The current presentation-only Button shape remains an existing foundation only until a separately authorised schema migration introduces this action-bound form.
+For the first use case, `action.id` is the Button/composition identity as well as the semantic-action identity; it must be unique among actions exposed by one composition. `action.recordId` is the separate domain-record identity. The action-bound Button therefore has no top-level Button `id`, preventing accidental duplicate identifiers. If a demonstrated future composition requires multiple independently identified Buttons for the same `(action.id, recordId)`, it must establish the concrete identity need in a new authority decision before another identifier is added.
+
+`action.label` is the only actionable Button label. An actionable definition must not also carry a Button `label`, so contradictory labels cannot serialize. The current presentation-only Button shape is replaced by this action-bound form when a separately authorised schema migration occurs; it is not a permanent product contract alongside it.
 
 An ordinary actionable Button may not exist without its `SemanticAction`. There is no general actionless product Button exception. Documentation or visual samples that need an inert control are outside this executable contract, must not enter a product composition or shared runtime, and must be explicitly isolated as non-actionable examples when such work is separately authorised.
 
@@ -41,4 +44,3 @@ On invocation, a native Button event delivers its serialized `action.command` an
 For the first Button use case, `SemanticAction` is sufficient: a named command against one record identity with an action-owned label. The composition architecture already defines separately collected changes at runtime for save-like flows. No Button payload, callback, generalized action data, or permission field is authorised by this decision.
 
 A future demonstrated command that cannot be expressed as `(command, recordId)` must establish a new authority decision from its concrete domain requirement before the action schema changes. This proposal authorises no implementation, runtime, adapter, CSS, catalogue, Pages, domain-command definition, or historical-source change.
-
