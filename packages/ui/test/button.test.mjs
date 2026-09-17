@@ -10,14 +10,13 @@ test('resolves a Button through its accepted semantic variant', () => {
       label: 'Review',
       variant: 'neutral',
       tier: 'large',
-      state: 'focus',
+      disabled: false,
     }),
     {
       className: 'wex-button wex-button--neutral',
       disabled: false,
       id: 'review',
       label: 'Review',
-      state: 'focus',
       tier: 'large',
     },
   );
@@ -27,9 +26,10 @@ test('keeps disabled state on the native-control boundary', () => {
   const presentation = createButtonPresentation({
     id: 'unavailable',
     label: 'Unavailable',
-    state: 'disabled',
+    disabled: true,
   });
 
   assert.equal(presentation.disabled, true);
   assert.equal('ariaPressed' in presentation, false);
+  assert.equal('state' in presentation, false);
 });

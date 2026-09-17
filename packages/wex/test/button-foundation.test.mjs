@@ -21,7 +21,7 @@ test('keeps ordinary Button state transient and accessible', () => {
   assert.match(buttons, /:focus-visible/);
   assert.match(buttons, /:disabled/);
   assert.match(buttons, /--wex-button-disabled-opacity/);
-  assert.doesNotMatch(buttons, /aria-pressed|data-wex-button-state=['"]selected['"]/);
+  assert.doesNotMatch(buttons, /aria-pressed|data-wex-button-state/);
 });
 
 test('does not invent Button geometry or raw colour values', () => {

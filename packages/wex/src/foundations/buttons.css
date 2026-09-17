@@ -127,26 +127,22 @@
   color: var(--wex-button-foreground-default);
 }
 
-.wex-button:not(:disabled):hover,
-.wex-button[data-wex-button-state='hover'] {
+.wex-button:not(:disabled):hover {
   background-color: var(--wex-button-background-hover);
   border-color: var(--wex-button-border-hover);
   color: var(--wex-button-foreground-hover);
 }
 
-.wex-button:not(:disabled):active,
-.wex-button[data-wex-button-state='pressed'] {
+.wex-button:not(:disabled):active {
   background-color: var(--wex-button-background-pressed);
   border-color: var(--wex-button-border-pressed);
   color: var(--wex-button-foreground-pressed);
 }
 
-.wex-button:focus-visible,
-.wex-button[data-wex-button-state='focus'] {
+.wex-button:focus-visible {
   outline: var(--wex-focus-width) solid var(--wex-button-focus-outline);
 }
 
-.wex-button:disabled,
-.wex-button[data-wex-button-state='disabled'] {
+.wex-button:disabled {
   opacity: var(--wex-button-disabled-opacity);
 }

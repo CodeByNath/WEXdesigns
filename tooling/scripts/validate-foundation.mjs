@@ -118,10 +118,8 @@ assert(
   buttonSchema.includes("z.enum(['primary', 'neutral', 'subtle', 'warning', 'danger'])"),
   'Button variants changed',
 );
-assert(
-  buttonSchema.includes("z.enum(['default', 'hover', 'pressed', 'disabled', 'focus'])"),
-  'Button state contract changed',
-);
+assert(!buttonSchema.includes('ButtonStateSchema'), 'Button serializes transient presentation state');
+assert(buttonSchema.includes('disabled: z.boolean().default(false)'), 'Button disabled contract is missing');
 const uiSource = resolve(root, 'packages/ui/src');
 const uiFiles = readdirSync(uiSource).filter((name) => !name.startsWith('.')).sort();
 assert(
@@ -136,8 +134,10 @@ assert(
 const buttonPresentation = read('packages/ui/src/components/button.ts');
 assert(buttonPresentation.includes('createButtonPresentation'), 'Button presentation boundary is missing');
 assert(!buttonPresentation.includes('document.'), 'Shared UI Button depends on the browser runtime');
+assert(!buttonPresentation.includes('ButtonState'), 'Shared UI serializes presentation state');
 const buttonFoundation = read('packages/wex/src/foundations/buttons.css');
 assert(buttonFoundation.includes('.wex-button--warning'), 'WEX Button foundation is missing');
+assert(!buttonFoundation.includes('data-wex-button-state'), 'WEX Button accepts authored presentation state');
 assert(!existsSync(resolve(root, 'test')), 'Repository placeholder still exists');
 
 console.log('Foundation audit passed: authorities, dependencies, CSS structure, tiers, and Button-only boundary are valid.');

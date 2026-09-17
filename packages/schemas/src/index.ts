@@ -9,10 +9,8 @@ export {
 export { WexTierSchema, type WexTier } from './composition/wex-tier.schema.js';
 export {
   ButtonDefinitionSchema,
-  ButtonStateSchema,
   ButtonVariantSchema,
   type ButtonDefinition,
   type ButtonDefinitionInput,
-  type ButtonState,
   type ButtonVariant,
 } from './components/button.schema.js';

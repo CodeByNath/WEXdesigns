@@ -3,7 +3,6 @@ import test from 'node:test';
 
 import {
   ButtonDefinitionSchema,
-  ButtonStateSchema,
   ButtonVariantSchema,
   EntityIdentifierSchema,
   SemanticActionSchema,
@@ -53,22 +52,24 @@ test('keeps the global WEX tier language closed', () => {
   assert.equal(WexTierSchema.safeParse('compact').success, false);
 });
 
-test('defines the accepted Button variants and ordinary state contract', () => {
+test('defines accepted Button variants without serializing presentation state', () => {
   assert.deepEqual(ButtonVariantSchema.options, [
     'primary', 'neutral', 'subtle', 'warning', 'danger',
   ]);
-  assert.deepEqual(ButtonStateSchema.options, ['default', 'hover', 'pressed', 'disabled', 'focus']);
   assert.deepEqual(
-    ButtonDefinitionSchema.parse({ id: 'archive', label: 'Archive', state: 'disabled' }),
+    ButtonDefinitionSchema.parse({ id: 'archive', label: 'Archive', disabled: true }),
     {
       id: 'archive',
       label: 'Archive',
       variant: 'primary',
       tier: 'default',
-      state: 'disabled',
+      disabled: true,
     },
   );
   assert.equal(ButtonVariantSchema.safeParse('secondary').success, false);
   assert.equal(ButtonVariantSchema.safeParse('ghost').success, false);
-  assert.equal(ButtonStateSchema.safeParse('selected').success, false);
+  assert.equal(
+    ButtonDefinitionSchema.safeParse({ id: 'archive', label: 'Archive', state: 'hover' }).success,
+    false,
+  );
 });
