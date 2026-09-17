@@ -1,48 +1,43 @@
 # Button System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Slice 1 — Accepted Button authority moved to `main`
+Status: BUILDER ACTION REQUIRED  
+Phase: Slice 1A — Button contract and WEX presentation foundation
 
 ## Reviewer Verdict
 
 **Proceed**
 
-Reviewer independently inspected `docs/button-authority-proposal` at `fd3c6e791ae1bb77a00ca1eb6130df788d9c7e4d` against current `main` `0af842c66028f48659d74c870186a74deff4031c` and accepted WEX authority.
+Reviewer independently verified `origin/main` at `fd3c6e791ae1bb77a00ca1eb6130df788d9c7e4d` contains the accepted `docs/decisions/0005-button-authority.md` exactly as reviewed. The move from prior `main` changes only that ADR.
 
-Verified:
+Button authority is therefore established on `main`.
 
-- branch is exactly two commits ahead of `main`, containing the reviewed proposal plus the acceptance-only follow-up;
-- net diff from `main` is one new file: `docs/decisions/0005-button-authority.md`;
-- status is explicitly `Accepted — authority only; implementation requires separate Reviewer authorisation`;
-- closed variants are `primary | neutral | subtle | warning | danger`;
-- ordinary Button states are default, hover, transient pressed, disabled, focus;
-- `aria-pressed`/persistent selected behaviour is excluded;
-- exact Light/Dark mappings and Button semantic token contract are defined;
-- audit opening remains Button-only and separately authorised;
-- geometry, icons, toggle behaviour, catalogue, runtime integration, schemas, CSS, UI, tests, and audit tooling remain unimplemented/unapproved by this ADR move;
-- `WEX-SOURCE.md` remains outside the diff.
+## Authorised Builder Scope
 
-Approved authority candidate SHA: `fd3c6e791ae1bb77a00ca1eb6130df788d9c7e4d`.
+Create one topic branch from current `origin/main` and implement only the first technical Button slice:
 
-## Authorised Builder Action
+- serializable Button schema using the closed variants `primary | neutral | subtle | warning | danger`;
+- ordinary Button state contract only: default, hover, transient pressed, disabled, focus;
+- WEX-owned Button component-semantic colour/state tokens and presentation rules matching ADR 0005;
+- platform-neutral shared UI presentation/resolution needed to consume that Button contract;
+- focused tests for schema, WEX Button presentation, shared UI boundary, and accessibility-state mechanics;
+- minimum foundation-audit change required to allow **Button only** while continuing to reject unauthorised component families.
 
-Move **that exact reviewed authority candidate only** to `main` using the normal repository workflow.
+The preserved `review/button-local-recovery` branch may be used as implementation evidence, but do not cherry-pick it wholesale. Retain only code that conforms to accepted authority.
 
-Do not add, edit, reformat, squash with new content, or otherwise change the accepted ADR while moving it. Any content change invalidates this approval.
+## Required Safeguards
 
-After `main` is updated:
+- Do not serialize `secondary` or `ghost`; use `neutral` and `subtle` only.
+- Add `warning`.
+- Do not use `aria-pressed` or persistent selected behaviour for ordinary Button.
+- Shared/UI consumer code must consume Button semantic tokens; no raw primitives or theme selectors there.
+- Do not invent Button geometry in this slice: no new padding, radius, dimensions, tier-to-size mappings, or typography values beyond already-authorised generic mechanics.
+- No runtime preview, catalogue work, GitHub Pages integration, adapters, domain behaviour, icons, toggle Button, Link Button, Dropdown Button, Button Group, or other component family.
+- Do not modify `WEX-SOURCE.md`.
 
-1. verify `origin/main` contains `docs/decisions/0005-button-authority.md` exactly as reviewed;
-2. record the resulting `origin/main` SHA;
-3. confirm no additional files changed;
-4. update this SAME file to `Status: AWAITING REVIEWER REVIEW` with the resulting `main` SHA and evidence;
-5. stop for Reviewer.
+## Verification / Handoff
 
-No Button implementation is authorised yet. After final authority verification on `main`, Reviewer will issue the bounded implementation slice and decide which preserved recovery files may be reused.
+Run the deterministic checks required by the touched packages plus repository `pnpm check` under the repository-supported Node version. If the local runtime is below the declared Node requirement, obtain valid Node 24 verification before handoff.
 
-## Builder Handoff
+Push the topic branch to `origin`, verify the remote SHA, then update this SAME file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA, exact changed files, tests/checks, Node version, and any unresolved issue. Stop for Reviewer.
 
-- Resulting `origin/main` SHA: `fd3c6e791ae1bb77a00ca1eb6130df788d9c7e4d`
-- Remote verification: `origin/main` resolves to that exact reviewed authority commit.
-- Changed file from previous `main` `0af842c66028f48659d74c870186a74deff4031c`: `docs/decisions/0005-button-authority.md` only.
-- Scope confirmation: no Button implementation files changed while moving the authority candidate to `main`.
+No runtime or Pages deployment is authorised in this slice.
