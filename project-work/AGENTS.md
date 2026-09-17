@@ -30,3 +30,22 @@ Roles are `BUILDER` and `REVIEWER`, not model-specific names.
 - Active work files should normally remain under roughly 600 words.
 - Repository and product rules come from authoritative project documentation and verified implementation, never from this coordination branch.
 - Never import product rules from another project.
+
+## Builder Completion and Push Rule
+
+When Builder completes an authorised task or reaches the authorised phase boundary, the work must not remain only on the local machine.
+
+Builder must:
+
+1. run the checks required by the active work file;
+2. commit the completed authorised work on the current approved work branch;
+3. push that work branch to `origin`;
+4. verify the remote branch contains the pushed commit;
+5. report the exact branch name, pushed commit SHA, changed-file list, and check/test results;
+6. stop for Reviewer inspection.
+
+Builder must not merge the work into `main`, move `main`, delete the work branch, or start the next phase unless Reviewer explicitly authorises it.
+
+A local commit, local branch, passing local tests, browser verification, or Builder summary is not a completed handoff. The Reviewer must be able to inspect the pushed remote branch and commit before approval or refusal.
+
+After handing off, Builder must not ask the user to choose the next task. Wait for Reviewer instruction through the active work file.
