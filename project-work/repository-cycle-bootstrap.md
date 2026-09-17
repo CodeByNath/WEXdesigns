@@ -1,57 +1,37 @@
 # Repository Cycle Bootstrap
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Bootstrap — Root cycle entrypoint candidate submitted
+Status: BUILDER ACTION REQUIRED  
+Phase: Bootstrap — Move approved root cycle entrypoint to `main`
 
-## Reviewer Decision
+## Reviewer Verdict
 
-The durable fix is simple:
+**Proceed**
 
-- root `AGENTS.md` on `main` is the cycle entrypoint;
-- `Project-work-instructions/project-work/AGENTS.md` is the workflow authority;
-- active work files under `project-work/` define the current task.
+Reviewer independently inspected candidate branch `chore/root-cycle-entrypoint` at `0af842c66028f48659d74c870186a74deff4031c` against `origin/main` `39c22593fb0041a80ffd76ff9f33af3ee3261ef5`.
 
-This file is the **single active work file** until the root entrypoint is accepted. Button work remains paused.
+Verified:
+
+- candidate is exactly one commit ahead of `main`;
+- the only changed file is new root `AGENTS.md`;
+- `AGENTS.md` correctly redirects `run the cycle`, `continue the work`, and equivalent triggers to `origin/Project-work-instructions`;
+- it requires reading `project-work/AGENTS.md`, relevant `PROJECT-RULES.md`, and the single active work file;
+- it prohibits Builder self-approval/self-advance and requires pushed-branch handoff to `AWAITING REVIEWER REVIEW`;
+- it remains workflow bootstrap only and does not invent WEX architecture.
+
+Approved candidate SHA: `0af842c66028f48659d74c870186a74deff4031c`.
 
 ## Authorised Builder Action
 
-Create a small isolated work branch from current `origin/main` containing **only** a new root `AGENTS.md`.
+Move **that exact reviewed candidate only** to `main` using the repository's normal merge/push workflow.
 
-The root `AGENTS.md` must say, in substance:
+Do not add, edit, reformat, squash with new content, or otherwise change the approved `AGENTS.md` while moving it to `main`. Any source-content change invalidates this approval and requires another review.
 
-1. This repository is `CodeByNath/WEXdesigns` and is independent from sibling repositories.
-2. On `run the cycle`, `continue the work`, `review the latest work`, or equivalent, do not interpret the request as `pnpm check` or another package script.
-3. First fetch `origin/Project-work-instructions`.
-4. Read, from that branch:
-   - `project-work/AGENTS.md`
-   - `project-work/PROJECT-RULES.md` when relevant
-   - the single active work file under `project-work/`
-5. Follow the active file's `Status`, `Phase`, actor, scope, exclusions, evidence requirements, and next action literally.
-6. Builder may not self-approve, self-advance, invent new work, or merge to `main` without Reviewer instruction.
-7. After authorised work, Builder must commit and push the work branch to `origin`, update the SAME active work file to `Status: AWAITING REVIEWER REVIEW`, record branch/SHA/evidence, and stop.
-8. Product/system authority remains repository architecture, accepted ADRs, historical WEX source, and verified implementation. The root `AGENTS.md` is workflow bootstrap only.
+After `main` is updated:
 
-Do not add WEX architecture, Button rules, component rules, or domain rules to root `AGENTS.md`.
+1. verify `origin/main` contains the approved `AGENTS.md` content;
+2. record the exact resulting `origin/main` SHA;
+3. update this SAME file to `Status: AWAITING REVIEWER REVIEW`;
+4. record the resulting `main` SHA and confirmation that no additional files changed;
+5. stop for final Reviewer verification.
 
-## Branch / Handoff
-
-- Branch from `origin/main`.
-- Change only root `AGENTS.md`.
-- Commit and push the branch to `origin`.
-- Verify the remote contains the pushed commit.
-- Update this SAME work file to `Status: AWAITING REVIEWER REVIEW` and record the exact branch, pushed SHA, and required evidence.
-- Do not modify or merge `main`.
-- Stop for Reviewer.
-
-A Builder handoff is incomplete until the pushed candidate is remotely inspectable **and this file says `AWAITING REVIEWER REVIEW`**.
-
-After Reviewer accepts this bootstrap and it reaches `main`, future fresh Builder sessions should discover the cycle correctly without a corrective prompt.
-
-## Builder Handoff
-
-- Candidate branch: `chore/root-cycle-entrypoint`
-- Pushed commit: `0af842c66028f48659d74c870186a74deff4031c`
-- Remote verification: `origin/chore/root-cycle-entrypoint` resolves to that exact commit.
-- Changed file: root `AGENTS.md` only.
-- Evidence: `git diff --check` passed; no package validation was required because the candidate is workflow documentation only.
-- Scope confirmation: no WEX, Button, component, domain, or `main` source was changed.
+Button work remains paused until this bootstrap is verified on `main`.
