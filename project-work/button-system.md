@@ -1,43 +1,31 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Slice 1B — Button geometry authority resolution
+Status: AWAITING REVIEWER REVIEW
+Phase: Slice 1B submitted — Button geometry authority proposal
 
-## Reviewer Verdict
+## Submitted Proposal
 
-**Proceed**
+Branch: `docs/button-geometry-authority`
+Remote SHA: `88538039435fb15507cd4486a0caf389f5b8ef56` (verified with `git ls-remote`)
 
-Reviewer independently verified `origin/main` is exactly `46bdaf04ac1e90d49b908417321d9363888e6970`, the reviewed Slice 1A candidate. The promotion introduced no additional content beyond the accepted 11-file Button foundation diff.
+Changed file: `docs/decisions/0006-button-geometry-authority.md` only.
 
-Slice 1A is accepted on `main`: the Button schema uses only `primary | neutral | subtle | warning | danger` plus authored `disabled`; transient hover/pressed/focus remain WEX/native presentation behaviour; shared UI remains platform-neutral; the foundation audit preserves the Button-only boundary.
+## Authority Inspected
 
-## Authorised Builder Action
+- historical WEX Button Foundation and global-tier guidance in `packages/wex/src/source/WEX-SOURCE.md`;
+- accepted ADRs `0004` and `0005`;
+- verified `main` Button foundation plus current `spacing.css`, `sizing.css`, `typography.css`, and `interaction.css`.
 
-Perform **authority-resolution only** for Button geometry. Do not implement geometry yet.
+The ADR identifies the genuine gap: existing authority provides Navigation tier typography, spacing primitives, and a 2px focus width, but no Button outer-size, padding, border-width, radius, or focus-offset decision. It treats recovery-branch geometry as non-authoritative and rejects its conflicting typography.
 
-Create a dedicated topic branch from current `origin/main` and prepare a Proposed/Draft Button geometry ADR that resolves the minimum presentation contract needed for Small, Default, and Large Buttons.
+## Proposed Values
 
-Inspect and cite current repository authority before proposing values, including:
+| Tier | Minimum block | Block / inline padding | Typography |
+| --- | --- | --- | --- |
+| Small | 32px | 4px / 12px | Navigation Small Semibold, 14px / 20px / 600 |
+| Default | 40px | 4px / 16px | Navigation Default Semibold, 16px / 24px / 600 |
+| Large | 48px | 8px / 24px | Navigation Large Semibold, 20px / 28px / 600 |
 
-- historical WEX Button/Interaction source;
-- accepted Button ADR 0005;
-- current spacing, sizing, typography, border/radius, and interaction foundations/ADRs;
-- verified Button foundation now on `main`.
+All variants share tier geometry. The proposal specifies a stable 1px border, radius 0, 2px focus outline with 2px offset, and no new primitives.
 
-The proposal must explicitly resolve:
-
-- Small / Default / Large minimum block size;
-- vertical and horizontal padding per tier;
-- typography mapping per tier;
-- border width and radius treatment;
-- focus outline width/offset interaction where geometry-specific;
-- whether tier geometry is identical across all five Button variants;
-- any genuine authority gap rather than inventing new primitives locally.
-
-## Exclusions
-
-No schema changes, CSS geometry implementation, shared UI changes, runtime preview, catalogue, GitHub Pages work, adapters, icons, toggle/link/dropdown/group variants, domain behaviour, or `WEX-SOURCE.md` edits. Do not revive values from `review/button-local-recovery` merely because they already exist; treat that branch as evidence only and compare it against repository authority.
-
-## Handoff
-
-Push the geometry-authority proposal branch to `origin`, verify the remote SHA, then update this SAME file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA, changed files, authority inspected, proposed tier values, unresolved questions, and confirmation that implementation remains unchanged. Stop for Reviewer.
+Unresolved question: none within this authority proposal; acceptance remains Reviewer-owned. No schema, CSS, shared UI, runtime, catalogue, Pages, adapter, icon, domain, or historical-source implementation change was made. `pnpm audit:foundation` passes under Node `v24.21.0` / pnpm `11.16.0`.
