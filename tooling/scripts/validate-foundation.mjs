@@ -113,10 +113,31 @@ assert(
   'WEX tier contract changed',
 );
 
+const buttonSchema = read('packages/schemas/src/components/button.schema.ts');
+assert(
+  buttonSchema.includes("z.enum(['primary', 'neutral', 'subtle', 'warning', 'danger'])"),
+  'Button variants changed',
+);
+assert(
+  buttonSchema.includes("z.enum(['default', 'hover', 'pressed', 'disabled', 'focus'])"),
+  'Button state contract changed',
+);
 const uiSource = resolve(root, 'packages/ui/src');
-const uiFiles = readdirSync(uiSource).filter((name) => !name.startsWith('.'));
-assert(uiFiles.length === 1 && uiFiles[0] === 'index.ts', 'UI components exist before authorization');
-assert(read('packages/ui/src/index.ts').trim() === 'export {};', 'UI boundary is not empty');
+const uiFiles = readdirSync(uiSource).filter((name) => !name.startsWith('.')).sort();
+assert(
+  JSON.stringify(uiFiles) === JSON.stringify(['components', 'index.ts']),
+  'UI exceeds the Button-only boundary',
+);
+const uiComponents = readdirSync(resolve(uiSource, 'components')).filter((name) => !name.startsWith('.'));
+assert(
+  JSON.stringify(uiComponents) === JSON.stringify(['button.ts']),
+  'Unauthorised UI component exists',
+);
+const buttonPresentation = read('packages/ui/src/components/button.ts');
+assert(buttonPresentation.includes('createButtonPresentation'), 'Button presentation boundary is missing');
+assert(!buttonPresentation.includes('document.'), 'Shared UI Button depends on the browser runtime');
+const buttonFoundation = read('packages/wex/src/foundations/buttons.css');
+assert(buttonFoundation.includes('.wex-button--warning'), 'WEX Button foundation is missing');
 assert(!existsSync(resolve(root, 'test')), 'Repository placeholder still exists');
 
-console.log('Foundation audit passed: authorities, dependencies, CSS structure, tiers, and stop gate are valid.');
+console.log('Foundation audit passed: authorities, dependencies, CSS structure, tiers, and Button-only boundary are valid.');

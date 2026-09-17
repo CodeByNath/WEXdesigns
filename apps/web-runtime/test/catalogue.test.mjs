@@ -4,8 +4,8 @@ import test from 'node:test';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/catalogue.css', import.meta.url), 'utf8');
-const uiBoundary = await readFile(
-  new URL('../../../packages/ui/src/index.ts', import.meta.url),
+const buttonPresentation = await readFile(
+  new URL('../../../packages/ui/src/components/button.ts', import.meta.url),
   'utf8',
 );
 const elementDirectories = await readdir(
@@ -38,6 +38,7 @@ test('uses the canonical WEX foundation bundle', () => {
   assert.doesNotMatch(css, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
-test('keeps the shared UI package component-empty', () => {
-  assert.equal(uiBoundary.trim(), 'export {};');
+test('keeps the shared Button presentation platform-neutral', () => {
+  assert.match(buttonPresentation, /createButtonPresentation/);
+  assert.doesNotMatch(buttonPresentation, /document\.|aria-pressed|#[0-9a-f]{3,8}/i);
 });

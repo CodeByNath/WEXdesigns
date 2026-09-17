@@ -1,8 +1,152 @@
-/*
- * WEX Button Foundation
- *
- * The canonical authority defines Primary, Secondary, Ghost, and Danger
- * semantics across Small, Default, and Large. The approved colour extension
- * now supplies destructive semantic roles. Component geometry remains
- * unresolved, so this foundation does not invent button selectors or values.
- */
+/* WEX Button colour and state foundation. Geometry remains intentionally unresolved. */
+
+:root,
+[data-wex-theme='light'] {
+  --wex-button-primary-background-default: var(--wex-color-background-accent);
+  --wex-button-primary-background-hover: var(--wex-color-background-accent-hover);
+  --wex-button-primary-background-pressed: var(--wex-color-background-accent-selected);
+  --wex-button-primary-foreground-default: var(--wex-color-on-accent);
+  --wex-button-primary-foreground-hover: var(--wex-color-on-accent-hover);
+  --wex-button-primary-foreground-pressed: var(--wex-color-on-accent-selected);
+  --wex-button-primary-border-default: transparent;
+  --wex-button-primary-border-hover: transparent;
+  --wex-button-primary-border-pressed: transparent;
+
+  --wex-button-neutral-background-default: var(--wex-color-background-primary);
+  --wex-button-neutral-background-hover: var(--wex-color-background-secondary);
+  --wex-button-neutral-background-pressed: var(--wex-color-light-grey);
+  --wex-button-neutral-foreground-default: var(--wex-color-text-primary);
+  --wex-button-neutral-foreground-hover: var(--wex-color-text-primary);
+  --wex-button-neutral-foreground-pressed: var(--wex-color-text-primary);
+  --wex-button-neutral-border-default: var(--wex-color-border-primary);
+  --wex-button-neutral-border-hover: var(--wex-color-border-primary);
+  --wex-button-neutral-border-pressed: var(--wex-color-border-primary);
+
+  --wex-button-subtle-background-default: transparent;
+  --wex-button-subtle-background-hover: var(--wex-color-background-secondary);
+  --wex-button-subtle-background-pressed: var(--wex-color-light-grey);
+  --wex-button-subtle-foreground-default: var(--wex-color-text-accent);
+  --wex-button-subtle-foreground-hover: var(--wex-color-text-accent);
+  --wex-button-subtle-foreground-pressed: var(--wex-color-text-accent);
+  --wex-button-subtle-border-default: transparent;
+  --wex-button-subtle-border-hover: transparent;
+  --wex-button-subtle-border-pressed: transparent;
+
+  --wex-button-warning-background-default: var(--wex-color-background-warning);
+  --wex-button-warning-background-hover: var(--wex-color-background-warning-hover);
+  --wex-button-warning-background-pressed: var(--wex-color-background-warning-selected);
+  --wex-button-warning-foreground-default: var(--wex-color-on-warning);
+  --wex-button-warning-foreground-hover: var(--wex-color-on-warning-hover);
+  --wex-button-warning-foreground-pressed: var(--wex-color-on-warning-selected);
+  --wex-button-warning-border-default: transparent;
+  --wex-button-warning-border-hover: transparent;
+  --wex-button-warning-border-pressed: transparent;
+
+  --wex-button-danger-background-default: var(--wex-color-background-error);
+  --wex-button-danger-background-hover: var(--wex-color-background-error-hover);
+  --wex-button-danger-background-pressed: var(--wex-color-background-error-selected);
+  --wex-button-danger-foreground-default: var(--wex-color-on-error);
+  --wex-button-danger-foreground-hover: var(--wex-color-on-error-hover);
+  --wex-button-danger-foreground-pressed: var(--wex-color-on-error-selected);
+  --wex-button-danger-border-default: transparent;
+  --wex-button-danger-border-hover: transparent;
+  --wex-button-danger-border-pressed: transparent;
+
+  --wex-button-focus-outline: var(--wex-color-border-focus);
+  --wex-button-disabled-opacity: var(--wex-opacity-disabled);
+}
+
+[data-wex-theme='dark'] {
+  --wex-button-neutral-background-pressed: var(--wex-color-dark-grey);
+  --wex-button-subtle-background-pressed: var(--wex-color-dark-grey);
+}
+
+.wex-button--primary {
+  --wex-button-background-default: var(--wex-button-primary-background-default);
+  --wex-button-background-hover: var(--wex-button-primary-background-hover);
+  --wex-button-background-pressed: var(--wex-button-primary-background-pressed);
+  --wex-button-foreground-default: var(--wex-button-primary-foreground-default);
+  --wex-button-foreground-hover: var(--wex-button-primary-foreground-hover);
+  --wex-button-foreground-pressed: var(--wex-button-primary-foreground-pressed);
+  --wex-button-border-default: var(--wex-button-primary-border-default);
+  --wex-button-border-hover: var(--wex-button-primary-border-hover);
+  --wex-button-border-pressed: var(--wex-button-primary-border-pressed);
+}
+
+.wex-button--neutral {
+  --wex-button-background-default: var(--wex-button-neutral-background-default);
+  --wex-button-background-hover: var(--wex-button-neutral-background-hover);
+  --wex-button-background-pressed: var(--wex-button-neutral-background-pressed);
+  --wex-button-foreground-default: var(--wex-button-neutral-foreground-default);
+  --wex-button-foreground-hover: var(--wex-button-neutral-foreground-hover);
+  --wex-button-foreground-pressed: var(--wex-button-neutral-foreground-pressed);
+  --wex-button-border-default: var(--wex-button-neutral-border-default);
+  --wex-button-border-hover: var(--wex-button-neutral-border-hover);
+  --wex-button-border-pressed: var(--wex-button-neutral-border-pressed);
+}
+
+.wex-button--subtle {
+  --wex-button-background-default: var(--wex-button-subtle-background-default);
+  --wex-button-background-hover: var(--wex-button-subtle-background-hover);
+  --wex-button-background-pressed: var(--wex-button-subtle-background-pressed);
+  --wex-button-foreground-default: var(--wex-button-subtle-foreground-default);
+  --wex-button-foreground-hover: var(--wex-button-subtle-foreground-hover);
+  --wex-button-foreground-pressed: var(--wex-button-subtle-foreground-pressed);
+  --wex-button-border-default: var(--wex-button-subtle-border-default);
+  --wex-button-border-hover: var(--wex-button-subtle-border-hover);
+  --wex-button-border-pressed: var(--wex-button-subtle-border-pressed);
+}
+
+.wex-button--warning {
+  --wex-button-background-default: var(--wex-button-warning-background-default);
+  --wex-button-background-hover: var(--wex-button-warning-background-hover);
+  --wex-button-background-pressed: var(--wex-button-warning-background-pressed);
+  --wex-button-foreground-default: var(--wex-button-warning-foreground-default);
+  --wex-button-foreground-hover: var(--wex-button-warning-foreground-hover);
+  --wex-button-foreground-pressed: var(--wex-button-warning-foreground-pressed);
+  --wex-button-border-default: var(--wex-button-warning-border-default);
+  --wex-button-border-hover: var(--wex-button-warning-border-hover);
+  --wex-button-border-pressed: var(--wex-button-warning-border-pressed);
+}
+
+.wex-button--danger {
+  --wex-button-background-default: var(--wex-button-danger-background-default);
+  --wex-button-background-hover: var(--wex-button-danger-background-hover);
+  --wex-button-background-pressed: var(--wex-button-danger-background-pressed);
+  --wex-button-foreground-default: var(--wex-button-danger-foreground-default);
+  --wex-button-foreground-hover: var(--wex-button-danger-foreground-hover);
+  --wex-button-foreground-pressed: var(--wex-button-danger-foreground-pressed);
+  --wex-button-border-default: var(--wex-button-danger-border-default);
+  --wex-button-border-hover: var(--wex-button-danger-border-hover);
+  --wex-button-border-pressed: var(--wex-button-danger-border-pressed);
+}
+
+.wex-button {
+  background-color: var(--wex-button-background-default);
+  border-color: var(--wex-button-border-default);
+  color: var(--wex-button-foreground-default);
+}
+
+.wex-button:not(:disabled):hover,
+.wex-button[data-wex-button-state='hover'] {
+  background-color: var(--wex-button-background-hover);
+  border-color: var(--wex-button-border-hover);
+  color: var(--wex-button-foreground-hover);
+}
+
+.wex-button:not(:disabled):active,
+.wex-button[data-wex-button-state='pressed'] {
+  background-color: var(--wex-button-background-pressed);
+  border-color: var(--wex-button-border-pressed);
+  color: var(--wex-button-foreground-pressed);
+}
+
+.wex-button:focus-visible,
+.wex-button[data-wex-button-state='focus'] {
+  outline: var(--wex-focus-width) solid var(--wex-button-focus-outline);
+}
+
+.wex-button:disabled,
+.wex-button[data-wex-button-state='disabled'] {
+  opacity: var(--wex-button-disabled-opacity);
+}
