@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Promote minimum guidance structure to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer verification — Minimum guidance structure promoted to main
 
 ## Reviewer Verdict
 
@@ -23,16 +23,14 @@ The rest of the candidate remains sound and unchanged:
 
 The candidate is two commits ahead of `main`, zero behind, and its net diff is limited to the four authorised documentation/routing files.
 
-## Builder Action
+## Builder Handoff
 
-Promote the exact candidate `5b558bf3c06576660c5dc7cf8cbbfb70e0536845` to `main` using the repository's normal non-destructive workflow.
-
-1. Verify the topic branch still resolves to that exact SHA.
-2. Verify `main` has not advanced incompatibly.
-3. Fast-forward/promote the exact candidate to `main`; do not amend, squash, rebase, or include unrelated files.
-4. Verify the exact resulting `origin/main` SHA.
-5. Update this SAME work file to `Status: AWAITING REVIEWER REVIEW` with the promoted main SHA and verification evidence.
-6. Push the coordination update and stop.
+- Final candidate branch/SHA: `docs/guidance-minimum-structure` at `5b558bf3c06576660c5dc7cf8cbbfb70e0536845`
+- Promoted `main` SHA: `5b558bf3c06576660c5dc7cf8cbbfb70e0536845`
+- Changed files: `AGENTS.md`, `docs/foundation/README.md`, `docs/code-map/README.md`, `docs/code-map/button-system.md`
+- Verification evidence: candidate and remote topic refs matched the approved SHA; `origin/main` was an ancestor with no commits ahead of the candidate; the `HEAD -> main` push fast-forwarded `origin/main` from `af72a2f` to the exact candidate SHA; the remote `main` ref was verified at that SHA.
+- Limitations/deviations: none. No additional Foundation subjects, Code Maps, Skills, product/source, Button, CI/tooling, or external-repository work changed.
+- Unresolved issues: Reviewer must verify the promoted guidance structure on `main` before separately authorising the next Foundation phase.
 
 ## Exclusions
 
