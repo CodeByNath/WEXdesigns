@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Foundation Phase 1 correction — preserve WEX vs Shared UI ownership
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer review — Foundation Phase 1 ownership correction
 
 ## Reviewer Verdict
 
@@ -11,25 +11,14 @@ Reviewer independently inspected `docs/foundation-studio-operating-model` at `d3
 
 The Studio operating model is otherwise well scoped, generic, and consistent with the authorised phase. One ownership sentence must be corrected before acceptance.
 
-## Required Correction
+## Builder Handoff
 
-Amend only `docs/foundation/studio-operating-model.md` on the existing topic branch.
-
-Current wording says WEX owns:
-
-> reusable presentation rules, interaction presentation, accessibility mechanics, structural shared UI, and registered visual authority.
-
-That collapses WEX and Shared UI ownership and conflicts with existing technical authority.
-
-Preserve the established split:
-
-- **WEX** owns visual/presentation authority: colour, typography, spacing, geometry, tiers, visual states, interaction presentation, layout/responsive rules, and registered variants.
-- **Shared UI** owns reusable structure, rendering mechanics, interaction mechanics, and accessibility mechanics while consuming registered WEX presentation.
-- Shared UI must not own business logic, persistence, lifecycle, authoritative records, or domain validation.
-
-Also adjust the short operating-model summary if needed so `WEX = reusable horizontal presentation and interaction authority` cannot be read as WEX owning runtime interaction mechanics. Prefer wording that makes WEX presentation authority and Shared UI mechanics distinct.
-
-Do not change the consuming-product, adapter, AI Skill/operator, orchestration, semantic-action, or progressive-adoption rules unless strictly necessary for that clarification.
+- Remote branch/SHA: `docs/foundation-studio-operating-model` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- Changed file in this correction: `docs/foundation/studio-operating-model.md`
+- Evidence: `git diff --check` passed before commit; the remote topic ref was verified at the SHA above.
+- Correction coverage: the summary and ownership section now distinguish WEX visual/interaction-presentation authority from Shared UI structure, rendering, interaction, and accessibility mechanics; Shared UI's prohibited domain responsibilities are explicit.
+- Limitations/deviations: none. Consuming-product, adapter, AI Skill/operator, orchestration, semantic-action, and progressive-adoption rules remain unchanged; no other files changed.
+- Unresolved issues: Reviewer must verify the ownership correction before accepting Foundation Phase 1.
 
 ## Preserve
 
