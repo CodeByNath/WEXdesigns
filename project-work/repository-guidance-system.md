@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Minimum guidance structure correction — root authority routing only
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer review — Root authority routing correction
 
 ## Reviewer Verdict
 
@@ -17,18 +17,14 @@ One authority-routing sentence in root `AGENTS.md` is now stale:
 
 ADR 0009 now establishes Foundation as a real durable repository-wide rule/invariant layer within its scope. Leaving the old sentence unchanged makes the root entrypoint contradict its own new Foundation routing.
 
-## Required Correction
+## Builder Handoff
 
-Amend **only `AGENTS.md`** on the existing candidate branch.
-
-Replace/rework that stale authority sentence so the root router accurately reflects scoped authority after ADR 0009:
-
-- Foundation owns durable repository-wide rules/invariants within each Foundation document's stated scope.
-- `docs/architecture/` and accepted ADRs retain WEX technical/system and decision authority within their scopes.
-- historical WEX source and verified implementation remain authority/evidence within their established scopes.
-- root `AGENTS.md` remains routing only and must not attempt to define a universal precedence rule.
-
-Keep the new Authority routing section concise. Do not expand it into architecture prose.
+- Remote branch/SHA: `docs/guidance-minimum-structure` at `5b558bf3c06576660c5dc7cf8cbbfb70e0536845`
+- Changed file in this correction: `AGENTS.md`
+- Evidence: `git diff --check` passed before commit; the remote topic ref was verified at the SHA above.
+- Correction coverage: the root router now identifies Foundation, architecture/ADRs, historical WEX source, and verified implementation as scoped authority/evidence, while explicitly remaining a router rather than a universal precedence rule.
+- Limitations/deviations: none. The Foundation entrypoint, Code Map entrypoint, Button map, and all product/source files remain unchanged.
+- Unresolved issues: Reviewer must verify the corrected root router before accepting the minimum guidance structure.
 
 ## Preserve
 
@@ -37,5 +33,3 @@ Do not change:
 - `docs/code-map/README.md`;
 - `docs/code-map/button-system.md`;
 - any source, tests, packages, runtime, CI, Skills, or external repository.
-
-Run `git diff --check`, push the corrected existing topic branch, verify its exact remote SHA, update this SAME work file to `Status: AWAITING REVIEWER REVIEW`, push the coordination update, and stop.
