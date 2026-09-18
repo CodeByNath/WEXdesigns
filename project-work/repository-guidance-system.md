@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Authority proposal — Foundation, Code Map, AGENTS routing, and Skills navigation
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer review — Repository guidance architecture authority proposal
 
 ## Objective
 
@@ -45,6 +45,15 @@ Inspect only this repository, including:
 ## Deliverable
 
 Create a new **Proposed** ADR under `docs/decisions/` defining this repository guidance architecture.
+
+## Builder Handoff
+
+- Remote branch: `docs/repository-guidance-architecture`
+- Remote SHA: `c47cf2e9df12d248bba820edc82d1f040d7c6a30`
+- Changed files: `docs/decisions/0009-repository-guidance-architecture.md`
+- Evidence: the branch is pushed and its remote ref was verified at the SHA above; `git diff --check` passed before commit.
+- Limitations/deviations: none. The proposal creates no Foundation or Code Map files, changes no root `AGENTS.md`, and makes no product/source changes.
+- Unresolved issues: Reviewer must decide whether to accept the proposed authority architecture before any implementation phase is authorised.
 
 The ADR must resolve:
 
