@@ -1,30 +1,59 @@
 # Repository Guidance System Work Cycle
 
-Status: ACCEPTED
-Phase: Foundation Phase 1 — Studio operating model accepted on main
+Status: BUILDER ACTION REQUIRED
+Phase: Branch housekeeping before WEX Foundation Code Maps
 
 ## Reviewer Verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Reviewer independently verified the promoted Foundation Phase 1 against current `main`, accepted ADR 0009, `docs/architecture/authority-model.md`, and `docs/architecture/dependency-rules.md`.
+Foundation Phase 1 is accepted. The next work is authorised only in the sequence below.
 
-## Verification
+## Phase 0 — Repository branch housekeeping
 
-- Approved candidate: `docs/foundation-studio-operating-model` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`.
-- Current `main` is identical to that exact SHA: zero commits ahead, zero behind.
-- Promotion from prior `main` `5b558bf3c06576660c5dc7cf8cbbfb70e0536845` is two commits and changes only:
-  - `docs/foundation/README.md`;
-  - `docs/foundation/studio-operating-model.md`.
-- `docs/foundation/studio-operating-model.md` correctly separates ownership:
-  - WEX owns visual and interaction-presentation authority.
-  - Shared UI owns reusable structure, rendering, interaction, and accessibility mechanics while consuming WEX presentation.
-  - Product/domain authority, adapters, AI Skills/operators, orchestration, semantic-action use, and progressive adoption remain bounded.
-- The Foundation document states its scope, links to existing authority, and does not introduce runtime APIs, permissions models, payloads, AI autonomy rules, product implementation, or other excluded architecture.
-- No unrelated source, Button, schema/UI/WEX/adapters/catalogue/runtime, Code Map, Skill, CI/tooling, or external-repository changes were included.
+Before creating another topic branch:
 
-## Result
+1. Fetch current remote state and verify `origin` is exactly `CodeByNath/WEXdesigns`.
+2. Inventory remote branches and compare each historical work branch with current `main`.
+3. Classify branches as:
+   - safely merged/contained in `main`;
+   - still required/unmerged;
+   - uncertain.
+4. Delete only remote topic branches proven fully merged/contained and no longer required.
+5. Never delete `main` or `Project-work-instructions`.
+6. Do not delete uncertain/unmerged branches. Report them for Reviewer decision.
+7. Do not create the new Code Map topic branch yet.
+8. Update this file with exact branch inventory, deletions, retained branches, evidence, and any uncertainty; then stop for Reviewer.
 
-Foundation Phase 1 is accepted on `main`.
+The repository now permits only one active implementation/topic work branch at a time under the coordination workflow.
 
-No additional Foundation subject or subsequent phase is authorised by this acceptance. Further work requires a separately authorised phase in this same work area or another explicitly activated work area.
+## Planned Phase 1 — WEX Foundation Code Maps
+
+This phase is **not yet executable** until Phase 0 is reviewed.
+
+After housekeeping acceptance, Builder may be authorised to audit current `main` and create Code Maps only for demonstrated WEX foundation systems already present in source.
+
+Expected subjects, subject to source verification:
+
+- Colour — `packages/wex/src/foundations/colour.css`
+- Typography/font delivery — `font-family.css`, `typography.css`, and current WEX font package dependency
+- Spacing — `spacing.css`; padding is usage of spacing authority, not a separate token authority unless source proves otherwise
+- Interaction/focus — `interaction.css`
+- Layout — `layout.css`
+- Sizing/tier system — `sizing.css`, only to the extent current authority/source supports a meaningful map
+
+Do not invent a Geometry/Border/Radius map unless independent demonstrated authority/source exists beyond component-local rules.
+
+Each map must follow ADR 0009: navigation only, with verification metadata, authority links, actual source/tests/checks, dependency path, safe change routing, and no duplicated token tables/contracts.
+
+## Planned Phase 2 — Button map integration
+
+Only after the new Foundation maps are accepted:
+
+- update `docs/code-map/button-system.md` to link to the accepted foundation maps it consumes;
+- do not duplicate spacing, colour, typography, focus, layout, or geometry values in the Button map;
+- refresh Button map verification metadata against the then-current `main`.
+
+## Exclusions
+
+Do not modify WEX source, Button source, schemas, UI, adapters, applications, CI/tooling, Foundation rules, ADRs, or external repositories during these documentation phases.
