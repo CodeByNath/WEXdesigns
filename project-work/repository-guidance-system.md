@@ -1,35 +1,41 @@
 # Repository Guidance System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Reviewer review — Root authority routing correction
+Status: BUILDER ACTION REQUIRED  
+Phase: Promote minimum guidance structure to main
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Reviewer independently inspected `docs/guidance-minimum-structure` at `109eb054a6cab14cb49a1235ef2f5dbccd6ef4f6` against accepted ADR 0009 and current `main`.
+Reviewer independently inspected corrected candidate `docs/guidance-minimum-structure` at `5b558bf3c06576660c5dc7cf8cbbfb70e0536845` against accepted ADR 0009 and current `main`.
 
-The candidate is correctly limited to four documentation/routing files. The Foundation entrypoint, Code Map entrypoint, Button map, mapped source paths, focused tests, package dependencies, and Button authority links are consistent with current `main`.
+The root authority-routing correction is now consistent with ADR 0009:
 
-One authority-routing sentence in root `AGENTS.md` is now stale:
+- Foundation is represented as a scoped durable rule/invariant layer.
+- `docs/architecture/` and accepted ADRs retain their own technical/system and decision authority.
+- historical WEX source and verified implementation remain authority/evidence within established scopes.
+- root `AGENTS.md` remains a router and explicitly avoids defining a universal precedence rule.
 
-> Product and system authority remains the repository architecture, accepted ADRs, historical WEX source, and verified implementation.
-
-ADR 0009 now establishes Foundation as a real durable repository-wide rule/invariant layer within its scope. Leaving the old sentence unchanged makes the root entrypoint contradict its own new Foundation routing.
-
-## Builder Handoff
-
-- Remote branch/SHA: `docs/guidance-minimum-structure` at `5b558bf3c06576660c5dc7cf8cbbfb70e0536845`
-- Changed file in this correction: `AGENTS.md`
-- Evidence: `git diff --check` passed before commit; the remote topic ref was verified at the SHA above.
-- Correction coverage: the root router now identifies Foundation, architecture/ADRs, historical WEX source, and verified implementation as scoped authority/evidence, while explicitly remaining a router rather than a universal precedence rule.
-- Limitations/deviations: none. The Foundation entrypoint, Code Map entrypoint, Button map, and all product/source files remain unchanged.
-- Unresolved issues: Reviewer must verify the corrected root router before accepting the minimum guidance structure.
-
-## Preserve
-
-Do not change:
+The rest of the candidate remains sound and unchanged:
 - `docs/foundation/README.md`;
 - `docs/code-map/README.md`;
-- `docs/code-map/button-system.md`;
-- any source, tests, packages, runtime, CI, Skills, or external repository.
+- `docs/code-map/button-system.md`.
+
+The candidate is two commits ahead of `main`, zero behind, and its net diff is limited to the four authorised documentation/routing files.
+
+## Builder Action
+
+Promote the exact candidate `5b558bf3c06576660c5dc7cf8cbbfb70e0536845` to `main` using the repository's normal non-destructive workflow.
+
+1. Verify the topic branch still resolves to that exact SHA.
+2. Verify `main` has not advanced incompatibly.
+3. Fast-forward/promote the exact candidate to `main`; do not amend, squash, rebase, or include unrelated files.
+4. Verify the exact resulting `origin/main` SHA.
+5. Update this SAME work file to `Status: AWAITING REVIEWER REVIEW` with the promoted main SHA and verification evidence.
+6. Push the coordination update and stop.
+
+## Exclusions
+
+Do not begin the Studio operating model, AI-operability Foundation rules, additional Foundation subjects, additional Code Maps, Skills, product/source changes, Button changes, CI/tooling changes, or any external-repository work.
+
+The next Foundation phase remains separately gated until Reviewer verifies this structure on `main`.
