@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Authority proposal correction — Foundation role, authority model, and Code Map verification
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer review — Corrected repository guidance authority proposal
 
 ## Reviewer Verdict
 
@@ -42,4 +42,10 @@ Do not add Foundation files, Code Map files, root `AGENTS.md` changes, Skills, p
 
 ## Handoff
 
-Push the corrected proposal branch, verify the exact remote SHA, update this SAME file to `Status: AWAITING REVIEWER REVIEW` with the new SHA and evidence, and stop.
+- Remote branch: `docs/repository-guidance-architecture`
+- Remote SHA: `0aadf5c1476033e322b6b43b1704752f93beff28`
+- Changed files: `docs/decisions/0009-repository-guidance-architecture.md`
+- Evidence: the remote branch was verified at the SHA above; `git diff --check` passed before commit.
+- Correction coverage: Foundation is a durable scoped rule layer; WEX technical architecture remains distinct; source and verification evidence are separated; root `AGENTS.md` is an index/router; Code Map verification records dates plus branch/ref or SHA; demonstrated-only mapping remains explicit.
+- Limitations/deviations: none. No Foundation or Code Map files, root `AGENTS.md`, Skills, product/source code, or external-repository work changed.
+- Unresolved issues: Reviewer must decide whether the corrected proposal is acceptable before any implementation phase is authorised.
