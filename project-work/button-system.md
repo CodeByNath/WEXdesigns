@@ -1,21 +1,43 @@
 # Button System Work Cycle
 
-Status: ACCEPTED
-Phase: Slice 1D semantic-action authority accepted — implementation remains unauthorised
+Status: BUILDER ACTION REQUIRED  
+Phase: Slice 1D — Prepare accepted semantic-action authority candidate
 
 ## Reviewer Verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Reviewer independently verified remote branch `docs/button-semantic-action-authority` at `8c49e121141848192f335f2c3c4d030c65e3fcde` with `git ls-remote`.
+Reviewer re-verified `docs/button-semantic-action-authority` at `8c49e121141848192f335f2c3c4d030c65e3fcde` against current `main` `f514db3d9894ad277aacdea9fcbcc2704c6618c0`.
 
-Verified scope: the branch adds only `docs/decisions/0007-button-semantic-action-authority.md`; `git diff --check` passes.
+The branch is two commits ahead of `main` and its net source change is exactly one file: `docs/decisions/0007-button-semantic-action-authority.md`.
 
-The decision is consistent with the verified `main` composition architecture, current `SemanticActionSchema`, Button presentation boundary, and ADRs 0005/0006:
+The two requested safeguards are correctly resolved:
 
-1. The serializable embedded action retains the `command + recordId → owner runtime` boundary; it admits no callbacks, payload, or permission data.
-2. `action.id` is the sole action-bound Button/composition identity, while `recordId` remains the domain identity; a new independent-Button identity needs a new authority decision.
-3. The future migration replaces—not permanently parallels—the current Button contract; `action.label` prevents duplicate labels.
-4. `disabled` is only an authored availability hint; runtime/domain execution must revalidate authorization, record state, and validation.
+- the future migration **replaces/evolves** the existing ordinary `ButtonDefinition`; it does not create a permanent parallel actionable Button family;
+- `action.id` is the first-use-case Button/composition + semantic-action identity, while `recordId` remains domain-record identity; no duplicate top-level Button `id` is retained.
 
-No schema, UI, runtime, CSS, catalogue, Pages, adapter, domain, icon, or historical-source change is accepted or authorised by this decision. A separate Reviewer-authorised implementation phase is required before Builder source work can begin.
+The action-owned label, embedded serializable `SemanticAction`, runtime ownership boundary, no-callback/no-payload rule, and runtime/domain re-validation boundary remain intact.
+
+## Required Final Authority Step
+
+The ADR content is accepted, but the file itself still says:
+
+`Proposed — authority resolution only...`
+
+Before it can become `main` authority, Builder must change **only** ADR 0007's Status line to an accepted-authority form equivalent to:
+
+`Accepted — authority only; schema and runtime implementation require separate Reviewer authorisation.`
+
+Do not alter any other reviewed decision text.
+
+## Builder Action
+
+On the existing `docs/button-semantic-action-authority` branch:
+
+1. change only ADR 0007's Status line from Proposed to Accepted;
+2. push and verify the exact remote SHA;
+3. confirm the net branch diff from current `main` remains exactly that one ADR file;
+4. update this SAME file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA and evidence;
+5. stop for Reviewer.
+
+No schema, shared UI, runtime, CSS, catalogue, Pages, adapter, domain, icon, or `WEX-SOURCE.md` implementation is authorised yet.
