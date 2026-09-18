@@ -1,26 +1,44 @@
 # Repository Guidance System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Reviewer review — Foundation Phase 1 Studio operating model
+Status: BUILDER ACTION REQUIRED  
+Phase: Foundation Phase 1 correction — preserve WEX vs Shared UI ownership
 
 ## Reviewer Verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Reviewer independently verified `origin/main` at `5b558bf3c06576660c5dc7cf8cbbfb70e0536845`.
+Reviewer independently inspected `docs/foundation-studio-operating-model` at `d31bbeb936139d957acb218ca4aeb18df42b6ead` against ADR 0009, `docs/architecture/authority-model.md`, and `docs/architecture/dependency-rules.md`.
 
-The minimum guidance structure is accepted on `main`:
+The Studio operating model is otherwise well scoped, generic, and consistent with the authorised phase. One ownership sentence must be corrected before acceptance.
 
-- root `AGENTS.md` is the repository index/router;
-- `docs/foundation/README.md` is the durable rule-layer entrypoint;
-- `docs/code-map/README.md` defines maintained navigation;
-- `docs/code-map/button-system.md` is the first verified subject map.
+## Required Correction
 
-## Builder Handoff
+Amend only `docs/foundation/studio-operating-model.md` on the existing topic branch.
 
-- Remote branch/SHA: `docs/foundation-studio-operating-model` at `d31bbeb936139d957acb218ca4aeb18df42b6ead`
-- Changed files: `docs/foundation/README.md`, `docs/foundation/studio-operating-model.md`
-- Evidence: relevant Foundation, ADR 0009, architecture authority-model, and dependency-rules documents were inspected on `origin/main` at `5b558bf3c06576660c5dc7cf8cbbfb70e0536845`; `git diff --check` passed; the remote topic ref was verified at the SHA above.
-- Validation: no repository check directly validates these Foundation documentation files, so no code/runtime validation was run.
-- Limitations/deviations: none. The document uses generic consuming-product/business-platform language and creates no external-repository description, WEX contract, detailed AI procedure, autonomy/permission/payload/runtime API, additional Foundation subject, Code Map, Skill, or product/source change.
-- Unresolved issues: Reviewer must verify the Foundation Phase 1 document before any further Foundation phase is authorised.
+Current wording says WEX owns:
+
+> reusable presentation rules, interaction presentation, accessibility mechanics, structural shared UI, and registered visual authority.
+
+That collapses WEX and Shared UI ownership and conflicts with existing technical authority.
+
+Preserve the established split:
+
+- **WEX** owns visual/presentation authority: colour, typography, spacing, geometry, tiers, visual states, interaction presentation, layout/responsive rules, and registered variants.
+- **Shared UI** owns reusable structure, rendering mechanics, interaction mechanics, and accessibility mechanics while consuming registered WEX presentation.
+- Shared UI must not own business logic, persistence, lifecycle, authoritative records, or domain validation.
+
+Also adjust the short operating-model summary if needed so `WEX = reusable horizontal presentation and interaction authority` cannot be read as WEX owning runtime interaction mechanics. Prefer wording that makes WEX presentation authority and Shared UI mechanics distinct.
+
+Do not change the consuming-product, adapter, AI Skill/operator, orchestration, semantic-action, or progressive-adoption rules unless strictly necessary for that clarification.
+
+## Preserve
+
+Do not modify:
+- `docs/foundation/README.md`;
+- architecture/ADRs;
+- Code Maps;
+- source/packages/runtime/CI;
+- Skills;
+- any external repository.
+
+Run `git diff --check`, push the corrected existing topic branch, verify the exact remote SHA, update this SAME work file to `Status: AWAITING REVIEWER REVIEW` with evidence, push the coordination update, and stop.
