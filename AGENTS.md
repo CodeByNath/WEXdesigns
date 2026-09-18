@@ -13,7 +13,7 @@ When the user says `run the cycle`, `continue the work`, `review the latest work
 4. Builder may not self-approve, self-advance, invent new work, or merge to `main` without Reviewer instruction.
 5. After authorised work, Builder must commit and push the work branch to `origin`, update the same active work file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA/evidence, and stop for Reviewer.
 
-Product and system authority remains the repository architecture, accepted ADRs, historical WEX source, and verified implementation. This file is a workflow bootstrap only.
+Authority is scoped: Foundation owns durable repository-wide rules and invariants within each Foundation document's stated scope; [architecture](docs/architecture/) and accepted ADRs retain WEX technical/system and decision authority within their scopes; historical WEX source and verified implementation remain authority or evidence within their established scopes. This file is a workflow bootstrap and router only; it does not define a universal precedence rule.
 
 ## Authority routing
 
