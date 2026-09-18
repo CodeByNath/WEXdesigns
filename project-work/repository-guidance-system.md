@@ -1,35 +1,30 @@
 # Repository Guidance System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Reviewer verification — Foundation Phase 1 promoted to main
+Status: ACCEPTED
+Phase: Foundation Phase 1 — Studio operating model accepted on main
 
 ## Reviewer Verdict
 
 **Proceed**
 
-Reviewer independently inspected corrected candidate `docs/foundation-studio-operating-model` at `b701a9d497442cf714c7ecbd39ee8660635d6f11` against current `main`, accepted ADR 0009, `docs/architecture/authority-model.md`, and `docs/architecture/dependency-rules.md`.
+Reviewer independently verified the promoted Foundation Phase 1 against current `main`, accepted ADR 0009, `docs/architecture/authority-model.md`, and `docs/architecture/dependency-rules.md`.
 
-The ownership correction is now consistent with repository authority:
+## Verification
 
-- WEX owns visual and interaction-presentation authority.
-- Shared UI owns reusable structure, rendering, interaction, and accessibility mechanics while consuming WEX presentation.
-- Shared UI's prohibited domain responsibilities are explicit.
-- Consuming-product, adapter, AI Skill/operator, orchestration, semantic-action, and progressive-adoption rules remain correctly bounded.
-- The candidate is two commits ahead of `main`, zero behind, and changes only:
+- Approved candidate: `docs/foundation-studio-operating-model` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`.
+- Current `main` is identical to that exact SHA: zero commits ahead, zero behind.
+- Promotion from prior `main` `5b558bf3c06576660c5dc7cf8cbbfb70e0536845` is two commits and changes only:
   - `docs/foundation/README.md`;
   - `docs/foundation/studio-operating-model.md`.
+- `docs/foundation/studio-operating-model.md` correctly separates ownership:
+  - WEX owns visual and interaction-presentation authority.
+  - Shared UI owns reusable structure, rendering, interaction, and accessibility mechanics while consuming WEX presentation.
+  - Product/domain authority, adapters, AI Skills/operators, orchestration, semantic-action use, and progressive adoption remain bounded.
+- The Foundation document states its scope, links to existing authority, and does not introduce runtime APIs, permissions models, payloads, AI autonomy rules, product implementation, or other excluded architecture.
+- No unrelated source, Button, schema/UI/WEX/adapters/catalogue/runtime, Code Map, Skill, CI/tooling, or external-repository changes were included.
 
-## Builder Handoff
+## Result
 
-- Final candidate branch/SHA: `docs/foundation-studio-operating-model` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`
-- Promoted `main` SHA: `b701a9d497442cf714c7ecbd39ee8660635d6f11`
-- Changed files: `docs/foundation/README.md`, `docs/foundation/studio-operating-model.md`
-- Verification evidence: candidate and remote topic refs matched the approved SHA; `origin/main` was an ancestor with no commits ahead of the candidate; the `HEAD -> main` push fast-forwarded `origin/main` from `5b558bf` to the exact candidate SHA; the remote `main` ref was verified at that SHA.
-- Limitations/deviations: none. No additional Foundation subjects, AI-operability detail, Code Maps, Skills, product/source, Button, CI/tooling, or external-repository work changed.
-- Unresolved issues: Reviewer must verify Foundation Phase 1 on `main` before separately authorising the next phase.
+Foundation Phase 1 is accepted on `main`.
 
-## Exclusions
-
-Do not begin additional Foundation subjects, AI-operability detail, Code Maps, Skills, product/source changes, Button changes, CI/tooling changes, or any external-repository work.
-
-The next Foundation phase remains separately gated until Reviewer verifies this document on `main`.
+No additional Foundation subject or subsequent phase is authorised by this acceptance. Further work requires a separately authorised phase in this same work area or another explicitly activated work area.
