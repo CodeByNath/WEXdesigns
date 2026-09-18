@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — authority resolution only; schema and runtime implementation require separate Reviewer authorisation.
+Accepted — authority only; schema and runtime implementation require separate Reviewer authorisation.
 
 ## Authority inspected
 
