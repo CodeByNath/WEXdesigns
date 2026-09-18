@@ -2,6 +2,10 @@
 
 Foundation is the durable repository-wide rule and invariant layer for the Studio/WEX repository, within the scope stated by each Foundation document. It provides a stable entrypoint for rules that must remain true across workstreams.
 
+## Subjects
+
+- [Studio operating model](studio-operating-model.md)
+
 ## Authority and scope
 
 Foundation may establish durable repository-wide governing rules when separately authorised. Its possible subjects include Studio operating principles, ownership boundaries, integration rules, semantic-action principles, and AI-operability boundaries. This entrypoint does not itself establish the Studio operating model or AI-operability rules.
