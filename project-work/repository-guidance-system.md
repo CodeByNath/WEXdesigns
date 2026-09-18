@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: WEX Foundation Code Maps — source audit and documentation candidate
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer review — WEX Foundation Code Maps
 
 ## Reviewer Verdict
 
@@ -19,29 +19,15 @@ The recovery branch is not safe to delete: it diverges from `main` with one reco
 
 Safeguard: only one new implementation/topic branch may be active for this phase. Do not create any second work branch.
 
-## Phase 1 — WEX Foundation Code Maps
+## Phase 1 Builder Handoff
 
-Builder is authorised to create exactly one topic branch from current `main`:
-
-`docs/wex-foundation-code-maps`
-
-On that branch:
-
-1. Audit current `main` authority, WEX source, package manifests, and focused tests/checks before writing maps.
-2. Create Code Maps only for demonstrated foundation subjects supported by current source:
-   - Colour;
-   - Typography and font delivery;
-   - Spacing, including padding as consumption of spacing authority;
-   - Interaction/focus;
-   - Layout;
-   - Sizing/tier system only if the current implementation/authority supports a useful independent map.
-3. Do not create a separate Geometry/Border/Radius map unless source and governing authority demonstrate an independent reusable subject beyond component-local rules.
-4. Update `docs/code-map/README.md` to link only the maps actually created.
-5. Follow ADR 0009 exactly: maps are navigation evidence only. Include created date, last-verified date, verified branch/ref or SHA, authority links, actual source and focused verification locations, dependency path/boundary, and safe change routing.
-6. Do not copy token tables, values, component contracts, or CSS rules into the maps.
-7. Run documentation/link and relevant repository checks available for this scope.
-8. Commit and push the single topic branch, verify its remote SHA, then update this same work file to `AWAITING REVIEWER REVIEW` with exact changed files, checks, limitations, and unresolved questions.
-9. Stop. Do not begin Button map integration.
+- Remote branch/SHA: `docs/wex-foundation-code-maps` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`
+- Changed files: `docs/code-map/README.md`, `docs/code-map/colour.md`, `docs/code-map/typography-font-delivery.md`, `docs/code-map/spacing.md`, `docs/code-map/interaction-focus.md`, `docs/code-map/layout.md`, `docs/code-map/sizing-tier-system.md`
+- Source audit: verified accepted authority, historical WEX source, WEX foundations and bundle entrypoint, package manifests, schema tier contract, demonstrated application consumers, focused tests, and the repository Foundation audit on `origin/main` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`.
+- Checks: all relative links in the seven changed Markdown files resolve; `git diff --check`; `pnpm audit:foundation`; `pnpm --filter @weerax/wex test` (7 passed); `pnpm --filter @weerax/schemas test` (5 passed); `pnpm --filter @weerax/web-runtime test` (4 passed).
+- Scope decisions: sizing/tiering qualified because current source, schema, consumers, and checks demonstrate an independent global boundary; no Geometry/Border/Radius map was created because authority remains component-local rather than an independent reusable subject.
+- Limitations/deviations: none. Maps contain navigation and routing only, without token tables, values, component contracts, or CSS rules. No source, tests, packages, runtime, CI/tooling, Foundation rules, ADRs, Button map, or external repository changed.
+- Unresolved questions: none. Reviewer must decide whether to accept Phase 1 before Button map integration is authorised.
 
 ## Planned Phase 2 — Button map integration
 
