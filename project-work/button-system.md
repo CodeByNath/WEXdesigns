@@ -1,57 +1,29 @@
 # Button System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Slice 1E — Implement accepted Button action-bound schema/presentation migration
+Status: AWAITING REVIEWER REVIEW
+Phase: Slice 1E submission — Button action-bound schema/presentation migration
 
-## Reviewer Verdict
+## Builder Handoff
 
-**Proceed**
+Branch: `feat/button-action-schema-migration`
+Remote SHA: `d56338bdd0d3575a570b38f63aa0675ddb65df45` (verified with `git ls-remote`)
 
-Reviewer independently verified `origin/main` is exactly `e565749bfbbfbc7957d4f6c23db96dc3080dd643`. Relative to prior main `f514db3d9894ad277aacdea9fcbcc2704c6618c0`, the promotion adds only `docs/decisions/0007-button-semantic-action-authority.md`. ADR 0007 is therefore accepted authority on `main`.
+Changed files:
 
-## Authorised Builder Scope
+- `packages/schemas/src/components/button.schema.ts`
+- `packages/schemas/test/foundation.test.mjs`
+- `packages/ui/src/components/button.ts`
+- `packages/ui/test/button.test.mjs`
+- `tooling/scripts/validate-foundation.mjs`
 
-Implement only the schema/shared-presentation migration required by ADR 0007.
+The existing `ButtonDefinitionSchema` now requires its embedded `SemanticActionSchema`, removes top-level `id`/`label`, preserves variant/tier/disabled defaults and strictness, and introduces no parallel Button family. The platform-neutral resolver derives presentation `id`/`label` from `action`; it does not execute actions or add runtime/browser ownership.
 
-### Schema
+Evidence under Node `v24.21.0` / pnpm `11.16.0`:
 
-Evolve the existing ordinary `ButtonDefinitionSchema`; do **not** create a parallel actionable Button schema.
+- focused `@weerax/schemas` tests: 5 passed;
+- focused `@weerax/ui` tests: 3 passed;
+- foundation audit passed;
+- full `pnpm check` passed (35/35 tasks);
+- `git diff --check origin/main...HEAD` passed; remote SHA matches local `HEAD`.
 
-Required shape:
-
-- remove top-level Button `id`;
-- remove top-level Button `label`;
-- require one embedded `SemanticActionSchema` as `action`;
-- preserve existing `variant`, `tier`, and `disabled` defaults/contracts;
-- keep the schema strict and serializable;
-- add no payload, callback, handler, permission, transient state, or domain data.
-
-For this slice, `action.id` is the Button/composition + semantic-action identity, `action.label` is the sole displayed label, and `action.recordId` remains domain identity.
-
-### Shared UI
-
-Update the existing platform-neutral Button presentation resolver to consume the migrated definition.
-
-- presentation `id` must derive from `action.id`;
-- presentation `label` must derive from `action.label`;
-- preserve variant/tier class resolution and native disabled boundary;
-- do not add browser/framework dependencies or execute the semantic action;
-- do not introduce callbacks or runtime/domain ownership.
-
-### Verification
-
-Update only focused schema/UI/foundation audit tests necessary to prove:
-
-- embedded action is required;
-- old top-level `id`/`label` shape is rejected;
-- presentation identity/label derive from the action;
-- variant/tier/disabled behaviour is unchanged;
-- no callback/payload/permission/transient-state fields enter the contract.
-
-Run relevant schema/UI tests, foundation audit, and full `pnpm check` under Node 24.
-
-## Exclusions
-
-No runtime execution/binding yet. No CSS/WEX presentation changes, catalogue, Pages/demo, adapters, domain commands, icons, toggle/link/dropdown/group variants, new component families, or `WEX-SOURCE.md`.
-
-Push a topic branch, verify the remote SHA, update this SAME file to `Status: AWAITING REVIEWER REVIEW` with exact changed files/check evidence, and stop.
+No CSS/WEX, runtime, catalogue, Pages/demo, adapter, domain, icon, toggle/link/dropdown/group, new-component, or `WEX-SOURCE.md` change was made. Awaiting Reviewer review.
