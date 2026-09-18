@@ -52,15 +52,27 @@ test('keeps the global WEX tier language closed', () => {
   assert.equal(WexTierSchema.safeParse('compact').success, false);
 });
 
-test('defines accepted Button variants without serializing presentation state', () => {
+test('defines an action-bound Button without serializing presentation state', () => {
   assert.deepEqual(ButtonVariantSchema.options, [
     'primary', 'neutral', 'subtle', 'warning', 'danger',
   ]);
   assert.deepEqual(
-    ButtonDefinitionSchema.parse({ id: 'archive', label: 'Archive', disabled: true }),
+    ButtonDefinitionSchema.parse({
+      action: {
+        id: 'archive',
+        label: 'Archive',
+        command: 'record.archive',
+        recordId: 'record-1',
+      },
+      disabled: true,
+    }),
     {
-      id: 'archive',
-      label: 'Archive',
+      action: {
+        id: 'archive',
+        label: 'Archive',
+        command: 'record.archive',
+        recordId: 'record-1',
+      },
       variant: 'primary',
       tier: 'default',
       disabled: true,
@@ -69,7 +81,31 @@ test('defines accepted Button variants without serializing presentation state', 
   assert.equal(ButtonVariantSchema.safeParse('secondary').success, false);
   assert.equal(ButtonVariantSchema.safeParse('ghost').success, false);
   assert.equal(
-    ButtonDefinitionSchema.safeParse({ id: 'archive', label: 'Archive', state: 'hover' }).success,
+    ButtonDefinitionSchema.safeParse({ id: 'archive', label: 'Archive' }).success,
     false,
   );
+  for (const field of [
+    'id',
+    'label',
+    'callback',
+    'handler',
+    'payload',
+    'permission',
+    'state',
+    'transientState',
+    'domainData',
+  ]) {
+    assert.equal(
+      ButtonDefinitionSchema.safeParse({
+        action: {
+          id: 'archive',
+          label: 'Archive',
+          command: 'record.archive',
+          recordId: 'record-1',
+        },
+        [field]: field === 'state' ? 'hover' : 'unapproved',
+      }).success,
+      false,
+    );
+  }
 });

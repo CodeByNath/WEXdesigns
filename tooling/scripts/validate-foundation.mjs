@@ -118,6 +118,9 @@ assert(
   buttonSchema.includes("z.enum(['primary', 'neutral', 'subtle', 'warning', 'danger'])"),
   'Button variants changed',
 );
+assert(buttonSchema.includes('action: SemanticActionSchema'), 'Button action contract is missing');
+assert(!buttonSchema.includes('id: z.string().regex'), 'Button retains a top-level identity');
+assert(!buttonSchema.includes('label: z.string().min(1)'), 'Button retains a top-level label');
 assert(!buttonSchema.includes('ButtonStateSchema'), 'Button serializes transient presentation state');
 assert(buttonSchema.includes('disabled: z.boolean().default(false)'), 'Button disabled contract is missing');
 const uiSource = resolve(root, 'packages/ui/src');

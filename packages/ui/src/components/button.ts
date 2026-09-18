@@ -23,8 +23,8 @@ export function createButtonPresentation(input: ButtonDefinitionInput): ButtonPr
   return {
     className: `wex-button wex-button--${button.variant} wex-button--${button.tier}`,
     disabled: button.disabled,
-    id: button.id,
-    label: button.label,
+    id: button.action.id,
+    label: button.action.label,
     tier: button.tier,
   };
 }

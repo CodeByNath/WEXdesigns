@@ -6,8 +6,12 @@ import { createButtonPresentation } from '../dist/index.js';
 test('resolves a Button through its accepted semantic variant', () => {
   assert.deepEqual(
     createButtonPresentation({
-      id: 'review',
-      label: 'Review',
+      action: {
+        id: 'review',
+        label: 'Review',
+        command: 'record.review',
+        recordId: 'record-1',
+      },
       variant: 'neutral',
       tier: 'large',
       disabled: false,
@@ -25,8 +29,12 @@ test('resolves a Button through its accepted semantic variant', () => {
 test('maps every serializable tier to its WEX geometry class', () => {
   for (const tier of ['small', 'default', 'large']) {
     const presentation = createButtonPresentation({
-      id: `tier-${tier}`,
-      label: 'Continue',
+      action: {
+        id: `tier-${tier}`,
+        label: 'Continue',
+        command: 'record.continue',
+        recordId: 'record-1',
+      },
       tier,
     });
 
@@ -36,8 +44,12 @@ test('maps every serializable tier to its WEX geometry class', () => {
 
 test('keeps disabled state on the native-control boundary', () => {
   const presentation = createButtonPresentation({
-    id: 'unavailable',
-    label: 'Unavailable',
+    action: {
+      id: 'unavailable',
+      label: 'Unavailable',
+      command: 'record.unavailable',
+      recordId: 'record-1',
+    },
     disabled: true,
   });
 
