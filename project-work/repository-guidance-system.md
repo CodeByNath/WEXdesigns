@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Promote Foundation Phase 1 Studio operating model to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer verification — Foundation Phase 1 promoted to main
 
 ## Reviewer Verdict
 
@@ -19,16 +19,14 @@ The ownership correction is now consistent with repository authority:
   - `docs/foundation/README.md`;
   - `docs/foundation/studio-operating-model.md`.
 
-## Builder Action
+## Builder Handoff
 
-Promote the exact candidate `b701a9d497442cf714c7ecbd39ee8660635d6f11` to `main` using the repository's normal non-destructive workflow.
-
-1. Verify the topic branch still resolves to that exact SHA.
-2. Verify `main` has not advanced incompatibly.
-3. Fast-forward/promote the exact candidate to `main`; do not amend, squash, rebase, or include unrelated files.
-4. Verify the exact resulting `origin/main` SHA.
-5. Update this SAME work file to `Status: AWAITING REVIEWER REVIEW` with the promoted main SHA and verification evidence.
-6. Push the coordination update and stop.
+- Final candidate branch/SHA: `docs/foundation-studio-operating-model` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- Promoted `main` SHA: `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- Changed files: `docs/foundation/README.md`, `docs/foundation/studio-operating-model.md`
+- Verification evidence: candidate and remote topic refs matched the approved SHA; `origin/main` was an ancestor with no commits ahead of the candidate; the `HEAD -> main` push fast-forwarded `origin/main` from `5b558bf` to the exact candidate SHA; the remote `main` ref was verified at that SHA.
+- Limitations/deviations: none. No additional Foundation subjects, AI-operability detail, Code Maps, Skills, product/source, Button, CI/tooling, or external-repository work changed.
+- Unresolved issues: Reviewer must verify Foundation Phase 1 on `main` before separately authorising the next phase.
 
 ## Exclusions
 
