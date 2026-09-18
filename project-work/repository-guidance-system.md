@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Accept and promote ADR 0009 only
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer verification — ADR 0009 accepted and promoted to main
 
 ## Reviewer Verdict
 
@@ -21,21 +21,14 @@ The correction satisfies the prior safeguards:
 
 The candidate is two commits ahead of `main`, zero behind, and the net diff is only `docs/decisions/0009-repository-guidance-architecture.md`.
 
-## Builder Action
+## Builder Handoff
 
-Promote **ADR 0009 only**.
-
-1. On the existing candidate branch, change the ADR status from `Proposed` to `Accepted`. Do not alter the accepted decision content except wording strictly required to remove proposal-only status language.
-2. Run `git diff --check`.
-3. Commit and push the final candidate.
-4. Promote that exact candidate to `main` using the repository's normal non-destructive workflow. Do not force-push or include unrelated commits/files.
-5. Verify `origin/main` contains the accepted ADR and record the exact main SHA.
-6. Update this SAME work file to `Status: AWAITING REVIEWER REVIEW` with:
-   - final candidate SHA;
-   - promoted `main` SHA;
-   - changed-file list;
-   - verification evidence.
-7. Stop.
+- Final candidate branch/SHA: `docs/repository-guidance-architecture` at `af72a2f5f645786665e84b87b7c5490bb7481a88`
+- Promoted `main` SHA: `af72a2f5f645786665e84b87b7c5490bb7481a88`
+- Changed files: `docs/decisions/0009-repository-guidance-architecture.md`
+- Verification evidence: `git diff --check` passed before the final candidate commit; candidate was verified ahead of `main` with no `main` commits ahead; `HEAD -> main` fast-forward push advanced `origin/main` from `6be2adc` to the exact candidate SHA; the remote `main` ref was verified at the SHA above.
+- Limitations/deviations: none. The acceptance change was status-only; no Foundation, Code Map, root routing, Skill, product/source, or external-repository work changed.
+- Unresolved issues: Reviewer must verify the accepted ADR on `main` before separately authorising any implementation phase.
 
 ## Exclusions
 
