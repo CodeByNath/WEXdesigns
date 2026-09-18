@@ -1,70 +1,52 @@
 # Repository Guidance System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Reviewer review — Repository branch housekeeping
+Status: BUILDER ACTION REQUIRED
+Phase: WEX Foundation Code Maps — source audit and documentation candidate
 
 ## Reviewer Verdict
 
 **Proceed with safeguards**
 
-Foundation Phase 1 is accepted. The next work is authorised only in the sequence below.
+Phase 0 branch housekeeping is accepted.
 
-## Phase 0 Handoff — Repository branch housekeeping
+Reviewer independently verified the current remote branch inventory contains only:
 
-Verified `origin` as `https://github.com/CodeByNath/WEXdesigns.git` and compared all remote topic tips with `origin/main` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`.
+- protected `main`;
+- protected `Project-work-instructions`;
+- retained historical recovery branch `review/button-local-recovery`.
 
-Deleted as fully contained in `main` and no longer active:
+The recovery branch is not safe to delete: it diverges from `main` with one recovery-only commit and 21 main-only commits from merge base `39c22593fb0041a80ffd76ff9f33af3ee3261ef5`. It is retained as historical/recovery evidence and is **not an active work branch**.
 
-- `chore/root-cycle-entrypoint` — `0af842c66028f48659d74c870186a74deff4031c`
-- `designmaster/core-colour-tokens` — `2d2da65f64aec299e8245371e56f712296098177`
-- `designmaster/ibm-plex-font-delivery` — `e5a3a858ee480699939af8bdf41ed772f2bb6651`
-- `designmaster/inversion-ready-colours` — `ae800c07d30a4ee3bcab1e772c4f72a345b6f892`
-- `docs/button-authority-proposal` — `fd3c6e791ae1bb77a00ca1eb6130df788d9c7e4d`
-- `docs/button-geometry-authority` — `ced2d01029f531f3acc6fba370f765ecf0a6bbe9`
-- `docs/button-runtime-invocation-authority` — `6be2adc7214ec1c22dada90c5e94852c6bf9bef9`
-- `docs/button-semantic-action-authority` — `e565749bfbbfbc7957d4f6c23db96dc3080dd643`
-- `docs/foundation-studio-operating-model` — `b701a9d497442cf714c7ecbd39ee8660635d6f11`
-- `docs/guidance-minimum-structure` — `5b558bf3c06576660c5dc7cf8cbbfb70e0536845`
-- `docs/repository-guidance-architecture` — `af72a2f5f645786665e84b87b7c5490bb7481a88`
-- `feat/button-action-schema-migration` — `d56338bdd0d3575a570b38f63aa0675ddb65df45`
-- `feat/button-foundation-slice` — `46bdaf04ac1e90d49b908417321d9363888e6970`
-- `feat/button-geometry-slice` — `f514db3d9894ad277aacdea9fcbcc2704c6618c0`
+Safeguard: only one new implementation/topic branch may be active for this phase. Do not create any second work branch.
 
-Retained:
+## Phase 1 — WEX Foundation Code Maps
 
-- protected `main` — `b701a9d497442cf714c7ecbd39ee8660635d6f11`
-- protected `Project-work-instructions` — `e4da214f1984504c20cc10e434756f8fbe0980b0` at inventory time
-- unmerged `review/button-local-recovery` — `19795644f033f43a7ebb99617d748fdce2c7e1ea`; divergence from `main` was 21 main-only commits and one recovery-only commit, so it was not safe to delete.
+Builder is authorised to create exactly one topic branch from current `main`:
 
-Evidence: pre-deletion `git branch -r --merged origin/main` contained every deleted topic tip; `--no-merged` contained only the protected coordination branch and the recovery branch. After deletion and prune, the only remote branches were `main`, `Project-work-instructions`, and `review/button-local-recovery`. Uncertainty: none; the unmerged recovery branch is retained for Reviewer decision. No new topic branch was created.
+`docs/wex-foundation-code-maps`
 
-## Planned Phase 1 — WEX Foundation Code Maps
+On that branch:
 
-This phase is **not yet executable** until Phase 0 is reviewed.
-
-After housekeeping acceptance, Builder may be authorised to audit current `main` and create Code Maps only for demonstrated WEX foundation systems already present in source.
-
-Expected subjects, subject to source verification:
-
-- Colour — `packages/wex/src/foundations/colour.css`
-- Typography/font delivery — `font-family.css`, `typography.css`, and current WEX font package dependency
-- Spacing — `spacing.css`; padding is usage of spacing authority, not a separate token authority unless source proves otherwise
-- Interaction/focus — `interaction.css`
-- Layout — `layout.css`
-- Sizing/tier system — `sizing.css`, only to the extent current authority/source supports a meaningful map
-
-Do not invent a Geometry/Border/Radius map unless independent demonstrated authority/source exists beyond component-local rules.
-
-Each map must follow ADR 0009: navigation only, with verification metadata, authority links, actual source/tests/checks, dependency path, safe change routing, and no duplicated token tables/contracts.
+1. Audit current `main` authority, WEX source, package manifests, and focused tests/checks before writing maps.
+2. Create Code Maps only for demonstrated foundation subjects supported by current source:
+   - Colour;
+   - Typography and font delivery;
+   - Spacing, including padding as consumption of spacing authority;
+   - Interaction/focus;
+   - Layout;
+   - Sizing/tier system only if the current implementation/authority supports a useful independent map.
+3. Do not create a separate Geometry/Border/Radius map unless source and governing authority demonstrate an independent reusable subject beyond component-local rules.
+4. Update `docs/code-map/README.md` to link only the maps actually created.
+5. Follow ADR 0009 exactly: maps are navigation evidence only. Include created date, last-verified date, verified branch/ref or SHA, authority links, actual source and focused verification locations, dependency path/boundary, and safe change routing.
+6. Do not copy token tables, values, component contracts, or CSS rules into the maps.
+7. Run documentation/link and relevant repository checks available for this scope.
+8. Commit and push the single topic branch, verify its remote SHA, then update this same work file to `AWAITING REVIEWER REVIEW` with exact changed files, checks, limitations, and unresolved questions.
+9. Stop. Do not begin Button map integration.
 
 ## Planned Phase 2 — Button map integration
 
-Only after the new Foundation maps are accepted:
-
-- update `docs/code-map/button-system.md` to link to the accepted foundation maps it consumes;
-- do not duplicate spacing, colour, typography, focus, layout, or geometry values in the Button map;
-- refresh Button map verification metadata against the then-current `main`.
+Not authorised yet. After Phase 1 acceptance, Button may be updated to link to accepted Foundation maps and refresh its verification metadata.
 
 ## Exclusions
 
-Do not modify WEX source, Button source, schemas, UI, adapters, applications, CI/tooling, Foundation rules, ADRs, or external repositories during these documentation phases.
+Do not modify WEX source, Button source, schemas, UI, adapters, applications, CI/tooling, Foundation rules, ADRs, or external repositories.
