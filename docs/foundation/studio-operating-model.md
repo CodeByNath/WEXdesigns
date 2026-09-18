@@ -12,7 +12,10 @@ Consuming business platform
 = business/domain operating system and authority
 
 WEX
-= reusable horizontal presentation and interaction authority
+= reusable horizontal visual and interaction-presentation authority
+
+Shared UI
+= reusable structure, rendering, interaction, and accessibility mechanics that consume WEX presentation
 
 AI Skills / operators
 = bounded operating procedures over approved platform capabilities
@@ -20,7 +23,7 @@ AI Skills / operators
 
 ## Growth model
 
-Consuming products grow vertically through business capability. WEX grows horizontally through reusable presentation and interaction capability. A consuming product may depend on WEX; WEX must not depend on a consuming product.
+Consuming products grow vertically through business capability. WEX grows horizontally through reusable visual and interaction-presentation capability. A consuming product may depend on WEX; WEX must not depend on a consuming product.
 
 Adoption is progressive. A consuming product is not required to perform a big-bang rewrite in order to use the operating model or WEX capabilities.
 
@@ -28,7 +31,9 @@ Adoption is progressive. A consuming product is not required to perform a big-ba
 
 The consuming business platform owns business identity, persistence, pricing, lifecycle, permissions, validation, workflow legality, and runtime behaviour. It remains the authority for deciding what an action is allowed to do.
 
-WEX owns reusable presentation rules, interaction presentation, accessibility mechanics, structural shared UI, and registered visual authority. It does not own business/domain authority or acquire a dependency on a consuming product.
+WEX owns visual and presentation authority: colour, typography, spacing, geometry, tiers, visual states, interaction presentation, layout and responsive rules, and registered variants. It does not own business/domain authority or acquire a dependency on a consuming product.
+
+Shared UI owns reusable structure, rendering mechanics, interaction mechanics, and accessibility mechanics while consuming registered WEX presentation. It does not own business logic, persistence, lifecycle, authoritative records, or domain validation.
 
 Product-side adapters translate domain authority into approved serializable contracts. They do not become a second source of truth and do not invent presentation.
 
