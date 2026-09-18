@@ -19,6 +19,28 @@ For this repository, `run the cycle`, `continue the work`, `review the latest wo
 
 On those triggers, first fetch/read `origin/Project-work-instructions`, identify the single active work file and its `Status`/`Phase`, determine the current actor, and execute only the authorised next action. `pnpm check`, tests, builds, audits, or other validation are phase steps only when required; they are never a substitute for the project cycle.
 
+## Git Authorization During a Cycle
+
+When the user explicitly says `run the cycle`, `continue the work`, `review the latest work`, or another defined cycle trigger, that request authorizes the non-destructive Git operations required to complete the currently authorised phase against this repository's configured `origin`.
+
+Before any push, verify that `origin` resolves to the authorised repository `CodeByNath/WEXdesigns`. If it does not, stop and do not push.
+
+For Builder-owned work, this authorization includes when required by the active work file:
+
+- `git fetch` and remote-state inspection;
+- fast-forward-only pull/sync;
+- creating or switching to the authorised topic branch;
+- committing only the authorised phase changes;
+- pushing the authorised topic branch to `origin`;
+- verifying the exact remote SHA;
+- committing the required handoff update on `Project-work-instructions`;
+- pushing that coordination update to `origin`;
+- verifying the remote coordination state.
+
+These operations are one authorised cycle transaction. Do not pause for separate user approval between the authorised commit, topic-branch push, coordination handoff update, and coordination push.
+
+This authorization does **not** include force-push, history rewriting, branch deletion, changing remotes, merging to `main` unless the active work file explicitly assigns that action, pushing unrelated work, widening phase scope, or publishing credentials/secrets/sensitive data. If any of those are required, stop.
+
 ## Roles
 
 Roles are governance roles, not model/vendor names.
@@ -44,6 +66,8 @@ When Builder completes an authorised task or reaches the authorised phase bounda
 5. update the SAME active work file on `Project-work-instructions` to `Status: AWAITING REVIEWER REVIEW` and record the exact remote branch/SHA plus required evidence;
 6. report the branch, pushed SHA, changed-file list, checks, limitations/deviations, and unresolved issues;
 7. stop for Reviewer.
+
+The topic-branch push and the required `Project-work-instructions` handoff push are part of the same Builder handoff transaction when the cycle trigger has already authorised the phase. Do not ask for a second confirmation for either non-destructive push after `origin` has been verified.
 
 A local commit, local branch, passing local tests, browser verification, or Builder summary is not a completed handoff. The Reviewer must be able to inspect the pushed remote candidate.
 
