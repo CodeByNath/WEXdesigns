@@ -86,6 +86,8 @@ If corrections are required, Reviewer records the bounded Builder instruction in
 ## Work File Discipline
 
 - Keep one work area in one active work file until accepted or deferred.
+- Only one implementation/topic work branch may be active under `Project-work-instructions` at a time. Before authorising or creating the next work branch, the previous active branch must have reached its recorded phase boundary and be accepted, deferred, or otherwise explicitly closed by the Reviewer.
+- After accepted work has been promoted to `main` and independently verified, branch housekeeping is part of closing that work: remove the completed remote topic branch when it is proven safe to delete. Never delete `main` or `Project-work-instructions`, and never delete an unverified or still-needed branch merely to satisfy the one-active-branch rule.
 - Keep active files normally under roughly 600 words.
 - Repository/product rules come from authoritative project documentation and verified implementation, never from this coordination branch.
 - Never import product rules from another project.
