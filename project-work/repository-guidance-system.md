@@ -1,34 +1,41 @@
 # Repository Guidance System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Reviewer review — Minimum guidance structure
+Status: BUILDER ACTION REQUIRED  
+Phase: Minimum guidance structure correction — root authority routing only
 
 ## Reviewer Verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Reviewer verified `origin/main` at `af72a2f5f645786665e84b87b7c5490bb7481a88`. ADR 0009 is present on `main` with `Status: Accepted`. The promotion changed only `docs/decisions/0009-repository-guidance-architecture.md`.
+Reviewer independently inspected `docs/guidance-minimum-structure` at `109eb054a6cab14cb49a1235ef2f5dbccd6ef4f6` against accepted ADR 0009 and current `main`.
 
-## Builder Handoff
+The candidate is correctly limited to four documentation/routing files. The Foundation entrypoint, Code Map entrypoint, Button map, mapped source paths, focused tests, package dependencies, and Button authority links are consistent with current `main`.
 
-- Remote branch/SHA: `docs/guidance-minimum-structure` at `109eb054a6cab14cb49a1235ef2f5dbccd6ef4f6`
-- Changed files: `AGENTS.md`, `docs/foundation/README.md`, `docs/code-map/README.md`, `docs/code-map/button-system.md`
-- Evidence: Button paths, package boundaries, Button ADRs, focused schema/UI/WEX tests, and WEX import path were inspected on `origin/main` at `af72a2f5f645786665e84b87b7c5490bb7481a88`; `git diff --check` passed; the remote topic ref was verified at the SHA above.
-- Validation: no repository check directly validates these documentation files, so no code/runtime validation was run.
-- Limitations/deviations: none. Foundation does not establish the Studio operating model or AI-operability rules; no additional subjects, maps, Skills, product/source, or external-repository work changed.
-- Unresolved issues: Reviewer must verify the proposed minimum guidance structure before any further Foundation phase is authorised.
+One authority-routing sentence in root `AGENTS.md` is now stale:
 
-## Evidence
+> Product and system authority remains the repository architecture, accepted ADRs, historical WEX source, and verified implementation.
 
-- Inspect actual current `main` paths before writing the Button map.
-- `git diff --check`.
-- Show changed-file list.
-- No code/runtime validation is required unless an existing repository check directly validates these documentation files.
-- Push the topic branch and verify its exact remote SHA.
-- Update this SAME work file to `Status: AWAITING REVIEWER REVIEW` with branch/SHA/evidence, push the coordination update, and stop.
+ADR 0009 now establishes Foundation as a real durable repository-wide rule/invariant layer within its scope. Leaving the old sentence unchanged makes the root entrypoint contradict its own new Foundation routing.
 
-## Exclusions
+## Required Correction
 
-Do not create additional Foundation subjects, additional Code Maps, Skills, product/source code, Button changes, schemas/UI/WEX CSS/adapters/catalogue/runtime/CI changes, or inspect any external repository.
+Amend **only `AGENTS.md`** on the existing candidate branch.
 
-The Studio operating model and wider Foundation rules remain a separate later phase after this navigation structure is accepted.
+Replace/rework that stale authority sentence so the root router accurately reflects scoped authority after ADR 0009:
+
+- Foundation owns durable repository-wide rules/invariants within each Foundation document's stated scope.
+- `docs/architecture/` and accepted ADRs retain WEX technical/system and decision authority within their scopes.
+- historical WEX source and verified implementation remain authority/evidence within their established scopes.
+- root `AGENTS.md` remains routing only and must not attempt to define a universal precedence rule.
+
+Keep the new Authority routing section concise. Do not expand it into architecture prose.
+
+## Preserve
+
+Do not change:
+- `docs/foundation/README.md`;
+- `docs/code-map/README.md`;
+- `docs/code-map/button-system.md`;
+- any source, tests, packages, runtime, CI, Skills, or external repository.
+
+Run `git diff --check`, push the corrected existing topic branch, verify its exact remote SHA, update this SAME work file to `Status: AWAITING REVIEWER REVIEW`, push the coordination update, and stop.
