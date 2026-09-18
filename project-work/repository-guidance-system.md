@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED  
-Phase: Minimum guidance structure — routing, Foundation entrypoint, Code Map entrypoint, Button map
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer review — Minimum guidance structure
 
 ## Reviewer Verdict
 
@@ -9,26 +9,14 @@ Phase: Minimum guidance structure — routing, Foundation entrypoint, Code Map e
 
 Reviewer verified `origin/main` at `af72a2f5f645786665e84b87b7c5490bb7481a88`. ADR 0009 is present on `main` with `Status: Accepted`. The promotion changed only `docs/decisions/0009-repository-guidance-architecture.md`.
 
-## Builder Action
+## Builder Handoff
 
-Implement only ADR 0009's minimum post-approval structure:
-
-1. Update root `AGENTS.md` as a concise index/router. Preserve the existing cycle bootstrap. Add clear routing to:
-   - `docs/foundation/README.md`;
-   - `docs/code-map/README.md`;
-   - `docs/architecture/` and `docs/decisions/`;
-   - `Project-work-instructions` for controlled work;
-   - the WeeraX Project Cycle Skill for defined cycle triggers when available.
-   Do not duplicate downstream architecture or procedures.
-
-2. Create `docs/foundation/README.md`.
-   It must define Foundation's authority, scope, relationship to WEX technical architecture/ADRs/source, change rule, and maintenance responsibility. This phase does **not** yet author the Studio operating model or AI-operability rules.
-
-3. Create `docs/code-map/README.md`.
-   Define the subject-map format and freshness rules from ADR 0009, including required created date, last-verified date, and verified branch/ref or SHA.
-
-4. Create `docs/code-map/button-system.md` as the first demonstrated map.
-   Verify against current `main`. Link to the actual Button ADRs, source, focused tests/checks, dependency path, and safe change routing. Do not restate the Button specification or invent implementation.
+- Remote branch/SHA: `docs/guidance-minimum-structure` at `109eb054a6cab14cb49a1235ef2f5dbccd6ef4f6`
+- Changed files: `AGENTS.md`, `docs/foundation/README.md`, `docs/code-map/README.md`, `docs/code-map/button-system.md`
+- Evidence: Button paths, package boundaries, Button ADRs, focused schema/UI/WEX tests, and WEX import path were inspected on `origin/main` at `af72a2f5f645786665e84b87b7c5490bb7481a88`; `git diff --check` passed; the remote topic ref was verified at the SHA above.
+- Validation: no repository check directly validates these documentation files, so no code/runtime validation was run.
+- Limitations/deviations: none. Foundation does not establish the Studio operating model or AI-operability rules; no additional subjects, maps, Skills, product/source, or external-repository work changed.
+- Unresolved issues: Reviewer must verify the proposed minimum guidance structure before any further Foundation phase is authorised.
 
 ## Evidence
 
