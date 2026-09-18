@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — documentation and workflow architecture only; implementation of the proposed Foundation, Code Map, root routing, or Skills navigation requires separate Reviewer authorisation.
+Accepted — documentation and workflow architecture only; implementation of Foundation, Code Map, root routing, or Skills navigation requires separate Reviewer authorisation.
 
 ## Context
 
