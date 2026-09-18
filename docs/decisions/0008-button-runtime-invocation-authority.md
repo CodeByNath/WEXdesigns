@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — authority resolution only; runtime and browser implementation require separate Reviewer authorisation.
+Accepted — authority only; runtime and browser implementation require separate Reviewer authorisation.
 
 ## Authority inspected
 
