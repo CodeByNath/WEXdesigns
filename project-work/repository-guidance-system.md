@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Branch housekeeping before WEX Foundation Code Maps
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer review — Repository branch housekeeping
 
 ## Reviewer Verdict
 
@@ -9,23 +9,34 @@ Phase: Branch housekeeping before WEX Foundation Code Maps
 
 Foundation Phase 1 is accepted. The next work is authorised only in the sequence below.
 
-## Phase 0 — Repository branch housekeeping
+## Phase 0 Handoff — Repository branch housekeeping
 
-Before creating another topic branch:
+Verified `origin` as `https://github.com/CodeByNath/WEXdesigns.git` and compared all remote topic tips with `origin/main` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`.
 
-1. Fetch current remote state and verify `origin` is exactly `CodeByNath/WEXdesigns`.
-2. Inventory remote branches and compare each historical work branch with current `main`.
-3. Classify branches as:
-   - safely merged/contained in `main`;
-   - still required/unmerged;
-   - uncertain.
-4. Delete only remote topic branches proven fully merged/contained and no longer required.
-5. Never delete `main` or `Project-work-instructions`.
-6. Do not delete uncertain/unmerged branches. Report them for Reviewer decision.
-7. Do not create the new Code Map topic branch yet.
-8. Update this file with exact branch inventory, deletions, retained branches, evidence, and any uncertainty; then stop for Reviewer.
+Deleted as fully contained in `main` and no longer active:
 
-The repository now permits only one active implementation/topic work branch at a time under the coordination workflow.
+- `chore/root-cycle-entrypoint` — `0af842c66028f48659d74c870186a74deff4031c`
+- `designmaster/core-colour-tokens` — `2d2da65f64aec299e8245371e56f712296098177`
+- `designmaster/ibm-plex-font-delivery` — `e5a3a858ee480699939af8bdf41ed772f2bb6651`
+- `designmaster/inversion-ready-colours` — `ae800c07d30a4ee3bcab1e772c4f72a345b6f892`
+- `docs/button-authority-proposal` — `fd3c6e791ae1bb77a00ca1eb6130df788d9c7e4d`
+- `docs/button-geometry-authority` — `ced2d01029f531f3acc6fba370f765ecf0a6bbe9`
+- `docs/button-runtime-invocation-authority` — `6be2adc7214ec1c22dada90c5e94852c6bf9bef9`
+- `docs/button-semantic-action-authority` — `e565749bfbbfbc7957d4f6c23db96dc3080dd643`
+- `docs/foundation-studio-operating-model` — `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- `docs/guidance-minimum-structure` — `5b558bf3c06576660c5dc7cf8cbbfb70e0536845`
+- `docs/repository-guidance-architecture` — `af72a2f5f645786665e84b87b7c5490bb7481a88`
+- `feat/button-action-schema-migration` — `d56338bdd0d3575a570b38f63aa0675ddb65df45`
+- `feat/button-foundation-slice` — `46bdaf04ac1e90d49b908417321d9363888e6970`
+- `feat/button-geometry-slice` — `f514db3d9894ad277aacdea9fcbcc2704c6618c0`
+
+Retained:
+
+- protected `main` — `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- protected `Project-work-instructions` — `e4da214f1984504c20cc10e434756f8fbe0980b0` at inventory time
+- unmerged `review/button-local-recovery` — `19795644f033f43a7ebb99617d748fdce2c7e1ea`; divergence from `main` was 21 main-only commits and one recovery-only commit, so it was not safe to delete.
+
+Evidence: pre-deletion `git branch -r --merged origin/main` contained every deleted topic tip; `--no-merged` contained only the protected coordination branch and the recovery branch. After deletion and prune, the only remote branches were `main`, `Project-work-instructions`, and `review/button-local-recovery`. Uncertainty: none; the unmerged recovery branch is retained for Reviewer decision. No new topic branch was created.
 
 ## Planned Phase 1 — WEX Foundation Code Maps
 
