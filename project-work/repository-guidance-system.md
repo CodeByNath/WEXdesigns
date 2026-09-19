@@ -1,40 +1,40 @@
 # Repository Guidance System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Reviewer verification — Button Code Map promotion
+Status: BUILDER ACTION REQUIRED
+Phase: Closeout — delete completed Button Code Map topic branch
 
 ## Reviewer Verdict
 
 **Proceed**
 
-Reviewer independently inspected `docs/button-code-map-integration` at `97ca59f38da5a79f49974f6bed787ad500711989` against current `main`, the accepted Button ADRs, current Button schema/shared UI/WEX/test locations, and the accepted WEX Foundation Code Maps.
+Button Code Map integration is accepted on `main`.
 
-## Review result
+Reviewer independently verified:
 
-The candidate is one commit ahead of `main`, zero behind, and changes only:
+- current `main` is exactly `97ca59f38da5a79f49974f6bed787ad500711989`;
+- `docs/code-map/button-system.md` on `main` matches the accepted candidate;
+- no extra changes were introduced during promotion;
+- the Button map now correctly links to accepted Colour, Typography/font delivery, Spacing, Interaction/focus, and Sizing/tier maps while preserving Button-specific ADR authority.
 
-- `docs/code-map/button-system.md`
+The repository-guidance / Foundation / Code Map work area is functionally complete.
 
-Accepted findings:
+## Closeout Builder action
 
-- Button now links to the accepted Colour, Typography/font delivery, Spacing, Interaction/focus, and Sizing/tier maps that it demonstrably consumes;
-- Layout is correctly not linked as a Button dependency because current Button authority/source does not demonstrate one;
-- Button-specific ADRs remain the authority for Button-local geometry, state, semantic-action, and runtime boundaries;
-- no token values, padding measurements, typography sizes, colour values, border/radius values, focus values, or other contracts are duplicated into the map;
-- verification metadata is refreshed against accepted `main`;
-- no excluded source, Foundation map/rule, ADR, runtime, Pages, CI/tooling, or external-repository file changed.
+Delete only the completed remote topic branch:
 
-## Promotion handoff
+`docs/button-code-map-integration`
 
-- Verified origin: `https://github.com/CodeByNath/WEXdesigns.git`.
-- Verified remote topic branch: `docs/button-code-map-integration` at the exact accepted SHA `97ca59f38da5a79f49974f6bed787ad500711989`.
-- Before promotion, verified `origin/main` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2` was an ancestor of the candidate, with the candidate one commit ahead and zero behind.
-- Fast-forwarded `main` to the accepted candidate without amend, rebase, squash, or additional changes.
-- Verified remote `main` resolves exactly to `97ca59f38da5a79f49974f6bed787ad500711989` and has no diff from the accepted candidate.
-- The topic branch remains available at the accepted SHA for independent reviewer verification and branch closeout.
-- No GitHub Pages visual catalogue/runtime work was begun.
-- Limitations/deviations: none.
+Requirements:
+
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Verify remote `main` still resolves to `97ca59f38da5a79f49974f6bed787ad500711989`.
+3. Verify remote `docs/button-code-map-integration` still resolves to the same SHA and is fully contained in `main`.
+4. Delete only that remote topic branch.
+5. Do not delete `main`, `Project-work-instructions`, or `review/button-local-recovery`.
+6. Update this same work file to `AWAITING REVIEWER REVIEW` with exact branch-closeout evidence and stop.
+
+No new implementation, documentation, GitHub Pages, or component work is authorised in this closeout phase.
 
 ## Exclusions
 
-Do not modify WEX source, Button source, schemas, shared UI, adapters, applications, Foundation maps/rules, ADRs, CI/tooling, GitHub Pages runtime, or external repositories.
+Do not modify WEX source, Button source/map, schemas, shared UI, adapters, applications, Foundation maps/rules, ADRs, CI/tooling, GitHub Pages runtime, or external repositories.
