@@ -3,8 +3,8 @@
 ## Verification
 
 - Created: 2026-09-18
-- Last verified: 2026-09-18
-- Verified against: `origin/main` at `af72a2f5f645786665e84b87b7c5490bb7481a88`
+- Last verified: 2026-09-19
+- Verified against: `origin/main` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`
 
 ## Purpose and scope
 
@@ -20,6 +20,16 @@ This map navigates the demonstrated ordinary Button foundation: serializable But
 - [ADR 0006: Button Geometry Authority](../decisions/0006-button-geometry-authority.md)
 - [ADR 0007: Button Semantic-Action Binding Authority](../decisions/0007-button-semantic-action-authority.md)
 - [ADR 0008: Button Runtime Invocation Authority](../decisions/0008-button-runtime-invocation-authority.md)
+
+## Consumed WEX foundation navigation
+
+- [Colour](colour.md)
+- [Typography and font delivery](typography-font-delivery.md)
+- [Spacing](spacing.md)
+- [Interaction and focus](interaction-focus.md)
+- [Sizing and tier system](sizing-tier-system.md)
+
+Current Button authority and source demonstrate no dependency on the WEX Layout foundation, so Layout is not linked as a Button dependency on the verified ref.
 
 ## Source and focused verification
 
