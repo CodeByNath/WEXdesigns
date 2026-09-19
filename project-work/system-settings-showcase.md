@@ -33,3 +33,15 @@ Requirements:
 6. Update this same work file to `AWAITING REVIEWER REVIEW` with branch-closeout evidence and stop.
 
 No new implementation is authorised in this closeout phase.
+
+## Planned next work after closeout — not yet authorised
+
+Once this topic branch is deleted and the closeout is accepted, open a new Foundation refinement work area for only:
+
+- Radius tiers: Small `4px`, Default `8px`, Large `12px`.
+- Border roles: Default `1px`, Selected `2px`, Focused `2px`.
+- Spacing relationship: registered element allowance `2px` and element relationship gap `4px` where that model is explicitly consumed.
+- Interaction roles: keep Hover, Pressed, Selected, Focused and Disabled distinct; Focused remains an independent overlay and Selected remains persistent state, not native press.
+- Universal disabled opacity: change `--wex-opacity-disabled` from `0.1` to `0.2` and keep Button consuming that universal token rather than defining its own disabled value.
+
+This next phase must repair authority first, then update Button consumption only where required. Do not recover unrelated historical Button-family proposals in the same phase.
