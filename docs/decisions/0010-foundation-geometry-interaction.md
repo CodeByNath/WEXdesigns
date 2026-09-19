@@ -38,15 +38,11 @@ CSS delivery for these values.
 
 ### Stable boundary and outer-state geometry
 
-A component that adopts this contract has a stable `2px` boundary in every
-appearance and state. A visually borderless appearance resolves that boundary
-to transparent rather than changing its box dimensions.
-
 Default structural border treatment is `1px`. Selected and Focused each use a
-`2px` outer treatment with a `2px` outer gap/inset. They use the same
-outside-the-component-box ring mechanism, so neither changes the component's
-layout dimensions. Their semantic state and colour differ; their geometry does
-not.
+`2px` outer treatment. They share an outside-the-component-box ring mechanism
+with a `2px` outer gap between the component boundary and the outside state
+ring, so neither changes layout dimensions. Their semantic state and colour
+differ; their geometry does not.
 
 Focused is an independent accessibility overlay and can coexist with an
 ordinary component state. Selected is persistent/current state, is exposed
@@ -76,11 +72,13 @@ geometry within a tier and keep the typography established by ADR 0006.
 | Default | `40px` | Default (`8px`) | `4px` block / `12px` inline |
 | Large | `44px` | Large (`12px`) | `4px` block / `12px` inline |
 
-The `2px` stable boundary is included in each minimum height. Button focus and
-any future Button Selected treatment consume the reusable outer-ring geometry;
-ordinary Buttons remain non-selectable under ADR 0005. This decision does not
-change Button appearances, actions, family types, loading/shimmer, dropdown or
-group behaviour.
+Button specifically reserves a stable `2px` boundary in every appearance and
+state; a visually borderless Button resolves that boundary to transparent. The
+boundary is included in each minimum height. Button focus and any future Button
+Selected treatment consume the reusable outer-ring geometry; ordinary Buttons
+remain non-selectable under ADR 0005. No rule here requires every WEX component
+to use a `2px` base border. This decision does not change Button appearances,
+actions, family types, loading/shimmer, dropdown or group behaviour.
 
 ### Interaction and disabled authority
 
