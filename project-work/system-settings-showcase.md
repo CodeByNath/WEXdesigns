@@ -1,7 +1,7 @@
 # System Settings Showcase Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote accepted System Settings candidate to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Promoted to main — hosted GitHub Pages verification required
 
 ## Reviewer Verdict
 
@@ -55,3 +55,10 @@ including the visible System Settings content, light/dark behaviour, responsive 
 ## Exclusions
 
 No edit/save controls, tenant/business overrides, brand middle layer, drawer editing, persistence, auth/permissions, new WEX values, new component families, or external-repository work.
+
+## Builder promotion handoff
+
+- Verified `origin/feat/system-settings-showcase` at the accepted `642ca9eca034f54c2cd7836ce158f8c00403016b`; `origin/main` was its ancestor with no intervening divergence.
+- Fast-forwarded and pushed `main` to exactly `642ca9eca034f54c2cd7836ce158f8c00403016b`; remote `main` was directly verified at that SHA.
+- GitHub Actions **Deploy WEX index** run [35435174411](https://github.com/CodeByNath/WEXdesigns/actions/runs/35435174411) for that SHA reached `completed / success` at `2026-09-19T09:37:14Z`.
+- No source was amended or added during promotion. The topic branch remains for the mandated final hosted Reviewer verification.
