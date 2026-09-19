@@ -120,9 +120,10 @@ The active work file may define additional phase-specific statuses, but a comple
 A rolling Google Drive handover is maintained for cross-chat continuity only.
 
 Location:
-- Drive folder: `WEXdesigns / Chat Handover`
+- Drive folder: `WEX / WEXdesigns / Chat Handover`
 - Google Doc: `WEXdesigns Chat Handover`
-- Folder URL: https://drive.google.com/drive/folders/106IczMuPYQOmSy3I5Da5MJShz7cx-33T
+- Root folder URL: https://drive.google.com/drive/folders/1RkXsVj1E8E6RcjFYbz33O32HEf_kUPkt
+- Project handover folder URL: https://drive.google.com/drive/folders/106IczMuPYQOmSy3I5Da5MJShz7cx-33T
 - Document URL: https://docs.google.com/document/d/1Cg5ajRNmELWDArLh9MhDMyFuWPd0WQSo29XfleBb0Ew/edit
 
 Purpose:
