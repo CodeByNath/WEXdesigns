@@ -83,6 +83,16 @@ When the active work file says `AWAITING REVIEWER REVIEW`, Reviewer must indepen
 
 If corrections are required, Reviewer records the bounded Builder instruction in the same work file and changes status back to `BUILDER ACTION REQUIRED`. If accepted, Reviewer records the next authorised state/phase. A review completed only in chat does not change project state.
 
+## Browser / GitHub Pages Builder Evidence
+
+For work that changes the WEX web runtime, catalogue, GitHub Pages surface, or other browser-facing presentation:
+
+- Treat the existing GitHub Pages deployment as the canonical hosted preview/runtime surface after promotion to `main`; do not create a parallel demo site unless a phase explicitly authorises one.
+- Builder must validate relevant browser behaviour in Chrome (or the repository-approved Chromium environment) as implementation evidence, not merely rely on source/tests.
+- Builder browser evidence must cover the interactions and accessibility boundaries relevant to the phase, including keyboard navigation/focus visibility, semantic/accessibility inspection, responsive/compact layout, theme/state behaviour, and any authorised hover/press/disabled interactions.
+- When the candidate cannot appear on the production GitHub Pages URL before merge because deployment is `main`-only, Builder must validate the exact candidate in a local/branch preview and record that limitation. After promotion, live GitHub Pages behaviour is a separate Reviewer evidence boundary.
+- A passing build, unit test, or Pages workflow does not by itself prove browser accessibility or live interaction behaviour.
+
 ## Work File Discipline
 
 - Keep one work area in one active work file until accepted or deferred.
