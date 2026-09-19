@@ -1,38 +1,52 @@
 # Repository Guidance System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Reviewer review — WEX Foundation Code Maps
+Status: BUILDER ACTION REQUIRED
+Phase: Promote accepted WEX Foundation Code Maps to main
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Phase 0 branch housekeeping is accepted.
+Reviewer independently inspected `docs/wex-foundation-code-maps` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2` against current `main`, ADR 0009, repository architecture, historical WEX authority, current WEX source, schema tier contract, focused tests, and the Foundation audit.
 
-Reviewer independently verified the current remote branch inventory contains only:
+## Review result
 
-- protected `main`;
-- protected `Project-work-instructions`;
-- retained historical recovery branch `review/button-local-recovery`.
+The candidate is one commit ahead of `main`, zero behind, and changes only:
 
-The recovery branch is not safe to delete: it diverges from `main` with one recovery-only commit and 21 main-only commits from merge base `39c22593fb0041a80ffd76ff9f33af3ee3261ef5`. It is retained as historical/recovery evidence and is **not an active work branch**.
+- `docs/code-map/README.md`
+- `docs/code-map/colour.md`
+- `docs/code-map/typography-font-delivery.md`
+- `docs/code-map/spacing.md`
+- `docs/code-map/interaction-focus.md`
+- `docs/code-map/layout.md`
+- `docs/code-map/sizing-tier-system.md`
 
-Safeguard: only one new implementation/topic branch may be active for this phase. Do not create any second work branch.
+Accepted findings:
 
-## Phase 1 Builder Handoff
+- every new map is for a demonstrated current WEX subject;
+- verification metadata points to the audited `main` SHA;
+- maps link to authority/source/checks rather than duplicating token values or contracts;
+- spacing correctly treats padding/gap as consumers of the spacing authority rather than separate token systems;
+- interaction/focus preserves the WEX presentation boundary and separates runtime/domain behaviour;
+- sizing/tiering is justified by historical authority, the value-free WEX sizing boundary, the serializable tier schema, consumers, and checks;
+- no unsupported Geometry/Border/Radius map was created;
+- no source, Button map, schemas, UI, runtime, CI/tooling, Foundation rules, ADRs, or external repositories changed.
 
-- Remote branch/SHA: `docs/wex-foundation-code-maps` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`
-- Changed files: `docs/code-map/README.md`, `docs/code-map/colour.md`, `docs/code-map/typography-font-delivery.md`, `docs/code-map/spacing.md`, `docs/code-map/interaction-focus.md`, `docs/code-map/layout.md`, `docs/code-map/sizing-tier-system.md`
-- Source audit: verified accepted authority, historical WEX source, WEX foundations and bundle entrypoint, package manifests, schema tier contract, demonstrated application consumers, focused tests, and the repository Foundation audit on `origin/main` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`.
-- Checks: all relative links in the seven changed Markdown files resolve; `git diff --check`; `pnpm audit:foundation`; `pnpm --filter @weerax/wex test` (7 passed); `pnpm --filter @weerax/schemas test` (5 passed); `pnpm --filter @weerax/web-runtime test` (4 passed).
-- Scope decisions: sizing/tiering qualified because current source, schema, consumers, and checks demonstrate an independent global boundary; no Geometry/Border/Radius map was created because authority remains component-local rather than an independent reusable subject.
-- Limitations/deviations: none. Maps contain navigation and routing only, without token tables, values, component contracts, or CSS rules. No source, tests, packages, runtime, CI/tooling, Foundation rules, ADRs, Button map, or external repository changed.
-- Unresolved questions: none. Reviewer must decide whether to accept Phase 1 before Button map integration is authorised.
+## Builder action — promotion only
 
-## Planned Phase 2 — Button map integration
+Promote the exact accepted candidate `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2` to `main` by fast-forward only.
 
-Not authorised yet. After Phase 1 acceptance, Button may be updated to link to accepted Foundation maps and refresh its verification metadata.
+Requirements:
+
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Verify the remote topic branch still resolves to the exact accepted SHA.
+3. Verify `origin/main` remains an ancestor of that candidate with no intervening divergence.
+4. Fast-forward `main` to that exact SHA. Do not amend, rebase, squash, or add changes.
+5. Verify remote `main` resolves to the exact accepted SHA.
+6. Update this same work file to `AWAITING REVIEWER REVIEW` with promotion evidence and stop.
+
+Do not begin Button map integration yet.
 
 ## Exclusions
 
-Do not modify WEX source, Button source, schemas, UI, adapters, applications, CI/tooling, Foundation rules, ADRs, or external repositories.
+Do not modify WEX source, Button source/map, schemas, UI, adapters, applications, CI/tooling, Foundation rules, ADRs, or external repositories.
