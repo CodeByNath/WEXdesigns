@@ -15,9 +15,21 @@ const elementDirectories = await readdir(
 test('keeps only the header, content frame, and footer in the index shell', () => {
   assert.match(html, /<header class="catalogue-header">/);
   assert.match(html, /<main id="main-content" class="catalogue-content wex-page-frame"/);
-  assert.match(html, /<section class="catalogue-content__surface"/);
+  assert.match(html, /<section class="catalogue-content__surface(?:\s|")/);
   assert.match(html, /<footer class="catalogue-footer">/);
   assert.doesNotMatch(html, /data-view=|catalogue-sidebar|foundation-section/);
+});
+
+test('presents System Settings from WEX authority without application actions', () => {
+  assert.match(html, /<h1 id="system-settings-title"[^>]*>System Settings<\/h1>/);
+  assert.match(html, /data-wex-colour="--wex-color-accent"/);
+  assert.match(html, /data-wex-value="--wex-type-family-sans"/);
+  assert.match(html, /wex-button--primary/);
+  assert.match(html, /wex-button--neutral/);
+  assert.match(html, /wex-button--subtle/);
+  assert.match(html, /wex-button--warning/);
+  assert.match(html, /wex-button--danger/);
+  assert.doesNotMatch(html, /onclick=|addEventListener\(['"]click/);
 });
 
 test('stores the agreed element families in the catalogue package', () => {

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="The live index for the WEX design system and WeeraX Studios UI library."
+      content="A read-only System Settings showcase for the WEX design system."
     />
-    <title>WEX Design System</title>
+    <title>System Settings | WEX Design System</title>
     <link rel="stylesheet" href="./src/catalogue.css" />
   </head>
   <body>
@@ -37,7 +37,99 @@
 
       <main id="main-content" class="catalogue-content wex-page-frame" tabindex="-1">
         <div class="catalogue-content__frame wex-layout">
-          <section class="catalogue-content__surface" aria-label="Design system content"></section>
+          <section class="catalogue-content__surface system-settings" aria-labelledby="system-settings-title">
+            <header class="system-settings__intro">
+              <p class="system-settings__eyebrow wex-type-navigation-small-semibold">WEX control centre</p>
+              <h1 id="system-settings-title" class="wex-type-heading-large-semibold">System Settings</h1>
+              <p class="system-settings__summary wex-type-body-default-regular">
+                A read-only view of the current WEX presentation foundations.
+              </p>
+            </header>
+
+            <section class="settings-section" aria-labelledby="colours-title">
+              <div class="settings-section__heading">
+                <h2 id="colours-title" class="wex-type-title-default-semibold">Colours</h2>
+                <p class="wex-type-body-small-regular">Resolved from the active WEX CSS custom properties.</p>
+              </div>
+              <div class="colour-groups">
+                <section class="colour-group" aria-labelledby="main-colours-title">
+                  <h3 id="main-colours-title" class="wex-type-navigation-default-semibold">Main</h3>
+                  <div class="colour-list">
+                    <div class="colour-row" data-wex-colour="--wex-color-black"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Black</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-dark"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Dark</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-dark-grey"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Dark grey</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-white"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">White</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-light"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Light</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-light-grey"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Light grey</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                  </div>
+                </section>
+                <section class="colour-group" aria-labelledby="accent-colours-title">
+                  <h3 id="accent-colours-title" class="wex-type-navigation-default-semibold">Accent</h3>
+                  <div class="colour-list">
+                    <div class="colour-row" data-wex-colour="--wex-color-accent"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Base</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-accent-dark"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Dark</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-accent-light"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Light</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                  </div>
+                </section>
+                <section class="colour-group" aria-labelledby="warning-colours-title">
+                  <h3 id="warning-colours-title" class="wex-type-navigation-default-semibold">Warning</h3>
+                  <div class="colour-list">
+                    <div class="colour-row" data-wex-colour="--wex-color-yellow"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Base</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-yellow-dark"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Dark</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-yellow-light"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Light</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                  </div>
+                </section>
+                <section class="colour-group" aria-labelledby="success-colours-title">
+                  <h3 id="success-colours-title" class="wex-type-navigation-default-semibold">Success</h3>
+                  <div class="colour-list">
+                    <div class="colour-row" data-wex-colour="--wex-color-green"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Base</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-green-dark"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Dark</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-green-light"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Light</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                  </div>
+                </section>
+                <section class="colour-group" aria-labelledby="error-colours-title">
+                  <h3 id="error-colours-title" class="wex-type-navigation-default-semibold">Error</h3>
+                  <div class="colour-list">
+                    <div class="colour-row" data-wex-colour="--wex-color-red"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Base</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-red-dark"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Dark</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                    <div class="colour-row" data-wex-colour="--wex-color-red-light"><span class="colour-row__swatch" aria-hidden="true"></span><span class="colour-row__name wex-type-body-small-regular">Light</span><output class="colour-row__value wex-type-navigation-small-semibold"></output></div>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+            <section class="settings-section" aria-labelledby="typography-title">
+              <div class="settings-section__heading">
+                <h2 id="typography-title" class="wex-type-title-default-semibold">Typography</h2>
+                <p class="wex-type-body-small-regular">Current font family: <output data-wex-value="--wex-type-family-sans" class="wex-type-navigation-small-semibold"></output></p>
+              </div>
+              <div class="type-samples">
+                <p class="type-sample wex-type-heading-default-semibold">Heading — Design with clarity</p>
+                <p class="type-sample wex-type-title-default-semibold">Title — Foundation overview</p>
+                <p class="type-sample wex-type-navigation-default-semibold">Navigation — System settings</p>
+                <p class="type-sample wex-type-body-default-regular">Body — WEX supplies the presentation language used in this runtime.</p>
+              </div>
+              <div class="tier-samples" aria-label="Typography tiers">
+                <p class="wex-type-body-small-regular">Small</p>
+                <p class="wex-type-body-default-regular">Default</p>
+                <p class="wex-type-body-large-regular">Large</p>
+              </div>
+            </section>
+
+            <section class="settings-section" aria-labelledby="buttons-title">
+              <div class="settings-section__heading">
+                <h2 id="buttons-title" class="wex-type-title-default-semibold">Buttons</h2>
+                <p class="wex-type-body-small-regular">Presentation-only examples; they do not invoke product actions.</p>
+              </div>
+              <div class="button-catalogue">
+                <section class="button-variant" aria-labelledby="primary-button-title"><h3 id="primary-button-title" class="wex-type-navigation-default-semibold">Primary</h3><div class="button-variant__samples"><button class="wex-button wex-button--primary wex-button--small" type="button">Small</button><button class="wex-button wex-button--primary wex-button--default" type="button">Default</button><button class="wex-button wex-button--primary wex-button--large" type="button">Large</button><button class="wex-button wex-button--primary wex-button--default" type="button" disabled>Disabled</button></div></section>
+                <section class="button-variant" aria-labelledby="neutral-button-title"><h3 id="neutral-button-title" class="wex-type-navigation-default-semibold">Neutral</h3><div class="button-variant__samples"><button class="wex-button wex-button--neutral wex-button--small" type="button">Small</button><button class="wex-button wex-button--neutral wex-button--default" type="button">Default</button><button class="wex-button wex-button--neutral wex-button--large" type="button">Large</button><button class="wex-button wex-button--neutral wex-button--default" type="button" disabled>Disabled</button></div></section>
+                <section class="button-variant" aria-labelledby="subtle-button-title"><h3 id="subtle-button-title" class="wex-type-navigation-default-semibold">Subtle</h3><div class="button-variant__samples"><button class="wex-button wex-button--subtle wex-button--small" type="button">Small</button><button class="wex-button wex-button--subtle wex-button--default" type="button">Default</button><button class="wex-button wex-button--subtle wex-button--large" type="button">Large</button><button class="wex-button wex-button--subtle wex-button--default" type="button" disabled>Disabled</button></div></section>
+                <section class="button-variant" aria-labelledby="warning-button-title"><h3 id="warning-button-title" class="wex-type-navigation-default-semibold">Warning</h3><div class="button-variant__samples"><button class="wex-button wex-button--warning wex-button--small" type="button">Small</button><button class="wex-button wex-button--warning wex-button--default" type="button">Default</button><button class="wex-button wex-button--warning wex-button--large" type="button">Large</button><button class="wex-button wex-button--warning wex-button--default" type="button" disabled>Disabled</button></div></section>
+                <section class="button-variant" aria-labelledby="danger-button-title"><h3 id="danger-button-title" class="wex-type-navigation-default-semibold">Danger</h3><div class="button-variant__samples"><button class="wex-button wex-button--danger wex-button--small" type="button">Small</button><button class="wex-button wex-button--danger wex-button--default" type="button">Default</button><button class="wex-button wex-button--danger wex-button--large" type="button">Large</button><button class="wex-button wex-button--danger wex-button--default" type="button" disabled>Disabled</button></div></section>
+              </div>
+            </section>
+          </section>
         </div>
       </main>
 
