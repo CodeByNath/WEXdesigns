@@ -32,8 +32,9 @@ WEX registers three reusable presentation radius tiers:
 | Default | `8px` |
 | Large | `12px` |
 
-Components consume a registered radius tier; they do not invent component-local
-corner values. A future WEX foundation implementation owns the token names and
+Components explicitly choose a registered radius tier; they do not invent
+component-local corner values. A component's size tiers do not imply a matching
+radius tier. A future WEX foundation implementation owns the token names and
 CSS delivery for these values.
 
 ### Stable boundary and outer-state geometry
@@ -66,11 +67,17 @@ This section supersedes the conflicting geometry table and border/radius/focus
 paragraphs of ADR 0006. All five ordinary Button variants retain identical
 geometry within a tier and keep the typography established by ADR 0006.
 
-| Tier | Minimum block size | Radius | Container padding |
+| Tier | Minimum block size | Ordinary Button radius | Container padding |
 | --- | --- | --- | --- |
-| Small | `36px` | Small (`4px`) | `4px` block / `12px` inline |
+| Small | `36px` | Default (`8px`) | `4px` block / `12px` inline |
 | Default | `40px` | Default (`8px`) | `4px` block / `12px` inline |
-| Large | `44px` | Large (`12px`) | `4px` block / `12px` inline |
+| Large | `44px` | Default (`8px`) | `4px` block / `12px` inline |
+
+Small, Default, and Large control Button sizing and typography only; every
+ordinary Button consumes the reusable Default (`8px`) radius. The Small and
+Large radius tiers remain available to components that explicitly adopt them.
+A full-circle or pill Button is a separate shape contract and is not implied or
+authorised by any ordinary Button size tier.
 
 Button specifically reserves a stable `2px` boundary in every appearance and
 state; a visually borderless Button resolves that boundary to transparent. The
