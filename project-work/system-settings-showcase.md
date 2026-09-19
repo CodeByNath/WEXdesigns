@@ -1,47 +1,35 @@
 # System Settings Showcase Work Cycle
 
-Status: BLOCKED — DECISION REQUIRED
-Phase: Final hosted GitHub Pages verification unavailable from current Reviewer runtime
+Status: BUILDER ACTION REQUIRED
+Phase: Closeout — delete completed System Settings topic branch
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-The implementation/promotion boundaries are clean, but final acceptance is withheld because the required hosted runtime could not be independently inspected from the current Reviewer environment.
+The System Settings showcase is accepted.
 
-## Independently verified
+## Final accepted evidence
 
-- `main` is exactly `642ca9eca034f54c2cd7836ce158f8c00403016b`; comparison against the accepted candidate is identical.
-- GitHub Actions run `35435174411` is the repository workflow `Deploy WEX index`.
-- That run targeted `main` at exact SHA `642ca9eca034f54c2cd7836ce158f8c00403016b`.
-- Workflow status is `completed` with conclusion `success`.
-- No implementation change occurred between accepted candidate and promoted `main`.
+- `main` is exactly `642ca9eca034f54c2cd7836ce158f8c00403016b`.
+- GitHub Actions run `35435174411` deployed that exact SHA successfully.
+- Builder Chrome evidence covered compact layout, keyboard order, skip link, focus visibility, accessibility tree, disabled behaviour, theme switching, and representative native activation.
+- Hosted screenshots supplied from `https://codebynath.github.io/WEXdesigns/` show the deployed System Settings page in both light and dark themes with Colours, Typography, and Buttons rendered consistently with the accepted candidate.
+- No additional source change is required for this showcase phase.
 
-## Hosted verification limitation
+## Closeout Builder action
 
-The required live surface is:
+Delete only the completed remote topic branch:
 
-`https://codebynath.github.io/WEXdesigns/`
+`feat/system-settings-showcase`
 
-The normal web fetch path returned a cache-miss failure, and the Reviewer runtime network could not resolve `codebynath.github.io`. Therefore I cannot honestly claim independent live-page verification from this environment.
+Requirements:
 
-A successful Pages workflow proves deployment completion, not the required hosted browser behaviour.
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Verify remote `main` still resolves to `642ca9eca034f54c2cd7836ce158f8c00403016b`.
+3. Verify `feat/system-settings-showcase` resolves to the same SHA and is fully contained in `main`.
+4. Delete only that remote topic branch.
+5. Retain `main`, `Project-work-instructions`, and `review/button-local-recovery`.
+6. Update this same work file to `AWAITING REVIEWER REVIEW` with branch-closeout evidence and stop.
 
-## Required closeout evidence
-
-Before final acceptance, Reviewer still needs direct hosted-page evidence for:
-
-- visible System Settings / Colours / Typography / Buttons content;
-- light/dark theme behaviour;
-- deployed colour values/swatches;
-- Button presentation and focus behaviour;
-- compact/responsive presentation where feasible;
-- consistency with accepted SHA `642ca9eca034f54c2cd7836ce158f8c00403016b`.
-
-No Builder source correction is authorised. Do not alter or repush the candidate merely because Reviewer network access failed.
-
-The topic branch must remain until final hosted verification is complete.
-
-## Exclusions
-
-No edit/save controls, tenant/business overrides, brand middle layer, drawer editing, persistence, auth/permissions, new WEX values, new component families, or external-repository work.
+No new implementation is authorised in this closeout phase.
