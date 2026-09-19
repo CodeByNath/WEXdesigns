@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote corrected Button-radius authority and implementation to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Independently verify promoted Button-radius correction and deployed GitHub Pages
 
 ## Reviewer Verdict
 
@@ -66,3 +66,13 @@ Final Reviewer boundary:
 - verify promoted `main`;
 - verify deployed Pages shows the same 8px ordinary Button radius across Small / Default / Large;
 - then authorize branch closeout if clean.
+
+## Builder Promotion Handoff — 2026-09-20
+
+- `origin` verified as `https://github.com/CodeByNath/WEXdesigns.git`.
+- Remote `main` was verified at `62efb748977cea124df73e96c1bba5e580fb9dc5` and as an ancestor of the accepted candidate.
+- `main` fast-forwarded without a merge commit to exact accepted SHA `68f9d05d65b7fb0b5b3f5cd834de125c9f16484a`; remote `main` SHA verified after push.
+- GitHub Actions **Deploy WEX index** run #13 for commit `68f9d05` on `main` completed successfully: `https://github.com/CodeByNath/WEXdesigns/actions/runs/35451891249`.
+- Topic branch `feat/foundation-geometry-interaction` remains remote as required; no new phase or source change began.
+
+Reviewer: independently verify promoted `main` and live Pages' common 8px ordinary Button radius before deciding whether branch closeout is safe.
