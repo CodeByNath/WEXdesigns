@@ -46,7 +46,7 @@ test('defines the complete core colour-token contract', () => {
   for (const token of requiredTokens) {
     assert.match(css, new RegExp(`--wex-color-${token}:`), `missing ${token}`);
   }
-  assert.match(css, /--wex-opacity-disabled:\s*0\.1;/);
+  assert.match(css, /--wex-opacity-disabled:\s*0\.2;/);
 });
 
 test('keeps the approved primitive palette exact', () => {

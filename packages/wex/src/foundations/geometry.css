@@ -1,0 +1,9 @@
+:root {
+  --wex-radius-small: 0.25rem;
+  --wex-radius-default: 0.5rem;
+  --wex-radius-large: 0.75rem;
+
+  --wex-border-width-default: 1px;
+  --wex-outer-ring-width: 2px;
+  --wex-outer-ring-gap: var(--wex-space-2);
+}

@@ -67,7 +67,7 @@
   --wex-color-icon-accent: var(--wex-color-accent);
 
   /* Apply once at the outermost disabled component. */
-  --wex-opacity-disabled: 0.1;
+  --wex-opacity-disabled: 0.2;
 }
 
 :root,

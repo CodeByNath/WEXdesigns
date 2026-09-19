@@ -139,14 +139,17 @@ assert(buttonPresentation.includes('createButtonPresentation'), 'Button presenta
 assert(!buttonPresentation.includes('document.'), 'Shared UI Button depends on the browser runtime');
 assert(!buttonPresentation.includes('ButtonState'), 'Shared UI serializes presentation state');
 const buttonFoundation = read('packages/wex/src/foundations/buttons.css');
+const geometryFoundation = read('packages/wex/src/foundations/geometry.css');
 assert(buttonFoundation.includes('.wex-button--warning'), 'WEX Button foundation is missing');
 assert(!buttonFoundation.includes('data-wex-button-state'), 'WEX Button accepts authored presentation state');
 for (const tier of ['small', 'default', 'large']) {
   assert(buttonFoundation.includes(`.wex-button--${tier}`), `Button ${tier} geometry is missing`);
 }
-assert(buttonFoundation.includes('border: 1px solid'), 'Button stable border is missing');
-assert(buttonFoundation.includes('border-radius: 0'), 'Button radius contract changed');
-assert(buttonFoundation.includes('outline-offset: var(--wex-space-2)'), 'Button focus offset is missing');
+assert(buttonFoundation.includes('border: var(--wex-outer-ring-width) solid'), 'Button stable boundary is missing');
+assert(buttonFoundation.includes('border-radius: var(--wex-radius-small)'), 'Button radius contract is missing');
+assert(buttonFoundation.includes('outline-offset: var(--wex-outer-ring-gap)'), 'Button outer-ring gap is missing');
+assert(geometryFoundation.includes('--wex-border-width-default: 1px'), 'Default border geometry is missing');
+assert(geometryFoundation.includes('--wex-outer-ring-width: 2px'), 'Outer-ring geometry is missing');
 assert(!existsSync(resolve(root, 'test')), 'Repository placeholder still exists');
 
 console.log('Foundation audit passed: authorities, dependencies, CSS structure, tiers, and Button-only boundary are valid.');

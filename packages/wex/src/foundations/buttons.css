@@ -126,16 +126,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--wex-button-border-default);
-  border-radius: 0;
+  gap: var(--wex-space-4);
+  border: var(--wex-outer-ring-width) solid var(--wex-button-border-default);
   background-color: var(--wex-button-background-default);
   color: var(--wex-button-foreground-default);
 }
 
 .wex-button--small {
-  min-block-size: var(--wex-space-32);
+  min-block-size: 2.25rem;
   padding-block: var(--wex-space-4);
   padding-inline: var(--wex-space-12);
+  border-radius: var(--wex-radius-small);
   font-family: var(--wex-type-navigation-small-font-family);
   font-size: var(--wex-type-navigation-small-font-size);
   font-weight: var(--wex-type-weight-semibold);
@@ -146,7 +147,8 @@
 .wex-button--default {
   min-block-size: var(--wex-space-40);
   padding-block: var(--wex-space-4);
-  padding-inline: var(--wex-space-16);
+  padding-inline: var(--wex-space-12);
+  border-radius: var(--wex-radius-default);
   font-family: var(--wex-type-navigation-default-font-family);
   font-size: var(--wex-type-navigation-default-font-size);
   font-weight: var(--wex-type-weight-semibold);
@@ -155,9 +157,10 @@
 }
 
 .wex-button--large {
-  min-block-size: var(--wex-space-48);
-  padding-block: var(--wex-space-8);
-  padding-inline: var(--wex-space-24);
+  min-block-size: 2.75rem;
+  padding-block: var(--wex-space-4);
+  padding-inline: var(--wex-space-12);
+  border-radius: var(--wex-radius-large);
   font-family: var(--wex-type-navigation-large-font-family);
   font-size: var(--wex-type-navigation-large-font-size);
   font-weight: var(--wex-type-weight-semibold);
@@ -178,8 +181,8 @@
 }
 
 .wex-button:focus-visible {
-  outline: var(--wex-focus-width) solid var(--wex-button-focus-outline);
-  outline-offset: var(--wex-space-2);
+  outline: var(--wex-outer-ring-width) solid var(--wex-button-focus-outline);
+  outline-offset: var(--wex-outer-ring-gap);
 }
 
 .wex-button:disabled {
