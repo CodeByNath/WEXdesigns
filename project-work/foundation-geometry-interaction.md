@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Implement accepted ADR 0010 foundation geometry and Button reconciliation
+Status: AWAITING REVIEWER REVIEW
+Phase: Review the ADR 0010 foundation geometry and Button reconciliation candidate
 
 ## Reviewer Verdict
 
@@ -66,3 +66,13 @@ Do not add new Button variants, Selected support to ordinary Button, schemas, sh
 - handoff back as `AWAITING REVIEWER REVIEW`.
 
 Stop at that boundary. Do not promote to `main`.
+
+## Builder Handoff — 2026-09-19
+
+- Candidate: `origin/feat/foundation-geometry-interaction` at `c74899e1b4cf9a4439ddacf0580d5af9a1cb4e10` (remote SHA verified).
+- Changed: `packages/wex/src/foundations/geometry.css`, `packages/wex/src/foundations/buttons.css`, `packages/wex/src/foundations/colour.css`, `packages/wex/src/index.css`, `packages/wex/test/button-foundation.test.mjs`, `packages/wex/test/colour-tokens.test.mjs`, and `tooling/scripts/validate-foundation.mjs`.
+- Passed: `git diff --check`; `pnpm --filter @weerax/wex test` (7/7); `pnpm audit:foundation`; `pnpm --filter @weerax/web-runtime check` (typecheck and 5/5 tests).
+- Chrome local candidate preview: `http://localhost:5173/WEXdesigns/`. Light and dark themes rendered all five Button variants, all Small/Default/Large tiers, and disabled controls. Keyboard Tab exposed the outside focus ring with no visible button-layout shift; Space retained an ordinary semantic button (no selected/toggle state). Compact validation at 200% browser zoom retained usable Button layout. Pointer/keyboard interaction was exercised; the browser-control surface cannot preserve a hover frame for capture, while deterministic CSS tests cover the declared interaction selectors.
+- Scope remained within the authorised foundations/test/tooling area; no variants, selectable Button state, schemas, runtime/business logic, themes, or new component families were added.
+
+Reviewer: independently inspect the remote candidate and evidence. Do not promote to `main` unless review accepts it.
