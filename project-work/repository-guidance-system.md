@@ -1,7 +1,7 @@
 # Repository Guidance System Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Button Code Map integration
+Status: AWAITING REVIEWER REVIEW
+Phase: Reviewer review — Button Code Map integration
 
 ## Reviewer Verdict
 
@@ -25,34 +25,16 @@ Accepted Foundation maps:
 - `docs/code-map/layout.md`
 - `docs/code-map/sizing-tier-system.md`
 
-## Phase 2 — Button Code Map integration
+## Phase 2 Builder Handoff
 
-Before creating the next branch, close the completed Phase 1 branch:
-
-1. Verify `origin/main` still contains `docs/wex-foundation-code-maps` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`.
-2. Delete remote `docs/wex-foundation-code-maps` only after that verification.
-3. Do not delete `review/button-local-recovery`; it remains retained historical recovery evidence.
-
-Then create exactly one new topic branch from current `main`:
-
-`docs/button-code-map-integration`
-
-On that branch:
-
-1. Audit the current accepted `docs/code-map/button-system.md`, Button ADRs, current Button schema/shared UI/WEX/test locations, and the newly accepted Foundation maps.
-2. Update only `docs/code-map/button-system.md` unless a broken navigation link in `docs/code-map/README.md` is proven to require correction.
-3. Link Button to the accepted Foundation maps it demonstrably consumes:
-   - Colour;
-   - Typography/font delivery;
-   - Spacing;
-   - Interaction/focus;
-   - Sizing/tier system;
-   - Layout only if current Button authority/source demonstrates a real dependency or routing need.
-4. Do not duplicate token values, padding measurements, typography sizes, colour values, border/radius values, focus values, or other contracts into the Button map.
-5. Preserve Button-specific ADR authority for Button-local geometry/state/action/runtime rules.
-6. Refresh Button map verification metadata against the current `main` SHA.
-7. Run link verification, `git diff --check`, and relevant focused repository checks.
-8. Commit/push the single topic branch, verify its remote SHA, update this same work file to `AWAITING REVIEWER REVIEW`, and stop.
+- Remote branch/SHA: `docs/button-code-map-integration` at `97ca59f38da5a79f49974f6bed787ad500711989`
+- Changed file: `docs/code-map/button-system.md`
+- Branch housekeeping: verified `origin/main` and completed Phase 1 branch both resolved to `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`, then deleted only remote `docs/wex-foundation-code-maps`; retained `review/button-local-recovery` at `19795644f033f43a7ebb99617d748fdce2c7e1ea`.
+- Audit: inspected the accepted Button map and ADRs, current schema/shared UI/WEX sources and focused tests, and all accepted Foundation maps on `origin/main` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`.
+- Integration: linked Colour, Typography/font delivery, Spacing, Interaction/focus, and Sizing/tiering; did not link Layout because current Button authority and source demonstrate no Layout-foundation dependency.
+- Checks: all relative Button-map links resolve; `git diff --check`; `pnpm audit:foundation`; schema tests (5 passed); shared UI tests (3 passed); WEX tests (7 passed).
+- Limitations/deviations: none. Verification metadata was refreshed; Button-specific ADR routing remains authoritative; no values or contracts were duplicated and no excluded file changed.
+- Unresolved questions: none. Reviewer must decide whether to accept Phase 2.
 
 ## Exclusions
 
