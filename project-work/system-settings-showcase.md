@@ -1,7 +1,7 @@
 # System Settings Showcase Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Builder candidate pushed — read-only single-page System Settings showcase
+Status: BUILDER ACTION REQUIRED
+Phase: Browser accessibility and compact-view evidence for System Settings candidate
 
 ## Goal
 
@@ -96,3 +96,25 @@ No edit/save controls, tenant/business overrides, brand middle layer, drawer edi
 - Browser evidence (local preview `http://localhost:5173/WEXdesigns/`): light and dark theme toggle, all palette labels/resolved values, typography samples, five Button variants and disabled examples, native button activation, and keyboard focus ring were inspected. GitHub Pages production path is `https://codebynath.github.io/WEXdesigns/`; it remains `main`-only and therefore cannot show this unmerged candidate.
 - Limitation: the compact CSS breakpoint is covered by implementation but was not independently inspected at a narrow browser viewport; Reviewer should include that check. Hover/pressed rules are the accepted WEX Button foundation and its focused tests passed; a persistent hover/active screenshot was not captured by the available automation.
 - Process note: retain both preview paths above for a future `AGENTS.md` guidance update only if the Reviewer authorises it. No guidance change is included here.
+
+
+## Reviewer Verdict
+
+**Proceed with safeguards**
+
+The pushed candidate at `642ca9eca034f54c2cd7836ce158f8c00403016b` is structurally within scope: one commit ahead of `main`, zero behind, and limited to the four authorised `apps/web-runtime` files. It consumes current WEX foundations, resolves colour values from CSS custom properties at runtime, uses existing typography/Button classes, adds no product actions or edit model, and introduces no raw colour values into runtime CSS.
+
+Acceptance is blocked only on missing browser evidence that the Builder already identified and that is now mandatory under `project-work/AGENTS.md`.
+
+### Required Builder follow-up — evidence only unless a defect is found
+
+Using the exact candidate SHA in Chrome/approved Chromium local preview:
+
+1. Inspect the compact/mobile layout at a narrow viewport (at minimum the existing <=767px breakpoint) and record the tested viewport size plus result.
+2. Run keyboard-only traversal from page start through the theme control and all enabled Button examples; confirm visible focus, sensible order, skip-link operation, and that disabled Buttons are skipped as expected.
+3. Use Chrome accessibility inspection/tools to verify the page landmarks/headings/section labelling, theme checkbox accessible name/state, colour rows' readable text output, and Button names/disabled states. Record any issues found.
+4. Exercise and record light/dark theme behaviour plus representative hover and native press/active presentation for the accepted Button variants.
+5. If any defect is found, fix only that defect on the same branch, rerun the required repository checks, push the updated SHA, and report the diff. If no defect is found, do not change implementation merely to create evidence.
+6. Update this same work file back to `AWAITING REVIEWER REVIEW` with exact Chrome evidence and the final remote SHA; stop.
+
+Do not promote to `main` yet. Production GitHub Pages remains a post-promotion Reviewer evidence boundary because the deployment workflow is `main`-only.
