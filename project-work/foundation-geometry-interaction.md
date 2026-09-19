@@ -29,6 +29,16 @@ Reviewer independently verified the authority promotion.
 - Interaction roles remain distinct: Default / Hover / Pressed / Selected / Focused / Disabled.
 - Universal disabled opacity is `--wex-opacity-disabled: 0.2`.
 
+
+## Execution surface requirement
+
+This closeout must run on a Git-capable Builder surface that supports safe remote branch deletion.
+
+- Do not assign this deletion to a connector-only surface that cannot delete Git refs.
+- Verify branch ancestry before deletion.
+- Delete only `docs/foundation-geometry-interaction-authority`.
+- Record the exact remote-state evidence and hand back to Reviewer.
+
 ## Builder closeout action
 
 Delete only the completed remote authority branch:
