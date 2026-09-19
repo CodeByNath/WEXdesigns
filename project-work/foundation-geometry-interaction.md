@@ -1,78 +1,48 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Review the ADR 0010 foundation geometry and Button reconciliation candidate
+Status: BUILDER ACTION REQUIRED
+Phase: Correct Button stable-boundary / outer-ring authority separation
 
 ## Reviewer Verdict
 
-**Proceed**
+**Stop — architectural risk**
 
-Reviewer independently verified the completed authority-branch closeout.
+Reviewer independently inspected `origin/feat/foundation-geometry-interaction` at `c74899e1b4cf9a4439ddacf0580d5af9a1cb4e10` against ADR 0010.
 
-- `main` remains exactly `72bd24a6b6d5b757f4629b00fc5682d1b67e1089`.
-- `docs/foundation-geometry-interaction-authority` is no longer present remotely.
-- `main`, `Project-work-instructions`, and `review/button-local-recovery` remain.
-- The closeout introduced no implementation change.
+## Accepted parts of the candidate
 
-## Authority
+- Radius tiers are registered as `4 / 8 / 12px`.
+- Default structural border geometry is registered as `1px`.
+- Outer-ring width/gap are registered as `2px / 2px`.
+- Universal disabled opacity is correctly changed to `0.2`.
+- Button tier heights, padding, radius, direct-content gap, focus offset, and ordinary non-selectable state direction match the accepted values.
+- Scope remains within the authorised WEX foundation/test/tooling boundary.
 
-- `docs/decisions/0010-foundation-geometry-interaction.md`
-- Existing Button authority in ADRs 0005 and 0006 except where ADR 0010 explicitly supersedes geometry.
-- Existing colour authority in ADR 0004 except disabled opacity superseded by ADR 0010.
-- Current main foundation source and tests.
+## Blocking defect
 
-## Verified implementation gap on main
+ADR 0010 deliberately separates:
+- reusable outer-state geometry: Focused/Selected use a `2px` outside ring; and
+- Button-specific stable boundary: Button reserves its own `2px` component boundary in every appearance/state.
 
-Current source still reflects the pre-ADR geometry:
-- Button base border is `1px`, radius is `0`.
-- Button tier geometry is `32 / 40 / 48px` with old tier padding.
-- Focus uses the existing Button-local outline geometry.
-- Universal disabled opacity is still `0.1`.
-- Existing tests assert the superseded Button geometry.
+The candidate couples those two authorities:
 
-## Builder implementation scope
+`buttons.css`
+- Button base border uses `var(--wex-outer-ring-width)`.
 
-Implement only the accepted ADR 0010 presentation recovery:
+The deterministic tests and `validate-foundation.mjs` then assert that same coupling.
 
-1. Add reusable WEX radius tiers: `4 / 8 / 12px`.
-2. Add reusable structural/state geometry required by ADR 0010:
-   - default structural border `1px`;
-   - Focused and Selected outer treatment `2px`;
-   - shared outside gap `2px`;
-   - no layout shift.
-3. Change universal disabled opacity to `--wex-opacity-disabled: 0.2`, applied once at the outermost disabled component.
-4. Reconcile Button:
-   - stable `2px` boundary in every appearance/state, transparent where visually borderless;
-   - Small / Default / Large radius consumption `4 / 8 / 12px`;
-   - minimum heights `36 / 40 / 44px`;
-   - padding `4px` block / `12px` inline;
-   - direct-content relationship gap `4px`;
-   - Focused consumes reusable outer-ring geometry;
-   - ordinary Button remains non-selectable.
-5. Update deterministic tests to assert the new authority.
-6. Update the existing System Settings showcase only as needed to reflect the changed foundation and support browser verification.
+That makes the Button's component boundary semantically depend on the outer-state ring token. A future change to outer-state geometry would therefore silently alter Button's base boundary, contradicting ADR 0010's explicit separation.
 
-## Exclusions
+## Builder correction
 
-Do not add new Button variants, Selected support to ordinary Button, schemas, shared UI abstractions, runtime/business logic, theme editing, tenant overrides, new component families, or unrelated catalogue work.
+Change only the candidate implementation needed to restore that separation:
 
-## Required evidence
+1. Give Button's stable `2px` boundary its own Button-specific presentation token/contract.
+2. Keep `--wex-outer-ring-width` exclusively for Focused/Selected outside-state geometry.
+3. Keep transparent boundaries for visually borderless Button appearances.
+4. Update Button tests and foundation validation so they assert the semantic separation rather than the current coupling.
+5. Preserve all already-correct ADR 0010 values and all exclusions.
+6. Re-run the previously required deterministic checks and browser evidence if the CSS change can affect rendered geometry.
+7. Push the corrected candidate on the same topic branch and update this same work file to `AWAITING REVIEWER REVIEW` with the exact new SHA/evidence.
 
-- exact topic branch/SHA and changed files;
-- `git diff --check`;
-- relevant WEX/runtime checks and tests;
-- browser validation of light/dark, all Button tiers/variants, hover/pressed/focus/disabled, and compact layout;
-- no layout shift from Focused outer treatment;
-- handoff back as `AWAITING REVIEWER REVIEW`.
-
-Stop at that boundary. Do not promote to `main`.
-
-## Builder Handoff — 2026-09-19
-
-- Candidate: `origin/feat/foundation-geometry-interaction` at `c74899e1b4cf9a4439ddacf0580d5af9a1cb4e10` (remote SHA verified).
-- Changed: `packages/wex/src/foundations/geometry.css`, `packages/wex/src/foundations/buttons.css`, `packages/wex/src/foundations/colour.css`, `packages/wex/src/index.css`, `packages/wex/test/button-foundation.test.mjs`, `packages/wex/test/colour-tokens.test.mjs`, and `tooling/scripts/validate-foundation.mjs`.
-- Passed: `git diff --check`; `pnpm --filter @weerax/wex test` (7/7); `pnpm audit:foundation`; `pnpm --filter @weerax/web-runtime check` (typecheck and 5/5 tests).
-- Chrome local candidate preview: `http://localhost:5173/WEXdesigns/`. Light and dark themes rendered all five Button variants, all Small/Default/Large tiers, and disabled controls. Keyboard Tab exposed the outside focus ring with no visible button-layout shift; Space retained an ordinary semantic button (no selected/toggle state). Compact validation at 200% browser zoom retained usable Button layout. Pointer/keyboard interaction was exercised; the browser-control surface cannot preserve a hover frame for capture, while deterministic CSS tests cover the declared interaction selectors.
-- Scope remained within the authorised foundations/test/tooling area; no variants, selectable Button state, schemas, runtime/business logic, themes, or new component families were added.
-
-Reviewer: independently inspect the remote candidate and evidence. Do not promote to `main` unless review accepts it.
+Do not widen scope, promote to `main`, add Selected support to ordinary Button, or change unrelated foundation values.
