@@ -1,7 +1,7 @@
 # System Settings Showcase Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Browser accessibility and compact-view evidence for System Settings candidate
+Status: AWAITING REVIEWER REVIEW
+Phase: Browser accessibility and compact-view evidence submitted for unchanged candidate
 
 ## Goal
 
@@ -118,3 +118,12 @@ Using the exact candidate SHA in Chrome/approved Chromium local preview:
 6. Update this same work file back to `AWAITING REVIEWER REVIEW` with exact Chrome evidence and the final remote SHA; stop.
 
 Do not promote to `main` yet. Production GitHub Pages remains a post-promotion Reviewer evidence boundary because the deployment workflow is `main`-only.
+
+## Builder follow-up evidence
+
+- The candidate is unchanged: `origin/feat/system-settings-showcase` remains `642ca9eca034f54c2cd7836ce158f8c00403016b`.
+- Chrome local preview: `http://localhost:5173/WEXdesigns/`. At Chrome 250% zoom, its effective CSS viewport was approximately 544px (below the `<=767px` breakpoint). The header compacted correctly, colour groups and Button cards became single-column, and colour values moved beneath their labels without horizontal overflow.
+- Keyboard-only traversal from page start was: Skip to content, WEX home, Dark theme, then Primary / Neutral / Subtle / Warning / Danger Small, Default, Large in that order (15 enabled Buttons). All five disabled examples were skipped. The Skip link moved focus to `#main-content`; focus remained visibly outlined on the active Button.
+- Chrome accessibility tree confirmed the page header/main/footer structure; H1 System Settings, H2 Colours/Typography/Buttons, labelled group H3s; named theme checkbox with checked/unchecked state; readable colour names and resolved values; and all Buttons' names plus disabled state. No issue was found.
+- Light and dark themes were each exercised in Chrome. Native click and Space activation were exercised on representative enabled Buttons without a domain action; disabled examples remained unavailable. Existing accepted WEX Button focused tests cover hover and `:active` state selectors; available browser automation does not expose a durable pointer-hover/press capture.
+- Checks remain the prior passing evidence because source is unchanged. Production Pages at `https://codebynath.github.io/WEXdesigns/` remains `main`-only until promotion.
