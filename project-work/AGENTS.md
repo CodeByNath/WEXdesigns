@@ -19,6 +19,24 @@ For this repository, `run the cycle`, `continue the work`, `review the latest wo
 
 On those triggers, first fetch/read `origin/Project-work-instructions`, identify the single active work file and its `Status`/`Phase`, determine the current actor, and execute only the authorised next action. `pnpm check`, tests, builds, audits, or other validation are phase steps only when required; they are never a substitute for the project cycle.
 
+
+## Executor Capability Preflight
+
+Role authority and executor capability are separate checks.
+
+After identifying the active actor and before executing the phase:
+
+1. Enumerate the concrete operations required by the active work file, including Git ref deletion, branch creation, push, merge, browser validation, deployment inspection, file writes, or other external actions.
+2. Verify the current execution surface exposes the capability required for every mandatory operation.
+3. Do not begin a phase that cannot be completed end-to-end on the current execution surface.
+4. Do not reinterpret a missing tool as a project decision, architecture blocker, or failed implementation.
+5. If the phase requires a capability unavailable in the current surface, keep ownership with the authorised role and record that a capable execution surface is required. Do not partially advance the phase or claim completion.
+6. Prefer assigning destructive Git housekeeping such as remote branch deletion to a Git/terminal-capable Builder surface. A connector-only Reviewer surface must not be treated as the executor for such work unless it actually exposes safe ref deletion.
+7. When a Builder session already has the required Git capability, complete authorised branch housekeeping in the same closeout transaction rather than leaving a known safe deletion for an incapable follow-up surface.
+8. Reviewer must verify the housekeeping evidence before opening the next implementation phase.
+
+A cycle is not considered executable merely because the role is authorised; the current executor must also be capable of completing the phase.
+
 ## Git Authorization During a Cycle
 
 When the user explicitly says `run the cycle`, `continue the work`, `review the latest work`, or another defined cycle trigger, that request authorizes the non-destructive Git operations required to complete the currently authorised phase against this repository's configured `origin`.
