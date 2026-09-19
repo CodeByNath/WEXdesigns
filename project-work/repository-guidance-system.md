@@ -1,34 +1,41 @@
 # Repository Guidance System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Reviewer verification — Button Code Map branch closeout
+Status: ACCEPTED
+Phase: Repository guidance, WEX Foundation Code Maps, and Button Code Map integration complete
 
 ## Reviewer Verdict
 
 **Proceed**
 
-Button Code Map integration is accepted on `main`.
+Reviewer independently verified final closeout.
 
-Reviewer independently verified:
+## Final accepted state
 
-- current `main` is exactly `97ca59f38da5a79f49974f6bed787ad500711989`;
-- `docs/code-map/button-system.md` on `main` matches the accepted candidate;
-- no extra changes were introduced during promotion;
-- the Button map now correctly links to accepted Colour, Typography/font delivery, Spacing, Interaction/focus, and Sizing/tier maps while preserving Button-specific ADR authority.
+- `main` remains exactly `97ca59f38da5a79f49974f6bed787ad500711989`.
+- The accepted Button Code Map on `main` matches the reviewed candidate.
+- The completed `docs/button-code-map-integration` topic branch has been deleted after verification that it was fully contained in `main`.
+- Current remote branches are:
+  - `main`;
+  - `Project-work-instructions`;
+  - retained historical recovery branch `review/button-local-recovery` at `19795644f033f43a7ebb99617d748fdce2c7e1ea`.
+- No implementation, GitHub Pages, component, runtime, schema, shared UI, Foundation, ADR, CI/tooling, or external-repository changes were introduced during closeout.
 
-The repository-guidance / Foundation / Code Map work area is functionally complete.
+## Accepted guidance outcome
 
-## Closeout handoff
+The repository now has accepted navigation for:
 
-- Verified origin: `https://github.com/CodeByNath/WEXdesigns.git`.
-- Before deletion, verified remote `main` and `docs/button-code-map-integration` both resolved exactly to `97ca59f38da5a79f49974f6bed787ad500711989`.
-- Verified the topic branch was fully contained in `main`; the branches had zero commits of divergence in either direction.
-- Deleted only remote `docs/button-code-map-integration` and pruned its remote-tracking reference.
-- Verified the deleted branch is absent from the remote.
-- Verified remote `main` remains at `97ca59f38da5a79f49974f6bed787ad500711989`, `Project-work-instructions` remains present, and `review/button-local-recovery` remains at `19795644f033f43a7ebb99617d748fdce2c7e1ea`.
-- No implementation, documentation, GitHub Pages, or component changes were made.
-- Limitations/deviations: none.
+- Colour;
+- Typography and font delivery;
+- Spacing;
+- Interaction and focus;
+- Layout;
+- Sizing and tier system;
+- Button integration into those demonstrated WEX foundations.
 
-## Exclusions
+The Code Map remains navigation evidence only. Linked authority and current source remain authoritative.
 
-Do not modify WEX source, Button source/map, schemas, shared UI, adapters, applications, Foundation maps/rules, ADRs, CI/tooling, GitHub Pages runtime, or external repositories.
+## Result
+
+This work area is closed and accepted.
+
+No new work area, component family, GitHub Pages visual catalogue/runtime phase, or further Foundation subject is authorised by this acceptance. A new task requires a separately authorised work area or phase.
