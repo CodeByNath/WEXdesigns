@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Correct Button radius authority after promoted ADR 0010 mismatch
+Status: AWAITING REVIEWER REVIEW
+Phase: Review corrected ADR 0010 Button-radius authority and reconciliation candidate
 
 ## Reviewer Verdict
 
@@ -54,3 +54,14 @@ Button radius is independent from Button size tier:
 6. Do not delete the topic branch or begin another component/foundation phase.
 
 No unrelated radius/component work is authorised.
+
+## Builder Resubmission — 2026-09-20
+
+- Candidate: `origin/feat/foundation-geometry-interaction` at `68f9d05d65b7fb0b5b3f5cd834de125c9f16484a` (remote SHA verified).
+- Authority first: `6dbf64526c2ed2c0c857839a950cc399643671e9` amends ADR 0010 to make ordinary Button radius independent of size. Small/Default/Large now all consume the registered Default radius (`8px`); 4px/12px remain reusable for explicitly adopting components. No pill/full-circle contract was invented.
+- Implementation: `68f9d05d65b7fb0b5b3f5cd834de125c9f16484a` moves `border-radius: var(--wex-radius-default)` to the shared ordinary Button rule and removes radius selection from every size tier.
+- Changed: `docs/decisions/0010-foundation-geometry-interaction.md`, `packages/wex/src/foundations/buttons.css`, `packages/wex/test/button-foundation.test.mjs`, and `tooling/scripts/validate-foundation.mjs`.
+- Passed: `git diff --check`; `pnpm --filter @weerax/wex test` (7/7); `pnpm audit:foundation`; `pnpm --filter @weerax/web-runtime check` (typecheck and 5/5 tests).
+- Chrome local candidate preview: `http://localhost:5173/WEXdesigns/`. Light/dark variants and all tiers render with a common ordinary Button radius; disabled, outside focus ring/no-layout-shift, and 200% compact layout were revalidated.
+
+Reviewer: independently inspect the corrected authority and candidate. Current `main`/Pages still carry the superseded tier-to-radius mapping; do not delete this topic branch or promote without a new decision.
