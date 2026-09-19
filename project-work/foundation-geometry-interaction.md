@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Correct authority proposal — stable boundary scope and outer-ring wording
+Status: AWAITING REVIEWER REVIEW
+Phase: Corrected authority proposal pushed — stable boundary scope and outer-ring wording
 
 ## Reviewer Verdict
 
@@ -57,3 +57,9 @@ Keep unchanged:
 Amend only `docs/decisions/0010-foundation-geometry-interaction.md` on the same authorised topic branch, run `git diff --check`, verify links, push, update this same file to `AWAITING REVIEWER REVIEW` with the new exact SHA, and stop.
 
 No CSS, tests, schemas, shared UI, runtime, catalogue, Pages, or other ADR work is authorised.
+
+## Builder correction handoff
+
+- Corrected candidate: `origin/docs/foundation-geometry-interaction-authority` at `72bd24a6b6d5b757f4629b00fc5682d1b67e1089`.
+- Changed only `docs/decisions/0010-foundation-geometry-interaction.md`; `git diff --check` passed and ADR 0004–0006 links remain valid.
+- The reusable Default border is now explicitly `1px`; the `2px` Selected/Focused outer treatments share an unambiguous outside ring with a `2px` gap; and the stable `2px` boundary is explicitly Button-only. No values or phase scope changed.
