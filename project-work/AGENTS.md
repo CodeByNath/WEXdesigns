@@ -113,3 +113,25 @@ Use explicit ownership states:
 - `DEFERRED`
 
 The active work file may define additional phase-specific statuses, but a completed Builder source handoff must use `AWAITING REVIEWER REVIEW` before Reviewer acts.
+
+
+## Cross-Chat Handover
+
+A rolling Google Drive handover is maintained for cross-chat continuity only.
+
+Location:
+- Drive folder: `WEXdesigns / Chat Handover`
+- Google Doc: `WEXdesigns Chat Handover`
+- Folder URL: https://drive.google.com/drive/folders/106IczMuPYQOmSy3I5Da5MJShz7cx-33T
+- Document URL: https://docs.google.com/document/d/1Cg5ajRNmELWDArLh9MhDMyFuWPd0WQSo29XfleBb0Ew/edit
+
+Purpose:
+- give a clean ChatGPT session the current project state without replaying the full prior conversation;
+- record the active work area, current accepted main SHA, latest accepted authority, implementation-vs-authority gaps, next cycle boundary, and deferred decisions.
+
+Rules:
+- The handover is continuity context, not WEX/product architecture authority.
+- Repository authority still comes from historical WEX source, accepted ADRs, architecture documents/Code Maps, schemas, verified `main` source, and the active `project-work` file.
+- At a clean chat start, read the handover first, then run the normal WeeraX Project Cycle against the repository.
+- Update the same Google Doc after material project-state changes or before intentionally starting a new chat.
+- Do not create a new handover document for every chat; keep the existing document concise and current.
