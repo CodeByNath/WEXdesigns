@@ -1,19 +1,23 @@
 # Repository Guidance System Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Reviewer verification — WEX Foundation Code Maps promoted to main
+Status: BUILDER ACTION REQUIRED
+Phase: Button Code Map integration
 
 ## Reviewer Verdict
 
 **Proceed**
 
-Reviewer independently inspected `docs/wex-foundation-code-maps` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2` against current `main`, ADR 0009, repository architecture, historical WEX authority, current WEX source, schema tier contract, focused tests, and the Foundation audit.
+WEX Foundation Code Maps are accepted on `main`.
 
-## Review result
+Reviewer independently verified:
 
-The candidate is one commit ahead of `main`, zero behind, and changes only:
+- current `main` is exactly `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`;
+- the promoted files match the accepted Phase 1 candidate;
+- no additional changes were introduced during promotion;
+- the accepted maps remain navigation evidence and preserve ADR 0009 boundaries.
 
-- `docs/code-map/README.md`
+Accepted Foundation maps:
+
 - `docs/code-map/colour.md`
 - `docs/code-map/typography-font-delivery.md`
 - `docs/code-map/spacing.md`
@@ -21,26 +25,35 @@ The candidate is one commit ahead of `main`, zero behind, and changes only:
 - `docs/code-map/layout.md`
 - `docs/code-map/sizing-tier-system.md`
 
-Accepted findings:
+## Phase 2 — Button Code Map integration
 
-- every new map is for a demonstrated current WEX subject;
-- verification metadata points to the audited `main` SHA;
-- maps link to authority/source/checks rather than duplicating token values or contracts;
-- spacing correctly treats padding/gap as consumers of the spacing authority rather than separate token systems;
-- interaction/focus preserves the WEX presentation boundary and separates runtime/domain behaviour;
-- sizing/tiering is justified by historical authority, the value-free WEX sizing boundary, the serializable tier schema, consumers, and checks;
-- no unsupported Geometry/Border/Radius map was created;
-- no source, Button map, schemas, UI, runtime, CI/tooling, Foundation rules, ADRs, or external repositories changed.
+Before creating the next branch, close the completed Phase 1 branch:
 
-## Builder Handoff
+1. Verify `origin/main` still contains `docs/wex-foundation-code-maps` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`.
+2. Delete remote `docs/wex-foundation-code-maps` only after that verification.
+3. Do not delete `review/button-local-recovery`; it remains retained historical recovery evidence.
 
-- Final candidate branch/SHA: `docs/wex-foundation-code-maps` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`
-- Promoted `main` SHA: `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`
-- Changed files: `docs/code-map/README.md`, `docs/code-map/colour.md`, `docs/code-map/typography-font-delivery.md`, `docs/code-map/spacing.md`, `docs/code-map/interaction-focus.md`, `docs/code-map/layout.md`, `docs/code-map/sizing-tier-system.md`
-- Verification evidence: `origin` resolved to `CodeByNath/WEXdesigns`; local and remote topic refs matched the accepted SHA; `origin/main` was an ancestor with no commits ahead of the candidate; the `HEAD -> main` push fast-forwarded `origin/main` from `b701a9d` to the exact candidate SHA; the remote `main` ref was verified at that SHA.
-- Limitations/deviations: none. No Button map integration or excluded file changed.
-- Unresolved issues: Reviewer must verify the promoted maps on `main` before Button map integration is authorised.
+Then create exactly one new topic branch from current `main`:
+
+`docs/button-code-map-integration`
+
+On that branch:
+
+1. Audit the current accepted `docs/code-map/button-system.md`, Button ADRs, current Button schema/shared UI/WEX/test locations, and the newly accepted Foundation maps.
+2. Update only `docs/code-map/button-system.md` unless a broken navigation link in `docs/code-map/README.md` is proven to require correction.
+3. Link Button to the accepted Foundation maps it demonstrably consumes:
+   - Colour;
+   - Typography/font delivery;
+   - Spacing;
+   - Interaction/focus;
+   - Sizing/tier system;
+   - Layout only if current Button authority/source demonstrates a real dependency or routing need.
+4. Do not duplicate token values, padding measurements, typography sizes, colour values, border/radius values, focus values, or other contracts into the Button map.
+5. Preserve Button-specific ADR authority for Button-local geometry/state/action/runtime rules.
+6. Refresh Button map verification metadata against the current `main` SHA.
+7. Run link verification, `git diff --check`, and relevant focused repository checks.
+8. Commit/push the single topic branch, verify its remote SHA, update this same work file to `AWAITING REVIEWER REVIEW`, and stop.
 
 ## Exclusions
 
-Do not modify WEX source, Button source/map, schemas, UI, adapters, applications, CI/tooling, Foundation rules, ADRs, or external repositories.
+Do not modify WEX source, Button source, schemas, shared UI, adapters, applications, Foundation maps/rules, ADRs, CI/tooling, GitHub Pages runtime, or external repositories.
