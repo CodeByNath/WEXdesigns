@@ -1,7 +1,7 @@
 # System Settings Showcase Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Read-only single-page System Settings showcase
+Status: AWAITING REVIEWER REVIEW
+Phase: Builder candidate pushed — read-only single-page System Settings showcase
 
 ## Goal
 
@@ -87,3 +87,12 @@ Commit/push the single topic branch, verify the remote SHA, then update this sam
 ## Exclusions
 
 No edit/save controls, tenant/business overrides, brand middle layer, drawer editing, persistence, auth/permissions, new WEX values, new component families, or external-repository work in this phase.
+
+## Builder handoff
+
+- Candidate: `origin/feat/system-settings-showcase` at `642ca9eca034f54c2cd7836ce158f8c00403016b`.
+- Changed: `apps/web-runtime/index.html`, `src/catalogue.css`, `src/main.js`, and `test/catalogue.test.mjs` within that runtime. Colours are resolved from WEX custom properties at runtime; typography and Button examples consume existing WEX classes/tokens only.
+- Passed: `git diff --check`; `pnpm --filter @weerax/web-runtime check`; `pnpm audit:foundation`; `pnpm --filter @weerax/wex test`; and `pnpm --filter @weerax/web-runtime build`.
+- Browser evidence (local preview `http://localhost:5173/WEXdesigns/`): light and dark theme toggle, all palette labels/resolved values, typography samples, five Button variants and disabled examples, native button activation, and keyboard focus ring were inspected. GitHub Pages production path is `https://codebynath.github.io/WEXdesigns/`; it remains `main`-only and therefore cannot show this unmerged candidate.
+- Limitation: the compact CSS breakpoint is covered by implementation but was not independently inspected at a narrow browser viewport; Reviewer should include that check. Hover/pressed rules are the accepted WEX Button foundation and its focused tests passed; a persistent hover/active screenshot was not captured by the available automation.
+- Process note: retain both preview paths above for a future `AGENTS.md` guidance update only if the Reviewer authorises it. No guidance change is included here.
