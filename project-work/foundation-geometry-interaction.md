@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Authority proposal only — recover missing WEX geometry and interaction foundations
+Status: AWAITING REVIEWER REVIEW
+Phase: Authority proposal pushed — recover missing WEX geometry and interaction foundations
 
 ## Why this work exists
 
@@ -86,3 +86,10 @@ This phase is documentation/authority only.
 - Push the single topic branch.
 - Update this same work file to `AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, and any unresolved authority conflict.
 - Stop. Do not implement CSS or tests until Reviewer accepts the authority proposal.
+
+## Builder handoff
+
+- Candidate: `origin/docs/foundation-geometry-interaction-authority` at `654f6eb57192793c92c85ec68ec5d4a08dab77dd`.
+- Changed only: `docs/decisions/0010-foundation-geometry-interaction.md` (new proposed ADR).
+- Evidence: `git diff --check` passed; all links to ADRs 0004–0006 were verified; the proposal keeps WEX presentation authority and records only the authorised radius, stable-boundary/outer-ring, spacing-relationship, Button reconciliation, interaction-role, and universal disabled-opacity decisions.
+- No unresolved ADR conflict was identified. Exact CSS tokens/delivery and all CSS, test, schema, runtime, catalogue, Pages, and theme-editing work remain deliberately gated behind Reviewer acceptance and a later implementation phase.
