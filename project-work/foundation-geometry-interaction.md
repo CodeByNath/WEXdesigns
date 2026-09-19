@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote accepted Foundation geometry/interaction authority to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Foundation geometry/interaction authority promoted to main
 
 ## Reviewer Verdict
 
@@ -54,3 +54,9 @@ Do not begin CSS/tests implementation yet. Do not delete the topic branch yet.
 ## Exclusions
 
 No CSS, tests, schemas, shared UI, runtime, catalogue, Pages, historical source, theme editing, or unrelated Button-family work in this promotion phase.
+
+## Builder promotion handoff
+
+- Verified `origin/docs/foundation-geometry-interaction-authority` at the accepted `72bd24a6b6d5b757f4629b00fc5682d1b67e1089`, with `origin/main` as its ancestor and no divergence.
+- Fast-forwarded and pushed `main` to exactly `72bd24a6b6d5b757f4629b00fc5682d1b67e1089`; remote `main` was directly verified at that SHA.
+- The promotion contains only `docs/decisions/0010-foundation-geometry-interaction.md`. No CSS, tests, schemas, shared UI, runtime, catalogue, Pages, historical source, theme editing, or Button-family implementation was added.
