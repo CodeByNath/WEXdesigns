@@ -149,7 +149,9 @@ assert(buttonFoundation.includes('--wex-button-boundary-width: 2px'), 'Button st
 assert(buttonFoundation.includes('border: var(--wex-button-boundary-width) solid'), 'Button stable boundary is missing');
 assert(!buttonFoundation.includes('border: var(--wex-outer-ring-width) solid'), 'Button boundary couples to outer-ring geometry');
 assert(buttonFoundation.includes('outline: var(--wex-outer-ring-width) solid'), 'Button focus does not use outer-ring geometry');
-assert(buttonFoundation.includes('border-radius: var(--wex-radius-small)'), 'Button radius contract is missing');
+assert(buttonFoundation.includes('border-radius: var(--wex-radius-default)'), 'Button radius contract is missing');
+assert(!buttonFoundation.includes('border-radius: var(--wex-radius-small)'), 'Button size tier selects radius');
+assert(!buttonFoundation.includes('border-radius: var(--wex-radius-large)'), 'Button size tier selects radius');
 assert(buttonFoundation.includes('outline-offset: var(--wex-outer-ring-gap)'), 'Button outer-ring gap is missing');
 assert(geometryFoundation.includes('--wex-border-width-default: 1px'), 'Default border geometry is missing');
 assert(geometryFoundation.includes('--wex-outer-ring-width: 2px'), 'Outer-ring geometry is missing');

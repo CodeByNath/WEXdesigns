@@ -27,24 +27,26 @@ test('keeps ordinary Button state transient and accessible', () => {
 
 test('implements the accepted shared Button geometry for every tier', () => {
   const tiers = [
-    ['small', /min-block-size: 2\.25rem;/, '--wex-radius-small', 'small'],
-    ['default', /min-block-size: var\(--wex-space-40\);/, '--wex-radius-default', 'default'],
-    ['large', /min-block-size: 2\.75rem;/, '--wex-radius-large', 'large'],
+    ['small', /min-block-size: 2\.25rem;/, 'small'],
+    ['default', /min-block-size: var\(--wex-space-40\);/, 'default'],
+    ['large', /min-block-size: 2\.75rem;/, 'large'],
   ];
 
-  for (const [tier, blockSize, radius, typographyTier] of tiers) {
+  for (const [tier, blockSize, typographyTier] of tiers) {
     const match = buttons.match(new RegExp(`\\.wex-button--${tier}\\s*\\{([\\s\\S]*?)\\}`));
     assert.ok(match, `missing ${tier} tier`);
     assert.match(match[1], blockSize);
     assert.match(match[1], /padding-block: var\(--wex-space-4\);/);
     assert.match(match[1], /padding-inline: var\(--wex-space-12\);/);
-    assert.match(match[1], new RegExp(`border-radius: var\\(${radius}\\);`));
+    assert.doesNotMatch(match[1], /border-radius:/);
     assert.match(match[1], new RegExp(`wex-type-navigation-${typographyTier}-font-size`));
     assert.match(match[1], new RegExp(`wex-type-navigation-${typographyTier}-line-height`));
   }
 
   assert.match(buttons, /display: inline-flex/);
   assert.match(buttons, /gap: var\(--wex-space-4\)/);
+  assert.match(buttons, /border-radius: var\(--wex-radius-default\);/);
+  assert.doesNotMatch(buttons, /border-radius: var\(--wex-radius-(?:small|large)\);/);
   assert.match(buttons, /--wex-button-boundary-width: 2px;/);
   assert.match(buttons, /border: var\(--wex-button-boundary-width\) solid var\(--wex-button-border-default\)/);
   assert.doesNotMatch(buttons, /border: var\(--wex-outer-ring-width\) solid/);

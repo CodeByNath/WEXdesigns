@@ -129,6 +129,7 @@
   justify-content: center;
   gap: var(--wex-space-4);
   border: var(--wex-button-boundary-width) solid var(--wex-button-border-default);
+  border-radius: var(--wex-radius-default);
   background-color: var(--wex-button-background-default);
   color: var(--wex-button-foreground-default);
 }
@@ -137,7 +138,6 @@
   min-block-size: 2.25rem;
   padding-block: var(--wex-space-4);
   padding-inline: var(--wex-space-12);
-  border-radius: var(--wex-radius-small);
   font-family: var(--wex-type-navigation-small-font-family);
   font-size: var(--wex-type-navigation-small-font-size);
   font-weight: var(--wex-type-weight-semibold);
@@ -149,7 +149,6 @@
   min-block-size: var(--wex-space-40);
   padding-block: var(--wex-space-4);
   padding-inline: var(--wex-space-12);
-  border-radius: var(--wex-radius-default);
   font-family: var(--wex-type-navigation-default-font-family);
   font-size: var(--wex-type-navigation-default-font-size);
   font-weight: var(--wex-type-weight-semibold);
@@ -161,7 +160,6 @@
   min-block-size: 2.75rem;
   padding-block: var(--wex-space-4);
   padding-inline: var(--wex-space-12);
-  border-radius: var(--wex-radius-large);
   font-family: var(--wex-type-navigation-large-font-family);
   font-size: var(--wex-type-navigation-large-font-size);
   font-weight: var(--wex-type-weight-semibold);
