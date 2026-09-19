@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Correct Button stable-boundary / outer-ring authority separation
+Status: AWAITING REVIEWER REVIEW
+Phase: Review corrected Button stable-boundary / outer-ring authority separation
 
 ## Reviewer Verdict
 
@@ -46,3 +46,13 @@ Change only the candidate implementation needed to restore that separation:
 7. Push the corrected candidate on the same topic branch and update this same work file to `AWAITING REVIEWER REVIEW` with the exact new SHA/evidence.
 
 Do not widen scope, promote to `main`, add Selected support to ordinary Button, or change unrelated foundation values.
+
+## Builder Resubmission — 2026-09-20
+
+- Corrected candidate: `origin/feat/foundation-geometry-interaction` at `62efb748977cea124df73e96c1bba5e580fb9dc5` (remote SHA verified).
+- Correction: `--wex-button-boundary-width: 2px` now owns the stable Button boundary. `--wex-outer-ring-width` remains exclusively in the focus outer treatment. Transparent variant border colours remain unchanged.
+- Changed for correction: `packages/wex/src/foundations/buttons.css`, `packages/wex/test/button-foundation.test.mjs`, and `tooling/scripts/validate-foundation.mjs`.
+- Passed: `git diff --check`; `pnpm --filter @weerax/wex test` (7/7); `pnpm audit:foundation`; `pnpm --filter @weerax/web-runtime check` (typecheck and 5/5 tests).
+- Chrome local candidate preview: `http://localhost:5173/WEXdesigns/`. Revalidated dark/light themes, all Button variants/tiers and disabled controls, focus visibility without layout shift, and compact layout. The focus ring remains outside the Button boundary.
+
+Reviewer: independently inspect the remote correction and evidence. Do not promote to `main` unless review accepts it.
