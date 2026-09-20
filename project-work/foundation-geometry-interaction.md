@@ -1,37 +1,52 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Final live Pages visual verification before branch closeout
+Status: BUILDER ACTION REQUIRED
+Phase: Complete System Settings outer-state presentation before final closeout
 
 ## Reviewer Verdict
 
 **Proceed with safeguards**
 
-Reviewer independently verified the promoted repository state.
+The promoted Button geometry is correct on `main` at
+`94c4a99521015b17a253e695b29ba56d9cc6df2f`:
 
-- Remote `main` is exactly `94c4a99521015b17a253e695b29ba56d9cc6df2f`.
-- `main` contains the accepted final Button border correction.
-- Button base boundary consumes the WEX Default structural border (`1px`).
-- No Button-local 2px boundary token remains.
-- Focus remains an independent `2px` outer ring with the shared `2px` outside gap.
-- Button radius remains Default (`8px`) across Small / Default / Large.
-- Ordinary command Button remains non-selectable.
-- Topic branch `feat/foundation-geometry-interaction` remains retained at the promoted SHA.
-- Builder reports GitHub Pages workflow run #14 succeeded for the promoted SHA.
+- ordinary Button boundary = WEX Default structural border `1px`;
+- ordinary Button radius = Default `8px` across Small / Default / Large;
+- Focused geometry = independent `2px` outer ring + `2px` gap;
+- ordinary command Button remains non-selectable.
 
-## Remaining closeout boundary
+The remaining live issue is presentation coverage, not foundation authority.
 
-Only the live visual verification remains.
+## Verified showcase gap
 
-The deployed Pages surface must show:
+`apps/web-runtime/index.html` renders only ordinary Button size/variant samples plus Disabled.
 
-1. ordinary Button base boundary at `1px`;
-2. Focused as a separate `2px` outer ring;
-3. `2px` gap between Button boundary and focus ring;
-4. no layout shift when focused;
-5. common `8px` ordinary Button radius across Small / Default / Large;
-6. light/dark, disabled, hover/pressed, and compact layout remain correct.
+- Focus exists only through native `:focus-visible`, so the ring is visible only while keyboard focus is actually on a Button.
+- No persistent Focused specimen is rendered.
+- No Selected specimen is rendered anywhere.
+- Selected must NOT be fabricated on ordinary command Button because ADR 0005 keeps ordinary Button non-selectable.
 
-This execution surface could not reliably render/fetch the GitHub Pages UI, so no false visual acceptance is recorded.
+Therefore System Settings does not visibly communicate the accepted outer-state geometry as a design-system reference.
 
-If the live Pages check passes, Reviewer may authorize deletion of `feat/foundation-geometry-interaction` and mark this work area accepted. Do not start another component/foundation phase before that closeout.
+## Builder correction
+
+Complete this in the existing System Settings showcase only as needed:
+
+1. Add a visible **Focused** presentation specimen that demonstrates:
+   - existing 1px component boundary;
+   - independent 2px outer ring;
+   - 2px gap;
+   - no layout shift.
+2. Add a visible **Selected** foundation/state specimen demonstrating the same reusable outer-ring geometry.
+   - Do not add Selected state to ordinary command Button.
+   - Present it as reusable WEX state geometry or another clearly non-ordinary-Button specimen already supported by authority.
+   - Do not invent a Toggle Button implementation or schema in this phase.
+3. The showcase must consume existing WEX geometry/colour tokens; it must not create a second presentation authority or hard-code replacement visual values.
+4. Preserve native keyboard `:focus-visible` behavior on the actual Button examples.
+5. Add/update deterministic runtime tests so the showcase cannot silently lose the Focused/Selected specimens.
+6. Validate light/dark, compact/200% zoom, keyboard focus, and no layout shift.
+7. Push the correction on the same topic branch and hand back this same work file as `AWAITING REVIEWER REVIEW` with exact SHA/evidence.
+
+Do not alter Button authority, schemas, shared UI contracts, ordinary Button state semantics, or begin another component family.
+
+After this presentation correction is reviewed, promoted, deployed, and visually confirmed, this work area can close and the topic branch can be deleted.
