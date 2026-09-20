@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote fixed-footprint Button outer-state correction to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Review promoted fixed-footprint Button outer-state correction
 
 ## Reviewer Verdict
 
@@ -55,22 +55,14 @@ Builder evidence reports passing:
 - keyboard Focus visible;
 - no compact overflow or layout shift.
 
-## Promotion safeguard
+## Builder promotion evidence
 
-Promote only exact candidate SHA
-`ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`.
+- Verified `origin` is exactly `https://github.com/CodeByNath/WEXdesigns.git`.
+- Verified remote `main` was `d10bac62ad65690d68b43c9420b7935dc0e9aefe`, an ancestor of exact candidate `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`.
+- Fast-forwarded `main` exactly to `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`, pushed it, and confirmed the remote at that exact SHA. No merge commit, rebase, amendment, or extra source change was used.
+- GitHub Pages workflow [35494475981](https://github.com/CodeByNath/WEXdesigns/actions/runs/35494475981) completed successfully for `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`.
 
-Builder must:
-
-1. Verify `origin` is exactly `CodeByNath/WEXdesigns`.
-2. Verify remote `main` is still `d10bac62ad65690d68b43c9420b7935dc0e9aefe`.
-3. Verify `main` is an ancestor of the exact candidate.
-4. Fast-forward `main` only to `ccafd4f9...`; no merge commit, rebase, amendment, or extra source change.
-5. Push and verify remote `main` at the exact SHA.
-6. Verify GitHub Pages deployment succeeds for that SHA.
-7. Update this same work file to `AWAITING REVIEWER REVIEW` with exact promotion/deployment evidence and stop.
-
-Do not delete the topic branch or begin another phase.
+Do not delete the topic branch or begin another phase before Reviewer closeout.
 
 Final Reviewer closeout:
 - verify promoted `main`;
