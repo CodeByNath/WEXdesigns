@@ -1,7 +1,7 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote accepted chromatic-tone authority candidate to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Main promotion complete — awaiting independent verification
 
 ## Reviewer Verdict
 
@@ -55,18 +55,14 @@ Future implementation must preserve all of the following:
 - No Main-neutral change.
 - No editor, schema, persistence, adapter, or admin UI is authorised by this authority phase.
 
-## Builder promotion instruction
+## Builder promotion evidence
 
-Promote only exact candidate SHA:
-`305481452ba94cede56a8ba6bc81a07423c3d8af`.
+- verified `origin` resolves to `https://github.com/CodeByNath/WEXdesigns.git`;
+- verified remote `main` at `5e13a35318704c2df15e39b807650af05a22c498`;
+- verified that `main` was an ancestor of exact candidate
+  `305481452ba94cede56a8ba6bc81a07423c3d8af`;
+- fast-forwarded `main` only, with no merge commit, amendment, rebase, or
+  additional change; and
+- verified `origin/main` at `305481452ba94cede56a8ba6bc81a07423c3d8af`.
 
-Builder must:
-
-1. verify `origin` is exactly `CodeByNath/WEXdesigns`;
-2. verify remote `main` is still `5e13a35318704c2df15e39b807650af05a22c498`;
-3. verify `main` is an ancestor of the exact candidate;
-4. fast-forward `main` only to `305481452...`; no amendment, rebase, merge commit, or extra change;
-5. verify remote `main` at that exact SHA;
-6. update this same work file to `AWAITING REVIEWER REVIEW` with promotion evidence and stop.
-
-Do not implement colour CSS yet. Implementation requires a separate Reviewer-authorised phase after authority promotion is verified.
+No colour CSS or other implementation work was performed.
