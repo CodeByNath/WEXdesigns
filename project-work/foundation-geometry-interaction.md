@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Correct Button outer-state rendering so state never enlarges visible Button geometry
+Status: AWAITING REVIEWER REVIEW
+Phase: Review fixed-footprint Button outer-state correction
 
 ## Reviewer Verdict
 
@@ -42,25 +42,35 @@ The resulting WEX state presentation must visibly preserve:
 
 If the current `2px outer gap` wording in ADR 0010 inherently requires external growth, amend the authority so the **visual separation is internal for Button**. Reusable non-Button state geometry may remain separately described only if explicitly justified; do not silently force Button's outside mechanism onto every component.
 
-## Builder correction — one complete job
+## Builder correction evidence
 
-1. Correct ADR 0010 so Button state geometry explicitly guarantees **no increase in visible external bounds**.
-2. Reconcile ADR 0005 where needed so Button Pressed / Focused consume the fixed-footprint state presentation.
-3. Replace Button's positive-offset outside outline implementation with an internal/inset WEX treatment.
-4. Pressed and Focused on real Buttons must use the same shared treatment. Selected remains a reusable reference for selection-capable components and must visually match.
-5. Preserve:
-   - 1px default Button boundary;
-   - 8px Button radius across Small / Default / Large;
-   - existing min heights `36 / 40 / 44px`;
-   - existing padding, typography, variant colours, disabled rule;
-   - ordinary Button non-selectability.
-6. Do not shrink or grow Button dimensions to compensate for the state. Do not add wrapper dimensions or extra external spacing.
-7. Update System Settings so Default and state examples can be compared directly and it is visually obvious that the Button footprint is identical.
-8. Add deterministic tests that reject:
-   - positive `outline-offset` / outside state growth on Button;
-   - state-specific width/height/min-size changes;
-   - component-local duplicated ring values.
-9. Browser-validate exact rendered bounding boxes for Default vs Pressed vs Focused at Small / Default / Large in light/dark and 200% zoom. Record measured dimensions showing equality.
-10. Push on the same topic branch and return this file as `AWAITING REVIEWER REVIEW` with exact SHA, changed files, test results, and measured browser evidence.
+Candidate pushed: `origin/feat/foundation-geometry-interaction` at
+`ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`.
+
+ADR 0010 and ADR 0005 now make Button's state layer explicitly internal:
+the `1px` boundary, shared `2px` visual gap, and shared `2px` ring stay inside
+the existing box. WEX owns the ring, inset, and gap-colour tokens; Button owns
+no duplicated state value. Native Pressed and Focused share the same generated
+inset layers. System Settings puts Default beside Pressed, Focused, and Selected
+at one fixed 40px reference footprint.
+
+Changed files:
+
+- `docs/decisions/0005-button-authority.md`, `docs/decisions/0010-foundation-geometry-interaction.md`
+- `packages/wex/src/foundations/{geometry,buttons}.css`
+- `packages/wex/test/button-foundation.test.mjs`, `tooling/scripts/validate-foundation.mjs`
+- `apps/web-runtime/{index.html,src/catalogue.css,test/catalogue.test.mjs}`
+
+Checks passed: `git diff --check`; `pnpm --filter @weerax/wex test` (7/7);
+`pnpm audit:foundation`; `pnpm --filter @weerax/web-runtime check` (type-check + 6/6).
+
+Chrome local candidate evidence (`http://localhost:5173/WEXdesigns/`): native
+pointer Pressed snapshots and keyboard Focused `getBoundingClientRect()` values
+were equal in light and dark: Small `63.75×36`, Default `80.515625×40`, Large
+`77.125×44`. Native pointer snapshots confirmed `:active` for every tier.
+At Chrome 200% zoom, Focused remained equal to Default at those dimensions;
+compact layout had no overflow or layout shift. Light/dark screenshots confirm
+the visible ring and gap are internal; System Settings shows the same treatment
+for Pressed, Focused, and Selected.
 
 Do not promote, delete the topic branch, or begin another component/foundation phase until Reviewer accepts this correction.
