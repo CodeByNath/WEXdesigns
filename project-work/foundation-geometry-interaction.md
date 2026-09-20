@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Final topic-branch housekeeping after accepted live Button verification
+Status: ACCEPTED
+Phase: Button foundation recovery closed
 
 ## Reviewer Verdict
 
@@ -38,23 +38,17 @@ Previously verified invariants remain accepted:
 - ordinary command Button remains non-selectable;
 - no `aria-pressed`, Toggle Button contract, schema, or shared-UI selection change.
 
-## Final housekeeping
+## Final housekeeping evidence
 
-The completed topic branch is safe to delete because:
+- Verified `origin` is `https://github.com/CodeByNath/WEXdesigns.git`.
+- Verified `origin/main` and `origin/feat/foundation-geometry-interaction` both
+  pointed to `5e13a35318704c2df15e39b807650af05a22c498` before deletion, and
+  that `main` contains the candidate.
+- Deleted remote `feat/foundation-geometry-interaction`.
+- Verified the remote topic ref is absent and `origin/main` remains
+  `5e13a35318704c2df15e39b807650af05a22c498`.
 
-- `origin/main` and `origin/feat/foundation-geometry-interaction` both point to exact SHA `5e13a35318704c2df15e39b807650af05a22c498`;
-- the accepted work is preserved on `main`;
-- no further Button correction is pending.
-
-A Git/terminal-capable Builder must:
-
-1. verify `origin` is exactly `CodeByNath/WEXdesigns`;
-2. verify both refs still point to `5e13a353...`;
-3. delete remote branch `feat/foundation-geometry-interaction`;
-4. verify the remote branch is gone;
-5. update this same work file to `Status: ACCEPTED` with deletion evidence and stop.
-
-Do not begin the next implementation branch until this housekeeping is verified.
+No next implementation branch has been started.
 
 ## Next work area after closeout
 
