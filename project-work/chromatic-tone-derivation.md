@@ -1,57 +1,75 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Rework tone authority to preserve current WEX chromatic targets materially
+Status: AWAITING REVIEWER REVIEW
+Phase: Review revised OKLCH tone-derivation authority candidate
 
 ## Reviewer Verdict
 
 **Stop — architectural risk**
 
-Reviewer independently inspected candidate:
+Previous sRGB calibration at
+`070a585cc669a4987c0f1724b3ab789bb3be856a`
+was rejected because several generated tones drifted materially from current WEX targets.
+
+## Revised Builder handoff
+
+Candidate:
 `origin/feat/chromatic-tone-derivation` at
-`070a585cc669a4987c0f1724b3ab789bb3be856a`.
+`d69c80ef09b35822b0a7a012a4dfded3c8d45f5c`.
 
-The candidate correctly keeps Main neutrals frozen and makes Base the future-editable source, but the proposed sRGB tone recipes do **not** preserve the current WEX chromatic palette closely enough.
+Only `docs/decisions/0011-chromatic-tone-derivation.md` is changed relative to `main`.
 
-Material drifts in the proposed generated values include:
+### Proposed authority
 
-- Accent Dark: `#0C4EC9` vs current `#0043CE`;
-- Warning Dark: `#AC8B13` vs current `#B28600`;
-- Success Light: `#77C58E` vs current `#6FDC8C`;
-- Error Light: `#E25057` vs current `#FA4D56`.
+Accent / Warning / Success / Error each retain one future-editable Base colour.
 
-Success Light and Error Light in particular are materially different visual tones. The user requirement is to derive tones that preserve/match the current Dark and Light character, not merely approximate them with the smallest black/white mix.
+Dark and Light become deterministic **per-family OKLCH transforms** from Base:
 
-## Required authority correction
+```text
+Base OKLCH
+├─ Dark  = Base + registered Dark ΔL / ΔC / Δh
+└─ Light = Base + registered Light ΔL / ΔC / Δh
+```
 
-1. Keep scope unchanged:
-   - Accent / Warning / Success / Error only;
-   - Main neutrals untouched.
-2. Keep one editable Base per family.
-3. Re-evaluate the derivation method with **current WEX Dark/Light values as hard calibration targets**.
-4. Compare deterministic methods capable of preserving hue/chroma as well as lightness, including a perceptual colour-space approach (for example OKLCH/OKLab or an equivalent reproducible transform).
-5. Do not reject a perceptual method merely because it is more complex than sRGB. The deciding criteria are:
-   - fidelity to the current WEX palette;
-   - deterministic derivation from Base;
-   - browser/runtime support;
-   - reproducibility in server/admin validation;
-   - accessibility validation.
-6. For each family and each proposed method, report:
-   - exact recipe;
-   - generated Dark/Light hex;
-   - quantitative colour delta from current target;
-   - whether the difference is visually material;
-   - WCAG contrast for registered foreground pairings;
-   - runtime/browser compatibility.
-7. Prefer a rule that can reproduce the current targets exactly or with negligible perceptual delta. If exact reproduction requires per-family calibrated tone parameters, that is acceptable.
-8. Do not implement CSS, editor, schema, persistence, adapter, or admin UI yet.
-9. Do not change semantic role mappings yet.
-10. Push the revised authority candidate on the same topic branch and hand back this same work file as `AWAITING REVIEWER REVIEW`.
+The registered deltas were calibrated from the currently accepted Base / Dark / Light palette. Applying them to the current Base colours reproduces the accepted Dark and Light targets exactly after sRGB conversion:
 
-## Acceptance objective
+| Family | Dark result | Light result |
+| --- | --- | --- |
+| Accent | `#0043CE` | `#78A9FF` |
+| Warning | `#B28600` | `#FDDC69` |
+| Success | `#198038` | `#6FDC8C` |
+| Error | `#A2191F` | `#FA4D56` |
 
-One durable rule:
+Main neutrals remain untouched.
 
-> Changing only a chromatic Base colour later deterministically regenerates Dark and Light tones while retaining the established WEX visual character and accessibility contract.
+### Safeguards
 
-Do not promote or begin implementation until Reviewer accepts the revised authority.
+For a future edited Base:
+
+1. convert Base to OKLCH;
+2. apply family tone deltas;
+3. gamut-map out-of-sRGB results by reducing chroma while preserving target lightness/hue as far as possible;
+4. resolve delivery colour;
+5. validate registered `on-*` foreground candidates against WCAG AA normal-text contrast;
+6. reject/require correction when no approved foreground candidate satisfies the contract.
+
+Current target contrast evidence is included in ADR 0011.
+
+### Scope preserved
+
+No CSS, semantic-role mapping, editor, schema, persistence, adapter, admin UI, or Main-neutral change is included.
+
+### Evidence
+
+- Read ADR 0002 and ADR 0004.
+- Read current `packages/wex/src/foundations/colour.css`.
+- Read `packages/wex/test/colour-tokens.test.mjs`.
+- Read historical WEX source.
+- Recalibrated all four families in OKLCH.
+- Current accepted Dark/Light targets reconstruct exactly from current Bases.
+- Candidate is two commits ahead of `main`; the second commit is the bounded correction to the rejected first authority proposal.
+- Remote topic branch verified at exact SHA `d69c80ef09b35822b0a7a012a4dfded3c8d45f5c`.
+
+Reviewer must independently assess the OKLCH transform, gamut rule, accessibility safeguards, and whether per-family ΔL/ΔC/Δh is the durable WEX authority.
+
+Do not implement CSS or promote until Reviewer accepts this authority.
