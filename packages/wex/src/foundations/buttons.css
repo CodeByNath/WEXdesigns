@@ -179,25 +179,30 @@
   color: var(--wex-button-foreground-pressed);
 }
 
+.wex-button:not(:disabled):active,
+.wex-button:focus-visible {
+  border-color: var(--wex-outer-ring-color);
+}
+
 .wex-button:not(:disabled):active::after,
 .wex-button:focus-visible::after {
   position: absolute;
-  inset: var(--wex-outer-ring-inset);
+  inset: 0;
   box-sizing: border-box;
   pointer-events: none;
-  border: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color);
-  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-inset));
+  border: var(--wex-outer-ring-inner-width) solid var(--wex-outer-ring-color);
+  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
   content: '';
 }
 
 .wex-button:not(:disabled):active::before,
 .wex-button:focus-visible::before {
   position: absolute;
-  inset: var(--wex-border-width-default);
+  inset: var(--wex-outer-ring-inner-width);
   box-sizing: border-box;
   pointer-events: none;
   border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color);
-  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
+  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-width));
   content: '';
 }
 

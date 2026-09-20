@@ -60,33 +60,43 @@ test('implements the accepted shared Button geometry for every tier', () => {
   assert.match(geometry, /--wex-outer-ring-gap: var\(--wex-space-2\)/);
   assert.match(
     geometry,
-    /--wex-outer-ring-inset: calc\(var\(--wex-border-width-default\) \+ var\(--wex-outer-ring-gap\)\);/,
+    /--wex-outer-ring-inner-width: calc\(var\(--wex-outer-ring-width\) - var\(--wex-border-width-default\)\);/,
   );
   assert.match(geometry, /--wex-outer-ring-gap-color: var\(--wex-color-background\);/);
   assert.match(geometry, /--wex-outer-ring-color: var\(--wex-color-border-focus\);/);
   const pressed = buttons.match(/\.wex-button:not\(:disabled\):active\s*\{([\s\S]*?)\}/);
   assert.ok(pressed, 'missing transient pressed state');
+  const stateBoundary = buttons.match(
+    /\.wex-button:not\(:disabled\):active,\s*\.wex-button:focus-visible\s*\{([\s\S]*?)\}/,
+  );
+  assert.ok(stateBoundary, 'missing shared perimeter state boundary');
+  assert.match(stateBoundary[1], /border-color: var\(--wex-outer-ring-color\);/);
   const insetState = buttons.match(
     /\.wex-button:not\(:disabled\):active::after,\s*\.wex-button:focus-visible::after\s*\{([\s\S]*?)\}/,
   );
   assert.ok(insetState, 'missing shared inset pressed/focus treatment');
-  assert.match(insetState[1], /inset: var\(--wex-outer-ring-inset\);/);
-  assert.match(insetState[1], /border: var\(--wex-outer-ring-width\) solid var\(--wex-outer-ring-color\);/);
+  assert.match(insetState[1], /inset: 0;/);
+  assert.match(insetState[1], /border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
   assert.match(
     insetState[1],
-    /border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-outer-ring-inset\)\);/,
+    /border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-border-width-default\)\);/,
   );
   const insetGap = buttons.match(
     /\.wex-button:not\(:disabled\):active::before,\s*\.wex-button:focus-visible::before\s*\{([\s\S]*?)\}/,
   );
   assert.ok(insetGap, 'missing shared internal state gap');
-  assert.match(insetGap[1], /inset: var\(--wex-border-width-default\);/);
+  assert.match(insetGap[1], /inset: var\(--wex-outer-ring-inner-width\);/);
   assert.match(insetGap[1], /border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/);
+  assert.match(
+    insetGap[1],
+    /border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-outer-ring-width\)\);/,
+  );
   assert.doesNotMatch(insetGap[1], /(?:inline-size|block-size|width|height|min-size|min-width|min-height):/);
   assert.doesNotMatch(buttons, /outline-offset:/);
   assert.doesNotMatch(buttons, /box-shadow:/);
   assert.doesNotMatch(insetState[1], /(?:inline-size|block-size|width|height|min-size|min-width|min-height):/);
   assert.doesNotMatch(buttons, /--wex-button-(?:outer-ring|state-inset)/);
+  assert.doesNotMatch(buttons, /--wex-outer-ring-inset/);
   assert.doesNotMatch(buttons, /\b2px\b/);
   for (const variant of ['primary', 'neutral', 'subtle', 'warning', 'danger']) {
     const match = buttons.match(new RegExp(`\\.wex-button--${variant}\\s*\\{([\\s\\S]*?)\\}`));

@@ -40,11 +40,11 @@ CSS delivery for these values.
 ### Stable boundary and outer-state geometry
 
 Default structural border treatment is `1px`. Pressed, Selected, and Focused
-each use the same `2px` state-ring treatment with one shared ring colour and a
-`2px` visual separation between the component boundary and ring. Their
-semantic and behavioural meaning differs; their outer-state presentation does
-not. The rendering location is component-specific: a component may use an
-inset layer where its stable visible footprint is authoritative; no outer-state
+each use the same `2px` state-boundary treatment with one shared ring colour
+and a `2px` visual separation inside that boundary. Their semantic and
+behavioural meaning differs; their outer-state presentation does not. Where a
+stable visible footprint is authoritative, the state boundary occupies the
+component's outer visual edge and absorbs the normal boundary; no outer-state
 wording authorises visible growth by itself.
 
 Pressed is transient native active/tap-down state. Focused is an independent
@@ -86,12 +86,14 @@ Button specifically consumes the Default (`1px`) structural border in every
 appearance and state; a visually borderless Button resolves that boundary to
 transparent. The boundary is included in each minimum height. Button focus and
 native Button Pressed, Focused, and any future Button Selected treatment use
-the shared `2px` ring and `2px` separation as an **internal inset layer**: the
-ring begins inside the existing boundary after the internal gap. It neither
-replaces nor thickens the boundary, and must never increase Button visible
-external width or height. Small, Default, and Large keep exactly their Default
-visible bounds in every state. Ordinary Buttons remain non-selectable under ADR
-0005. This decision does not change Button
+the shared `2px` state boundary and `2px` separation while remaining within
+the existing Button box. The state boundary replaces the normal visible
+boundary at the outer perimeter; any inset layer only completes that boundary
+or its internal separation and must not create a smaller nested state
+rectangle. It must never increase Button visible external width or height.
+Small, Default, and Large keep exactly their Default visible bounds in every
+state. Ordinary Buttons remain non-selectable under ADR 0005. This decision
+does not change Button
 appearances, actions, family types, loading/shimmer, dropdown or group
 behaviour.
 

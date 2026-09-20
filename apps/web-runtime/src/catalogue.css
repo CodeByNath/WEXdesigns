@@ -274,11 +274,11 @@ input:focus-visible,
 .outer-state-specimen__surface--focused::after,
 .outer-state-specimen__surface--selected::after {
   position: absolute;
-  inset: var(--wex-outer-ring-inset);
+  inset: 0;
   box-sizing: border-box;
   pointer-events: none;
-  border: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color);
-  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-inset));
+  border: var(--wex-outer-ring-inner-width) solid var(--wex-outer-ring-color);
+  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
   content: '';
 }
 
@@ -286,12 +286,18 @@ input:focus-visible,
 .outer-state-specimen__surface--focused::before,
 .outer-state-specimen__surface--selected::before {
   position: absolute;
-  inset: var(--wex-border-width-default);
+  inset: var(--wex-outer-ring-inner-width);
   box-sizing: border-box;
   pointer-events: none;
   border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color);
-  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
+  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-width));
   content: '';
+}
+
+.outer-state-specimen__surface--pressed,
+.outer-state-specimen__surface--focused,
+.outer-state-specimen__surface--selected {
+  border-color: var(--wex-outer-ring-color);
 }
 
 @media (max-width: 1440px) {
