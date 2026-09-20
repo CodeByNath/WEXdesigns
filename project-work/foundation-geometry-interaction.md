@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote System Settings outer-state presentation candidate to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Verify promoted System Settings outer-state presentation and authorize closeout if clean
 
 ## Reviewer Verdict
 
@@ -41,24 +41,12 @@ Builder evidence reports passing:
 - `pnpm --filter @weerax/web-runtime check` (type-check + 6/6 tests)
 - local Chrome light/dark, native keyboard focus, both reference specimens, 200% compact layout, and no overflow/layout shift.
 
-## Promotion safeguard
+## Builder promotion handoff
 
-Promote only exact candidate SHA
-`47ad2d815c01fabd77d3de1b202edbad117d1736`.
+- Verified `origin` as `https://github.com/CodeByNath/WEXdesigns.git`.
+- Verified old remote `main` `94c4a99521015b17a253e695b29ba56d9cc6df2f` was an ancestor of the exact candidate `47ad2d815c01fabd77d3de1b202edbad117d1736`.
+- Fast-forwarded and pushed `main` only to `47ad2d815c01fabd77d3de1b202edbad117d1736`; remote main was verified at that exact SHA. No merge commit, rebase, amendment, or source change occurred during promotion.
+- GitHub Pages workflow run [#15](https://github.com/CodeByNath/WEXdesigns/actions/runs/35488432993) completed successfully for `47ad2d815c01fabd77d3de1b202edbad117d1736`.
+- Topic branch `feat/foundation-geometry-interaction` remains retained as required.
 
-Builder must:
-
-1. Verify `origin` is exactly `CodeByNath/WEXdesigns`.
-2. Verify remote `main` is still `94c4a99521015b17a253e695b29ba56d9cc6df2f`.
-3. Verify `main` is an ancestor of the candidate and the topic tip is exactly `47ad2d815...`.
-4. Fast-forward `main` only to that exact SHA. No merge commit, rebase, amendment, or extra source changes.
-5. Push `main` and verify remote SHA.
-6. Verify GitHub Pages deployment for that SHA succeeds.
-7. Update this same work file to `AWAITING REVIEWER REVIEW` with exact promotion/deployment evidence and stop.
-
-Do not delete the topic branch yet and do not begin another phase.
-
-Final Reviewer closeout boundary:
-- verify promoted `main`;
-- verify live Pages visibly shows both Focused and Selected reference specimens plus native Button keyboard focus;
-- if clean, authorize topic-branch deletion and accept this work area.
+Final Reviewer closeout boundary: independently verify live Pages visibly shows the Focused and Selected reference specimens plus native Button keyboard focus. If clean, authorize safe topic-branch deletion and accept this work area. Do not begin another phase before that decision.
