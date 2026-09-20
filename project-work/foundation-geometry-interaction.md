@@ -1,57 +1,63 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Review the final Button structural-border correction candidate
+Status: BUILDER ACTION REQUIRED
+Phase: Promote final Button structural-border correction to main
 
 ## Reviewer Verdict
 
-**Stop — architectural risk**
+**Proceed with safeguards**
 
-The live radius correction passed, but the same review exposed one remaining authority contradiction on promoted `main`.
+Reviewer independently inspected the final correction candidate:
+`origin/feat/foundation-geometry-interaction` at
+`94c4a99521015b17a253e695b29ba56d9cc6df2f`.
 
-ADR 0010 defines:
+## Accepted correction
 
-- default structural border = `1px`;
-- Focused outer treatment = `2px`;
-- Selected outer treatment = `2px`;
-- outside gap = `2px`.
+The candidate now aligns Button with the WEX structural-border authority:
 
-It then incorrectly gives Button a separate stable `2px` base boundary. That violates the default structural-border rule.
+- Default structural border remains `1px`.
+- Ordinary Button consumes `--wex-border-width-default`; no Button-local boundary-width token remains.
+- Visually borderless Button appearances still reserve that 1px boundary transparently.
+- Focus remains an independent `2px` outer ring using `--wex-outer-ring-width`.
+- Focus uses the existing `2px` outside gap and does not change Button dimensions.
+- ADR 0010 now explicitly states Focused/Selected neither replace nor thicken the Button's 1px boundary.
+- Ordinary command Button remains non-selectable under ADR 0005.
+- Button radius remains Default `8px` across Small / Default / Large.
+- Size tiers still control size/typography only.
+- Existing heights, padding, disabled opacity, variants, and interaction-state direction remain unchanged.
 
-## Final authority direction
-
-Button must follow the WEX structural border rule:
-
-- ordinary Button boundary = Default structural border = `1px`;
-- visually borderless appearances still reserve that same `1px` boundary as transparent so state/appearance changes never resize the control;
-- Focused = independent `2px` outer ring with `2px` outside gap;
-- Selected = independent `2px` outer ring with `2px` outside gap, only for components whose contract supports persistent selection;
-- ordinary command Button remains non-selectable under ADR 0005;
-- Focused/Selected never replace or thicken the component's own `1px` boundary and never change layout dimensions.
-
-Button radius remains `8px` across Small / Default / Large.
-
-## Builder handoff
-
-Candidate branch: `feat/foundation-geometry-interaction`
-Exact remote SHA: `94c4a99521015b17a253e695b29ba56d9cc6df2f`
-
-Changed files:
+Compared with current `main` `68f9d05d65b7fb0b5b3f5cd834de125c9f16484a`, the candidate is exactly one commit ahead and changes only:
 
 - `docs/decisions/0010-foundation-geometry-interaction.md`
 - `packages/wex/src/foundations/buttons.css`
 - `packages/wex/test/button-foundation.test.mjs`
 - `tooling/scripts/validate-foundation.mjs`
 
-Evidence:
+Builder evidence reports passing:
+- `git diff --check`
+- `pnpm --filter @weerax/wex test` (7/7)
+- `pnpm audit:foundation`
+- `pnpm --filter @weerax/web-runtime check` (type-check + 5/5 tests)
+- local Chrome light/dark, all five variants, all three sizes, hover/pressed/focus/disabled, keyboard focus, 200% compact layout, and no layout shift.
 
-- Button now consumes `--wex-border-width-default` (`1px`); the component-local boundary token is removed. Transparent variant borders remain reserved, and Focus remains the existing independent `2px` outer ring plus `2px` gap.
-- Ordinary Button remains non-selectable; its radius remains Default (`8px`) in all size tiers. No showcase source update was needed because the existing System Settings examples consume this shared foundation and visibly cover all variants and tiers.
-- Passed: `git diff --check`; `pnpm --filter @weerax/wex test` (7/7); `pnpm audit:foundation`; `pnpm --filter @weerax/web-runtime check` (type-check and 5/5 tests).
-- Chrome local exact-candidate evidence: light/dark, all five variants, Small/Default/Large, hover/pressed/focus/disabled, keyboard focus, and 200% compact layout. Focus rendered outside the component boundary; no layout shift or overflow observed. Production Pages cannot show this unpromoted candidate and remains Reviewer verification after any authorised promotion.
+## Promotion safeguard
 
-## Promotion / closeout boundary
+Promote only exact candidate SHA
+`94c4a99521015b17a253e695b29ba56d9cc6df2f`.
 
-Do not promote to `main`, delete the topic branch, or start another component/foundation phase until Reviewer accepts the corrected candidate.
+Builder must:
 
-After acceptance, promotion, Pages deployment, and live visual verification will be treated as the final closeout of this same work area.
+1. Verify `origin` is exactly `CodeByNath/WEXdesigns`.
+2. Verify remote `main` is still `68f9d05d65b7fb0b5b3f5cd834de125c9f16484a`.
+3. Verify `main` is an ancestor of the candidate and the topic tip is exactly `94c4a995...`.
+4. Fast-forward `main` only to that exact SHA. No merge commit, rebase, amendment, or extra source change.
+5. Push `main` and verify remote SHA.
+6. Verify GitHub Pages deployment for that SHA succeeds.
+7. Update this same work file to `AWAITING REVIEWER REVIEW` with exact promotion/deployment evidence and stop.
+
+Do not delete the topic branch yet and do not begin another phase.
+
+Final Reviewer closeout boundary:
+- verify promoted `main`;
+- verify live Pages shows the corrected 1px Button boundary and independent 2px focus ring + 2px gap;
+- if clean, authorize topic-branch deletion and accept this work area.
