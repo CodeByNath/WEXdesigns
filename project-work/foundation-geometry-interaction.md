@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote unified Pressed / Selected / Focused outer-state candidate to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Review promoted unified Pressed / Selected / Focused outer-state correction
 
 ## Reviewer Verdict
 
@@ -60,22 +60,14 @@ Builder evidence reports passing:
 - `pnpm --filter @weerax/web-runtime check` (type-check + 6/6 tests)
 - local Chrome light/dark, native Button active/pressed, keyboard focus, three-state comparison, 200% compact layout, and no overflow/layout shift.
 
-## Promotion safeguard
+## Builder promotion evidence
 
-Promote only exact candidate SHA
-`d10bac62ad65690d68b43c9420b7935dc0e9aefe`.
+- `origin` verified as `https://github.com/CodeByNath/WEXdesigns.git`.
+- `origin/main` verified at `47ad2d815c01fabd77d3de1b202edbad117d1736` before promotion; it was an ancestor of the exact topic tip `d10bac62ad65690d68b43c9420b7935dc0e9aefe`.
+- `main` was fast-forwarded only to `d10bac62ad65690d68b43c9420b7935dc0e9aefe`, then pushed and independently confirmed at that exact remote SHA. No merge commit, rebase, amendment, or additional source change was made.
+- GitHub Pages workflow run `35492966492` completed successfully for `d10bac62ad65690d68b43c9420b7935dc0e9aefe`: https://github.com/CodeByNath/WEXdesigns/actions/runs/35492966492
 
-Builder must:
-
-1. Verify `origin` is exactly `CodeByNath/WEXdesigns`.
-2. Verify remote `main` is still `47ad2d815c01fabd77d3de1b202edbad117d1736`.
-3. Verify `main` is an ancestor of the candidate and topic tip is exactly `d10bac62...`.
-4. Fast-forward `main` only to that exact SHA. No merge commit, rebase, amendment, or extra source changes.
-5. Push `main` and verify remote SHA.
-6. Verify GitHub Pages deployment for that SHA succeeds.
-7. Update this same work file to `AWAITING REVIEWER REVIEW` with exact promotion/deployment evidence and stop.
-
-Do not delete the topic branch yet and do not begin another phase.
+Do not delete the topic branch or begin another phase until Reviewer closeout.
 
 Final Reviewer closeout boundary:
 
