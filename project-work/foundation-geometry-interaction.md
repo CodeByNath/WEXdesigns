@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Finalize Button structural border and outer-state geometry as one correction job
+Status: AWAITING REVIEWER REVIEW
+Phase: Review the final Button structural-border correction candidate
 
 ## Reviewer Verdict
 
@@ -31,22 +31,24 @@ Button must follow the WEX structural border rule:
 
 Button radius remains `8px` across Small / Default / Large.
 
-## Builder job — complete as one transaction
+## Builder handoff
 
-1. Correct ADR 0010 so Button no longer has a 2px base-border exception and explicitly consumes the Default `1px` structural border.
-2. Reconcile Button CSS so the stable Button boundary consumes the reusable/default structural-border token rather than a Button-specific `2px` width.
-3. Preserve transparent 1px boundaries for visually borderless Button appearances.
-4. Keep Focused on the existing reusable `2px` outer-ring geometry with the `2px` gap and verify no layout shift.
-5. Do not add Selected to ordinary command Button. Preserve the reusable Selected outer-ring geometry for selection-capable components only.
-6. Update deterministic Button/foundation tests and validation so:
-   - Button base boundary must be 1px via the structural-border authority;
-   - Button must not define/consume a special 2px base boundary;
-   - focus must remain 2px outer-ring + 2px gap;
-   - size tiers must not alter radius;
-   - ordinary Button remains non-selectable.
-7. Update the existing System Settings showcase only as needed so the Button presentation visibly demonstrates the corrected base border and focus treatment. Do not fabricate an ordinary-Button Selected state.
-8. Run `git diff --check`, WEX tests, foundation audit, web-runtime checks, and Chrome validation in light/dark, all variants/tiers, hover/pressed/focus/disabled, compact/200% zoom, and no-layout-shift.
-9. Push the corrected topic branch and hand back this same work file as `AWAITING REVIEWER REVIEW` with exact SHA, changed files, and evidence.
+Candidate branch: `feat/foundation-geometry-interaction`
+Exact remote SHA: `94c4a99521015b17a253e695b29ba56d9cc6df2f`
+
+Changed files:
+
+- `docs/decisions/0010-foundation-geometry-interaction.md`
+- `packages/wex/src/foundations/buttons.css`
+- `packages/wex/test/button-foundation.test.mjs`
+- `tooling/scripts/validate-foundation.mjs`
+
+Evidence:
+
+- Button now consumes `--wex-border-width-default` (`1px`); the component-local boundary token is removed. Transparent variant borders remain reserved, and Focus remains the existing independent `2px` outer ring plus `2px` gap.
+- Ordinary Button remains non-selectable; its radius remains Default (`8px`) in all size tiers. No showcase source update was needed because the existing System Settings examples consume this shared foundation and visibly cover all variants and tiers.
+- Passed: `git diff --check`; `pnpm --filter @weerax/wex test` (7/7); `pnpm audit:foundation`; `pnpm --filter @weerax/web-runtime check` (type-check and 5/5 tests).
+- Chrome local exact-candidate evidence: light/dark, all five variants, Small/Default/Large, hover/pressed/focus/disabled, keyboard focus, and 200% compact layout. Focus rendered outside the component boundary; no layout shift or overflow observed. Production Pages cannot show this unpromoted candidate and remains Reviewer verification after any authorised promotion.
 
 ## Promotion / closeout boundary
 
