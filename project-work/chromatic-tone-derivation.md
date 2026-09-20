@@ -1,81 +1,57 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Review chromatic tone derivation authority candidate
+Status: BUILDER ACTION REQUIRED
+Phase: Rework tone authority to preserve current WEX chromatic targets materially
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Stop — architectural risk**
 
-Button foundation work is closed. This is a new authority-only work area.
-
-## Goal
-
-Make WEX chromatic families future-brandable from a single Base colour while preserving the current visual palette as the calibration target.
-
-In scope only:
-
-- Accent
-- Warning
-- Success
-- Error
-
-Main neutral colours are **frozen and out of scope**:
-Black, Dark, Dark Grey, White, Light, Light Grey.
-
-## Intended model
-
-Each chromatic family has one authoritative Base colour.
-
-```text
-Base
-├─ Dark tone  = deterministic tone from Base
-└─ Light tone = deterministic tone from Base
-```
-
-Dark / Light must no longer be treated as independently authored brand values once derivation is implemented.
-
-Current Base / Dark / Light hex values remain the visual calibration targets.
-
-## Current calibration targets
-
-| Family | Base | Dark target | Light target |
-| --- | --- | --- | --- |
-| Accent | #0F62FE | #0043CE | #78A9FF |
-| Warning | #F1C21B | #B28600 | #FDDC69 |
-| Success | #24A148 | #198038 | #6FDC8C |
-| Error | #DA1E28 | #A2191F | #FA4D56 |
-
-## Important constraint
-
-Do not assume one universal percentage works for every family.
-
-A simple sRGB mix toward Black/White can approximate the current palette but does not reproduce every target exactly because some existing tones include hue/chroma shifts.
-
-Therefore this phase must **not implement CSS yet**.
-
-## Builder handoff
-
-Candidate: `origin/feat/chromatic-tone-derivation` at
+Reviewer independently inspected candidate:
+`origin/feat/chromatic-tone-derivation` at
 `070a585cc669a4987c0f1724b3ab789bb3be856a`.
 
-Proposed ADR 0011 selects calibrated, per-family deterministic sRGB mixes:
-Accent Dark/Light `21% black / 44% white`; Warning `29% / 35%`; Success
-`21% / 38%`; Error `25% / 22%`. It records generated values, RGB deltas from
-current targets, the contrast-validation requirement for all generated
-foreground pairings, and why a perceptual method is not the durable runtime
-authority. It changes no CSS, token mapping, neutral, editor, schema, adapter,
-persistence, or admin UI.
+The candidate correctly keeps Main neutrals frozen and makes Base the future-editable source, but the proposed sRGB tone recipes do **not** preserve the current WEX chromatic palette closely enough.
 
-Evidence: ADRs 0002/0004, current colour foundation/tests, and historical WEX
-source were inspected; `git diff --check` passed. Reviewer must independently
-evaluate the calibration, contrast safeguards, and browser/runtime implication
-before authorising any implementation.
+Material drifts in the proposed generated values include:
+
+- Accent Dark: `#0C4EC9` vs current `#0043CE`;
+- Warning Dark: `#AC8B13` vs current `#B28600`;
+- Success Light: `#77C58E` vs current `#6FDC8C`;
+- Error Light: `#E25057` vs current `#FA4D56`.
+
+Success Light and Error Light in particular are materially different visual tones. The user requirement is to derive tones that preserve/match the current Dark and Light character, not merely approximate them with the smallest black/white mix.
+
+## Required authority correction
+
+1. Keep scope unchanged:
+   - Accent / Warning / Success / Error only;
+   - Main neutrals untouched.
+2. Keep one editable Base per family.
+3. Re-evaluate the derivation method with **current WEX Dark/Light values as hard calibration targets**.
+4. Compare deterministic methods capable of preserving hue/chroma as well as lightness, including a perceptual colour-space approach (for example OKLCH/OKLab or an equivalent reproducible transform).
+5. Do not reject a perceptual method merely because it is more complex than sRGB. The deciding criteria are:
+   - fidelity to the current WEX palette;
+   - deterministic derivation from Base;
+   - browser/runtime support;
+   - reproducibility in server/admin validation;
+   - accessibility validation.
+6. For each family and each proposed method, report:
+   - exact recipe;
+   - generated Dark/Light hex;
+   - quantitative colour delta from current target;
+   - whether the difference is visually material;
+   - WCAG contrast for registered foreground pairings;
+   - runtime/browser compatibility.
+7. Prefer a rule that can reproduce the current targets exactly or with negligible perceptual delta. If exact reproduction requires per-family calibrated tone parameters, that is acceptable.
+8. Do not implement CSS, editor, schema, persistence, adapter, or admin UI yet.
+9. Do not change semantic role mappings yet.
+10. Push the revised authority candidate on the same topic branch and hand back this same work file as `AWAITING REVIEWER REVIEW`.
 
 ## Acceptance objective
 
-Reviewer should be able to decide one stable WEX rule:
+One durable rule:
 
-> An admin/product may later change only a chromatic Base colour; WEX deterministically derives its Dark and Light tones while preserving accessibility and the established semantic token contract.
+> Changing only a chromatic Base colour later deterministically regenerates Dark and Light tones while retaining the established WEX visual character and accessibility contract.
 
-Implementation is a later phase after the derivation authority is accepted.
+Do not promote or begin implementation until Reviewer accepts the revised authority.
