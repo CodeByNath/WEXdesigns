@@ -1,7 +1,28 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Rework tone authority to preserve current WEX chromatic targets materially
+Status: AWAITING REVIEWER REVIEW
+Phase: Revised chromatic tone authority submitted for independent review
+
+## Builder handoff
+
+Candidate: `origin/feat/chromatic-tone-derivation` at
+`305481452ba94cede56a8ba6bc81a07423c3d8af`.
+
+Changed file: `docs/decisions/0011-chromatic-tone-derivation.md` only.
+
+Evidence:
+
+- compares the calibrated sRGB method with a reproducible calibrated OKLCH
+  transform for all four families and both derived tones;
+- records each recipe, generated target hex, CIEDE2000 delta, materiality,
+  registered WCAG contrast, and browser/server execution boundary;
+- reproduces all eight current Dark/Light targets at the current Bases with
+  ΔE00 `0.000`, while retaining one editable Base and explicit deterministic
+  gamut handling for future edits;
+- keeps Main neutrals, CSS, editor, schema, persistence, adapters, admin UI,
+  and semantic mappings untouched; and
+- `git diff --check` passed. No browser validation applies because this phase
+  changes authority documentation only and adds no runtime behaviour.
 
 ## Reviewer Verdict
 
