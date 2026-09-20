@@ -39,16 +39,18 @@ CSS delivery for these values.
 
 ### Stable boundary and outer-state geometry
 
-Default structural border treatment is `1px`. Selected and Focused each use a
-`2px` outer treatment. They share an outside-the-component-box ring mechanism
-with a `2px` outer gap between the component boundary and the outside state
-ring, so neither changes layout dimensions. Their semantic state and colour
-differ; their geometry does not.
+Default structural border treatment is `1px`. Pressed, Selected, and Focused
+each use the same `2px` outer treatment: one shared ring colour and an
+outside-the-component-box mechanism with a `2px` outer gap between the
+component boundary and the state ring. It never changes layout dimensions.
+Their semantic and behavioural meaning differs; their outer-state presentation
+does not.
 
-Focused is an independent accessibility overlay and can coexist with an
-ordinary component state. Selected is persistent/current state, is exposed
-only by components whose contract supports persistent selection, and is never
-the native transient Pressed state.
+Pressed is transient native active/tap-down state. Focused is an independent
+accessibility overlay and can coexist with an ordinary component state.
+Selected is persistent/current state, is exposed only by components whose
+contract supports persistent selection, and is never the native transient
+Pressed state.
 
 ### Spacing relationships
 
@@ -82,10 +84,11 @@ authorised by any ordinary Button size tier.
 Button specifically consumes the Default (`1px`) structural border in every
 appearance and state; a visually borderless Button resolves that boundary to
 transparent. The boundary is included in each minimum height. Button focus and
-any future Button Selected treatment consume the independent reusable `2px`
-outer-ring geometry with its `2px` gap, so they neither replace nor thicken the
-Button boundary and never change layout dimensions. Ordinary Buttons remain
-non-selectable under ADR 0005. This decision does not change Button
+native Button Pressed, Focused, and any future Button Selected treatment
+consume the shared reusable `2px` outer-ring presentation with its `2px` gap,
+so they neither replace nor thicken the Button boundary and never change layout
+dimensions. Ordinary Buttons remain non-selectable under ADR 0005. This
+decision does not change Button
 appearances, actions, family types, loading/shimmer, dropdown or group
 behaviour.
 
@@ -94,8 +97,10 @@ behaviour.
 Reusable WEX interaction roles are Default, Hover, Pressed, Selected, Focused,
 and Disabled. Hover is restrained; Pressed is transient native active/tap-down;
 Selected is persistent; Focused is the independent outer accessibility layer;
-Disabled removes interaction. Colour-state mappings remain governed by ADRs
-0004 and 0005 unless a later decision changes them.
+Disabled removes interaction. Pressed, Selected, and Focused share the same
+outer-ring colour and geometry; their semantics remain distinct. Component
+surface/foreground mappings remain governed by ADRs 0004 and 0005 unless a
+later decision changes them.
 
 All disabled components use `--wex-opacity-disabled: 0.2`, applied once at the
 outermost disabled component to prevent compounding. This replaces the `0.1`

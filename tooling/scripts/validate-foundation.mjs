@@ -151,13 +151,25 @@ assert(
   'Button does not consume the default structural border',
 );
 assert(!buttonFoundation.includes('border: var(--wex-outer-ring-width) solid'), 'Button boundary couples to outer-ring geometry');
-assert(buttonFoundation.includes('outline: var(--wex-outer-ring-width) solid'), 'Button focus does not use outer-ring geometry');
+assert(!buttonFoundation.includes('--wex-button-focus-outline'), 'Button defines a component-local outer-ring colour');
+assert(
+  buttonFoundation.includes('outline: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color)'),
+  'Button outer states do not use the shared ring treatment',
+);
+assert(
+  buttonFoundation.includes('.wex-button:not(:disabled):active'),
+  'Button transient pressed state is missing',
+);
 assert(buttonFoundation.includes('border-radius: var(--wex-radius-default)'), 'Button radius contract is missing');
 assert(!buttonFoundation.includes('border-radius: var(--wex-radius-small)'), 'Button size tier selects radius');
 assert(!buttonFoundation.includes('border-radius: var(--wex-radius-large)'), 'Button size tier selects radius');
 assert(buttonFoundation.includes('outline-offset: var(--wex-outer-ring-gap)'), 'Button outer-ring gap is missing');
 assert(geometryFoundation.includes('--wex-border-width-default: 1px'), 'Default border geometry is missing');
 assert(geometryFoundation.includes('--wex-outer-ring-width: 2px'), 'Outer-ring geometry is missing');
+assert(
+  geometryFoundation.includes('--wex-outer-ring-color: var(--wex-color-border-focus)'),
+  'Shared outer-ring colour is missing',
+);
 assert(!existsSync(resolve(root, 'test')), 'Repository placeholder still exists');
 
 console.log('Foundation audit passed: authorities, dependencies, CSS structure, tiers, and Button-only boundary are valid.');

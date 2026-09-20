@@ -28,7 +28,7 @@ The closed Button language is `primary | neutral | subtle | warning | danger`.
 
 Button states are `default | hover | pressed | disabled | focus`. Pressed is a transient native `:active`/tap-down treatment. It must not use `aria-pressed`, which represents persistent selection and needs a separately approved toggle-button contract.
 
-Hover is a restrained change; pressed is the third, stronger state. Focus is an independent two-pixel WEX accessibility layer. Disabled controls use native disabled behaviour and the accepted universal `--wex-opacity-disabled` once at the outer control; they expose no hover, pressed, or focus state.
+Hover is a restrained change; pressed is the third, stronger state. Pressed and Focus consume the same reusable two-pixel WEX outer-ring treatment and two-pixel gap; Pressed remains transient native `:active` while Focus remains the independent accessibility overlay. Disabled controls use native disabled behaviour and the accepted universal `--wex-opacity-disabled` once at the outer control; they expose no hover, pressed, or focus state.
 
 The accepted core layer has Default, Hover, and Selected swatches for chromatic/status backgrounds but no Active swatch. Button maps that third swatch to the **pressed** component token only; it does not add Button Selected state.
 
@@ -52,11 +52,10 @@ Implementation must expose component-semantic tokens only:
 --wex-button-{primary|neutral|subtle|warning|danger}-background-{default|hover|pressed}
 --wex-button-{primary|neutral|subtle|warning|danger}-foreground-{default|hover|pressed}
 --wex-button-{primary|neutral|subtle|warning|danger}-border-{default|hover|pressed}
---wex-button-focus-outline
 --wex-button-disabled-opacity
 ```
 
-Transparent or borderless treatments still resolve through the token contract. Consumer and shared rendering code must not address primitives, theme selectors, or state values directly.
+Transparent or borderless treatments still resolve through the token contract. The Button has no component-local outer-ring colour: its transient Pressed and Focused overlays consume the shared WEX outer-ring presentation. Consumer and shared rendering code must not address primitives, theme selectors, or state values directly.
 
 ## Scoped audit transition
 

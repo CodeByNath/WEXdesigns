@@ -52,7 +52,6 @@
   --wex-button-danger-border-hover: transparent;
   --wex-button-danger-border-pressed: transparent;
 
-  --wex-button-focus-outline: var(--wex-color-border-focus);
   --wex-button-disabled-opacity: var(--wex-opacity-disabled);
 }
 
@@ -176,10 +175,12 @@
   background-color: var(--wex-button-background-pressed);
   border-color: var(--wex-button-border-pressed);
   color: var(--wex-button-foreground-pressed);
+  outline: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color);
+  outline-offset: var(--wex-outer-ring-gap);
 }
 
 .wex-button:focus-visible {
-  outline: var(--wex-outer-ring-width) solid var(--wex-button-focus-outline);
+  outline: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color);
   outline-offset: var(--wex-outer-ring-gap);
 }
 

@@ -248,8 +248,13 @@ input:focus-visible,
   background: var(--wex-color-layer-02);
 }
 
-.outer-state-specimen h3 {
+.outer-state-specimen h3,
+.outer-state-specimen__meaning {
   margin: 0;
+}
+
+.outer-state-specimen__meaning {
+  color: var(--wex-color-text-secondary);
 }
 
 .outer-state-specimen__surface {
@@ -264,13 +269,10 @@ input:focus-visible,
   color: var(--wex-color-text-primary);
 }
 
-.outer-state-specimen__surface--focused {
-  outline: var(--wex-outer-ring-width) solid var(--wex-color-border-focus);
-  outline-offset: var(--wex-outer-ring-gap);
-}
-
+.outer-state-specimen__surface--pressed,
+.outer-state-specimen__surface--focused,
 .outer-state-specimen__surface--selected {
-  outline: var(--wex-outer-ring-width) solid var(--wex-color-interactive-selected);
+  outline: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color);
   outline-offset: var(--wex-outer-ring-gap);
 }
 

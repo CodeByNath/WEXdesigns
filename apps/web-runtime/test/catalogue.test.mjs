@@ -30,8 +30,12 @@ test('presents System Settings from WEX authority without application actions', 
   assert.match(html, /wex-button--warning/);
   assert.match(html, /wex-button--danger/);
   assert.match(html, /<h2 id="outer-states-title"[^>]*>Outer states<\/h2>/);
+  assert.match(html, /outer-state-specimen__surface--pressed/);
   assert.match(html, /outer-state-specimen__surface--focused/);
   assert.match(html, /outer-state-specimen__surface--selected/);
+  assert.match(html, /Transient active or tap-down state\./);
+  assert.match(html, /Independent accessibility focus overlay\./);
+  assert.match(html, /Persistent current state for selection-capable components\./);
   assert.match(html, /Reference specimens for reusable WEX state geometry/);
   assert.doesNotMatch(html, /aria-pressed/);
   assert.doesNotMatch(html, /onclick=|addEventListener\(['"]click/);
@@ -55,18 +59,14 @@ test('uses the canonical WEX foundation bundle', () => {
   assert.doesNotMatch(css, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
-test('renders reusable outer-state geometry without adding a selectable Button', () => {
+test('renders one shared outer-state treatment without adding a selectable Button', () => {
   assert.match(
     css,
     /outer-state-specimen__surface\s*\{[\s\S]*?border: var\(--wex-border-width-default\) solid/,
   );
   assert.match(
     css,
-    /outer-state-specimen__surface--focused\s*\{[\s\S]*?outline: var\(--wex-outer-ring-width\) solid var\(--wex-color-border-focus\);[\s\S]*?outline-offset: var\(--wex-outer-ring-gap\);/,
-  );
-  assert.match(
-    css,
-    /outer-state-specimen__surface--selected\s*\{[\s\S]*?outline: var\(--wex-outer-ring-width\) solid var\(--wex-color-interactive-selected\);[\s\S]*?outline-offset: var\(--wex-outer-ring-gap\);/,
+    /outer-state-specimen__surface--pressed,\s*\.outer-state-specimen__surface--focused,\s*\.outer-state-specimen__surface--selected\s*\{[\s\S]*?outline: var\(--wex-outer-ring-width\) solid var\(--wex-outer-ring-color\);[\s\S]*?outline-offset: var\(--wex-outer-ring-gap\);/,
   );
   assert.doesNotMatch(css, /aria-pressed|data-wex-button-state/);
 });

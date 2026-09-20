@@ -22,6 +22,7 @@ test('keeps ordinary Button state transient and accessible', () => {
   assert.match(buttons, /:focus-visible/);
   assert.match(buttons, /:disabled/);
   assert.match(buttons, /--wex-button-disabled-opacity/);
+  assert.doesNotMatch(buttons, /--wex-button-focus-outline/);
   assert.doesNotMatch(buttons, /aria-pressed|data-wex-button-state/);
 });
 
@@ -50,11 +51,16 @@ test('implements the accepted shared Button geometry for every tier', () => {
   assert.doesNotMatch(buttons, /--wex-button-boundary-width/);
   assert.match(buttons, /border: var\(--wex-border-width-default\) solid var\(--wex-button-border-default\)/);
   assert.doesNotMatch(buttons, /border: var\(--wex-outer-ring-width\) solid/);
-  assert.match(buttons, /outline: var\(--wex-outer-ring-width\) solid/);
+  assert.match(buttons, /outline: var\(--wex-outer-ring-width\) solid var\(--wex-outer-ring-color\);/);
   assert.match(buttons, /outline-offset: var\(--wex-outer-ring-gap\)/);
   assert.match(geometry, /--wex-border-width-default: 1px;/);
   assert.match(geometry, /--wex-outer-ring-width: 2px;/);
   assert.match(geometry, /--wex-outer-ring-gap: var\(--wex-space-2\)/);
+  assert.match(geometry, /--wex-outer-ring-color: var\(--wex-color-border-focus\);/);
+  const pressed = buttons.match(/\.wex-button:not\(:disabled\):active\s*\{([\s\S]*?)\}/);
+  assert.ok(pressed, 'missing transient pressed state');
+  assert.match(pressed[1], /outline: var\(--wex-outer-ring-width\) solid var\(--wex-outer-ring-color\);/);
+  assert.match(pressed[1], /outline-offset: var\(--wex-outer-ring-gap\);/);
   for (const variant of ['primary', 'neutral', 'subtle', 'warning', 'danger']) {
     const match = buttons.match(new RegExp(`\\.wex-button--${variant}\\s*\\{([\\s\\S]*?)\\}`));
     assert.ok(match, `missing ${variant} variant`);
