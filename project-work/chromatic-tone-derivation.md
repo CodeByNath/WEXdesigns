@@ -1,78 +1,72 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Revised chromatic tone authority submitted for independent review
-
-## Builder handoff
-
-Candidate: `origin/feat/chromatic-tone-derivation` at
-`305481452ba94cede56a8ba6bc81a07423c3d8af`.
-
-Changed file: `docs/decisions/0011-chromatic-tone-derivation.md` only.
-
-Evidence:
-
-- compares the calibrated sRGB method with a reproducible calibrated OKLCH
-  transform for all four families and both derived tones;
-- records each recipe, generated target hex, CIEDE2000 delta, materiality,
-  registered WCAG contrast, and browser/server execution boundary;
-- reproduces all eight current Dark/Light targets at the current Bases with
-  ΔE00 `0.000`, while retaining one editable Base and explicit deterministic
-  gamut handling for future edits;
-- keeps Main neutrals, CSS, editor, schema, persistence, adapters, admin UI,
-  and semantic mappings untouched; and
-- `git diff --check` passed. No browser validation applies because this phase
-  changes authority documentation only and adds no runtime behaviour.
+Status: BUILDER ACTION REQUIRED
+Phase: Promote accepted chromatic-tone authority candidate to main
 
 ## Reviewer Verdict
 
-**Stop — architectural risk**
+**Proceed with safeguards**
 
-Reviewer independently inspected candidate:
+Reviewer independently inspected:
 `origin/feat/chromatic-tone-derivation` at
-`070a585cc669a4987c0f1724b3ab789bb3be856a`.
+`305481452ba94cede56a8ba6bc81a07423c3d8af`.
 
-The candidate correctly keeps Main neutrals frozen and makes Base the future-editable source, but the proposed sRGB tone recipes do **not** preserve the current WEX chromatic palette closely enough.
+Compared with `main` `5e13a35318704c2df15e39b807650af05a22c498`, the candidate changes only:
+`docs/decisions/0011-chromatic-tone-derivation.md`.
 
-Material drifts in the proposed generated values include:
+## Accepted authority
 
-- Accent Dark: `#0C4EC9` vs current `#0043CE`;
-- Warning Dark: `#AC8B13` vs current `#B28600`;
-- Success Light: `#77C58E` vs current `#6FDC8C`;
-- Error Light: `#E25057` vs current `#FA4D56`.
+Scope remains limited to Accent / Warning / Success / Error.
 
-Success Light and Error Light in particular are materially different visual tones. The user requirement is to derive tones that preserve/match the current Dark and Light character, not merely approximate them with the smallest black/white mix.
+Main neutrals remain untouched:
+Black / Dark / Dark Grey / White / Light / Light Grey.
 
-## Required authority correction
+Each chromatic family has one Base. Dark and Light are deterministic derived tones, not independently authored values.
 
-1. Keep scope unchanged:
-   - Accent / Warning / Success / Error only;
-   - Main neutrals untouched.
-2. Keep one editable Base per family.
-3. Re-evaluate the derivation method with **current WEX Dark/Light values as hard calibration targets**.
-4. Compare deterministic methods capable of preserving hue/chroma as well as lightness, including a perceptual colour-space approach (for example OKLCH/OKLab or an equivalent reproducible transform).
-5. Do not reject a perceptual method merely because it is more complex than sRGB. The deciding criteria are:
-   - fidelity to the current WEX palette;
-   - deterministic derivation from Base;
-   - browser/runtime support;
-   - reproducibility in server/admin validation;
-   - accessibility validation.
-6. For each family and each proposed method, report:
-   - exact recipe;
-   - generated Dark/Light hex;
-   - quantitative colour delta from current target;
-   - whether the difference is visually material;
-   - WCAG contrast for registered foreground pairings;
-   - runtime/browser compatibility.
-7. Prefer a rule that can reproduce the current targets exactly or with negligible perceptual delta. If exact reproduction requires per-family calibrated tone parameters, that is acceptable.
-8. Do not implement CSS, editor, schema, persistence, adapter, or admin UI yet.
-9. Do not change semantic role mappings yet.
-10. Push the revised authority candidate on the same topic branch and hand back this same work file as `AWAITING REVIEWER REVIEW`.
+The accepted derivation model is the per-family calibrated OKLCH transform documented in ADR 0011:
 
-## Acceptance objective
+```text
+Base
+├─ Dark  = registered family transform
+└─ Light = registered family transform
+```
 
-One durable rule:
+At the current accepted Bases it reproduces all existing WEX targets exactly after 8-bit sRGB quantisation:
 
-> Changing only a chromatic Base colour later deterministically regenerates Dark and Light tones while retaining the established WEX visual character and accessibility contract.
+| Family | Dark | Light |
+| --- | --- | --- |
+| Accent | `#0043CE` | `#78A9FF` |
+| Warning | `#B28600` | `#FDDC69` |
+| Success | `#198038` | `#6FDC8C` |
+| Error | `#A2191F` | `#FA4D56` |
 
-Do not promote or begin implementation until Reviewer accepts the revised authority.
+The candidate also correctly rejects the earlier sRGB-mix authority because several tones had material perceptual drift.
+
+## Required safeguards
+
+Future implementation must preserve all of the following:
+
+- Base remains the sole editable chromatic input for each family.
+- Tone derivation is deterministic and reproducible outside the browser.
+- Out-of-gamut results use the documented chroma-reduction mapping rather than independent RGB clamping.
+- Generated tones must retain existing semantic-role mappings.
+- Registered `on-*` foreground pairings must be revalidated at WCAG AA normal-text contrast after any future Base change.
+- A Base change that cannot satisfy the registered contrast contract must be rejected; do not silently change semantic roles.
+- No Main-neutral change.
+- No editor, schema, persistence, adapter, or admin UI is authorised by this authority phase.
+
+## Builder promotion instruction
+
+Promote only exact candidate SHA:
+`305481452ba94cede56a8ba6bc81a07423c3d8af`.
+
+Builder must:
+
+1. verify `origin` is exactly `CodeByNath/WEXdesigns`;
+2. verify remote `main` is still `5e13a35318704c2df15e39b807650af05a22c498`;
+3. verify `main` is an ancestor of the exact candidate;
+4. fast-forward `main` only to `305481452...`; no amendment, rebase, merge commit, or extra change;
+5. verify remote `main` at that exact SHA;
+6. update this same work file to `AWAITING REVIEWER REVIEW` with promotion evidence and stop.
+
+Do not implement colour CSS yet. Implementation requires a separate Reviewer-authorised phase after authority promotion is verified.
