@@ -53,7 +53,6 @@
   --wex-button-danger-border-pressed: transparent;
 
   --wex-button-focus-outline: var(--wex-color-border-focus);
-  --wex-button-boundary-width: 2px;
   --wex-button-disabled-opacity: var(--wex-opacity-disabled);
 }
 
@@ -128,7 +127,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--wex-space-4);
-  border: var(--wex-button-boundary-width) solid var(--wex-button-border-default);
+  border: var(--wex-border-width-default) solid var(--wex-button-border-default);
   border-radius: var(--wex-radius-default);
   background-color: var(--wex-button-background-default);
   color: var(--wex-button-foreground-default);

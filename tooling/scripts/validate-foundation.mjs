@@ -145,8 +145,11 @@ assert(!buttonFoundation.includes('data-wex-button-state'), 'WEX Button accepts 
 for (const tier of ['small', 'default', 'large']) {
   assert(buttonFoundation.includes(`.wex-button--${tier}`), `Button ${tier} geometry is missing`);
 }
-assert(buttonFoundation.includes('--wex-button-boundary-width: 2px'), 'Button stable boundary token is missing');
-assert(buttonFoundation.includes('border: var(--wex-button-boundary-width) solid'), 'Button stable boundary is missing');
+assert(!buttonFoundation.includes('--wex-button-boundary-width'), 'Button defines a component-local boundary token');
+assert(
+  buttonFoundation.includes('border: var(--wex-border-width-default) solid'),
+  'Button does not consume the default structural border',
+);
 assert(!buttonFoundation.includes('border: var(--wex-outer-ring-width) solid'), 'Button boundary couples to outer-ring geometry');
 assert(buttonFoundation.includes('outline: var(--wex-outer-ring-width) solid'), 'Button focus does not use outer-ring geometry');
 assert(buttonFoundation.includes('border-radius: var(--wex-radius-default)'), 'Button radius contract is missing');

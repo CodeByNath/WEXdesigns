@@ -79,13 +79,15 @@ Large radius tiers remain available to components that explicitly adopt them.
 A full-circle or pill Button is a separate shape contract and is not implied or
 authorised by any ordinary Button size tier.
 
-Button specifically reserves a stable `2px` boundary in every appearance and
-state; a visually borderless Button resolves that boundary to transparent. The
-boundary is included in each minimum height. Button focus and any future Button
-Selected treatment consume the reusable outer-ring geometry; ordinary Buttons
-remain non-selectable under ADR 0005. No rule here requires every WEX component
-to use a `2px` base border. This decision does not change Button appearances,
-actions, family types, loading/shimmer, dropdown or group behaviour.
+Button specifically consumes the Default (`1px`) structural border in every
+appearance and state; a visually borderless Button resolves that boundary to
+transparent. The boundary is included in each minimum height. Button focus and
+any future Button Selected treatment consume the independent reusable `2px`
+outer-ring geometry with its `2px` gap, so they neither replace nor thicken the
+Button boundary and never change layout dimensions. Ordinary Buttons remain
+non-selectable under ADR 0005. This decision does not change Button
+appearances, actions, family types, loading/shimmer, dropdown or group
+behaviour.
 
 ### Interaction and disabled authority
 
