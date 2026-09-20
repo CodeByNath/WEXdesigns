@@ -150,11 +150,16 @@ assert(
   buttonFoundation.includes('border: var(--wex-border-width-default) solid'),
   'Button does not consume the default structural border',
 );
-assert(!buttonFoundation.includes('border: var(--wex-outer-ring-width) solid'), 'Button boundary couples to outer-ring geometry');
+const buttonBaseRule = buttonFoundation.match(/\.wex-button\s*\{([\s\S]*?)\}/);
+assert(buttonBaseRule, 'Button base rule is missing');
+assert(
+  !buttonBaseRule[1].includes('border: var(--wex-outer-ring-width) solid'),
+  'Button boundary couples to outer-ring geometry',
+);
 assert(!buttonFoundation.includes('--wex-button-focus-outline'), 'Button defines a component-local outer-ring colour');
 assert(
-  buttonFoundation.includes('outline: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color)'),
-  'Button outer states do not use the shared ring treatment',
+  buttonFoundation.includes('inset: var(--wex-outer-ring-inset)'),
+  'Button outer states do not use the shared inset treatment',
 );
 assert(
   buttonFoundation.includes('.wex-button:not(:disabled):active'),
@@ -163,9 +168,32 @@ assert(
 assert(buttonFoundation.includes('border-radius: var(--wex-radius-default)'), 'Button radius contract is missing');
 assert(!buttonFoundation.includes('border-radius: var(--wex-radius-small)'), 'Button size tier selects radius');
 assert(!buttonFoundation.includes('border-radius: var(--wex-radius-large)'), 'Button size tier selects radius');
-assert(buttonFoundation.includes('outline-offset: var(--wex-outer-ring-gap)'), 'Button outer-ring gap is missing');
+assert(!buttonFoundation.includes('outline-offset:'), 'Button state treatment extends outside its bounds');
+assert(!buttonFoundation.includes('box-shadow:'), 'Button state treatment may not use an outside shadow');
+assert(
+  buttonFoundation.includes('border: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color)'),
+  'Button state treatment does not use the shared ring colour and width',
+);
+assert(
+  buttonFoundation.includes('border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color)'),
+  'Button state treatment does not preserve the shared internal gap',
+);
+assert(
+  buttonFoundation.includes('border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-inset))'),
+  'Button state treatment does not preserve the registered radius inside the existing box',
+);
+assert(!/--wex-button-(?:outer-ring|state-inset)/.test(buttonFoundation), 'Button duplicates shared state geometry');
+assert(!/\b2px\b/.test(buttonFoundation), 'Button duplicates shared ring values');
 assert(geometryFoundation.includes('--wex-border-width-default: 1px'), 'Default border geometry is missing');
 assert(geometryFoundation.includes('--wex-outer-ring-width: 2px'), 'Outer-ring geometry is missing');
+assert(
+  geometryFoundation.includes('--wex-outer-ring-inset: calc(var(--wex-border-width-default) + var(--wex-outer-ring-gap))'),
+  'Shared internal state inset is missing',
+);
+assert(
+  geometryFoundation.includes('--wex-outer-ring-gap-color: var(--wex-color-background)'),
+  'Shared internal state gap colour is missing',
+);
 assert(
   geometryFoundation.includes('--wex-outer-ring-color: var(--wex-color-border-focus)'),
   'Shared outer-ring colour is missing',

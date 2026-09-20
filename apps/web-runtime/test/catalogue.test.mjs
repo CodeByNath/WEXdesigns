@@ -30,13 +30,14 @@ test('presents System Settings from WEX authority without application actions', 
   assert.match(html, /wex-button--warning/);
   assert.match(html, /wex-button--danger/);
   assert.match(html, /<h2 id="outer-states-title"[^>]*>Outer states<\/h2>/);
+  assert.match(html, /outer-state-specimen__surface--default/);
   assert.match(html, /outer-state-specimen__surface--pressed/);
   assert.match(html, /outer-state-specimen__surface--focused/);
   assert.match(html, /outer-state-specimen__surface--selected/);
   assert.match(html, /Transient active or tap-down state\./);
   assert.match(html, /Independent accessibility focus overlay\./);
   assert.match(html, /Persistent current state for selection-capable components\./);
-  assert.match(html, /Reference specimens for reusable WEX state geometry/);
+  assert.match(html, /same fixed 40px footprint/);
   assert.doesNotMatch(html, /aria-pressed/);
   assert.doesNotMatch(html, /onclick=|addEventListener\(['"]click/);
 });
@@ -59,15 +60,20 @@ test('uses the canonical WEX foundation bundle', () => {
   assert.doesNotMatch(css, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
-test('renders one shared outer-state treatment without adding a selectable Button', () => {
+test('renders one fixed-footprint shared inset state treatment without adding a selectable Button', () => {
   assert.match(
     css,
     /outer-state-specimen__surface\s*\{[\s\S]*?border: var\(--wex-border-width-default\) solid/,
   );
   assert.match(
     css,
-    /outer-state-specimen__surface--pressed,\s*\.outer-state-specimen__surface--focused,\s*\.outer-state-specimen__surface--selected\s*\{[\s\S]*?outline: var\(--wex-outer-ring-width\) solid var\(--wex-outer-ring-color\);[\s\S]*?outline-offset: var\(--wex-outer-ring-gap\);/,
+    /outer-state-specimen__surface--pressed::after,\s*\.outer-state-specimen__surface--focused::after,\s*\.outer-state-specimen__surface--selected::after\s*\{[\s\S]*?inset: var\(--wex-outer-ring-inset\);[\s\S]*?border: var\(--wex-outer-ring-width\) solid var\(--wex-outer-ring-color\);/,
   );
+  assert.match(
+    css,
+    /outer-state-specimen__surface--pressed::before,\s*\.outer-state-specimen__surface--focused::before,\s*\.outer-state-specimen__surface--selected::before\s*\{[\s\S]*?inset: var\(--wex-border-width-default\);[\s\S]*?border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/,
+  );
+  assert.doesNotMatch(css, /outline-offset:/);
   assert.doesNotMatch(css, /aria-pressed|data-wex-button-state/);
 });
 

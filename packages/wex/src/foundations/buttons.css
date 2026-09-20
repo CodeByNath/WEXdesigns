@@ -122,6 +122,7 @@
 
 .wex-button {
   box-sizing: border-box;
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -130,6 +131,7 @@
   border-radius: var(--wex-radius-default);
   background-color: var(--wex-button-background-default);
   color: var(--wex-button-foreground-default);
+  outline: none;
 }
 
 .wex-button--small {
@@ -175,13 +177,28 @@
   background-color: var(--wex-button-background-pressed);
   border-color: var(--wex-button-border-pressed);
   color: var(--wex-button-foreground-pressed);
-  outline: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color);
-  outline-offset: var(--wex-outer-ring-gap);
 }
 
-.wex-button:focus-visible {
-  outline: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color);
-  outline-offset: var(--wex-outer-ring-gap);
+.wex-button:not(:disabled):active::after,
+.wex-button:focus-visible::after {
+  position: absolute;
+  inset: var(--wex-outer-ring-inset);
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color);
+  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-inset));
+  content: '';
+}
+
+.wex-button:not(:disabled):active::before,
+.wex-button:focus-visible::before {
+  position: absolute;
+  inset: var(--wex-border-width-default);
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color);
+  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
+  content: '';
 }
 
 .wex-button:disabled {

@@ -6,5 +6,7 @@
   --wex-border-width-default: 1px;
   --wex-outer-ring-width: 2px;
   --wex-outer-ring-gap: var(--wex-space-2);
+  --wex-outer-ring-inset: calc(var(--wex-border-width-default) + var(--wex-outer-ring-gap));
+  --wex-outer-ring-gap-color: var(--wex-color-background);
   --wex-outer-ring-color: var(--wex-color-border-focus);
 }
