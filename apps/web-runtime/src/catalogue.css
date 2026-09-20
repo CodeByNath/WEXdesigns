@@ -173,7 +173,8 @@ input:focus-visible,
 }
 
 .colour-groups,
-.button-catalogue {
+.button-catalogue,
+.outer-state-catalogue {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--wex-space-24);
@@ -239,6 +240,40 @@ input:focus-visible,
   background: var(--wex-color-layer-02);
 }
 
+.outer-state-specimen {
+  display: grid;
+  gap: var(--wex-space-16);
+  min-width: 0;
+  padding: var(--wex-space-24);
+  background: var(--wex-color-layer-02);
+}
+
+.outer-state-specimen h3 {
+  margin: 0;
+}
+
+.outer-state-specimen__surface {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-block-size: var(--wex-space-40);
+  padding: var(--wex-space-4) var(--wex-space-12);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-primary);
+  border-radius: var(--wex-radius-default);
+  background: var(--wex-color-layer-02);
+  color: var(--wex-color-text-primary);
+}
+
+.outer-state-specimen__surface--focused {
+  outline: var(--wex-outer-ring-width) solid var(--wex-color-border-focus);
+  outline-offset: var(--wex-outer-ring-gap);
+}
+
+.outer-state-specimen__surface--selected {
+  outline: var(--wex-outer-ring-width) solid var(--wex-color-interactive-selected);
+  outline-offset: var(--wex-outer-ring-gap);
+}
+
 @media (max-width: 1440px) {
   .catalogue-header__inner,
   .catalogue-footer__inner {
@@ -281,7 +316,8 @@ input:focus-visible,
   }
 
   .colour-groups,
-  .button-catalogue {
+  .button-catalogue,
+  .outer-state-catalogue {
     grid-template-columns: minmax(0, 1fr);
   }
 
