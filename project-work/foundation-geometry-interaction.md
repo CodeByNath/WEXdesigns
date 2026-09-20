@@ -1,70 +1,74 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Review promoted fixed-footprint Button outer-state correction
+Status: BUILDER ACTION REQUIRED
+Phase: Correct Button state boundary so it replaces the default edge instead of nesting inside it
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Stop — architectural risk**
 
-Reviewer independently inspected:
-`origin/feat/foundation-geometry-interaction` at
-`ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`.
+Live Pages evidence on promoted `main`
+`ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`
+shows the fixed-footprint correction still misinterprets the visual rule.
 
-## Accepted correction
+The Button no longer grows, but the state treatment is now rendered as a smaller nested blue box inside the normal Button boundary. The screenshot shows the normal neutral border still visible outside the blue Focus treatment.
 
-The candidate fixes the live visible-scaling defect.
+That is not the WEX rule.
 
-### Button invariant
+## Correct Button state rule
 
-- Default visible Button footprint is authoritative.
-- Pressed and Focused now render their shared state treatment **inside** the existing Button box.
-- Selected reference geometry uses the same inset treatment for selection-capable components.
-- No positive `outline-offset` remains on Button.
-- State presentation no longer increases visible external width or height.
+### Default
 
-### Preserved geometry
+- Button uses its normal `1px` structural boundary.
 
-- structural Button boundary = `1px`;
-- Button radius = Default `8px` for Small / Default / Large;
-- minimum heights remain `36 / 40 / 44px`;
-- shared state ring = `2px`;
-- shared visual separation = `2px`, rendered internally;
-- ordinary Button remains non-selectable.
+### Pressed / Selected / Focused
 
-### Implementation
+- all three share **one identical state-boundary treatment**;
+- that state boundary occupies the Button's **outer visual edge** while staying inside the existing fixed Button box;
+- the normal/default `1px` boundary must not remain visibly outside it;
+- do not render a second smaller state box inside the Button;
+- do not increase external width or height;
+- do not change Button radius, tier dimensions, padding, or content position.
 
-WEX now owns reusable inset-state tokens including ring inset, gap colour, and ring colour. Real Button Pressed and Focused use generated internal pseudo-element layers rather than an outside outline. System Settings compares Default / Pressed / Focused / Selected at one fixed 40px reference footprint.
+The state treatment may internally use layered/inset rendering to preserve fixed dimensions, but the visible result must read as **one state boundary at the Button perimeter**, not:
+`default border -> internal gap -> smaller blue rectangle`.
 
-No wrapper sizing, state-specific dimensions, raw replacement values, Toggle Button contract, `aria-pressed`, or shared-UI selection semantics were introduced.
+The supplied Carbon focus CSS is a rendering-technique reference only. Its useful principle is:
 
-Compared with current `main` `d10bac62ad65690d68b43c9420b7935dc0e9aefe`, the candidate is exactly one commit ahead and changes only the authorised ADR, WEX foundation, tests/audit, and System Settings runtime files.
+- existing outer border participates in the focus treatment;
+- inset layers add the remaining state thickness/separation internally;
+- external footprint stays unchanged.
 
-Builder evidence reports passing:
+Do not copy Carbon token names or raw values.
 
-- `git diff --check`
-- `pnpm --filter @weerax/wex test` (7/7)
-- `pnpm audit:foundation`
-- `pnpm --filter @weerax/web-runtime check` (type-check + 6/6)
-- Chrome measured Default/state equality:
-  - Small `63.75×36`
-  - Default `80.515625×40`
-  - Large `77.125×44`
-- equality preserved in light/dark and at 200% zoom;
-- native pointer `:active` confirmed for all tiers;
-- keyboard Focus visible;
-- no compact overflow or layout shift.
+## Builder correction — one complete job
 
-## Builder promotion evidence
+1. Correct ADR 0010 so Button state presentation explicitly replaces/absorbs the visible default edge while preserving fixed external bounds.
+2. Reconcile ADR 0005 where needed for Pressed/Focused consumption.
+3. Rework Button state CSS so:
+   - Default shows the normal 1px boundary;
+   - Pressed / Focused use the shared state boundary at the outer perimeter;
+   - any remaining inset layer exists only to complete the accepted WEX 2px state treatment / separation, not to create a nested inner rectangle;
+   - ordinary Button Selected semantics remain absent.
+4. Selected reference presentation must visually match Pressed/Focused exactly.
+5. Preserve:
+   - fixed external dimensions;
+   - Small / Default / Large heights `36 / 40 / 44px`;
+   - 8px Button radius;
+   - existing padding/typography/variant colours;
+   - disabled behaviour;
+   - ordinary Button non-selectability.
+6. System Settings must place Default beside Pressed / Focused / Selected and make it visually obvious that:
+   - Default = 1px normal boundary;
+   - all three states = the same single state boundary at the same outer edge;
+   - no extra outer neutral border and no smaller nested blue box exist.
+7. Add deterministic tests rejecting:
+   - retained visible default border outside the state boundary;
+   - nested inner state rectangle treatment;
+   - external growth / positive outline-offset;
+   - state-specific size changes;
+   - duplicated component-local state geometry.
+8. Browser-validate all three sizes in light/dark and 200% zoom. Record equal bounding boxes and screenshots showing the state boundary occupies the same outer perimeter as Default.
+9. Push on the same topic branch and return this file as `AWAITING REVIEWER REVIEW` with exact SHA and evidence.
 
-- Verified `origin` is exactly `https://github.com/CodeByNath/WEXdesigns.git`.
-- Verified remote `main` was `d10bac62ad65690d68b43c9420b7935dc0e9aefe`, an ancestor of exact candidate `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`.
-- Fast-forwarded `main` exactly to `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`, pushed it, and confirmed the remote at that exact SHA. No merge commit, rebase, amendment, or extra source change was used.
-- GitHub Pages workflow [35494475981](https://github.com/CodeByNath/WEXdesigns/actions/runs/35494475981) completed successfully for `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`.
-
-Do not delete the topic branch or begin another phase before Reviewer closeout.
-
-Final Reviewer closeout:
-- verify promoted `main`;
-- verify live Default vs Pressed/Focused visible footprint equality and the three-state reference;
-- if clean, authorize topic-branch deletion and accept this work area.
+Do not promote, delete the topic branch, or begin another component/foundation phase until Reviewer accepts this correction.
