@@ -1,72 +1,61 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Review promoted Button perimeter-state correction
+Status: BUILDER ACTION REQUIRED
+Phase: Final topic-branch housekeeping after accepted live Button verification
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Reviewer independently inspected:
-`origin/feat/foundation-geometry-interaction` at
+The Button foundation work is accepted.
+
+## Accepted live result
+
+Promoted `main` is exactly:
 `5e13a35318704c2df15e39b807650af05a22c498`.
 
-## Accepted state construction
+GitHub Pages deployment for that SHA succeeded.
 
-The candidate now implements the clarified Button perimeter rule correctly.
+Reviewer live evidence supplied by the user confirms the final System Settings presentation is correct:
 
-### Default
+- Default Button perimeter is stable.
+- Pressed / Focused use the same fixed outer perimeter.
+- Selected reference matches the same state-boundary treatment.
+- No visible exterior neutral border remains outside the state boundary.
+- No detached nested blue rectangle remains.
+- State treatment does not visually enlarge the Button.
+- Small / Default / Large remain visually consistent.
+- Light/dark presentation is correct.
+- The final outer-state reference is understandable as Default / Pressed / Focused / Selected.
 
-- normal Button boundary = `1px`;
-- normal variant-specific border colour remains authoritative.
+Previously verified invariants remain accepted:
 
-### Pressed / Focused / Selected reference
-
-The shared state treatment now occupies the same fixed Button perimeter:
-
-1. the existing `1px` Button border changes to `--wex-outer-ring-color`;
-2. `--wex-outer-ring-inner-width` supplies the remaining `1px` immediately inside that border;
-3. together those form the visible `2px` state boundary at the Button perimeter;
-4. the shared `2px` visual separation begins only after that state boundary;
-5. the Button surface/content continues inward.
-
-There is no normal/neutral border visible outside the state boundary, no detached smaller blue rectangle, no positive outline offset, and no increase in external width or height.
-
-Pressed and Focused on real Buttons use this exact treatment. The Selected System Settings reference uses the identical visual construction without adding Selected semantics to ordinary command Button.
-
-## Preserved invariants
-
-- external Button dimensions remain fixed;
-- Small / Default / Large minimum heights remain `36 / 40 / 44px`;
-- ordinary Button radius remains Default `8px`;
-- padding, typography, variant colour mappings and disabled behaviour remain unchanged;
+- Button structural boundary = `1px`;
+- ordinary Button radius = Default `8px`;
+- minimum heights = `36 / 40 / 44px`;
 - Pressed remains transient native `:active`;
-- Focused remains accessibility focus;
+- Focus remains accessibility focus;
 - ordinary command Button remains non-selectable;
-- no `aria-pressed`, Toggle Button contract, schema or shared-UI selection change.
+- no `aria-pressed`, Toggle Button contract, schema, or shared-UI selection change.
 
-Compared with current `main` `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`, candidate is exactly one commit ahead.
+## Final housekeeping
 
-Builder evidence reports passing:
+The completed topic branch is safe to delete because:
 
-- `git diff --check`
-- `pnpm --filter @weerax/wex test` (7/7)
-- `pnpm audit:foundation`
-- `pnpm --filter @weerax/web-runtime check` (type-check + 6/6)
-- light/dark local Chrome screenshots show continuous state perimeter with no exterior neutral edge;
-- Small / Default / Large measured `63.75×36`, `80.515625×40`, `77.125×44` in state and default;
-- 200% zoom shows no overflow/layout shift.
+- `origin/main` and `origin/feat/foundation-geometry-interaction` both point to exact SHA `5e13a35318704c2df15e39b807650af05a22c498`;
+- the accepted work is preserved on `main`;
+- no further Button correction is pending.
 
-## Builder promotion evidence
+A Git/terminal-capable Builder must:
 
-- Verified `origin` is exactly `https://github.com/CodeByNath/WEXdesigns.git`.
-- Verified remote `main` was `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`, an ancestor of exact candidate `5e13a35318704c2df15e39b807650af05a22c498`.
-- Fast-forwarded `main` exactly to `5e13a35318704c2df15e39b807650af05a22c498`, pushed it, and confirmed remote `main` at that exact SHA. No merge commit, rebase, amendment, or extra source change was used.
-- GitHub Pages workflow [35497736099](https://github.com/CodeByNath/WEXdesigns/actions/runs/35497736099) completed successfully for `5e13a35318704c2df15e39b807650af05a22c498`.
+1. verify `origin` is exactly `CodeByNath/WEXdesigns`;
+2. verify both refs still point to `5e13a353...`;
+3. delete remote branch `feat/foundation-geometry-interaction`;
+4. verify the remote branch is gone;
+5. update this same work file to `Status: ACCEPTED` with deletion evidence and stop.
 
-Do not delete the topic branch or begin another phase before Reviewer closeout.
+Do not begin the next implementation branch until this housekeeping is verified.
 
-Final Reviewer closeout:
-- verify promoted `main`;
-- verify live Pages shows the same fixed Button perimeter for Default vs Pressed/Focused and the matching Selected reference;
-- if clean, authorize topic-branch deletion and accept this work area.
+## Next work area after closeout
+
+The next planned work is WEX chromatic tone derivation for Accent / Warning / Success / Error while leaving Main neutral colours untouched. It must begin as a separate authority phase only after this Button branch is closed.
