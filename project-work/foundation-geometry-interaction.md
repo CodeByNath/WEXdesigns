@@ -1,52 +1,50 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Verify promoted System Settings outer-state presentation and authorize closeout if clean
+Status: BUILDER ACTION REQUIRED
+Phase: Reconcile Pressed / Selected / Focused outer-state authority and presentation
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Stop — architectural risk**
 
-Reviewer independently inspected:
-`origin/feat/foundation-geometry-interaction` at
-`47ad2d815c01fabd77d3de1b202edbad117d1736`.
+Live review exposed an authority mismatch, not merely a showcase defect.
 
-## Accepted presentation correction
+Current ADR 0010 says Selected and Focused share outer-ring geometry but may use different colours. ADR 0005 treats Pressed as a transient Button state without the reusable outer-ring presentation. The deployed System Settings therefore shows Focused and Selected with different ring colours and omits Pressed from the outer-state comparison.
 
-The candidate fixes the System Settings coverage gap without changing Button authority.
+That does not match the clarified WEX direction.
 
-- Adds persistent **Focused** and **Selected** reference specimens under a separate `Outer states` section.
-- Both specimens are explicitly labelled as reusable WEX state geometry, not interactive Buttons.
-- Focused specimen consumes:
-  - `--wex-border-width-default`
-  - `--wex-outer-ring-width`
-  - `--wex-outer-ring-gap`
-  - `--wex-color-border-focus`
-- Selected specimen consumes the same reusable geometry with `--wex-color-interactive-selected`.
-- No ordinary Button gains Selected state, `aria-pressed`, toggle semantics, schema changes, or shared-UI changes.
-- Native Button `:focus-visible` remains unchanged.
-- No raw colour values were introduced.
-- Runtime tests now assert both specimens remain present and that no selectable Button state was introduced.
+## Clarified WEX direction
 
-Compared with current `main` `94c4a99521015b17a253e695b29ba56d9cc6df2f`, the candidate is exactly one commit ahead and changes only:
+Pressed, Selected, and Focused are semantically different states, but their **outer-state visual treatment is the same**:
 
-- `apps/web-runtime/index.html`
-- `apps/web-runtime/src/catalogue.css`
-- `apps/web-runtime/test/catalogue.test.mjs`
+- component/default boundary remains `1px`;
+- outer state ring = `2px`;
+- gap between component boundary and outer ring = `2px`;
+- same WEX ring colour/treatment for Pressed, Selected, and Focused;
+- the distinction between the three states is behavioural/semantic, not a different ring geometry or colour.
 
-Builder evidence reports passing:
-- `git diff --check`
-- `pnpm --filter @weerax/wex test` (7/7)
-- `pnpm audit:foundation`
-- `pnpm --filter @weerax/web-runtime check` (type-check + 6/6 tests)
-- local Chrome light/dark, native keyboard focus, both reference specimens, 200% compact layout, and no overflow/layout shift.
+State meaning remains separate:
 
-## Builder promotion handoff
+- **Pressed** = transient active/tap-down state;
+- **Selected** = persistent/current state, only for components that support selection;
+- **Focused** = accessibility focus overlay and may coexist with another state.
 
-- Verified `origin` as `https://github.com/CodeByNath/WEXdesigns.git`.
-- Verified old remote `main` `94c4a99521015b17a253e695b29ba56d9cc6df2f` was an ancestor of the exact candidate `47ad2d815c01fabd77d3de1b202edbad117d1736`.
-- Fast-forwarded and pushed `main` only to `47ad2d815c01fabd77d3de1b202edbad117d1736`; remote main was verified at that exact SHA. No merge commit, rebase, amendment, or source change occurred during promotion.
-- GitHub Pages workflow run [#15](https://github.com/CodeByNath/WEXdesigns/actions/runs/35488432993) completed successfully for `47ad2d815c01fabd77d3de1b202edbad117d1736`.
-- Topic branch `feat/foundation-geometry-interaction` remains retained as required.
+Ordinary command Button still must not gain persistent Selected semantics merely to demonstrate the state.
 
-Final Reviewer closeout boundary: independently verify live Pages visibly shows the Focused and Selected reference specimens plus native Button keyboard focus. If clean, authorize safe topic-branch deletion and accept this work area. Do not begin another phase before that decision.
+## Builder correction — one bounded job
+
+1. Correct ADR 0010 so Pressed, Selected, and Focused share the same reusable outer-state presentation geometry **and colour treatment**.
+2. Reconcile ADR 0005 only where required so Button Pressed may consume the shared outer-state presentation while remaining transient native `:active`; do not add `aria-pressed` or persistent selection to ordinary Button.
+3. Reconcile WEX foundation tokens/CSS so the three outer-state roles consume one approved shared ring treatment rather than separate colours.
+4. Preserve the ordinary Button 1px structural boundary, 8px radius, and existing variant/state semantics.
+5. Update System Settings so a person can understand the rule visually at a glance:
+   - show **Pressed**, **Selected**, and **Focused** together;
+   - show the same 1px boundary + 2px gap + 2px ring treatment on all three;
+   - clearly label semantic meaning without using different ring colours;
+   - do not hide the rule behind interaction-only behaviour.
+6. Preserve native keyboard focus behavior and ordinary Button non-selectability.
+7. Add/update deterministic tests covering all three specimens and shared ring-token use.
+8. Validate light/dark, keyboard focus, active/pressed presentation, compact/200% zoom, and no layout shift.
+9. Push on the same topic branch and hand back this file as `AWAITING REVIEWER REVIEW` with exact SHA and evidence.
+
+Do not promote, delete the topic branch, or begin another component/foundation phase until Reviewer accepts the corrected authority + implementation candidate.
