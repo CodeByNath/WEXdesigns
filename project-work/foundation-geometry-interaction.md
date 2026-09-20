@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote corrected Button perimeter-state candidate to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Review promoted Button perimeter-state correction
 
 ## Reviewer Verdict
 
@@ -57,22 +57,14 @@ Builder evidence reports passing:
 - Small / Default / Large measured `63.75×36`, `80.515625×40`, `77.125×44` in state and default;
 - 200% zoom shows no overflow/layout shift.
 
-## Promotion safeguard
+## Builder promotion evidence
 
-Promote only exact candidate SHA:
-`5e13a35318704c2df15e39b807650af05a22c498`.
+- Verified `origin` is exactly `https://github.com/CodeByNath/WEXdesigns.git`.
+- Verified remote `main` was `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`, an ancestor of exact candidate `5e13a35318704c2df15e39b807650af05a22c498`.
+- Fast-forwarded `main` exactly to `5e13a35318704c2df15e39b807650af05a22c498`, pushed it, and confirmed remote `main` at that exact SHA. No merge commit, rebase, amendment, or extra source change was used.
+- GitHub Pages workflow [35497736099](https://github.com/CodeByNath/WEXdesigns/actions/runs/35497736099) completed successfully for `5e13a35318704c2df15e39b807650af05a22c498`.
 
-Builder must:
-
-1. Verify `origin` is exactly `CodeByNath/WEXdesigns`.
-2. Verify remote `main` is still `ccafd4f921c4c03ff55f8e7642a7eba94934ccd5`.
-3. Verify `main` is an ancestor of the exact candidate.
-4. Fast-forward `main` only to `5e13a353...`; no merge commit, rebase, amendment, or extra source change.
-5. Push and verify remote `main` at that exact SHA.
-6. Verify GitHub Pages deployment succeeds for that SHA.
-7. Update this same work file to `AWAITING REVIEWER REVIEW` with promotion/deployment evidence and stop.
-
-Do not delete the topic branch or begin another phase.
+Do not delete the topic branch or begin another phase before Reviewer closeout.
 
 Final Reviewer closeout:
 - verify promoted `main`;
