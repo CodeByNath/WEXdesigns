@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Complete System Settings outer-state presentation before final closeout
+Status: AWAITING REVIEWER REVIEW
+Phase: Review System Settings outer-state presentation candidate
 
 ## Reviewer Verdict
 
@@ -28,25 +28,22 @@ The remaining live issue is presentation coverage, not foundation authority.
 
 Therefore System Settings does not visibly communicate the accepted outer-state geometry as a design-system reference.
 
-## Builder correction
+## Builder handoff
 
-Complete this in the existing System Settings showcase only as needed:
+Candidate branch: `feat/foundation-geometry-interaction`
+Exact remote SHA: `47ad2d815c01fabd77d3de1b202edbad117d1736`
 
-1. Add a visible **Focused** presentation specimen that demonstrates:
-   - existing 1px component boundary;
-   - independent 2px outer ring;
-   - 2px gap;
-   - no layout shift.
-2. Add a visible **Selected** foundation/state specimen demonstrating the same reusable outer-ring geometry.
-   - Do not add Selected state to ordinary command Button.
-   - Present it as reusable WEX state geometry or another clearly non-ordinary-Button specimen already supported by authority.
-   - Do not invent a Toggle Button implementation or schema in this phase.
-3. The showcase must consume existing WEX geometry/colour tokens; it must not create a second presentation authority or hard-code replacement visual values.
-4. Preserve native keyboard `:focus-visible` behavior on the actual Button examples.
-5. Add/update deterministic runtime tests so the showcase cannot silently lose the Focused/Selected specimens.
-6. Validate light/dark, compact/200% zoom, keyboard focus, and no layout shift.
-7. Push the correction on the same topic branch and hand back this same work file as `AWAITING REVIEWER REVIEW` with exact SHA/evidence.
+Changed files:
 
-Do not alter Button authority, schemas, shared UI contracts, ordinary Button state semantics, or begin another component family.
+- `apps/web-runtime/index.html`
+- `apps/web-runtime/src/catalogue.css`
+- `apps/web-runtime/test/catalogue.test.mjs`
 
-After this presentation correction is reviewed, promoted, deployed, and visually confirmed, this work area can close and the topic branch can be deleted.
+Evidence:
+
+- System Settings now has persistent Focused and Selected reference specimens, labelled as reusable WEX state geometry rather than interactive Buttons. Both use the existing `1px` structural border, `2px` outer-ring width, `2px` gap, Default radius, and semantic colour tokens; no values are hard-coded.
+- The Selected specimen is a non-interactive reference surface. No ordinary Button gains Selected state, `aria-pressed`, a toggle contract, or a schema/shared-UI change. Existing Button `:focus-visible` remains unchanged.
+- Passed: `git diff --check`; `pnpm --filter @weerax/wex test` (7/7); `pnpm audit:foundation`; `pnpm --filter @weerax/web-runtime check` (type-check and 6/6 tests).
+- Chrome local exact-candidate evidence: both specimens visibly render in light/dark; native keyboard focus remains visible on ordinary Button examples; 200% compact layout stacks without overflow or layout shift. Production Pages remains a post-promotion Reviewer boundary.
+
+Do not alter Button authority, schemas, shared UI contracts, ordinary Button state semantics, or begin another component family. After this presentation correction is reviewed, promoted, deployed, and visually confirmed, this work area can close and the topic branch can be deleted.
