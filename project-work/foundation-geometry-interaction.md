@@ -1,39 +1,55 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Live GitHub Pages verification required before branch closeout
+Status: BUILDER ACTION REQUIRED
+Phase: Finalize Button structural border and outer-state geometry as one correction job
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Stop — architectural risk**
 
-Reviewer independently verified the promoted repository state.
+The live radius correction passed, but the same review exposed one remaining authority contradiction on promoted `main`.
 
-- Remote `main` is exactly `68f9d05d65b7fb0b5b3f5cd834de125c9f16484a`.
-- `main` and `feat/foundation-geometry-interaction` are identical.
-- ADR 0010 on `main` now explicitly separates component size tiers from radius-tier choice.
-- Small / Default / Large ordinary Buttons all use the registered Default radius (`8px`).
-- `.wex-button` owns `border-radius: var(--wex-radius-default)`.
-- Size-tier rules no longer select Small/Large radius tokens.
-- The 2px Button stable boundary remains separate from reusable outer-ring geometry.
-- The topic branch remains remote and must not yet be deleted.
+ADR 0010 defines:
 
-Builder reported successful deployment of GitHub Pages for `68f9d05...`.
+- default structural border = `1px`;
+- Focused outer treatment = `2px`;
+- Selected outer treatment = `2px`;
+- outside gap = `2px`.
 
-## Remaining safeguard
+It then incorrectly gives Button a separate stable `2px` base boundary. That violates the default structural-border rule.
 
-The final live visual boundary is still required before branch closeout.
+## Final authority direction
 
-Reviewer must verify on the deployed GitHub Pages surface that:
+Button must follow the WEX structural border rule:
 
-1. Small, Default, and Large ordinary Buttons visibly share the same 8px radius.
-2. Light and dark presentations remain correct.
-3. Disabled presentation remains correct.
-4. Focus remains outside the Button boundary without layout shift.
-5. Compact/responsive layout remains usable.
+- ordinary Button boundary = Default structural border = `1px`;
+- visually borderless appearances still reserve that same `1px` boundary as transparent so state/appearance changes never resize the control;
+- Focused = independent `2px` outer ring with `2px` outside gap;
+- Selected = independent `2px` outer ring with `2px` outside gap, only for components whose contract supports persistent selection;
+- ordinary command Button remains non-selectable under ADR 0005;
+- Focused/Selected never replace or thicken the component's own `1px` boundary and never change layout dimensions.
 
-This execution surface cannot currently render the GitHub Pages UI reliably, so no claim of live visual acceptance is recorded.
+Button radius remains `8px` across Small / Default / Large.
 
-Do not delete `feat/foundation-geometry-interaction` and do not start another component/foundation phase until the live Pages check is completed.
+## Builder job — complete as one transaction
 
-If the live Pages check is clean, Reviewer may authorize topic-branch closeout and then accept this work area.
+1. Correct ADR 0010 so Button no longer has a 2px base-border exception and explicitly consumes the Default `1px` structural border.
+2. Reconcile Button CSS so the stable Button boundary consumes the reusable/default structural-border token rather than a Button-specific `2px` width.
+3. Preserve transparent 1px boundaries for visually borderless Button appearances.
+4. Keep Focused on the existing reusable `2px` outer-ring geometry with the `2px` gap and verify no layout shift.
+5. Do not add Selected to ordinary command Button. Preserve the reusable Selected outer-ring geometry for selection-capable components only.
+6. Update deterministic Button/foundation tests and validation so:
+   - Button base boundary must be 1px via the structural-border authority;
+   - Button must not define/consume a special 2px base boundary;
+   - focus must remain 2px outer-ring + 2px gap;
+   - size tiers must not alter radius;
+   - ordinary Button remains non-selectable.
+7. Update the existing System Settings showcase only as needed so the Button presentation visibly demonstrates the corrected base border and focus treatment. Do not fabricate an ordinary-Button Selected state.
+8. Run `git diff --check`, WEX tests, foundation audit, web-runtime checks, and Chrome validation in light/dark, all variants/tiers, hover/pressed/focus/disabled, compact/200% zoom, and no-layout-shift.
+9. Push the corrected topic branch and hand back this same work file as `AWAITING REVIEWER REVIEW` with exact SHA, changed files, and evidence.
+
+## Promotion / closeout boundary
+
+Do not promote to `main`, delete the topic branch, or start another component/foundation phase until Reviewer accepts the corrected candidate.
+
+After acceptance, promotion, Pages deployment, and live visual verification will be treated as the final closeout of this same work area.
