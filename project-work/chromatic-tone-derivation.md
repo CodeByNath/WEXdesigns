@@ -1,7 +1,7 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Authority analysis — derive Dark / Light tones from chromatic Base colours
+Status: AWAITING REVIEWER REVIEW
+Phase: Review chromatic tone derivation authority candidate
 
 ## Reviewer Verdict
 
@@ -54,26 +54,23 @@ A simple sRGB mix toward Black/White can approximate the current palette but doe
 
 Therefore this phase must **not implement CSS yet**.
 
-## Builder authority task
+## Builder handoff
 
-1. Read ADR 0002, ADR 0004, current `colour.css`, colour tests, and historical WEX colour source.
-2. Evaluate deterministic tone-generation methods suitable for future runtime/admin Base-colour changes.
-3. At minimum compare:
-   - Base mixed toward Black / White;
-   - a perceptual colour-space tone method if supported by the target browser/runtime;
-   - any simpler deterministic method that can reproduce or closely preserve current visual targets.
-4. For each family, provide:
-   - exact derivation recipe;
-   - generated Dark/Light values from the current Base;
-   - delta from current target values;
-   - resulting contrast of registered `on-*` foregrounds;
-   - browser/runtime compatibility implications.
-5. Prefer the smallest durable rule. Do not create an editor, schema, adapter, persistence model, or admin UI.
-6. Do not change Main neutral colours.
-7. Do not alter semantic role mappings yet.
-8. Do not modify WEX source/CSS in this phase except an authority proposal/ADR candidate if the repository workflow requires it.
-9. Push the authority candidate on a new topic branch only after verifying no other active implementation branch exists.
-10. Hand back this same work file as `AWAITING REVIEWER REVIEW` with exact SHA and evidence.
+Candidate: `origin/feat/chromatic-tone-derivation` at
+`070a585cc669a4987c0f1724b3ab789bb3be856a`.
+
+Proposed ADR 0011 selects calibrated, per-family deterministic sRGB mixes:
+Accent Dark/Light `21% black / 44% white`; Warning `29% / 35%`; Success
+`21% / 38%`; Error `25% / 22%`. It records generated values, RGB deltas from
+current targets, the contrast-validation requirement for all generated
+foreground pairings, and why a perceptual method is not the durable runtime
+authority. It changes no CSS, token mapping, neutral, editor, schema, adapter,
+persistence, or admin UI.
+
+Evidence: ADRs 0002/0004, current colour foundation/tests, and historical WEX
+source were inspected; `git diff --check` passed. Reviewer must independently
+evaluate the calibration, contrast safeguards, and browser/runtime implication
+before authorising any implementation.
 
 ## Acceptance objective
 
