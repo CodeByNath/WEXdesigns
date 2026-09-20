@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Correct Button state boundary so it replaces the default edge instead of nesting inside it
+Status: AWAITING REVIEWER REVIEW
+Phase: Review Button perimeter-state correction
 
 ## Reviewer Verdict
 
@@ -41,34 +41,38 @@ The supplied Carbon focus CSS is a rendering-technique reference only. Its usefu
 
 Do not copy Carbon token names or raw values.
 
-## Builder correction — one complete job
+## Builder handoff
 
-1. Correct ADR 0010 so Button state presentation explicitly replaces/absorbs the visible default edge while preserving fixed external bounds.
-2. Reconcile ADR 0005 where needed for Pressed/Focused consumption.
-3. Rework Button state CSS so:
-   - Default shows the normal 1px boundary;
-   - Pressed / Focused use the shared state boundary at the outer perimeter;
-   - any remaining inset layer exists only to complete the accepted WEX 2px state treatment / separation, not to create a nested inner rectangle;
-   - ordinary Button Selected semantics remain absent.
-4. Selected reference presentation must visually match Pressed/Focused exactly.
-5. Preserve:
-   - fixed external dimensions;
-   - Small / Default / Large heights `36 / 40 / 44px`;
-   - 8px Button radius;
-   - existing padding/typography/variant colours;
-   - disabled behaviour;
-   - ordinary Button non-selectability.
-6. System Settings must place Default beside Pressed / Focused / Selected and make it visually obvious that:
-   - Default = 1px normal boundary;
-   - all three states = the same single state boundary at the same outer edge;
-   - no extra outer neutral border and no smaller nested blue box exist.
-7. Add deterministic tests rejecting:
-   - retained visible default border outside the state boundary;
-   - nested inner state rectangle treatment;
-   - external growth / positive outline-offset;
-   - state-specific size changes;
-   - duplicated component-local state geometry.
-8. Browser-validate all three sizes in light/dark and 200% zoom. Record equal bounding boxes and screenshots showing the state boundary occupies the same outer perimeter as Default.
-9. Push on the same topic branch and return this file as `AWAITING REVIEWER REVIEW` with exact SHA and evidence.
+Candidate: `origin/feat/foundation-geometry-interaction` at
+`5e13a35318704c2df15e39b807650af05a22c498` (`fix(wex): place Button states on perimeter`).
 
-Do not promote, delete the topic branch, or begin another component/foundation phase until Reviewer accepts this correction.
+Pressed and Focused now change the existing `1px` outer boundary to the shared
+state colour, then add the remaining shared `1px` state thickness immediately
+inside it. The shared `2px` gap begins only after that perimeter boundary.
+Selected reference uses the identical treatment. No default boundary remains
+outside the state colour; no nested blue rectangle, external growth, local
+state geometry, selection contract, or Button size change was introduced.
+
+Updated ADRs 0010/0005, shared geometry, Button and reference CSS, System
+Settings copy, and focused WEX/runtime/audit tests.
+
+Checks passed:
+
+- `git diff --check`
+- `pnpm --filter @weerax/wex test` (7/7)
+- `pnpm audit:foundation`
+- `pnpm --filter @weerax/web-runtime check` (type-check + 6/6)
+
+Chrome local-candidate evidence at `http://localhost:5174/WEXdesigns/`:
+
+- light and dark screenshots show Default beside Pressed/Focused/Selected with
+  a continuous perimeter state boundary and no exterior neutral edge;
+- native keyboard focus visibly uses that same perimeter boundary;
+- measured Small / Default / Large boxes in both themes: `63.75×36`,
+  `80.515625×40`, `77.125×44`; state layers are absolute and tests reject any
+  state dimensions;
+- 200% Chrome zoom screenshot shows no overflow or layout shift.
+
+This is a local exact-branch preview because Pages deploys `main` only.
+Do not promote, delete the topic branch, or begin another phase before
+independent Reviewer review.
