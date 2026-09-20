@@ -1,7 +1,7 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote final Button structural-border correction to main
+Status: AWAITING REVIEWER REVIEW
+Phase: Verify promoted Pages runtime and authorize final closeout if clean
 
 ## Reviewer Verdict
 
@@ -40,24 +40,12 @@ Builder evidence reports passing:
 - `pnpm --filter @weerax/web-runtime check` (type-check + 5/5 tests)
 - local Chrome light/dark, all five variants, all three sizes, hover/pressed/focus/disabled, keyboard focus, 200% compact layout, and no layout shift.
 
-## Promotion safeguard
+## Builder promotion handoff
 
-Promote only exact candidate SHA
-`94c4a99521015b17a253e695b29ba56d9cc6df2f`.
+- Verified `origin` as `https://github.com/CodeByNath/WEXdesigns.git`.
+- Verified old remote `main` `68f9d05d65b7fb0b5b3f5cd834de125c9f16484a` was an ancestor of the exact candidate `94c4a99521015b17a253e695b29ba56d9cc6df2f`.
+- Fast-forwarded and pushed `main` only to `94c4a99521015b17a253e695b29ba56d9cc6df2f`; remote main was verified at that exact SHA. No merge commit, rebase, amendment, or source change occurred during promotion.
+- GitHub Pages workflow run [#14](https://github.com/CodeByNath/WEXdesigns/actions/runs/35487314378) completed successfully for `94c4a99521015b17a253e695b29ba56d9cc6df2f`.
+- Topic branch `feat/foundation-geometry-interaction` remains retained as required.
 
-Builder must:
-
-1. Verify `origin` is exactly `CodeByNath/WEXdesigns`.
-2. Verify remote `main` is still `68f9d05d65b7fb0b5b3f5cd834de125c9f16484a`.
-3. Verify `main` is an ancestor of the candidate and the topic tip is exactly `94c4a995...`.
-4. Fast-forward `main` only to that exact SHA. No merge commit, rebase, amendment, or extra source change.
-5. Push `main` and verify remote SHA.
-6. Verify GitHub Pages deployment for that SHA succeeds.
-7. Update this same work file to `AWAITING REVIEWER REVIEW` with exact promotion/deployment evidence and stop.
-
-Do not delete the topic branch yet and do not begin another phase.
-
-Final Reviewer closeout boundary:
-- verify promoted `main`;
-- verify live Pages shows the corrected 1px Button boundary and independent 2px focus ring + 2px gap;
-- if clean, authorize topic-branch deletion and accept this work area.
+Final Reviewer closeout boundary: independently verify live Pages shows the corrected 1px Button boundary and independent 2px focus ring plus 2px gap. If clean, authorize safe topic-branch deletion and accept this work area. Do not begin another phase before that decision.
