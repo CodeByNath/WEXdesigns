@@ -1,77 +1,66 @@
 # Foundation Geometry and Interaction Recovery Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Review promoted unified Pressed / Selected / Focused outer-state correction
+Status: BUILDER ACTION REQUIRED
+Phase: Correct Button outer-state rendering so state never enlarges visible Button geometry
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Stop — architectural risk**
 
-Reviewer independently inspected:
-`origin/feat/foundation-geometry-interaction` at
-`d10bac62ad65690d68b43c9420b7935dc0e9aefe`.
+Live Pages evidence on promoted `main`
+`d10bac62ad65690d68b43c9420b7935dc0e9aefe`
+shows the current outer-state mechanism is visually wrong for Button.
 
-## Accepted correction
+The current `2px` outline plus `2px` positive outline-offset extends beyond the Button box. Even though CSS layout dimensions do not change, the **visible Button footprint grows by 4px on every side** in Pressed/Focused/Selected presentation. The state therefore appears like a larger Button rather than the same Button in another state.
 
-The candidate now matches the clarified WEX outer-state rule.
+That violates the intended stable Button geometry.
 
-### Shared presentation
+## Correct WEX invariant
 
-Pressed, Selected, and Focused now share:
+For Button:
 
-- Default structural boundary = `1px`;
-- outer ring = `2px`;
-- outer gap = `2px`;
-- one shared ring colour via `--wex-outer-ring-color`;
-- no layout-size change.
+- Default visible outer size is authoritative.
+- Pressed, Selected, and Focused must **not increase the Button's visible bounding size**.
+- Small / Default / Large must remain visually the same external dimensions in every state.
+- Base structural boundary remains `1px`.
+- Pressed / Selected / Focused retain one shared visual treatment and one shared colour.
+- Their semantic meaning remains different; their visual state geometry is the same.
+- Ordinary command Button remains non-selectable.
 
-`--wex-outer-ring-color` resolves from the existing WEX focus-border colour rather than creating separate state colours.
+### Rendering direction
 
-### State semantics remain distinct
+The current outside-outline mechanism is not valid for Button.
 
-- Pressed remains transient native `:active`.
-- Focused remains the independent accessibility overlay.
-- Selected remains persistent/current and available only to selection-capable components.
-- Ordinary command Button remains non-selectable; no `aria-pressed`, toggle schema, or shared-UI selection contract was introduced.
+Implement the state treatment **inside the existing Button boundary/box**, using WEX-owned reusable geometry/tokens. The Carbon CSS supplied by the Reviewer is a reference for the rendering technique only: use inset layers / inset shadow-style treatment to keep the external Button footprint fixed. Do **not** copy Carbon token names, raw values, or architecture.
 
-### Verified implementation
+The resulting WEX state presentation must visibly preserve:
 
-Button `:active` and `:focus-visible` both consume the same reusable outer-ring width, colour, and gap.
+- the Button's existing outer dimensions;
+- the registered `1px` structural boundary;
+- the accepted state emphasis corresponding to the WEX `2px` state treatment;
+- the visual separation/gap required by WEX, rendered within the existing box rather than outside it.
 
-System Settings now presents **Pressed / Focused / Selected together**, each using the same visible ring treatment and separate semantic explanatory copy.
+If the current `2px outer gap` wording in ADR 0010 inherently requires external growth, amend the authority so the **visual separation is internal for Button**. Reusable non-Button state geometry may remain separately described only if explicitly justified; do not silently force Button's outside mechanism onto every component.
 
-Compared with current `main` `47ad2d815c01fabd77d3de1b202edbad117d1736`, the candidate is exactly one commit ahead and changes only:
+## Builder correction — one complete job
 
-- `docs/decisions/0005-button-authority.md`
-- `docs/decisions/0010-foundation-geometry-interaction.md`
-- `packages/wex/src/foundations/geometry.css`
-- `packages/wex/src/foundations/buttons.css`
-- `packages/wex/test/button-foundation.test.mjs`
-- `tooling/scripts/validate-foundation.mjs`
-- `apps/web-runtime/index.html`
-- `apps/web-runtime/src/catalogue.css`
-- `apps/web-runtime/test/catalogue.test.mjs`
+1. Correct ADR 0010 so Button state geometry explicitly guarantees **no increase in visible external bounds**.
+2. Reconcile ADR 0005 where needed so Button Pressed / Focused consume the fixed-footprint state presentation.
+3. Replace Button's positive-offset outside outline implementation with an internal/inset WEX treatment.
+4. Pressed and Focused on real Buttons must use the same shared treatment. Selected remains a reusable reference for selection-capable components and must visually match.
+5. Preserve:
+   - 1px default Button boundary;
+   - 8px Button radius across Small / Default / Large;
+   - existing min heights `36 / 40 / 44px`;
+   - existing padding, typography, variant colours, disabled rule;
+   - ordinary Button non-selectability.
+6. Do not shrink or grow Button dimensions to compensate for the state. Do not add wrapper dimensions or extra external spacing.
+7. Update System Settings so Default and state examples can be compared directly and it is visually obvious that the Button footprint is identical.
+8. Add deterministic tests that reject:
+   - positive `outline-offset` / outside state growth on Button;
+   - state-specific width/height/min-size changes;
+   - component-local duplicated ring values.
+9. Browser-validate exact rendered bounding boxes for Default vs Pressed vs Focused at Small / Default / Large in light/dark and 200% zoom. Record measured dimensions showing equality.
+10. Push on the same topic branch and return this file as `AWAITING REVIEWER REVIEW` with exact SHA, changed files, test results, and measured browser evidence.
 
-Builder evidence reports passing:
-
-- `git diff --check`
-- `pnpm --filter @weerax/wex test` (7/7)
-- `pnpm audit:foundation`
-- `pnpm --filter @weerax/web-runtime check` (type-check + 6/6 tests)
-- local Chrome light/dark, native Button active/pressed, keyboard focus, three-state comparison, 200% compact layout, and no overflow/layout shift.
-
-## Builder promotion evidence
-
-- `origin` verified as `https://github.com/CodeByNath/WEXdesigns.git`.
-- `origin/main` verified at `47ad2d815c01fabd77d3de1b202edbad117d1736` before promotion; it was an ancestor of the exact topic tip `d10bac62ad65690d68b43c9420b7935dc0e9aefe`.
-- `main` was fast-forwarded only to `d10bac62ad65690d68b43c9420b7935dc0e9aefe`, then pushed and independently confirmed at that exact remote SHA. No merge commit, rebase, amendment, or additional source change was made.
-- GitHub Pages workflow run `35492966492` completed successfully for `d10bac62ad65690d68b43c9420b7935dc0e9aefe`: https://github.com/CodeByNath/WEXdesigns/actions/runs/35492966492
-
-Do not delete the topic branch or begin another phase until Reviewer closeout.
-
-Final Reviewer closeout boundary:
-
-- verify promoted `main`;
-- verify live Pages visibly shows Pressed / Selected / Focused with the same outer-ring treatment;
-- verify native Button Pressed and keyboard Focus behavior;
-- if clean, authorize topic-branch deletion and accept this work area.
+Do not promote, delete the topic branch, or begin another component/foundation phase until Reviewer accepts this correction.
