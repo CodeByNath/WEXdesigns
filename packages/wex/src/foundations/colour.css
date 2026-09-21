@@ -6,6 +6,8 @@
  * theme assignments.
  */
 
+@import "./chromatic-tokens.generated.css";
+
 :root {
   /* Neutral primitives */
   --wex-color-black: #000000;
@@ -14,22 +16,6 @@
   --wex-color-white: #ffffff;
   --wex-color-light: #f4f4f4;
   --wex-color-light-grey: #e0e0e0;
-
-  /* Accent primitives */
-  --wex-color-accent: #0f62fe;
-  --wex-color-accent-dark: #0043ce;
-  --wex-color-accent-light: #78a9ff;
-
-  /* Status primitives */
-  --wex-color-yellow: #f1c21b;
-  --wex-color-yellow-dark: #b28600;
-  --wex-color-yellow-light: #fddc69;
-  --wex-color-green: #24a148;
-  --wex-color-green-dark: #198038;
-  --wex-color-green-light: #6fdc8c;
-  --wex-color-red: #da1e28;
-  --wex-color-red-dark: #a2191f;
-  --wex-color-red-light: #fa4d56;
 
   /* Accent backgrounds */
   --wex-color-background-accent: var(--wex-color-accent);

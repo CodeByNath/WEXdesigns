@@ -4,15 +4,17 @@
   "private": true,
   "files": ["src"],
   "exports": {
-    ".": "./src/index.css"
+    ".": "./src/index.css",
+    "./chromatic-tone-derivation": "./src/foundations/chromatic-tone-derivation.mjs"
   },
   "sideEffects": ["**/*.css"],
   "scripts": {
-    "build": "node -e \"\"",
+    "build": "node scripts/generate-chromatic-tokens.mjs --check",
     "type-check": "node -e \"\"",
     "lint": "node -e \"\"",
     "test": "node --test test/*.test.mjs",
-    "check": "node -e \"\""
+    "check": "node scripts/generate-chromatic-tokens.mjs --check",
+    "generate:chromatic": "node scripts/generate-chromatic-tokens.mjs"
   },
   "dependencies": {
     "@fontsource/ibm-plex-sans": "5.3.0"
