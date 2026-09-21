@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — authority only; implementation requires separate Reviewer authorisation.
+Accepted — authority only; implementation requires separate Reviewer authorisation.
 
 ## Scope
 
