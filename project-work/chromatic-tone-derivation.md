@@ -1,68 +1,46 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Main promotion complete — awaiting independent verification
+Status: BUILDER ACTION REQUIRED
+Phase: Correct ADR acceptance status, then re-submit promoted main for review
 
 ## Reviewer Verdict
 
 **Proceed with safeguards**
 
-Reviewer independently inspected:
-`origin/feat/chromatic-tone-derivation` at
-`305481452ba94cede56a8ba6bc81a07423c3d8af`.
+Reviewer independently verified:
 
-Compared with `main` `5e13a35318704c2df15e39b807650af05a22c498`, the candidate changes only:
-`docs/decisions/0011-chromatic-tone-derivation.md`.
+- `origin/main` is exactly `305481452ba94cede56a8ba6bc81a07423c3d8af`;
+- relative to prior main `5e13a35318704c2df15e39b807650af05a22c498`, the promoted work changes only `docs/decisions/0011-chromatic-tone-derivation.md`;
+- the promoted ADR preserves the accepted scope: Accent / Warning / Success / Error only;
+- Main neutrals remain unchanged;
+- the documented per-family calibrated OKLCH transform preserves the existing WEX targets and required contrast safeguards.
 
-## Accepted authority
+## Required correction
 
-Scope remains limited to Accent / Warning / Success / Error.
+The promoted ADR is on `main`, but its own Status still says:
 
-Main neutrals remain untouched:
-Black / Dark / Dark Grey / White / Light / Light Grey.
+`Proposed — authority only; implementation requires separate Reviewer authorisation.`
 
-Each chromatic family has one Base. Dark and Light are deterministic derived tones, not independently authored values.
+That conflicts with this coordination record treating ADR 0011 as accepted authority. `Project-work-instructions` cannot make a Proposed ADR accepted product authority.
 
-The accepted derivation model is the per-family calibrated OKLCH transform documented in ADR 0011:
+Builder must make only this correction:
 
-```text
-Base
-├─ Dark  = registered family transform
-└─ Light = registered family transform
-```
+1. On the existing `feat/chromatic-tone-derivation` workstream, change ADR 0011 Status from `Proposed` to `Accepted`, preserving the authority-only / separate implementation-authorisation wording.
+2. Do not change the derivation model, calibration parameters, scope, colour values, safeguards, CSS, schemas, runtime, editor, persistence, adapters, or semantic-role mappings.
+3. Commit and push the exact status-only correction.
+4. Fast-forward `main` to that exact candidate; no merge commit, rebase, amendment, or unrelated change.
+5. Verify remote `main` SHA and that the diff from `305481452ba94cede56a8ba6bc81a07423c3d8af` contains only the ADR Status-line correction.
+6. Update this same work file to `Status: AWAITING REVIEWER REVIEW` with the exact branch/SHA and evidence, then stop.
 
-At the current accepted Bases it reproduces all existing WEX targets exactly after 8-bit sRGB quantisation:
+Do not delete the topic branch until Reviewer has independently verified the corrected promoted `main`.
 
-| Family | Dark | Light |
-| --- | --- | --- |
-| Accent | `#0043CE` | `#78A9FF` |
-| Warning | `#B28600` | `#FDDC69` |
-| Success | `#198038` | `#6FDC8C` |
-| Error | `#A2191F` | `#FA4D56` |
+## Safeguards
 
-The candidate also correctly rejects the earlier sRGB-mix authority because several tones had material perceptual drift.
-
-## Required safeguards
-
-Future implementation must preserve all of the following:
-
-- Base remains the sole editable chromatic input for each family.
-- Tone derivation is deterministic and reproducible outside the browser.
-- Out-of-gamut results use the documented chroma-reduction mapping rather than independent RGB clamping.
-- Generated tones must retain existing semantic-role mappings.
-- Registered `on-*` foreground pairings must be revalidated at WCAG AA normal-text contrast after any future Base change.
-- A Base change that cannot satisfy the registered contrast contract must be rejected; do not silently change semantic roles.
+- Base is the sole editable chromatic input per family.
+- Dark and Light remain deterministic derived tones.
+- Out-of-gamut handling uses the documented chroma-reduction mapping.
+- Registered semantic-role mappings remain unchanged.
+- Registered `on-*` pairings must be revalidated to WCAG AA normal-text contrast after any future Base change.
+- A Base that cannot satisfy the registered contrast contract must be rejected.
 - No Main-neutral change.
-- No editor, schema, persistence, adapter, or admin UI is authorised by this authority phase.
-
-## Builder promotion evidence
-
-- verified `origin` resolves to `https://github.com/CodeByNath/WEXdesigns.git`;
-- verified remote `main` at `5e13a35318704c2df15e39b807650af05a22c498`;
-- verified that `main` was an ancestor of exact candidate
-  `305481452ba94cede56a8ba6bc81a07423c3d8af`;
-- fast-forwarded `main` only, with no merge commit, amendment, rebase, or
-  additional change; and
-- verified `origin/main` at `305481452ba94cede56a8ba6bc81a07423c3d8af`.
-
-No colour CSS or other implementation work was performed.
+- No editor, schema, persistence, adapter, admin UI, or implementation work is authorised in this phase.
