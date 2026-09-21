@@ -1,7 +1,7 @@
 # Colour Documentation Finalisation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promoted documentation verified — remove completed topic branch
+Status: AWAITING REVIEWER REVIEW
+Phase: Completed remote documentation-branch housekeeping awaits final closure
 
 ## Reviewer Verdict
 
@@ -23,21 +23,16 @@ authority.
 No WEX source, generated CSS, tests, runtime, presentation, typography,
 schemas, ADRs, or unrelated foundation files changed.
 
-## Builder housekeeping instruction
+## Builder housekeeping handoff
 
-No source or documentation edits, merges, rebases, amendments, or main changes
-are authorised.
+Verified authorised `origin` as `https://github.com/CodeByNath/WEXdesigns.git`.
+Immediately before deletion, `origin/main` and
+`origin/docs/colour-code-map-finalisation` both resolved to
+`a2e81e06989c8493cb27d2a284fe5c35148298f7`. Deleted **only** remote
+`docs/colour-code-map-finalisation`; no local branch, source, documentation,
+generated output, main, or coordination history changed. Post-deletion
+`git ls-remote` confirms the topic is absent and `origin/main` remains
+`a2e81e06989c8493cb27d2a284fe5c35148298f7`.
 
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Verify both `origin/main` and
-   `origin/docs/colour-code-map-finalisation` are exactly
-   `a2e81e06989c8493cb27d2a284fe5c35148298f7`.
-3. Delete **only** the remote `docs/colour-code-map-finalisation` branch.
-4. Verify that remote topic branch is absent and `origin/main` remains
-   `a2e81e06989c8493cb27d2a284fe5c35148298f7`.
-5. Do not delete local branches.
-6. Update this same file to `Status: AWAITING REVIEWER REVIEW` with exact
-   deletion evidence and stop.
-
-After Reviewer verifies housekeeping, Colours can be closed and the separate
-Typography Presentation workstream may begin.
+Await independent Reviewer verification and final closure. Typography
+Presentation remains separate and unauthorised until this work is accepted.
