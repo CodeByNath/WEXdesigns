@@ -1,7 +1,7 @@
 # Colour Documentation Finalisation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Bring Colour Code Map up to current accepted chromatic authority and implementation
+Status: AWAITING REVIEWER REVIEW
+Phase: Documentation-only Colour Code Map candidate is ready for independent review
 
 ## Reviewer Verdict
 
@@ -21,38 +21,26 @@ Current `docs/code-map/colour.md` is stale:
 - does not reference the generator/stale-check path;
 - does not describe the current safe-change route where Base is authored and Dark/Light are generated.
 
-## Builder instruction
+## Builder handoff
 
-Update only the colour documentation/navigation needed to reflect current accepted authority.
+- Pushed branch: `docs/colour-code-map-finalisation`
+- Pushed SHA: `a2e81e06989c8493cb27d2a284fe5c35148298f7`
+- Changed file: `docs/code-map/colour.md` only.
 
-Required scope:
+The map is now verified against `origin/main`
+`04ae6d849094bff75a1266911c0380af64949e10`; it links ADR 0011, the shared
+derivation utility, generated delivery artifact, deterministic generator/check,
+focused colour tests, and foundation audit. Its dependency path and safe-change
+route now identify Base as authored, Dark/Light as generated, and contrast
+revalidation as required. It remains navigation evidence rather than duplicating
+ADR/source-owned calibration or implementation detail.
 
-1. Update `docs/code-map/colour.md` verification metadata against current `origin/main`.
-2. Add ADR 0011 to governing authority.
-3. Add links to:
-   - `packages/wex/src/foundations/chromatic-tone-derivation.mjs`;
-   - `packages/wex/src/foundations/chromatic-tokens.generated.css`;
-   - `packages/wex/scripts/generate-chromatic-tokens.mjs`;
-   - existing colour tests and foundation audit.
-4. Update the dependency/source path so it accurately reflects:
-   `authored Base -> accepted derivation -> generated primitive delivery tokens -> semantic colour foundation -> consumers`.
-5. Update safe-change routing to state that:
-   - Accent / Warning / Success / Error Base values are the authored chromatic inputs;
-   - Dark/Light are generated and must not be independently authored;
-   - generated CSS must stay in sync via the deterministic generator/check;
-   - registered contrast contracts must be revalidated for future Base changes.
-6. Keep the Code Map as navigation evidence only. Do not restate calibration tables, token inventories, or implementation algorithms already owned by ADR/source.
-7. Verify whether `docs/code-map/README.md` or another existing navigation index needs only a freshness/link correction. Change it only if required; do not widen scope.
-8. Do not change ADRs, WEX source, generated CSS, tests, runtime, presentation, typography, schemas, or any other foundation.
+`docs/code-map/README.md` already links the Colour map and required no freshness
+or navigation correction. Link/path verification against current `main` passed;
+the deterministic generated-token stale check (`pnpm --filter @weerax/wex check`)
+and `git diff --check` passed. The pushed range changes only documentation; no
+ADR, WEX source, generated CSS, tests, runtime, presentation, typography,
+schemas, or other foundation files changed.
 
-## Required evidence
-
-- exact pushed branch/SHA;
-- changed-file list;
-- diff showing documentation-only scope;
-- link/path verification against current `main`;
-- confirmation no product/source/runtime files changed.
-
-After completion, update this same work file to `Status: AWAITING REVIEWER REVIEW` and stop.
-
-Typography presentation is explicitly next, but is not authorised until this colour documentation phase is accepted and closed.
+Await independent Reviewer verification. Typography presentation remains
+unauthorised until this work is accepted and closed.
