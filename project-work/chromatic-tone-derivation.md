@@ -1,42 +1,60 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: ACCEPTED
-Phase: Chromatic tone derivation authority accepted and closed
+Status: BUILDER ACTION REQUIRED
+Phase: Implement accepted chromatic derivation in the WEX core
 
 ## Reviewer Verdict
 
-**Proceed**
+**Stop — architectural risk**
 
-Reviewer independently verified final closeout:
+The authority-only phase was valid, but closing this work area while core WEX still independently authors Dark/Light values leaves implementation inconsistent with accepted ADR 0011.
 
-- `origin/main` remains exactly `7278b501ef8a331dede4b6c3993009d984f5371d`;
-- ADR 0011 is accepted authority and remains unchanged after promotion;
-- the completed remote `feat/chromatic-tone-derivation` branch has been deleted;
-- current remote branches are `main`, `Project-work-instructions`, and retained historical `review/button-local-recovery` at `19795644f033f43a7ebb99617d748fdce2c7e1ea`;
-- no source, ADR, test, runtime, WEX token, schema, adapter, editor, persistence, or unrelated work-area changes were introduced during housekeeping.
+Current `packages/wex/src/foundations/colour.css` still hardcodes:
 
-## Accepted authority
+- Accent Base / Dark / Light;
+- Warning Base / Dark / Light;
+- Success Base / Dark / Light;
+- Error Base / Dark / Light.
 
-ADR 0011 defines chromatic tone derivation for Accent / Warning / Success / Error only.
+ADR 0011 now says each family has exactly one Base and Dark/Light are deterministic derived tones. At the core-system stage, Dark/Light must therefore not remain independent authoring inputs.
 
-Main neutrals remain unchanged.
+## Required core implementation
 
-Each chromatic family has one Base. Dark and Light are deterministic derived tones using the accepted per-family calibrated OKLCH transform.
+Builder must implement the smallest durable WEX-core path that makes ADR 0011 true in implementation:
 
-Future implementation remains separately authorised and must preserve:
+1. Preserve the four current Base colours as the authored chromatic inputs.
+2. Implement the accepted per-family calibrated OKLCH derivation from ADR 0011 as one deterministic reusable calculation.
+3. Make Dark/Light outputs originate from that calculation, not from independently authored duplicate hex values.
+4. Existing WEX CSS variable names may remain for compatibility, but their Dark/Light values must be generated/produced from the derivation source of truth.
+5. Preserve the current visible palette exactly for the current Bases:
+   - Accent `#0043CE / #78A9FF`
+   - Warning `#B28600 / #FDDC69`
+   - Success `#198038 / #6FDC8C`
+   - Error `#A2191F / #FA4D56`
+6. Add deterministic calibration tests proving current Bases reproduce those exact 8-bit sRGB outputs.
+7. Add contrast validation for all registered `on-*` pairings at WCAG AA normal-text threshold.
+8. Ensure the System Settings/showcase reads the resulting WEX tokens and therefore reflects the core output automatically; do not create a second palette or presentation-only colour source.
+9. Do not add admin editing, persistence, schemas, adapters, product/domain logic, or a speculative theming framework in this phase.
+10. Do not change Main neutrals or semantic-role mappings.
 
-- Base as the sole editable chromatic input per family;
-- deterministic reproducible derivation;
-- documented chroma-reduction gamut handling;
-- existing semantic-role mappings;
-- WCAG AA normal-text contrast revalidation for registered `on-*` pairings after future Base changes;
-- rejection of Base changes that cannot satisfy the registered contrast contract;
-- no Main-neutral changes.
+## Architectural invariant
 
-No editor, schema, persistence, adapter, admin UI, or implementation work is authorised by this authority phase.
+`Base + registered family transform = Dark/Light`.
 
-## Closure
+Dark/Light may exist as generated delivery artifacts/tokens for compatibility, but they must not be separate manually maintained colour authority.
 
-This work area is accepted and closed.
+The derivation implementation must remain usable outside a browser, as required by ADR 0011, so a later admin/brand-colour layer can call the same core rule rather than reimplementing it.
 
-No further Builder action is authorised here. Open a separate workstream only when a concrete implementation phase for editable brand chromatic Bases is intentionally approved.
+## Required evidence
+
+Builder must provide:
+
+- exact pushed branch/SHA;
+- changed-file list and diff;
+- deterministic tests for all 8 generated tones;
+- contrast-validation evidence;
+- proof no independent Dark/Light authoring source remains in the core chromatic definition path;
+- browser/showcase evidence that current presentation still renders the same palette;
+- no unrelated changes.
+
+After implementation, update this same file to `Status: AWAITING REVIEWER REVIEW` and stop.
