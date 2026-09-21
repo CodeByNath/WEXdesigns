@@ -1,34 +1,55 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: WEX-core implementation submitted
+Status: BUILDER ACTION REQUIRED
+Phase: Candidate accepted — promote exact WEX-core derivation implementation
 
 ## Reviewer Verdict
 
-**Stop — architectural risk**
+**Proceed**
 
-The authority-only phase was valid, but closing this work area while core WEX still independently authors Dark/Light values leaves implementation inconsistent with accepted ADR 0011.
+Reviewer independently verified candidate `feat/chromatic-tone-derivation` at `04ae6d849094bff75a1266911c0380af64949e10` against `main` `7278b501ef8a331dede4b6c3993009d984f5371d`.
 
-Current `packages/wex/src/foundations/colour.css` still hardcodes:
+The candidate is exactly one commit ahead and changes only six WEX files:
 
-- Accent Base / Dark / Light;
-- Warning Base / Dark / Light;
-- Success Base / Dark / Light;
-- Error Base / Dark / Light.
+- `packages/wex/package.json`
+- `packages/wex/scripts/generate-chromatic-tokens.mjs`
+- `packages/wex/src/foundations/chromatic-tokens.generated.css`
+- `packages/wex/src/foundations/chromatic-tone-derivation.mjs`
+- `packages/wex/src/foundations/colour.css`
+- `packages/wex/test/colour-tokens.test.mjs`
 
-ADR 0011 now says each family has exactly one Base and Dark/Light are deterministic derived tones. At the core-system stage, Dark/Light must therefore not remain independent authoring inputs.
+## Accepted implementation
 
-## Builder Handoff
+The candidate now makes ADR 0011 true in the WEX core:
 
-- Candidate branch/SHA: `feat/chromatic-tone-derivation` at `04ae6d849094bff75a1266911c0380af64949e10`.
-- Base `origin/main`: `7278b501ef8a331dede4b6c3993009d984f5371d`. The fetched remote candidate resolves to the stated SHA and is its descendant.
-- `git diff --check origin/main..origin/feat/chromatic-tone-derivation` passed. The candidate changes exactly six WEX files: package manifest, generator, pure derivation utility, generated CSS, colour foundation, and colour tests.
-- The browser-independent exported utility owns four Base inputs, ADR 0011 calibrated OKLCH transforms, 16-step chroma-reduction gamut mapping, ties-up 8-bit quantisation, and registered `on-*` contrast validation/rejection.
-- The checked generated CSS artifact produces compatible Base/Dark/Light primitive tokens. `colour.css` imports it and retains existing semantic mappings; it no longer authors chromatic primitive hex values.
-- Calibration tests reproduce all eight targets exactly: Accent `#0043CE / #78A9FF`, Warning `#B28600 / #FDDC69`, Success `#198038 / #6FDC8C`, Error `#A2191F / #FA4D56`.
-- All 12 registered `on-*` pairings validate at WCAG AA normal-text contrast; a proposed invalid Base is rejected by the core assertion.
-- Passed: `pnpm --filter @weerax/wex test`, WEX generated-token check, `pnpm audit:foundation`, and `pnpm check` (35 tasks).
-- Chrome local candidate `http://localhost:5173/WEXdesigns/` showed the exact twelve values through the existing System Settings token readout in both dark and light themes. The accessible Dark theme checkbox toggled correctly; keyboard Tab reached visible Primary Small Button focus.
-- No admin editing, persistence, schemas, adapters, product/domain logic, theme framework, Main-neutral, semantic-role, or presentation-only palette source was added.
+- each chromatic family has one authored Base in `CHROMATIC_FAMILIES`;
+- Dark/Light are produced by the accepted deterministic per-family OKLCH transform;
+- out-of-gamut handling uses 16-step chroma reduction;
+- generated CSS is a checked delivery artifact, not a second authored palette;
+- `colour.css` imports generated chromatic tokens and no longer authors chromatic primitive hex values;
+- existing semantic mappings and CSS variable names remain compatible;
+- current Base values reproduce all eight established Dark/Light targets exactly;
+- registered `on-*` foreground contracts are validated at WCAG AA normal-text contrast and invalid Base proposals are rejected;
+- the exported derivation utility is browser-independent and reusable by a later admin/server layer;
+- the existing System Settings surface consumes WEX tokens through the normal `index.css -> colour.css -> generated tokens` path, with no presentation-only palette.
 
-Await independent Reviewer inspection of the pushed candidate and evidence.
+No CI checks are attached to the candidate SHA; Builder-reported deterministic checks are therefore local evidence only. The implementation itself and checked generated artifact were independently inspected.
+
+## Builder promotion instruction
+
+Promote only this exact accepted candidate:
+
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Verify `origin/main` is still `7278b501ef8a331dede4b6c3993009d984f5371d`.
+3. Verify `origin/feat/chromatic-tone-derivation` is exactly `04ae6d849094bff75a1266911c0380af64949e10`.
+4. Fast-forward `main` to that exact SHA only; no merge commit, rebase, amendment, regeneration change, or unrelated edit.
+5. Re-run/record the required deterministic checks against the promoted revision:
+   - `pnpm --filter @weerax/wex test`
+   - generated-token stale check
+   - `pnpm audit:foundation`
+   - `pnpm check`
+6. Verify remote `main` equals the accepted candidate SHA.
+7. Update this same file to `Status: AWAITING REVIEWER REVIEW` with exact promotion/check evidence and stop.
+8. Do not delete the topic branch until Reviewer independently verifies promoted `main`.
+
+No admin editing, persistence, schemas, adapters, product/domain logic, new theming framework, Main-neutral change, semantic-role change, or unrelated presentation work is authorised.
