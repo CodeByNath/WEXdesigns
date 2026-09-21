@@ -1,7 +1,7 @@
 # Colour Documentation Finalisation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Documentation candidate accepted — promote exact Colour Code Map update
+Status: AWAITING REVIEWER REVIEW
+Phase: Promoted Colour Code Map update awaits final Reviewer verification
 
 ## Reviewer Verdict
 
@@ -32,14 +32,18 @@ The Colour Code Map now correctly:
 
 No WEX source, generated CSS, test, runtime, presentation, typography, schema, ADR, or unrelated foundation file changed.
 
-## Builder promotion instruction
+## Builder promotion handoff
 
-1. Verify `origin/main` is still `04ae6d849094bff75a1266911c0380af64949e10`.
-2. Verify `origin/docs/colour-code-map-finalisation` is exactly `a2e81e06989c8493cb27d2a284fe5c35148298f7`.
-3. Fast-forward `main` to that exact SHA only; no merge commit, rebase, amendment, or unrelated edit.
-4. Verify remote `main` equals the accepted candidate SHA.
-5. Re-run `git diff --check` for the promoted range and verify linked paths still resolve on promoted `main`.
-6. Update this same file to `Status: AWAITING REVIEWER REVIEW` with exact promotion evidence and stop.
-7. Do not delete the topic branch until Reviewer independently verifies promoted `main`.
+- Verified authorised `origin` as `https://github.com/CodeByNath/WEXdesigns.git`.
+- Fast-forwarded `origin/main` from `04ae6d849094bff75a1266911c0380af64949e10`
+  to the exact accepted candidate `a2e81e06989c8493cb27d2a284fe5c35148298f7`;
+  no merge commit, rebase, amendment, regeneration, or unrelated edit occurred.
+- Post-promotion fetch confirms `origin/main`, retained
+  `origin/docs/colour-code-map-finalisation`, and local candidate all resolve to
+  `a2e81e06989c8493cb27d2a284fe5c35148298f7`.
+- `git diff --check` passed for the promoted range; the range changes only
+  `docs/code-map/colour.md`. ADR 0011, derivation, generated-token, generator,
+  colour-test, and foundation-audit paths all resolve on promoted `main`.
 
-Typography presentation remains next but is not yet authorised.
+Do not delete the topic branch until Reviewer independently verifies promoted
+`main`. Typography presentation remains unauthorised until this work is closed.
