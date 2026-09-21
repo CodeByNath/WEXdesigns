@@ -1,38 +1,33 @@
 # Colour Documentation Finalisation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Completed remote documentation-branch housekeeping awaits final closure
+Status: ACCEPTED
+Phase: Colour documentation finalised and closed
 
 ## Reviewer Verdict
 
 **Proceed**
 
-Reviewer independently verified promoted `origin/main` at
-`a2e81e06989c8493cb27d2a284fe5c35148298f7`.
+Reviewer independently verified final closeout.
 
-The promoted revision is exactly one commit ahead of the previous colour-core
-`main` and changes only `docs/code-map/colour.md`.
+- `origin/main` remains exactly `a2e81e06989c8493cb27d2a284fe5c35148298f7`.
+- The completed remote `docs/colour-code-map-finalisation` branch is absent.
+- Current remote branches are `main`, `Project-work-instructions`, and retained historical `review/button-local-recovery` at `19795644f033f43a7ebb99617d748fdce2c7e1ea`.
+- No source, generated output, runtime, presentation, typography, schema, ADR, or unrelated documentation changed during housekeeping.
 
-The Colour Code Map on `main` correctly references current colour authority,
-derivation source, generated delivery tokens, deterministic generator/check,
-focused tests, and foundation audit. It correctly routes future changes through
-authored Base values with generated Dark/Light outputs and contrast
-revalidation, while remaining navigation evidence rather than architecture
-authority.
+## Accepted colour state
 
-No WEX source, generated CSS, tests, runtime, presentation, typography,
-schemas, ADRs, or unrelated foundation files changed.
+Colour is now complete across authority, implementation, presentation verification, and navigation documentation:
 
-## Builder housekeeping handoff
+- ADRs 0002, 0004, and 0011 define the accepted colour authority.
+- Accent, Warning, Success, and Error each have one authored Base.
+- Dark/Light are deterministic generated outputs of the accepted OKLCH derivation.
+- `colour.css` consumes generated chromatic delivery tokens and does not independently author chromatic Dark/Light values.
+- Registered contrast contracts are validated and invalid future Base proposals are rejected.
+- System Settings has been live-verified against the accepted token path.
+- `docs/code-map/colour.md` now references the current authority, derivation source, generated delivery artifact, generator/check path, focused tests, foundation audit, and safe-change route.
 
-Verified authorised `origin` as `https://github.com/CodeByNath/WEXdesigns.git`.
-Immediately before deletion, `origin/main` and
-`origin/docs/colour-code-map-finalisation` both resolved to
-`a2e81e06989c8493cb27d2a284fe5c35148298f7`. Deleted **only** remote
-`docs/colour-code-map-finalisation`; no local branch, source, documentation,
-generated output, main, or coordination history changed. Post-deletion
-`git ls-remote` confirms the topic is absent and `origin/main` remains
-`a2e81e06989c8493cb27d2a284fe5c35148298f7`.
+## Closure
 
-Await independent Reviewer verification and final closure. Typography
-Presentation remains separate and unauthorised until this work is accepted.
+This work area is accepted and closed.
+
+No further colour work is authorised here. The next separate workstream may address Typography Presentation completeness without changing the already accepted typography core unless a concrete defect is found during that audit.
