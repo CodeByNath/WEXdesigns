@@ -1,46 +1,45 @@
 # Colour Documentation Finalisation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Documentation-only Colour Code Map candidate is ready for independent review
+Status: BUILDER ACTION REQUIRED
+Phase: Documentation candidate accepted — promote exact Colour Code Map update
 
 ## Reviewer Verdict
 
 **Proceed**
 
-The WEX colour implementation is accepted and closed on `main` at
+Reviewer independently verified `docs/colour-code-map-finalisation` at
+`a2e81e06989c8493cb27d2a284fe5c35148298f7` against `main`
 `04ae6d849094bff75a1266911c0380af64949e10`.
 
-The remaining colour gap is documentation/navigation freshness only.
+The candidate is exactly one commit ahead and changes only:
 
-Current `docs/code-map/colour.md` is stale:
+- `docs/code-map/colour.md`
 
-- last verified against `main` `b701a9d497442cf714c7ecbd39ee8660635d6f11`;
-- does not reference ADR 0011;
-- does not reference the accepted derivation utility;
-- does not reference the generated chromatic token artifact;
-- does not reference the generator/stale-check path;
-- does not describe the current safe-change route where Base is authored and Dark/Light are generated.
+## Accepted documentation result
 
-## Builder handoff
+The Colour Code Map now correctly:
 
-- Pushed branch: `docs/colour-code-map-finalisation`
-- Pushed SHA: `a2e81e06989c8493cb27d2a284fe5c35148298f7`
-- Changed file: `docs/code-map/colour.md` only.
+- verifies against current accepted `main`;
+- links ADR 0011 alongside ADRs 0002 and 0004;
+- links the chromatic derivation utility;
+- links the generated chromatic token artifact;
+- links the deterministic generator/check path;
+- links the focused colour tests and foundation audit;
+- describes the source path as authored Base -> accepted derivation -> generated primitive delivery tokens -> semantic colour foundation -> consumers;
+- states that Dark/Light are generated outputs and must not be independently authored;
+- requires deterministic regeneration/checking and registered contrast revalidation for future Base changes;
+- remains navigation evidence only and does not duplicate calibration tables, token inventories, or algorithm authority.
 
-The map is now verified against `origin/main`
-`04ae6d849094bff75a1266911c0380af64949e10`; it links ADR 0011, the shared
-derivation utility, generated delivery artifact, deterministic generator/check,
-focused colour tests, and foundation audit. Its dependency path and safe-change
-route now identify Base as authored, Dark/Light as generated, and contrast
-revalidation as required. It remains navigation evidence rather than duplicating
-ADR/source-owned calibration or implementation detail.
+No WEX source, generated CSS, test, runtime, presentation, typography, schema, ADR, or unrelated foundation file changed.
 
-`docs/code-map/README.md` already links the Colour map and required no freshness
-or navigation correction. Link/path verification against current `main` passed;
-the deterministic generated-token stale check (`pnpm --filter @weerax/wex check`)
-and `git diff --check` passed. The pushed range changes only documentation; no
-ADR, WEX source, generated CSS, tests, runtime, presentation, typography,
-schemas, or other foundation files changed.
+## Builder promotion instruction
 
-Await independent Reviewer verification. Typography presentation remains
-unauthorised until this work is accepted and closed.
+1. Verify `origin/main` is still `04ae6d849094bff75a1266911c0380af64949e10`.
+2. Verify `origin/docs/colour-code-map-finalisation` is exactly `a2e81e06989c8493cb27d2a284fe5c35148298f7`.
+3. Fast-forward `main` to that exact SHA only; no merge commit, rebase, amendment, or unrelated edit.
+4. Verify remote `main` equals the accepted candidate SHA.
+5. Re-run `git diff --check` for the promoted range and verify linked paths still resolve on promoted `main`.
+6. Update this same file to `Status: AWAITING REVIEWER REVIEW` with exact promotion evidence and stop.
+7. Do not delete the topic branch until Reviewer independently verifies promoted `main`.
+
+Typography presentation remains next but is not yet authorised.
