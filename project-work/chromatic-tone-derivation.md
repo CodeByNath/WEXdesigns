@@ -1,7 +1,7 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Implement accepted chromatic derivation in the WEX core
+Status: AWAITING REVIEWER REVIEW
+Phase: WEX-core implementation submitted
 
 ## Reviewer Verdict
 
@@ -18,43 +18,17 @@ Current `packages/wex/src/foundations/colour.css` still hardcodes:
 
 ADR 0011 now says each family has exactly one Base and Dark/Light are deterministic derived tones. At the core-system stage, Dark/Light must therefore not remain independent authoring inputs.
 
-## Required core implementation
+## Builder Handoff
 
-Builder must implement the smallest durable WEX-core path that makes ADR 0011 true in implementation:
+- Candidate branch/SHA: `feat/chromatic-tone-derivation` at `04ae6d849094bff75a1266911c0380af64949e10`.
+- Base `origin/main`: `7278b501ef8a331dede4b6c3993009d984f5371d`. The fetched remote candidate resolves to the stated SHA and is its descendant.
+- `git diff --check origin/main..origin/feat/chromatic-tone-derivation` passed. The candidate changes exactly six WEX files: package manifest, generator, pure derivation utility, generated CSS, colour foundation, and colour tests.
+- The browser-independent exported utility owns four Base inputs, ADR 0011 calibrated OKLCH transforms, 16-step chroma-reduction gamut mapping, ties-up 8-bit quantisation, and registered `on-*` contrast validation/rejection.
+- The checked generated CSS artifact produces compatible Base/Dark/Light primitive tokens. `colour.css` imports it and retains existing semantic mappings; it no longer authors chromatic primitive hex values.
+- Calibration tests reproduce all eight targets exactly: Accent `#0043CE / #78A9FF`, Warning `#B28600 / #FDDC69`, Success `#198038 / #6FDC8C`, Error `#A2191F / #FA4D56`.
+- All 12 registered `on-*` pairings validate at WCAG AA normal-text contrast; a proposed invalid Base is rejected by the core assertion.
+- Passed: `pnpm --filter @weerax/wex test`, WEX generated-token check, `pnpm audit:foundation`, and `pnpm check` (35 tasks).
+- Chrome local candidate `http://localhost:5173/WEXdesigns/` showed the exact twelve values through the existing System Settings token readout in both dark and light themes. The accessible Dark theme checkbox toggled correctly; keyboard Tab reached visible Primary Small Button focus.
+- No admin editing, persistence, schemas, adapters, product/domain logic, theme framework, Main-neutral, semantic-role, or presentation-only palette source was added.
 
-1. Preserve the four current Base colours as the authored chromatic inputs.
-2. Implement the accepted per-family calibrated OKLCH derivation from ADR 0011 as one deterministic reusable calculation.
-3. Make Dark/Light outputs originate from that calculation, not from independently authored duplicate hex values.
-4. Existing WEX CSS variable names may remain for compatibility, but their Dark/Light values must be generated/produced from the derivation source of truth.
-5. Preserve the current visible palette exactly for the current Bases:
-   - Accent `#0043CE / #78A9FF`
-   - Warning `#B28600 / #FDDC69`
-   - Success `#198038 / #6FDC8C`
-   - Error `#A2191F / #FA4D56`
-6. Add deterministic calibration tests proving current Bases reproduce those exact 8-bit sRGB outputs.
-7. Add contrast validation for all registered `on-*` pairings at WCAG AA normal-text threshold.
-8. Ensure the System Settings/showcase reads the resulting WEX tokens and therefore reflects the core output automatically; do not create a second palette or presentation-only colour source.
-9. Do not add admin editing, persistence, schemas, adapters, product/domain logic, or a speculative theming framework in this phase.
-10. Do not change Main neutrals or semantic-role mappings.
-
-## Architectural invariant
-
-`Base + registered family transform = Dark/Light`.
-
-Dark/Light may exist as generated delivery artifacts/tokens for compatibility, but they must not be separate manually maintained colour authority.
-
-The derivation implementation must remain usable outside a browser, as required by ADR 0011, so a later admin/brand-colour layer can call the same core rule rather than reimplementing it.
-
-## Required evidence
-
-Builder must provide:
-
-- exact pushed branch/SHA;
-- changed-file list and diff;
-- deterministic tests for all 8 generated tones;
-- contrast-validation evidence;
-- proof no independent Dark/Light authoring source remains in the core chromatic definition path;
-- browser/showcase evidence that current presentation still renders the same palette;
-- no unrelated changes.
-
-After implementation, update this same file to `Status: AWAITING REVIEWER REVIEW` and stop.
+Await independent Reviewer inspection of the pushed candidate and evidence.
