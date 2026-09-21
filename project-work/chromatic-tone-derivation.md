@@ -1,7 +1,7 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Candidate accepted — promote exact WEX-core derivation implementation
+Status: AWAITING REVIEWER REVIEW
+Phase: Accepted WEX-core derivation implementation promoted to main
 
 ## Reviewer Verdict
 
@@ -35,21 +35,12 @@ The candidate now makes ADR 0011 true in the WEX core:
 
 No CI checks are attached to the candidate SHA; Builder-reported deterministic checks are therefore local evidence only. The implementation itself and checked generated artifact were independently inspected.
 
-## Builder promotion instruction
+## Builder Promotion Handoff
 
-Promote only this exact accepted candidate:
+- Verified authorised `origin` is `https://github.com/CodeByNath/WEXdesigns.git`.
+- Fast-forwarded `origin/main` from `7278b501ef8a331dede4b6c3993009d984f5371d` to the exact accepted candidate `04ae6d849094bff75a1266911c0380af64949e10`; no merge commit, rebase, amendment, regeneration, or unrelated edit occurred.
+- Post-promotion fetch verifies `origin/main`, `origin/feat/chromatic-tone-derivation`, and the local candidate all resolve to `04ae6d849094bff75a1266911c0380af64949e10`.
+- Passed against the promoted revision: `pnpm --filter @weerax/wex test` (10 tests), generated-token stale check, `pnpm audit:foundation`, and `pnpm check` (35 tasks). `git diff --check` passed for the promoted range.
+- The topic branch remains intact for independent Reviewer verification. No admin editing, persistence, schemas, adapters, product/domain logic, theming framework, Main-neutral, semantic-role, or unrelated presentation work was added.
 
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Verify `origin/main` is still `7278b501ef8a331dede4b6c3993009d984f5371d`.
-3. Verify `origin/feat/chromatic-tone-derivation` is exactly `04ae6d849094bff75a1266911c0380af64949e10`.
-4. Fast-forward `main` to that exact SHA only; no merge commit, rebase, amendment, regeneration change, or unrelated edit.
-5. Re-run/record the required deterministic checks against the promoted revision:
-   - `pnpm --filter @weerax/wex test`
-   - generated-token stale check
-   - `pnpm audit:foundation`
-   - `pnpm check`
-6. Verify remote `main` equals the accepted candidate SHA.
-7. Update this same file to `Status: AWAITING REVIEWER REVIEW` with exact promotion/check evidence and stop.
-8. Do not delete the topic branch until Reviewer independently verifies promoted `main`.
-
-No admin editing, persistence, schemas, adapters, product/domain logic, new theming framework, Main-neutral change, semantic-role change, or unrelated presentation work is authorised.
+Await independent Reviewer verification of promoted `main` and the retained topic branch.
