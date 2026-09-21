@@ -1,58 +1,51 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: ADR acceptance-status correction promoted to main
+Status: BUILDER ACTION REQUIRED
+Phase: Accepted authority — complete topic-branch housekeeping
 
 ## Reviewer Verdict
 
-**Proceed with safeguards**
+**Proceed**
 
 Reviewer independently verified:
 
-- `origin/main` is exactly `305481452ba94cede56a8ba6bc81a07423c3d8af`;
-- relative to prior main `5e13a35318704c2df15e39b807650af05a22c498`, the promoted work changes only `docs/decisions/0011-chromatic-tone-derivation.md`;
-- the promoted ADR preserves the accepted scope: Accent / Warning / Success / Error only;
-- Main neutrals remain unchanged;
-- the documented per-family calibrated OKLCH transform preserves the existing WEX targets and required contrast safeguards.
+- `origin/main` is exactly `7278b501ef8a331dede4b6c3993009d984f5371d`;
+- that commit is one fast-forward commit ahead of `305481452ba94cede56a8ba6bc81a07423c3d8af`;
+- the exact diff changes only `docs/decisions/0011-chromatic-tone-derivation.md`;
+- the diff is exactly one deletion and one insertion in the ADR Status;
+- ADR 0011 now says `Accepted — authority only; implementation requires separate Reviewer authorisation.`;
+- no derivation, calibration, scope, colour, safeguard, CSS, schema, runtime, editor, persistence, adapter, or semantic-role content changed;
+- `feat/chromatic-tone-derivation` and `main` both resolve to the same accepted SHA.
 
-## Required correction
+## Accepted authority
 
-The promoted ADR is on `main`, but its own Status still says:
+ADR 0011 is now accepted product authority for chromatic tone derivation.
 
-`Proposed — authority only; implementation requires separate Reviewer authorisation.`
+Scope remains limited to Accent / Warning / Success / Error. Main neutrals remain unchanged.
 
-That conflicts with this coordination record treating ADR 0011 as accepted authority. `Project-work-instructions` cannot make a Proposed ADR accepted product authority.
+Each chromatic family has one Base. Dark and Light are deterministic derived tones using the accepted per-family calibrated OKLCH transform.
 
-Builder must make only this correction:
+Future implementation remains separately authorised and must preserve:
 
-1. On the existing `feat/chromatic-tone-derivation` workstream, change ADR 0011 Status from `Proposed` to `Accepted`, preserving the authority-only / separate implementation-authorisation wording.
-2. Do not change the derivation model, calibration parameters, scope, colour values, safeguards, CSS, schemas, runtime, editor, persistence, adapters, or semantic-role mappings.
-3. Commit and push the exact status-only correction.
-4. Fast-forward `main` to that exact candidate; no merge commit, rebase, amendment, or unrelated change.
-5. Verify remote `main` SHA and that the diff from `305481452ba94cede56a8ba6bc81a07423c3d8af` contains only the ADR Status-line correction.
-6. Update this same work file to `Status: AWAITING REVIEWER REVIEW` with the exact branch/SHA and evidence, then stop.
+- Base as the sole editable chromatic input per family;
+- deterministic reproducible derivation;
+- documented chroma-reduction gamut handling;
+- existing semantic-role mappings;
+- WCAG AA normal-text contrast revalidation for registered `on-*` pairings after future Base changes;
+- rejection of Base changes that cannot satisfy the registered contrast contract;
+- no Main-neutral changes.
 
-Do not delete the topic branch until Reviewer has independently verified the corrected promoted `main`.
+No editor, schema, persistence, adapter, admin UI, or implementation work is authorised by this authority phase.
 
-## Builder Handoff
+## Builder housekeeping instruction
 
-- Candidate branch: `feat/chromatic-tone-derivation`
-- Candidate and promoted `origin/main` SHA: `7278b501ef8a331dede4b6c3993009d984f5371d`
-- Prior promoted `main` SHA: `305481452ba94cede56a8ba6bc81a07423c3d8af`
-- Remote branch and `main` were fetched after promotion and both resolve to the candidate SHA.
-- `git diff --check 305481452ba94cede56a8ba6bc81a07423c3d8af..origin/main` passed.
-- The exact promoted diff contains only `docs/decisions/0011-chromatic-tone-derivation.md`, with one deletion and one insertion: the ADR Status changes from `Proposed` to `Accepted` while retaining the authority-only and separate-implementation-authorisation wording.
-- No derivation, calibration, scope, colour, safeguard, CSS, schema, runtime, editor, persistence, adapter, or semantic-role content changed.
+The implementation/authority work is accepted. Complete closeout only:
 
-Await independent Reviewer verification. The topic branch remains intact.
+1. Verify `origin/main` still resolves to `7278b501ef8a331dede4b6c3993009d984f5371d`.
+2. Verify `origin/feat/chromatic-tone-derivation` resolves to the same SHA and is therefore fully contained in `main`.
+3. Delete only the remote `feat/chromatic-tone-derivation` branch.
+4. Do not delete `main`, `Project-work-instructions`, or `review/button-local-recovery`.
+5. Do not modify source, ADR content, tests, runtime, WEX tokens, schemas, or any other work area.
+6. Update this same work file to `Status: AWAITING REVIEWER REVIEW` with branch-deletion evidence, then stop.
 
-## Safeguards
-
-- Base is the sole editable chromatic input per family.
-- Dark and Light remain deterministic derived tones.
-- Out-of-gamut handling uses the documented chroma-reduction mapping.
-- Registered semantic-role mappings remain unchanged.
-- Registered `on-*` pairings must be revalidated to WCAG AA normal-text contrast after any future Base change.
-- A Base that cannot satisfy the registered contrast contract must be rejected.
-- No Main-neutral change.
-- No editor, schema, persistence, adapter, admin UI, or implementation work is authorised in this phase.
+After Reviewer verifies housekeeping, this work area can be marked `ACCEPTED` and closed.
