@@ -1,58 +1,46 @@
 # Chromatic Tone Derivation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Completed remote topic-branch housekeeping awaits final Reviewer closure
+Status: ACCEPTED
+Phase: WEX-core chromatic derivation implemented, deployed, verified, and closed
 
 ## Reviewer Verdict
 
 **Proceed**
 
-Reviewer independently verified promoted `origin/main` at
-`04ae6d849094bff75a1266911c0380af64949e10` and the retained
-`origin/feat/chromatic-tone-derivation` at the same SHA. The topic is therefore
-fully contained in `main`.
+Reviewer independently verified final closeout.
 
-The promoted revision is exactly the previously accepted one-commit candidate from
-`7278b501ef8a331dede4b6c3993009d984f5371d` and changes only the six authorised WEX files:
+- `origin/main` remains exactly `04ae6d849094bff75a1266911c0380af64949e10`.
+- The completed remote `feat/chromatic-tone-derivation` branch is absent.
+- Current remote branches are `main`, `Project-work-instructions`, and retained historical `review/button-local-recovery` at `19795644f033f43a7ebb99617d748fdce2c7e1ea`.
+- No source, generated output, main history, or unrelated coordination state changed during housekeeping.
 
-- `packages/wex/package.json`
-- `packages/wex/scripts/generate-chromatic-tokens.mjs`
-- `packages/wex/src/foundations/chromatic-tokens.generated.css`
-- `packages/wex/src/foundations/chromatic-tone-derivation.mjs`
-- `packages/wex/src/foundations/colour.css`
-- `packages/wex/test/colour-tokens.test.mjs`
+## Accepted implementation
 
-## Verified promoted state
+ADR 0011 is now implemented in the WEX core.
 
-- `main` and retained `feat/chromatic-tone-derivation` both resolve to `04ae6d849094bff75a1266911c0380af64949e10`.
-- `colour.css` consumes `chromatic-tokens.generated.css` and no longer independently authors chromatic primitive hex values.
-- Generated tokens preserve the current Base/Dark/Light CSS contract.
-- The reusable derivation utility remains browser-independent and owns the Base inputs, calibrated OKLCH transforms, gamut mapping, quantisation, and registered contrast validation.
-- GitHub Pages workflow run `35596017065` for this exact SHA completed successfully.
-- Builder recorded passing promoted-revision checks: WEX tests (10), generated-token stale check, foundation audit, full `pnpm check` (35 tasks), and `git diff --check`.
+- Accent, Warning, Success, and Error each have one authored Base.
+- Dark/Light are deterministic outputs of the registered per-family OKLCH transform.
+- Out-of-gamut handling uses the documented 16-step chroma-reduction mapping.
+- Quantisation and registered contrast validation are implemented in the shared browser-independent derivation utility.
+- `colour.css` no longer independently authors chromatic primitive hex values.
+- `chromatic-tokens.generated.css` is a checked generated delivery artifact and preserves the existing CSS variable contract.
+- Current Bases reproduce the established Dark/Light values exactly.
+- Registered `on-*` foreground pairings satisfy WCAG AA normal-text contrast; invalid future Base proposals are rejected.
+- Main neutrals and semantic-role mappings remain unchanged.
+- No admin editing, persistence, schemas, adapters, product/domain logic, or speculative theming framework was added.
 
-## Live GitHub Pages verification
+## Verification
 
-Reviewer independently inspected `https://codebynath.github.io/WEXdesigns/`.
+- WEX tests passed (10 tests).
+- Generated-token stale check passed.
+- Foundation audit passed.
+- Full `pnpm check` passed (35 tasks).
+- `git diff --check` passed.
+- GitHub Pages workflow run `35596017065` for the accepted SHA completed successfully.
+- Live System Settings verification confirmed the established Base/Dark/Light values, working light/dark theme switching, intact Button presentation, no missing custom properties, and no presentation-only duplicate palette.
 
-- System Settings displays the established values: Accent `#0f62fe/#0043ce/#78a9ff`,
-  Warning `#f1c21b/#b28600/#fddc69`, Success `#24a148/#198038/#6fdc8c`, and Error
-  `#da1e28/#a2191f/#fa4d56` (Base/Dark/Light).
-- The deployed theme control switched from dark to light while preserving the
-  resolved chromatic values and without missing custom properties.
-- Primary, Neutral, Subtle, Warning, and Danger Button specimens, including
-  disabled states, render normally; no presentation-only duplicate palette is
-  present.
+## Closure
 
-## Builder housekeeping handoff
+This work area is accepted and closed.
 
-Verified authorised `origin` as `https://github.com/CodeByNath/WEXdesigns.git`.
-Immediately before deletion, `origin/main` and
-`origin/feat/chromatic-tone-derivation` both resolved to
-`04ae6d849094bff75a1266911c0380af64949e10`. Deleted **only** remote
-`feat/chromatic-tone-derivation`; no local branches, source, generated output,
-`main`, or coordination history changed. Post-deletion `git ls-remote` confirms
-the topic is absent and `origin/main` remains
-`04ae6d849094bff75a1266911c0380af64949e10`.
-
-Await independent Reviewer verification and final acceptance.
+No further Builder action is authorised here. Any future editable brand-colour/admin work must open as a separate authorised workstream and reuse this accepted core derivation rather than reimplementing it.
