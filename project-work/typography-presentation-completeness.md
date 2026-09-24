@@ -1,47 +1,75 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Promote tier-tab typography presentation
+Status: BUILDER ACTION REQUIRED
+Phase: Reference-layout typography presentation correction
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Reviewer independently verified corrected candidate `origin/feat/typography-presentation-completeness` at `72de1728fa989169c9994a8c1b2651dd53a51e97` against promoted `origin/main` `99fb0db0ed600d1a14b69f73920effcf6807af65`.
+Post-promotion visual review rejects the current layout. The tier logic is correct, but the presentation structure does not match the supplied reference intent.
 
-The topic branch is exactly two commits ahead and zero behind main.
+Promoted `main` baseline is `72de1728fa989169c9994a8c1b2651dd53a51e97`. Keep its tier semantics and typography authority; correct presentation only on the same topic branch.
 
-## Accepted result
+## Visual finding
 
-The Typography presentation now satisfies the WEX tier-pairing rule:
+Current WEX presentation uses large full-width dark specimen cards with sample, class name, and facts stacked inside each card. This creates excessive vertical height and does not resemble the requested reference structure.
 
-- selector is exactly Small / Default / Large;
-- Default is initially active;
-- only one tier panel is visible at a time;
-- each panel contains Heading, Title, Navigation, and Body from that same tier;
-- panel-internal heading, metadata, fact-label, and fact-value typography classes all derive from the panel tier;
-- the tab selector remains stable control chrome outside panel composition;
-- registered specimen restrictions remain unchanged;
-- each tier resolves 18 canonical specimens; the three-tier union remains 54;
-- canonical class generation and computed WEX facts remain intact;
-- no breakpoint, screen-width, responsive type-scale, font-delivery duplication, or typography-core change was introduced;
-- existing tab semantics and Left/Right/Home/End keyboard behaviour are preserved.
+The supplied reference is authoritative only for **layout/comparison structure**, not its colours, breakpoint model, token names, or typography values.
 
-Verified implementation scope remains limited to:
-- `apps/web-runtime/src/main.js`
-- `apps/web-runtime/src/catalogue.css`
-- `apps/web-runtime/test/catalogue.test.mjs`
+Required structure:
 
-Builder-reported `pnpm check`, `git diff --check`, and Chrome validation are consistent with the inspected source. GitHub currently publishes no commit status/check result for the topic SHA; that absence is not evidence of failure.
+```text
+[ Small ] [ Default ] [ Large ]
 
-## Builder promotion handoff
+Heading
+┌───────────────────────────────┬──────────────────────┐
+│ rendered specimen             │ canonical metadata   │
+│                               │ class                │
+│                               │ family               │
+│                               │ size / line-height   │
+│                               │ weight / style       │
+└───────────────────────────────┴──────────────────────┘
+(repeat one horizontal row per registered style)
 
-- Verified `origin` is `https://github.com/CodeByNath/WEXdesigns.git`.
-- Fast-forwarded and pushed `main` exactly to accepted SHA `72de1728fa989169c9994a8c1b2651dd53a51e97`; no source changes were added during promotion.
-- GitHub Actions `Deploy WEX index` run `36009310608` completed successfully for that exact SHA.
-- Live GitHub Pages validation at `https://codebynath.github.io/WEXdesigns/?v=72de1728` found the semantic Small / Default / Large tier tab group, Default initially active, and exactly the matching single tier panel exposed. Selecting Small and using Right Arrow returned selection and the exposed panel to Default.
-- The topic branch remains intact; no branch deletion was performed.
+Title
+(same row model)
 
-## Reviewer post-promotion boundary
+Navigation
+(same row model)
 
-Reviewer must independently verify promoted `main`, the Pages deployment SHA, and the live Small / Default / Large tier interaction before this workstream is closed.
+Body
+(same row model)
+```
+
+## Builder correction
+
+1. Preserve the existing Small / Default / Large selector and tier-pure panel logic.
+2. Within the active tier, render each registered style as a **single horizontal specimen row**:
+   - left region: large rendered sample only;
+   - right region: compact canonical metadata.
+3. Use a stable two-column proportion similar to the reference (sample visually dominant, metadata narrower) using WEX grid/layout authority. Do not copy reference pixel widths.
+4. Remove the current nested full-width black-card presentation. Rows may use WEX layer/border tokens, but must read as comparison rows, not cards inside cards.
+5. Keep one concise set heading before the rows for Heading, Title, Navigation, and Body.
+6. Metadata should be compact and scannable. Preserve computed WEX facts, but format them more like the reference:
+   - canonical class
+   - Family
+   - Size
+   - Line height
+   - Weight
+   - Style
+   No invented type-system labels or duplicate numeric authority.
+7. Preserve WEX dark/light themes. **Do not copy the reference white/grey palette.**
+8. Preserve tier-purity: all typography-bearing text inside a tier panel derives from that tier.
+9. On compact/mobile, the row may stack sample above metadata only when width requires it. This is responsive layout only; it must not change the selected WEX tier.
+10. Maintain accessible tab semantics, keyboard behaviour, computed-fact generation, 18 specimens per tier, and 54 total registry.
+11. Update tests to cover the horizontal row structure and guard against reintroducing the old stacked-card model.
+12. Validate all three tabs in desktop and compact/mobile, light and dark. The desktop comparison should be visually close in **structure and density** to the supplied reference.
+
+## Exclusions
+
+Do not change typography core, font delivery, historical WEX source, ADRs, schemas, shared UI, colour authority, Button, or unrelated catalogue sections.
+
+Do not add breakpoint controls, screen-width sliders, Carbon token names, or reference typography values.
+
+Run `pnpm check`, `git diff --check`, and Chrome validation. Commit/push the same `feat/typography-presentation-completeness` branch, update this file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, then stop.
