@@ -1,44 +1,53 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Restore pre-component typography presentation
+Status: BUILDER ACTION REQUIRED
+Phase: Promote restored pre-component typography presentation
 
 ## Reviewer verdict
 
 **Proceed**
 
-User has chosen not to continue component-like presentation refinement inside the Typography workstream.
+Reviewer independently verified restoration candidate `origin/feat/typography-presentation-completeness` at `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04` against current `origin/main` `72de1728fa989169c9994a8c1b2651dd53a51e97`.
 
-The correct boundary is to preserve Typography as a foundation-verification surface and defer Tabs, comparison-row abstractions, metadata-row patterns, and other reusable presentation structures until the component programme requires them.
+The topic branch is exactly one commit ahead and zero behind main.
 
-## Authoritative restore point
+## Exact restore verification
 
-Restore the Typography presentation to the last accepted state **immediately before tier tabs were introduced**:
+The three Typography presentation files changed by the restoration are byte-identical at blob level to the accepted pre-tab restore point `99fb0db0ed600d1a14b69f73920effcf6807af65`:
 
-`99fb0db0ed600d1a14b69f73920effcf6807af65`
+- `apps/web-runtime/src/main.js`
+- `apps/web-runtime/src/catalogue.css`
+- `apps/web-runtime/test/catalogue.test.mjs`
 
-That state is the target for the Typography presentation implementation.
+This proves the restoration did not invent an intermediate design.
 
-Current promoted `main` is `72de1728fa989169c9994a8c1b2651dd53a51e97`, which contains the later tier-tab work.
+## Accepted restored boundary
 
-## Builder handoff
+The candidate:
+- removes the Small / Default / Large tab UI and all tab runtime behaviour;
+- restores the static three-tier typography presentation that existed before component-like refinement began;
+- preserves all 54 registered WEX typography specimens;
+- preserves canonical WEX classes and computed family / size / line-height / weight / style facts;
+- preserves WEX-owned IBM Plex delivery;
+- preserves the token-backed typography-tier border safeguard;
+- preserves the explicit `dd { margin: 0; }` reset;
+- preserves light/dark support;
+- introduces no replacement interaction, comparison-row abstraction, or new component-like presentation structure.
 
-- Pushed `origin/feat/typography-presentation-completeness` at `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`.
-- `apps/web-runtime/src/main.js`, `catalogue.css`, and `test/catalogue.test.mjs` exactly match restore point `99fb0db0ed600d1a14b69f73920effcf6807af65` after the forward restoration.
-- Removed the tab UI/runtime and tab-only assertions; retained the original static Small / Default / Large presentation, all 54 canonical specimens, computed facts, token-backed tier boundary, `dd` reset, and dark/light support.
-- `pnpm check` and `git diff --check` pass.
-- Chrome localhost evidence at `http://localhost:5175/WEXdesigns/`: static three-tier Typography presentation and all computed facts are present in both light and dark theme; no tab controls or tab panels are exposed.
+Builder-reported `pnpm check`, `git diff --check`, and Chrome light/dark validation are consistent with the independently inspected source.
 
-## Why this is the boundary
+## Builder promotion instruction
 
-Typography owns the type foundation. It should demonstrate that foundation without pre-building component architecture.
+Promote this exact restoration commit to `main` without source changes.
 
-Tabs, reusable specimen rows, metadata panels, cards/surfaces, and similar structures should be created only when the component programme establishes their actual WEX contracts.
+1. Verify configured `origin` is `CodeByNath/WEXdesigns`.
+2. Verify `origin/main` is still `72de1728fa989169c9994a8c1b2651dd53a51e97` and topic is still `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`.
+3. Fast-forward `main` to the exact topic SHA only. Do not squash, amend, rebase, or add implementation changes.
+4. Push `main` and verify the exact remote SHA.
+5. Wait for the existing GitHub Pages deployment from `main`; record deployment evidence.
+6. Do not delete the topic branch yet.
+7. Update this same file to `AWAITING REVIEWER REVIEW` with the promoted main SHA and deployment evidence, then stop.
 
-## Exclusions
+## Reviewer post-promotion boundary
 
-Do not change typography core, font delivery, historical WEX source, ADRs, schemas, shared UI, Button, colour authority, or unrelated catalogue sections.
-
-Do not rewrite Git history or reset `main`. Implement the restoration as a normal forward commit on the topic branch.
-
-Run `pnpm check` and `git diff --check`, validate the restored presentation in Chrome light/dark, commit/push the same topic branch, update this file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
+Reviewer must verify promoted `main`, deployment SHA, and live absence of the tab UI before closing Typography Presentation completeness and authorising branch housekeeping.
