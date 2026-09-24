@@ -64,6 +64,11 @@ function renderTypographySystem() {
 
   typeSystem.append(tabs);
   typographyTiers.forEach((tier) => {
+    const panelTextClasses = {
+      heading: `wex-type-title-${tier}-semibold`,
+      metadata: `wex-type-navigation-${tier}-semibold`,
+      fact: `wex-type-body-${tier}-regular`,
+    };
     const panel = createElement('div', 'type-system__panel');
     panel.id = `type-system-panel-${tier}`;
     panel.dataset.wexTierPanel = tier;
@@ -77,7 +82,7 @@ function renderTypographySystem() {
       const setTitleId = `type-set-${tier}-${key}`;
       set.setAttribute('aria-labelledby', setTitleId);
       const header = createElement('header', 'type-system__set-header');
-      const heading = createElement('h3', 'wex-type-title-small-semibold', name);
+      const heading = createElement('h3', panelTextClasses.heading, name);
       heading.id = setTitleId;
       header.append(heading);
       const specimens = createElement('div', 'typography-specimens');
@@ -89,11 +94,12 @@ function renderTypographySystem() {
         typographyFacts.forEach(([label, fact]) => {
           const factElement = document.createElement('div');
           const value = document.createElement('dd');
+          value.className = panelTextClasses.fact;
           value.setAttribute(`data-wex-type-${fact}`, '');
-          factElement.append(createElement('dt', '', label), value);
+          factElement.append(createElement('dt', panelTextClasses.metadata, label), value);
           facts.append(factElement);
         });
-        specimen.append(renderedSample, createElement('code', 'typography-specimen__class wex-type-navigation-small-semibold', className), facts);
+        specimen.append(renderedSample, createElement('code', `typography-specimen__class ${panelTextClasses.metadata}`, className), facts);
         specimens.append(specimen);
       });
       set.append(header, specimens);

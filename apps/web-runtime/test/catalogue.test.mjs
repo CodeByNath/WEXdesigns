@@ -12,6 +12,8 @@ const buttonPresentation = await readFile(
 const elementDirectories = await readdir(
   new URL('../../../packages/catalogue/content/elements', import.meta.url),
 );
+const typographySpecimenCounts = [3, 3, 1, 2];
+const specimensPerTier = typographySpecimenCounts.reduce((total, weights) => total + (weights * 2), 0);
 
 test('keeps only the header, content frame, and footer in the index shell', () => {
   assert.match(html, /<header class="catalogue-header">/);
@@ -52,6 +54,8 @@ test('renders the complete WEX typography registry from canonical classes with c
   assert.match(runtime, /typographyTiers = \['small', 'default', 'large'\]/);
   assert.match(runtime, /const typographySpecimens = typographyTiers\.flatMap/);
   assert.match(runtime, /\['normal', 'italic'\]/);
+  assert.equal(specimensPerTier, 18);
+  assert.equal(specimensPerTier * 3, 54);
   assert.match(runtime, /data-wex-typography/);
   assert.match(runtime, /family: computedStyle\.fontFamily/);
   assert.match(runtime, /size: computedStyle\.fontSize/);
@@ -80,6 +84,10 @@ test('keeps typography tier tabs accessible, exclusive, and within WEX presentat
   assert.match(runtime, /event\.key === 'Home'/);
   assert.match(runtime, /event\.key === 'End'/);
   assert.match(runtime, /specimenTier === tier && setKey === key/);
+  assert.match(runtime, /heading: `wex-type-title-\$\{tier\}-semibold`/);
+  assert.match(runtime, /metadata: `wex-type-navigation-\$\{tier\}-semibold`/);
+  assert.match(runtime, /fact: `wex-type-body-\$\{tier\}-regular`/);
+  assert.doesNotMatch(runtime, /wex-type-(?:title|navigation)-small-semibold/);
   assert.doesNotMatch(css, /\.type-system__tab\s*\{[\s\S]*?border: 1px solid/);
 });
 
