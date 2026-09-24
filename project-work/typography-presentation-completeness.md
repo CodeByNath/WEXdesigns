@@ -1,6 +1,6 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: Restore pre-component typography presentation
 
 ## Reviewer verdict
@@ -21,24 +21,13 @@ That state is the target for the Typography presentation implementation.
 
 Current promoted `main` is `72de1728fa989169c9994a8c1b2651dd53a51e97`, which contains the later tier-tab work.
 
-## Builder instruction
+## Builder handoff
 
-On the existing `feat/typography-presentation-completeness` branch:
-
-1. Remove the Small / Default / Large tab UI and all tab-specific runtime behaviour introduced after `99fb0db0ed600d1a14b69f73920effcf6807af65`.
-2. Restore the Typography presentation files to their exact pre-tab presentation behaviour from that restore point.
-3. Preserve all work that already existed at `99fb0db0ed600d1a14b69f73920effcf6807af65`, including:
-   - all 54 registered typography specimens;
-   - canonical WEX typography classes;
-   - computed family / size / line-height / weight / style facts;
-   - IBM Plex delivery through WEX;
-   - the border-width token safeguard;
-   - the explicit `dd` margin reset;
-   - existing dark/light presentation behaviour.
-4. Do not replace Tabs with another local interaction or component abstraction.
-5. Do not implement the horizontal reference-row layout in this phase.
-6. Remove/update tests that exist only for the tier-tab interaction, while preserving focused verification of the restored 54-style presentation and existing WEX-authority safeguards.
-7. The preferred result is semantically equivalent to the relevant Typography presentation state at `99fb0db0ed600d1a14b69f73920effcf6807af65`; do not invent a new intermediate design.
+- Pushed `origin/feat/typography-presentation-completeness` at `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`.
+- `apps/web-runtime/src/main.js`, `catalogue.css`, and `test/catalogue.test.mjs` exactly match restore point `99fb0db0ed600d1a14b69f73920effcf6807af65` after the forward restoration.
+- Removed the tab UI/runtime and tab-only assertions; retained the original static Small / Default / Large presentation, all 54 canonical specimens, computed facts, token-backed tier boundary, `dd` reset, and dark/light support.
+- `pnpm check` and `git diff --check` pass.
+- Chrome localhost evidence at `http://localhost:5175/WEXdesigns/`: static three-tier Typography presentation and all computed facts are present in both light and dark theme; no tab controls or tab panels are exposed.
 
 ## Why this is the boundary
 
