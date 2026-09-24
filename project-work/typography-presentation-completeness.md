@@ -9,6 +9,10 @@ Phase: Presentation completeness implementation
 
 Colour closeout is accepted. Reviewer audited `origin/main` at `a2e81e06989c8493cb27d2a284fe5c35148298f7` and found no concrete defect requiring a typography-core change.
 
+## Executor capability note
+
+2026-09-24: This Builder surface has terminal and Git access but no controllable browser surface. The browser inventory exposed no browser, and local Chrome and in-app browser requests were unavailable, so requirement 8 cannot be evidenced here. No source changes or candidate branch were retained. A browser-capable Builder surface must resume this unchanged `BUILDER ACTION REQUIRED` phase.
+
 ## Authority read before implementation
 
 Builder must read:
