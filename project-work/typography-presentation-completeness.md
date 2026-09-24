@@ -1,6 +1,6 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: Presentation completeness implementation
 
 ## Reviewer verdict
@@ -9,9 +9,13 @@ Phase: Presentation completeness implementation
 
 Colour closeout is accepted. Reviewer audited `origin/main` at `a2e81e06989c8493cb27d2a284fe5c35148298f7` and found no concrete defect requiring a typography-core change.
 
-## Executor capability note
+## Builder handoff
 
-2026-09-24: This Builder surface has terminal and Git access but no controllable browser surface. The browser inventory exposed no browser, and local Chrome and in-app browser requests were unavailable, so requirement 8 cannot be evidenced here. No source changes or candidate branch were retained. A browser-capable Builder surface must resume this unchanged `BUILDER ACTION REQUIRED` phase.
+Candidate: `origin/feat/typography-presentation-completeness` at `cb3a572197cd09b785bef66c4aad2368b7a675ee`.
+
+Changed: `apps/web-runtime/index.html`, `src/catalogue.css`, `src/main.js`, and `test/catalogue.test.mjs`.
+
+Evidence: `pnpm check` passed (foundation audit, type checks, tests, and build). Chrome local preview at `http://localhost:5173/WEXdesigns/` verified all 54 semantic specimens with computed IBM Plex family/size/line-height/weight/style facts; compact stacking in light and dark themes; desktop multi-column layout; and visible keyboard focus. The GitHub Pages URL is a post-promotion Reviewer validation boundary because deployment is `main`-only.
 
 ## Authority read before implementation
 
