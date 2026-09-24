@@ -1,6 +1,6 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: Tier-tab presentation correction
 
 ## Reviewer verdict
@@ -60,3 +60,12 @@ Do not change:
 - the accepted tab interaction model or computed-facts approach.
 
 Run `pnpm check`, `git diff --check`, and Chrome validation for all three tier tabs in desktop + compact/mobile, light + dark, including keyboard switching. Commit/push the same topic branch, update this same file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
+
+## Builder correction handoff
+
+- Candidate: `feat/typography-presentation-completeness` at `72de1728fa989169c9994a8c1b2651dd53a51e97` (pushed and verified against origin).
+- Changed only `apps/web-runtime/src/main.js` and `apps/web-runtime/test/catalogue.test.mjs`.
+- Panel-internal heading, metadata, fact label, and fact value classes now derive from the panel tier. The selector remains stable control chrome outside the panels. Canonical specimen generation, computed facts, 18 specimens per tier, and the 54-specimen union are unchanged.
+- Focused regression coverage proves the 18/54 registry counts, exclusive tab panels, keyboard keys, canonical tier filtering, tier-derived panel text classes, and no hard-coded Small helper classes.
+- Validation passed: `pnpm check`; `git diff --check`; Chrome on `http://localhost:5173/WEXdesigns/` at desktop (75%) and compact (125%) widths, light and dark themes, all Small/Default/Large panels, plus Small-to-Default Right Arrow switching.
+- GitHub Pages remains the post-promotion reviewer validation boundary; no promotion was made in this builder cycle.
