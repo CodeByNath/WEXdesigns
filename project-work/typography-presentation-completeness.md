@@ -1,6 +1,6 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: Presentation completeness correction
 
 ## Reviewer verdict
@@ -50,3 +50,13 @@ Do not change:
 - unrelated catalogue sections.
 
 After correction, run the required checks and browser validation, commit/push the same topic branch, update this same file to `AWAITING REVIEWER REVIEW` with the new exact SHA/evidence, then stop.
+
+## Builder correction handoff
+
+Candidate: `origin/feat/typography-presentation-completeness` at `99fb0db0ed600d1a14b69f73920effcf6807af65`.
+
+- Replaced the raw tier border width with `var(--wex-border-width-default)` and reset the new specimen `<dd>` default margin to `0` in `catalogue.css`.
+- Added focused `catalogue.test.mjs` coverage that requires both safeguards and rejects the raw `1px` tier border.
+- `pnpm check` and `git diff --check` pass. Chrome reloaded the local candidate at `http://localhost:5173/WEXdesigns/` (75% zoom): the complete 54-specimen matrix remains present with IBM Plex Sans computed facts and dark theme.
+
+GitHub Pages validation remains post-promotion at `https://codebynath.github.io/WEXdesigns/`; Reviewer owns that boundary.
