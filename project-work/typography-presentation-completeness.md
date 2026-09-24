@@ -1,60 +1,75 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Post-promotion verification
+Status: BUILDER ACTION REQUIRED
+Phase: Tier-tab presentation refinement
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Reviewer independently verified corrected candidate `origin/feat/typography-presentation-completeness` at `99fb0db0ed600d1a14b69f73920effcf6807af65` against `origin/main` `a2e81e06989c8493cb27d2a284fe5c35148298f7`.
+Reviewer verified the promoted baseline:
+- `origin/main` is exactly `99fb0db0ed600d1a14b69f73920effcf6807af65`;
+- GitHub Actions `Deploy WEX index` run 20 completed successfully for that exact SHA;
+- the accepted 54-style computed-facts implementation is now the main baseline.
 
-The topic branch is exactly two commits ahead and zero behind main.
+User visual review accepts the direction but requires one presentation refinement before this workstream closes.
 
-## Accepted implementation
+## Refined presentation requirement
 
-The complete Typography presentation is accepted for promotion.
+Use the supplied reference only for the catalogue interaction/layout idea. Do **not** import its breakpoint model, naming, type tokens, or values.
 
-Verified scope remains limited to:
-- `apps/web-runtime/index.html`
-- `apps/web-runtime/src/catalogue.css`
-- `apps/web-runtime/src/main.js`
-- `apps/web-runtime/test/catalogue.test.mjs`
+Replace the simultaneous Small / Default / Large typography columns with a WEX tier selector:
 
-The candidate:
-- presents all 54 registered WEX typography specimens;
-- preserves Heading / Title / Navigation / Body authority and tier/weight/style restrictions;
-- derives displayed family, size, line-height, weight, and style from actual computed WEX presentation;
-- does not change typography core, font delivery, historical source, ADRs, schemas, shared UI, or unrelated foundations;
-- uses `var(--wex-border-width-default)` for the new tier boundary;
-- explicitly neutralizes browser-default `dd` margin in the new presentation;
-- includes focused regression tests for both safeguards.
+```text
+Typography
+[ Small ] [ Default ] [ Large ]
 
-Builder-reported `pnpm check`, `git diff --check`, and local Chrome validation are consistent with the inspected source. GitHub currently publishes no commit status/check result for this SHA; that absence is not evidence of failure.
+active tier
+  -> Heading specimens for that tier
+  -> Title specimens for that tier
+  -> Navigation specimens for that tier
+  -> Body specimens for that tier
+```
 
-## Builder promotion instruction
+WEX tier is the selector. There is no breakpoint/screen-width selector in this typography presentation.
 
-Promote this exact accepted candidate to `main` without source changes.
+The purpose is to make the ecosystem pairing rule explicit:
 
-1. Verify configured `origin` is `CodeByNath/WEXdesigns`.
-2. Verify `origin/main` is still `a2e81e06989c8493cb27d2a284fe5c35148298f7` and topic is still `99fb0db0ed600d1a14b69f73920effcf6807af65`.
-3. Fast-forward `main` to the accepted topic SHA only. Do not squash, amend, rebase, or add implementation changes.
-4. Push `main` and verify the exact remote SHA.
-5. Wait for the existing GitHub Pages deployment from `main`; record workflow/deployment evidence available on the Builder surface.
-6. Do not delete the topic branch yet. Branch housekeeping follows Reviewer live verification.
-7. Update this same file to `AWAITING REVIEWER REVIEW` with the promoted main SHA and deployment evidence, then stop.
+```text
+Small   -> Heading Small + Title Small + Navigation Small + Body Small
+Default -> Heading Default + Title Default + Navigation Default + Body Default
+Large   -> Heading Large + Title Large + Navigation Large + Body Large
+```
 
-## Builder promotion handoff
+The presentation must not place different WEX tiers side-by-side in a way that suggests cross-tier composition. Across all three tabs the complete registered system remains represented: 18 valid specimens per tier, 54 total.
 
-`origin/main` was fast-forwarded without source changes to `99fb0db0ed600d1a14b69f73920effcf6807af65`; the remote ref was re-fetched and matches exactly. The topic branch remains intact.
+## Builder instruction
 
-GitHub Actions [Deploy WEX index run 20](https://github.com/CodeByNath/WEXdesigns/actions/runs/35982254016) completed successfully for that SHA. The live [GitHub Pages preview](https://codebynath.github.io/WEXdesigns/) loaded in a separate Chrome tab (all pre-existing tabs preserved), displaying the complete typography specimens and IBM Plex Sans computed facts in dark theme.
+Refine only the existing Typography System Settings presentation on the current topic branch.
 
-## Reviewer post-promotion boundary
+1. Add accessible `Small / Default / Large` tabs, with `Default` initially active.
+2. A selected tier displays only the four matching core sets for that tier and their already-registered allowed weight/style variants.
+3. Preserve the current canonical class generation and `getComputedStyle` facts. Do not copy typography numeric values into the runtime.
+4. Preserve the existing set restrictions:
+   - Heading: Light / Regular / Semibold, normal + italic.
+   - Title: Light / Regular / Semibold, normal + italic.
+   - Navigation: Semibold only, normal + italic.
+   - Body: Light / Regular only, normal + italic.
+5. Use proper tab semantics and keyboard behaviour: tablist/tab/tabpanel, selected state, Left/Right arrow movement, Home/End where practical, and visible WEX focus presentation.
+6. Use existing WEX typography, colour, spacing, geometry, interaction and layout authority. No raw presentation values or new typography primitives.
+7. Do not add a breakpoint slider, viewport control, or responsive typography scaling system.
+8. Keep compact/mobile behaviour usable; the tier selector may wrap/fit using existing WEX layout rules, but tier meaning must not change with viewport.
+9. Update focused tests to prove:
+   - exactly three WEX tier tabs;
+   - one active tier at a time;
+   - each tier resolves the correct 18 registered specimens;
+   - tier switching cannot mix Small/Default/Large classes in one active panel;
+   - the full 54-style registry remains represented across the three tiers;
+   - no typography-core or font-delivery duplication enters the app.
+10. Run `pnpm check`, `git diff --check`, and Chrome validation in desktop + compact/mobile, light + dark, including keyboard tab switching.
 
-After promotion, Reviewer must independently verify:
-- `origin/main` contains the accepted SHA/history;
-- GitHub Pages deployed from the promoted main;
-- live Typography presentation exposes the complete system and remains usable in relevant desktop/compact and light/dark states.
+## Preserve / exclusions
 
-Only then may this workstream be closed and the remote topic branch removed.
+Do not change typography core, font delivery, WEX historical source, ADRs, schemas, shared UI, colour authority, Button, or unrelated catalogue sections.
+
+Do not delete the topic branch. Commit/push the refinement on the same `feat/typography-presentation-completeness` branch, update this same file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
