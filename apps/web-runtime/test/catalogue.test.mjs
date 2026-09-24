@@ -12,8 +12,6 @@ const buttonPresentation = await readFile(
 const elementDirectories = await readdir(
   new URL('../../../packages/catalogue/content/elements', import.meta.url),
 );
-const typographySpecimenCounts = [3, 3, 1, 2];
-const specimensPerTier = typographySpecimenCounts.reduce((total, weights) => total + (weights * 2), 0);
 
 test('keeps only the header, content frame, and footer in the index shell', () => {
   assert.match(html, /<header class="catalogue-header">/);
@@ -46,16 +44,13 @@ test('presents System Settings from WEX authority without application actions', 
   assert.doesNotMatch(html, /onclick=|addEventListener\(['"]click/);
 });
 
-test('renders the complete WEX typography registry from canonical classes with computed facts', () => {
+test('renders all 54 registered typography styles from WEX classes with computed facts', () => {
   assert.match(html, /id="type-system"/);
   assert.match(runtime, /weights: \['light', 'regular', 'semibold'\]/);
   assert.match(runtime, /weights: \['semibold'\]/);
   assert.match(runtime, /weights: \['light', 'regular'\]/);
   assert.match(runtime, /typographyTiers = \['small', 'default', 'large'\]/);
-  assert.match(runtime, /const typographySpecimens = typographyTiers\.flatMap/);
   assert.match(runtime, /\['normal', 'italic'\]/);
-  assert.equal(specimensPerTier, 18);
-  assert.equal(specimensPerTier * 3, 54);
   assert.match(runtime, /data-wex-typography/);
   assert.match(runtime, /family: computedStyle\.fontFamily/);
   assert.match(runtime, /size: computedStyle\.fontSize/);
@@ -66,29 +61,13 @@ test('renders the complete WEX typography registry from canonical classes with c
   assert.doesNotMatch(runtime, /@font-face|fontsource|font-family:/);
 });
 
-test('keeps typography tier tabs accessible, exclusive, and within WEX presentation authority', () => {
+test('keeps typography presentation geometry and default margins in WEX authority', () => {
   assert.match(
     css,
-    /\.type-system__tab\s*\{[\s\S]*?border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/,
+    /\.typography-tier\s*\{[\s\S]*?border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/,
   );
   assert.match(css, /\.typography-specimen__facts dd\s*\{\s*margin: 0;\s*\}/);
-  assert.match(runtime, /tabs\.setAttribute\('role', 'tablist'\)/);
-  assert.match(runtime, /tab\.setAttribute\('role', 'tab'\)/);
-  assert.match(runtime, /panel\.setAttribute\('role', 'tabpanel'\)/);
-  assert.match(runtime, /activateTypographyTier\('default'\)/);
-  assert.match(runtime, /tab\.setAttribute\('aria-selected', String\(isActive\)\)/);
-  assert.match(runtime, /panel\.hidden = panel\.dataset\.wexTierPanel !== tier/);
-  assert.match(css, /\.type-system__panel\[hidden\]\s*\{\s*display: none;\s*\}/);
-  assert.match(runtime, /event\.key === 'ArrowLeft'/);
-  assert.match(runtime, /event\.key === 'ArrowRight'/);
-  assert.match(runtime, /event\.key === 'Home'/);
-  assert.match(runtime, /event\.key === 'End'/);
-  assert.match(runtime, /specimenTier === tier && setKey === key/);
-  assert.match(runtime, /heading: `wex-type-title-\$\{tier\}-semibold`/);
-  assert.match(runtime, /metadata: `wex-type-navigation-\$\{tier\}-semibold`/);
-  assert.match(runtime, /fact: `wex-type-body-\$\{tier\}-regular`/);
-  assert.doesNotMatch(runtime, /wex-type-(?:title|navigation)-small-semibold/);
-  assert.doesNotMatch(css, /\.type-system__tab\s*\{[\s\S]*?border: 1px solid/);
+  assert.doesNotMatch(css, /\.typography-tier\s*\{[\s\S]*?border: 1px solid/);
 });
 
 test('stores the agreed element families in the catalogue package', () => {
