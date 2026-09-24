@@ -1,6 +1,6 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: Promote tier-tab typography presentation
 
 ## Reviewer verdict
@@ -34,17 +34,13 @@ Verified implementation scope remains limited to:
 
 Builder-reported `pnpm check`, `git diff --check`, and Chrome validation are consistent with the inspected source. GitHub currently publishes no commit status/check result for the topic SHA; that absence is not evidence of failure.
 
-## Builder promotion instruction
+## Builder promotion handoff
 
-Promote this exact accepted candidate to `main` without source changes.
-
-1. Verify configured `origin` is `CodeByNath/WEXdesigns`.
-2. Verify `origin/main` is still `99fb0db0ed600d1a14b69f73920effcf6807af65` and topic is still `72de1728fa989169c9994a8c1b2651dd53a51e97`.
-3. Fast-forward `main` to the exact accepted topic SHA only. Do not squash, amend, rebase, or add implementation changes.
-4. Push `main` and verify the exact remote SHA.
-5. Wait for the existing GitHub Pages deployment from `main`; record workflow/deployment evidence.
-6. Do not delete the topic branch yet. Branch housekeeping follows Reviewer post-promotion verification.
-7. Update this same file to `AWAITING REVIEWER REVIEW` with promoted main SHA and deployment evidence, then stop.
+- Verified `origin` is `https://github.com/CodeByNath/WEXdesigns.git`.
+- Fast-forwarded and pushed `main` exactly to accepted SHA `72de1728fa989169c9994a8c1b2651dd53a51e97`; no source changes were added during promotion.
+- GitHub Actions `Deploy WEX index` run `36009310608` completed successfully for that exact SHA.
+- Live GitHub Pages validation at `https://codebynath.github.io/WEXdesigns/?v=72de1728` found the semantic Small / Default / Large tier tab group, Default initially active, and exactly the matching single tier panel exposed. Selecting Small and using Right Arrow returned selection and the exposed panel to Default.
+- The topic branch remains intact; no branch deletion was performed.
 
 ## Reviewer post-promotion boundary
 
