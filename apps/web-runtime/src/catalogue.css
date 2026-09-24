@@ -157,8 +157,10 @@ input:focus-visible,
 .settings-section__heading p,
 .colour-group h3,
 .button-variant h3,
-.type-sample,
-.tier-samples p {
+.type-system p,
+.type-system h3,
+.type-system h4,
+.type-system dl {
   margin: 0;
 }
 
@@ -214,8 +216,6 @@ input:focus-visible,
   color: var(--wex-color-text-secondary);
 }
 
-.type-samples,
-.tier-samples,
 .button-variant__samples {
   display: flex;
   flex-wrap: wrap;
@@ -223,17 +223,60 @@ input:focus-visible,
   gap: var(--wex-space-16);
 }
 
-.type-samples {
-  flex-direction: column;
-  align-items: flex-start;
-  padding: var(--wex-space-24);
-  background: var(--wex-color-layer-02);
+.type-system,
+.type-system__set,
+.type-system__set-header,
+.type-system__tiers,
+.typography-tier,
+.typography-specimens,
+.typography-specimen,
+.typography-specimen__facts,
+.typography-specimen__facts div {
+  display: grid;
+  min-width: 0;
 }
 
-.tier-samples {
+.type-system { gap: var(--wex-space-24); }
+.type-system__set { gap: var(--wex-space-16); }
+.type-system__set-header { gap: var(--wex-space-4); }
+.type-system__set-header p,
+.typography-specimen__facts dt { color: var(--wex-color-text-secondary); }
+
+.type-system__tiers {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--wex-space-16);
+}
+
+.typography-tier {
+  align-content: start;
+  gap: var(--wex-space-12);
   padding: var(--wex-space-16);
   border: 1px solid var(--wex-color-border-subtle);
 }
+
+.typography-specimens { gap: var(--wex-space-12); }
+
+.typography-specimen {
+  gap: var(--wex-space-8);
+  padding: var(--wex-space-16);
+  background: var(--wex-color-layer-02);
+}
+
+.typography-specimen__sample,
+.typography-specimen__class,
+.typography-specimen__facts dd {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.typography-specimen__class { color: var(--wex-color-text-accent); }
+
+.typography-specimen__facts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wex-space-8);
+}
+
+.typography-specimen__facts div { gap: var(--wex-space-4); }
 
 .button-variant {
   padding: var(--wex-space-24);
@@ -343,7 +386,8 @@ input:focus-visible,
 
   .colour-groups,
   .button-catalogue,
-  .outer-state-catalogue {
+  .outer-state-catalogue,
+  .type-system__tiers {
     grid-template-columns: minmax(0, 1fr);
   }
 

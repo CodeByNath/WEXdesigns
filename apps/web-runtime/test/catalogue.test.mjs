@@ -4,6 +4,7 @@ import test from 'node:test';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/catalogue.css', import.meta.url), 'utf8');
+const runtime = await readFile(new URL('../src/main.js', import.meta.url), 'utf8');
 const buttonPresentation = await readFile(
   new URL('../../../packages/ui/src/components/button.ts', import.meta.url),
   'utf8',
@@ -41,6 +42,23 @@ test('presents System Settings from WEX authority without application actions', 
   assert.match(html, /2px perimeter boundary · 2px internal gap/);
   assert.doesNotMatch(html, /aria-pressed/);
   assert.doesNotMatch(html, /onclick=|addEventListener\(['"]click/);
+});
+
+test('renders all 54 registered typography styles from WEX classes with computed facts', () => {
+  assert.match(html, /id="type-system"/);
+  assert.match(runtime, /weights: \['light', 'regular', 'semibold'\]/);
+  assert.match(runtime, /weights: \['semibold'\]/);
+  assert.match(runtime, /weights: \['light', 'regular'\]/);
+  assert.match(runtime, /typographyTiers = \['small', 'default', 'large'\]/);
+  assert.match(runtime, /\['normal', 'italic'\]/);
+  assert.match(runtime, /data-wex-typography/);
+  assert.match(runtime, /family: computedStyle\.fontFamily/);
+  assert.match(runtime, /size: computedStyle\.fontSize/);
+  assert.match(runtime, /'line-height': computedStyle\.lineHeight/);
+  assert.match(runtime, /weight: computedStyle\.fontWeight/);
+  assert.match(runtime, /style: computedStyle\.fontStyle/);
+  assert.doesNotMatch(css, /font-(?:family|size|weight|style)|line-height|letter-spacing/);
+  assert.doesNotMatch(runtime, /@font-face|fontsource|font-family:/);
 });
 
 test('stores the agreed element families in the catalogue package', () => {
