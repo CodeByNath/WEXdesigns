@@ -61,6 +61,15 @@ test('renders all 54 registered typography styles from WEX classes with computed
   assert.doesNotMatch(runtime, /@font-face|fontsource|font-family:/);
 });
 
+test('keeps typography presentation geometry and default margins in WEX authority', () => {
+  assert.match(
+    css,
+    /\.typography-tier\s*\{[\s\S]*?border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/,
+  );
+  assert.match(css, /\.typography-specimen__facts dd\s*\{\s*margin: 0;\s*\}/);
+  assert.doesNotMatch(css, /\.typography-tier\s*\{[\s\S]*?border: 1px solid/);
+});
+
 test('stores the agreed element families in the catalogue package', () => {
   assert.deepEqual(elementDirectories.sort(), [
     'color',

@@ -251,7 +251,7 @@ input:focus-visible,
   align-content: start;
   gap: var(--wex-space-12);
   padding: var(--wex-space-16);
-  border: 1px solid var(--wex-color-border-subtle);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
 .typography-specimens { gap: var(--wex-space-12); }
@@ -277,6 +277,8 @@ input:focus-visible,
 }
 
 .typography-specimen__facts div { gap: var(--wex-space-4); }
+
+.typography-specimen__facts dd { margin: 0; }
 
 .button-variant {
   padding: var(--wex-space-24);
