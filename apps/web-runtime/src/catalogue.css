@@ -23,6 +23,7 @@ a {
 
 a:focus-visible,
 input:focus-visible,
+[role="tab"]:focus-visible,
 [tabindex="-1"]:focus-visible {
   outline: var(--wex-focus-width) solid var(--wex-color-focus);
 }
@@ -224,10 +225,11 @@ input:focus-visible,
 }
 
 .type-system,
+.type-system__tabs,
+.type-system__panel,
+.type-system__sets,
 .type-system__set,
 .type-system__set-header,
-.type-system__tiers,
-.typography-tier,
 .typography-specimens,
 .typography-specimen,
 .typography-specimen__facts,
@@ -237,22 +239,38 @@ input:focus-visible,
 }
 
 .type-system { gap: var(--wex-space-24); }
+.type-system__tabs {
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: start;
+  gap: var(--wex-space-8);
+  overflow-x: auto;
+  padding: var(--wex-space-4);
+}
+.type-system__tab {
+  min-block-size: var(--wex-space-40);
+  padding: var(--wex-space-4) var(--wex-space-16);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-default);
+  background: var(--wex-color-layer-02);
+  color: var(--wex-color-text-primary);
+}
+.type-system__tab[aria-selected="true"] {
+  border-color: var(--wex-color-interactive-selected);
+  background: var(--wex-color-interactive-selected);
+  color: var(--wex-color-text-inverse);
+}
+.type-system__panel {
+  gap: var(--wex-space-24);
+  padding: var(--wex-space-16);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+.type-system__panel[hidden] { display: none; }
+.type-system__sets { gap: var(--wex-space-24); }
 .type-system__set { gap: var(--wex-space-16); }
 .type-system__set-header { gap: var(--wex-space-4); }
 .type-system__set-header p,
 .typography-specimen__facts dt { color: var(--wex-color-text-secondary); }
-
-.type-system__tiers {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--wex-space-16);
-}
-
-.typography-tier {
-  align-content: start;
-  gap: var(--wex-space-12);
-  padding: var(--wex-space-16);
-  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-}
 
 .typography-specimens { gap: var(--wex-space-12); }
 
@@ -388,8 +406,7 @@ input:focus-visible,
 
   .colour-groups,
   .button-catalogue,
-  .outer-state-catalogue,
-  .type-system__tiers {
+  .outer-state-catalogue {
     grid-template-columns: minmax(0, 1fr);
   }
 

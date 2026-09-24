@@ -44,12 +44,13 @@ test('presents System Settings from WEX authority without application actions', 
   assert.doesNotMatch(html, /onclick=|addEventListener\(['"]click/);
 });
 
-test('renders all 54 registered typography styles from WEX classes with computed facts', () => {
+test('renders the complete WEX typography registry from canonical classes with computed facts', () => {
   assert.match(html, /id="type-system"/);
   assert.match(runtime, /weights: \['light', 'regular', 'semibold'\]/);
   assert.match(runtime, /weights: \['semibold'\]/);
   assert.match(runtime, /weights: \['light', 'regular'\]/);
   assert.match(runtime, /typographyTiers = \['small', 'default', 'large'\]/);
+  assert.match(runtime, /const typographySpecimens = typographyTiers\.flatMap/);
   assert.match(runtime, /\['normal', 'italic'\]/);
   assert.match(runtime, /data-wex-typography/);
   assert.match(runtime, /family: computedStyle\.fontFamily/);
@@ -61,13 +62,25 @@ test('renders all 54 registered typography styles from WEX classes with computed
   assert.doesNotMatch(runtime, /@font-face|fontsource|font-family:/);
 });
 
-test('keeps typography presentation geometry and default margins in WEX authority', () => {
+test('keeps typography tier tabs accessible, exclusive, and within WEX presentation authority', () => {
   assert.match(
     css,
-    /\.typography-tier\s*\{[\s\S]*?border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/,
+    /\.type-system__tab\s*\{[\s\S]*?border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/,
   );
   assert.match(css, /\.typography-specimen__facts dd\s*\{\s*margin: 0;\s*\}/);
-  assert.doesNotMatch(css, /\.typography-tier\s*\{[\s\S]*?border: 1px solid/);
+  assert.match(runtime, /tabs\.setAttribute\('role', 'tablist'\)/);
+  assert.match(runtime, /tab\.setAttribute\('role', 'tab'\)/);
+  assert.match(runtime, /panel\.setAttribute\('role', 'tabpanel'\)/);
+  assert.match(runtime, /activateTypographyTier\('default'\)/);
+  assert.match(runtime, /tab\.setAttribute\('aria-selected', String\(isActive\)\)/);
+  assert.match(runtime, /panel\.hidden = panel\.dataset\.wexTierPanel !== tier/);
+  assert.match(css, /\.type-system__panel\[hidden\]\s*\{\s*display: none;\s*\}/);
+  assert.match(runtime, /event\.key === 'ArrowLeft'/);
+  assert.match(runtime, /event\.key === 'ArrowRight'/);
+  assert.match(runtime, /event\.key === 'Home'/);
+  assert.match(runtime, /event\.key === 'End'/);
+  assert.match(runtime, /specimenTier === tier && setKey === key/);
+  assert.doesNotMatch(css, /\.type-system__tab\s*\{[\s\S]*?border: 1px solid/);
 });
 
 test('stores the agreed element families in the catalogue package', () => {
