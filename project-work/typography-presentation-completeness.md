@@ -1,62 +1,54 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Presentation completeness correction
+Status: BUILDER ACTION REQUIRED
+Phase: Promote accepted typography presentation candidate
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Reviewer independently inspected candidate `origin/feat/typography-presentation-completeness` at `cb3a572197cd09b785bef66c4aad2368b7a675ee` against `origin/main` `a2e81e06989c8493cb27d2a284fe5c35148298f7`.
+Reviewer independently verified corrected candidate `origin/feat/typography-presentation-completeness` at `99fb0db0ed600d1a14b69f73920effcf6807af65` against `origin/main` `a2e81e06989c8493cb27d2a284fe5c35148298f7`.
 
-Scope is correctly bounded to:
+The topic branch is exactly two commits ahead and zero behind main.
+
+## Accepted implementation
+
+The complete Typography presentation is accepted for promotion.
+
+Verified scope remains limited to:
 - `apps/web-runtime/index.html`
 - `apps/web-runtime/src/catalogue.css`
 - `apps/web-runtime/src/main.js`
 - `apps/web-runtime/test/catalogue.test.mjs`
 
-No typography core, font delivery, ADR, historical authority, schema, shared UI, or unrelated foundation files changed.
+The candidate:
+- presents all 54 registered WEX typography specimens;
+- preserves Heading / Title / Navigation / Body authority and tier/weight/style restrictions;
+- derives displayed family, size, line-height, weight, and style from actual computed WEX presentation;
+- does not change typography core, font delivery, historical source, ADRs, schemas, shared UI, or unrelated foundations;
+- uses `var(--wex-border-width-default)` for the new tier boundary;
+- explicitly neutralizes browser-default `dd` margin in the new presentation;
+- includes focused regression tests for both safeguards.
 
-## Accepted implementation direction
+Builder-reported `pnpm check`, `git diff --check`, and local Chrome validation are consistent with the inspected source. GitHub currently publishes no commit status/check result for this SHA; that absence is not evidence of failure.
 
-The candidate correctly:
-- replaces the incomplete static typography sample with the complete registered presentation;
-- derives all 54 specimens from the existing WEX class grammar;
-- preserves the registered set/tier/weight/style restrictions;
-- obtains family, size, line-height, weight, and style from `getComputedStyle` rather than duplicating typography values;
-- keeps font delivery owned by WEX;
-- stacks the three tier columns at the existing mobile breakpoint;
-- adds focused regression coverage for the typography data path.
+## Builder promotion instruction
 
-Builder-reported `pnpm check` and local Chrome evidence are noted. No GitHub commit status/check result is currently published for the candidate, and live Pages remains a post-promotion boundary.
+Promote this exact accepted candidate to `main` without source changes.
 
-## Required correction
+1. Verify configured `origin` is `CodeByNath/WEXdesigns`.
+2. Verify `origin/main` is still `a2e81e06989c8493cb27d2a284fe5c35148298f7` and topic is still `99fb0db0ed600d1a14b69f73920effcf6807af65`.
+3. Fast-forward `main` to the accepted topic SHA only. Do not squash, amend, rebase, or add implementation changes.
+4. Push `main` and verify the exact remote SHA.
+5. Wait for the existing GitHub Pages deployment from `main`; record workflow/deployment evidence available on the Builder surface.
+6. Do not delete the topic branch yet. Branch housekeeping follows Reviewer live verification.
+7. Update this same file to `AWAITING REVIEWER REVIEW` with the promoted main SHA and deployment evidence, then stop.
 
-Two presentation-authority leaks must be corrected without widening scope:
+## Reviewer post-promotion boundary
 
-1. New `.typography-tier` CSS authors `border: 1px solid ...`. Use the existing WEX border-width authority (`var(--wex-border-width-default)`) instead of a raw width.
+After promotion, Reviewer must independently verify:
+- `origin/main` contains the accepted SHA/history;
+- GitHub Pages deployed from the promoted main;
+- live Typography presentation exposes the complete system and remains usable in relevant desktop/compact and light/dark states.
 
-2. The new semantic `<dl>` contains `<dd>` elements, but WEX global layout reset does not reset `dd`. Browser default `dd` margin therefore enters the new presentation, violating the WEX margin-free layout contract. Explicitly remove that default margin within the typography presentation using the existing layout rule; do not replace it with arbitrary spacing.
-
-Add focused regression coverage so these two leaks cannot reappear in the typography presentation.
-
-## Preserve
-
-Do not change:
-- `packages/wex/src/foundations/typography.css`
-- `packages/wex/src/foundations/font-family.css`
-- historical WEX source or ADRs
-- the 54-style model or current computed-facts approach
-- unrelated catalogue sections.
-
-After correction, run the required checks and browser validation, commit/push the same topic branch, update this same file to `AWAITING REVIEWER REVIEW` with the new exact SHA/evidence, then stop.
-
-## Builder correction handoff
-
-Candidate: `origin/feat/typography-presentation-completeness` at `99fb0db0ed600d1a14b69f73920effcf6807af65`.
-
-- Replaced the raw tier border width with `var(--wex-border-width-default)` and reset the new specimen `<dd>` default margin to `0` in `catalogue.css`.
-- Added focused `catalogue.test.mjs` coverage that requires both safeguards and rejects the raw `1px` tier border.
-- `pnpm check` and `git diff --check` pass. Chrome reloaded the local candidate at `http://localhost:5173/WEXdesigns/` (75% zoom): the complete 54-specimen matrix remains present with IBM Plex Sans computed facts and dark theme.
-
-GitHub Pages validation remains post-promotion at `https://codebynath.github.io/WEXdesigns/`; Reviewer owns that boundary.
+Only then may this workstream be closed and the remote topic branch removed.
