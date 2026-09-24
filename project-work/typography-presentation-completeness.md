@@ -1,83 +1,62 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Tier-tab presentation refinement
+Status: BUILDER ACTION REQUIRED
+Phase: Tier-tab presentation correction
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Reviewer verified the promoted baseline:
-- `origin/main` is exactly `99fb0db0ed600d1a14b69f73920effcf6807af65`;
-- GitHub Actions `Deploy WEX index` run 20 completed successfully for that exact SHA;
-- the accepted 54-style computed-facts implementation is now the main baseline.
+Reviewer independently inspected `origin/feat/typography-presentation-completeness` at `3ce30a2aa80e83da4b56a86edd56ec4035c44acb` against promoted `origin/main` `99fb0db0ed600d1a14b69f73920effcf6807af65`.
 
-User visual review accepts the direction but requires one presentation refinement before this workstream closes.
+The branch is exactly one commit ahead and zero behind main. Scope is correctly limited to:
+- `apps/web-runtime/src/main.js`
+- `apps/web-runtime/src/catalogue.css`
+- `apps/web-runtime/test/catalogue.test.mjs`
 
-## Refined presentation requirement
+The tier-tab direction is accepted:
+- exactly Small / Default / Large;
+- Default initially active;
+- one visible panel at a time;
+- tablist/tab/tabpanel semantics;
+- Left/Right/Home/End keyboard movement;
+- canonical specimen registry and computed facts preserved;
+- no breakpoint or screen-width model introduced.
 
-Use the supplied reference only for the catalogue interaction/layout idea. Do **not** import its breakpoint model, naming, type tokens, or values.
+## Required correction
 
-Replace the simultaneous Small / Default / Large typography columns with a WEX tier selector:
+The active panel still mixes WEX tiers in its own presentation chrome.
 
-```text
-Typography
-[ Small ] [ Default ] [ Large ]
+Current runtime hard-codes:
+- set headings as `wex-type-title-small-semibold`;
+- specimen class labels as `wex-type-navigation-small-semibold`.
 
-active tier
-  -> Heading specimens for that tier
-  -> Title specimens for that tier
-  -> Navigation specimens for that tier
-  -> Body specimens for that tier
-```
+Therefore a Default or Large panel contains Small typography classes even though the phase requirement says an active tier must not mix Small / Default / Large composition.
 
-WEX tier is the selector. There is no breakpoint/screen-width selector in this typography presentation.
+Correct this without changing the typography core:
 
-The purpose is to make the ecosystem pairing rule explicit:
-
-```text
-Small   -> Heading Small + Title Small + Navigation Small + Body Small
-Default -> Heading Default + Title Default + Navigation Default + Body Default
-Large   -> Heading Large + Title Large + Navigation Large + Body Large
-```
-
-The presentation must not place different WEX tiers side-by-side in a way that suggests cross-tier composition. Across all three tabs the complete registered system remains represented: 18 valid specimens per tier, 54 total.
-
-## Builder instruction
-
-Refine only the existing Typography System Settings presentation on the current topic branch.
-
-1. Add accessible `Small / Default / Large` tabs, with `Default` initially active.
-2. A selected tier displays only the four matching core sets for that tier and their already-registered allowed weight/style variants.
-3. Preserve the current canonical class generation and `getComputedStyle` facts. Do not copy typography numeric values into the runtime.
-4. Preserve the existing set restrictions:
-   - Heading: Light / Regular / Semibold, normal + italic.
-   - Title: Light / Regular / Semibold, normal + italic.
-   - Navigation: Semibold only, normal + italic.
-   - Body: Light / Regular only, normal + italic.
-5. Use proper tab semantics and keyboard behaviour: tablist/tab/tabpanel, selected state, Left/Right arrow movement, Home/End where practical, and visible WEX focus presentation.
-6. Use existing WEX typography, colour, spacing, geometry, interaction and layout authority. No raw presentation values or new typography primitives.
-7. Do not add a breakpoint slider, viewport control, or responsive typography scaling system.
-8. Keep compact/mobile behaviour usable; the tier selector may wrap/fit using existing WEX layout rules, but tier meaning must not change with viewport.
-9. Update focused tests to prove:
-   - exactly three WEX tier tabs;
-   - one active tier at a time;
-   - each tier resolves the correct 18 registered specimens;
-   - tier switching cannot mix Small/Default/Large classes in one active panel;
-   - the full 54-style registry remains represented across the three tiers;
-   - no typography-core or font-delivery duplication enters the app.
-10. Run `pnpm check`, `git diff --check`, and Chrome validation in desktop + compact/mobile, light + dark, including keyboard tab switching.
+1. Resolve all typography classes used **inside each tier panel** from that panel's tier.
+   - Small panel presentation text -> Small WEX tier.
+   - Default panel presentation text -> Default WEX tier.
+   - Large panel presentation text -> Large WEX tier.
+2. This includes set headings, specimen metadata/class labels, fact labels/values, and any other typography-bearing text inside the panel. Do not leave Small or Default helper typography inside a different active panel.
+3. The tab selector itself is control chrome outside the panel; it may keep one registered navigation treatment if needed for a stable control, but do not let that choice leak into panel composition.
+4. Preserve the existing allowed specimen variants and 18-specimen count per tier. Do not add new typography styles.
+5. Strengthen focused tests so they deterministically prove:
+   - three tier tabs exist;
+   - each panel resolves exactly 18 canonical specimens;
+   - all typography classes inside a given panel carry that panel's tier;
+   - the union remains 54 canonical specimens;
+   - only one panel is active at a time;
+   - no font-delivery or numeric typography values are duplicated in the app.
 
 ## Preserve / exclusions
 
-Do not change typography core, font delivery, WEX historical source, ADRs, schemas, shared UI, colour authority, Button, or unrelated catalogue sections.
+Do not change:
+- `packages/wex/src/foundations/typography.css`
+- `packages/wex/src/foundations/font-family.css`
+- WEX historical source or ADRs
+- colour/Button/shared UI/schema/unrelated catalogue work
+- the accepted tab interaction model or computed-facts approach.
 
-Do not delete the topic branch. Commit/push the refinement on the same `feat/typography-presentation-completeness` branch, update this same file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
-
-## Builder refinement handoff
-
-- Candidate: `feat/typography-presentation-completeness` at `3ce30a2aa80e83da4b56a86edd56ec4035c44acb` (pushed and verified against origin).
-- Changed only `apps/web-runtime/src/main.js`, `apps/web-runtime/src/catalogue.css`, and `apps/web-runtime/test/catalogue.test.mjs`.
-- The Typography presentation has native Small, Default, and Large tabs, with Default initially selected. Each tab exposes exactly its matching Heading, Title, Navigation, and Body specimens (18 per tier; 54 remain generated by the single canonical registry), with computed WEX facts intact. Panels are exclusive, and Left/Right/Home/End update selection and focus.
-- Validation passed: `pnpm check`; `git diff --check`; Chrome at `http://localhost:5173/WEXdesigns/` in desktop and compact (125% zoom) views, dark and light themes. Visual/AX checks confirmed the three-tab tablist, Default-only active panel, token-derived focus, and click/Right Arrow selection behaviour.
-- GitHub Pages remains the promoted-main validation boundary; no promotion was made in this builder cycle.
+Run `pnpm check`, `git diff --check`, and Chrome validation for all three tier tabs in desktop + compact/mobile, light + dark, including keyboard switching. Commit/push the same topic branch, update this same file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
