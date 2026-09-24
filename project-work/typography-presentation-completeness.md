@@ -1,75 +1,55 @@
 # Typography Presentation Completeness Work Cycle
 
 Status: BUILDER ACTION REQUIRED
-Phase: Reference-layout typography presentation correction
+Phase: Restore pre-component typography presentation
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Post-promotion visual review rejects the current layout. The tier logic is correct, but the presentation structure does not match the supplied reference intent.
+User has chosen not to continue component-like presentation refinement inside the Typography workstream.
 
-Promoted `main` baseline is `72de1728fa989169c9994a8c1b2651dd53a51e97`. Keep its tier semantics and typography authority; correct presentation only on the same topic branch.
+The correct boundary is to preserve Typography as a foundation-verification surface and defer Tabs, comparison-row abstractions, metadata-row patterns, and other reusable presentation structures until the component programme requires them.
 
-## Visual finding
+## Authoritative restore point
 
-Current WEX presentation uses large full-width dark specimen cards with sample, class name, and facts stacked inside each card. This creates excessive vertical height and does not resemble the requested reference structure.
+Restore the Typography presentation to the last accepted state **immediately before tier tabs were introduced**:
 
-The supplied reference is authoritative only for **layout/comparison structure**, not its colours, breakpoint model, token names, or typography values.
+`99fb0db0ed600d1a14b69f73920effcf6807af65`
 
-Required structure:
+That state is the target for the Typography presentation implementation.
 
-```text
-[ Small ] [ Default ] [ Large ]
+Current promoted `main` is `72de1728fa989169c9994a8c1b2651dd53a51e97`, which contains the later tier-tab work.
 
-Heading
-┌───────────────────────────────┬──────────────────────┐
-│ rendered specimen             │ canonical metadata   │
-│                               │ class                │
-│                               │ family               │
-│                               │ size / line-height   │
-│                               │ weight / style       │
-└───────────────────────────────┴──────────────────────┘
-(repeat one horizontal row per registered style)
+## Builder instruction
 
-Title
-(same row model)
+On the existing `feat/typography-presentation-completeness` branch:
 
-Navigation
-(same row model)
+1. Remove the Small / Default / Large tab UI and all tab-specific runtime behaviour introduced after `99fb0db0ed600d1a14b69f73920effcf6807af65`.
+2. Restore the Typography presentation files to their exact pre-tab presentation behaviour from that restore point.
+3. Preserve all work that already existed at `99fb0db0ed600d1a14b69f73920effcf6807af65`, including:
+   - all 54 registered typography specimens;
+   - canonical WEX typography classes;
+   - computed family / size / line-height / weight / style facts;
+   - IBM Plex delivery through WEX;
+   - the border-width token safeguard;
+   - the explicit `dd` margin reset;
+   - existing dark/light presentation behaviour.
+4. Do not replace Tabs with another local interaction or component abstraction.
+5. Do not implement the horizontal reference-row layout in this phase.
+6. Remove/update tests that exist only for the tier-tab interaction, while preserving focused verification of the restored 54-style presentation and existing WEX-authority safeguards.
+7. The preferred result is semantically equivalent to the relevant Typography presentation state at `99fb0db0ed600d1a14b69f73920effcf6807af65`; do not invent a new intermediate design.
 
-Body
-(same row model)
-```
+## Why this is the boundary
 
-## Builder correction
+Typography owns the type foundation. It should demonstrate that foundation without pre-building component architecture.
 
-1. Preserve the existing Small / Default / Large selector and tier-pure panel logic.
-2. Within the active tier, render each registered style as a **single horizontal specimen row**:
-   - left region: large rendered sample only;
-   - right region: compact canonical metadata.
-3. Use a stable two-column proportion similar to the reference (sample visually dominant, metadata narrower) using WEX grid/layout authority. Do not copy reference pixel widths.
-4. Remove the current nested full-width black-card presentation. Rows may use WEX layer/border tokens, but must read as comparison rows, not cards inside cards.
-5. Keep one concise set heading before the rows for Heading, Title, Navigation, and Body.
-6. Metadata should be compact and scannable. Preserve computed WEX facts, but format them more like the reference:
-   - canonical class
-   - Family
-   - Size
-   - Line height
-   - Weight
-   - Style
-   No invented type-system labels or duplicate numeric authority.
-7. Preserve WEX dark/light themes. **Do not copy the reference white/grey palette.**
-8. Preserve tier-purity: all typography-bearing text inside a tier panel derives from that tier.
-9. On compact/mobile, the row may stack sample above metadata only when width requires it. This is responsive layout only; it must not change the selected WEX tier.
-10. Maintain accessible tab semantics, keyboard behaviour, computed-fact generation, 18 specimens per tier, and 54 total registry.
-11. Update tests to cover the horizontal row structure and guard against reintroducing the old stacked-card model.
-12. Validate all three tabs in desktop and compact/mobile, light and dark. The desktop comparison should be visually close in **structure and density** to the supplied reference.
+Tabs, reusable specimen rows, metadata panels, cards/surfaces, and similar structures should be created only when the component programme establishes their actual WEX contracts.
 
 ## Exclusions
 
-Do not change typography core, font delivery, historical WEX source, ADRs, schemas, shared UI, colour authority, Button, or unrelated catalogue sections.
+Do not change typography core, font delivery, historical WEX source, ADRs, schemas, shared UI, Button, colour authority, or unrelated catalogue sections.
 
-Do not add breakpoint controls, screen-width sliders, Carbon token names, or reference typography values.
+Do not rewrite Git history or reset `main`. Implement the restoration as a normal forward commit on the topic branch.
 
-Run `pnpm check`, `git diff --check`, and Chrome validation. Commit/push the same `feat/typography-presentation-completeness` branch, update this file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, then stop.
+Run `pnpm check` and `git diff --check`, validate the restored presentation in Chrome light/dark, commit/push the same topic branch, update this file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
