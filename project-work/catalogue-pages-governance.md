@@ -1,57 +1,44 @@
 # Repository Governance + Pages Separation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3 — GitHub Pages surface separation submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 4 — Promote accepted Pages candidate to main
 
 ## Reviewer verdict
 
-**Builder handoff — Reviewer decision pending**
+**Proceed**
 
-Candidate branch/SHA: `feat/catalogue-pages-governance` at
-`685fd0e47d028c72526e20a0706c4cc916c6cacf`.
+Phase 3 is accepted at `685fd0e47d028c72526e20a0706c4cc916c6cacf`.
 
-## Delivered scope
+Independent review confirmed:
+- the Phase-3 diff from accepted Phase-2 head is exactly one commit and is limited to the five authorised route HTML files, catalogue CSS, runtime tests, and Vite multi-page config;
+- root is a small entry surface linking Colour, Typography, Actions, and Design Tokens;
+- Vite explicitly includes all five HTML inputs in the existing single Pages artifact;
+- Colour uses the existing WEX colour properties;
+- Typography retains the unchanged renderer/computed-fact runtime and canonical WEX classes;
+- Actions contains only the five already-demonstrated Button variants and no product action mechanics;
+- every Design Tokens value shown is an existing token from current WEX spacing, layout, or geometry source;
+- the runtime still imports the canonical `packages/wex/src/index.css` bundle;
+- `Outer states` / `outer-state` has zero matches across the candidate runtime;
+- Components remain deferred and no schema, adapter, shared-component, catalogue-family, domain, or WEX-value source was added;
+- all changed/new authored files remain below 600 lines.
 
-- Root `index.html` is now a small entry surface linking to Colour,
-  Typography, Actions, and Design Tokens.
-- Added one route per authorised surface under `apps/web-runtime/`; Vite now
-  emits all four paths in the existing single GitHub Pages artifact.
-- Moved the existing Colour presentation, complete Typography renderer and
-  computed facts, and existing Button examples without new WEX values,
-  component architecture, schemas, adapters, or domain behaviour.
-- Design Tokens resolves only existing WEX spacing, layout, and geometry
-  custom properties.
-- Removed the temporary `Outer states` markup, styles, and former state test;
-  `rg -n 'outer-state|Outer states' apps/web-runtime` returns no results.
-- Header, footer, theme mechanics, canonical WEX bundle, and Components
-  deferral remain intact.
+No CI/status run is attached to the topic SHA. Builder-reported checks/build/Chrome evidence are supporting evidence; the pushed source and route invariants above were independently inspected.
 
-## Changed files and limits
+## Phase 4 authorised scope
 
-All changed/new authored files are <=600 lines: root 12; Colour 18;
-Typography 12; Actions 18; Design Tokens 16; `catalogue.css` 402;
-`main.js` unchanged at 113; tests 81; Vite config 17.
+Promote the exact accepted candidate to `main` and establish the hosted evidence boundary.
 
-Changed paths are limited to the five route HTML files, runtime catalogue CSS,
-runtime route tests, and Vite multi-page configuration.
+Builder must:
 
-## Evidence
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Verify `main` is still `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04` and the accepted topic head is still `685fd0e47d028c72526e20a0706c4cc916c6cacf`.
+3. Fast-forward `main` to that exact accepted topic head. Do not create new source changes, amend, rebase, squash, or widen scope.
+4. Push `main`.
+5. Verify the GitHub Pages workflow for the promoted SHA completes successfully.
+6. Verify the deployed Pages artifact exposes root, Colour, Typography, Actions, and Design Tokens routes.
+7. Record exact main SHA, workflow/run result, deployment URL/evidence, and any limitation in this file.
+8. Set status to `AWAITING REVIEWER REVIEW` and stop.
 
-Passed: `pnpm audit:foundation`; runtime type-check; runtime tests (7/7);
-runtime production build; `pnpm check` (35/35); and `git diff --check`.
-`pnpm check` retained its existing non-fatal Turborepo lockfile-parsing and
-web-runtime test-output warnings.
+Do **not** delete `feat/catalogue-pages-governance` yet. Topic-branch deletion is allowed only after Reviewer independently verifies the promoted main/deployment and closes this workstream.
 
-The build emitted `dist/index.html` and `dist/{colour,typography,actions,
-design-tokens}/index.html` under one artifact.
-
-Chrome verified the exact local candidate in a dedicated new preview tab:
-the root navigation reached all four routes; Colour resolved its existing WEX
-values; Actions exposed the five existing Button variants; Design Tokens
-resolved existing foundation properties; Typography rendered IBM Plex computed
-family/size/line-height/weight/style facts; Light/Dark toggled and returned to
-Light; keyboard Tab reached the visible Skip to content link; and the compact
-layout rendered cleanly. The dedicated preview tab remains open. Production
-Pages is main-only and remains a post-promotion Reviewer boundary.
-
-Builder stops for Reviewer.
+No further product/runtime/source changes are authorised in Phase 4.
