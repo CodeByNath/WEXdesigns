@@ -1,58 +1,45 @@
 # Repository Governance + Pages Separation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 5 — Layout page submitted; reviewer decision required
+Status: BUILDER ACTION REQUIRED
+Phase: 5 — Layout page Code Map closeout
 
-## Builder handoff
+## Reviewer verdict
 
-Submitted branch: `feat/catalogue-pages-governance`
-Submitted SHA: `3d8bc521587c7c0a77d2943cc019430ea527f8e2`
-Baseline accepted `main`: `685fd0e47d028c72526e20a0706c4cc916c6cacf`
+**Proceed with safeguards**
 
-The candidate adds the independent Layout route and preserves the exact
-navigation order: `Colour | Typography | Actions | Layout | Design Tokens`.
-Colour, Typography, Actions, the shared shell, canonical `@weerax/wex` bundle,
-theme control, footer, and responsive mechanics remain unchanged.
+The Layout page candidate at `3d8bc521587c7c0a77d2943cc019430ea527f8e2` is technically accepted subject to one bounded Code Map correction.
 
-At the owner's direction, Design Tokens is intentionally empty: it renders
-only its separate route shell and `Design Tokens` heading. It has no
-Layout-owned groups, values, or new taxonomy.
+Independent review confirmed:
+- the candidate is exactly one commit ahead of accepted `main` `685fd0e47d028c72526e20a0706c4cc916c6cacf`;
+- navigation order is exactly `Colour | Typography | Actions | Layout | Design Tokens`;
+- Layout owns the moved Spacing/Gaps, Layout/Grid, Geometry/Radius, Borders, and Interaction presentation groups;
+- every displayed token exists in current WEX `spacing.css`, `layout.css`, `geometry.css`, `interaction.css`, or referenced colour authority;
+- Design Tokens no longer duplicates Layout-owned values and remains a separate empty reserved surface;
+- Shadows and Loading/Skeleton/Shimmer have no current verified WEX authority, so no tokens, CSS, examples, or presentation rules were invented;
+- Colour, Typography, Actions, shared shell/theme mechanics, canonical WEX bundle, and Vite multi-page model remain intact;
+- all changed/new authored files are below 600 lines;
+- remote branch count remains within the three-branch limit.
 
-## Authority audit
+No CI/status run is attached to the topic SHA. Builder-reported checks/build/Chrome evidence remain supporting evidence; the pushed source and authority boundaries above were independently inspected.
 
-Present verified WEX authority rendered on Layout:
+## Required safeguard / Builder correction
 
-- spacing/gaps: `packages/wex/src/foundations/spacing.css`;
-- layout/grid: `packages/wex/src/foundations/layout.css`;
-- geometry/radius and borders: `packages/wex/src/foundations/geometry.css`;
-- interaction presentation: `packages/wex/src/foundations/interaction.css`.
+`docs/code-map/layout.md` does not yet satisfy the repository Code Map operating rule for this expanded Layout surface.
 
-Absent authority: Shadows and Loading/Skeleton/Shimmer. A source scan for
-those categories returned no WEX or runtime authority, so no corresponding
-CSS, tokens, examples, or UI sections were introduced. Layout contains only
-resolved existing WEX custom properties; no raw visual/token values were
-invented. `docs/code-map/layout.md` now routes demonstrated consumption to
-the Layout page.
+Builder must only update that Code Map to:
 
-## Evidence
+1. record **Last visited** and **Last updated**;
+2. record the exact current verified branch/SHA directly in the map — do not defer the SHA to the active work file;
+3. add newest-first Recent work for the Layout-page revision;
+4. map all demonstrated source authorities now consumed by Layout:
+   - `spacing.css`
+   - `layout.css`
+   - `geometry.css`
+   - `interaction.css`
+   - colour authority only where required by interaction aliases;
+5. explicitly record Shadows and Loading/Skeleton/Shimmer as absent/deferred authority, not implemented presentation;
+6. preserve the dependency boundary and safe-change route;
+7. make no runtime, Pages, WEX source, token, schema, component, adapter, or domain changes;
+8. run `git diff --check`, commit/push on the same topic branch, update this same file to `AWAITING REVIEWER REVIEW` with the exact SHA, and stop.
 
-- Passed: `pnpm audit:foundation`, runtime type-check, runtime tests (8/8),
-  production build, `pnpm check`, and `git diff --check`.
-- Build emitted root, `colour`, `typography`, `actions`, `layout`, and
-  `design-tokens` HTML entries.
-- Changed-file line counts: root 12; Colour 18; Typography 12; Actions 18;
-  Layout 18; Design Tokens 12; runtime test 96; Vite config 18; Layout map 48.
-  All are below the 600-line limit.
-- Chrome local-candidate validation in a new dedicated tab at
-  `http://127.0.0.1:5177/WEXdesigns/`: confirmed route order, Layout content,
-  empty Design Tokens route, Light/Dark toggle, focused keyboard skip link,
-  and compact responsive layout. The tab remains open; no existing user tab
-  was touched. Main-only GitHub Pages is unchanged and awaits any Reviewer
-  promotion decision.
-
-No promotion to `main`, deletion of the topic branch, component work, schema,
-adapter, domain logic, or presentation architecture change was performed.
-
-## Reviewer action
-
-Inspect the pushed candidate and issue the required verdict in this file.
+Do not promote to `main` or delete the topic branch until Reviewer accepts this safeguard.
