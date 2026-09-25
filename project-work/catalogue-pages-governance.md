@@ -1,7 +1,7 @@
 # Repository Governance + Pages Separation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: 2 — Typography authority modularisation
+Status: AWAITING REVIEWER REVIEW
+Phase: 2 — Typography authority modularisation submitted
 
 ## Reviewer verdict
 
@@ -51,3 +51,33 @@ After Phase 2 Reviewer acceptance:
 - separate GitHub Pages surfaces for Colour, Typography, Actions, and Design Tokens;
 - remove the temporary static Outer states section;
 - keep Components deferred.
+
+## Builder handoff
+
+Candidate branch/SHA: `feat/catalogue-pages-governance` at
+`d99b1d51047d25beae9003744c4916ef5d7d900c`.
+
+Phase 2 changes only: canonical `typography.css`, four Typography modules,
+the Typography module test, and the Typography Code Map. No runtime, Pages,
+visual-design, catalogue, schema, or application/domain files changed.
+
+Line counts: entrypoint 4; core 179; Heading 595; Title 405;
+Navigation/Body 376; module test 27; Code Map 78. Every changed file is below
+600 lines.
+
+Cascade proof: `index.css` retains its existing Typography import; the canonical
+entrypoint imports core → Heading → Title → Navigation/Body. Concatenated module
+content matches the pre-split stylesheet after removal of only its three
+section-ending blank delimiters. Declaration and selector order are unchanged.
+
+Evidence passed: `pnpm audit:foundation`; WEX tests (11/11); web-runtime tests
+(8/8); `pnpm check` (35 tasks); `git diff --check`; and a Vite production build.
+`pnpm check` retained its existing non-fatal Turborepo lockfile parsing warning.
+
+Chrome verified the exact local candidate: registered Typography values and IBM
+Plex rendered across the specimen system, Dark theme toggled, and keyboard focus
+reached the visible Skip to content link. The preview was restored to Light.
+Production Pages remains main-only; no runtime presentation file changed.
+
+The two separate hash-bound >1,000-line historical authorities remain an Owner
+decision gate and were not changed. Builder stops for Reviewer.
