@@ -1,53 +1,57 @@
 # Repository Governance + Pages Separation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: 3 — GitHub Pages surface separation
+Status: AWAITING REVIEWER REVIEW
+Phase: 3 — GitHub Pages surface separation submitted
 
 ## Reviewer verdict
 
-**Proceed**
+**Builder handoff — Reviewer decision pending**
 
-Phase 2 is accepted at `ffa54971cb328fbd1d327277288af1b8bc18420e`.
+Candidate branch/SHA: `feat/catalogue-pages-governance` at
+`685fd0e47d028c72526e20a0706c4cc916c6cacf`.
 
-The required safeguard is satisfied: the only post-review change is the Typography Code Map metadata closeout, and it now identifies `d99b1d51047d25beae9003744c4916ef5d7d900c` as the verified implementation baseline. No source/runtime/Pages/visual/schema file changed in the closeout.
+## Delivered scope
 
-## Phase 3 authorised scope
+- Root `index.html` is now a small entry surface linking to Colour,
+  Typography, Actions, and Design Tokens.
+- Added one route per authorised surface under `apps/web-runtime/`; Vite now
+  emits all four paths in the existing single GitHub Pages artifact.
+- Moved the existing Colour presentation, complete Typography renderer and
+  computed facts, and existing Button examples without new WEX values,
+  component architecture, schemas, adapters, or domain behaviour.
+- Design Tokens resolves only existing WEX spacing, layout, and geometry
+  custom properties.
+- Removed the temporary `Outer states` markup, styles, and former state test;
+  `rg -n 'outer-state|Outer states' apps/web-runtime` returns no results.
+- Header, footer, theme mechanics, canonical WEX bundle, and Components
+  deferral remain intact.
 
-Separate the current single System Settings presentation into independent GitHub Pages surfaces for:
+## Changed files and limits
 
-- Colour
-- Typography
-- Actions
-- Design Tokens
+All changed/new authored files are <=600 lines: root 12; Colour 18;
+Typography 12; Actions 18; Design Tokens 16; `catalogue.css` 402;
+`main.js` unchanged at 113; tests 81; Vite config 17.
 
-Use the existing `@weerax/web-runtime` and the existing main-only GitHub Pages deployment. Do not create a parallel site.
+Changed paths are limited to the five route HTML files, runtime catalogue CSS,
+runtime route tests, and Vite multi-page configuration.
 
-Builder must:
+## Evidence
 
-1. Work only on `feat/catalogue-pages-governance`.
-2. Make the root/index surface a small navigation/entry surface to the four authorised pages.
-3. Move the existing Colour presentation to the Colour page.
-4. Move the existing Typography presentation to the Typography page without changing its WEX values, classes, specimen meaning, or computed-fact behaviour.
-5. Move the existing Button presentation to Actions. Actions may present only already-authorised interaction/action presentation; do not invent new action/component architecture.
-6. Create the Design Tokens page only from verified existing WEX authority/source. Do not invent token families, values, or a second token authority.
-7. Remove the temporary static `Outer states` section completely from runtime HTML/CSS/tests. Do not replace it with another local abstraction.
-8. Preserve the shared header/footer/theme mechanics and canonical `@weerax/wex` bundle.
-9. Keep Components deferred. Do not add shared UI components, schemas, adapters, catalogue component families, domain logic, or new WEX visual values.
-10. Keep every new/changed authored file <=600 lines; no exception is authorised for this phase.
+Passed: `pnpm audit:foundation`; runtime type-check; runtime tests (7/7);
+runtime production build; `pnpm check` (35/35); and `git diff --check`.
+`pnpm check` retained its existing non-fatal Turborepo lockfile-parsing and
+web-runtime test-output warnings.
 
-## Required evidence
+The build emitted `dist/index.html` and `dist/{colour,typography,actions,
+design-tokens}/index.html` under one artifact.
 
-- `pnpm audit:foundation`
-- `pnpm --filter @weerax/web-runtime type-check`
-- `pnpm --filter @weerax/web-runtime test`
-- `pnpm --filter @weerax/web-runtime build`
-- `pnpm check`
-- `git diff --check`
-- exact changed-file line counts
-- built-output proof that all four page routes exist under the one Pages artifact
-- Chrome/local-candidate verification of all four pages: navigation, Light/Dark theme, keyboard focus/skip-link, responsive compact layout, and Typography computed facts where relevant
-- explicit proof that `Outer states` runtime markup/styles/tests are gone and no replacement local presentation rule was introduced.
+Chrome verified the exact local candidate in a dedicated new preview tab:
+the root navigation reached all four routes; Colour resolved its existing WEX
+values; Actions exposed the five existing Button variants; Design Tokens
+resolved existing foundation properties; Typography rendered IBM Plex computed
+family/size/line-height/weight/style facts; Light/Dark toggled and returned to
+Light; keyboard Tab reached the visible Skip to content link; and the compact
+layout rendered cleanly. The dedicated preview tab remains open. Production
+Pages is main-only and remains a post-promotion Reviewer boundary.
 
-GitHub Pages production remains a separate post-promotion Reviewer boundary because deployment is main-only.
-
-Builder commits/pushes the bounded Phase-3 work, updates this same file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stops.
+Builder stops for Reviewer.
