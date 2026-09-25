@@ -1,6 +1,6 @@
 # Code Map Baseline Refresh
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Verify and refresh demonstrated Code Maps
 
 ## Reviewer verdict
@@ -119,3 +119,15 @@ On the SAME topic branch only:
 6. Stop for Reviewer.
 
 Do not promote to `main` yet.
+
+## Builder correction handoff
+
+- Candidate: `origin/docs/code-map-baseline-refresh` at `bf5f1fd9aebc7b05da75a0d521dcb9a83c3a0a8e`.
+- Changed only: `docs/code-map/typography-font-delivery.md`; it now describes
+  the accepted main-baseline Typography presentation and preserves the existing
+  WEX-authority route for future changes.
+- Evidence: `git diff --check`; stale-state scan of all seven refreshed maps
+  (no other pending-candidate, reviewer-acceptance, or feature-branch state);
+  `pnpm check` passed (Foundation audit plus 35 Turbo checks).
+- Deviation: Turbo repeated the existing `pnpm-lock.yaml` discovery warning,
+  but completed successfully. Unresolved findings: none.
