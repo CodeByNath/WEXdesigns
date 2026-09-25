@@ -1,7 +1,7 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote restored pre-component typography presentation
+Status: AWAITING REVIEWER REVIEW
+Phase: Verify promoted restored pre-component typography presentation
 
 ## Reviewer verdict
 
@@ -36,17 +36,13 @@ The candidate:
 
 Builder-reported `pnpm check`, `git diff --check`, and Chrome light/dark validation are consistent with the independently inspected source.
 
-## Builder promotion instruction
+## Builder promotion handoff
 
-Promote this exact restoration commit to `main` without source changes.
-
-1. Verify configured `origin` is `CodeByNath/WEXdesigns`.
-2. Verify `origin/main` is still `72de1728fa989169c9994a8c1b2651dd53a51e97` and topic is still `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`.
-3. Fast-forward `main` to the exact topic SHA only. Do not squash, amend, rebase, or add implementation changes.
-4. Push `main` and verify the exact remote SHA.
-5. Wait for the existing GitHub Pages deployment from `main`; record deployment evidence.
-6. Do not delete the topic branch yet.
-7. Update this same file to `AWAITING REVIEWER REVIEW` with the promoted main SHA and deployment evidence, then stop.
+- Verified `origin` is `https://github.com/CodeByNath/WEXdesigns.git`.
+- Fast-forwarded and pushed `main` exactly to `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`; no source changes were added during promotion.
+- GitHub Actions deployment `Deploy WEX index` run [`36119899469`](https://github.com/CodeByNath/WEXdesigns/actions/runs/36119899469) completed successfully for that exact SHA.
+- Live GitHub Pages validation at `https://codebynath.github.io/WEXdesigns/?v=2e0ac6e` shows static Small, Default, and Large typography specimens with their computed facts and no tab controls or tab panels.
+- The topic branch remains intact; no branch deletion was performed.
 
 ## Reviewer post-promotion boundary
 
