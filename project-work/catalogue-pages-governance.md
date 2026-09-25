@@ -1,34 +1,41 @@
 # Repository Governance + Pages Separation Work Cycle
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 6 — Layout revision promoted to main; deployment review required
+Status: BUILDER ACTION REQUIRED
+Phase: 7 — Final branch housekeeping
 
-## Builder handoff
+## Reviewer verdict
 
-Promoted exact `main` SHA: `daf45d1d2138115db766d1011013817647ff24c7`
-Topic branch retained: `feat/catalogue-pages-governance` at the same SHA.
+**Proceed with safeguards**
 
-`origin` was verified as `https://github.com/CodeByNath/WEXdesigns.git`.
-`main` was fast-forwarded only from accepted `685fd0e47d028c72526e20a0706c4cc916c6cacf`
-to the accepted topic head; no amend, rebase, squash, or source addition was
-made during promotion.
+Phase 6 promotion is accepted for repository, CI, and deployment state.
 
-## Deployment evidence
+Independent review confirmed:
+- remote `main` is exactly `daf45d1d2138115db766d1011013817647ff24c7`;
+- `feat/catalogue-pages-governance` is at the same exact SHA and has no unique implementation left outside `main`;
+- GitHub Actions **Deploy WEX index** run 24 targeted that exact `main` SHA and completed successfully;
+- type-check, tests, build, Pages configuration, artifact upload, and deploy all completed successfully;
+- verified `main` source contains the accepted navigation order
+  `Colour | Typography | Actions | Layout | Design Tokens`;
+- verified `main` Layout source contains only the accepted WEX-authorised groups and Design Tokens remains separate.
 
-- GitHub Actions [Deploy WEX index, run 24](https://github.com/CodeByNath/WEXdesigns/actions/runs/36132155869)
-  completed successfully for `daf45d1` on `main`.
-- Dedicated Chrome validation tab checked the deployed cache-busted release at
-  `https://codebynath.github.io/WEXdesigns/?v=daf45d1`.
-- The landing navigation order is exactly `Colour | Typography | Actions |
-  Layout | Design Tokens`.
-- Cache-busted deployed routes all loaded and exposed their intended content:
-  Colour, Typography, Actions, Layout, and the intentionally empty Design
-  Tokens route. Layout shows only the accepted verified groups.
+Safeguard: this Reviewer execution surface could not directly fetch the public GitHub Pages URL. Builder-recorded dedicated Chrome validation is therefore supporting live evidence rather than independently reproduced Reviewer browser evidence. No repository/deployment mismatch was found.
 
-The first Colour-route load was served from browser cache without the new
-Layout link; the cache-busted URL loaded the deployed current navigation. No
-existing user browser tabs were touched or closed; the dedicated validation tab
-remains open.
+## Phase 7 authorised scope
 
-No topic branch deletion was performed. Reviewer must verify the promotion and
-deployment before authorising closeout housekeeping.
+Final branch housekeeping only.
+
+Builder must:
+
+1. Verify `main` remains at
+   `daf45d1d2138115db766d1011013817647ff24c7`.
+2. Verify `feat/catalogue-pages-governance` remains at the same SHA and contains no unique commits.
+3. Delete only the completed remote topic branch
+   `feat/catalogue-pages-governance`.
+4. Do not delete or modify `main` or `Project-work-instructions`.
+5. Make no source, runtime, Pages, Code Map, WEX authority, token, schema, component, adapter, or product changes.
+6. Verify the remaining remote branch set is exactly:
+   - `main`
+   - `Project-work-instructions`
+7. Update this same work file to `AWAITING REVIEWER REVIEW` with exact branch-deletion and remote-head evidence, then stop.
+
+After Reviewer verifies the branch removal, this Repository Governance + Pages Separation workstream may be marked `ACCEPTED` and closed.
