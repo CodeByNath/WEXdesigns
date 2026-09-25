@@ -1,6 +1,6 @@
 # Code Map Baseline Refresh
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED
 Phase: 1 — Verify and refresh demonstrated Code Maps
 
 ## Reviewer verdict
@@ -80,3 +80,42 @@ If any map requires a product/architecture decision rather than evidence correct
   but completed successfully.
 - Unresolved findings: none; no authority, dependency, safe-routing, or
   source-path changes were evidenced, so none were invented.
+
+
+## Reviewer review — 2026-09-25
+
+**Proceed with safeguards**
+
+Independent review verified candidate `docs/code-map-baseline-refresh` at
+`ccf4b387aaa31dc9481c87b032fe5240b3b6d6fa` is exactly one commit ahead of
+accepted `main` and changes only the seven authorised Code Maps.
+
+The baseline-SHA refresh and newly added recent-work metadata are within scope.
+No WEX source, schema, UI, application, Foundation, ADR, or runtime file changed.
+
+One stale-state defect remains in
+`docs/code-map/typography-font-delivery.md`: after declaring verification
+against accepted `main`, the Modularisation verification section still says
+"Typography Pages work remains subject to Reviewer acceptance of this
+candidate". Repository Governance + Pages Separation is already ACCEPTED and
+closed, so that sentence is no longer valid navigation evidence.
+
+### Builder correction
+
+Status: BUILDER ACTION REQUIRED
+
+On the SAME topic branch only:
+
+1. Correct/remove that obsolete pending-candidate statement so the Typography
+   map describes the accepted current state without inventing new authority.
+2. Scan all seven refreshed maps for equivalent stale phrases such as pending
+   candidate/reviewer acceptance or deleted feature-branch state; change only
+   evidence that is demonstrably stale.
+3. Do not alter product authority, source paths, dependency boundaries, visual
+   values, architecture, or any non-Code-Map file.
+4. Run `git diff --check`, the stale-state scan, and `pnpm check`.
+5. Commit and push the bounded correction, then update this SAME work file to
+   `Status: AWAITING REVIEWER REVIEW` with the new exact SHA and evidence.
+6. Stop for Reviewer.
+
+Do not promote to `main` yet.
