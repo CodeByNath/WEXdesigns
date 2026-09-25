@@ -1,10 +1,15 @@
 # Sizing and Tier System
 
-## Verification
+## Current operating status
 
-- Created: 2026-09-19
-- Last verified: 2026-09-19
-- Verified against: `origin/main` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- Last visited: 2026-09-25
+- Last updated: 2026-09-25
+- Verified against: `origin/main` at `daf45d1d2138115db766d1011013817647ff24c7`
+
+### Recent work (newest first)
+
+- `d99b1d5` (2026-09-25) preserved the ordered Typography modules, a demonstrated tier consumer.
+- `5e13a35` (2026-09-20) placed Button states on the registered perimeter without changing the global tier boundary.
 
 ## Purpose and scope
 

@@ -4,11 +4,11 @@
 
 - Last visited: 2026-09-25
 - Last updated: 2026-09-25
-- Verified against: `feat/catalogue-pages-governance` at `d99b1d51047d25beae9003744c4916ef5d7d900c`
+- Verified against: `origin/main` at `daf45d1d2138115db766d1011013817647ff24c7`
 
 ### Recent work (newest first)
 
-- `d99b1d5` (2026-09-25) preserved the Typography module boundaries and is the current candidate baseline for this metadata closeout.
+- `d99b1d5` (2026-09-25) preserved the Typography module boundaries, now included in the verified main baseline.
 - `1dc0019` (2026-09-25) split Typography into ordered, semantics-preserving modules.
 - `2e0ac6e` (2026-09-25) restored the pre-tab typography presentation.
 - `72de172` (2026-09-24) kept runtime panels tier-pure.

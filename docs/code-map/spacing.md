@@ -1,10 +1,15 @@
 # Spacing
 
-## Verification
+## Current operating status
 
-- Created: 2026-09-19
-- Last verified: 2026-09-19
-- Verified against: `origin/main` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- Last visited: 2026-09-25
+- Last updated: 2026-09-25
+- Verified against: `origin/main` at `daf45d1d2138115db766d1011013817647ff24c7`
+
+### Recent work (newest first)
+
+- `3d8bc52` (2026-09-25) added the verified Layout route, which consumes the spacing foundation.
+- `5e13a35` (2026-09-20) placed Button states on the registered perimeter while retaining Button's WEX foundation consumption.
 
 ## Purpose and scope
 

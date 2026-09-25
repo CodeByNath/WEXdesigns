@@ -1,10 +1,16 @@
 # Button System
 
-## Verification
+## Current operating status
 
-- Created: 2026-09-18
-- Last verified: 2026-09-19
-- Verified against: `origin/main` at `d02a5f33d224c74b1df6dce8ef3e89a2bbd370c2`
+- Last visited: 2026-09-25
+- Last updated: 2026-09-25
+- Verified against: `origin/main` at `daf45d1d2138115db766d1011013817647ff24c7`
+
+### Recent work (newest first)
+
+- `5e13a35` (2026-09-20) placed Button states on the registered perimeter.
+- `ccafd4f` (2026-09-20) retained fixed Button state bounds.
+- `6be2adc` (2026-09-18) accepted the separate Button runtime invocation boundary.
 
 ## Purpose and scope
 
