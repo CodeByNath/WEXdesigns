@@ -4,10 +4,11 @@
 
 - Last visited: 2026-09-25
 - Last updated: 2026-09-25
-- Verified against: `origin/main` at `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`
+- Verified against: `feat/catalogue-pages-governance` at `1dc001924193d89e1ee1ee24059969df3be2d348`
 
 ### Recent work (newest first)
 
+- `1dc0019` (2026-09-25) split Typography into ordered, semantics-preserving modules.
 - `2e0ac6e` (2026-09-25) restored the pre-tab typography presentation.
 - `72de172` (2026-09-24) kept runtime panels tier-pure.
 - `3ce30a2` (2026-09-24) organised runtime typography by WEX tier.
@@ -25,19 +26,24 @@ This map navigates the demonstrated WEX typography system and the package-owned 
 
 ## Source and focused verification
 
-- Typography implementation: [`packages/wex/src/foundations/typography.css`](../../packages/wex/src/foundations/typography.css)
+- Canonical Typography entrypoint: [`packages/wex/src/foundations/typography.css`](../../packages/wex/src/foundations/typography.css)
+- Ordered Typography modules: [`core.css`](../../packages/wex/src/foundations/typography/core.css), [`heading.css`](../../packages/wex/src/foundations/typography/heading.css), [`title.css`](../../packages/wex/src/foundations/typography/title.css), and [`navigation-body.css`](../../packages/wex/src/foundations/typography/navigation-body.css)
 - Font delivery imports: [`packages/wex/src/foundations/font-family.css`](../../packages/wex/src/foundations/font-family.css)
 - Package dependency and scripts: [`packages/wex/package.json`](../../packages/wex/package.json)
 - WEX bundle entrypoint: [`packages/wex/src/index.css`](../../packages/wex/src/index.css)
+- Typography module structure/line-limit check: [`packages/wex/test/typography-modules.test.mjs`](../../packages/wex/test/typography-modules.test.mjs)
 - Package boundary, authority-hash, and CSS-structure audit: [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
-There is no dedicated typography semantic test on the verified ref; the current automated evidence is the repository audit plus consuming-package checks of the canonical WEX bundle.
+The module test preserves the original core → Heading → Title → Navigation/Body
+import order and the 600-line module limit. Repository and consuming-package
+checks verify the assembled canonical WEX bundle.
 
 ## Dependency path and boundary
 
 ```text
 historical typography authority + font-delivery ADR
-  -> @weerax/wex typography and font CSS
+  -> typography.css canonical ordered imports
+  -> Typography modules + @weerax/wex font CSS
   -> shared UI and consuming applications
 ```
 
@@ -49,14 +55,17 @@ The font package is an external dependency of `@weerax/wex`. Applications import
 - Route font-source or delivery changes through an accepted decision and the WEX package manifest.
 - Update imports, manifest evidence, and affected verification together; do not move typography ownership into an application.
 
-## Required modularisation gate
+## Modularisation verification
 
-`packages/wex/src/foundations/typography.css` is 1,558 lines and exceeds the
-repository's absolute authored-file ceiling. Before Typography Pages work, a
-separate authorised migration must split it without changing semantics: retain
-the canonical `index.css` entrypoint, preserve selector names and cascade order,
-and run the focused runtime/type checks plus the foundation audit against the
-assembled bundle. Do not move typography values into the runtime while doing so.
+`typography.css` is now the four-line canonical importer. Its four modules are
+the original stylesheet's contiguous sections in core → Heading → Title →
+reset/Navigation/Body/icon-alias order; their concatenation exactly matched the
+pre-split stylesheet before the change was committed. The module test locks the
+order and line limit. The canonical `index.css` entrypoint, selectors,
+declarations, registered values, tiers, and font delivery remain unchanged.
+
+Typography Pages work remains subject to Reviewer acceptance of this candidate;
+do not move typography values into the runtime during a future Pages phase.
 
 The historical WEX authority is hash-bound evidence; use its existing headings
 and this map to identify the relevant section instead of editing it as a
