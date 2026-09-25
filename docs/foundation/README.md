@@ -4,6 +4,7 @@ Foundation is the durable repository-wide rule and invariant layer for the Studi
 
 ## Subjects
 
+- [Repository governance](repository-governance.md)
 - [Studio operating model](studio-operating-model.md)
 
 ## Authority and scope

@@ -1,10 +1,16 @@
 # Typography and Font Delivery
 
-## Verification
+## Current operating status
 
-- Created: 2026-09-19
-- Last verified: 2026-09-19
-- Verified against: `origin/main` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- Last visited: 2026-09-25
+- Last updated: 2026-09-25
+- Verified against: `origin/main` at `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`
+
+### Recent work (newest first)
+
+- `2e0ac6e` (2026-09-25) restored the pre-tab typography presentation.
+- `72de172` (2026-09-24) kept runtime panels tier-pure.
+- `3ce30a2` (2026-09-24) organised runtime typography by WEX tier.
 
 ## Purpose and scope
 
@@ -42,6 +48,19 @@ The font package is an external dependency of `@weerax/wex`. Applications import
 - Route type-scale, set, tier, weight, or style changes through WEX authority before editing typography CSS.
 - Route font-source or delivery changes through an accepted decision and the WEX package manifest.
 - Update imports, manifest evidence, and affected verification together; do not move typography ownership into an application.
+
+## Required modularisation gate
+
+`packages/wex/src/foundations/typography.css` is 1,558 lines and exceeds the
+repository's absolute authored-file ceiling. Before Typography Pages work, a
+separate authorised migration must split it without changing semantics: retain
+the canonical `index.css` entrypoint, preserve selector names and cascade order,
+and run the focused runtime/type checks plus the foundation audit against the
+assembled bundle. Do not move typography values into the runtime while doing so.
+
+The historical WEX authority is hash-bound evidence; use its existing headings
+and this map to identify the relevant section instead of editing it as a
+shortcut for the CSS migration.
 
 ## Related documents
 

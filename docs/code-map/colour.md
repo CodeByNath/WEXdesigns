@@ -1,10 +1,15 @@
 # Colour
 
-## Verification
+## Current operating status
 
-- Created: 2026-09-19
-- Last verified: 2026-09-22
-- Verified against: `origin/main` at `04ae6d849094bff75a1266911c0380af64949e10`
+- Last visited: 2026-09-25
+- Last updated: 2026-09-25
+- Verified against: `origin/main` at `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`
+
+### Recent work (newest first)
+
+- `a2e81e0` (2026-09-22) refreshed this Colour Code Map after chromatic work.
+- `04ae6d8` (2026-09-21) added deterministic chromatic tone derivation.
 
 ## Purpose and scope
 
@@ -55,6 +60,12 @@ application code.
 - For a future Base change, run the deterministic generator/check and revalidate registered contrast contracts before accepting the result.
 - Change the WEX foundation and focused checks together, then run the repository foundation audit.
 - Keep component-specific colour decisions with the relevant component authority rather than widening this foundation map.
+
+## Important operating guidance
+
+Use this map before opening the historical Colour section or colour foundation.
+For chromatic families, only Base is authored; generated tone tokens and the
+registered contrast checks are part of the change boundary.
 
 ## Related documents
 

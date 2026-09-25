@@ -1,10 +1,16 @@
-# Interaction and Focus
+# Actions and Interaction
 
-## Verification
+## Current operating status
 
-- Created: 2026-09-19
-- Last verified: 2026-09-19
-- Verified against: `origin/main` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- Last visited: 2026-09-25
+- Last updated: 2026-09-25
+- Verified against: `origin/main` at `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`
+
+### Recent work (newest first)
+
+- `5e13a35` (2026-09-20) placed Button states on the registered perimeter.
+- `ccafd4f` (2026-09-20) retained fixed Button state bounds.
+- `6be2adc` (2026-09-18) accepted the separate Button runtime invocation boundary.
 
 ## Purpose and scope
 
@@ -43,6 +49,13 @@ WEX owns interaction presentation and focus styling. Shared UI owns reusable int
 - Resolve changes to shared visual states or focus presentation through WEX authority and focused presentation checks.
 - Keep component-specific state mappings with the component's accepted decision and foundation.
 - Route event mechanics to shared UI and application/domain execution to the consuming runtime; do not embed them in WEX CSS.
+
+## Important operating guidance
+
+Use this map first to separate presentation interaction from a semantic action's
+execution. WEX owns focus and visual state presentation; shared UI owns reusable
+mechanics; the consuming application and domain owner retain execution and
+authorisation. The runtime boundary is governed by ADR 0008, not this map.
 
 ## Related documents
 
