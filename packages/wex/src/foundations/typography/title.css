@@ -1,0 +1,406 @@
+/* ============================================================
+
+8. TITLE TYPE SET
+
+============================================================
+
+Purpose:
+
+Section headings and component headings.
+
+Title follows the same Small / Default / Large hierarchy,
+weight system and italic emphasis model as Heading.
+
+Architecture:
+
+Title
+├── Small
+│ ├── Light
+│ ├── Regular
+│ └── SemiBold
+├── Default
+│ ├── Light
+│ ├── Regular
+│ └── SemiBold
+└── Large
+├── Light
+├── Regular
+└── SemiBold
+
+Every weight also supports italic.
+
+Primary emphasis:
+
+Small   → Regular / 400
+Default → Regular / 400
+Large   → Light / 300
+
+Ecosystem pairing:
+
+Title Small   pairs with Heading / Navigation / Body Small.
+Title Default pairs with Heading / Navigation / Body Default.
+Title Large   pairs with Heading / Navigation / Body Large.
+
+Do not mix hierarchy tiers inside the same composition.
+
+============================================================ */
+
+:root {
+
+/* ----------------------------------------------------------
+
+Title Small
+
+Size: 24px / 1.5rem
+Line height: 28px / 1.75rem
+Primary weight: 400 / Regular
+Letter spacing: 0
+
+---------------------------------------------------------- */
+
+--wex-type-title-small-font-family:
+
+var(--wex-type-family-sans);
+
+--wex-type-title-small-font-size:
+
+var(--wex-type-size-24);
+
+--wex-type-title-small-line-height:
+
+var(--wex-type-line-height-28);
+
+--wex-type-title-small-letter-spacing:
+
+var(--wex-type-letter-spacing-default);
+
+/* ----------------------------------------------------------
+
+Title Default
+
+Size: 28px / 1.75rem
+Line height: 36px / 2.25rem
+Primary weight: 400 / Regular
+Letter spacing: 0
+
+---------------------------------------------------------- */
+
+--wex-type-title-default-font-family:
+
+var(--wex-type-family-sans);
+
+--wex-type-title-default-font-size:
+
+var(--wex-type-size-28);
+
+--wex-type-title-default-line-height:
+
+var(--wex-type-line-height-36);
+
+--wex-type-title-default-letter-spacing:
+
+var(--wex-type-letter-spacing-default);
+
+/* ----------------------------------------------------------
+
+Title Large
+
+Size: 36px / 2.25rem
+Line height: 44px / 2.75rem
+Primary weight: 300 / Light
+Letter spacing: 0
+
+---------------------------------------------------------- */
+
+--wex-type-title-large-font-family:
+
+var(--wex-type-family-sans);
+
+--wex-type-title-large-font-size:
+
+var(--wex-type-size-36);
+
+--wex-type-title-large-line-height:
+
+var(--wex-type-line-height-44);
+
+--wex-type-title-large-letter-spacing:
+
+var(--wex-type-letter-spacing-default);
+
+}
+
+/* ============================================================
+
+9. BASE TITLE CLASSES
+
+============================================================ */
+
+.wex-type-title-small {
+
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+
+}
+
+.wex-type-title-default {
+
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+
+}
+
+.wex-type-title-large {
+
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+
+}
+
+/* ============================================================
+
+10. COMPLETE TITLE STYLE CLASSES
+
+============================================================
+
+Canonical Title styles. Weight and italic behavior inherits
+from the WEX core typography system used by Heading.
+
+============================================================ */
+
+/* Title Small — Light */
+
+.wex-type-title-small-light {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+.wex-type-title-small-light-italic {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+/* Title Small — Regular */
+
+.wex-type-title-small-regular {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+.wex-type-title-small-regular-italic {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+/* Title Small — SemiBold */
+
+.wex-type-title-small-semibold {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+.wex-type-title-small-semibold-italic {
+font-family: var(--wex-type-title-small-font-family);
+font-size: var(--wex-type-title-small-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-small-line-height);
+letter-spacing: var(--wex-type-title-small-letter-spacing);
+}
+
+/* Title Default — Light */
+
+.wex-type-title-default-light {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+.wex-type-title-default-light-italic {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+/* Title Default — Regular */
+
+.wex-type-title-default-regular {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+.wex-type-title-default-regular-italic {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+/* Title Default — SemiBold */
+
+.wex-type-title-default-semibold {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+.wex-type-title-default-semibold-italic {
+font-family: var(--wex-type-title-default-font-family);
+font-size: var(--wex-type-title-default-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-default-line-height);
+letter-spacing: var(--wex-type-title-default-letter-spacing);
+}
+
+/* Title Large — Light */
+
+.wex-type-title-large-light {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+.wex-type-title-large-light-italic {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-light);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+/* Title Large — Regular */
+
+.wex-type-title-large-regular {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+.wex-type-title-large-regular-italic {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-regular);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+/* Title Large — SemiBold */
+
+.wex-type-title-large-semibold {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-normal);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+.wex-type-title-large-semibold-italic {
+font-family: var(--wex-type-title-large-font-family);
+font-size: var(--wex-type-title-large-font-size);
+font-weight: var(--wex-type-weight-semibold);
+font-style: var(--wex-type-style-italic);
+line-height: var(--wex-type-title-large-line-height);
+letter-spacing: var(--wex-type-title-large-letter-spacing);
+}
+
+/* ============================================================
+
+11. SEMANTIC ALIASES
+
+============================================================
+
+Optional semantic aliases.
+
+These are useful when application code should not know
+
+the exact underlying weight.
+
+They can later be changed without changing consuming
+
+components.
+
+============================================================ */
+
+:root {
+
+/* Primary/default Heading selections */
+
+--wex-type-heading-small-primary-weight:
+
+var(--wex-type-weight-regular);
+
+--wex-type-heading-default-primary-weight:
+
+var(--wex-type-weight-regular);
+
+--wex-type-heading-large-primary-weight:
+
+var(--wex-type-weight-regular);
+
+/* Primary/default Title selections */
+
+--wex-type-title-small-primary-weight:
+
+var(--wex-type-weight-regular);
+
+--wex-type-title-default-primary-weight:
+
+var(--wex-type-weight-regular);
+
+--wex-type-title-large-primary-weight:
+
+var(--wex-type-weight-light);
+
+}
+

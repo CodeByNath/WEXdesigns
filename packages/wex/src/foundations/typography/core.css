@@ -1,0 +1,180 @@
+/* ============================================================
+
+1. WEX CORE TYPOGRAPHY TOKENS
+
+============================================================ */
+
+:root {
+
+/* ----------------------------------------------------------
+
+Font families
+
+---------------------------------------------------------- */
+
+--wex-type-family-sans:
+
+"IBM Plex Sans",
+
+"Helvetica Neue",
+
+Arial,
+
+sans-serif;
+
+/* ----------------------------------------------------------
+
+Font weights
+
+---------------------------------------------------------- */
+
+--wex-type-weight-light: 300;
+
+--wex-type-weight-regular: 400;
+
+--wex-type-weight-semibold: 600;
+
+/* ----------------------------------------------------------
+
+Font styles
+
+---------------------------------------------------------- */
+
+--wex-type-style-normal: normal;
+
+--wex-type-style-italic: italic;
+
+/* ----------------------------------------------------------
+
+Type scale
+
+IBM Plex scale
+
+Base y0 = 12px
+
+---------------------------------------------------------- */
+
+--wex-type-size-12: 0.75rem; /* 12px */
+
+--wex-type-size-14: 0.875rem; /* 14px */
+
+--wex-type-size-16: 1rem; /* 16px */
+
+--wex-type-size-18: 1.125rem; /* 18px */
+
+--wex-type-size-20: 1.25rem; /* 20px */
+
+--wex-type-size-24: 1.5rem; /* 24px */
+
+--wex-type-size-28: 1.75rem; /* 28px */
+
+--wex-type-size-32: 2rem; /* 32px */
+
+--wex-type-size-36: 2.25rem; /* 36px */
+
+--wex-type-size-42: 2.625rem; /* 42px */
+
+--wex-type-size-48: 3rem; /* 48px */
+
+--wex-type-size-54: 3.375rem; /* 54px */
+
+--wex-type-size-60: 3.75rem; /* 60px */
+
+--wex-type-size-68: 4.25rem; /* 68px */
+
+--wex-type-size-76: 4.75rem; /* 76px */
+
+--wex-type-size-84: 5.25rem; /* 84px */
+
+--wex-type-size-92: 5.75rem; /* 92px */
+
+/* ----------------------------------------------------------
+
+Line-height scale
+
+Keep line-height values independent from individual
+
+type styles so they can be reused by future type sets.
+
+---------------------------------------------------------- */
+
+--wex-type-line-height-16: 1rem;
+
+--wex-type-line-height-18: 1.125rem;
+
+--wex-type-line-height-20: 1.25rem;
+
+--wex-type-line-height-22: 1.375rem;
+
+--wex-type-line-height-24: 1.5rem;
+
+--wex-type-line-height-26: 1.625rem;
+
+--wex-type-line-height-28: 1.75rem;
+
+--wex-type-line-height-30: 1.875rem;
+
+--wex-type-line-height-32: 2rem;
+
+--wex-type-line-height-36: 2.25rem;
+
+--wex-type-line-height-40: 2.5rem;
+
+--wex-type-line-height-44: 2.75rem;
+
+--wex-type-line-height-48: 3rem;
+
+--wex-type-line-height-50: 3.125rem;
+
+--wex-type-line-height-52: 3.25rem;
+
+--wex-type-line-height-56: 3.5rem;
+
+--wex-type-line-height-60: 3.75rem;
+
+--wex-type-line-height-64: 4rem;
+
+--wex-type-line-height-72: 4.5rem;
+
+--wex-type-line-height-80: 5rem;
+
+--wex-type-line-height-88: 5.5rem;
+
+--wex-type-line-height-96: 6rem;
+
+/* ----------------------------------------------------------
+
+Letter spacing
+
+---------------------------------------------------------- */
+
+--wex-type-letter-spacing-default: 0;
+
+}
+
+/* ============================================================
+
+2. GLOBAL FONT FOUNDATION
+
+============================================================ */
+
+html {
+
+font-family: var(--wex-type-family-sans);
+
+font-synthesis: none;
+
+text-rendering: optimizeLegibility;
+
+-webkit-font-smoothing: antialiased;
+
+-moz-osx-font-smoothing: grayscale;
+
+}
+
+body {
+
+font-family: inherit;
+
+}
+
