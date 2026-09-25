@@ -66,8 +66,9 @@ to satisfy whitespace checks. The module test locks the order and line limit.
 The canonical `index.css` entrypoint, selectors,
 declarations, registered values, tiers, and font delivery remain unchanged.
 
-Typography Pages work remains subject to Reviewer acceptance of this candidate;
-do not move typography values into the runtime during a future Pages phase.
+Typography presentation is accepted on this verified main baseline. Future
+changes must continue to route typography values through WEX authority rather
+than moving them into the runtime.
 
 The historical WEX authority is hash-bound evidence; use its existing headings
 and this map to identify the relevant section instead of editing it as a
