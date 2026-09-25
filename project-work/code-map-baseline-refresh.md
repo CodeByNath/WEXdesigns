@@ -1,6 +1,6 @@
 # Code Map Baseline Refresh
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Verify and refresh demonstrated Code Maps
 
 ## Reviewer verdict
@@ -64,3 +64,19 @@ Builder must:
 8. stop for Reviewer.
 
 If any map requires a product/architecture decision rather than evidence correction, leave that map unchanged and report the gate.
+
+## Builder handoff
+
+- Candidate: `origin/docs/code-map-baseline-refresh` at `ccf4b387aaa31dc9481c87b032fe5240b3b6d6fa`.
+- Baseline inspected: `origin/main` at `daf45d1d2138115db766d1011013817647ff24c7`.
+- Changed only: `docs/code-map/colour.md`, `typography-font-delivery.md`,
+  `interaction-focus.md`, `button-system.md`, `spacing.md`, `layout.md`, and
+  `sizing-tier-system.md`. All seven now record the verified main ref; stale
+  feature-branch or superseded-SHA evidence was removed. Button, Spacing, and
+  Sizing now use the current operating-status format with relevant recent work.
+- Checks: `git diff --check`; mapped-path existence inspection; stale-ref scan;
+  `pnpm check` passed (Foundation audit plus 35 Turbo checks).
+- Deviation: Turbo reported its existing `pnpm-lock.yaml` discovery warning,
+  but completed successfully.
+- Unresolved findings: none; no authority, dependency, safe-routing, or
+  source-path changes were evidenced, so none were invented.
