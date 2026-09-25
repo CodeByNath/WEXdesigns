@@ -1,57 +1,58 @@
 # Repository Governance + Pages Separation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: 5 — Add Layout page before final closeout
+Status: AWAITING REVIEWER REVIEW
+Phase: 5 — Layout page submitted; reviewer decision required
 
-## Reviewer verdict
+## Builder handoff
 
-**Proceed**
+Submitted branch: `feat/catalogue-pages-governance`
+Submitted SHA: `3d8bc521587c7c0a77d2943cc019430ea527f8e2`
+Baseline accepted `main`: `685fd0e47d028c72526e20a0706c4cc916c6cacf`
 
-Phase 4 promotion remains accepted at `main`
-`685fd0e47d028c72526e20a0706c4cc916c6cacf`.
+The candidate adds the independent Layout route and preserves the exact
+navigation order: `Colour | Typography | Actions | Layout | Design Tokens`.
+Colour, Typography, Actions, the shared shell, canonical `@weerax/wex` bundle,
+theme control, footer, and responsive mechanics remain unchanged.
 
-Owner has added one bounded presentation change before branch closeout. Do not delete
-`feat/catalogue-pages-governance` yet.
+At the owner's direction, Design Tokens is intentionally empty: it renders
+only its separate route shell and `Design Tokens` heading. It has no
+Layout-owned groups, values, or new taxonomy.
 
-## Phase 5 authorised scope
+## Authority audit
 
-Change the foundation navigation/order to exactly:
+Present verified WEX authority rendered on Layout:
 
-`Colour | Typography | Actions | Layout | Design Tokens`
+- spacing/gaps: `packages/wex/src/foundations/spacing.css`;
+- layout/grid: `packages/wex/src/foundations/layout.css`;
+- geometry/radius and borders: `packages/wex/src/foundations/geometry.css`;
+- interaction presentation: `packages/wex/src/foundations/interaction.css`.
 
-Builder must:
+Absent authority: Shadows and Loading/Skeleton/Shimmer. A source scan for
+those categories returned no WEX or runtime authority, so no corresponding
+CSS, tokens, examples, or UI sections were introduced. Layout contains only
+resolved existing WEX custom properties; no raw visual/token values were
+invented. `docs/code-map/layout.md` now routes demonstrated consumption to
+the Layout page.
 
-1. Continue only on `feat/catalogue-pages-governance`; branch capacity is already satisfied.
-2. Add an independent `Layout` route immediately before Design Tokens in root and page navigation.
-3. Move the current **Spacing**, **Layout**, and **Geometry** groups out of Design Tokens and into Layout.
-4. Layout may organise verified WEX presentation authority into clear subsections for:
-   - spacing / gaps;
-   - layout/grid;
-   - geometry / radius;
-   - borders;
-   - interaction presentation;
-   - shadows;
-   - loading / skeleton / shimmer.
-5. **Do not invent missing authority.** A subsection may render only values/rules already verified in current WEX source, accepted ADRs, or mapped authority. If Shadows or Loading/Skeleton/Shimmer (or any other named subsection) has no existing WEX authority, do not create local CSS/tokens/examples to fill it. Record that category as an authority gap/deferred capability in the handoff instead.
-6. Design Tokens must remain a separate page and must no longer duplicate the Layout-owned spacing/layout/geometry content. It may show other already-authorised token material only; do not invent a new token taxonomy.
-7. Preserve Colour, Typography, and Actions behaviour exactly.
-8. Preserve canonical `@weerax/wex` bundle, shared header/footer/theme mechanics, accessibility, responsive behaviour, and main-only Pages deployment.
-9. Components remain deferred. No new shared UI component, schema, adapter, domain logic, token value, or presentation architecture is authorised.
-10. Keep every new/changed authored file <=600 lines.
+## Evidence
 
-## Required evidence
+- Passed: `pnpm audit:foundation`, runtime type-check, runtime tests (8/8),
+  production build, `pnpm check`, and `git diff --check`.
+- Build emitted root, `colour`, `typography`, `actions`, `layout`, and
+  `design-tokens` HTML entries.
+- Changed-file line counts: root 12; Colour 18; Typography 12; Actions 18;
+  Layout 18; Design Tokens 12; runtime test 96; Vite config 18; Layout map 48.
+  All are below the 600-line limit.
+- Chrome local-candidate validation in a new dedicated tab at
+  `http://127.0.0.1:5177/WEXdesigns/`: confirmed route order, Layout content,
+  empty Design Tokens route, Light/Dark toggle, focused keyboard skip link,
+  and compact responsive layout. The tab remains open; no existing user tab
+  was touched. Main-only GitHub Pages is unchanged and awaits any Reviewer
+  promotion decision.
 
-- authority audit for every proposed Layout subsection, explicitly marking present vs absent authority;
-- `pnpm audit:foundation`;
-- runtime type-check, tests, and production build;
-- `pnpm check`;
-- `git diff --check`;
-- exact changed-file line counts;
-- built-output proof for root + Colour + Typography + Actions + Layout + Design Tokens;
-- Chrome/local-candidate verification of navigation order, Light/Dark theme, keyboard/skip-link, responsive layout, and absence of duplicated Layout-owned groups on Design Tokens;
-- explicit proof that no new raw visual/token values were invented.
+No promotion to `main`, deletion of the topic branch, component work, schema,
+adapter, domain logic, or presentation architecture change was performed.
 
-Builder commits/pushes the bounded change, updates this same file to
-`AWAITING REVIEWER REVIEW` with exact SHA/evidence and any authority gaps, then stops.
+## Reviewer action
 
-Do not promote to `main` or delete the topic branch until Reviewer accepts this revision.
+Inspect the pushed candidate and issue the required verdict in this file.
