@@ -1,6 +1,6 @@
 # Code Map Baseline Refresh
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Verify and refresh demonstrated Code Maps
 
 ## Reviewer verdict
@@ -168,3 +168,18 @@ Phase: 2 — Promote and close
 6. Stop for final Reviewer closeout.
 
 No further Code Map content changes are authorised in this phase.
+
+## Builder closeout handoff
+
+- Promoted `origin/main`: `bf5f1fd9aebc7b05da75a0d521dcb9a83c3a0a8e`.
+- Main is the accepted candidate tip; its two promoted commits change only the
+  seven authorised Code Maps. Post-promotion `pnpm check` passed (Foundation
+  audit plus 35 Turbo checks), as did `git diff --check`.
+- Containment was proven with `git merge-base --is-ancestor
+  origin/docs/code-map-baseline-refresh origin/main` before deletion.
+- Remote topic branch `docs/code-map-baseline-refresh` was deleted. Verified
+  remaining remote heads: `main` at `bf5f1fd9aebc7b05da75a0d521dcb9a83c3a0a8e`
+  and `Project-work-instructions` at
+  `87f11081477e33aead1219c0b5225b0688c9598f`.
+- Deviation: Turbo repeated the existing `pnpm-lock.yaml` discovery warning,
+  but completed successfully. Unresolved findings: none.
