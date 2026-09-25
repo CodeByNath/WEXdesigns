@@ -1,7 +1,7 @@
 # Repository Governance + Pages Separation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: 1 — Governance and authority audit
+Status: AWAITING REVIEWER REVIEW
+Phase: 1 — Governance and authority audit submitted
 
 ## Reviewer verdict
 
@@ -59,4 +59,47 @@ After Reviewer accepts Phase 1:
 
 ## Builder handoff
 
-Run required deterministic checks, commit/push only Phase 1 on the authorised topic branch, update this same file to `AWAITING REVIEWER REVIEW` with exact SHA, changed files, audit findings and unresolved gates, then stop.
+Candidate branch: `feat/catalogue-pages-governance`
+Candidate SHA: `509d07ea9274fd68bf250f7c3a8355e1a37e0ab2`
+
+Changed source files:
+
+- `AGENTS.md`
+- `docs/foundation/README.md`
+- `docs/foundation/repository-governance.md`
+- `docs/code-map/README.md`
+- `docs/code-map/colour.md`
+- `docs/code-map/typography-font-delivery.md`
+- `docs/code-map/interaction-focus.md`
+
+Evidence:
+
+- remote heads were `main` and `Project-work-instructions` before opening the
+  authorised topic; the candidate is now the permitted third remote branch;
+- audit found only three tracked text files above 1,000 lines: hash-bound
+  `WEX-SOURCE.md` (3,007), hash-bound `composition-architecture.md` (1,952),
+  and `typography.css` (1,558);
+- the candidate establishes Foundation-scoped file, branch, and Code Map
+  governance; it records Typography modularisation as a semantics-preserving
+  pre-Pages migration gate;
+- `pnpm audit:foundation` passed;
+- `pnpm --filter @weerax/web-runtime test` passed (8/8);
+- `git diff --check` passed before commit.
+
+Pages/runtime audit: deployment is `main`-only and currently builds the single
+System Settings shell after web-runtime type-check, tests, and build. The shell
+currently combines Colour, Typography, Buttons, and the temporary static Outer
+states section. Phase 1 changed none of these runtime or workflow files, so no
+browser validation was required or performed.
+
+Unresolved gates for Reviewer:
+
+- Typography Pages must not begin until a separately authorised migration brings
+  `typography.css` below the absolute ceiling without selector, cascade, bundle,
+  or verification drift.
+- The two hash-bound historical authority files above 1,000 lines require an
+  Owner decision on a preservation or modularisation path before their next
+  substantive change; they were not altered in this documentation-only phase.
+
+Reviewer must independently inspect the pushed candidate and record a permitted
+verdict in this file. Builder stops here.

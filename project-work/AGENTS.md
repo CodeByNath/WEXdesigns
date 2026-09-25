@@ -34,6 +34,7 @@ After identifying the active actor and before executing the phase:
 6. Prefer assigning destructive Git housekeeping such as remote branch deletion to a Git/terminal-capable Builder surface. A connector-only Reviewer surface must not be treated as the executor for such work unless it actually exposes safe ref deletion.
 7. When a Builder session already has the required Git capability, complete authorised branch housekeeping in the same closeout transaction rather than leaving a known safe deletion for an incapable follow-up surface.
 8. Reviewer must verify the housekeeping evidence before opening the next implementation phase.
+9. Before opening a remote topic branch, inspect the remote heads and the authoritative repository-governance rule on `main`; do not exceed its three-branch capacity.
 
 A cycle is not considered executable merely because the role is authorised; the current executor must also be capable of completing the phase.
 
@@ -116,6 +117,8 @@ For work that changes the WEX web runtime, catalogue, GitHub Pages surface, or o
 - Keep one work area in one active work file until accepted or deferred.
 - Only one implementation/topic work branch may be active under `Project-work-instructions` at a time. Before authorising or creating the next work branch, the previous active branch must have reached its recorded phase boundary and be accepted, deferred, or otherwise explicitly closed by the Reviewer.
 - After accepted work has been promoted to `main` and independently verified, branch housekeeping is part of closing that work: remove the completed remote topic branch when it is proven safe to delete. Never delete `main` or `Project-work-instructions`, and never delete an unverified or still-needed branch merely to satisfy the one-active-branch rule.
+- For a demonstrated subject, require the relevant Code Map as the first operating stop before source inspection. Maps route to authority and evidence; they do not authorise product changes.
+- Apply the authoritative `main` repository-governance rule for authored-file limits and Owner-only exceptions. Record an exception, its reason, and its removal/review point in the active work file; no active work may authorise a file above the absolute ceiling.
 - Keep active files normally under roughly 600 words.
 - Repository/product rules come from authoritative project documentation and verified implementation, never from this coordination branch.
 - Never import product rules from another project.

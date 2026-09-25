@@ -21,6 +21,21 @@ Project-work-instructions
 - Do not assume local work, pushed commits, CI state, and runtime state are identical.
 - Reviewer verdicts are `Proceed`, `Proceed with safeguards`, and `Stop — architectural risk`.
 
+## Operating governance
+
+The authoritative `main` Foundation repository-governance rule controls
+authored-file limits, remote-branch capacity, and Code Map operating standards.
+This coordination branch enforces those limits for a controlled phase; it does
+not redefine them.
+
+- Before a topic branch is created, inspect remote heads and preserve the
+  three-branch maximum including `main` and `Project-work-instructions`.
+- An Owner-only file-length exception must identify the file, reason, and
+  removal or review point in the active work file. An exception never permits a
+  file above the absolute ceiling.
+- For a demonstrated subject, begin source investigation at its Code Map, then
+  use the linked authority and verified source to make decisions.
+
 ## Builder Responsibilities
 
 - Obey the current phase and scope.
