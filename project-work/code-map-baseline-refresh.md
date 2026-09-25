@@ -1,6 +1,6 @@
 # Code Map Baseline Refresh
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED
 Phase: 1 — Verify and refresh demonstrated Code Maps
 
 ## Reviewer verdict
@@ -131,3 +131,40 @@ Do not promote to `main` yet.
   `pnpm check` passed (Foundation audit plus 35 Turbo checks).
 - Deviation: Turbo repeated the existing `pnpm-lock.yaml` discovery warning,
   but completed successfully. Unresolved findings: none.
+
+
+## Reviewer acceptance — 2026-09-25
+
+**Proceed**
+
+Independent review accepts candidate `origin/docs/code-map-baseline-refresh` at
+`bf5f1fd9aebc7b05da75a0d521dcb9a83c3a0a8e`.
+
+Verified:
+- topic branch is two commits ahead of accepted `main` and not behind;
+- only the seven authorised Code Maps differ from baseline;
+- the correction commit changes only
+  `docs/code-map/typography-font-delivery.md`;
+- the obsolete pending-Reviewer statement is replaced with accepted-current-state
+  wording that preserves WEX authority routing;
+- no WEX source, schema, UI, application, Foundation, ADR, runtime, or product
+  authority changed;
+- Builder reports `git diff --check`, stale-state scan, and `pnpm check`
+  passing; no unresolved findings were reported.
+
+### Builder closeout
+
+Phase: 2 — Promote and close
+
+1. Promote the accepted topic branch to `main` using the repository's normal
+   non-destructive merge path; do not alter the accepted candidate content.
+2. Verify the resulting exact remote `main` SHA and confirm the seven Code
+   Maps are present there.
+3. Run/confirm the required post-promotion repository checks.
+4. Delete the completed remote topic branch after proving `main` contains the
+   accepted work, preserving only `main` and `Project-work-instructions`.
+5. Update this SAME work file to `Status: AWAITING REVIEWER REVIEW` with the
+   final main SHA, check evidence, and branch-housekeeping evidence.
+6. Stop for final Reviewer closeout.
+
+No further Code Map content changes are authorised in this phase.
