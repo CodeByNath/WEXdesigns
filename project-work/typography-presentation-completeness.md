@@ -1,7 +1,7 @@
 # Typography Presentation Completeness Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: Mandatory branch housekeeping before next workstream
+Status: AWAITING REVIEWER REVIEW
+Phase: Mandatory branch housekeeping submitted for independent verification
 
 ## Reviewer verdict
 
@@ -40,6 +40,27 @@ No new topic branch may be opened while that would exceed three remote branches.
 4. If proven obsolete/superseded, delete `origin/review/button-local-recovery`.
 5. Verify final remote branch set is exactly `main` + `Project-work-instructions` before opening the next topic branch.
 6. Record exact deletion/ref evidence in this file and stop for Reviewer.
+
+## Builder handoff — 2026-09-25
+
+Configured `origin` was verified as `https://github.com/CodeByNath/WEXdesigns.git`.
+
+- `origin/feat/typography-presentation-completeness` was exactly
+  `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04`, identical to accepted `origin/main`.
+  It was deleted with `git push origin --delete feat/typography-presentation-completeness`.
+- `origin/review/button-local-recovery` was
+  `19795644f033f43a7ebb99617d748fdce2c7e1ea`, with one old recovery commit not
+  contained in `main`. Its Button schema, presentation, WEX foundation, tests, and
+  documentation were retained in evolved form or superseded by accepted `main`
+  authority: ADRs 0005, 0007, and 0008. Its browser callback preview is explicitly
+  deferred by ADR 0008. It was therefore safely deleted with
+  `git push origin --delete review/button-local-recovery`.
+- Post-deletion `git ls-remote --heads origin` reports exactly:
+  `main` at `2e0ac6e313d24b424dd1933f85eaf203f6f3eb04` and
+  `Project-work-instructions` at `58949f4357e300177eb94dcf1aaffeb0c1f0eaab`.
+
+No source, runtime, or authority files changed. Reviewer must independently verify
+the deletion evidence before authorising the next workstream.
 
 ## Owner directives queued for the next workstream
 
