@@ -1,10 +1,17 @@
 # Layout
 
-## Verification
+## Current operating status
 
 - Created: 2026-09-19
-- Last verified: 2026-09-25
-- Verified against: `feat/catalogue-pages-governance` Phase 5 candidate (exact tip recorded in the active work file)
+- Last visited: 2026-09-25
+- Last updated: 2026-09-25
+- Verified against: `feat/catalogue-pages-governance` at `3d8bc521587c7c0a77d2943cc019430ea527f8e2`
+
+### Recent work (newest first)
+
+- `3d8bc52` (2026-09-25) added the independent Layout route and moved the
+  verified spacing, layout, geometry, border, and interaction presentation
+  groups from Design Tokens.
 
 ## Purpose and scope
 
@@ -19,11 +26,21 @@ This map navigates the demonstrated WEX page-frame, grid, recursive allocation, 
 
 ## Source and focused verification
 
-- Layout foundation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css)
+- Spacing/gaps foundation: [`packages/wex/src/foundations/spacing.css`](../../packages/wex/src/foundations/spacing.css)
+- Layout/grid foundation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css)
+- Geometry/radius and border foundation: [`packages/wex/src/foundations/geometry.css`](../../packages/wex/src/foundations/geometry.css)
+- Interaction presentation foundation: [`packages/wex/src/foundations/interaction.css`](../../packages/wex/src/foundations/interaction.css)
+- Related interaction colour authority: [`packages/wex/src/foundations/colour.css`](../../packages/wex/src/foundations/colour.css)
 - WEX bundle entrypoint: [`packages/wex/src/index.css`](../../packages/wex/src/index.css)
 - Demonstrated application consumption: [`apps/web-runtime/layout/index.html`](../../apps/web-runtime/layout/index.html), [`apps/web-runtime/src/catalogue.css`](../../apps/web-runtime/src/catalogue.css)
 - Shell/bundle checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
 - Authority and CSS-structure audit: [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
+
+## Deferred authority
+
+- Shadows and Loading/Skeleton/Shimmer have no current verified WEX authority.
+  They are not implemented presentation on the Layout route; do not add local
+  CSS, tokens, examples, or sections unless authority is established first.
 
 ## Dependency path and boundary
 
