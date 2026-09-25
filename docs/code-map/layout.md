@@ -3,8 +3,8 @@
 ## Verification
 
 - Created: 2026-09-19
-- Last verified: 2026-09-19
-- Verified against: `origin/main` at `b701a9d497442cf714c7ecbd39ee8660635d6f11`
+- Last verified: 2026-09-25
+- Verified against: `feat/catalogue-pages-governance` Phase 5 candidate (exact tip recorded in the active work file)
 
 ## Purpose and scope
 
@@ -21,7 +21,7 @@ This map navigates the demonstrated WEX page-frame, grid, recursive allocation, 
 
 - Layout foundation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css)
 - WEX bundle entrypoint: [`packages/wex/src/index.css`](../../packages/wex/src/index.css)
-- Demonstrated application consumption: [`apps/web-runtime/index.html`](../../apps/web-runtime/index.html), [`apps/web-runtime/src/catalogue.css`](../../apps/web-runtime/src/catalogue.css)
+- Demonstrated application consumption: [`apps/web-runtime/layout/index.html`](../../apps/web-runtime/layout/index.html), [`apps/web-runtime/src/catalogue.css`](../../apps/web-runtime/src/catalogue.css)
 - Shell/bundle checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
 - Authority and CSS-structure audit: [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 

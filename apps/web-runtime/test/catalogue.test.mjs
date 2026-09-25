@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readdir, readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-const pagePaths = ['index.html', 'colour/index.html', 'typography/index.html', 'actions/index.html', 'design-tokens/index.html'];
+const pagePaths = ['index.html', 'colour/index.html', 'typography/index.html', 'actions/index.html', 'layout/index.html', 'design-tokens/index.html'];
 const pages = await Promise.all(pagePaths.map(async (path) => [path, await readFile(new URL(`../${path}`, import.meta.url), 'utf8')]));
 const pageByPath = Object.fromEntries(pages);
 const pageSource = pages.map(([, source]) => source).join('\n');
@@ -11,12 +11,20 @@ const runtime = await readFile(new URL('../src/main.js', import.meta.url), 'utf8
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
 const elementDirectories = await readdir(new URL('../../../packages/catalogue/content/elements', import.meta.url));
 
-test('builds a root entry surface and four independent foundation routes', () => {
+test('builds a root entry surface and five independent foundation routes in order', () => {
   assert.deepEqual(Object.keys(pageByPath), pagePaths);
   assert.match(pageByPath['index.html'], /href="\.\/colour\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/typography\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/actions\/"/);
+  assert.match(pageByPath['index.html'], /href="\.\/layout\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/design-tokens\/"/);
+  const routes = ['./colour/', './typography/', './actions/', './layout/', './design-tokens/'];
+  const root = pageByPath['index.html'];
+  routes.reduce((lastIndex, route) => {
+    const index = root.indexOf(`href="${route}"`);
+    assert.ok(index > lastIndex, `${route} must follow the previous foundation route`);
+    return index;
+  }, -1);
   assert.doesNotMatch(pageByPath['index.html'], /data-wex-colour|type-system|wex-button/);
 });
 
@@ -60,13 +68,20 @@ test('keeps all registered typography specimens and computed facts on Typography
   assert.doesNotMatch(css, /font-(?:family|size|weight|style)|line-height|letter-spacing/);
 });
 
-test('limits Actions to existing Button presentation and Design Tokens to existing WEX values', () => {
+test('limits Actions to existing Button presentation', () => {
   const actions = pageByPath['actions/index.html'];
-  const tokens = pageByPath['design-tokens/index.html'];
   ['primary', 'neutral', 'subtle', 'warning', 'danger'].forEach((variant) => assert.match(actions, new RegExp(`wex-button--${variant}`)));
   assert.doesNotMatch(actions, /aria-pressed|onclick=|addEventListener\(['"]click/);
-  ['--wex-space-8', '--wex-layout-columns', '--wex-radius-default', '--wex-border-width-default'].forEach((token) => assert.match(tokens, new RegExp(`data-wex-value="${token}"`)));
-  assert.doesNotMatch(tokens, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
+});
+
+test('moves verified layout presentation values to Layout and keeps Design Tokens empty', () => {
+  const layout = pageByPath['layout/index.html'];
+  const tokens = pageByPath['design-tokens/index.html'];
+  ['--wex-space-8', '--wex-layout-columns', '--wex-radius-default', '--wex-border-width-default', '--wex-focus-width'].forEach((token) => assert.match(layout, new RegExp(`data-wex-value="${token}"`)));
+  assert.match(layout, /Spacing and gaps|Layout and grid|Geometry and radius|Borders|Interaction presentation/);
+  assert.doesNotMatch(layout, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
+  assert.match(tokens, /<h1 id="tokens-title"[^>]*>Design Tokens<\/h1>/);
+  assert.doesNotMatch(tokens, /data-wex-value|token-groups|token-group|token-list/);
 });
 
 test('uses the canonical WEX bundle and has no retained temporary state presentation', () => {
