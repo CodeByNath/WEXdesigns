@@ -1,51 +1,34 @@
 # Repository Governance + Pages Separation Work Cycle
 
-Status: BUILDER ACTION REQUIRED
-Phase: 6 — Promote accepted Layout revision to main
+Status: AWAITING REVIEWER REVIEW
+Phase: 6 — Layout revision promoted to main; deployment review required
 
-## Reviewer verdict
+## Builder handoff
 
-**Proceed**
+Promoted exact `main` SHA: `daf45d1d2138115db766d1011013817647ff24c7`
+Topic branch retained: `feat/catalogue-pages-governance` at the same SHA.
 
-The Layout revision and Code Map safeguard are accepted at topic head
-`daf45d1d2138115db766d1011013817647ff24c7`.
+`origin` was verified as `https://github.com/CodeByNath/WEXdesigns.git`.
+`main` was fast-forwarded only from accepted `685fd0e47d028c72526e20a0706c4cc916c6cacf`
+to the accepted topic head; no amend, rebase, squash, or source addition was
+made during promotion.
 
-Independent review confirmed:
-- the candidate is exactly two commits ahead of accepted `main`
-  `685fd0e47d028c72526e20a0706c4cc916c6cacf`;
-- the first commit adds the bounded Layout route/navigation revision;
-- the second commit changes only `docs/code-map/layout.md`;
-- navigation order is exactly `Colour | Typography | Actions | Layout | Design Tokens`;
-- Layout displays only verified WEX spacing, layout, geometry/border, and interaction presentation values;
-- Design Tokens is separate and no longer duplicates Layout-owned groups;
-- Shadows and Loading/Skeleton/Shimmer remain explicitly deferred because no verified WEX authority exists;
-- the Layout Code Map now records visit/update dates, the exact verified implementation SHA, newest-first recent work, all consumed authority paths, dependency boundary, safe-change route, and deferred authority;
-- no new token values, shared components, schemas, adapters, domain rules, or presentation architecture were introduced.
+## Deployment evidence
 
-## Phase 6 authorised scope
+- GitHub Actions [Deploy WEX index, run 24](https://github.com/CodeByNath/WEXdesigns/actions/runs/36132155869)
+  completed successfully for `daf45d1` on `main`.
+- Dedicated Chrome validation tab checked the deployed cache-busted release at
+  `https://codebynath.github.io/WEXdesigns/?v=daf45d1`.
+- The landing navigation order is exactly `Colour | Typography | Actions |
+  Layout | Design Tokens`.
+- Cache-busted deployed routes all loaded and exposed their intended content:
+  Colour, Typography, Actions, Layout, and the intentionally empty Design
+  Tokens route. Layout shows only the accepted verified groups.
 
-Promote the exact accepted topic head to `main` and verify the hosted result.
+The first Colour-route load was served from browser cache without the new
+Layout link; the cache-busted URL loaded the deployed current navigation. No
+existing user browser tabs were touched or closed; the dedicated validation tab
+remains open.
 
-Builder must:
-
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Verify `main` remains at
-   `685fd0e47d028c72526e20a0706c4cc916c6cacf`.
-3. Verify topic head remains
-   `daf45d1d2138115db766d1011013817647ff24c7`.
-4. Fast-forward `main` to that exact topic head only.
-5. Do not amend, rebase, squash, or add source changes.
-6. Push `main`.
-7. Verify the main-triggered GitHub Pages workflow completes successfully.
-8. Verify the deployed navigation and routes:
-   - Colour
-   - Typography
-   - Actions
-   - Layout
-   - Design Tokens
-9. Record exact main SHA, workflow/run result, deployment evidence, and any limitation in this same file.
-10. Set status to `AWAITING REVIEWER REVIEW` and stop.
-
-Do not delete `feat/catalogue-pages-governance` yet. Branch deletion is authorised only after Reviewer verifies the promoted main/deployment.
-
-No further runtime, WEX source, token, documentation-authority, schema, component, adapter, or product changes are authorised in this phase.
+No topic branch deletion was performed. Reviewer must verify the promotion and
+deployment before authorising closeout housekeeping.
