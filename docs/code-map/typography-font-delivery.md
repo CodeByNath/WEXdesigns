@@ -59,9 +59,10 @@ The font package is an external dependency of `@weerax/wex`. Applications import
 
 `typography.css` is now the four-line canonical importer. Its four modules are
 the original stylesheet's contiguous sections in core → Heading → Title →
-reset/Navigation/Body/icon-alias order; their concatenation exactly matched the
-pre-split stylesheet before the change was committed. The module test locks the
-order and line limit. The canonical `index.css` entrypoint, selectors,
+reset/Navigation/Body/icon-alias order. Their declarations and selectors retain
+the pre-split order; only the three section-ending blank delimiters were removed
+to satisfy whitespace checks. The module test locks the order and line limit.
+The canonical `index.css` entrypoint, selectors,
 declarations, registered values, tiers, and font delivery remain unchanged.
 
 Typography Pages work remains subject to Reviewer acceptance of this candidate;
