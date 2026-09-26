@@ -1,6 +1,6 @@
 # WEX DNA Presentation
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1B evidence completion — Page Heading DNA presentation
 
 ## Reviewer verdict
@@ -82,3 +82,23 @@ branch, rerun focused tests + `git diff --check` + `pnpm check`, push the new
 SHA, record the exact changed scope and browser evidence here, then stop.
 
 Do not promote to `main` yet.
+
+## Builder evidence completion — 2026-09-27
+
+No source changes were required. Validated exact pushed candidate
+`feat/wex-dna-presentation-v1` at
+`d6aa97dec8b817bdf80eb930df68a512b0f6797a` in Chrome local preview at
+`/WEXdesigns/design-tokens/`.
+
+- Desktop: WEX DNA hierarchy, Default, and the six registered attributes render
+  correctly in both light and dark themes; Light remains light on its black
+  catalogue-only scaffold.
+- Compact: at increased Chrome zoom (compact CSS viewport), the established
+  responsive layout remains readable and the attribute grid collapses to one
+  column without horizontal loss.
+- Keyboard: `Tab` exposes the visible Skip to content link; activating it moves
+  focus to `#main-content` (`tabindex="-1"`), with the current focus treatment
+  visible. Semantic inspection reports ordered H1 through H5 headings.
+
+No deviations or defects found. The candidate SHA and prior test evidence are
+unchanged; this handoff adds only the required browser boundary evidence.
