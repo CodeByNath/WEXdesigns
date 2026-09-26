@@ -74,14 +74,19 @@ test('limits Actions to existing Button presentation', () => {
   assert.doesNotMatch(actions, /aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
-test('moves verified layout presentation values to Layout and keeps Design Tokens empty', () => {
+test('moves verified layout presentation values to Layout and presents registered WEX DNA', () => {
   const layout = pageByPath['layout/index.html'];
   const tokens = pageByPath['design-tokens/index.html'];
   ['--wex-space-8', '--wex-layout-columns', '--wex-radius-default', '--wex-border-width-default', '--wex-focus-width'].forEach((token) => assert.match(layout, new RegExp(`data-wex-value="${token}"`)));
   assert.match(layout, /Spacing and gaps|Layout and grid|Geometry and radius|Borders|Interaction presentation/);
   assert.doesNotMatch(layout, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
-  assert.match(tokens, /<h1 id="tokens-title"[^>]*>Design Tokens<\/h1>/);
-  assert.doesNotMatch(tokens, /data-wex-value|token-groups|token-group|token-list/);
+  assert.match(pageByPath['index.html'], /href="\.\/design-tokens\/"><span[^>]*>WEX DNA<\/span>/);
+  assert.match(tokens, /<a aria-current="page" href="\.\/">WEX DNA<\/a>/);
+  assert.match(tokens, /<h1 id="wex-dna-title"[^>]*>WEX DNA<\/h1>/);
+  assert.match(tokens, /Heading DNA[\s\S]*Page Heading/);
+  ['Small', 'Light', 'Accent', 'Bold', 'Thin', 'Italic'].forEach((attribute) => assert.match(tokens, new RegExp(`<h5[^>]*>${attribute}<\\/h5>`)));
+  assert.match(tokens, /heading-dna__card--light-demo[\s\S]*heading-dna__specimen--light/);
+  assert.doesNotMatch(tokens, /Page Subheading|Layout Heading|Section Heading|Subsection Heading|Group Heading|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
 test('uses the canonical WEX bundle and has no retained temporary state presentation', () => {

@@ -2,15 +2,17 @@
 
 ## Current operating status
 
-- Last visited: 2026-09-26
-- Last updated: 2026-09-26
-- Verified against: `fix/page-heading-light-authority`, based on `origin/main`
-  at `40d815e7743eae8832f59e311af89fd5fcafd502`
+- Last visited: 2026-09-27
+- Last updated: 2026-09-27
+- Verified against: `feat/wex-dna-presentation-v1`, based on `origin/main`
+  at `5f428ceb3948247688d53019b0972157c4b2a601`
 - Registration status: Page Heading DNA v1 is the accepted, registered Heading
   DNA role. No other Heading DNA role is registered.
 
 ### Recent work (newest first)
 
+- Phase 1B presents registered Page Heading DNA on the existing runtime route
+  using existing WEX classes and foundation roles only.
 - Phase 1A corrects the accepted `Light` attribute reference to the existing,
   theme-independent `--wex-color-light` atom before any runtime presentation.
 - Phase 3 maps the accepted Page Heading DNA v1 definition to existing WEX
@@ -50,6 +52,9 @@ They do not supply or approve Heading DNA values.
   [`typography-modules.test.mjs`](../../packages/wex/test/typography-modules.test.mjs),
   [`colour-tokens.test.mjs`](../../packages/wex/test/colour-tokens.test.mjs), and
   [`validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
+- Runtime presentation and route check:
+  [`apps/web-runtime/design-tokens/index.html`](../../apps/web-runtime/design-tokens/index.html)
+  and [`catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
 
 ## Dependency boundary
 
