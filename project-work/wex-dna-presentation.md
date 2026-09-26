@@ -1,106 +1,84 @@
 # WEX DNA Presentation
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1B — Present accepted Page Heading DNA v1
+Status: BUILDER ACTION REQUIRED
+Phase: 1B evidence completion — Page Heading DNA presentation
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Accepted `main`: `5f428ceb3948247688d53019b0972157c4b2a601`.
+Candidate reviewed:
+`feat/wex-dna-presentation-v1` at
+`d6aa97dec8b817bdf80eb930df68a512b0f6797a`.
 
-## Reviewer closeout verification — 2026-09-26
+Accepted baseline:
+`main` at `5f428ceb3948247688d53019b0972157c4b2a601`.
 
-Phase 1A is accepted.
+## Independent Reviewer verification — 2026-09-27
 
-Independently verified:
-- remote `main` is exactly the accepted Light-authority SHA;
-- only `main` and `Project-work-instructions` remain remotely;
-- ADR 0012 on `main` maps Default to `--wex-color-text-primary` and
-  `Light` to persistent `--wex-color-light`;
-- the focused test rejects regression to `--wex-color-text-inverse`;
-- no runtime or colour-foundation source changed.
+The candidate is three commits ahead of accepted `main` and changes only:
 
-Safeguard: the Heading DNA Code Map still says it was verified against the
-deleted topic branch / old main baseline. Refresh that metadata as part of this
-phase; do not change its authority content.
+- `apps/web-runtime/design-tokens/index.html`;
+- `apps/web-runtime/index.html`;
+- `apps/web-runtime/src/catalogue.css`;
+- `apps/web-runtime/test/catalogue.test.mjs`;
+- `docs/code-map/heading-dna.md`.
 
-## Presentation scope
+Source/diff matches the authorised presentation boundary:
 
-Use the existing `apps/web-runtime/design-tokens/` route. Do not rename or
-move the route.
+- existing `/design-tokens/` route is preserved;
+- visible identity is **WEX DNA**;
+- only `Heading DNA -> Page Heading` is presented;
+- registered attributes are exactly `Small`, `Light`, `Accent`, `Bold`,
+  `Thin`, and `Italic`;
+- Default uses existing Heading Large / Regular / primary-colour presentation;
+- `Light` uses `--wex-color-light` on a black catalogue-only demonstration
+  surface and does not create a DNA background attribute;
+- `Accent` uses `--wex-color-text-accent`;
+- no raw colour values, new DNA roles, schemas, components, HTML-heading
+  ownership, page-builder system, brand customisation, or loading/shimmer work
+  entered the diff;
+- focused tests cover route/name/registered-role boundaries and the Light
+  specimen scaffold;
+- Heading DNA Code Map adds runtime routes/checks without becoming authority.
 
-Present:
-- shared navigation label: **WEX DNA**;
-- page title/H1: **WEX DNA**;
-- “Design Tokens” only as explanatory terminology;
-- only `Heading DNA -> Page Heading`;
-- Default as the complete DNA;
-- registered sparse attributes only:
-  - Size: `Small`
-  - Colour: `Light`, `Accent`
-  - Weight: `Bold`, `Thin`
-  - Style: `Italic`.
+No commit status or Actions run is attached to the candidate. Builder reports
+focused runtime tests, `git diff --check`, and `pnpm check` passing.
 
-Make inheritance clear: every attribute overrides only its registered concern
-and inherits everything else from Default.
+## Evidence safeguard
 
-## Binding colour behaviour
+The required browser handoff is incomplete. The work file required Chrome
+validation of the **exact candidate** for:
 
-```text
-Default -> --wex-color-text-primary -> follows global theme
-Light   -> --wex-color-light        -> remains light in both themes
-Accent  -> --wex-color-text-accent  -> existing WEX accent role
-```
+1. desktop presentation;
+2. compact/mobile layout;
+3. keyboard navigation, skip-link operation, and visible focus;
+4. light/dark theme behaviour.
 
-For the `Light` specimen, use a dark demonstration surface in both light and
-dark global themes so the persistent-light heading is legible. That surface is
-catalogue scaffolding only. It must not be encoded as Heading DNA, a background
-attribute, or parent-surface ownership.
+The Builder handoff records light/dark switching, semantic heading hierarchy,
+navigation, and the Light scaffold, but does not record compact-layout or
+keyboard/skip/focus validation. Source inspection is not a substitute for the
+required browser boundary.
 
-## Safeguards / exclusions
+## Builder instruction
 
-- Resolve specimens only through existing WEX foundation/token authority.
-- No raw visual values or parallel DNA/token resolver.
-- No new DNA roles, Heading component, schema, HTML heading ownership,
-  page-builder/composition system, brand customisation, loading/shimmer, or
-  background/surface attribute.
-- Preserve `/design-tokens/` compatibility.
-- Preserve established theme and accessibility behaviour.
-- Refresh Heading DNA Code Map runtime paths/checks and verification metadata
-  only as needed.
+Do not change source unless browser validation exposes a defect.
 
-## Required verification / handoff
+On the exact pushed SHA
+`d6aa97dec8b817bdf80eb930df68a512b0f6797a`:
 
-Builder must:
-1. confirm remote heads, then create one topic branch within the three-branch
-   maximum;
-2. update focused catalogue tests proving WEX DNA naming, route preservation,
-   Page Heading-only content, exact registered attributes, persistent Light
-   behaviour, and absence of speculative roles/raw values;
-3. run focused runtime tests, `git diff --check`, and `pnpm check`;
-4. validate the exact candidate in Chrome/local preview for desktop + compact
-   layout, keyboard/skip/focus behaviour, and light/dark presentation;
-5. push the topic branch;
-6. update this SAME file to `Status: AWAITING REVIEWER REVIEW` with exact
-   branch/SHA, changed files, checks, browser evidence, deviations, and gaps;
-7. stop for Reviewer.
+- validate compact/mobile layout in Chrome/approved Chromium;
+- validate keyboard-only navigation, Skip to content operation, and visible
+  focus treatment;
+- confirm the Light specimen remains light on its dark demonstration surface in
+  both global themes;
+- record viewport/context and outcome concisely.
 
-## Builder handoff — 2026-09-27
+If validation passes without source changes, update this SAME file to
+`Status: AWAITING REVIEWER REVIEW` with the missing browser evidence and stop.
 
-Candidate: `feat/wex-dna-presentation-v1` at
-`d6aa97dec8b817bdf80eb930df68a512b0f6797a`, pushed and verified on origin.
+If any defect requires a source change, fix only that defect on the same topic
+branch, rerun focused tests + `git diff --check` + `pnpm check`, push the new
+SHA, record the exact changed scope and browser evidence here, then stop.
 
-Changed files: `apps/web-runtime/design-tokens/index.html`, root
-`apps/web-runtime/index.html`, `apps/web-runtime/src/catalogue.css`, focused
-runtime test, and Heading DNA Code Map. The existing `/design-tokens/` route
-now presents WEX DNA -> Heading DNA -> Page Heading with Default and only the
-six registered sparse attributes. Light uses `--wex-color-light` on a black
-catalogue-only demonstration scaffold; no additional DNA/background attribute
-or raw visual value was introduced.
-
-Checks passed: focused runtime test, `git diff --check`, and `pnpm check`
-(Foundation audit and 35 Turbo tasks). Existing missing-`pnpm-lock.yaml` and
-Turbo output warnings did not prevent success. Chrome local-preview evidence:
-light/dark theme switching, semantic H1–H5 hierarchy, WEX DNA navigation, and
-the visible black Light scaffold were validated. No deviations or authority gaps.
+Do not promote to `main` yet.
