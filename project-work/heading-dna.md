@@ -1,7 +1,7 @@
 # Heading DNA
 
-Status: BLOCKED — DECISION REQUIRED
-Phase: 2 — Owner decisions before Heading DNA definition
+Status: BUILDER ACTION REQUIRED
+Phase: 3 — Define Page Heading DNA v1
 
 ## Reviewer verdict
 
@@ -122,3 +122,85 @@ Before Phase 3 may define Heading DNA, Owner must answer:
 7. DNA version/deprecation rule in v1, or defer?
 
 No Builder action is authorised until these Owner decisions are recorded.
+
+
+## Owner decisions — 2026-09-26
+
+The seven gates are resolved by a demonstrated-need rule rather than by
+pre-building the full future matrix.
+
+1. Do not register a complete heading family in advance. Start with
+   `Page Heading` only. Other heading roles are added only when demonstrated.
+2. `Page Subheading`, `Layout Heading`, `Section Heading`,
+   `Subsection Heading`, `Group Heading`, and any other role remain absent
+   until needed; absence is not permission for AI to improvise.
+3. Page Heading v1 may carry only presentation inputs demonstrated by the
+   current need and existing WEX authority. The Default is the complete DNA.
+4. Attributes are sparse overrides: an attribute changes only the concern it
+   owns and inherits every other value/behaviour from Default.
+5. Base DNA names are semantic. Attribute names may express governed variants
+   such as `Small`, `Light`, `Accent`, `Bold`, `Thin`, and
+   `Italic`; raw-value naming such as `32px` is not permitted.
+6. No-match rule: AI must use registered WEX DNA only. If no registered DNA or
+   attribute matches, it must request an Owner decision or consult an
+   authorised AI/WEX engineer. It must not invent, approximate, substitute,
+   or create a value/token/attribute.
+7. Version/deprecation machinery is deferred until a demonstrated change
+   requires it.
+
+Attribute usage rules are part of governance. Example: `Italic` is for text
+emphasis only and must not be used as decorative styling.
+
+## Phase 3 Builder instruction
+
+Define **Page Heading DNA v1 only** on the existing `heading-dna` topic branch.
+
+Required model:
+
+```text
+Page Heading
+├── Default
+└── Attributes
+    ├── Size
+    │   └── Small
+    ├── Colour
+    │   ├── Light
+    │   └── Accent
+    ├── Weight
+    │   ├── Bold
+    │   └── Thin
+    └── Style
+        └── Italic
+```
+
+Rules:
+- Default carries the complete Page Heading DNA required by current WEX
+  presentation, including the existing default typography, default dark
+  colour, loading/shimmer behaviour where current WEX authority already
+  defines it, and any other already-authoritative default needed for the role.
+- Do not invent missing visual values. Resolve mappings from current WEX
+  authority/source and existing Code Maps. If a required mapping is ambiguous
+  or absent, stop that item and report the authority gap.
+- Each attribute stores only its own delta from Default.
+- `Small` changes only the approved typography/size concern.
+- `Light` and `Accent` change only the approved colour concern.
+- `Bold` and `Thin` change only the approved weight concern.
+- `Italic` changes only the approved style concern and must carry the usage
+  instruction: text emphasis only; not decorative styling.
+- Do not duplicate inherited Default values inside attributes.
+- Do not create or modify a Heading component, HTML heading semantics,
+  component props, page-builder logic, arbitrary margins/layout composition,
+  brand customisation, or other DNA families.
+- Keep the Heading DNA Code Map as navigation; place normative DNA authority
+  in the repository location justified by existing architecture. If no
+  authoritative Design Token/DNA storage location exists, stop before
+  inventing one and report the architecture gate.
+
+Required evidence:
+- exact authority/source mappings used for every Default and attribute value;
+- changed-file list and why;
+- focused tests/validation appropriate to the chosen representation;
+- `git diff --check` and `pnpm check`;
+- pushed candidate SHA;
+- SAME work file -> `Status: AWAITING REVIEWER REVIEW`;
+- stop for Reviewer.
