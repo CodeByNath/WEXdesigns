@@ -1,7 +1,7 @@
 # Code Map Baseline Refresh
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1 — Verify and refresh demonstrated Code Maps
+Status: ACCEPTED
+Phase: Closed — Code Map Baseline Refresh
 
 ## Reviewer verdict
 
@@ -183,3 +183,14 @@ No further Code Map content changes are authorised in this phase.
   `87f11081477e33aead1219c0b5225b0688c9598f`.
 - Deviation: Turbo repeated the existing `pnpm-lock.yaml` discovery warning,
   but completed successfully. Unresolved findings: none.
+
+
+## Final Reviewer closeout — 2026-09-26
+
+**Proceed**
+
+Verified remote `main` is the accepted candidate at
+`bf5f1fd9aebc7b05da75a0d521dcb9a83c3a0a8e`.
+The completed topic branch is deleted; only `main` and
+`Project-work-instructions` remain. The seven authorised Code Maps are now
+the accepted navigation baseline. Work area closed.
