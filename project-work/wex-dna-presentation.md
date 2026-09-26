@@ -1,6 +1,6 @@
 # WEX DNA Presentation
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1A closeout — promote accepted Light authority correction
 
 ## Reviewer verdict
@@ -67,3 +67,21 @@ Then:
 
 Do not begin the WEX DNA GitHub Pages presentation yet. That presentation phase
 resumes only after Reviewer verifies this closeout.
+
+## Builder closeout handoff — 2026-09-26
+
+Promoted the exact accepted candidate to `origin/main` at
+`5f428ceb3948247688d53019b0972157c4b2a601`.
+
+Verified on remote main: ADR 0012 contains the persistent
+`Light -> --wex-color-light` mapping; the focused DNA test rejects a Light
+regression to `--wex-color-text-inverse`; and the Heading DNA Code Map records
+the authority correction. Post-promotion `pnpm check` passed (Foundation audit
+and 35 Turbo tasks); the existing missing-`pnpm-lock.yaml` and Turbo output
+warnings did not prevent success.
+
+Containment was proven with `git merge-base --is-ancestor
+origin/fix/page-heading-light-authority origin/main`. The contained remote
+topic branch was deleted. Final remote heads are only `main` at the SHA above
+and `Project-work-instructions`. No browser validation was required because
+Phase 1A changed no runtime. No deviations or unresolved issues.
