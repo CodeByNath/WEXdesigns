@@ -1,7 +1,7 @@
 # Heading DNA
 
-Status: BUILDER ACTION REQUIRED
-Phase: 4 — Promote accepted Heading DNA and close
+Status: AWAITING REVIEWER REVIEW
+Phase: 4 — Heading DNA promoted; final Reviewer closeout pending
 
 ## Reviewer verdict
 
@@ -413,3 +413,22 @@ Then:
 6. stop for final Reviewer closeout.
 
 No further Heading DNA content changes are authorised in this phase.
+
+## Phase 4 Builder handoff — 2026-09-26
+
+Promoted exact accepted topic tip
+`40d815e7743eae8832f59e311af89fd5fcafd502` to remote `main`; `origin/main`
+was verified at that same SHA.
+
+Post-promotion evidence: ADR 0012 reports accepted authority; the Heading DNA
+Code Map reports registered Page Heading DNA v1; root routing points to the
+accepted decision; and the focused test is present on `main`.
+`pnpm check` passed (Foundation audit and 35 Turbo tasks). The existing
+missing-`pnpm-lock.yaml` warning did not prevent success. Browser validation is
+n/a because this work did not change browser-facing implementation.
+
+Containment was proven with
+`git merge-base --is-ancestor origin/heading-dna origin/main`. The completed
+remote `heading-dna` branch was then deleted. Final remote heads are only
+`main` at `40d815e7743eae8832f59e311af89fd5fcafd502` and
+`Project-work-instructions`; no topic branch remains.
