@@ -1,87 +1,87 @@
 # WEX DNA Presentation
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1A closeout — promote accepted Light authority correction
+Status: BUILDER ACTION REQUIRED
+Phase: 1B — Present accepted Page Heading DNA v1
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Accepted candidate:
-`fix/page-heading-light-authority` at
-`5f428ceb3948247688d53019b0972157c4b2a601`.
+Accepted `main`: `5f428ceb3948247688d53019b0972157c4b2a601`.
 
-Baseline:
-`main` at `40d815e7743eae8832f59e311af89fd5fcafd502`.
+## Reviewer closeout verification — 2026-09-26
 
-## Independent Reviewer verification — 2026-09-26
+Phase 1A is accepted.
 
-The pushed candidate is exactly one commit ahead of accepted `main` and changes
-only:
+Independently verified:
+- remote `main` is exactly the accepted Light-authority SHA;
+- only `main` and `Project-work-instructions` remain remotely;
+- ADR 0012 on `main` maps Default to `--wex-color-text-primary` and
+  `Light` to persistent `--wex-color-light`;
+- the focused test rejects regression to `--wex-color-text-inverse`;
+- no runtime or colour-foundation source changed.
 
-- `docs/decisions/0012-page-heading-dna.md`;
-- `packages/wex/test/page-heading-dna.test.mjs`;
-- `docs/code-map/heading-dna.md`.
+Safeguard: the Heading DNA Code Map still says it was verified against the
+deleted topic branch / old main baseline. Refresh that metadata as part of this
+phase; do not change its authority content.
 
-Verified against the authorised Phase 1A scope:
+## Presentation scope
 
-- Page Heading Default remains `--wex-color-text-primary` and therefore stays
-  theme-aware.
-- `Light` now references the existing theme-independent
-  `--wex-color-light` atom and is explicitly documented to remain light in
-  every global theme.
-- `Accent`, `Small`, `Bold`, `Thin`, and `Italic` mappings are unchanged.
-- The focused test requires the persistent Light mapping and rejects regression
-  to `--wex-color-text-inverse`.
-- `colour.css` is untouched; no new colour token or raw value was introduced.
-- No runtime/catalogue, schema, component, HTML-heading, background ownership,
-  brand, loading/shimmer, or other DNA-family work entered the candidate.
-- The Heading DNA Code Map records the correction and remains navigation only.
-- No commit status or Actions run is attached to this topic commit. Builder
-  recorded successful focused test, `git diff --check`, and `pnpm check`;
-  there is no browser evidence requirement because Phase 1A changes no runtime.
+Use the existing `apps/web-runtime/design-tokens/` route. Do not rename or
+move the route.
 
-The authority correction matches the Owner decision:
+Present:
+- shared navigation label: **WEX DNA**;
+- page title/H1: **WEX DNA**;
+- “Design Tokens” only as explanatory terminology;
+- only `Heading DNA -> Page Heading`;
+- Default as the complete DNA;
+- registered sparse attributes only:
+  - Size: `Small`
+  - Colour: `Light`, `Accent`
+  - Weight: `Bold`, `Thin`
+  - Style: `Italic`.
+
+Make inheritance clear: every attribute overrides only its registered concern
+and inherits everything else from Default.
+
+## Binding colour behaviour
+
 ```text
-Default -> --wex-color-text-primary -> theme-aware
-Light   -> --wex-color-light        -> persistent light override
+Default -> --wex-color-text-primary -> follows global theme
+Light   -> --wex-color-light        -> remains light in both themes
+Accent  -> --wex-color-text-accent  -> existing WEX accent role
 ```
 
-## Builder closeout instruction
+For the `Light` specimen, use a dark demonstration surface in both light and
+dark global themes so the persistent-light heading is legible. That surface is
+catalogue scaffolding only. It must not be encoded as Heading DNA, a background
+attribute, or parent-surface ownership.
 
-Promote the exact accepted topic tip
-`5f428ceb3948247688d53019b0972157c4b2a601` to `main` using the normal
-non-destructive repository path.
+## Safeguards / exclusions
 
-Then:
+- Resolve specimens only through existing WEX foundation/token authority.
+- No raw visual values or parallel DNA/token resolver.
+- No new DNA roles, Heading component, schema, HTML heading ownership,
+  page-builder/composition system, brand customisation, loading/shimmer, or
+  background/surface attribute.
+- Preserve `/design-tokens/` compatibility.
+- Preserve established theme and accessibility behaviour.
+- Refresh Heading DNA Code Map runtime paths/checks and verification metadata
+  only as needed.
 
-1. verify remote `main` is exactly that accepted SHA;
-2. verify ADR 0012, the focused test, and Heading DNA Code Map are present;
-3. run/confirm post-promotion `pnpm check`;
-4. prove `fix/page-heading-light-authority` is contained in `main`;
-5. delete that completed remote topic branch after containment is proven,
-   preserving only `main` and `Project-work-instructions`;
-6. update this SAME work file to `Status: AWAITING REVIEWER REVIEW` with final
-   main SHA, checks, and branch-housekeeping evidence;
+## Required verification / handoff
+
+Builder must:
+1. confirm remote heads, then create one topic branch within the three-branch
+   maximum;
+2. update focused catalogue tests proving WEX DNA naming, route preservation,
+   Page Heading-only content, exact registered attributes, persistent Light
+   behaviour, and absence of speculative roles/raw values;
+3. run focused runtime tests, `git diff --check`, and `pnpm check`;
+4. validate the exact candidate in Chrome/local preview for desktop + compact
+   layout, keyboard/skip/focus behaviour, and light/dark presentation;
+5. push the topic branch;
+6. update this SAME file to `Status: AWAITING REVIEWER REVIEW` with exact
+   branch/SHA, changed files, checks, browser evidence, deviations, and gaps;
 7. stop for Reviewer.
-
-Do not begin the WEX DNA GitHub Pages presentation yet. That presentation phase
-resumes only after Reviewer verifies this closeout.
-
-## Builder closeout handoff — 2026-09-26
-
-Promoted the exact accepted candidate to `origin/main` at
-`5f428ceb3948247688d53019b0972157c4b2a601`.
-
-Verified on remote main: ADR 0012 contains the persistent
-`Light -> --wex-color-light` mapping; the focused DNA test rejects a Light
-regression to `--wex-color-text-inverse`; and the Heading DNA Code Map records
-the authority correction. Post-promotion `pnpm check` passed (Foundation audit
-and 35 Turbo tasks); the existing missing-`pnpm-lock.yaml` and Turbo output
-warnings did not prevent success.
-
-Containment was proven with `git merge-base --is-ancestor
-origin/fix/page-heading-light-authority origin/main`. The contained remote
-topic branch was deleted. Final remote heads are only `main` at the SHA above
-and `Project-work-instructions`. No browser validation was required because
-Phase 1A changed no runtime. No deviations or unresolved issues.
