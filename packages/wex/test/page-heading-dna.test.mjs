@@ -11,7 +11,7 @@ const heading = read(resolve(root, 'src/foundations/typography/heading.css'));
 const colour = read(resolve(root, 'src/foundations/colour.css'));
 const decision = read(resolve(root, '../../docs/decisions/0012-page-heading-dna.md'));
 
-test('keeps the proposed Page Heading DNA mapped only to registered WEX concerns', () => {
+test('keeps the accepted Page Heading DNA mapped only to registered WEX concerns', () => {
   assert.match(heading, /--wex-type-heading-large-font-size:/);
   assert.match(heading, /--wex-type-heading-large-font-family:/);
   assert.match(heading, /--wex-type-heading-large-line-height:/);
@@ -24,6 +24,8 @@ test('keeps the proposed Page Heading DNA mapped only to registered WEX concerns
   assert.match(colour, /--wex-color-text-primary:/);
   assert.match(colour, /--wex-color-text-inverse:/);
   assert.match(colour, /--wex-color-text-accent:/);
+  assert.match(decision, /Accepted — authority definition only/);
+  assert.doesNotMatch(decision, /\b[Pp]roposed\b/);
 
   for (const token of [
     '--wex-type-heading-large-font-family',

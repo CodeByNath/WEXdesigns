@@ -2,8 +2,8 @@
 
 ## Status
 
-Proposed — authority definition only; it is not registered for use until
-Reviewer acceptance. No implementation is authorised by this decision.
+Accepted — authority definition only. No implementation is authorised by this
+decision.
 
 ## Context and authority inspected
 
@@ -11,8 +11,12 @@ The accepted Owner direction authorises one demonstrated semantic role, `Page
 Heading`, rather than a pre-built heading family. The historical WEX authority
 maps Page Heading to the Heading type set. Its primary/default Heading
 selection is Regular, and it supplies registered Large, Small, Light,
-SemiBold, and Italic concerns. The current WEX runtime demonstrates Page
-Heading using the Heading Large tier; it does not own a competing token system.
+SemiBold, and Italic concerns. The root runtime page's `h1` in
+[`apps/web-runtime/index.html`](../../apps/web-runtime/index.html) uses
+`wex-type-heading-large-semibold`, demonstrating existing Heading Large-tier
+consumption without creating a competing token system. That runtime evidence
+establishes the tier only; the accepted Default weight remains the registered
+primary/default Heading weight below.
 
 The current WEX colour foundation supplies semantic text roles with light/dark
 theme inversion. `text-primary` is black in the default light theme, `text-
@@ -22,7 +26,7 @@ or HTML-heading-semantics authority exists.
 
 ## Decision
 
-`Page Heading` is the sole proposed Heading DNA role in v1. It has a complete
+`Page Heading` is the sole registered Heading DNA role in v1. It has a complete
 Default and sparse Attributes. Attribute names are semantic governed variants;
 they are not raw-value names.
 
@@ -124,6 +128,5 @@ component API, HTML heading ownership, margin, layout composition, runtime
 rendering, catalogue content, brand customisation, loading treatment, or other
 DNA family. Existing WEX foundations continue to deliver the mapped values.
 
-The proposed decision becomes usable only if accepted. A future consumer must
-be separately authorised and must consume these registered concerns without
-creating a parallel visual-value system.
+A future consumer must be separately authorised and must consume these
+registered concerns without creating a parallel visual-value system.

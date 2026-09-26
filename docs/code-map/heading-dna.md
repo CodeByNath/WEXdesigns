@@ -4,18 +4,18 @@
 
 - Last visited: 2026-09-26
 - Last updated: 2026-09-26
-- Verified against: `origin/main` at `bf5f1fd9aebc7b05da75a0d521dcb9a83c3a0a8e`
-- Registration status: Page Heading DNA v1 is a proposed authority candidate;
-  no Heading DNA is registered for use until its decision is accepted.
+- Verified against: `origin/heading-dna` at `b57d0e6b612f8f5132ccb1b913e86dd2bc3ccdd0`
+- Registration status: Page Heading DNA v1 is the accepted, registered Heading
+  DNA role. No other Heading DNA role is registered.
 
 ### Recent work (newest first)
 
-- Phase 3 maps one proposed Page Heading DNA v1 definition to existing WEX
+- Phase 3 maps the accepted Page Heading DNA v1 definition to existing WEX
   authority. It adds no CSS, schemas, components, or runtime presentation.
 
 ## Purpose and scope
 
-This map routes the demonstrated Heading DNA subject to its proposed authority,
+This map routes the demonstrated Heading DNA subject to its accepted authority,
 existing WEX evidence, and focused verification. It does not define HTML
 semantics, component behaviour, or layout composition.
 
@@ -24,7 +24,7 @@ semantics, component behaviour, or layout composition.
 - [Authority model](../architecture/authority-model.md)
 - [Repository map](../architecture/repository-map.md)
 - [Historical WEX source](../../packages/wex/src/source/WEX-SOURCE.md)
-- [Proposed Page Heading DNA v1](../decisions/0012-page-heading-dna.md)
+- [Page Heading DNA v1](../decisions/0012-page-heading-dna.md)
 - [Typography and font delivery map](typography-font-delivery.md)
 - [Colour map](colour.md)
 - [Spacing map](spacing.md)
@@ -52,19 +52,18 @@ They do not supply or approve Heading DNA values.
 
 ```text
 existing WEX authority and registered foundations
-  -> proposed Page Heading DNA authority decision
+  -> accepted Page Heading DNA authority decision
   -> WEX Design Tokens
   -> components and consuming applications
 ```
 
 Components collect registered Design Tokens; they do not establish Heading DNA.
-Until the proposed decision is accepted, AI may not use it. Once accepted, AI
-may use registered WEX Design Tokens only. If no registered DNA or attribute
+AI may use registered WEX Design Tokens only. If no registered DNA or attribute
 matches a requested role, it must request an Owner decision or consult an
 authorised AI/WEX engineer; it must not invent, approximate, substitute, or
 create a value, token, or attribute.
 
-The proposed DNA decision binds every DNA concern to existing WEX foundation
+The accepted DNA decision binds every DNA concern to existing WEX foundation
 token references. DNA records their approved relationship, never resolved raw
 values or aliases; Attributes remain sparse token-reference overrides. If the
 needed foundation token or reference mechanism does not exist, route that
@@ -72,7 +71,7 @@ concern to an architecture decision rather than hardcoding it.
 
 ## Registration boundary
 
-The proposed decision covers `Page Heading` only. All other heading roles,
+The accepted decision covers `Page Heading` only. All other heading roles,
 version/deprecation machinery, loading/shimmer behaviour, and any unproved
 presentation input remain absent. Their absence is not permission to improvise.
 
@@ -80,9 +79,8 @@ presentation input remain absent. Their absence is not permission to improvise.
 
 - Keep Heading DNA semantic and separate from component logic and HTML heading
   ownership.
-- Treat the decision as a proposed candidate until accepted; do not introduce
-  raw values, CSS custom properties, schemas, APIs, runtime rendering, margins,
-  or layout rules in order to consume it.
+- Do not introduce raw values, CSS custom properties, schemas, APIs, runtime
+  rendering, margins, or layout rules in order to consume it.
 - When no registered DNA or attribute matches a request, request an Owner
   decision or consult an authorised AI/WEX engineer; never invent,
   approximate, substitute, or create a value, token, or attribute.
