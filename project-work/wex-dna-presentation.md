@@ -86,3 +86,29 @@ Builder must:
 
 If correct presentation requires inventing a token/reference mechanism or new
 DNA authority, stop that item and report the gate instead.
+
+
+## Owner steering — Light colour specimen — 2026-09-26
+
+**Proceed**
+
+Clarification for Phase 1 presentation only:
+
+- `Page Heading / Light` does **not** own a background.
+- Its DNA delta remains the accepted colour override only; all other Page
+  Heading concerns inherit from Default.
+- The catalogue may use a dark demonstration surface behind the `Light`
+  specimen in both global theme views so the foreground role remains legible
+  and visually clear.
+- That dark specimen surface is presentation scaffolding only. Do not encode it
+  into Page Heading DNA, do not add a surface/background attribute, and do not
+  imply that the heading controls its parent background.
+- The actual heading foreground must continue to resolve dynamically through
+  the existing WEX colour/theme authority. Do not hardcode separate light-theme
+  or dark-theme values in the DNA presentation.
+- Preserve the accepted theme-aware swap behaviour: the registered colour role
+  resolves through WEX theme authority when the global theme changes.
+- Tests and browser evidence must distinguish the specimen context from the DNA
+  contract and prove no background ownership was introduced.
+
+No other Page Heading DNA mapping or attribute is reopened by this clarification.
