@@ -1,7 +1,7 @@
 # Heading DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3 — Heading DNA Code Map metadata correction pushed
+Status: BUILDER ACTION REQUIRED
+Phase: 4 — Promote accepted Heading DNA and close
 
 ## Reviewer verdict
 
@@ -373,3 +373,43 @@ HTML semantics, layout, or other DNA family changed. Checks passed:
 (Foundation audit and 35 Turbo tasks). The existing missing-`pnpm-lock.yaml`
 warning did not prevent success. Browser validation: n/a; no browser-facing
 implementation changed.
+
+
+## Final Phase 3 Reviewer verdict — 2026-09-26
+
+**Proceed**
+
+Independent review accepts `origin/heading-dna` at
+`40d815e7743eae8832f59e311af89fd5fcafd502`.
+
+Verified:
+- metadata correction is exactly one commit after
+  `001b5d2ec3ceae20061264fac4461def32403de5`;
+- that commit changes only `docs/code-map/heading-dna.md`;
+- the only correction is the Code Map verification metadata requested by the
+  prior Reviewer instruction;
+- the full topic branch remains four commits ahead of accepted `main` and
+  contains only the authorised Heading DNA navigation, ADR authority, routing,
+  and focused verification work;
+- no accepted DNA mapping, Attribute set, token reference, runtime, CSS,
+  schema, component, HTML semantics, layout, brand customisation, or other DNA
+  family changed.
+
+### Builder closeout
+
+Promote the exact accepted topic branch tip
+`40d815e7743eae8832f59e311af89fd5fcafd502` to `main` using the repository's
+normal non-destructive path.
+
+Then:
+1. verify exact remote `main` SHA and that ADR 0012, Heading DNA Code Map,
+   routing, and focused test are present;
+2. run/confirm required post-promotion checks, including `pnpm check`;
+3. prove the completed topic branch is contained in `main`;
+4. delete remote `heading-dna` after containment is proven, preserving only
+   `main` and `Project-work-instructions`;
+5. update this SAME work file to `Status: AWAITING REVIEWER REVIEW` with final
+   main SHA, checks, and branch-housekeeping evidence;
+6. stop for final Reviewer closeout.
+
+No further Heading DNA content changes are authorised in this phase.
