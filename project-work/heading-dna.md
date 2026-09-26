@@ -1,7 +1,7 @@
 # Heading DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1 — Agent/index routing, Code Map, and Owner questions
+Status: BLOCKED — DECISION REQUIRED
+Phase: 2 — Owner decisions before Heading DNA definition
 
 ## Reviewer verdict
 
@@ -88,3 +88,37 @@ Builder must:
 - commit and push the topic branch;
 - update this SAME file to `Status: AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, checks, and unresolved Owner questions;
 - stop for Reviewer.
+
+
+## Reviewer review — 2026-09-26
+
+**Proceed**
+
+Accepted candidate `origin/heading-dna` at
+`7cae718e395555e248c3fd05a9df7033ecf1d0de`.
+
+Verified:
+- exactly one commit ahead of accepted `main`;
+- changed only `AGENTS.md`, `docs/code-map/README.md`, and
+  `docs/code-map/heading-dna.md`;
+- agent routing is navigation-only;
+- the Heading DNA Code Map does not register roles or values;
+- all seven Owner questions remain explicit unresolved gates;
+- no CSS, schema, component API, runtime, HTML heading semantics, brand
+  customisation, or other Design Token family was introduced.
+
+### Owner decision gate
+
+Before Phase 3 may define Heading DNA, Owner must answer:
+
+1. Initial family: exactly `Page Heading`, `Page Subheading`,
+   `Layout Heading`, `Section Heading`?
+2. Defer `Subsection Heading` and `Group Heading` until demonstrated?
+3. Which v1 inputs may Heading DNA carry: typography, colour, responsive,
+   theme/inversion, spacing relationship, interaction/state?
+4. Which inputs are mandatory versus optional?
+5. Semantic-only names, with visual-size names prohibited?
+6. Exact no-match escalation rule for AI/agents?
+7. DNA version/deprecation rule in v1, or defer?
+
+No Builder action is authorised until these Owner decisions are recorded.
