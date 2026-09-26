@@ -1,7 +1,7 @@
 # Heading DNA
 
-Status: BUILDER ACTION REQUIRED
-Phase: 3 — Page Heading DNA v1 candidate pushed
+Status: AWAITING REVIEWER REVIEW
+Phase: 3 — Page Heading DNA v1 closeout correction pushed
 
 ## Reviewer verdict
 
@@ -317,3 +317,24 @@ Before promotion, on the SAME `heading-dna` branch only:
 7. Commit and push the bounded correction, then update this SAME work file to
    `Status: AWAITING REVIEWER REVIEW` with exact SHA and evidence.
 8. Stop for Reviewer. Do not merge to `main` yet.
+
+## Phase 3 closeout correction handoff — 2026-09-26
+
+Candidate: `heading-dna` at
+`001b5d2ec3ceae20061264fac4461def32403de5`, pushed and verified on
+`origin/heading-dna`.
+
+Changed only the Reviewer-requested closeout files: `AGENTS.md`, the Code Map
+index/map, Decisions index, ADR 0012, and the focused test. ADR 0012 now has
+accepted authority wording and Page Heading DNA v1 is registered in routing.
+The exact runtime evidence is `apps/web-runtime/index.html`, whose root-page
+`h1` uses `wex-type-heading-large-semibold`; the ADR limits that evidence to
+the Heading Large tier and retains Regular as the accepted Default weight token.
+
+No mapping, Attribute set, token reference, CSS, schema, component, runtime,
+HTML semantics, layout, or other DNA family changed. Checks passed:
+`git diff --check`; focused
+`node --test packages/wex/test/page-heading-dna.test.mjs`; and `pnpm check`
+(Foundation audit and 35 Turbo tasks). The existing missing-`pnpm-lock.yaml`
+warning did not prevent success. Browser validation: n/a; no browser-facing
+implementation changed.
