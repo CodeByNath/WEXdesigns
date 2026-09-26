@@ -1,6 +1,6 @@
 # Heading DNA
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Agent/index routing, Code Map, and Owner questions
 
 ## Reviewer verdict
@@ -63,6 +63,20 @@ Do not:
 - change existing Colour, Typography, Actions, Layout, Button, Spacing, or Sizing authority;
 - introduce brand customisation in this phase;
 - widen into other Design Token families.
+
+## Builder handoff evidence
+
+- Candidate: `heading-dna` at `7cae718e395555e248c3fd05a9df7033ecf1d0de`,
+  verified on `origin/heading-dna`.
+- Remote heads at creation: `main` and `Project-work-instructions`; topic is
+  permitted third branch.
+- Changed files: `AGENTS.md`, `docs/code-map/README.md`, and
+  `docs/code-map/heading-dna.md`.
+- Checks passed: `git diff --check`; `pnpm check` (Foundation audit; 35 Turbo
+  tasks). The existing missing-`pnpm-lock.yaml` warning did not prevent success.
+- Browser validation: n/a; no browser presentation changed.
+- No deviations. The seven Owner questions remain unresolved; no DNA values,
+  contracts, components, or implementation were added.
 
 ## Builder handoff
 
