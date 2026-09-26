@@ -1,7 +1,7 @@
 # Heading DNA
 
-Status: BUILDER ACTION REQUIRED
-Phase: 3 — Define Page Heading DNA v1
+Status: AWAITING REVIEWER REVIEW
+Phase: 3 — Page Heading DNA v1 candidate pushed
 
 ## Reviewer verdict
 
@@ -234,3 +234,43 @@ This rule is binding for Phase 3 before any Page Heading DNA implementation:
   hardcoding values.
 
 Builder must treat this section as part of the Phase 3 acceptance criteria.
+
+## Phase 3 Builder handoff — 2026-09-26
+
+Candidate: `heading-dna` at
+`b57d0e6b612f8f5132ccb1b913e86dd2bc3ccdd0`, pushed and verified on
+`origin/heading-dna`.
+
+The proposed authority is `docs/decisions/0012-page-heading-dna.md`; this uses
+the existing Decisions layer rather than inventing a DNA storage system. It is
+explicitly proposed, not yet registered or usable, pending Reviewer acceptance.
+
+Exact token-reference mappings:
+
+- Default: Heading Large family, size, line-height, and letter-spacing tokens;
+  `--wex-type-weight-regular`; `--wex-type-style-normal`; and
+  `--wex-color-text-primary` with existing theme resolution.
+- `Small`: only Heading Small size and line-height token references; all other
+  Default concerns inherit.
+- `Light` / `Accent`: only `--wex-color-text-inverse` /
+  `--wex-color-text-accent` respectively.
+- `Bold` / `Thin`: only `--wex-type-weight-semibold` /
+  `--wex-type-weight-light` respectively.
+- `Italic`: only `--wex-type-style-italic`, restricted to text emphasis and not
+  decorative styling.
+
+The binding dynamic atom-to-DNA rule is made explicit in the proposed decision,
+Code Map, and focused test: DNA stores only approved relationships to existing
+foundation tokens, never their resolved raw values; attributes are sparse. No
+heading loading/shimmer authority exists, so no such concern was added.
+
+Changed files: `AGENTS.md` and Code Map index/map route to the proposed
+authority; Decisions index and 0012 record it; the WEX focused test detects
+mapping drift and raw hex values. No CSS, schema, component, runtime, HTML
+heading semantics, layout, or other DNA family changed.
+
+Checks passed: `git diff --check`; focused
+`node --test packages/wex/test/page-heading-dna.test.mjs`; `pnpm check`
+(Foundation audit and 35 Turbo tasks). The existing missing-`pnpm-lock.yaml`
+warning did not prevent success. Browser validation: n/a; no browser-facing
+implementation changed.
