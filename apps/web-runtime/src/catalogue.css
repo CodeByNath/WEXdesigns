@@ -319,7 +319,7 @@ input:focus-visible,
 .heading-dna__header p, .heading-dna__header h2, .heading-dna__role-header h3, .heading-dna__default h4, .heading-dna__attributes h4, .heading-dna__card h5, .heading-dna__specimen { margin: 0; }
 .heading-dna__attribute-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--wex-space-16); }
 .heading-dna__card { align-content: start; gap: var(--wex-space-12); padding: var(--wex-space-24); background: var(--wex-color-layer-02); border: var(--wex-border-width-default) solid var(--wex-color-border-subtle); }
-.heading-dna__card--light-demo { background: var(--wex-color-dark); color: var(--wex-color-light); border-color: var(--wex-color-light-grey); }
+.heading-dna__card--light-demo { background: var(--wex-color-black); color: var(--wex-color-light); border-color: var(--wex-color-black); }
 .heading-dna__card--light-demo .heading-dna__inheritance { color: inherit; }
 .heading-dna__specimen--light { color: var(--wex-color-light); }
 .heading-dna__specimen--accent { color: var(--wex-color-text-accent); }
