@@ -22,7 +22,7 @@ test('keeps the accepted Page Heading DNA mapped only to registered WEX concerns
   assert.match(core, /--wex-type-weight-semibold:/);
   assert.match(core, /--wex-type-style-italic:/);
   assert.match(colour, /--wex-color-text-primary:/);
-  assert.match(colour, /--wex-color-text-inverse:/);
+  assert.match(colour, /--wex-color-light:/);
   assert.match(colour, /--wex-color-text-accent:/);
   assert.match(decision, /Accepted — authority definition only/);
   assert.doesNotMatch(decision, /\b[Pp]roposed\b/);
@@ -43,6 +43,8 @@ test('keeps the accepted Page Heading DNA mapped only to registered WEX concerns
   for (const attribute of ['Small', 'Light', 'Accent', 'Bold', 'Thin', 'Italic']) {
     assert.match(decision, new RegExp(`\\| \`${attribute}\` \\|`));
   }
+  assert.match(decision, /\| `Light` \| Colour \| `--wex-color-light`;/);
+  assert.doesNotMatch(decision, /\| `Light` \| Colour \| `--wex-color-text-inverse`/);
   assert.match(decision, /text emphasis only, never decorative styling/);
   assert.match(decision, /DNA owns\nthe approved relationship between existing WEX foundation tokens/);
   assert.match(decision, /must not copy or hardcode hex\ncolours, font sizes, font weights, line heights, spacing, radius\/border,/);

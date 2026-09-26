@@ -19,10 +19,10 @@ establishes the tier only; the accepted Default weight remains the registered
 primary/default Heading weight below.
 
 The current WEX colour foundation supplies semantic text roles with light/dark
-theme inversion. `text-primary` is black in the default light theme, `text-
-inverse` is its inverse role, and `text-accent` is the registered accent role.
-No heading-specific loading, shimmer, spacing, layout, interaction, component,
-or HTML-heading-semantics authority exists.
+theme inversion and the theme-independent `--wex-color-light` atom.
+`text-primary` is black in the default light theme and `text-accent` is the
+registered accent role. No heading-specific loading, shimmer, spacing, layout,
+interaction, component, or HTML-heading-semantics authority exists.
 
 ## Decision
 
@@ -103,7 +103,7 @@ concern. An Attribute must not duplicate an inherited Default value.
 | Attribute | Sole delta | Existing WEX mapping |
 | --- | --- | --- |
 | `Small` | Typography size/rhythm | `--wex-type-heading-small-font-size` and `--wex-type-heading-small-line-height`; Default family, letter-spacing, Regular weight, normal style, colour, and every other concern remain inherited. |
-| `Light` | Colour | `--wex-color-text-inverse`; its theme resolution remains owned by the existing colour foundation. |
+| `Light` | Colour | `--wex-color-light`; it remains light in every global theme and is used for headings on dark or coloured surfaces. |
 | `Accent` | Colour | `--wex-color-text-accent`; its theme resolution remains owned by the existing colour foundation. |
 | `Bold` | Weight | `--wex-type-weight-semibold`; `Bold` is the governed attribute name, not a new unregistered weight. |
 | `Thin` | Weight | `--wex-type-weight-light`; `Thin` is the governed attribute name, not a new unregistered weight. |

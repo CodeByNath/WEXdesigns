@@ -4,12 +4,15 @@
 
 - Last visited: 2026-09-26
 - Last updated: 2026-09-26
-- Verified against: `origin/heading-dna` at `001b5d2ec3ceae20061264fac4461def32403de5`
+- Verified against: `fix/page-heading-light-authority`, based on `origin/main`
+  at `40d815e7743eae8832f59e311af89fd5fcafd502`
 - Registration status: Page Heading DNA v1 is the accepted, registered Heading
   DNA role. No other Heading DNA role is registered.
 
 ### Recent work (newest first)
 
+- Phase 1A corrects the accepted `Light` attribute reference to the existing,
+  theme-independent `--wex-color-light` atom before any runtime presentation.
 - Phase 3 maps the accepted Page Heading DNA v1 definition to existing WEX
   authority. It adds no CSS, schemas, components, or runtime presentation.
 
