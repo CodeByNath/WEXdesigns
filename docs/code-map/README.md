@@ -35,6 +35,7 @@ If source moves or a map becomes stale, source and governing authority win. Corr
 
 - [Colour](colour.md)
 - [Typography and font delivery](typography-font-delivery.md)
+- [Heading DNA](heading-dna.md) — navigation only; Owner registration gates are unresolved.
 - [Actions and interaction](interaction-focus.md)
 - [Button system](button-system.md) — first demonstrated subject map.
 - [Spacing](spacing.md)
