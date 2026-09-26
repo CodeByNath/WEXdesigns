@@ -204,3 +204,33 @@ Required evidence:
 - pushed candidate SHA;
 - SAME work file -> `Status: AWAITING REVIEWER REVIEW`;
 - stop for Reviewer.
+
+
+## Owner steering — dynamic atom-to-DNA references — 2026-09-26
+
+This rule is binding for Phase 3 before any Page Heading DNA implementation:
+
+- The connection between WEX foundations/atoms and DNA must be dynamic and
+  tokenized.
+- DNA owns approved relationships to existing authoritative WEX foundation
+  tokens; it must not duplicate resolved raw values when authoritative tokens
+  already exist.
+- Raw values such as hex colours, pixel sizes, font weights, line heights,
+  spacing values, radius/border values, animation/loading values, or other
+  governed foundation values must not be copied into DNA when an authoritative
+  token/reference already exists.
+- If an underlying WEX foundation token changes, consuming DNA must inherit the
+  change without redefining duplicated raw values.
+- Attribute overrides follow the same rule: each attribute references only the
+  approved foundation token(s) for the concern it overrides and must not repeat
+  inherited Default values.
+- Conceptual resolution is:
+  `Foundation token -> Page Heading Default DNA reference -> sparse registered
+  attribute override -> consuming component/composition`.
+- Do not invent a new token system, raw alias, storage location, or token
+  naming convention to satisfy this rule.
+- If the repository lacks the required stable token/reference mechanism, stop
+  that implementation item and report the architecture gap instead of
+  hardcoding values.
+
+Builder must treat this section as part of the Phase 3 acceptance criteria.
