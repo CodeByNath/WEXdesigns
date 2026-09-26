@@ -1,6 +1,6 @@
 # WEX DNA Presentation
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1B closeout — promote accepted Page Heading DNA presentation
 
 ## Reviewer verdict
@@ -78,3 +78,23 @@ Then:
 8. stop for Reviewer.
 
 Do not begin another DNA family or presentation phase.
+
+## Builder closeout handoff — 2026-09-27
+
+The accepted presentation candidate
+`d6aa97dec8b817bdf80eb930df68a512b0f6797a` was fast-forwarded to
+`origin/main`. The final `origin/main` tip is now
+`14d772fc45103f6fc36a1381e05f87ecb2dfe672`, a metadata-only follow-up which
+refreshes the Heading DNA Code Map to verify against `origin/main` rather than
+the deleted topic branch.
+
+Post-promotion `pnpm check` passed: Foundation audit and all 35 Turbo tasks
+completed. Existing missing-lockfile and Turbo output warnings were non-fatal.
+Containment was proven before cleanup with
+`git merge-base --is-ancestor origin/feat/wex-dna-presentation-v1 origin/main`.
+The contained remote topic was then deleted; only `main` and
+`Project-work-instructions` remain.
+
+GitHub Pages workflow/deployment state could not be queried in this environment
+because the `gh` CLI is unavailable. No deployment status or live visual proof
+is claimed. Reviewer must perform the required hosted Pages verification.
