@@ -1,6 +1,6 @@
 # WEX DNA Presentation
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1A — Correct Page Heading Light authority before presentation
 
 ## Reviewer verdict
@@ -82,3 +82,22 @@ checks, and deviations. Stop for Reviewer.
 
 Only after this authority correction is accepted will the WEX DNA GitHub Pages
 presentation phase resume.
+
+## Builder handoff — 2026-09-26
+
+Candidate: `fix/page-heading-light-authority` at
+`5f428ceb3948247688d53019b0972157c4b2a601`, pushed and verified on origin.
+
+Changed files: `docs/decisions/0012-page-heading-dna.md`,
+`packages/wex/test/page-heading-dna.test.mjs`, and
+`docs/code-map/heading-dna.md`. The accepted `Light` mapping now references
+the existing theme-independent `--wex-color-light` token; Default and all
+other mappings are unchanged. The focused test requires that mapping and
+rejects `Light -> --wex-color-text-inverse`. No `colour.css` or runtime files
+changed.
+
+Checks passed: focused `node --test packages/wex/test/page-heading-dna.test.mjs`;
+`git diff --check`; and `pnpm check` (Foundation audit and 35 Turbo tasks).
+The existing missing-`pnpm-lock.yaml` and Turbo output warnings did not prevent
+success. Browser validation: n/a; Phase 1A excludes runtime/catalogue changes.
+No deviations or unresolved authority gaps.
