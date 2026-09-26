@@ -1,7 +1,7 @@
 # Heading DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4 — Heading DNA promoted; final Reviewer closeout pending
+Status: ACCEPTED
+Phase: Closed — Page Heading DNA v1 accepted
 
 ## Reviewer verdict
 
@@ -432,3 +432,23 @@ Containment was proven with
 remote `heading-dna` branch was then deleted. Final remote heads are only
 `main` at `40d815e7743eae8832f59e311af89fd5fcafd502` and
 `Project-work-instructions`; no topic branch remains.
+
+
+## Final Reviewer closeout — 2026-09-26
+
+**Proceed**
+
+Verified remote `main` at
+`40d815e7743eae8832f59e311af89fd5fcafd502` contains the accepted Page
+Heading DNA v1 authority, Heading DNA Code Map, repository routing, and focused
+verification.
+
+Verified repository state:
+- `main` is the accepted topic tip;
+- post-promotion `pnpm check` passed;
+- completed `heading-dna` topic branch was proven contained in `main` and
+  deleted;
+- only `main` and `Project-work-instructions` remain.
+
+Page Heading DNA v1 is accepted and this work area is closed. Future Heading
+DNA roles or attributes require a new demonstrated need and governed work.
