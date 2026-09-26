@@ -4,8 +4,8 @@
 
 - Last visited: 2026-09-27
 - Last updated: 2026-09-27
-- Verified against: `feat/wex-dna-presentation-v1`, based on `origin/main`
-  at `5f428ceb3948247688d53019b0972157c4b2a601`
+- Verified against: `origin/main` at
+  `d6aa97dec8b817bdf80eb930df68a512b0f6797a`
 - Registration status: Page Heading DNA v1 is the accepted, registered Heading
   DNA role. No other Heading DNA role is registered.
 
