@@ -4,7 +4,7 @@
 
 - Last visited: 2026-09-26
 - Last updated: 2026-09-26
-- Verified against: `origin/heading-dna` at `b57d0e6b612f8f5132ccb1b913e86dd2bc3ccdd0`
+- Verified against: `origin/heading-dna` at `001b5d2ec3ceae20061264fac4461def32403de5`
 - Registration status: Page Heading DNA v1 is the accepted, registered Heading
   DNA role. No other Heading DNA role is registered.
 
