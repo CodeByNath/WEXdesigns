@@ -1,7 +1,7 @@
 # Heading DNA
 
-Status: BUILDER ACTION REQUIRED
-Phase: 3 — Refresh Heading DNA Code Map verification metadata
+Status: AWAITING REVIEWER REVIEW
+Phase: 3 — Heading DNA Code Map metadata correction pushed
 
 ## Reviewer verdict
 
@@ -296,6 +296,19 @@ Do not change the authority, token references, attribute set, tests, runtime,
 or any other source. Run `git diff --check`, commit and push this one-file
 metadata correction, then update this SAME work file to
 `Status: AWAITING REVIEWER REVIEW` with the exact SHA and stop for Reviewer.
+
+## Metadata correction handoff — 2026-09-26
+
+Candidate: `heading-dna` at
+`40d815e7743eae8832f59e311af89fd5fcafd502`, pushed and verified on
+`origin/heading-dna`.
+
+Changed only `docs/code-map/heading-dna.md`: its `Verified against` metadata
+now identifies the current prior-reviewed candidate
+`001b5d2ec3ceae20061264fac4461def32403de5`, rather than the earlier
+`b57d0e6…` state. `git diff --check` passed. No authority, mapping, Attribute,
+test, runtime, or other source changed; per the bounded Reviewer instruction,
+no broader check or browser validation was required.
 
 
 ## Reviewer review — 2026-09-26
