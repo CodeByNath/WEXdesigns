@@ -1,6 +1,6 @@
 # WEX DNA Presentation
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1B — Present accepted Page Heading DNA v1
 
 ## Reviewer verdict
@@ -85,3 +85,22 @@ Builder must:
 6. update this SAME file to `Status: AWAITING REVIEWER REVIEW` with exact
    branch/SHA, changed files, checks, browser evidence, deviations, and gaps;
 7. stop for Reviewer.
+
+## Builder handoff — 2026-09-27
+
+Candidate: `feat/wex-dna-presentation-v1` at
+`d6aa97dec8b817bdf80eb930df68a512b0f6797a`, pushed and verified on origin.
+
+Changed files: `apps/web-runtime/design-tokens/index.html`, root
+`apps/web-runtime/index.html`, `apps/web-runtime/src/catalogue.css`, focused
+runtime test, and Heading DNA Code Map. The existing `/design-tokens/` route
+now presents WEX DNA -> Heading DNA -> Page Heading with Default and only the
+six registered sparse attributes. Light uses `--wex-color-light` on a black
+catalogue-only demonstration scaffold; no additional DNA/background attribute
+or raw visual value was introduced.
+
+Checks passed: focused runtime test, `git diff --check`, and `pnpm check`
+(Foundation audit and 35 Turbo tasks). Existing missing-`pnpm-lock.yaml` and
+Turbo output warnings did not prevent success. Chrome local-preview evidence:
+light/dark theme switching, semantic H1–H5 hierarchy, WEX DNA navigation, and
+the visible black Light scaffold were validated. No deviations or authority gaps.
