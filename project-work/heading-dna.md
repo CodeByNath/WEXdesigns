@@ -1,7 +1,7 @@
 # Heading DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3 — Page Heading DNA v1 closeout correction pushed
+Status: BUILDER ACTION REQUIRED
+Phase: 3 — Refresh Heading DNA Code Map verification metadata
 
 ## Reviewer verdict
 
@@ -274,6 +274,28 @@ Checks passed: `git diff --check`; focused
 (Foundation audit and 35 Turbo tasks). The existing missing-`pnpm-lock.yaml`
 warning did not prevent success. Browser validation: n/a; no browser-facing
 implementation changed.
+
+## Reviewer metadata audit — 2026-09-26
+
+**Proceed with safeguards**
+
+Independent review of `origin/heading-dna` at
+`001b5d2ec3ceae20061264fac4461def32403de5` confirms the accepted authority,
+runtime evidence, sparse token-reference model, no raw-value duplication, and
+all reported checks. The focused test and `pnpm check` also pass independently.
+
+### Required Builder correction
+
+On the SAME `heading-dna` branch only, update
+`docs/code-map/heading-dna.md`'s `Verified against` SHA from the prior
+`b57d0e6…` candidate to the currently reviewed `001b5d2…` candidate. This is
+required because the map itself changed in that correction; its metadata must
+identify the current checked source state under repository-governance rules.
+
+Do not change the authority, token references, attribute set, tests, runtime,
+or any other source. Run `git diff --check`, commit and push this one-file
+metadata correction, then update this SAME work file to
+`Status: AWAITING REVIEWER REVIEW` with the exact SHA and stop for Reviewer.
 
 
 ## Reviewer review — 2026-09-26
