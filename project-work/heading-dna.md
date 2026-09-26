@@ -1,6 +1,6 @@
 # Heading DNA
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED
 Phase: 3 — Page Heading DNA v1 candidate pushed
 
 ## Reviewer verdict
@@ -274,3 +274,46 @@ Checks passed: `git diff --check`; focused
 (Foundation audit and 35 Turbo tasks). The existing missing-`pnpm-lock.yaml`
 warning did not prevent success. Browser validation: n/a; no browser-facing
 implementation changed.
+
+
+## Reviewer review — 2026-09-26
+
+**Proceed with safeguards**
+
+Independent review accepts the Phase 3 architecture and token-reference model in
+candidate `origin/heading-dna` at
+`b57d0e6b612f8f5132ccb1b913e86dd2bc3ccdd0`.
+
+Verified:
+- candidate is one commit ahead of the previously accepted Heading DNA
+  navigation candidate;
+- DNA stores WEX foundation-token references, not duplicated raw values;
+- Default is complete and Attributes are sparse concern-only overrides;
+- no CSS, schema, component, runtime, HTML heading semantics, layout,
+  page-builder, brand-customisation, or other DNA family was introduced;
+- focused test rejects raw hex values and checks registered token references;
+- no loading/shimmer concern was invented because no current WEX authority
+  exists for it.
+
+### Required Builder closeout correction
+
+Before promotion, on the SAME `heading-dna` branch only:
+
+1. Change ADR 0012 from `Proposed` to accepted authority wording now that the
+   Reviewer has accepted its content.
+2. Update `docs/decisions/README.md`, `AGENTS.md`, and
+   `docs/code-map/heading-dna.md` so they no longer describe Page Heading DNA
+   v1 as merely proposed/unregistered.
+3. The ADR currently states that the current WEX runtime demonstrates Page
+   Heading using Heading Large. Preserve that claim only if the Builder can cite
+   the exact existing source/runtime path that proves it. Otherwise remove the
+   runtime-evidence claim and present Heading Large as the accepted Page Heading
+   Default mapping established by ADR 0012.
+4. Do not change the accepted mappings, attribute set, token references, or
+   architecture unless required by item 3's evidence correction.
+5. Update the focused test if wording/status assertions require it; do not turn
+   the test into a second specification.
+6. Run `git diff --check`, the focused Page Heading DNA test, and `pnpm check`.
+7. Commit and push the bounded correction, then update this SAME work file to
+   `Status: AWAITING REVIEWER REVIEW` with exact SHA and evidence.
+8. Stop for Reviewer. Do not merge to `main` yet.
