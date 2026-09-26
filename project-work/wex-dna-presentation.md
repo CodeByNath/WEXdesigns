@@ -1,13 +1,13 @@
 # WEX DNA Presentation
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1B evidence completion — Page Heading DNA presentation
+Status: BUILDER ACTION REQUIRED
+Phase: 1B closeout — promote accepted Page Heading DNA presentation
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Candidate reviewed:
+Accepted candidate:
 `feat/wex-dna-presentation-v1` at
 `d6aa97dec8b817bdf80eb930df68a512b0f6797a`.
 
@@ -16,7 +16,8 @@ Accepted baseline:
 
 ## Independent Reviewer verification — 2026-09-27
 
-The candidate is three commits ahead of accepted `main` and changes only:
+The pushed topic tip is unchanged from the reviewed candidate and remains three
+commits ahead of accepted `main`. The diff is still limited to:
 
 - `apps/web-runtime/design-tokens/index.html`;
 - `apps/web-runtime/index.html`;
@@ -24,81 +25,56 @@ The candidate is three commits ahead of accepted `main` and changes only:
 - `apps/web-runtime/test/catalogue.test.mjs`;
 - `docs/code-map/heading-dna.md`.
 
-Source/diff matches the authorised presentation boundary:
+Verified source boundaries remain correct:
 
-- existing `/design-tokens/` route is preserved;
-- visible identity is **WEX DNA**;
+- `/design-tokens/` is preserved while visible identity becomes **WEX DNA**;
 - only `Heading DNA -> Page Heading` is presented;
 - registered attributes are exactly `Small`, `Light`, `Accent`, `Bold`,
   `Thin`, and `Italic`;
-- Default uses existing Heading Large / Regular / primary-colour presentation;
-- `Light` uses `--wex-color-light` on a black catalogue-only demonstration
-  surface and does not create a DNA background attribute;
-- `Accent` uses `--wex-color-text-accent`;
-- no raw colour values, new DNA roles, schemas, components, HTML-heading
-  ownership, page-builder system, brand customisation, or loading/shimmer work
-  entered the diff;
-- focused tests cover route/name/registered-role boundaries and the Light
-  specimen scaffold;
-- Heading DNA Code Map adds runtime routes/checks without becoming authority.
+- Default remains theme-aware through existing WEX authority;
+- `Light` remains persistent via `--wex-color-light` and is demonstrated on a
+  black catalogue-only scaffold;
+- no background ownership, raw values, new DNA roles, schemas, components,
+  page-builder logic, brand customisation, or loading/shimmer entered scope;
+- route/name/role boundaries are covered by the focused runtime test.
 
-No commit status or Actions run is attached to the candidate. Builder reports
-focused runtime tests, `git diff --check`, and `pnpm check` passing.
+Builder has now completed the missing exact-candidate Chrome evidence:
+desktop, compact layout, keyboard-only navigation, Skip to content focus
+transfer, visible focus treatment, semantic heading order, theme switching, and
+persistent Light presentation were all recorded as passing without source
+changes.
 
-## Evidence safeguard
+No commit status or Actions run is attached to this topic commit. Builder's
+recorded focused runtime test, `git diff --check`, and `pnpm check` remain
+the deterministic pre-promotion evidence.
 
-The required browser handoff is incomplete. The work file required Chrome
-validation of the **exact candidate** for:
+## Safeguard
 
-1. desktop presentation;
-2. compact/mobile layout;
-3. keyboard navigation, skip-link operation, and visible focus;
-4. light/dark theme behaviour.
+Because GitHub Pages deploys from `main`, hosted/live behaviour is not yet
+proven. Promotion does not itself complete the presentation work. Reviewer must
+separately verify the live Pages deployment after Builder closeout.
 
-The Builder handoff records light/dark switching, semantic heading hierarchy,
-navigation, and the Light scaffold, but does not record compact-layout or
-keyboard/skip/focus validation. Source inspection is not a substitute for the
-required browser boundary.
+## Builder closeout instruction
 
-## Builder instruction
+Promote the exact accepted topic tip
+`d6aa97dec8b817bdf80eb930df68a512b0f6797a` to `main` using the normal
+non-destructive repository path.
 
-Do not change source unless browser validation exposes a defect.
+Then:
 
-On the exact pushed SHA
-`d6aa97dec8b817bdf80eb930df68a512b0f6797a`:
+1. verify remote `main` is exactly that accepted SHA;
+2. run/confirm post-promotion `pnpm check`;
+3. verify the relevant GitHub Pages workflow/deployment state for that SHA when
+   available and record its result without treating deployment success as visual
+   proof;
+4. prove `feat/wex-dna-presentation-v1` is contained in `main`;
+5. delete the contained remote topic branch, preserving only `main` and
+   `Project-work-instructions`;
+6. refresh Heading DNA Code Map verification metadata only if promotion leaves
+   stale topic-branch wording;
+7. update this SAME file to `Status: AWAITING REVIEWER REVIEW` with final main
+   SHA, checks, deployment/workflow evidence, branch-housekeeping evidence, and
+   any metadata-only follow-up commit if required;
+8. stop for Reviewer.
 
-- validate compact/mobile layout in Chrome/approved Chromium;
-- validate keyboard-only navigation, Skip to content operation, and visible
-  focus treatment;
-- confirm the Light specimen remains light on its dark demonstration surface in
-  both global themes;
-- record viewport/context and outcome concisely.
-
-If validation passes without source changes, update this SAME file to
-`Status: AWAITING REVIEWER REVIEW` with the missing browser evidence and stop.
-
-If any defect requires a source change, fix only that defect on the same topic
-branch, rerun focused tests + `git diff --check` + `pnpm check`, push the new
-SHA, record the exact changed scope and browser evidence here, then stop.
-
-Do not promote to `main` yet.
-
-## Builder evidence completion — 2026-09-27
-
-No source changes were required. Validated exact pushed candidate
-`feat/wex-dna-presentation-v1` at
-`d6aa97dec8b817bdf80eb930df68a512b0f6797a` in Chrome local preview at
-`/WEXdesigns/design-tokens/`.
-
-- Desktop: WEX DNA hierarchy, Default, and the six registered attributes render
-  correctly in both light and dark themes; Light remains light on its black
-  catalogue-only scaffold.
-- Compact: at increased Chrome zoom (compact CSS viewport), the established
-  responsive layout remains readable and the attribute grid collapses to one
-  column without horizontal loss.
-- Keyboard: `Tab` exposes the visible Skip to content link; activating it moves
-  focus to `#main-content` (`tabindex="-1"`), with the current focus treatment
-  visible. Semantic inspection reports ordered H1 through H5 headings.
-
-No deviations or defects found. The candidate SHA and prior test evidence are
-unchanged; this handoff adds only the required browser boundary evidence.
+Do not begin another DNA family or presentation phase.
