@@ -83,7 +83,7 @@ test('moves verified layout presentation values to Layout and presents registere
   ['--wex-space-8', '--wex-layout-columns', '--wex-radius-default', '--wex-border-width-default', '--wex-focus-width'].forEach((token) => assert.match(layout, new RegExp(`data-wex-value="${token}"`)));
   assert.match(layout, /Spacing and gaps|Layout and grid|Geometry and radius|Borders|Interaction presentation/);
   assert.doesNotMatch(layout, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
-  assert.match(pageByPath['index.html'], /href="\.\/global-tokens\/"><span[^>]*>WEX DNA<\/span>/);
+  assert.match(pageByPath['index.html'], /href="\.\/global-tokens\/"><span[^>]*>Global Tokens<\/span>/);
   assert.match(tokens, /<a aria-current="page" href="\.\/">Global Tokens<\/a>/);
   assert.match(tokens, /<h1 id="wex-dna-title"[^>]*>WEX DNA<\/h1>/);
   assert.match(tokens, /Heading DNA[\s\S]*Page Heading/);
