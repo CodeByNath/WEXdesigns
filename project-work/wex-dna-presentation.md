@@ -72,12 +72,10 @@ this Global Tokens work can be closed.
   -> Small; Heading Default base; ordered Colour, Weight, Style, Size / Large,
   and Size / Small cards; light and dark themes; and compact single-column
   wrapping. Direct hosted HTML retrieval returned the same required content.
-- Limitation: Chrome served a previously cached document at the bare Pages URL
-  even after a hard reload; the cache-busting URL was current. The shared
-  Chrome window returned to the user's tab during the live keyboard attempt,
-  so the live skip-link transfer was not completed in this phase. The candidate
-  local keyboard evidence remains recorded from Phase 3A. No further browser
-  interaction was attempted to preserve user tabs.
+- Browser rerun: in the dedicated live tab, Light and Dark both rendered
+  correctly; compact cards wrapped cleanly; Tab focused Skip to content; and
+  Enter transferred to `#main-content`. The bare Pages URL still held an older
+  Chrome cache entry; the cache-busting URL served the current deployment.
 
 Builder stopped after the required promotion and handoff. Reviewer must verify
-the cache behaviour and live keyboard transfer before closeout.
+the remaining bare-URL cache behaviour before closeout.
