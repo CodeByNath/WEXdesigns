@@ -8,9 +8,9 @@ Phase: 1 — Establish Global Components page and ecosystem entrypoint
 **Proceed with safeguards**
 
 Prerequisite accepted `main`:
-`0fb41926c3ca4ace21e083ce62b0c06f242cbdc4`.
+`e62818163b21bff94c77f2b4a0b6dfb889d7b971`.
 
-Global Tokens / Typography DNA is closed after Owner live-browser validation.
+Global Tokens / Typography DNA is closed after Owner live-browser validation and the Reviewer-accepted Light-demo card border correction through `e62818163b21bff94c77f2b4a0b6dfb889d7b971`.
 The completed remote `feat/global-tokens-remaining` branch must be removed
 before a new topic branch is opened.
 
@@ -26,7 +26,7 @@ registered component. This phase does **not** authorise new component families.
 ## Required Builder work
 
 1. Reconfirm `main` is exactly
-   `0fb41926c3ca4ace21e083ce62b0c06f242cbdc4`.
+   `e62818163b21bff94c77f2b4a0b6dfb889d7b971`.
 2. Delete the completed remote `feat/global-tokens-remaining` branch; verify
    only `main` and `Project-work-instructions` remain before creating one new
    topic branch for this phase.
