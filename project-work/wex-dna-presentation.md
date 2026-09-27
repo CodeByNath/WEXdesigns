@@ -1,6 +1,6 @@
 # Global Tokens / Typography DNA
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 2 — Replace Page Heading DNA with typography-aligned Global Tokens
 
 ## Reviewer verdict
@@ -87,9 +87,23 @@ No component implementation, page-builder, new type family, new size tier,
 cross-tier pairing, raw visual values, brand customisation, or speculative DNA
 families.
 
-## Verification / handoff
+## Builder handoff
 
-Update focused authority/runtime tests, run `git diff --check` and `pnpm check`,
-Chrome-validate desktop + compact + light/dark + keyboard/focus, push, then
-update this SAME file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence and
-stop.
+Candidate: `feat/global-tokens-typography` at
+`a6df4aa39439021976d39393b9718f8caf30cb68` (pushed to `origin`).
+
+- Replaced ADR 0012, its map, and its focused test with Global Tokens /
+  Typography authority; Typography source values and canonical classes are
+  unchanged.
+- `/global-tokens/` now presents Heading, Title, Navigation, and Body at Small,
+  Default, and Large, including Heading Default, plus additive attributes.
+- Passed `git diff --check`, focused authority/runtime tests (9 passing), and
+  `pnpm check` (35 successful tasks). The check emitted only existing
+  Turborepo lockfile/output-cache warnings.
+- Chrome local candidate preview at `/WEXdesigns/global-tokens/` passed desktop
+  and compact layouts, light/dark theme switching, semantic heading order,
+  visible keyboard focus, and skip-link transfer to `#main-content`.
+
+Limitation: this candidate cannot appear on the production GitHub Pages URL
+until promotion to `main`; live Pages behaviour remains a separate Reviewer
+evidence boundary. Stop for Reviewer review.
