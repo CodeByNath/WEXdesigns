@@ -1,6 +1,6 @@
 # Global Tokens / Typography DNA
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 3B — Promote accepted Owner correction and validate live runtime
 
 ## Reviewer verdict
@@ -60,3 +60,24 @@ Using the existing topic branch only:
 
 After final Reviewer verification, the completed topic branch may be removed and
 this Global Tokens work can be closed.
+
+## Builder handoff
+
+- Promoted `main`: `ca42918152a930700c2cd5f440c94d8723e31d8f`; remote SHA
+  verified exact. Topic branch remains for independent review.
+- Pages deployment: workflow **Deploy WEX index**, run 31, completed
+  successfully for that SHA at
+  `https://github.com/CodeByNath/WEXdesigns/actions/runs/36293478808`.
+- Fresh hosted evidence: the cache-busting live URL rendered Large -> Default
+  -> Small; Heading Default base; ordered Colour, Weight, Style, Size / Large,
+  and Size / Small cards; light and dark themes; and compact single-column
+  wrapping. Direct hosted HTML retrieval returned the same required content.
+- Limitation: Chrome served a previously cached document at the bare Pages URL
+  even after a hard reload; the cache-busting URL was current. The shared
+  Chrome window returned to the user's tab during the live keyboard attempt,
+  so the live skip-link transfer was not completed in this phase. The candidate
+  local keyboard evidence remains recorded from Phase 3A. No further browser
+  interaction was attempted to preserve user tabs.
+
+Builder stopped after the required promotion and handoff. Reviewer must verify
+the cache behaviour and live keyboard transfer before closeout.
