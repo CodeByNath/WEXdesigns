@@ -38,7 +38,7 @@ If source moves or a map becomes stale, source and governing authority win. Corr
 - [Global Tokens / Typography DNA](global-tokens.md) — navigation to the
   accepted Typography-aligned Global Tokens authority.
 - [Global Components Catalogue](global-components.md) — navigation to the
-  registered shared-component catalogue entrypoint and Button authority.
+  shared-component catalogue entrypoint and its registration boundary.
 - [Actions and interaction](interaction-focus.md)
 - [Button system](button-system.md) — first demonstrated subject map.
 - [Spacing](spacing.md)

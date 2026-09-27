@@ -81,14 +81,12 @@ test('limits Actions to existing Button presentation', () => {
   assert.doesNotMatch(actions, /aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
-test('registers Button as the first Global Components catalogue entry without duplicating it', () => {
+test('keeps the Global Components catalogue entrypoint empty', () => {
   const components = pageByPath['global-components/index.html'];
   assert.match(components, /<a aria-current="page" href="\.\/">Global Components<\/a>/);
   assert.match(components, /<h1 id="global-components-title"[^>]*>Global Components<\/h1>/);
   assert.match(components, /Registered components/);
-  assert.match(components, /Button is the first proven global component family/);
-  assert.match(components, /href="\.\.\/actions\/"[\s\S]*>Button<\/span>/);
-  assert.doesNotMatch(components, /wex-button|<button|aria-pressed|onclick=|addEventListener\(['"]click/);
+  assert.doesNotMatch(components, /Button|wex-button|<button|aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
 test('moves verified layout presentation values to Layout and presents Typography-aligned Global Tokens', () => {

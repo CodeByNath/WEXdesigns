@@ -30,4 +30,4 @@
 
 ## Foundation Stop Gate
 
-The Global Components catalogue registers only the already-approved Button family. Any additional component family, page layout, customer UI, admin UI, demo screen, or entity-specific presentation requires a separately approved phase.
+The Global Components catalogue currently has no registered component family. Any component family, page layout, customer UI, admin UI, demo screen, or entity-specific presentation requires a separately approved phase.
