@@ -4,13 +4,16 @@
 
 - Last visited: 2026-09-27
 - Last updated: 2026-09-27
-- Verified against: `feat/global-tokens-typography` Phase 3C candidate from
-  `origin/main` at `ca42918152a930700c2cd5f440c94d8723e31d8f`
+- Verified against: Phase 4 Builder candidate on
+  `feat/global-tokens-remaining`, based on `origin/main` at
+  `21983ed56c442f41c4496e1677bdf6fa8c46189f`
 - Registration status: Global Tokens augment the canonical WEX Typography
   vocabulary; no page-specific role is registered.
 
 ### Recent work (newest first)
 
+- Phase 4 presents every existing Typography role with its Default base atom
+  first, followed only by its sparse role-valid attributes.
 - Phase 3C makes registered Heading Default attributes the primary Global
   Tokens showcase; Typography retains tier presentation authority.
 - Phase 2 supersedes Page Heading DNA with Typography-aligned Global Tokens.
@@ -78,16 +81,17 @@ an architecture decision rather than hardcoding it.
 ## Registration boundary
 
 The accepted decision covers the existing `Heading`, `Title`, `Navigation`, and
-`Body` roles at their existing tiers. Heading Default is the Design Token base
-for sparse Heading Size / Large and Size / Small relationships; Typography
-retains every resolved tier value and class. The decision creates no new roles,
-versioning, loading/shimmer behaviour, or unproved presentation input.
+`Body` roles at their existing tiers. Every role's Default selection is its
+Design Token base; role-valid Size / Large and Size / Small relationships refer
+only to the same role's existing classes/tokens. Typography retains every
+resolved tier value and class. The decision creates no new roles, versioning,
+loading/shimmer behaviour, or unproved presentation input.
 
 ## Safe change routing
 
 - Preserve the existing Typography role, tier, values, canonical classes, and
-  tier-pairing rule. Heading Size attributes may reference only the existing
-  Heading Large or Heading Small selection and change size/rhythm alone.
+  tier-pairing rule. Each role's Size attributes may reference only its own
+  existing Large or Small selection and change size/rhythm alone.
 - Do not introduce raw values, CSS custom properties, schemas, APIs, margins,
   or layout rules in order to consume Global Tokens.
 - When no existing Typography selection or registered attribute matches a

@@ -44,11 +44,15 @@ test('keeps Global Tokens bound to the complete existing Typography vocabulary',
   assert.match(decision, /`Weight \/ Bold`.*`--wex-type-weight-semibold`/);
   assert.match(decision, /`Weight \/ Thin`.*`--wex-type-weight-light`/);
   assert.match(decision, /`Style \/ Italic`.*`--wex-type-style-italic`/);
-  assert.match(decision, /`Heading Default` is the base/);
-  assert.match(decision, /Heading\nSize attributes reference the existing Heading Large or Heading Small/);
-  assert.match(decision, /`Size \/ Large`.*Existing Heading Large Typography class\/tokens/);
-  assert.match(decision, /`Size \/ Small`.*Existing Heading Small Typography class\/tokens/);
-  assert.match(decision, /must not locally assign a colour, weight,\nstyle, or size/);
+  assert.match(decision, /Each\nrole's existing Default selection is its Design Token base/);
+  for (const role of ['Heading', 'Title', 'Navigation', 'Body']) {
+    assert.match(decision, new RegExp(`\\| \`${role} Default\` \\|`));
+  }
+  assert.match(decision, /Size attributes reference the existing Large or Small selection of\nthe same role/);
+  assert.match(decision, /`Size \/ Large`.*Existing same-role Large Typography class\/tokens/);
+  assert.match(decision, /`Size \/ Small`.*Existing same-role Small Typography class\/tokens/);
+  assert.match(decision, /Navigation Weight\n+attribute/);
+  assert.match(decision, /must not locally assign a colour, weight, style, or\nsize/);
   assert.doesNotMatch(decision, /Size is not a Global Token attribute/);
   assert.doesNotMatch(decision, /\bPage Heading\b(?! DNA v1)/);
   assert.doesNotMatch(decision, /#[0-9a-f]{3,8}\b/i);
