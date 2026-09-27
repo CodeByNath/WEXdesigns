@@ -319,7 +319,7 @@ input:focus-visible,
 .global-tokens__header p, .global-tokens__header h2, .global-tokens__role-header h3, .global-tokens__attributes h3, .global-tokens__card h4, .global-tokens__specimen { margin: 0; }
 .global-tokens__attribute-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--wex-space-16); }
 .global-tokens__card { align-content: start; gap: var(--wex-space-12); padding: var(--wex-space-24); background: var(--wex-color-layer-02); border: var(--wex-border-width-default) solid var(--wex-color-border-subtle); }
-.global-tokens__card--light-demo { background: var(--wex-color-black); color: var(--wex-color-white); border-color: var(--wex-color-border-primary); }
+.global-tokens__card--light-demo { background: var(--wex-color-black); color: var(--wex-color-white); border-color: var(--wex-color-border-subtle); }
 .global-tokens__card--light-demo .global-tokens__inheritance { color: inherit; }
 .global-tokens__specimen--light { color: var(--wex-color-white); }
 .global-tokens__specimen--accent { color: var(--wex-color-text-accent); }
