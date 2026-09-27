@@ -1,6 +1,6 @@
 # Global Tokens / Typography DNA
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 3C — Final Global Tokens presentation cleanup
 
 ## Reviewer verdict
@@ -78,3 +78,25 @@ Using the existing topic branch only:
 This is the final correction inside the current Global Tokens work. After
 Reviewer accepts the pushed result and verifies the hosted page, the topic
 branch can be removed and this work closed.
+
+## Builder handoff
+
+- Candidate: `feat/global-tokens-typography` at
+  `5ff024f94d555648136839e27044b77bb90655ff`.
+- Removed only the redundant Canonical vocabulary / tier-card showcase. The
+  runtime now presents Heading Default and its seven registered attributes as
+  the sole Global Tokens showcase, in the specified order.
+- Corrected the registered Colour / Light relationship in ADR 0012, the Light
+  presentation selectors, and tests to existing `--wex-color-white`; no WEX
+  Colour foundation/token storage changed.
+- Modified files: runtime markup, its existing Light selectors and focused
+  test, ADR 0012, Global Tokens Code Map, and focused WEX test only.
+- Evidence: `git diff --check` passed; focused Node tests passed (9/9);
+  `pnpm check` passed (35/35 tasks). Local Chrome in a separate tab confirmed
+  the simplified semantic heading hierarchy, compact card wrap, light/dark,
+  visible white Light specimen, and Tab/Enter skip-link transfer to
+  `#main-content`.
+
+Builder stopped after pushing this candidate. Reviewer must inspect it and
+decide promotion/closeout; `main` remains
+`ca42918152a930700c2cd5f440c94d8723e31d8f`.
