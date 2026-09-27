@@ -20,20 +20,22 @@ role.
 
 ## Decision
 
-Every existing canonical Typography role/tier is a Global Tokens base:
+Every existing canonical Typography role/tier remains owned by Typography. For
+the Heading Design Token relationship, `Heading Default` is the base:
 
 ```text
-existing Typography role + tier
-  -> existing primary presentation
-  -> optional sparse Global Token attributes
+Heading Default
+  -> existing Default presentation
+  -> optional sparse Colour, Weight, Style, and Size attributes
   -> component-ready presentation
 ```
 
-`Size` is not a Global Token attribute. Size and rhythm remain the existing
-Typography tier. A component first selects an existing canonical Typography
-token/class, then may apply only a registered attribute that changes its named
-concern. It must not locally assign a colour, weight, or style where the
-registered mapping exists.
+A component first selects an existing canonical Typography token/class, then
+may apply only a registered attribute that changes its named concern. Heading
+Size attributes reference the existing Heading Large or Heading Small
+Typography selection for size/rhythm only; Typography continues to own those
+values and classes. A component must not locally assign a colour, weight,
+style, or size where the registered mapping exists.
 
 ### Binding token-reference rule
 
@@ -49,9 +51,10 @@ decision; it must not be invented or approximated.
 
 ### Base presentation and registered attributes
 
-Each base preserves its existing role/tier name, family, size/rhythm, primary
-weight, normal style, and usage authority. Its default colour is
-`--wex-color-text-primary`.
+`Heading Default` preserves its existing family, Default size/rhythm, primary
+weight, normal style, usage authority, and default colour
+`--wex-color-text-primary`. Its Attributes are sparse: each changes only the
+named concern and inherits the remainder of Heading Default.
 
 | Attribute | Sole delta | Existing WEX mapping |
 | --- | --- | --- |
@@ -60,11 +63,12 @@ weight, normal style, and usage authority. Its default colour is
 | `Weight / Bold` | Weight | Existing Semibold authority, `--wex-type-weight-semibold`. |
 | `Weight / Thin` | Weight | Existing Light-weight authority, `--wex-type-weight-light`. |
 | `Style / Italic` | Style | Existing Italic authority, `--wex-type-style-italic`; text emphasis only. |
+| `Size / Large` | Size/rhythm | Existing Heading Large Typography class/tokens; Heading Default colour, weight, and style remain inherited. |
+| `Size / Small` | Size/rhythm | Existing Heading Small Typography class/tokens; Heading Default colour, weight, and style remain inherited. |
 
-An attribute changes only its stated concern and inherits the chosen canonical
-Typography role/tier otherwise. It can be used only where the existing
-Typography source supplies that canonical selection; this decision does not
-authorise unsupported role/weight combinations.
+An attribute can be used only where the existing Typography source supplies
+that canonical selection; this decision does not authorise unsupported
+role/weight combinations or duplicate resolved values.
 
 ## Consequences and boundaries
 

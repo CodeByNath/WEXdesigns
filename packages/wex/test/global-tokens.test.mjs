@@ -43,8 +43,12 @@ test('keeps Global Tokens bound to the complete existing Typography vocabulary',
   assert.match(decision, /`Weight \/ Bold`.*`--wex-type-weight-semibold`/);
   assert.match(decision, /`Weight \/ Thin`.*`--wex-type-weight-light`/);
   assert.match(decision, /`Style \/ Italic`.*`--wex-type-style-italic`/);
-  assert.match(decision, /Size and rhythm remain the existing\nTypography tier/);
-  assert.match(decision, /must not locally assign a colour, weight, or style/);
+  assert.match(decision, /`Heading Default` is the base/);
+  assert.match(decision, /Heading\nSize attributes reference the existing Heading Large or Heading Small/);
+  assert.match(decision, /`Size \/ Large`.*Existing Heading Large Typography class\/tokens/);
+  assert.match(decision, /`Size \/ Small`.*Existing Heading Small Typography class\/tokens/);
+  assert.match(decision, /must not locally assign a colour, weight,\nstyle, or size/);
+  assert.doesNotMatch(decision, /Size is not a Global Token attribute/);
   assert.doesNotMatch(decision, /\bPage Heading\b(?! DNA v1)/);
   assert.doesNotMatch(decision, /#[0-9a-f]{3,8}\b/i);
 });

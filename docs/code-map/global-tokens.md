@@ -4,13 +4,15 @@
 
 - Last visited: 2026-09-27
 - Last updated: 2026-09-27
-- Verified against: `feat/global-tokens-typography` Phase 2 candidate from
-  `origin/main` at `21d41fd209621b6e107e964563a7f9f964e407b5`
+- Verified against: `feat/global-tokens-typography` Phase 3A candidate from
+  `origin/main` at `b3e12319439bb53d873a80957f50446780940cd5`
 - Registration status: Global Tokens augment the canonical WEX Typography
   vocabulary; no page-specific role is registered.
 
 ### Recent work (newest first)
 
+- Phase 3A describes Heading Default with sparse existing Size attributes and
+  presents the canonical tier flow Large -> Default -> Small.
 - Phase 2 supersedes Page Heading DNA with Typography-aligned Global Tokens.
 - Phase 1B presented the previous registered role on the existing runtime route.
 
@@ -76,13 +78,16 @@ an architecture decision rather than hardcoding it.
 ## Registration boundary
 
 The accepted decision covers the existing `Heading`, `Title`, `Navigation`, and
-`Body` roles at their existing tiers. It does not create new roles, versioning,
-loading/shimmer behaviour, or any unproved presentation input.
+`Body` roles at their existing tiers. Heading Default is the Design Token base
+for sparse Heading Size / Large and Size / Small relationships; Typography
+retains every resolved tier value and class. The decision creates no new roles,
+versioning, loading/shimmer behaviour, or unproved presentation input.
 
 ## Safe change routing
 
 - Preserve the existing Typography role, tier, values, canonical classes, and
-  tier-pairing rule before applying an optional registered attribute.
+  tier-pairing rule. Heading Size attributes may reference only the existing
+  Heading Large or Heading Small selection and change size/rhythm alone.
 - Do not introduce raw values, CSS custom properties, schemas, APIs, margins,
   or layout rules in order to consume Global Tokens.
 - When no existing Typography selection or registered attribute matches a
