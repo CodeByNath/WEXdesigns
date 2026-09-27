@@ -58,7 +58,7 @@ named concern and inherits the remainder of Heading Default.
 
 | Attribute | Sole delta | Existing WEX mapping |
 | --- | --- | --- |
-| `Colour / Light` | Colour | `--wex-color-light`, a persistent light override. |
+| `Colour / Light` | Colour | `--wex-color-white`, a persistent light override. |
 | `Colour / Accent` | Colour | `--wex-color-text-accent`, with theme resolution owned by Colour. |
 | `Weight / Bold` | Weight | Existing Semibold authority, `--wex-type-weight-semibold`. |
 | `Weight / Thin` | Weight | Existing Light-weight authority, `--wex-type-weight-light`. |

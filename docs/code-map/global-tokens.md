@@ -4,15 +4,15 @@
 
 - Last visited: 2026-09-27
 - Last updated: 2026-09-27
-- Verified against: `feat/global-tokens-typography` Phase 3A candidate from
-  `origin/main` at `b3e12319439bb53d873a80957f50446780940cd5`
+- Verified against: `feat/global-tokens-typography` Phase 3C candidate from
+  `origin/main` at `ca42918152a930700c2cd5f440c94d8723e31d8f`
 - Registration status: Global Tokens augment the canonical WEX Typography
   vocabulary; no page-specific role is registered.
 
 ### Recent work (newest first)
 
-- Phase 3A describes Heading Default with sparse existing Size attributes and
-  presents the canonical tier flow Large -> Default -> Small.
+- Phase 3C makes registered Heading Default attributes the primary Global
+  Tokens showcase; Typography retains tier presentation authority.
 - Phase 2 supersedes Page Heading DNA with Typography-aligned Global Tokens.
 - Phase 1B presented the previous registered role on the existing runtime route.
 

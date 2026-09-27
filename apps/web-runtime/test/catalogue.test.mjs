@@ -86,25 +86,10 @@ test('moves verified layout presentation values to Layout and presents Typograph
   assert.match(pageByPath['index.html'], /href="\.\/global-tokens\/"><span[^>]*>Global Tokens<\/span>/);
   assert.match(tokens, /<a aria-current="page" href="\.\/">Global Tokens<\/a>/);
   assert.match(tokens, /<h1 id="global-tokens-title"[^>]*>Global Tokens<\/h1>/);
-  assert.match(tokens, /Typography \+ Global Tokens/);
-  for (const tier of ['Large', 'Default', 'Small']) assert.match(tokens, new RegExp(`>${tier}<\\/h3>`));
-  const tierSections = [
-    ['large', 'default', ['Heading Large', 'Title Large', 'Navigation Large', 'Body Large']],
-    ['default', 'small', ['Heading Default', 'Title Default', 'Navigation Default', 'Body Default']],
-    ['small', 'registered-attributes', ['Heading Small', 'Title Small', 'Navigation Small', 'Body Small']],
-  ];
-  for (const [tier, next, labels] of tierSections) {
-    const start = tokens.indexOf(`aria-labelledby="${tier}-title"`);
-    const end = tokens.indexOf(`aria-labelledby="${next}-title"`);
-    const section = tokens.slice(start, end);
-    for (const [role, label] of ['heading', 'title', 'navigation', 'body'].map((role, index) => [role, labels[index]])) {
-      assert.match(section, new RegExp(`wex-type-${role}-${tier}-[^\"]*">${label}<\\/p>`));
-    }
-  }
   const attributes = tokens.slice(tokens.indexOf('aria-labelledby="registered-attributes-title"'));
   let previousAttribute = -1;
   for (const attribute of ['Heading Default', 'Colour / Light', 'Colour / Accent', 'Weight / Bold', 'Weight / Thin', 'Style / Italic', 'Size / Large', 'Size / Small']) {
-    const index = attributes.indexOf(`>${attribute}</h4>`);
+    const index = attributes.indexOf(`>${attribute}</h3>`);
     assert.ok(index > previousAttribute, `keeps ${attribute} in registered-attribute order`);
     previousAttribute = index;
   }
@@ -113,6 +98,9 @@ test('moves verified layout presentation values to Layout and presents Typograph
   assert.match(attributes, /Size \/ Small[\s\S]*wex-type-heading-small-regular/);
   assert.match(tokens, /Heading Default is the base Design Token/);
   assert.match(tokens, /global-tokens__card--light-demo[\s\S]*global-tokens__specimen--light/);
+  assert.match(css, /global-tokens__card--light-demo[^\n]*var\(--wex-color-white\)/);
+  assert.match(css, /global-tokens__specimen--light \{ color: var\(--wex-color-white\); \}/);
+  assert.doesNotMatch(tokens, /Typography \+ Global Tokens|Canonical vocabulary|aria-labelledby="(?:large|default|small)-title"/);
   assert.doesNotMatch(tokens, /Page Heading|Heading DNA|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 

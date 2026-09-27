@@ -29,7 +29,7 @@ test('keeps Global Tokens bound to the complete existing Typography vocabulary',
     '--wex-type-style-normal:',
     '--wex-type-style-italic:',
   ]) assert.match(core, new RegExp(token));
-  for (const token of ['--wex-color-text-primary:', '--wex-color-light:', '--wex-color-text-accent:']) {
+  for (const token of ['--wex-color-text-primary:', '--wex-color-white:', '--wex-color-text-accent:']) {
     assert.match(colour, new RegExp(token));
   }
 
@@ -38,7 +38,8 @@ test('keeps Global Tokens bound to the complete existing Typography vocabulary',
   assert.match(decision, /`Small`,\n`Default`, and `Large`/);
   assert.match(decision, /does not cross-pair tiers/);
   assert.match(decision, /`--wex-color-text-primary`/);
-  assert.match(decision, /`Colour \/ Light`.*`--wex-color-light`/);
+  assert.match(decision, /`Colour \/ Light`.*`--wex-color-white`/);
+  assert.doesNotMatch(decision, /`Colour \/ Light`.*`--wex-color-light`/);
   assert.match(decision, /`Colour \/ Accent`.*`--wex-color-text-accent`/);
   assert.match(decision, /`Weight \/ Bold`.*`--wex-type-weight-semibold`/);
   assert.match(decision, /`Weight \/ Thin`.*`--wex-type-weight-light`/);
