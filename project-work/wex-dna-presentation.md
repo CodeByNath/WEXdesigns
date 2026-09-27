@@ -1,79 +1,60 @@
 # Global Tokens / Typography DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 2 — Typography-aligned Global Tokens correction round
+Status: BUILDER ACTION REQUIRED
+Phase: 3 — Promote accepted Global Tokens candidate and validate live runtime
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Reviewed candidate: `feat/global-tokens-typography` at
-`a6df4aa39439021976d39393b9718f8caf30cb68`, one commit directly ahead of
-`main` `21d41fd209621b6e107e964563a7f9f964e407b5`.
+Reviewed correction candidate: `feat/global-tokens-typography` at
+`b3e12319439bb53d873a80957f50446780940cd5`.
 
-The architectural correction is aligned: Page Heading DNA is retired; ADR 0012,
-Code Map, focused tests, and runtime now use the existing Heading / Title /
-Navigation / Body vocabulary, preserve Small / Default / Large tier ownership,
-keep Typography source/classes unchanged, retain token-reference/sparse-override
-rules, and preserve `/global-tokens/`. No parallel component API or raw visual
-value system was introduced.
+The Phase 2 correction is accepted.
 
-## Safeguard required before promotion
+Reviewer independently confirmed:
 
-The runtime presentation does not yet print the canonical token names
-consistently. In the Small tier it renders `Heading`, `Title`, `Navigation`
-and body prose beneath a separate `Small` section. The Owner direction requires
-the visible presentation itself to use the Typography names directly:
-
-- Heading Small / Default / Large
-- Title Small / Default / Large
-- Navigation Small / Default / Large
-- Body Small / Default / Large
-
-The current runtime test checks tier headings and class-name prefixes, so this
-display-name regression can pass unnoticed.
+- the correction is one commit directly ahead of the previously reviewed
+  candidate and changes only
+  `apps/web-runtime/global-tokens/index.html` and
+  `apps/web-runtime/test/catalogue.test.mjs`;
+- all twelve canonical visible names now print explicitly:
+  Heading / Title / Navigation / Body at Small / Default / Large;
+- the focused runtime test now guards those labels inside the matching tier
+  sections;
+- the accepted Global Tokens / Typography authority, token mappings, route,
+  layout architecture, and Typography source/classes were not widened or
+  changed;
+- remote heads remain within the three-branch limit;
+- GitHub currently reports no registered status checks or workflow runs for the
+  candidate, so Builder local checks remain implementation evidence rather than
+  CI/live evidence.
 
 ## Builder instruction
 
-On the existing `feat/global-tokens-typography` branch only:
+Using the existing accepted topic branch only:
 
-1. Change the twelve base specimen labels so each visibly prints its exact
-   canonical role + tier name, including `Heading Small`, `Title Small`,
-   `Navigation Small`, `Body Small`, and the corresponding Default/Large
-   names.
-2. Strengthen the focused runtime test to assert those twelve visible canonical
-   names, not only class prefixes/tier section headings.
-3. Do not change the accepted ADR model, Typography values/classes, registered
-   attribute mappings, route, layout architecture, or any unrelated source.
-4. Run focused tests, `git diff --check`, `pnpm check`, and the same Chrome
-   desktop/compact, light/dark, keyboard/focus validation.
-5. Push the correction to the same topic branch, update this same file to
-   `AWAITING REVIEWER REVIEW` with the exact remote SHA/evidence, then stop.
+1. Reconfirm remote `feat/global-tokens-typography` resolves to
+   `b3e12319439bb53d873a80957f50446780940cd5` and `main` is still based on
+   `21d41fd209621b6e107e964563a7f9f964e407b5` unless a new remote change must
+   be reviewed.
+2. Promote the accepted candidate to `main` without rewriting or widening the
+   accepted history/content.
+3. Verify the exact remote `main` SHA after promotion.
+4. Inspect the resulting GitHub Pages deployment/workflow state.
+5. Validate the deployed `/WEXdesigns/global-tokens/` surface in Chrome for:
+   desktop and compact layouts, light/dark switching, the twelve canonical
+   visible role+tier names, semantic heading exposure, keyboard focus
+   visibility, and skip-link transfer to `#main-content`.
+6. Do not start new Global Tokens, Typography, component, or unrelated work.
+7. Keep the topic branch until Reviewer independently verifies the promoted
+   `main` and live Pages boundary.
+8. Update this same file to `AWAITING REVIEWER REVIEW` with the promoted main
+   SHA, deployment/workflow evidence, live validation result, and any
+   limitation; then stop.
 
-No promotion to `main` is authorised in this round.
+## Closeout boundary
 
-## Builder correction handoff
-
-Candidate: `feat/global-tokens-typography` at
-`b3e12319439bb53d873a80957f50446780940cd5` (pushed to `origin`).
-
-- Changed only `apps/web-runtime/global-tokens/index.html` and its focused
-  runtime test. All twelve base specimens now visibly print their exact
-  canonical role + tier name.
-- The focused test now asserts each visible canonical name inside its matching
-  Small, Default, or Large section rather than checking only class prefixes.
-- Passed `git diff --check`, focused authority/runtime tests (9 passing), and
-  `pnpm check` (35 successful tasks; only existing Turborepo warnings).
-- Chrome local candidate preview passed desktop and compact layouts, light/dark
-  switching, semantic heading exposure, keyboard focus visibility, and
-  skip-link transfer to `#main-content`.
-
-No promotion to `main` was performed. Stop for Reviewer review.
-
-## Reviewer evidence
-
-Remote heads remain within the three-branch limit:
-`main`, `Project-work-instructions`, and `feat/global-tokens-typography`.
-GitHub exposes no registered status checks or workflow runs for the submitted
-candidate; Builder local check/browser evidence is therefore recorded but not
-mistaken for CI or live Pages evidence.
+After Reviewer independently verifies promoted source and live Pages behaviour,
+the completed topic branch can be authorised for deletion. No new topic branch
+may open before that housekeeping is complete.
