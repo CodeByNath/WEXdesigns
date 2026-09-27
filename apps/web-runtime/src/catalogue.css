@@ -310,19 +310,19 @@ input:focus-visible,
   background: var(--wex-color-layer-02);
 }
 
-.heading-dna, .heading-dna__header, .heading-dna__role, .heading-dna__role-header, .heading-dna__default, .heading-dna__attributes, .heading-dna__attributes header, .heading-dna__card { display: grid; min-width: 0; }
-.heading-dna { gap: var(--wex-space-24); }
-.heading-dna__header, .heading-dna__role-header, .heading-dna__attributes header { gap: var(--wex-space-4); }
-.heading-dna__role, .heading-dna__default, .heading-dna__attributes { gap: var(--wex-space-16); }
-.heading-dna__role { padding-block-start: var(--wex-space-24); border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle); }
-.heading-dna__role-header p, .heading-dna__attributes header p, .heading-dna__inheritance { margin: 0; color: var(--wex-color-text-secondary); }
-.heading-dna__header p, .heading-dna__header h2, .heading-dna__role-header h3, .heading-dna__default h4, .heading-dna__attributes h4, .heading-dna__card h5, .heading-dna__specimen { margin: 0; }
-.heading-dna__attribute-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--wex-space-16); }
-.heading-dna__card { align-content: start; gap: var(--wex-space-12); padding: var(--wex-space-24); background: var(--wex-color-layer-02); border: var(--wex-border-width-default) solid var(--wex-color-border-subtle); }
-.heading-dna__card--light-demo { background: var(--wex-color-black); color: var(--wex-color-light); border-color: var(--wex-color-black); }
-.heading-dna__card--light-demo .heading-dna__inheritance { color: inherit; }
-.heading-dna__specimen--light { color: var(--wex-color-light); }
-.heading-dna__specimen--accent { color: var(--wex-color-text-accent); }
+.global-tokens, .global-tokens__header, .global-tokens__role, .global-tokens__role-header, .global-tokens__attributes, .global-tokens__attributes header, .global-tokens__card { display: grid; min-width: 0; }
+.global-tokens { gap: var(--wex-space-24); }
+.global-tokens__header, .global-tokens__role-header, .global-tokens__attributes header { gap: var(--wex-space-4); }
+.global-tokens__role, .global-tokens__attributes { gap: var(--wex-space-16); }
+.global-tokens__role { padding-block-start: var(--wex-space-24); border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle); }
+.global-tokens__role-header p, .global-tokens__attributes header p, .global-tokens__inheritance { margin: 0; color: var(--wex-color-text-secondary); }
+.global-tokens__header p, .global-tokens__header h2, .global-tokens__role-header h3, .global-tokens__attributes h3, .global-tokens__card h4, .global-tokens__specimen { margin: 0; }
+.global-tokens__attribute-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--wex-space-16); }
+.global-tokens__card { align-content: start; gap: var(--wex-space-12); padding: var(--wex-space-24); background: var(--wex-color-layer-02); border: var(--wex-border-width-default) solid var(--wex-color-border-subtle); }
+.global-tokens__card--light-demo { background: var(--wex-color-black); color: var(--wex-color-light); border-color: var(--wex-color-black); }
+.global-tokens__card--light-demo .global-tokens__inheritance { color: inherit; }
+.global-tokens__specimen--light { color: var(--wex-color-light); }
+.global-tokens__specimen--accent { color: var(--wex-color-text-accent); }
 
 .token-group {
   display: grid;
@@ -402,7 +402,7 @@ input:focus-visible,
   .button-catalogue,
   .page-links,
   .token-groups,
-  .heading-dna__attribute-grid,
+  .global-tokens__attribute-grid,
   .type-system__tiers {
     grid-template-columns: minmax(0, 1fr);
   }

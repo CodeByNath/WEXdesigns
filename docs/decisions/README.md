@@ -4,4 +4,4 @@ Accepted architecture decisions will be recorded here. Decisions must preserve W
 
 ## Accepted
 
-- [0012: Page Heading DNA](0012-page-heading-dna.md)
+- [0012: Global Tokens / Typography DNA](0012-global-tokens-typography-dna.md)

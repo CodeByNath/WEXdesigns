@@ -77,7 +77,7 @@ test('limits Actions to existing Button presentation', () => {
   assert.doesNotMatch(actions, /aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
-test('moves verified layout presentation values to Layout and presents registered WEX DNA', () => {
+test('moves verified layout presentation values to Layout and presents Typography-aligned Global Tokens', () => {
   const layout = pageByPath['layout/index.html'];
   const tokens = pageByPath['global-tokens/index.html'];
   ['--wex-space-8', '--wex-layout-columns', '--wex-radius-default', '--wex-border-width-default', '--wex-focus-width'].forEach((token) => assert.match(layout, new RegExp(`data-wex-value="${token}"`)));
@@ -85,11 +85,18 @@ test('moves verified layout presentation values to Layout and presents registere
   assert.doesNotMatch(layout, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(pageByPath['index.html'], /href="\.\/global-tokens\/"><span[^>]*>Global Tokens<\/span>/);
   assert.match(tokens, /<a aria-current="page" href="\.\/">Global Tokens<\/a>/);
-  assert.match(tokens, /<h1 id="wex-dna-title"[^>]*>WEX DNA<\/h1>/);
-  assert.match(tokens, /Heading DNA[\s\S]*Page Heading/);
-  ['Small', 'Light', 'Accent', 'Bold', 'Thin', 'Italic'].forEach((attribute) => assert.match(tokens, new RegExp(`<h5[^>]*>${attribute}<\\/h5>`)));
-  assert.match(tokens, /heading-dna__card--light-demo[\s\S]*heading-dna__specimen--light/);
-  assert.doesNotMatch(tokens, /Page Subheading|Layout Heading|Section Heading|Subsection Heading|Group Heading|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
+  assert.match(tokens, /<h1 id="global-tokens-title"[^>]*>Global Tokens<\/h1>/);
+  assert.match(tokens, /Typography \+ Global Tokens/);
+  for (const tier of ['Small', 'Default', 'Large']) assert.match(tokens, new RegExp(`>${tier}<\\/h3>`));
+  for (const role of ['heading', 'title', 'navigation', 'body']) {
+    for (const tier of ['small', 'default', 'large']) assert.match(tokens, new RegExp(`wex-type-${role}-${tier}-`));
+  }
+  for (const attribute of ['Colour / Light', 'Colour / Accent', 'Weight / Bold', 'Weight / Thin', 'Style / Italic']) {
+    assert.match(tokens, new RegExp(`>${attribute}<\\/h4>`));
+  }
+  assert.match(tokens, /additions to an existing type token, never replacement Typography roles/);
+  assert.match(tokens, /global-tokens__card--light-demo[\s\S]*global-tokens__specimen--light/);
+  assert.doesNotMatch(tokens, /Page Heading|Heading DNA|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
 test('uses the canonical WEX bundle and has no retained temporary state presentation', () => {
