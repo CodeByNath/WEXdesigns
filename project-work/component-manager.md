@@ -1,11 +1,11 @@
 # Component Manager
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3 — Add WEX-responsive viewport validation tooling
+Status: BUILDER ACTION REQUIRED
+Phase: 3 — Correct WEX-responsive viewport validation tooling
 
 ## Reviewer verdict
 
-**Proceed**
+**Stop — architectural risk**
 
 Accepted `main`:
 `6238ff920b9565c0ca3123ab3ca14f9497d0b56d`.
@@ -73,6 +73,40 @@ props, component schema, domain data, or WEX presentation authority.
    validation covering keyboard/focus plus each viewport mode in light/dark.
 10. Commit/push one candidate, verify the remote SHA, update this same file to
     `AWAITING REVIEWER REVIEW` with exact evidence, and stop.
+
+## Reviewer finding
+
+The pushed candidate is one clean commit ahead of `main`, preserves the empty
+component boundary, and uses the recorded WEX threshold values. However, the
+current mechanism only sets `max-inline-size` on the sandbox mount in the same
+document. WEX responsive authority currently uses viewport media queries in
+`packages/wex/src/foundations/layout.css` (`@media (max-width: 1440px)`,
+`1024px`, and `767px`). Element width does not change the document viewport,
+so selecting these controls does not trigger the WEX media-query states being
+claimed for validation.
+
+This is a functional architecture mismatch for the sandbox purpose, not a
+styling defect. Do not promote this candidate as-is.
+
+## Builder correction instruction
+
+1. Keep the correction inside this Phase 3 and the existing topic branch.
+2. Preserve the accepted Component Manager boundaries and do not add a real
+   component, fixture/domain authority, Admin Shell, or new WEX breakpoint.
+3. Replace the same-document mount-width simulation with a sandbox mechanism
+   whose actual browsing context viewport can be set to the authorised WEX
+   widths (for example, an isolated iframe/preview document). Do not duplicate
+   or reinterpret WEX responsive CSS.
+4. The component candidate must render inside that isolated responsive context,
+   while Component Manager controls remain outside it.
+5. Keep Fluid as an unconstrained/full available preview mode.
+6. Prove in focused tests and Chrome that changing modes changes the preview
+   browsing-context width and that the current WEX media-query states actually
+   respond at the selected thresholds. Verify keyboard/focus and light/dark
+   behaviour remain intact.
+7. Run the existing focused tests, `git diff --check`, and `pnpm check`.
+8. Commit/push the bounded correction, update this same file with exact SHA and
+   evidence, return to `AWAITING REVIEWER REVIEW`, and stop.
 
 ## Builder handoff
 
