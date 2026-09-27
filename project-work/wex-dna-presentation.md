@@ -1,7 +1,7 @@
 # Global Tokens / Typography DNA
 
-Status: BUILDER ACTION REQUIRED
-Phase: 3D — Final two-line presentation correction, then promote and verify hosted result
+Status: AWAITING REVIEWER REVIEW
+Phase: 3D — Promoted and hosted validation complete
 
 ## Reviewer verdict
 
@@ -60,3 +60,17 @@ Using the existing topic branch only:
 This Owner-approved two-line removal is part of the current Global Tokens
 closeout, not a new workstream. After Reviewer verifies the promoted source and
 hosted page, the topic branch can be removed and this work closed.
+
+## Builder handoff
+
+- Corrected topic and promoted `main`: `21983ed56c442f41c4496e1677bdf6fa8c46189f`.
+- From `5ff024f`, the runtime removes only the Registered attributes heading
+  and its explanatory sentence; focused-test assertions were adjusted only for
+  those removals.
+- `git diff --check`, focused runtime tests (8/8), and `pnpm check` (35/35)
+  passed.
+- GitHub Pages: Deploy WEX index Run 32 completed successfully for `21983ed`.
+- Hosted Chrome `/WEXdesigns/global-tokens/`: Heading Default plus the ordered
+  seven attributes; visibly white Light specimen; light/dark, desktop/compact,
+  keyboard focus, and skip-link transfer all passed. No limitation; tabs were
+  left open and zoom restored.
