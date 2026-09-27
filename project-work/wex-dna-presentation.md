@@ -1,100 +1,95 @@
-# WEX DNA Presentation
+# Global Tokens / Typography DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1B closeout — promote accepted Page Heading DNA presentation
+Status: BUILDER ACTION REQUIRED
+Phase: 2 — Replace Page Heading DNA with typography-aligned Global Tokens
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Stop — architectural risk**
 
-Accepted candidate:
-`feat/wex-dna-presentation-v1` at
-`d6aa97dec8b817bdf80eb930df68a512b0f6797a`.
+Current `main`: `21d41fd209621b6e107e964563a7f9f964e407b5`.
 
-Accepted baseline:
-`main` at `5f428ceb3948247688d53019b0972157c4b2a601`.
+Owner correction: the current `Page Heading DNA` abstraction duplicates an
+already-authoritative Typography system and must not become the component-facing
+model.
 
-## Independent Reviewer verification — 2026-09-27
+## Existing authority confirmed
 
-The pushed topic tip is unchanged from the reviewed candidate and remains three
-commits ahead of accepted `main`. The diff is still limited to:
+WEX Typography already owns the canonical text vocabulary:
 
-- `apps/web-runtime/design-tokens/index.html`;
-- `apps/web-runtime/index.html`;
-- `apps/web-runtime/src/catalogue.css`;
-- `apps/web-runtime/test/catalogue.test.mjs`;
-- `docs/code-map/heading-dna.md`.
+- `Heading`
+- `Title`
+- `Navigation`
+- `Body`
 
-Verified source boundaries remain correct:
+Each uses the existing global tiers:
 
-- `/design-tokens/` is preserved while visible identity becomes **WEX DNA**;
-- only `Heading DNA -> Page Heading` is presented;
-- registered attributes are exactly `Small`, `Light`, `Accent`, `Bold`,
-  `Thin`, and `Italic`;
-- Default remains theme-aware through existing WEX authority;
-- `Light` remains persistent via `--wex-color-light` and is demonstrated on a
-  black catalogue-only scaffold;
-- no background ownership, raw values, new DNA roles, schemas, components,
-  page-builder logic, brand customisation, or loading/shimmer entered scope;
-- route/name/role boundaries are covered by the focused runtime test.
+- `Small`
+- `Default`
+- `Large`
 
-Builder has now completed the missing exact-candidate Chrome evidence:
-desktop, compact layout, keyboard-only navigation, Skip to content focus
-transfer, visible focus treatment, semantic heading order, theme switching, and
-persistent Light presentation were all recorded as passing without source
-changes.
+The existing tier rule is binding: tier peers pair together. A Small component
+composition uses Small typography roles; Default uses Default; Large uses Large.
+Do not cross-pair tiers inside one composition.
 
-No commit status or Actions run is attached to this topic commit. Builder's
-recorded focused runtime test, `git diff --check`, and `pnpm check` remain
-the deterministic pre-promotion evidence.
+## Owner-approved Global Tokens model
 
-## Safeguard
+Global Tokens / WEX DNA **augment the existing typography vocabulary**. They do
+not create `Page Heading`, `Page Title`, or another semantic text hierarchy.
 
-Because GitHub Pages deploys from `main`, hosted/live behaviour is not yet
-proven. Promotion does not itself complete the presentation work. Reviewer must
-separately verify the live Pages deployment after Builder closeout.
+For every existing canonical typography role/tier, preserve its current name,
+size/rhythm, primary weight, and usage authority, then bind:
 
-## Builder closeout instruction
+- Default colour -> `--wex-color-text-primary` (theme-aware)
+- Colour / Light -> `--wex-color-light` (persistent light override)
+- Colour / Accent -> `--wex-color-text-accent`
+- Weight / Bold -> existing Semibold authority
+- Weight / Thin -> existing Light-weight authority
+- Style / Italic -> existing Italic authority
 
-Promote the exact accepted topic tip
-`d6aa97dec8b817bdf80eb930df68a512b0f6797a` to `main` using the normal
-non-destructive repository path.
+Size is **not** a DNA attribute. Size remains the existing Typography tier.
 
-Then:
+The intended component-facing direction is:
 
-1. verify remote `main` is exactly that accepted SHA;
-2. run/confirm post-promotion `pnpm check`;
-3. verify the relevant GitHub Pages workflow/deployment state for that SHA when
-   available and record its result without treating deployment success as visual
-   proof;
-4. prove `feat/wex-dna-presentation-v1` is contained in `main`;
-5. delete the contained remote topic branch, preserving only `main` and
-   `Project-work-instructions`;
-6. refresh Heading DNA Code Map verification metadata only if promotion leaves
-   stale topic-branch wording;
-7. update this SAME file to `Status: AWAITING REVIEWER REVIEW` with final main
-   SHA, checks, deployment/workflow evidence, branch-housekeeping evidence, and
-   any metadata-only follow-up commit if required;
-8. stop for Reviewer.
+```text
+existing typography token/class
++ optional registered Global Token attributes
+= component-ready presentation
+```
 
-Do not begin another DNA family or presentation phase.
+Components must not invent or locally assign colour/weight/style values when a
+registered token exists. Do not invent final API/class names without repository
+authority; use the smallest existing-compatible mechanism and stop on a naming
+gate if none exists.
 
-## Builder closeout handoff — 2026-09-27
+## Required correction
 
-The accepted presentation candidate
-`d6aa97dec8b817bdf80eb930df68a512b0f6797a` was fast-forwarded to
-`origin/main`. The final `origin/main` tip is now
-`14d772fc45103f6fc36a1381e05f87ecb2dfe672`, a metadata-only follow-up which
-refreshes the Heading DNA Code Map to verify against `origin/main` rather than
-the deleted topic branch.
+On one topic branch:
 
-Post-promotion `pnpm check` passed: Foundation audit and all 35 Turbo tasks
-completed. Existing missing-lockfile and Turbo output warnings were non-fatal.
-Containment was proven before cleanup with
-`git merge-base --is-ancestor origin/feat/wex-dna-presentation-v1 origin/main`.
-The contained remote topic was then deleted; only `main` and
-`Project-work-instructions` remain.
+1. supersede/replace ADR 0012's `Page Heading DNA` model while preserving its
+   useful token-reference and sparse-override rules;
+2. retire Page-Heading-specific test/map authority and route the subject through
+   Typography + Global Tokens authority instead;
+3. keep the existing Typography source values and canonical classes intact;
+4. update Global Tokens presentation to show the actual Typography vocabulary,
+   not `Page Heading`;
+5. present all three tiers explicitly, including the currently omitted
+   **Heading Default**;
+6. include Heading, Title, Navigation, and Body at Small / Default / Large;
+7. show registered attributes as additions to those existing type tokens, not
+   as replacement typography roles;
+8. preserve the current `/global-tokens/` route unless current repository
+   authority requires otherwise.
 
-GitHub Pages workflow/deployment state could not be queried in this environment
-because the `gh` CLI is unavailable. No deployment status or live visual proof
-is claimed. Reviewer must perform the required hosted Pages verification.
+## Exclusions
+
+No component implementation, page-builder, new type family, new size tier,
+cross-tier pairing, raw visual values, brand customisation, or speculative DNA
+families.
+
+## Verification / handoff
+
+Update focused authority/runtime tests, run `git diff --check` and `pnpm check`,
+Chrome-validate desktop + compact + light/dark + keyboard/focus, push, then
+update this SAME file to `AWAITING REVIEWER REVIEW` with exact SHA/evidence and
+stop.
