@@ -1,6 +1,6 @@
 # Global Tokens / Typography DNA
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 2 — Typography-aligned Global Tokens correction round
 
 ## Reviewer verdict
@@ -51,6 +51,24 @@ On the existing `feat/global-tokens-typography` branch only:
    `AWAITING REVIEWER REVIEW` with the exact remote SHA/evidence, then stop.
 
 No promotion to `main` is authorised in this round.
+
+## Builder correction handoff
+
+Candidate: `feat/global-tokens-typography` at
+`b3e12319439bb53d873a80957f50446780940cd5` (pushed to `origin`).
+
+- Changed only `apps/web-runtime/global-tokens/index.html` and its focused
+  runtime test. All twelve base specimens now visibly print their exact
+  canonical role + tier name.
+- The focused test now asserts each visible canonical name inside its matching
+  Small, Default, or Large section rather than checking only class prefixes.
+- Passed `git diff --check`, focused authority/runtime tests (9 passing), and
+  `pnpm check` (35 successful tasks; only existing Turborepo warnings).
+- Chrome local candidate preview passed desktop and compact layouts, light/dark
+  switching, semantic heading exposure, keyboard focus visibility, and
+  skip-link transfer to `#main-content`.
+
+No promotion to `main` was performed. Stop for Reviewer review.
 
 ## Reviewer evidence
 
