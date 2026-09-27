@@ -1,6 +1,6 @@
 # Global Components Catalogue
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1B — Shell semantics correction, then promote empty Global Components entrypoint
 
 ## Reviewer verdict
@@ -42,6 +42,26 @@ The candidate correctly:
 One shell semantics issue remains: shared navigation and the root surface still
 use the label **Foundation pages**, but the ecosystem now includes
 **Global Components**, which is explicitly not a foundation.
+
+## Builder handoff
+
+Corrected candidate: `feat/global-components` at
+`b85a2f98bfb22765c27f824ec4be42b2a23e924e` (based on accepted `main`
+`e62818163b21bff94c77f2b4a0b6dfb889d7b971`).
+
+This correction changes only the six shared-route navigation ARIA labels, root
+catalogue label/description, and the focused runtime test:
+`apps/web-runtime/{index,colour/index,typography/index,actions/index,layout/index,global-tokens/index,global-components/index}.html`
+and `apps/web-runtime/test/catalogue.test.mjs`. Route order, styles, registry
+content, Actions, and Button authority remain untouched.
+
+Passed: `git diff --check`; `pnpm --filter @weerax/web-runtime test` (9 tests);
+and `pnpm check` (foundation audit plus 35 tasks). Chrome validated the exact
+local candidate at desktop and compact widths in light and dark themes; its AX
+tree exposes the neutral `Catalogue pages` navigation label, the empty
+Registered components section, and the skip link moves keyboard focus to
+`#main-content`. Candidate browser validation is local because Pages deploys
+from `main` only.
 
 ## Builder correction
 
