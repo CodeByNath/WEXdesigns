@@ -1,75 +1,51 @@
 # Global Components Catalogue
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1C — Promote empty Global Components entrypoint and verify hosted page
+Status: AWAITING OWNER LIVE CONFIRMATION
+Phase: 1D — Hosted Global Components entrypoint verification
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Accepted candidate:
-`feat/global-components` at
-`b85a2f98bfb22765c27f824ec4be42b2a23e924e`, based on
-`main` `e62818163b21bff94c77f2b4a0b6dfb889d7b971`.
+Promoted `main` and retained `feat/global-components` both resolve exactly to
+`b85a2f98bfb22765c27f824ec4be42b2a23e924e`.
 
-## Reviewer findings
+## Independently verified
 
-The candidate now matches the Owner-approved Phase 1 scope:
-
-- `/global-components/` exists as a first-class catalogue route;
-- Global Components is integrated after Global Tokens across the root and all
-  shared route navigation;
-- shared shell semantics now use neutral **Catalogue pages** wording rather
-  than incorrectly classifying every route as a foundation;
-- the new Global Components Code Map exists and keeps registration separate
-  from component authority;
-- **Registered components is intentionally empty**;
-- Button remains under its existing Actions/shared-component authority and is
-  not registered on this page;
+- promoted `main` contains the accepted Global Components route and Code Map;
+- `/global-components/` is integrated after Global Tokens across the catalogue;
+- the shared shell uses neutral **Catalogue pages** semantics;
+- **Registered components remains intentionally empty**;
+- Button remains untouched under its existing Actions/shared-component
+  authority;
 - no new component family, schema, adapter, domain behaviour, WEX foundation,
-  raw visual value, route reordering, or presentation redesign was introduced;
-- stale repository-map implementation status is corrected without widening
-  package ownership;
-- focused tests cover the route, navigation, neutral shell wording, empty
-  registry, and preservation of existing Button boundaries.
+  raw visual value, or route reordering was introduced;
+- GitHub Actions **Deploy WEX index** run 36
+  (`36304098418`) completed successfully for the exact promoted SHA
+  `b85a2f98bfb22765c27f824ec4be42b2a23e924e`.
 
-Builder evidence records `git diff --check`, focused web-runtime tests,
-`pnpm check`, and Chrome desktop/compact + light/dark + keyboard/skip-link
-validation on the exact local candidate.
+## Hosted evidence boundary
 
-## Builder handoff
+Builder reports hosted Chrome validation passed on the production Global
+Components route for desktop/compact, light/dark, keyboard navigation, and
+skip-link focus transfer.
 
-Promoted SHA: `b85a2f98bfb22765c27f824ec4be42b2a23e924e`. Both remote `main`
-and the retained `feat/global-components` branch resolve exactly to this SHA.
+The current Reviewer web execution surface cannot directly load that GitHub
+Pages URL, so this one live visual boundary cannot be independently replayed
+here.
 
-GitHub Actions **Deploy WEX index** run #36 completed successfully for
-`b85a2f9` (28 seconds). Hosted Chrome validation passed at
-`https://codebynath.github.io/WEXdesigns/global-components/`: the route loads,
-Global Components is current in the neutral `Catalogue pages` navigation, and
-Registered components is empty. Desktop and compact presentation, light and
-dark themes, keyboard navigation, and skip-link focus transfer to
-`#main-content` all passed. No post-promotion source changes were made; retain
-the topic branch until this handoff is independently reviewed.
+## Owner confirmation
 
-## Builder instruction
+Owner should now inspect the hosted Global Components page. If the page looks
+correct, that confirmation closes the live evidence boundary and the Global
+Components entrypoint is ready for the Owner's component plan.
 
-1. Reconfirm remote `feat/global-components` resolves exactly to
-   `b85a2f98bfb22765c27f824ec4be42b2a23e924e` and `main` remains at the
-   accepted baseline.
-2. Promote that exact candidate to `main` without rewriting or widening it.
-3. Verify the exact remote `main` SHA.
-4. Inspect the resulting GitHub Pages deployment/workflow.
-5. Validate the hosted `/WEXdesigns/global-components/` page in Chrome:
-   route loads; Global Components navigation is current; Registered components
-   remains empty; desktop/compact; light/dark; keyboard focus and skip-link.
-6. Do not register Button or start any component-plan implementation yet.
-7. Keep the topic branch until Reviewer verifies promoted source and hosted
-   behaviour.
-8. Update this same work file to `AWAITING REVIEWER REVIEW` with promoted SHA,
-   Pages evidence, hosted browser result, and any limitation; stop.
+Do not register or implement any component from that plan until it has been
+reviewed and explicitly authorised.
 
-## Next Owner boundary
+## Closeout after Owner confirmation
 
-Once the hosted Global Components page is verified, the page is ready for the
-Owner to provide the Global Components plan. No component registration or
-implementation should begin before that plan is reviewed and authorised.
+A Git/terminal-capable Builder must delete the completed
+`feat/global-components` remote branch, verify only `main` and
+`Project-work-instructions` remain, record housekeeping evidence in this same
+file, and stop.
