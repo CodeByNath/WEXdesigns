@@ -86,7 +86,7 @@ test('moves verified layout presentation values to Layout and presents Typograph
   assert.match(pageByPath['index.html'], /href="\.\/global-tokens\/"><span[^>]*>Global Tokens<\/span>/);
   assert.match(tokens, /<a aria-current="page" href="\.\/">Global Tokens<\/a>/);
   assert.match(tokens, /<h1 id="global-tokens-title"[^>]*>Global Tokens<\/h1>/);
-  const attributes = tokens.slice(tokens.indexOf('aria-labelledby="registered-attributes-title"'));
+  const attributes = tokens.slice(tokens.indexOf('<section class="global-tokens__attributes">'));
   let previousAttribute = -1;
   for (const attribute of ['Heading Default', 'Colour / Light', 'Colour / Accent', 'Weight / Bold', 'Weight / Thin', 'Style / Italic', 'Size / Large', 'Size / Small']) {
     const index = attributes.indexOf(`>${attribute}</h3>`);
@@ -96,11 +96,11 @@ test('moves verified layout presentation values to Layout and presents Typograph
   assert.match(attributes, /Heading Default[\s\S]*Base Design Token/);
   assert.match(attributes, /Size \/ Large[\s\S]*wex-type-heading-large-regular/);
   assert.match(attributes, /Size \/ Small[\s\S]*wex-type-heading-small-regular/);
-  assert.match(tokens, /Heading Default is the base Design Token/);
+  assert.match(tokens, /Use Heading Default as the base Design Token/);
   assert.match(tokens, /global-tokens__card--light-demo[\s\S]*global-tokens__specimen--light/);
   assert.match(css, /global-tokens__card--light-demo[^\n]*var\(--wex-color-white\)/);
   assert.match(css, /global-tokens__specimen--light \{ color: var\(--wex-color-white\); \}/);
-  assert.doesNotMatch(tokens, /Typography \+ Global Tokens|Canonical vocabulary|aria-labelledby="(?:large|default|small)-title"/);
+  assert.doesNotMatch(tokens, /Typography \+ Global Tokens|Canonical vocabulary|Registered attributes|Each attribute changes one concern|aria-labelledby="(?:large|default|small)-title"/);
   assert.doesNotMatch(tokens, /Page Heading|Heading DNA|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
