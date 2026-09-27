@@ -1,6 +1,6 @@
 # Component Manager
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 3 — Add WEX-responsive viewport validation tooling
 
 ## Reviewer verdict
@@ -73,6 +73,26 @@ props, component schema, domain data, or WEX presentation authority.
    validation covering keyboard/focus plus each viewport mode in light/dark.
 10. Commit/push one candidate, verify the remote SHA, update this same file to
     `AWAITING REVIEWER REVIEW` with exact evidence, and stop.
+
+## Builder handoff
+
+- Candidate: `feat/component-manager-viewport` at
+  `9205218001a15d79964a0f88453b9e5649cc88ee`; remote SHA verified.
+- Source: the Component Manager Code Map, accessible native radio group, live
+  selected-width status, mount-only maximum inline-size controller, token-only
+  catalogue styling, and focused tests.
+- Modes: Large `1440px`, Medium `1024px`, Compact `767px`, then Fluid. The
+  mount width alone changes; no component responsive CSS, device preset,
+  fixture, registration, domain behaviour, or Shared UI component was added.
+- Checks passed: `pnpm --filter @weerax/web-runtime test`, `git diff --check`,
+  and `pnpm check` (35 successful tasks; Turbo reported only its pre-existing
+  missing-lockfile and no-test-output warnings).
+- Chrome evidence: exact local candidate at `localhost:5177` passed all four
+  modes in light and dark themes, compact and desktop layouts, native selected
+  radio semantics, live status updates, visible radio focus, and arrow-key
+  mode selection. Existing skip-link and empty mount boundary remain present.
+- Limitation: this pre-merge candidate is locally previewed only; hosted Pages
+  validation is a separate post-promotion boundary.
 
 ## Next boundary
 
