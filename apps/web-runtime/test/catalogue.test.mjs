@@ -88,8 +88,18 @@ test('moves verified layout presentation values to Layout and presents Typograph
   assert.match(tokens, /<h1 id="global-tokens-title"[^>]*>Global Tokens<\/h1>/);
   assert.match(tokens, /Typography \+ Global Tokens/);
   for (const tier of ['Small', 'Default', 'Large']) assert.match(tokens, new RegExp(`>${tier}<\\/h3>`));
-  for (const role of ['heading', 'title', 'navigation', 'body']) {
-    for (const tier of ['small', 'default', 'large']) assert.match(tokens, new RegExp(`wex-type-${role}-${tier}-`));
+  const tierSections = [
+    ['small', 'default', ['Heading Small', 'Title Small', 'Navigation Small', 'Body Small']],
+    ['default', 'large', ['Heading Default', 'Title Default', 'Navigation Default', 'Body Default']],
+    ['large', 'registered-attributes', ['Heading Large', 'Title Large', 'Navigation Large', 'Body Large']],
+  ];
+  for (const [tier, next, labels] of tierSections) {
+    const start = tokens.indexOf(`aria-labelledby="${tier}-title"`);
+    const end = tokens.indexOf(`aria-labelledby="${next}-title"`);
+    const section = tokens.slice(start, end);
+    for (const [role, label] of ['heading', 'title', 'navigation', 'body'].map((role, index) => [role, labels[index]])) {
+      assert.match(section, new RegExp(`wex-type-${role}-${tier}-[^\"]*">${label}<\\/p>`));
+    }
   }
   for (const attribute of ['Colour / Light', 'Colour / Accent', 'Weight / Bold', 'Weight / Thin', 'Style / Italic']) {
     assert.match(tokens, new RegExp(`>${attribute}<\\/h4>`));
