@@ -13,6 +13,7 @@ export default defineConfig({
         layout: fileURLToPath(new URL('./layout/index.html', import.meta.url)),
         globalTokens: fileURLToPath(new URL('./global-tokens/index.html', import.meta.url)),
         globalComponents: fileURLToPath(new URL('./global-components/index.html', import.meta.url)),
+        componentManager: fileURLToPath(new URL('./component-manager/index.html', import.meta.url)),
       },
     },
   },

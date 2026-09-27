@@ -39,6 +39,8 @@ If source moves or a map becomes stale, source and governing authority win. Corr
   accepted Typography-aligned Global Tokens authority.
 - [Global Components Catalogue](global-components.md) — navigation to the
   shared-component catalogue entrypoint and its registration boundary.
+- [Component Manager](component-manager.md) — navigation to the isolated
+  shared-component validation sandbox.
 - [Actions and interaction](interaction-focus.md)
 - [Button system](button-system.md) — first demonstrated subject map.
 - [Spacing](spacing.md)
