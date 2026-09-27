@@ -1,6 +1,6 @@
 # Global Components Catalogue
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1E — Closeout housekeeping
 
 ## Reviewer verdict
@@ -31,6 +31,14 @@ The Global Components page is now ready for the Owner to provide the component
 plan. That plan may be discussed/reviewed now, but no component implementation
 or registration may begin until the current branch housekeeping is complete and
 the plan is explicitly authorised.
+
+## Builder handoff
+
+Before deletion, both `main` and `feat/global-components` resolved to
+`b85a2f98bfb22765c27f824ec4be42b2a23e924e`. The completed remote
+`feat/global-components` branch was deleted. Remote-head verification now shows
+exactly `main` at `b85a2f98bfb22765c27f824ec4be42b2a23e924e` and
+`Project-work-instructions`; no source changes were made.
 
 ## Builder closeout instruction
 
