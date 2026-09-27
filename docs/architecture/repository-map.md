@@ -6,9 +6,9 @@
 | `@weerax/catalogue` | File-backed Elements, Guidelines, and Components content structure | None internally | Presentation and domain behavior | Catalogue organization | Structure established; entry contract unresolved |
 | `@weerax/schemas` | Serializable runtime and compile-time contracts | Zod only at foundation | WEX, UI, adapters, apps, React, Preact, Vite, DOM, CSS | Contract definitions | Identity, action, and tier primitives established |
 | `@weerax/adapters` | Future domain-owner integration | `@weerax/schemas` | WEX, UI, apps, React, Preact | Domain owners | Boundary only; no adapters implemented |
-| `@weerax/ui` | Future shared rendering and interaction structures | `@weerax/schemas`, `@weerax/wex` | Application-specific domain owners | Shared UI + WEX | Boundary only; no components implemented |
+| `@weerax/ui` | Shared rendering and interaction structures | `@weerax/schemas`, `@weerax/wex` | Application-specific domain owners | Shared UI + WEX | Button presentation resolver implemented; other shared components remain unimplemented |
 | `@weerax/studio-agent-runner` | Node validation and future agent/n8n tooling | Required reusable packages | UI presentation ownership | Runtime application | Schema-consumption shell only |
-| `@weerax/web-runtime` | Live WEX shell and future browser application assembly | Required reusable packages | Reusable package authority and stored catalogue structure | Runtime application | Header, content frame, footer, and theme mechanics only |
+| `@weerax/web-runtime` | Live WEX shell and future browser application assembly | Required reusable packages | Reusable package authority and stored catalogue structure | Runtime application | Catalogue shell, approved presentation routes, and theme mechanics |
 | `@weerax/typescript-config` | Shared strict TypeScript configuration | None | Runtime or presentation code | Repository tooling | Active |
 
 ## Dependency Graph
@@ -30,4 +30,4 @@
 
 ## Foundation Stop Gate
 
-The repository contains no component catalogue, page layout, customer UI, admin UI, demo screen, or entity-specific presentation. Component work requires a separately approved phase.
+The Global Components catalogue registers only the already-approved Button family. Any additional component family, page layout, customer UI, admin UI, demo screen, or entity-specific presentation requires a separately approved phase.

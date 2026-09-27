@@ -12,6 +12,7 @@ export default defineConfig({
         actions: fileURLToPath(new URL('./actions/index.html', import.meta.url)),
         layout: fileURLToPath(new URL('./layout/index.html', import.meta.url)),
         globalTokens: fileURLToPath(new URL('./global-tokens/index.html', import.meta.url)),
+        globalComponents: fileURLToPath(new URL('./global-components/index.html', import.meta.url)),
       },
     },
   },

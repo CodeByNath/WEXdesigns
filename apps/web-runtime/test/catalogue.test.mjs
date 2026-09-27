@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readdir, readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-const pagePaths = ['index.html', 'colour/index.html', 'typography/index.html', 'actions/index.html', 'layout/index.html', 'global-tokens/index.html'];
+const pagePaths = ['index.html', 'colour/index.html', 'typography/index.html', 'actions/index.html', 'layout/index.html', 'global-tokens/index.html', 'global-components/index.html'];
 const pages = await Promise.all(pagePaths.map(async (path) => [path, await readFile(new URL(`../${path}`, import.meta.url), 'utf8')]));
 const pageByPath = Object.fromEntries(pages);
 const pageSource = pages.map(([, source]) => source).join('\n');
@@ -11,14 +11,15 @@ const runtime = await readFile(new URL('../src/main.js', import.meta.url), 'utf8
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
 const elementDirectories = await readdir(new URL('../../../packages/catalogue/content/elements', import.meta.url));
 
-test('builds a root entry surface and five independent foundation routes in order', () => {
+test('builds a root entry surface and six independent catalogue routes in order', () => {
   assert.deepEqual(Object.keys(pageByPath), pagePaths);
   assert.match(pageByPath['index.html'], /href="\.\/colour\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/typography\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/actions\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/layout\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/global-tokens\/"/);
-  const routes = ['./colour/', './typography/', './actions/', './layout/', './global-tokens/'];
+  assert.match(pageByPath['index.html'], /href="\.\/global-components\/"/);
+  const routes = ['./colour/', './typography/', './actions/', './layout/', './global-tokens/', './global-components/'];
   const root = pageByPath['index.html'];
   routes.reduce((lastIndex, route) => {
     const index = root.indexOf(`href="${route}"`);
@@ -39,6 +40,9 @@ test('keeps shared navigation, theme mechanics, and keyboard skip access on ever
     assert.match(source, new RegExp(path === 'index.html' ? 'href="\\.\\/src\\/catalogue\\.css"' : 'href="\\.\\.\\/src\\/catalogue\\.css"'));
     if (path !== 'index.html' && path !== 'global-tokens/index.html') {
       assert.match(source, /href="\.\.\/global-tokens\/">Global Tokens<\/a>/);
+    }
+    if (path !== 'index.html' && path !== 'global-components/index.html') {
+      assert.match(source, /href="\.\.\/global-components\/">Global Components<\/a>/);
     }
   });
   assert.match(runtime, /localStorage\.setItem\('wex-theme'/);
@@ -75,6 +79,16 @@ test('limits Actions to existing Button presentation', () => {
   const actions = pageByPath['actions/index.html'];
   ['primary', 'neutral', 'subtle', 'warning', 'danger'].forEach((variant) => assert.match(actions, new RegExp(`wex-button--${variant}`)));
   assert.doesNotMatch(actions, /aria-pressed|onclick=|addEventListener\(['"]click/);
+});
+
+test('registers Button as the first Global Components catalogue entry without duplicating it', () => {
+  const components = pageByPath['global-components/index.html'];
+  assert.match(components, /<a aria-current="page" href="\.\/">Global Components<\/a>/);
+  assert.match(components, /<h1 id="global-components-title"[^>]*>Global Components<\/h1>/);
+  assert.match(components, /Registered components/);
+  assert.match(components, /Button is the first proven global component family/);
+  assert.match(components, /href="\.\.\/actions\/"[\s\S]*>Button<\/span>/);
+  assert.doesNotMatch(components, /wex-button|<button|aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
 test('moves verified layout presentation values to Layout and presents Typography-aligned Global Tokens', () => {
