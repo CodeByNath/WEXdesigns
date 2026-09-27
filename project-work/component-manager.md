@@ -1,11 +1,11 @@
 # Component Manager
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1 — Establish Component Manager sandbox surface
+Status: BUILDER ACTION REQUIRED
+Phase: 2 — Promote accepted Component Manager candidate
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
 Baseline `main`:
 `b85a2f98bfb22765c27f824ec4be42b2a23e924e`.
@@ -78,9 +78,25 @@ components. It must not become permanent component authority or a page-builder.
 - Limitation: this candidate is only locally previewable until promotion because
   GitHub Pages deploys `main`; no production Pages claim is made.
 
+## Reviewer acceptance
+
+Reviewer independently verified candidate `6238ff920b9565c0ca3123ab3ca14f9497d0b56d`
+is exactly one commit ahead of accepted `main`, stays within the authorised
+sandbox-only scope, adds the required Code Map/route/tests, and introduces no
+component or domain authority. No commit CI/status checks are attached; recorded
+focused/full checks and candidate Chrome evidence are accepted for this phase.
+
+## Builder instruction — promotion closeout
+
+1. Fast-forward accepted candidate `6238ff920b9565c0ca3123ab3ca14f9497d0b56d` to `main`; do not alter source.
+2. Verify remote `main` equals that SHA and verify the GitHub Pages deployment succeeds.
+3. Validate the promoted `/component-manager/` route in hosted Chrome, including desktop/compact, light/dark, navigation, keyboard/focus, and the empty sandbox boundary.
+4. Delete `feat/component-manager` only after promotion and hosted verification are proven safe.
+5. Update this same work file with exact promotion, Pages, hosted-browser, and branch-housekeeping evidence, then stop at `AWAITING REVIEWER REVIEW`.
+
 ## Next boundary
 
-After Component Manager is accepted and live, the next separately authorised
-work is the **Admin Shell** structure: Header, Sidebar, Body/Main, Footer.
-Drawer and later components are developed/corrected in Component Manager before
-being plugged into that shell.
+After promotion/hosted closeout is Reviewer-accepted, the next separately
+authorised work is the **Admin Shell** structure: Header, Sidebar, Body/Main,
+Footer. Drawer and later components are developed/corrected in Component Manager
+before being plugged into that shell.
