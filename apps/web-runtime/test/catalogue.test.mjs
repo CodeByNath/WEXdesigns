@@ -103,7 +103,33 @@ test('provides an isolated Component Manager sandbox without registering a compo
   assert.match(manager, /<h1 id="component-manager-title"[^>]*>Component Manager<\/h1>/);
   assert.match(manager, /data-component-manager-sandbox/);
   assert.match(manager, /No component is mounted or registered/);
-  assert.doesNotMatch(manager, /<button|<form|<input(?! id="theme-toggle")|aria-pressed|onclick=|addEventListener\(['"]click/);
+  assert.doesNotMatch(manager, /<button|<form|aria-pressed|onclick=|addEventListener\(['"]click/);
+});
+
+test('keeps Component Manager viewport tooling bound to current WEX layout thresholds', () => {
+  const manager = pageByPath['component-manager/index.html'];
+  assert.match(manager, /<fieldset id="component-manager-viewport-controls"[^>]*aria-describedby="component-manager-viewport-description"/);
+  const modes = [
+    { value: 'large', width: '1440', label: 'Large · 1440px' },
+    { value: 'medium', width: '1024', label: 'Medium · 1024px' },
+    { value: 'compact', width: '767', label: 'Compact · 767px' },
+    { value: 'fluid', width: 'fluid', label: 'Fluid' },
+  ];
+  let previous = -1;
+  modes.forEach(({ value, width, label }) => {
+    const control = `value="${value}" data-component-manager-viewport-width="${width}" aria-controls="component-manager-sandbox-mount"`;
+    const offset = manager.indexOf(control);
+    assert.ok(offset > previous, `${value} follows the previous authorised viewport mode`);
+    assert.match(manager, new RegExp(`${control}[\\s\\S]*${label}`));
+    previous = offset;
+  });
+  assert.match(manager, /value="fluid"[^>]*checked/);
+  assert.match(manager, /id="component-manager-viewport-status"[^>]*aria-live="polite"/);
+  assert.match(manager, /id="component-manager-sandbox-mount"[^>]*data-component-manager-viewport="fluid"/);
+  assert.match(runtime, /style\.maxInlineSize = width === 'fluid' \? 'none' : `\$\{width\}px`/);
+  assert.match(runtime, /dataset\.componentManagerViewport = control\.value/);
+  assert.match(css, /--component-manager-viewport-width, none/);
+  assert.doesNotMatch(manager, /<button|<form|data-component-(?:definition|fixture|registration)|Drawer|Data Card|Collection/);
 });
 
 test('moves verified layout presentation values to Layout and presents Typography-aligned Global Tokens', () => {

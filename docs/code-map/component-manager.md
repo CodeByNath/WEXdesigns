@@ -4,12 +4,15 @@
 
 - Last visited: 2026-09-27
 - Last updated: 2026-09-27
-- Verified against: Phase 1 Builder candidate on `feat/component-manager`, based
-  on `origin/main` at `b85a2f98bfb22765c27f824ec4be42b2a23e924e`.
+- Verified against: Phase 3 Builder candidate on
+  `feat/component-manager-viewport`, based on `origin/main` at
+  `6238ff920b9565c0ca3123ab3ca14f9497d0b56d`.
 - Registration status: No shared UI component is mounted or registered.
 
 ### Recent work (newest first)
 
+- Phase 3 adds sandbox-only viewport validation tooling that consumes the WEX
+  responsive thresholds without defining a component responsive rule.
 - Phase 1 establishes an isolated sandbox route without a component, definition,
   fixture, domain record, adapter, or product behaviour.
 
@@ -24,17 +27,22 @@ component contract, WEX values, domain data, or a page-builder model.
 - [Studio Operating Model](../foundation/studio-operating-model.md)
 - [Repository map](../architecture/repository-map.md)
 - [Global Components Catalogue](global-components.md)
+- [Layout](layout.md)
 
 ## Current source and focused verification
 
 - Sandbox route: [`apps/web-runtime/component-manager/index.html`](../../apps/web-runtime/component-manager/index.html)
 - Runtime route configuration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
+- Shared theme and viewport-control behaviour:
+  [`apps/web-runtime/src/main.js`](../../apps/web-runtime/src/main.js)
 - Focused check: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
 
 ## Dependency boundary
 
 ```text
 Component Manager sandbox
+  -> WEX layout responsive thresholds
+  -> sandbox mount-width tooling
   -> future approved Shared UI component candidate
   -> candidate-owned contract and WEX presentation
 ```
@@ -43,10 +51,15 @@ The sandbox is an application validation surface. Shared UI remains responsible
 for reusable structure, interaction, and accessibility mechanics; WEX retains
 presentation authority; domain authority is not represented here.
 
+Viewport tooling may constrain only the sandbox mount width at the current WEX
+thresholds or remain fluid. It must not emulate, rewrite, or become component
+responsive CSS, a component prop, schema, fixture, or device authority.
+
 ## Safe change routing
 
 - Add a mount, fixture, or definition input only with a separately approved
   component phase and that component's authority.
+- Change responsive thresholds through WEX layout authority, not this sandbox.
 - Do not use the sandbox to register a component or introduce domain behaviour.
 
 ## Related documents

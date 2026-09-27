@@ -3,6 +3,12 @@ const root = document.documentElement;
 const themeToggle = document.querySelector('#theme-toggle');
 /** @type {HTMLElement | null} */
 const typeSystem = document.querySelector('#type-system');
+/** @type {HTMLFieldSetElement | null} */
+const componentManagerViewportControls = document.querySelector('#component-manager-viewport-controls');
+/** @type {HTMLElement | null} */
+const componentManagerSandboxMount = document.querySelector('#component-manager-sandbox-mount');
+/** @type {HTMLElement | null} */
+const componentManagerViewportStatus = document.querySelector('#component-manager-viewport-status');
 
 const typographySets = [
   { name: 'Heading', key: 'heading', weights: ['light', 'regular', 'semibold'], sample: 'Design with clarity' },
@@ -105,6 +111,23 @@ function applyTheme(dark) {
 
 if (themeToggle) {
   themeToggle.addEventListener('change', () => applyTheme(themeToggle.checked));
+}
+
+/** @param {HTMLInputElement} control */
+function applyComponentManagerViewport(control) {
+  if (!componentManagerSandboxMount || !componentManagerViewportStatus) return;
+  const width = control.dataset.componentManagerViewportWidth;
+  const label = control.parentElement?.textContent?.trim() ?? control.value;
+  componentManagerSandboxMount.dataset.componentManagerViewport = control.value;
+  componentManagerSandboxMount.style.maxInlineSize = width === 'fluid' ? 'none' : `${width}px`;
+  componentManagerViewportStatus.textContent = `Sandbox width: ${label}`;
+}
+
+if (componentManagerViewportControls) {
+  /** @type {NodeListOf<HTMLInputElement>} */ (componentManagerViewportControls.querySelectorAll('input[type="radio"]')).forEach((control) => {
+    control.addEventListener('change', () => applyComponentManagerViewport(control));
+    if (control.checked) applyComponentManagerViewport(control);
+  });
 }
 
 const savedTheme = window.localStorage.getItem('wex-theme');
