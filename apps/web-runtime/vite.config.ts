@@ -14,6 +14,7 @@ export default defineConfig({
         globalTokens: fileURLToPath(new URL('./global-tokens/index.html', import.meta.url)),
         globalComponents: fileURLToPath(new URL('./global-components/index.html', import.meta.url)),
         componentManager: fileURLToPath(new URL('./component-manager/index.html', import.meta.url)),
+        componentManagerPreview: fileURLToPath(new URL('./component-manager/preview.html', import.meta.url)),
       },
     },
   },

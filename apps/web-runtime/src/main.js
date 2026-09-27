@@ -5,8 +5,8 @@ const themeToggle = document.querySelector('#theme-toggle');
 const typeSystem = document.querySelector('#type-system');
 /** @type {HTMLFieldSetElement | null} */
 const componentManagerViewportControls = document.querySelector('#component-manager-viewport-controls');
-/** @type {HTMLElement | null} */
-const componentManagerSandboxMount = document.querySelector('#component-manager-sandbox-mount');
+/** @type {HTMLIFrameElement | null} */
+const componentManagerPreview = document.querySelector('#component-manager-preview-frame');
 /** @type {HTMLElement | null} */
 const componentManagerViewportStatus = document.querySelector('#component-manager-viewport-status');
 
@@ -107,6 +107,7 @@ function applyTheme(dark) {
   if (themeToggle) themeToggle.checked = dark;
   window.localStorage.setItem('wex-theme', dark ? 'dark' : 'light');
   resolveWexValues();
+  componentManagerPreview?.contentWindow?.postMessage({ type: 'wex-theme', dark }, window.location.origin);
 }
 
 if (themeToggle) {
@@ -115,18 +116,24 @@ if (themeToggle) {
 
 /** @param {HTMLInputElement} control */
 function applyComponentManagerViewport(control) {
-  if (!componentManagerSandboxMount || !componentManagerViewportStatus) return;
+  if (!componentManagerPreview || !componentManagerViewportStatus) return;
   const width = control.dataset.componentManagerViewportWidth;
   const label = control.parentElement?.textContent?.trim() ?? control.value;
-  componentManagerSandboxMount.dataset.componentManagerViewport = control.value;
-  componentManagerSandboxMount.style.maxInlineSize = width === 'fluid' ? 'none' : `${width}px`;
-  componentManagerViewportStatus.textContent = `Sandbox width: ${label}`;
+  componentManagerPreview.dataset.componentManagerViewport = control.value;
+  componentManagerPreview.style.inlineSize = width === 'fluid' ? '100%' : `${width}px`;
+  componentManagerViewportStatus.textContent = `Preview viewport: ${label}`;
 }
 
 if (componentManagerViewportControls) {
   /** @type {NodeListOf<HTMLInputElement>} */ (componentManagerViewportControls.querySelectorAll('input[type="radio"]')).forEach((control) => {
     control.addEventListener('change', () => applyComponentManagerViewport(control));
     if (control.checked) applyComponentManagerViewport(control);
+  });
+}
+
+if (componentManagerPreview) {
+  componentManagerPreview.addEventListener('load', () => {
+    componentManagerPreview.contentWindow?.postMessage({ type: 'wex-theme', dark: root.dataset.wexTheme === 'dark' }, window.location.origin);
   });
 }
 

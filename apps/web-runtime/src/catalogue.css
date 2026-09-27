@@ -186,8 +186,7 @@ input:focus-visible,
 
 .component-manager__viewport,
 .component-manager__viewport-options,
-.component-manager__viewport-canvas,
-.component-manager__viewport-mount {
+.component-manager__viewport-canvas {
   display: grid;
   min-width: 0;
 }
@@ -230,9 +229,11 @@ input:focus-visible,
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
-.component-manager__viewport-mount {
-  width: 100%;
-  max-inline-size: var(--component-manager-viewport-width, none);
+.component-manager__preview-frame {
+  display: block;
+  inline-size: 100%;
+  min-block-size: calc(var(--wex-space-64) * 6);
+  border: 0;
 }
 
 .colour-groups,

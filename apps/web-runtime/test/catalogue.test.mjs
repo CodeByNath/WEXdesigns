@@ -8,6 +8,8 @@ const pageByPath = Object.fromEntries(pages);
 const pageSource = pages.map(([, source]) => source).join('\n');
 const css = await readFile(new URL('../src/catalogue.css', import.meta.url), 'utf8');
 const runtime = await readFile(new URL('../src/main.js', import.meta.url), 'utf8');
+const componentManagerPreview = await readFile(new URL('../component-manager/preview.html', import.meta.url), 'utf8');
+const componentManagerPreviewRuntime = await readFile(new URL('../src/component-manager-preview.js', import.meta.url), 'utf8');
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
 const elementDirectories = await readdir(new URL('../../../packages/catalogue/content/elements', import.meta.url));
 
@@ -102,7 +104,7 @@ test('provides an isolated Component Manager sandbox without registering a compo
   assert.match(manager, /<a aria-current="page" href="\.\/">Component Manager<\/a>/);
   assert.match(manager, /<h1 id="component-manager-title"[^>]*>Component Manager<\/h1>/);
   assert.match(manager, /data-component-manager-sandbox/);
-  assert.match(manager, /No component is mounted or registered/);
+  assert.match(componentManagerPreview, /No component is mounted or registered/);
   assert.doesNotMatch(manager, /<button|<form|aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
@@ -117,7 +119,7 @@ test('keeps Component Manager viewport tooling bound to current WEX layout thres
   ];
   let previous = -1;
   modes.forEach(({ value, width, label }) => {
-    const control = `value="${value}" data-component-manager-viewport-width="${width}" aria-controls="component-manager-sandbox-mount"`;
+    const control = `value="${value}" data-component-manager-viewport-width="${width}" aria-controls="component-manager-preview-frame"`;
     const offset = manager.indexOf(control);
     assert.ok(offset > previous, `${value} follows the previous authorised viewport mode`);
     assert.match(manager, new RegExp(`${control}[\\s\\S]*${label}`));
@@ -125,10 +127,16 @@ test('keeps Component Manager viewport tooling bound to current WEX layout thres
   });
   assert.match(manager, /value="fluid"[^>]*checked/);
   assert.match(manager, /id="component-manager-viewport-status"[^>]*aria-live="polite"/);
-  assert.match(manager, /id="component-manager-sandbox-mount"[^>]*data-component-manager-viewport="fluid"/);
-  assert.match(runtime, /style\.maxInlineSize = width === 'fluid' \? 'none' : `\$\{width\}px`/);
+  assert.match(manager, /<iframe id="component-manager-preview-frame"[^>]*title="Component Manager responsive preview"[^>]*src="\.\/preview\.html"[^>]*data-component-manager-viewport="fluid"/);
+  assert.match(runtime, /componentManagerPreview\.style\.inlineSize = width === 'fluid' \? '100%' : `\$\{width\}px`/);
   assert.match(runtime, /dataset\.componentManagerViewport = control\.value/);
-  assert.match(css, /--component-manager-viewport-width, none/);
+  assert.match(runtime, /postMessage\(\{ type: 'wex-theme', dark \}, window\.location\.origin\)/);
+  assert.match(componentManagerPreview, /class="wex-layout"/);
+  assert.match(componentManagerPreview, /data-component-manager-preview-mount/);
+  assert.match(componentManagerPreviewRuntime, /window\.getComputedStyle\(layout\)/);
+  assert.match(componentManagerPreviewRuntime, /window\.innerWidth/);
+  assert.doesNotMatch(componentManagerPreviewRuntime, /1440|1024|767/);
+  assert.match(css, /\.component-manager__preview-frame/);
   assert.doesNotMatch(manager, /<button|<form|data-component-(?:definition|fixture|registration)|Drawer|Data Card|Collection/);
 });
 

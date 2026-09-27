@@ -11,8 +11,8 @@
 
 ### Recent work (newest first)
 
-- Phase 3 adds sandbox-only viewport validation tooling that consumes the WEX
-  responsive thresholds without defining a component responsive rule.
+- Phase 3 corrects sandbox-only viewport validation to use an isolated preview
+  browsing context, so WEX media-query states respond at the selected widths.
 - Phase 1 establishes an isolated sandbox route without a component, definition,
   fixture, domain record, adapter, or product behaviour.
 
@@ -35,6 +35,8 @@ component contract, WEX values, domain data, or a page-builder model.
 - Runtime route configuration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - Shared theme and viewport-control behaviour:
   [`apps/web-runtime/src/main.js`](../../apps/web-runtime/src/main.js)
+- Isolated responsive preview:
+  [`apps/web-runtime/component-manager/preview.html`](../../apps/web-runtime/component-manager/preview.html)
 - Focused check: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
 
 ## Dependency boundary
@@ -52,8 +54,10 @@ for reusable structure, interaction, and accessibility mechanics; WEX retains
 presentation authority; domain authority is not represented here.
 
 Viewport tooling may constrain only the sandbox mount width at the current WEX
-thresholds or remain fluid. It must not emulate, rewrite, or become component
-responsive CSS, a component prop, schema, fixture, or device authority.
+thresholds or remain fluid. Its isolated preview browsing context must consume
+the WEX responsive CSS directly; it must not emulate, rewrite, or become
+component responsive CSS, a component prop, schema, fixture, or device
+authority.
 
 ## Safe change routing
 
