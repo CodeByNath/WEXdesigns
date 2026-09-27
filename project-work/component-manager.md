@@ -1,6 +1,6 @@
 # Component Manager
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Establish Component Manager sandbox surface
 
 ## Reviewer verdict
@@ -60,6 +60,23 @@ components. It must not become permanent component authority or a page-builder.
     desktop/compact + light/dark + keyboard/focus validation.
 11. Commit/push one candidate, update this same work file to
     `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
+
+## Builder handoff
+
+- Candidate: `feat/component-manager` at
+  `6238ff920b9565c0ca3123ab3ca14f9497d0b56d`; remote SHA verified.
+- Source: Component Manager catalogue route, Vite multi-page input, ordered
+  navigation, focused empty-sandbox assertions, and its concise Code Map.
+- Boundary: no component, definition, fixture, form, domain record, adapter,
+  Admin Shell, Drawer, Data Card, or Collection implementation was registered.
+- Checks passed: focused `pnpm --filter @weerax/web-runtime test`,
+  `git diff --check`, and `pnpm check` (35 successful tasks; Turbo reported
+  only its pre-existing missing-lockfile and no-test-output warnings).
+- Chrome evidence: local candidate preview passed desktop and compact layouts,
+  light and dark themes, semantic heading/landmark exposure, ordered catalogue
+  navigation, theme toggle, and visible keyboard focus on the skip link.
+- Limitation: this candidate is only locally previewable until promotion because
+  GitHub Pages deploys `main`; no production Pages claim is made.
 
 ## Next boundary
 
