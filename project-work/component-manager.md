@@ -1,6 +1,6 @@
 # Component Manager
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 2 — Promote accepted Component Manager candidate
 
 ## Reviewer verdict
@@ -93,6 +93,23 @@ focused/full checks and candidate Chrome evidence are accepted for this phase.
 3. Validate the promoted `/component-manager/` route in hosted Chrome, including desktop/compact, light/dark, navigation, keyboard/focus, and the empty sandbox boundary.
 4. Delete `feat/component-manager` only after promotion and hosted verification are proven safe.
 5. Update this same work file with exact promotion, Pages, hosted-browser, and branch-housekeeping evidence, then stop at `AWAITING REVIEWER REVIEW`.
+
+## Builder handoff — promotion closeout
+
+- Promotion: `main` was fast-forwarded from
+  `b85a2f98bfb22765c27f824ec4be42b2a23e924e` to
+  `6238ff920b9565c0ca3123ab3ca14f9497d0b56d`; local and remote `main` SHA
+  verified equal.
+- Pages: workflow run 37, `Deploy WEX index`, completed successfully for that
+  exact SHA: https://github.com/CodeByNath/WEXdesigns/actions/runs/36313152694
+- Hosted Chrome: `https://codebynath.github.io/WEXdesigns/component-manager/`
+  passed compact and desktop layouts, light/dark themes, ordered navigation,
+  semantic heading/landmark exposure, visible skip-link focus, and empty mount
+  boundary. A pre-promotion browser-cached Global Components document was
+  bypassed with a fresh request; the current hosted response and navigation
+  include Component Manager.
+- Housekeeping: `feat/component-manager` was deleted only after those checks;
+  remote heads are now exactly `main` and `Project-work-instructions`.
 
 ## Next boundary
 
