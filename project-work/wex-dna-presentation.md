@@ -1,60 +1,60 @@
 # Global Tokens / Typography DNA
 
 Status: BUILDER ACTION REQUIRED
-Phase: 3 — Promote accepted Global Tokens candidate and validate live runtime
+Phase: 3A — Owner correction before Global Tokens closeout
 
 ## Reviewer verdict
 
-**Proceed**
+**Stop — architectural risk**
 
-Reviewed correction candidate: `feat/global-tokens-typography` at
-`b3e12319439bb53d873a80957f50446780940cd5`.
+This is not a rejection of the promoted Phase 2 implementation. The Owner has
+superseded one part of ADR 0012 before this Global Tokens work is closed, so the
+same subject must be corrected before final live acceptance and branch closeout.
 
-The Phase 2 correction is accepted.
+Current promoted `main`: `b3e12319439bb53d873a80957f50446780940cd5`.
+Existing topic branch: `feat/global-tokens-typography`.
 
-Reviewer independently confirmed:
+## Owner correction
 
-- the correction is one commit directly ahead of the previously reviewed
-  candidate and changes only
-  `apps/web-runtime/global-tokens/index.html` and
-  `apps/web-runtime/test/catalogue.test.mjs`;
-- all twelve canonical visible names now print explicitly:
-  Heading / Title / Navigation / Body at Small / Default / Large;
-- the focused runtime test now guards those labels inside the matching tier
-  sections;
-- the accepted Global Tokens / Typography authority, token mappings, route,
-  layout architecture, and Typography source/classes were not widened or
-  changed;
-- remote heads remain within the three-branch limit;
-- GitHub currently reports no registered status checks or workflow runs for the
-  candidate, so Builder local checks remain implementation evidence rather than
-  CI/live evidence.
+Preserve the canonical Typography source and its existing Small / Default /
+Large values. Change the Global Tokens model and presentation as follows:
 
-## Builder instruction
+1. Present the canonical tier flow in this order:
+   **Large -> Default -> Small**.
+2. For Heading Global Tokens, treat **Heading Default** as the base token.
+3. Register **Size / Large** and **Size / Small** as sparse Heading Default
+   attributes, alongside the existing colour, weight, and style attributes.
+4. A Size attribute changes only Heading size/rhythm by referencing the existing
+   Heading Large or Heading Small Typography tokens. It inherits Heading
+   Default's remaining concerns; no size value is copied or invented.
+5. Typography continues to own the actual Large / Default / Small values.
+   Global Tokens own only the approved relationship/reference.
+6. In the Registered attributes showcase, show Heading Default first with its
+   main/default presentation, then Colour / Light, Colour / Accent,
+   Weight / Bold, Weight / Thin, Style / Italic, and finally the Size
+   attributes.
+7. Do not create a new typography family, raw size, component API, or parallel
+   token system.
 
-Using the existing accepted topic branch only:
+## Required Builder correction
 
-1. Reconfirm remote `feat/global-tokens-typography` resolves to
-   `b3e12319439bb53d873a80957f50446780940cd5` and `main` is still based on
-   `21d41fd209621b6e107e964563a7f9f964e407b5` unless a new remote change must
-   be reviewed.
-2. Promote the accepted candidate to `main` without rewriting or widening the
-   accepted history/content.
-3. Verify the exact remote `main` SHA after promotion.
-4. Inspect the resulting GitHub Pages deployment/workflow state.
-5. Validate the deployed `/WEXdesigns/global-tokens/` surface in Chrome for:
-   desktop and compact layouts, light/dark switching, the twelve canonical
-   visible role+tier names, semantic heading exposure, keyboard focus
-   visibility, and skip-link transfer to `#main-content`.
-6. Do not start new Global Tokens, Typography, component, or unrelated work.
-7. Keep the topic branch until Reviewer independently verifies the promoted
-   `main` and live Pages boundary.
-8. Update this same file to `AWAITING REVIEWER REVIEW` with the promoted main
-   SHA, deployment/workflow evidence, live validation result, and any
-   limitation; then stop.
+On the existing topic branch only:
 
-## Closeout boundary
+- amend ADR 0012 so it no longer says Size can never be a Global Token
+  attribute; state the Owner-approved Heading Default + sparse Size attribute
+  model above while preserving token-reference/inheritance rules;
+- update the Global Tokens Code Map if its routing/boundary text conflicts;
+- reorder the canonical presentation Large -> Default -> Small;
+- update the Registered attributes showcase to include Size / Large and
+  Size / Small after the existing attributes;
+- keep `/global-tokens/`, existing Typography source values/classes, and all
+  unrelated WEX foundations unchanged;
+- strengthen focused tests for ordering, Heading Default base inheritance, and
+  both registered Size attributes;
+- run focused tests, `git diff --check`, `pnpm check`, and Chrome
+  desktop/compact + light/dark + keyboard/focus validation;
+- push the correction to the same topic branch and update this same work file
+  to `AWAITING REVIEWER REVIEW` with exact SHA/evidence, then stop.
 
-After Reviewer independently verifies promoted source and live Pages behaviour,
-the completed topic branch can be authorised for deletion. No new topic branch
-may open before that housekeeping is complete.
+Do not delete the topic branch or close this Global Tokens work until Reviewer
+accepts this Owner correction and the final hosted boundary.
