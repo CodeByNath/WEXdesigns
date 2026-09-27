@@ -1,6 +1,6 @@
 # Component Manager
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 4 — Promote accepted responsive Component Manager
 
 ## Reviewer verdict
@@ -181,6 +181,23 @@ simulation.
    verification are proven safe.
 5. Update this same work file with exact promotion, Pages, hosted-browser and
    branch-housekeeping evidence, return to `AWAITING REVIEWER REVIEW`, and stop.
+
+## Builder promotion handoff
+
+- Promotion: `main` was fast-forwarded and remote-verified at
+  `32e4866edd6576edf2b6f86f5cffc446cf509e03`, exactly the accepted candidate.
+- Pages: Deploy WEX index run 38 succeeded for that SHA in 30 seconds:
+  `https://github.com/CodeByNath/WEXdesigns/actions/runs/36317901317`.
+- Hosted Chrome: `https://codebynath.github.io/WEXdesigns/component-manager/`
+  loaded the isolated preview. Its live WEX output was `1440px` →
+  `1200px`/`24px`, `1024px` → `100%`/`24px`, `767px` → `100%`/`16px`, and
+  Fluid → its actual `604px` width with `100%`/`16px`.
+- Accessibility and boundaries: native radio semantics, arrow-key selection,
+  visible focus, light/dark preview synchronization, catalogue navigation, and
+  the empty component mount were verified on the hosted route.
+- Housekeeping: local and remote `feat/component-manager-viewport` were
+  deleted only after hosted verification. Remote heads are now `main` and
+  `Project-work-instructions` only.
 
 ## Next boundary
 
