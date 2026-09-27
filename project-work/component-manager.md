@@ -1,11 +1,11 @@
 # Component Manager
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3 — Correct WEX-responsive viewport validation tooling
+Status: BUILDER ACTION REQUIRED
+Phase: 4 — Promote accepted responsive Component Manager
 
 ## Reviewer verdict
 
-**Stop — architectural risk**
+**Proceed**
 
 Accepted `main`:
 `6238ff920b9565c0ca3123ab3ca14f9497d0b56d`.
@@ -149,6 +149,38 @@ styling defect. Do not promote this candidate as-is.
   width. Native radio semantics, arrow-key mode selection, visible focus,
   light/dark theme synchronization, and the empty mount boundary were also
   verified.
+
+## Reviewer acceptance — corrected Phase 3
+
+Reviewer independently verified corrected candidate
+`32e4866edd6576edf2b6f86f5cffc446cf509e03` against accepted `main`.
+The candidate is two commits ahead only because it contains the rejected first
+attempt plus the bounded correction; the resulting tree now uses a same-origin
+iframe whose actual browsing-context width is changed by the Component Manager
+controls. The preview itself consumes the shared WEX CSS, reads
+`window.innerWidth` and computed `.wex-layout` values, and contains no copied
+1440/1024/767 breakpoint logic. The empty-component and domain boundaries remain
+intact.
+
+The recorded Chrome evidence is consistent with current WEX layout authority:
+1440px resolves the laptop max, 1024px resolves full width with normal padding,
+and 767px resolves compact padding. This corrects the rejected same-document
+simulation.
+
+## Builder instruction — promotion closeout
+
+1. Fast-forward accepted candidate `32e4866edd6576edf2b6f86f5cffc446cf509e03`
+   to `main`; do not alter implementation source.
+2. Verify remote `main` equals that exact SHA and verify the GitHub Pages run
+   succeeds for the same SHA.
+3. Validate hosted `/component-manager/` in Chrome: Large, Medium, Compact and
+   Fluid must change the iframe browsing-context width and produce the expected
+   live WEX layout response; also verify light/dark sync, radio keyboard/focus,
+   navigation, and the empty component boundary.
+4. Delete `feat/component-manager-viewport` only after promotion and hosted
+   verification are proven safe.
+5. Update this same work file with exact promotion, Pages, hosted-browser and
+   branch-housekeeping evidence, return to `AWAITING REVIEWER REVIEW`, and stop.
 
 ## Next boundary
 
