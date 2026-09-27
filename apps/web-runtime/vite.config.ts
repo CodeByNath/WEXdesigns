@@ -11,7 +11,7 @@ export default defineConfig({
         typography: fileURLToPath(new URL('./typography/index.html', import.meta.url)),
         actions: fileURLToPath(new URL('./actions/index.html', import.meta.url)),
         layout: fileURLToPath(new URL('./layout/index.html', import.meta.url)),
-        designTokens: fileURLToPath(new URL('./design-tokens/index.html', import.meta.url)),
+        globalTokens: fileURLToPath(new URL('./global-tokens/index.html', import.meta.url)),
       },
     },
   },

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readdir, readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-const pagePaths = ['index.html', 'colour/index.html', 'typography/index.html', 'actions/index.html', 'layout/index.html', 'design-tokens/index.html'];
+const pagePaths = ['index.html', 'colour/index.html', 'typography/index.html', 'actions/index.html', 'layout/index.html', 'global-tokens/index.html'];
 const pages = await Promise.all(pagePaths.map(async (path) => [path, await readFile(new URL(`../${path}`, import.meta.url), 'utf8')]));
 const pageByPath = Object.fromEntries(pages);
 const pageSource = pages.map(([, source]) => source).join('\n');
@@ -17,8 +17,8 @@ test('builds a root entry surface and five independent foundation routes in orde
   assert.match(pageByPath['index.html'], /href="\.\/typography\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/actions\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/layout\/"/);
-  assert.match(pageByPath['index.html'], /href="\.\/design-tokens\/"/);
-  const routes = ['./colour/', './typography/', './actions/', './layout/', './design-tokens/'];
+  assert.match(pageByPath['index.html'], /href="\.\/global-tokens\/"/);
+  const routes = ['./colour/', './typography/', './actions/', './layout/', './global-tokens/'];
   const root = pageByPath['index.html'];
   routes.reduce((lastIndex, route) => {
     const index = root.indexOf(`href="${route}"`);
@@ -37,6 +37,9 @@ test('keeps shared navigation, theme mechanics, and keyboard skip access on ever
     assert.match(source, /id="main-content"/);
     assert.match(source, /src="(?:\.\/|\.\.\/)+src\/main\.js"/);
     assert.match(source, new RegExp(path === 'index.html' ? 'href="\\.\\/src\\/catalogue\\.css"' : 'href="\\.\\.\\/src\\/catalogue\\.css"'));
+    if (path !== 'index.html' && path !== 'global-tokens/index.html') {
+      assert.match(source, /href="\.\.\/global-tokens\/">Global Tokens<\/a>/);
+    }
   });
   assert.match(runtime, /localStorage\.setItem\('wex-theme'/);
   assert.match(runtime, /root\.dataset\.wexTheme/);
@@ -76,12 +79,12 @@ test('limits Actions to existing Button presentation', () => {
 
 test('moves verified layout presentation values to Layout and presents registered WEX DNA', () => {
   const layout = pageByPath['layout/index.html'];
-  const tokens = pageByPath['design-tokens/index.html'];
+  const tokens = pageByPath['global-tokens/index.html'];
   ['--wex-space-8', '--wex-layout-columns', '--wex-radius-default', '--wex-border-width-default', '--wex-focus-width'].forEach((token) => assert.match(layout, new RegExp(`data-wex-value="${token}"`)));
   assert.match(layout, /Spacing and gaps|Layout and grid|Geometry and radius|Borders|Interaction presentation/);
   assert.doesNotMatch(layout, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
-  assert.match(pageByPath['index.html'], /href="\.\/design-tokens\/"><span[^>]*>WEX DNA<\/span>/);
-  assert.match(tokens, /<a aria-current="page" href="\.\/">WEX DNA<\/a>/);
+  assert.match(pageByPath['index.html'], /href="\.\/global-tokens\/"><span[^>]*>WEX DNA<\/span>/);
+  assert.match(tokens, /<a aria-current="page" href="\.\/">Global Tokens<\/a>/);
   assert.match(tokens, /<h1 id="wex-dna-title"[^>]*>WEX DNA<\/h1>/);
   assert.match(tokens, /Heading DNA[\s\S]*Page Heading/);
   ['Small', 'Light', 'Accent', 'Bold', 'Thin', 'Italic'].forEach((attribute) => assert.match(tokens, new RegExp(`<h5[^>]*>${attribute}<\\/h5>`)));

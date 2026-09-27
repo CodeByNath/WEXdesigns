@@ -53,7 +53,7 @@ They do not supply or approve Heading DNA values.
   [`colour-tokens.test.mjs`](../../packages/wex/test/colour-tokens.test.mjs), and
   [`validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 - Runtime presentation and route check:
-  [`apps/web-runtime/design-tokens/index.html`](../../apps/web-runtime/design-tokens/index.html)
+  [`apps/web-runtime/global-tokens/index.html`](../../apps/web-runtime/global-tokens/index.html)
   and [`catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
 
 ## Dependency boundary
