@@ -1,6 +1,6 @@
 # Global Tokens / Typography DNA
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 3A — Owner presentation correction before Global Tokens closeout
 
 ## Reviewer verdict
@@ -71,3 +71,26 @@ On the existing topic branch only:
 
 Do not delete the topic branch or close this Global Tokens work until Reviewer
 accepts this correction and the final hosted boundary.
+
+## Builder handoff
+
+- Candidate branch: `feat/global-tokens-typography`
+- Candidate SHA: `ca42918152a930700c2cd5f440c94d8723e31d8f`
+- Scope completed: the runtime tier flow is Large -> Default -> Small; Heading
+  Default is the registered base followed by Colour, Weight, Style, and Size /
+  Large and Size / Small attributes in the required order. The size specimens
+  use the existing Heading Large and Heading Small Typography classes only.
+- Authority completed: ADR 0012 and the Global Tokens Code Map describe the
+  same sparse Heading Size relationship. No WEX foundation, Typography, Colour,
+  custom-property, token-storage, or `catalogue.css` file changed.
+- Automated evidence: `git diff --check` passed; focused Node tests passed
+  (9/9); `pnpm check` passed (35/35 tasks).
+- Local Chrome evidence at `http://localhost:5174/WEXdesigns/global-tokens/`:
+  desktop and compact presentations inspected in light and dark themes; the
+  tier and attribute order was visible; the existing responsive single-column
+  cards wrapped cleanly; Tab focused Skip to content and Enter moved to
+  `#main-content`.
+
+Builder stopped after push and this handoff. Reviewer must inspect the topic
+candidate and decide any promotion; `main` remains at
+`b3e12319439bb53d873a80957f50446780940cd5`.
