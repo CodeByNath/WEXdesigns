@@ -1,61 +1,62 @@
 # Global Tokens / Typography DNA
 
 Status: BUILDER ACTION REQUIRED
-Phase: 3D — Promote final Global Tokens presentation and verify hosted result
+Phase: 3D — Final two-line presentation correction, then promote and verify hosted result
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Accepted candidate: `feat/global-tokens-typography` at
-`5ff024f94d555648136839e27044b77bb90655ff`, one commit directly ahead of
-`main` `ca42918152a930700c2cd5f440c94d8723e31d8f`.
+Previously accepted candidate:
+`feat/global-tokens-typography` at
+`5ff024f94d555648136839e27044b77bb90655ff`.
 
-## Reviewer findings
+The Owner has now approved one final, already-pending presentation-only
+correction before promotion: remove the two presentation lines currently
+pending in the Builder working tree.
 
-The final presentation cleanup matches the Owner correction:
+## Authorised final correction
 
-- the redundant Canonical vocabulary / Large / Default / Small showcase is
-  removed from `/global-tokens/`;
-- Heading Default remains the sole base Design Token presentation;
-- registered attributes remain ordered Colour / Light, Colour / Accent,
-  Weight / Bold, Weight / Thin, Style / Italic, Size / Large, Size / Small;
-- Size attributes continue to use existing Heading Large/Small Typography
-  classes only;
-- `Colour / Light` now maps to existing `--wex-color-white` in ADR 0012,
-  presentation selectors, and focused tests;
-- no WEX Colour foundation, Typography foundation, primitive/custom-property
-  storage, schema, component API, or raw visual value changed;
-- the only CSS changes are the two pre-existing Global Tokens Light-demo
-  selectors authorised for this correction;
-- focused tests no longer require the removed tier showcase and guard the base
-  token, attribute order, Size mappings, and exact White mapping.
+The Builder may commit the Owner-requested **two-line removal** before
+promotion, subject to all of these safeguards:
 
-Builder reported `git diff --check`, focused tests (9/9), `pnpm check`
-(35/35), and local Chrome validation passed. GitHub exposes no candidate
-status/workflow run before promotion.
+- the change is limited to those two already-pending presentation lines on the
+  Global Tokens runtime page;
+- no WEX foundation CSS, Typography/Colour source, token definitions/storage,
+  ADR model, schema, component API, or unrelated presentation may change;
+- do not add replacement copy, new layout, new styling, or other cleanup;
+- if focused runtime tests explicitly assert either removed line, update only
+  those exact assertions as required;
+- the resulting topic candidate must otherwise remain identical to the
+  previously accepted `5ff024f94d555648136839e27044b77bb90655ff`.
 
 ## Builder instruction
 
 Using the existing topic branch only:
 
-1. Reconfirm remote `feat/global-tokens-typography` resolves exactly to
-   `5ff024f94d555648136839e27044b77bb90655ff` and `main` has not changed
-   unexpectedly.
-2. Promote that exact candidate to `main` without widening or rewriting it.
-3. Verify the exact remote `main` SHA.
-4. Inspect the resulting GitHub Pages deployment/workflow.
-5. Validate the hosted `/WEXdesigns/global-tokens/` page in Chrome for:
-   simplified Registered attributes-only presentation; Heading Default base;
-   correct seven-attribute order; visibly white Colour / Light specimen;
+1. Commit the Owner-approved two-line presentation removal already pending in
+   the working tree.
+2. Verify the diff from `5ff024f94d555648136839e27044b77bb90655ff` contains
+   only those two removals plus any strictly necessary focused-test assertion
+   adjustment.
+3. Run the focused runtime tests and `git diff --check`. Run `pnpm check`
+   if any test file changes.
+4. Push the corrected topic branch and verify its exact remote SHA.
+5. Promote that corrected exact SHA to `main` without widening or rewriting it.
+6. Verify the exact remote `main` SHA and resulting GitHub Pages deployment.
+7. Validate the hosted `/WEXdesigns/global-tokens/` page in Chrome for:
+   Registered-attributes-only presentation; Heading Default base; correct
+   seven-attribute order; visibly white Colour / Light specimen;
    desktop/compact; light/dark; keyboard focus; skip-link transfer.
-6. Do not begin any new work or unrelated cleanup.
-7. Keep the topic branch until Reviewer verifies promoted source and hosted
+8. Do not begin any new work or unrelated cleanup.
+9. Keep the topic branch until Reviewer verifies promoted source and hosted
    behaviour.
-8. Update this same work file to `AWAITING REVIEWER REVIEW` with exact promoted
-   SHA, Pages evidence, hosted browser result, and any limitation; stop.
+10. Update this same work file to `AWAITING REVIEWER REVIEW` with the corrected
+    candidate SHA, promoted main SHA, exact two-line diff evidence, checks,
+    Pages evidence, hosted browser result, and any limitation; stop.
 
 ## Closeout boundary
 
-After Reviewer independently verifies the promoted source and hosted page, the
-topic branch can be removed and this Global Tokens work closed.
+This Owner-approved two-line removal is part of the current Global Tokens
+closeout, not a new workstream. After Reviewer verifies the promoted source and
+hosted page, the topic branch can be removed and this work closed.
