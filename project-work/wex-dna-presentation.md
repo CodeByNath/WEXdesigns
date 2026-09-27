@@ -1,6 +1,6 @@
 # Global Tokens / Typography DNA
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 4 — Extend Design Token DNA to Title, Navigation, and Body
 
 ## Reviewer verdict
@@ -15,6 +15,28 @@ Heading presentation.
 
 The completed `feat/global-tokens-typography` branch is safe for Builder
 housekeeping before opening the next topic branch.
+
+## Builder handoff
+
+Candidate: `origin/feat/global-tokens-remaining` at
+`0fb41926c3ca4ace21e083ce62b0c06f242cbdc4`.
+
+Changed files:
+
+- `apps/web-runtime/global-tokens/index.html`
+- `apps/web-runtime/test/catalogue.test.mjs`
+- `docs/code-map/global-tokens.md`
+- `docs/decisions/0012-global-tokens-typography-dna.md`
+- `packages/wex/test/global-tokens.test.mjs`
+
+Evidence: `git diff --check`; focused WEX and web-runtime tests; and full
+`pnpm check` all pass. Chrome validated the local candidate at
+`http://localhost:5175/WEXdesigns/global-tokens/`: all four roles expose the
+correct ordered cards, desktop uses the two-column grid, compact uses one
+column, light/dark themes render correctly, and keyboard skip-link focus
+transfers to main content. Production Pages is `main`-only, so this is local
+candidate evidence; live Pages validation remains the post-promotion Reviewer
+boundary. No deviations or unresolved issues.
 
 ## Owner rule
 
