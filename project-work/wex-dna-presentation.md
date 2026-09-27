@@ -1,109 +1,61 @@
 # Global Tokens / Typography DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 2 — Replace Page Heading DNA with typography-aligned Global Tokens
+Status: BUILDER ACTION REQUIRED
+Phase: 2 — Typography-aligned Global Tokens correction round
 
 ## Reviewer verdict
 
-**Stop — architectural risk**
+**Proceed with safeguards**
 
-Current `main`: `21d41fd209621b6e107e964563a7f9f964e407b5`.
+Reviewed candidate: `feat/global-tokens-typography` at
+`a6df4aa39439021976d39393b9718f8caf30cb68`, one commit directly ahead of
+`main` `21d41fd209621b6e107e964563a7f9f964e407b5`.
 
-Owner correction: the current `Page Heading DNA` abstraction duplicates an
-already-authoritative Typography system and must not become the component-facing
-model.
+The architectural correction is aligned: Page Heading DNA is retired; ADR 0012,
+Code Map, focused tests, and runtime now use the existing Heading / Title /
+Navigation / Body vocabulary, preserve Small / Default / Large tier ownership,
+keep Typography source/classes unchanged, retain token-reference/sparse-override
+rules, and preserve `/global-tokens/`. No parallel component API or raw visual
+value system was introduced.
 
-## Existing authority confirmed
+## Safeguard required before promotion
 
-WEX Typography already owns the canonical text vocabulary:
+The runtime presentation does not yet print the canonical token names
+consistently. In the Small tier it renders `Heading`, `Title`, `Navigation`
+and body prose beneath a separate `Small` section. The Owner direction requires
+the visible presentation itself to use the Typography names directly:
 
-- `Heading`
-- `Title`
-- `Navigation`
-- `Body`
+- Heading Small / Default / Large
+- Title Small / Default / Large
+- Navigation Small / Default / Large
+- Body Small / Default / Large
 
-Each uses the existing global tiers:
+The current runtime test checks tier headings and class-name prefixes, so this
+display-name regression can pass unnoticed.
 
-- `Small`
-- `Default`
-- `Large`
+## Builder instruction
 
-The existing tier rule is binding: tier peers pair together. A Small component
-composition uses Small typography roles; Default uses Default; Large uses Large.
-Do not cross-pair tiers inside one composition.
+On the existing `feat/global-tokens-typography` branch only:
 
-## Owner-approved Global Tokens model
+1. Change the twelve base specimen labels so each visibly prints its exact
+   canonical role + tier name, including `Heading Small`, `Title Small`,
+   `Navigation Small`, `Body Small`, and the corresponding Default/Large
+   names.
+2. Strengthen the focused runtime test to assert those twelve visible canonical
+   names, not only class prefixes/tier section headings.
+3. Do not change the accepted ADR model, Typography values/classes, registered
+   attribute mappings, route, layout architecture, or any unrelated source.
+4. Run focused tests, `git diff --check`, `pnpm check`, and the same Chrome
+   desktop/compact, light/dark, keyboard/focus validation.
+5. Push the correction to the same topic branch, update this same file to
+   `AWAITING REVIEWER REVIEW` with the exact remote SHA/evidence, then stop.
 
-Global Tokens / WEX DNA **augment the existing typography vocabulary**. They do
-not create `Page Heading`, `Page Title`, or another semantic text hierarchy.
+No promotion to `main` is authorised in this round.
 
-For every existing canonical typography role/tier, preserve its current name,
-size/rhythm, primary weight, and usage authority, then bind:
+## Reviewer evidence
 
-- Default colour -> `--wex-color-text-primary` (theme-aware)
-- Colour / Light -> `--wex-color-light` (persistent light override)
-- Colour / Accent -> `--wex-color-text-accent`
-- Weight / Bold -> existing Semibold authority
-- Weight / Thin -> existing Light-weight authority
-- Style / Italic -> existing Italic authority
-
-Size is **not** a DNA attribute. Size remains the existing Typography tier.
-
-The intended component-facing direction is:
-
-```text
-existing typography token/class
-+ optional registered Global Token attributes
-= component-ready presentation
-```
-
-Components must not invent or locally assign colour/weight/style values when a
-registered token exists. Do not invent final API/class names without repository
-authority; use the smallest existing-compatible mechanism and stop on a naming
-gate if none exists.
-
-## Required correction
-
-On one topic branch:
-
-1. supersede/replace ADR 0012's `Page Heading DNA` model while preserving its
-   useful token-reference and sparse-override rules;
-2. retire Page-Heading-specific test/map authority and route the subject through
-   Typography + Global Tokens authority instead;
-3. keep the existing Typography source values and canonical classes intact;
-4. update Global Tokens presentation to show the actual Typography vocabulary,
-   not `Page Heading`;
-5. present all three tiers explicitly, including the currently omitted
-   **Heading Default**;
-6. include Heading, Title, Navigation, and Body at Small / Default / Large;
-7. show registered attributes as additions to those existing type tokens, not
-   as replacement typography roles;
-8. preserve the current `/global-tokens/` route unless current repository
-   authority requires otherwise.
-
-## Exclusions
-
-No component implementation, page-builder, new type family, new size tier,
-cross-tier pairing, raw visual values, brand customisation, or speculative DNA
-families.
-
-## Builder handoff
-
-Candidate: `feat/global-tokens-typography` at
-`a6df4aa39439021976d39393b9718f8caf30cb68` (pushed to `origin`).
-
-- Replaced ADR 0012, its map, and its focused test with Global Tokens /
-  Typography authority; Typography source values and canonical classes are
-  unchanged.
-- `/global-tokens/` now presents Heading, Title, Navigation, and Body at Small,
-  Default, and Large, including Heading Default, plus additive attributes.
-- Passed `git diff --check`, focused authority/runtime tests (9 passing), and
-  `pnpm check` (35 successful tasks). The check emitted only existing
-  Turborepo lockfile/output-cache warnings.
-- Chrome local candidate preview at `/WEXdesigns/global-tokens/` passed desktop
-  and compact layouts, light/dark theme switching, semantic heading order,
-  visible keyboard focus, and skip-link transfer to `#main-content`.
-
-Limitation: this candidate cannot appear on the production GitHub Pages URL
-until promotion to `main`; live Pages behaviour remains a separate Reviewer
-evidence boundary. Stop for Reviewer review.
+Remote heads remain within the three-branch limit:
+`main`, `Project-work-instructions`, and `feat/global-tokens-typography`.
+GitHub exposes no registered status checks or workflow runs for the submitted
+candidate; Builder local check/browser evidence is therefore recorded but not
+mistaken for CI or live Pages evidence.
