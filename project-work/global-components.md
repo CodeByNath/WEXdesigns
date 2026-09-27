@@ -1,6 +1,6 @@
 # Global Components Catalogue
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Establish Global Components page and ecosystem entrypoint
 
 ## Reviewer verdict
@@ -13,6 +13,32 @@ Prerequisite accepted `main`:
 Global Tokens / Typography DNA is closed after Owner live-browser validation and the Reviewer-accepted Light-demo card border correction through `e62818163b21bff94c77f2b4a0b6dfb889d7b971`.
 The completed remote `feat/global-tokens-remaining` branch must be removed
 before a new topic branch is opened.
+
+## Builder handoff
+
+Candidate: `feat/global-components` at
+`6f35b0de00940902d2a298c91724950b8362a2b5`.
+
+Housekeeping completed before the candidate branch was opened: the remote
+`feat/global-tokens-remaining` branch was deleted, and the remote then exposed
+only `main` and `Project-work-instructions`. The candidate starts from accepted
+`main` `e62818163b21bff94c77f2b4a0b6dfb889d7b971`.
+
+Changed files: `apps/web-runtime/{index,colour/index,typography/index,actions/index,layout/index,global-tokens/index,global-components/index}.html`,
+`apps/web-runtime/{vite.config.ts,test/catalogue.test.mjs}`, and
+`docs/{architecture/repository-map.md,code-map/README.md,code-map/global-components.md}`.
+
+Checks passed: `git diff --check`; `pnpm --filter @weerax/web-runtime test`
+(9 tests); `pnpm --filter @weerax/web-runtime build`; and `pnpm check` (35
+tasks). Chrome candidate validation covered the new route and shared navigation
+on desktop and compact viewports, light and dark themes, and keyboard skip-link
+transfer to main. The Registered components section is visibly empty.
+
+Owner-directed deviation from the original Builder brief: Button is deliberately
+not registered, linked, or shown on this page. The catalogue is an empty
+entrypoint; existing Actions/Button implementation is untouched. Reviewer
+should assess and reconcile this explicit direction before acceptance. Pages is
+main-only, so candidate browser evidence used the local Vite preview.
 
 ## Owner direction
 
