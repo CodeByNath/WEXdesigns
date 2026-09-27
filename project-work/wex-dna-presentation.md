@@ -1,81 +1,80 @@
 # Global Tokens / Typography DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3B — Promote accepted Owner correction and validate live runtime
+Status: BUILDER ACTION REQUIRED
+Phase: 3C — Final Global Tokens presentation cleanup
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Accepted candidate: `feat/global-tokens-typography` at
-`ca42918152a930700c2cd5f440c94d8723e31d8f`, one commit directly ahead of
-promoted `main` `b3e12319439bb53d873a80957f50446780940cd5`.
+Accepted/presented implementation is on `main` and
+`feat/global-tokens-typography` at
+`ca42918152a930700c2cd5f440c94d8723e31d8f`.
 
-## Reviewer findings
+Owner browser validation passed the promoted surface. Two final corrections
+remain inside this same Global Tokens work.
 
-The Phase 3A Owner correction is aligned and remains presentation/authority
-bounded:
+## Owner corrections
 
-- canonical presentation order is Large -> Default -> Small;
-- Heading Default is the base Design Token;
-- Colour, Weight, Style, Size / Large, and Size / Small are sparse attributes;
-- Size attributes reference existing Heading Large/Small Typography
-  classes/tokens and inherit the remainder of Heading Default;
-- Typography still owns actual tier values/classes;
-- ADR 0012 and the Global Tokens Code Map describe the same model;
-- focused runtime tests guard tier ordering, base-token presentation, attribute
-  ordering, and both Size attributes;
-- candidate diff changes only ADR/Code Map, Global Tokens runtime markup, and
-  focused tests;
-- no WEX foundation CSS, Typography CSS, Colour CSS, token/custom-property
-  storage, `catalogue.css`, schema, component API, or raw visual value changed.
+### 1. Remove redundant tier showcase
 
-GitHub exposes no candidate CI/status workflow evidence; Builder's local
-`git diff --check`, focused tests, `pnpm check`, and Chrome validation remain
-recorded implementation evidence, not live/deployment evidence.
+The separate **Canonical vocabulary / Typography + Global Tokens** block with
+Large, Default, and Small role cards is no longer needed. The accepted Design
+Token model already expresses the hierarchy:
 
-## Builder instruction
+```text
+Heading Default = base Design Token
+
+Attributes:
+Colour / Light
+Colour / Accent
+Weight / Bold
+Weight / Thin
+Style / Italic
+Size / Large
+Size / Small
+```
+
+Remove that redundant showcase from the runtime presentation. Keep Registered
+attributes as the primary showcase.
+
+### 2. Correct Colour / Light mapping
+
+`Colour / Light` must follow the intended hierarchy and reference
+`--wex-color-white`, not `--wex-color-light`.
+
+This is a Global Token relationship/presentation correction. Do **not** change
+the WEX Colour foundation or redefine either primitive.
+
+## Required Builder correction
 
 Using the existing topic branch only:
 
-1. Reconfirm remote `feat/global-tokens-typography` resolves exactly to
-   `ca42918152a930700c2cd5f440c94d8723e31d8f` and `main` has not changed
-   unexpectedly.
-2. Promote that exact accepted candidate to `main` without widening or
-   rewriting the accepted content.
-3. Verify the exact remote `main` SHA.
-4. Inspect the resulting GitHub Pages deployment/workflow state.
-5. Validate the deployed `/WEXdesigns/global-tokens/` surface in Chrome:
-   Large -> Default -> Small order; Heading Default base; Colour/Weight/Style
-   then Size / Large and Size / Small; desktop/compact; light/dark; keyboard
-   focus; skip-link transfer to `#main-content`.
-6. Do not begin new Global Tokens, Typography, component, CSS, or unrelated
-   work.
-7. Keep the topic branch until Reviewer independently verifies promoted source
-   and live Pages behaviour.
-8. Update this same work file to `AWAITING REVIEWER REVIEW` with promoted main
-   SHA, deployment/workflow evidence, live validation, and any limitation; stop.
+1. Remove the Canonical vocabulary header and Large / Default / Small role-card
+   sections from `/global-tokens/`.
+2. Keep Registered attributes with Heading Default first, then Colour / Light,
+   Colour / Accent, Weight / Bold, Weight / Thin, Style / Italic,
+   Size / Large, Size / Small.
+3. Correct ADR 0012 so Colour / Light maps to existing
+   `--wex-color-white`.
+4. Correct the Global Tokens runtime presentation so the Light specimen uses
+   `--wex-color-white`. A narrowly bounded `catalogue.css` edit is authorised
+   only for the existing Light presentation selector(s) that currently map to
+   `--wex-color-light`; do not add a new token or raw colour.
+5. Update the Global Tokens Code Map only where its description conflicts.
+6. Update focused tests to remove requirements for the deleted tier showcase
+   and to guard Heading Default plus all seven attributes, including the exact
+   `--wex-color-white` Light relationship.
+7. Do not edit WEX foundation CSS, Typography CSS, Colour foundation CSS,
+   primitive/custom-property storage, schemas, component APIs, or unrelated
+   presentation.
+8. Run focused tests, `git diff --check`, `pnpm check`, and Chrome
+   desktop/compact + light/dark + keyboard/focus validation.
+9. Push to the same topic branch, update this work file to
+   `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
 
 ## Closeout boundary
 
-After final Reviewer verification, the completed topic branch may be removed and
-this Global Tokens work can be closed.
-
-## Builder handoff
-
-- Promoted `main`: `ca42918152a930700c2cd5f440c94d8723e31d8f`; remote SHA
-  verified exact. Topic branch remains for independent review.
-- Pages deployment: workflow **Deploy WEX index**, run 31, completed
-  successfully for that SHA at
-  `https://github.com/CodeByNath/WEXdesigns/actions/runs/36293478808`.
-- Fresh hosted evidence: the cache-busting live URL rendered Large -> Default
-  -> Small; Heading Default base; ordered Colour, Weight, Style, Size / Large,
-  and Size / Small cards; light and dark themes; and compact single-column
-  wrapping. Direct hosted HTML retrieval returned the same required content.
-- Browser rerun: in the dedicated live tab, Light and Dark both rendered
-  correctly; compact cards wrapped cleanly; Tab focused Skip to content; and
-  Enter transferred to `#main-content`. The bare Pages URL still held an older
-  Chrome cache entry; the cache-busting URL served the current deployment.
-
-Builder stopped after the required promotion and handoff. Reviewer must verify
-the remaining bare-URL cache behaviour before closeout.
+This is the final correction inside the current Global Tokens work. After
+Reviewer accepts the pushed result and verifies the hosted page, the topic
+branch can be removed and this work closed.
