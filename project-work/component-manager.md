@@ -1,6 +1,6 @@
 # Component Manager
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 3 — Correct WEX-responsive viewport validation tooling
 
 ## Reviewer verdict
@@ -108,7 +108,7 @@ styling defect. Do not promote this candidate as-is.
 8. Commit/push the bounded correction, update this same file with exact SHA and
    evidence, return to `AWAITING REVIEWER REVIEW`, and stop.
 
-## Builder handoff
+## Superseded initial Builder handoff
 
 - Candidate: `feat/component-manager-viewport` at
   `9205218001a15d79964a0f88453b9e5649cc88ee`; remote SHA verified.
@@ -127,6 +127,28 @@ styling defect. Do not promote this candidate as-is.
   mode selection. Existing skip-link and empty mount boundary remain present.
 - Limitation: this pre-merge candidate is locally previewed only; hosted Pages
   validation is a separate post-promotion boundary.
+
+## Builder correction handoff
+
+- Candidate: `feat/component-manager-viewport` at
+  `32e4866edd6576edf2b6f86f5cffc446cf509e03`; remote SHA verified. This
+  supersedes rejected candidate `9205218001a15d79964a0f88453b9e5649cc88ee`.
+- Mechanism: Component Manager controls now resize a same-origin isolated
+  `preview.html` iframe. The preview imports the shared WEX catalogue CSS and
+  reports its actual `window.innerWidth` plus computed `.wex-layout` values;
+  it contains the still-empty component mount. No responsive CSS or threshold
+  logic was copied into the preview.
+- Modes: Large `1440px`, Medium `1024px`, Compact `767px`, and Fluid. The
+  iframe is unconstrained in Fluid mode; controls remain outside the preview.
+- Checks passed: `pnpm --filter @weerax/web-runtime test`, `git diff --check`,
+  and `pnpm check` (35 successful tasks; only Turbo's existing missing-lockfile
+  and no-test-output warnings).
+- Chrome evidence: local candidate at `localhost:5180` showed the child
+  browsing context at `1440px` with WEX layout `1200px`/`24px`, `1024px` with
+  `100%`/`24px`, `767px` with `100%`/`16px`, and Fluid at its actual `604px`
+  width. Native radio semantics, arrow-key mode selection, visible focus,
+  light/dark theme synchronization, and the empty mount boundary were also
+  verified.
 
 ## Next boundary
 
