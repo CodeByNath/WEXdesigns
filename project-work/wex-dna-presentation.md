@@ -1,76 +1,94 @@
 # Global Tokens / Typography DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3D — Promoted and hosted validation complete
+Status: BUILDER ACTION REQUIRED
+Phase: 4 — Extend Design Token DNA to Title, Navigation, and Body
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Previously accepted candidate:
-`feat/global-tokens-typography` at
-`5ff024f94d555648136839e27044b77bb90655ff`.
+Heading Global Tokens are accepted on `main` at
+`21983ed56c442f41c4496e1677bdf6fa8c46189f`.
+Owner browser validation passed the hosted page, including light/dark,
+desktop/compact, keyboard focus, skip-link transfer, and the final simplified
+Heading presentation.
 
-The Owner has now approved one final, already-pending presentation-only
-correction before promotion: remove the two presentation lines currently
-pending in the Builder working tree.
+The completed `feat/global-tokens-typography` branch is safe for Builder
+housekeeping before opening the next topic branch.
 
-## Authorised final correction
+## Owner rule
 
-The Builder may commit the Owner-requested **two-line removal** before
-promotion, subject to all of these safeguards:
+Apply the learned Design Token method in one implementation pass to the three
+remaining Typography roles:
 
-- the change is limited to those two already-pending presentation lines on the
-  Global Tokens runtime page;
-- no WEX foundation CSS, Typography/Colour source, token definitions/storage,
-  ADR model, schema, component API, or unrelated presentation may change;
-- do not add replacement copy, new layout, new styling, or other cleanup;
-- if focused runtime tests explicitly assert either removed line, update only
-  those exact assertions as required;
-- the resulting topic candidate must otherwise remain identical to the
-  previously accepted `5ff024f94d555648136839e27044b77bb90655ff`.
+- Title
+- Navigation
+- Body
 
-## Builder instruction
+For **every role**, the first card is always its base atom:
 
-Using the existing topic branch only:
+```text
+<Role> Default = base Design Token atom
+```
 
-1. Commit the Owner-approved two-line presentation removal already pending in
-   the working tree.
-2. Verify the diff from `5ff024f94d555648136839e27044b77bb90655ff` contains
-   only those two removals plus any strictly necessary focused-test assertion
-   adjustment.
-3. Run the focused runtime tests and `git diff --check`. Run `pnpm check`
-   if any test file changes.
-4. Push the corrected topic branch and verify its exact remote SHA.
-5. Promote that corrected exact SHA to `main` without widening or rewriting it.
-6. Verify the exact remote `main` SHA and resulting GitHub Pages deployment.
-7. Validate the hosted `/WEXdesigns/global-tokens/` page in Chrome for:
-   Registered-attributes-only presentation; Heading Default base; correct
-   seven-attribute order; visibly white Colour / Light specimen;
-   desktop/compact; light/dark; keyboard focus; skip-link transfer.
-8. Do not begin any new work or unrelated cleanup.
-9. Keep the topic branch until Reviewer verifies promoted source and hosted
-   behaviour.
-10. Update this same work file to `AWAITING REVIEWER REVIEW` with the corrected
-    candidate SHA, promoted main SHA, exact two-line diff evidence, checks,
-    Pages evidence, hosted browser result, and any limitation; stop.
+After the base atom, show only the variation attributes that already exist for
+that role. Do not force identical attribute inventories and do not invent
+unsupported Typography capabilities.
 
-## Closeout boundary
+## Shared attribute rules
 
-This Owner-approved two-line removal is part of the current Global Tokens
-closeout, not a new workstream. After Reviewer verifies the promoted source and
-hosted page, the topic branch can be removed and this work closed.
+Where supported by the role:
 
-## Builder handoff
+- Colour / Light -> existing `--wex-color-white`
+- Colour / Accent -> existing `--wex-color-text-accent`
+- Style / Italic -> existing italic authority
+- Size / Large -> existing role Large Typography class/tokens
+- Size / Small -> existing role Small Typography class/tokens
+- Weight attributes -> only existing role-valid weight changes
 
-- Corrected topic and promoted `main`: `21983ed56c442f41c4496e1677bdf6fa8c46189f`.
-- From `5ff024f`, the runtime removes only the Registered attributes heading
-  and its explanatory sentence; focused-test assertions were adjusted only for
-  those removals.
-- `git diff --check`, focused runtime tests (8/8), and `pnpm check` (35/35)
-  passed.
-- GitHub Pages: Deploy WEX index Run 32 completed successfully for `21983ed`.
-- Hosted Chrome `/WEXdesigns/global-tokens/`: Heading Default plus the ordered
-  seven attributes; visibly white Light specimen; light/dark, desktop/compact,
-  keyboard focus, and skip-link transfer all passed. No limitation; tabs were
-  left open and zoom restored.
+Each attribute changes only its named concern and inherits the rest of that
+role's Default atom.
+
+Current weight authority:
+
+- **Title**: Default Regular; supports Light, Regular, Semibold.
+  Present Weight / Bold -> Semibold and Weight / Thin -> Light.
+- **Navigation**: Default Semibold; Navigation supports Semibold only.
+  Present no duplicate/non-variation Weight card.
+- **Body**: Default Regular; supports Regular and Light.
+  Present Weight / Thin -> Light. Do not invent Body Semibold/Bold.
+
+## Builder instruction — one pass
+
+1. Reconfirm `main` contains
+   `21983ed56c442f41c4496e1677bdf6fa8c46189f`, then remove the completed
+   remote `feat/global-tokens-typography` branch.
+2. Verify remote heads are back within the two permanent branches, then create
+   one new Phase 4 topic branch from current `main`.
+3. Extend ADR 0012 and the Global Tokens Code Map so Heading, Title,
+   Navigation, and Body all follow the Default-atom + sparse role-valid
+   attributes model.
+4. Extend `/global-tokens/` with three additional presentations using the
+   same learned card structure:
+   **base atom first, then only valid variations**.
+5. Preserve each role's existing default/primary weight and use only existing
+   WEX Typography classes/tokens.
+6. Reuse the existing Global Tokens presentation CSS. Do not change WEX
+   Typography foundation CSS, Colour foundation CSS, token definitions/storage,
+   raw values, schemas, or component APIs.
+7. If an attribute cannot be represented with an existing canonical class/token,
+   omit it and record the authority reason; do not invent it.
+8. Strengthen focused tests for all four roles: mandatory Default base atom,
+   exact role-valid attribute order/mappings, White/Accent mapping, Size
+   mappings, and absence of unsupported Weight attributes.
+9. Run focused tests, `git diff --check`, `pnpm check`, and Chrome
+   desktop/compact + light/dark + keyboard/focus validation for the complete
+   four-role presentation.
+10. Commit/push one Phase 4 candidate, update this same work file to
+    `AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, checks,
+    browser evidence, and any limitation; stop.
+
+## Scope boundary
+
+This phase finishes the existing Typography Design Token roles. It does not
+invent new role capabilities or expand into components.
