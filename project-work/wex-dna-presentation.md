@@ -1,55 +1,38 @@
 # Global Tokens / Typography DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4C — Independent hosted-browser verification pending
+Status: ACCEPTED
+Phase: Closed — Global Tokens / Typography DNA
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Promoted `main` and topic branch both resolve exactly to
+Final accepted `main`:
 `0fb41926c3ca4ace21e083ce62b0c06f242cbdc4`.
 
-## Independently verified
+## Accepted delivered state
 
-- promoted `main` contains the accepted four-role Global Tokens runtime;
-- Heading, Title, Navigation, and Body each present their Default base atom
-  first, followed only by role-valid attributes;
-- unsupported Navigation and Body weight variants are absent;
-- ADR 0012 and the Global Tokens Code Map agree with the Default-atom +
-  sparse-role-valid-attributes model;
-- GitHub Actions **Deploy WEX index** run 33
-  (`36299666014`) completed successfully for the exact promoted SHA
-  `0fb41926c3ca4ace21e083ce62b0c06f242cbdc4`;
-- no source divergence exists between the retained topic branch and `main`.
+Independent repository review confirmed the accepted four-role Design Token
+model on `main`, ADR 0012, the Global Tokens Code Map, runtime presentation,
+focused tests, and successful GitHub Pages deployment run 33.
 
-## Remaining evidence boundary
+Owner browser validation has now passed and locks the hosted behaviour:
 
-The current Reviewer execution surface cannot directly load the public
-GitHub Pages URL, so the hosted browser behaviour cannot be independently
-re-run here. Builder-reported Chrome evidence is useful but is not substituted
-for independent Reviewer/live evidence.
+- Heading, Title, Navigation, and Body are present;
+- every role starts with its Default base atom;
+- only role-valid sparse attributes are exposed;
+- Light uses White, Accent uses the accepted accent mapping, and Size
+  Large/Small remain same-role Typography references;
+- desktop/compact, light/dark, keyboard focus, and skip-link behaviour passed.
 
-Before closeout, independently confirm the hosted
-`/WEXdesigns/global-tokens/` page shows:
+No WEX Typography/Colour foundation values, token storage, schema, component
+API, or unsupported role capability was introduced.
 
-- Heading, Title, Navigation, Body;
-- each Default atom first;
-- only the accepted role-valid attributes;
-- White Light and Accent presentation;
-- same-role Large/Small presentation;
-- desktop/compact and light/dark behaviour;
-- visible keyboard focus and skip-link transfer.
+## Closeout housekeeping
 
-## Closeout instruction
+The completed remote topic branch `feat/global-tokens-remaining` is safe to
+delete. The next active work file assigns that deletion to a Git/terminal-capable
+Builder as its mandatory preflight before any new topic branch is created.
 
-Do not begin global component work and do not delete the retained topic branch
-until that hosted-browser boundary is confirmed.
-
-Once confirmed, Reviewer may accept this work. A Git/terminal-capable Builder
-must then remove the completed `feat/global-tokens-remaining` remote branch,
-verify only `main` and `Project-work-instructions` remain, update this same
-work file with housekeeping evidence, and stop.
-
-After branch housekeeping is verified, Global Tokens / Typography DNA is closed
-and the next work area may begin the global/shared component layer.
+This workstream is closed. Global/shared component work may now begin under its
+own active work area.
