@@ -1,102 +1,61 @@
 # Global Tokens / Typography DNA
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3C — Final Global Tokens presentation cleanup
+Status: BUILDER ACTION REQUIRED
+Phase: 3D — Promote final Global Tokens presentation and verify hosted result
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Accepted/presented implementation is on `main` and
-`feat/global-tokens-typography` at
-`ca42918152a930700c2cd5f440c94d8723e31d8f`.
+Accepted candidate: `feat/global-tokens-typography` at
+`5ff024f94d555648136839e27044b77bb90655ff`, one commit directly ahead of
+`main` `ca42918152a930700c2cd5f440c94d8723e31d8f`.
 
-Owner browser validation passed the promoted surface. Two final corrections
-remain inside this same Global Tokens work.
+## Reviewer findings
 
-## Owner corrections
+The final presentation cleanup matches the Owner correction:
 
-### 1. Remove redundant tier showcase
+- the redundant Canonical vocabulary / Large / Default / Small showcase is
+  removed from `/global-tokens/`;
+- Heading Default remains the sole base Design Token presentation;
+- registered attributes remain ordered Colour / Light, Colour / Accent,
+  Weight / Bold, Weight / Thin, Style / Italic, Size / Large, Size / Small;
+- Size attributes continue to use existing Heading Large/Small Typography
+  classes only;
+- `Colour / Light` now maps to existing `--wex-color-white` in ADR 0012,
+  presentation selectors, and focused tests;
+- no WEX Colour foundation, Typography foundation, primitive/custom-property
+  storage, schema, component API, or raw visual value changed;
+- the only CSS changes are the two pre-existing Global Tokens Light-demo
+  selectors authorised for this correction;
+- focused tests no longer require the removed tier showcase and guard the base
+  token, attribute order, Size mappings, and exact White mapping.
 
-The separate **Canonical vocabulary / Typography + Global Tokens** block with
-Large, Default, and Small role cards is no longer needed. The accepted Design
-Token model already expresses the hierarchy:
+Builder reported `git diff --check`, focused tests (9/9), `pnpm check`
+(35/35), and local Chrome validation passed. GitHub exposes no candidate
+status/workflow run before promotion.
 
-```text
-Heading Default = base Design Token
-
-Attributes:
-Colour / Light
-Colour / Accent
-Weight / Bold
-Weight / Thin
-Style / Italic
-Size / Large
-Size / Small
-```
-
-Remove that redundant showcase from the runtime presentation. Keep Registered
-attributes as the primary showcase.
-
-### 2. Correct Colour / Light mapping
-
-`Colour / Light` must follow the intended hierarchy and reference
-`--wex-color-white`, not `--wex-color-light`.
-
-This is a Global Token relationship/presentation correction. Do **not** change
-the WEX Colour foundation or redefine either primitive.
-
-## Required Builder correction
+## Builder instruction
 
 Using the existing topic branch only:
 
-1. Remove the Canonical vocabulary header and Large / Default / Small role-card
-   sections from `/global-tokens/`.
-2. Keep Registered attributes with Heading Default first, then Colour / Light,
-   Colour / Accent, Weight / Bold, Weight / Thin, Style / Italic,
-   Size / Large, Size / Small.
-3. Correct ADR 0012 so Colour / Light maps to existing
-   `--wex-color-white`.
-4. Correct the Global Tokens runtime presentation so the Light specimen uses
-   `--wex-color-white`. A narrowly bounded `catalogue.css` edit is authorised
-   only for the existing Light presentation selector(s) that currently map to
-   `--wex-color-light`; do not add a new token or raw colour.
-5. Update the Global Tokens Code Map only where its description conflicts.
-6. Update focused tests to remove requirements for the deleted tier showcase
-   and to guard Heading Default plus all seven attributes, including the exact
-   `--wex-color-white` Light relationship.
-7. Do not edit WEX foundation CSS, Typography CSS, Colour foundation CSS,
-   primitive/custom-property storage, schemas, component APIs, or unrelated
-   presentation.
-8. Run focused tests, `git diff --check`, `pnpm check`, and Chrome
-   desktop/compact + light/dark + keyboard/focus validation.
-9. Push to the same topic branch, update this work file to
-   `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
+1. Reconfirm remote `feat/global-tokens-typography` resolves exactly to
+   `5ff024f94d555648136839e27044b77bb90655ff` and `main` has not changed
+   unexpectedly.
+2. Promote that exact candidate to `main` without widening or rewriting it.
+3. Verify the exact remote `main` SHA.
+4. Inspect the resulting GitHub Pages deployment/workflow.
+5. Validate the hosted `/WEXdesigns/global-tokens/` page in Chrome for:
+   simplified Registered attributes-only presentation; Heading Default base;
+   correct seven-attribute order; visibly white Colour / Light specimen;
+   desktop/compact; light/dark; keyboard focus; skip-link transfer.
+6. Do not begin any new work or unrelated cleanup.
+7. Keep the topic branch until Reviewer verifies promoted source and hosted
+   behaviour.
+8. Update this same work file to `AWAITING REVIEWER REVIEW` with exact promoted
+   SHA, Pages evidence, hosted browser result, and any limitation; stop.
 
 ## Closeout boundary
 
-This is the final correction inside the current Global Tokens work. After
-Reviewer accepts the pushed result and verifies the hosted page, the topic
-branch can be removed and this work closed.
-
-## Builder handoff
-
-- Candidate: `feat/global-tokens-typography` at
-  `5ff024f94d555648136839e27044b77bb90655ff`.
-- Removed only the redundant Canonical vocabulary / tier-card showcase. The
-  runtime now presents Heading Default and its seven registered attributes as
-  the sole Global Tokens showcase, in the specified order.
-- Corrected the registered Colour / Light relationship in ADR 0012, the Light
-  presentation selectors, and tests to existing `--wex-color-white`; no WEX
-  Colour foundation/token storage changed.
-- Modified files: runtime markup, its existing Light selectors and focused
-  test, ADR 0012, Global Tokens Code Map, and focused WEX test only.
-- Evidence: `git diff --check` passed; focused Node tests passed (9/9);
-  `pnpm check` passed (35/35 tasks). Local Chrome in a separate tab confirmed
-  the simplified semantic heading hierarchy, compact card wrap, light/dark,
-  visible white Light specimen, and Tab/Enter skip-link transfer to
-  `#main-content`.
-
-Builder stopped after pushing this candidate. Reviewer must inspect it and
-decide promotion/closeout; `main` remains
-`ca42918152a930700c2cd5f440c94d8723e31d8f`.
+After Reviewer independently verifies the promoted source and hosted page, the
+topic branch can be removed and this Global Tokens work closed.
