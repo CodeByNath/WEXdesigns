@@ -1,6 +1,6 @@
 # Global Tokens / Typography DNA
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 4B — Promote complete Typography DNA and verify hosted result
 
 ## Reviewer verdict
@@ -38,6 +38,23 @@ Typography roles:
 Builder evidence records `git diff --check`, focused tests, `pnpm check`, and
 Chrome desktop/compact + light/dark + keyboard/skip-link validation on the
 exact local candidate. Production Pages remains the post-promotion boundary.
+
+## Builder handoff
+
+Promoted exact candidate `0fb41926c3ca4ace21e083ce62b0c06f242cbdc4` to
+`origin/main`; remote `main` resolves to that SHA. The `Deploy WEX index`
+GitHub Actions run completed successfully for the same commit:
+https://github.com/CodeByNath/WEXdesigns/actions/runs/36299666014
+
+Chrome validated the hosted
+`/WEXdesigns/global-tokens/` route after the Pages deployment: Heading, Title,
+Navigation, and Body each expose Default first and only their role-valid
+attributes; Light specimens remain visible against their dark cards; Accent
+and same-role Large/Small specimens render; desktop uses two columns and
+compact uses one; light/dark themes render; keyboard focus reaches the skip
+link and transfers to main content. The completed topic branch remains intact
+pending independent Reviewer verification. No limitations, deviations, or
+unresolved issues.
 
 ## Builder instruction
 
