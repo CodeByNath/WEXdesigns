@@ -112,6 +112,7 @@ test('moves verified layout presentation values to Layout and presents Typograph
   assert.match(tokens, /Use each role’s Default Design Token as the base/);
   assert.match(tokens, /global-tokens__card--light-demo[\s\S]*global-tokens__specimen--light/);
   assert.match(css, /global-tokens__card--light-demo[^\n]*var\(--wex-color-white\)/);
+  assert.match(css, /global-tokens__card--light-demo[^\n]*border-color: var\(--wex-color-border-primary\)/);
   assert.match(css, /global-tokens__specimen--light \{ color: var\(--wex-color-white\); \}/);
   assert.doesNotMatch(tokens, /Typography \+ Global Tokens|Canonical vocabulary|Registered attributes|Each attribute changes one concern/);
   assert.doesNotMatch(tokens, /Page Heading|Heading DNA|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
