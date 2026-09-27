@@ -11,7 +11,7 @@ const runtime = await readFile(new URL('../src/main.js', import.meta.url), 'utf8
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
 const elementDirectories = await readdir(new URL('../../../packages/catalogue/content/elements', import.meta.url));
 
-test('builds a root entry surface and six independent catalogue routes in order', () => {
+test('builds a neutral root catalogue entry surface and six independent routes in order', () => {
   assert.deepEqual(Object.keys(pageByPath), pagePaths);
   assert.match(pageByPath['index.html'], /href="\.\/colour\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/typography\/"/);
@@ -27,6 +27,9 @@ test('builds a root entry surface and six independent catalogue routes in order'
     return index;
   }, -1);
   assert.doesNotMatch(pageByPath['index.html'], /data-wex-colour|type-system|wex-button/);
+  assert.match(pageByPath['index.html'], /<h1 id="foundations-title"[^>]*>Catalogue pages<\/h1>/);
+  assert.match(pageByPath['index.html'], /aria-label="Catalogue pages"/);
+  assert.doesNotMatch(pageByPath['index.html'], /Foundation pages/);
 });
 
 test('keeps shared navigation, theme mechanics, and keyboard skip access on every page', () => {
@@ -36,6 +39,7 @@ test('keeps shared navigation, theme mechanics, and keyboard skip access on ever
     assert.match(source, /id="theme-toggle"/);
     assert.match(source, /href="#main-content"/);
     assert.match(source, /id="main-content"/);
+    if (path !== 'index.html') assert.match(source, /aria-label="Catalogue pages"/);
     assert.match(source, /src="(?:\.\/|\.\.\/)+src\/main\.js"/);
     assert.match(source, new RegExp(path === 'index.html' ? 'href="\\.\\/src\\/catalogue\\.css"' : 'href="\\.\\.\\/src\\/catalogue\\.css"'));
     if (path !== 'index.html' && path !== 'global-tokens/index.html') {
