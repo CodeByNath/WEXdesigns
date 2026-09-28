@@ -1,57 +1,65 @@
 # Admin Shell / Admin Station Layout
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4 — Runtime-layout candidate submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 4 — Runtime-layout correction
 
 ## Reviewer verdict
 
-Previous instruction: **Proceed with safeguards**.
+**Stop — architectural risk**
 
 Accepted `main` baseline:
 `137d8f9db212eb9c7630fd401321f39e439e8249`.
 
-## Architecture boundary
+Reviewed candidate:
+`feat/admin-shell-runtime-layout` at
+`6e5e0647ec638dad5bc8b7aecceaf5482eaa7c1e`.
 
-Admin Shell is the Admin Station application/runtime layout, not Shared UI or a
-Component Manager specimen. Component Manager remains the isolated sandbox for
-proving real reusable Lego pieces before acceptance and later fitting. WEX owns
-presentation/layout/responsive authority; future adapters provide actual domain
+## Accepted architecture boundary
+
+Admin Shell is the Admin Station application/runtime layout, not Shared UI and
+not a Component Manager specimen. Component Manager remains the isolated
+sandbox for proving reusable Lego pieces before acceptance and fitting. WEX
+owns presentation/layout/responsive authority; future adapters provide domain
 authority.
 
-## Builder handoff
+The candidate correctly removes the Shared UI Admin Shell source/export/test,
+removes its Component Manager fixture/mount, creates the four semantic runtime
+regions, and does not introduce navigation, components, adapters, schemas, or
+domain behaviour.
 
-Candidate branch: `feat/admin-shell-runtime-layout`
-Candidate SHA: `6e5e0647ec638dad5bc8b7aecceaf5482eaa7c1e`
+## Blocking finding
 
-Builder confirmed only `main` and `Project-work-instructions` existed before
-opening the authorised topic branch. The candidate:
+The new standalone Admin Station route still loads:
 
-- removes the Shared UI `admin-shell` source, export, test, and foundation-audit
-  allowance;
-- adds standalone `apps/web-runtime/admin-station/` runtime route with only
-  semantic Header, Sidebar, Main, and Footer regions;
-- retains WEX-owned shell layout, tokens, and existing responsive breakpoint;
-- removes the Admin Shell fixture/mount from Component Manager while preserving
-  its isolated preview, theme sync, and viewport mechanics;
-- refreshes the Admin Shell and Component Manager Code Maps and focused tests.
+- `../src/catalogue.css`
+- `../src/main.js`
 
-No navigation, Drawer, Data Card, Collection, forms, schemas, adapters,
-records, permissions, persistence, or product behaviour was added.
+Those files are the catalogue/runtime implementation for catalogue pages,
+Typography rendering, theme controls, and Component Manager viewport behaviour.
+The station is therefore a separate route but not yet a clean standalone
+application/runtime surface. Its runtime currently depends on unrelated
+catalogue and Component Manager concerns.
 
-## Verification
+The focused tests assert route structure but do not prohibit this coupling.
 
-- `pnpm --filter @weerax/web-runtime test` — pass (12)
-- `pnpm --filter @weerax/ui test` — pass (3)
-- `pnpm run audit:foundation` — pass
-- `git diff --check` — pass
-- `pnpm check` — pass (existing missing-lockfile/Turbo warning only)
-- Chrome local validation: Admin Station has the four-region wide and compact
-  layout, light/dark presentation, and visible skip-link focus to Main.
-  Component Manager is empty and its 1440px, 1024px, 767px, Fluid, and theme
-  controls continue to update the isolated preview.
+## Builder correction
 
-## Reviewer action
+Keep this correction inside Phase 4 and on the same topic branch.
 
-Independently inspect the pushed candidate, diff, route, test/audit evidence,
-and branch state. Record the permitted verdict in this file; do not add the
-next Lego piece until this correction is accepted.
+1. Remove Admin Station dependency on the full catalogue stylesheet and full
+   catalogue/Component-Manager runtime script.
+2. Give the Admin Station only the minimum application-level entry resources
+   required to consume WEX presentation and preserve the already-demonstrated
+   light/dark shell behaviour.
+3. Do not duplicate WEX visual values locally; consume WEX tokens/foundations.
+4. Do not add navigation, Drawer, Data Card, Collection, forms, components,
+   schemas, adapters, records, permissions, persistence, or product behaviour.
+5. Add focused checks proving the Admin Station entry no longer imports or
+   executes catalogue/Component Manager-specific presentation or behaviour.
+6. Re-run the existing web-runtime tests, foundation audit, `pnpm check`, and
+   `git diff --check`; repeat Chrome wide/compact, light/dark, and skip-link
+   validation.
+7. Push the corrected candidate and update this same file to
+   `AWAITING REVIEWER REVIEW` with the exact remote SHA and evidence.
+
+Do not begin the first Admin Station Lego piece until Phase 4 is accepted.
