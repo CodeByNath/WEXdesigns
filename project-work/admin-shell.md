@@ -1,7 +1,7 @@
 # Admin Shell
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 2 — Promotion deployment correction
+Status: BUILDER ACTION REQUIRED
+Phase: 3 — Promote Pages workflow correction and close Admin Shell
 
 ## Reviewer verdict
 
@@ -13,64 +13,35 @@ Accepted Admin Shell implementation:
 Current `main`:
 `f75afb8524c272f62708cc64d163980176150f07`.
 
-## Reviewer finding
+## Reviewer acceptance — workflow correction
 
-The Admin Shell implementation remains accepted. The promotion failure is a
-deployment/tooling defect, not an Admin Shell architecture defect.
+Reviewer independently verified
+`137d8f9db212eb9c7630fd401321f39e439e8249` is exactly one commit ahead of
+current `main`, changing only `.github/workflows/deploy-pages.yml`. It builds
+Schemas and Shared UI before runtime validation, preserving Node 24, pnpm
+11.16.0, and the existing deployment chain. The exact dependency-build,
+type-check, test, and production-build sequence passed independently; no Admin
+Shell, WEX, schema, runtime presentation, or product source changed.
 
-Reviewer independently verified GitHub Pages run 39 for the exact accepted SHA
-failed at **Type-check index**. The workflow installs the workspace and then
-runs:
+## Builder promotion instruction
 
-`pnpm --filter @weerax/web-runtime type-check`
+1. Fast-forward only `137d8f9db212eb9c7630fd401321f39e439e8249` to `main`.
+2. Verify `origin/main` equals that SHA and GitHub Pages succeeds for it.
+3. In Chrome, validate the hosted Component Manager’s Admin Shell at Large
+   1440px, Medium 1024px, Compact 767px, Fluid, light/dark, keyboard/focus,
+   and Header/Sidebar/Main/Footer landmarks.
+4. Confirm the hosted shell is structural before Component Manager fixture
+   population and contains no domain/product behaviour.
+5. Only after those checks, delete `feat/admin-shell` and verify remote heads
+   are exactly `main` and `Project-work-instructions`.
+6. Update this file to `AWAITING REVIEWER REVIEW` with promotion, Pages,
+   browser, and branch-housekeeping evidence; stop.
 
-The web runtime now imports `@weerax/ui`, whose package export resolves from
-`dist`. The Pages workflow does not build that workspace dependency before
-type-checking the runtime. Root Turbo authority already models dependency
-ordering through `^build` / `^type-check`, which explains why local
-`pnpm check` succeeds while the isolated workflow command fails.
+## Boundary
 
-No hosted Admin Shell deployment exists yet. Keep `feat/admin-shell` until
-deployment and hosted verification succeed.
-
-## Builder correction instruction
-
-1. Keep this correction inside the existing `feat/admin-shell` topic branch.
-2. Change only the Pages workflow/tooling required to make its web-runtime
-   validation respect workspace dependency build order.
-3. Prefer the smallest deterministic correction: ensure `@weerax/ui` and any
-   required workspace dependency artifacts exist before
-   `@weerax/web-runtime` type-check/build. Do not add source aliases or alter
-   Shared UI/WEX/component architecture merely to satisfy CI.
-4. Preserve the existing Node 24 / pnpm 11.16.0 workflow and deployment chain.
-5. Make no Admin Shell, schema, WEX presentation, Component Manager, domain, or
-   product-behaviour changes.
-6. Validate the corrected workflow command sequence locally from a clean-enough
-   workspace state, then run `pnpm check` and `git diff --check`.
-7. Commit/push the bounded workflow correction on `feat/admin-shell`, update
-   this file to `AWAITING REVIEWER REVIEW` with exact SHA and evidence, and
-   stop. Do not promote the correction to `main` until Reviewer accepts it.
-
-## Builder correction handoff
-
-Candidate: `feat/admin-shell` at
-`137d8f9db212eb9c7630fd401321f39e439e8249`, pushed and verified at
-`origin/feat/admin-shell`.
-
-Only `.github/workflows/deploy-pages.yml` changed. The workflow now builds
-`@weerax/schemas` and `@weerax/ui` before web-runtime validation, preserving
-the Node 24, pnpm 11.16.0, test, build, and deploy chain.
-
-Local workflow-equivalent dependency builds plus web-runtime type-check, test,
-and production build passed. `pnpm check` and `git diff --check` passed. No
-Admin Shell, WEX, schema, runtime presentation, or product source changed.
-
-## Post-correction boundary
-
-After Reviewer acceptance, promote only the workflow correction, require a
-successful Pages run for the resulting `main` SHA, validate hosted Component
-Manager with Admin Shell across Large/Medium/Compact/Fluid and light/dark, then
-remove the topic branch.
+This accepts the minimal reusable Admin Shell and the Pages tooling correction.
+Runtime Admin Station integration and later pluggable components remain
+separate work.
 
 Runtime Admin Station integration and later pluggable components remain
 separate work.
