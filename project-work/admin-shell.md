@@ -1,45 +1,86 @@
-# Admin Shell
+# Admin Shell / Admin Station Layout
 
-Status: ACCEPTED
-Phase: Closed — Minimal reusable Admin Shell
+Status: BUILDER ACTION REQUIRED
+Phase: 4 — Reclassify Admin Shell as full-page runtime layout
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Accepted `main`:
+Current `main`:
 `137d8f9db212eb9c7630fd401321f39e439e8249`.
 
-## Final acceptance
+## Owner architecture clarification
 
-Reviewer independently verified:
+We are reverse-engineering the Admin Station.
 
-- `main` is the accepted Admin Shell tree plus one bounded Pages workflow
-  correction;
-- the workflow correction changes only
-  `.github/workflows/deploy-pages.yml` and builds required workspace
-  dependencies before web-runtime validation;
-- GitHub Pages run 40 succeeded for exact `main`;
-- remote heads are exactly `main` and `Project-work-instructions`;
-- Shared UI exposes a zero-argument structural shell with exactly four empty
-  mount regions: Header, Sidebar, Main, Footer;
-- Component Manager owns neutral fixture population and does not pass raw slot
-  markup into the Shared UI shell;
-- no schema, adapter, domain records, permissions, persistence, routing,
-  Drawer, Data Card, Collection, or product behaviour was added.
+The **Admin Shell is the Admin Station application/runtime layout**, not a
+Shared UI component and not a Component Manager specimen.
 
-Builder hosted-Chrome evidence covers Large 1440px, Medium 1024px, Compact
-767px, Fluid, light/dark, keyboard/focus, and the four landmarks.
+Component Manager is the engineering sandbox used to reverse-engineer, build,
+test, and validate each real reusable Lego piece — including its component
+structure, schema/definition boundary, controlled adapter mapping, WEX
+presentation, responsive behaviour, interactions, and accessibility — before
+that accepted piece is fitted into the Admin Station.
 
-Owner-supplied hosted presentation evidence also visibly confirms the accepted
-Large-mode structure: full-width Header, Sidebar/Main allocation, Footer, and
-neutral Component Manager fixture content.
+After enough accepted pieces are fitted, the Admin Station becomes complete;
+real consuming-system domain adapters then provide authoritative records,
+permissions, actions, and lifecycle behaviour.
 
-## Closed boundary
+## Authority alignment
 
-The accepted Admin Shell is a reusable Shared UI structural component validated
-inside Component Manager. It is not the business Admin Station and contains no
-domain authority.
+This clarification is consistent with existing repository authority:
 
-Runtime Admin Station integration and later pluggable components such as Drawer
-remain separately authorised work.
+- `apps/web-runtime` owns browser application assembly;
+- Shared UI owns reusable component rendering/interaction/accessibility;
+- WEX owns presentation/layout/responsive rules;
+- adapters translate domain authority into approved contracts.
+
+The current `packages/ui/src/components/admin-shell.ts` classification and
+Component Manager mounting therefore reflect the superseded interpretation.
+
+## Builder correction instruction
+
+1. Confirm remote heads are only `main` and `Project-work-instructions`,
+   then create one topic branch from current `main`.
+2. Update the Admin Shell and Component Manager Code Maps first so they route to
+   the corrected ownership boundary.
+3. Remove Admin Shell from Shared UI **component authority**:
+   - remove `packages/ui/src/components/admin-shell.ts` and its export/tests;
+   - update foundation audit/component allowlists accordingly;
+   - do not replace it with another Shared UI shell component.
+4. Restore Component Manager to its independent component-sandbox purpose:
+   remove Admin Shell-specific fixture/mount content while preserving the
+   accepted isolated preview, viewport switching, theme sync, and sandbox
+   mechanics.
+5. Establish a standalone full-page Admin Station/Admin Shell runtime route in
+   `apps/web-runtime` with only these application layout regions:
+   Header, Sidebar, Main/Body, Footer.
+6. The full-page shell must consume existing WEX layout/spacing/colour/
+   typography/geometry/responsive authority. Do not invent local visual values
+   or duplicate breakpoint logic.
+7. Keep this phase structural only. Do not add Drawer, navigation component,
+   Data Card, Collection, forms, domain records, permissions, persistence,
+   adapters, schemas, or product behaviour.
+8. Preserve the Component Manager as the future place where those Lego pieces
+   are developed and tested before fitting into the Admin Station.
+9. Add focused tests proving:
+   - Admin Shell is application/runtime layout, not a Shared UI component;
+   - the standalone route has Header/Sidebar/Main/Footer;
+   - Component Manager no longer mounts Admin Shell;
+   - existing Component Manager viewport/theme tooling remains intact;
+   - no domain/product behaviour is introduced.
+10. Run focused runtime/UI tests, foundation audit, `git diff --check`,
+    `pnpm check`, and Chrome validation for the full-page shell plus restored
+    Component Manager across relevant themes/breakpoints.
+11. Commit/push one candidate, verify remote SHA, update this same file to
+    `AWAITING REVIEWER REVIEW` with exact evidence, and stop.
+
+## Next boundary after acceptance
+
+Choose the first **real Admin Station Lego piece** from the intended/existing
+station. Reverse-engineer and prove that piece in Component Manager, including
+the required schema/adapter boundary where genuinely needed, then fit the
+accepted piece into the Admin Station.
+
+Do not invent a component merely because a region exists.
