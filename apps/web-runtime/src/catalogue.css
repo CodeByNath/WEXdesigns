@@ -232,7 +232,7 @@ input:focus-visible,
 .component-manager__preview-frame {
   display: block;
   inline-size: 100%;
-  min-block-size: calc(var(--wex-space-64) * 6);
+  min-block-size: calc(var(--wex-space-64) * 16);
   border: 0;
 }
 

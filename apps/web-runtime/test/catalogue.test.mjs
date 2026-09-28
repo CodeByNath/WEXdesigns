@@ -11,6 +11,8 @@ const runtime = await readFile(new URL('../src/main.js', import.meta.url), 'utf8
 const componentManagerPreview = await readFile(new URL('../component-manager/preview.html', import.meta.url), 'utf8');
 const componentManagerPreviewRuntime = await readFile(new URL('../src/component-manager-preview.js', import.meta.url), 'utf8');
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
+const adminShell = await readFile(new URL('../../../packages/ui/src/components/admin-shell.ts', import.meta.url), 'utf8');
+const wexLayout = await readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8');
 const elementDirectories = await readdir(new URL('../../../packages/catalogue/content/elements', import.meta.url));
 
 test('builds a neutral root catalogue entry surface and seven independent routes in order', () => {
@@ -99,12 +101,12 @@ test('keeps the Global Components catalogue entrypoint empty', () => {
   assert.doesNotMatch(components, /Button|wex-button|<button|aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
-test('provides an isolated Component Manager sandbox without registering a component', () => {
+test('provides an isolated Component Manager sandbox without registering an unapproved component', () => {
   const manager = pageByPath['component-manager/index.html'];
   assert.match(manager, /<a aria-current="page" href="\.\/">Component Manager<\/a>/);
   assert.match(manager, /<h1 id="component-manager-title"[^>]*>Component Manager<\/h1>/);
   assert.match(manager, /data-component-manager-sandbox/);
-  assert.match(componentManagerPreview, /No component is mounted or registered/);
+  assert.match(componentManagerPreview, /Admin Shell preview/);
   assert.doesNotMatch(manager, /<button|<form|aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
@@ -133,11 +135,29 @@ test('keeps Component Manager viewport tooling bound to current WEX layout thres
   assert.match(runtime, /postMessage\(\{ type: 'wex-theme', dark \}, window\.location\.origin\)/);
   assert.match(componentManagerPreview, /class="wex-layout"/);
   assert.match(componentManagerPreview, /data-component-manager-preview-mount/);
+  assert.match(componentManagerPreview, /id="component-manager-preview-shell"/);
+  assert.match(componentManagerPreviewRuntime, /import \{ createAdminShellMarkup \} from '@weerax\/ui'/);
+  assert.match(componentManagerPreviewRuntime, /shellMount\.innerHTML = createAdminShellMarkup/);
+  ['Header slot', 'Sidebar slot', 'Body \/ Main slot', 'Footer slot'].forEach((slot) => assert.match(componentManagerPreviewRuntime, new RegExp(slot)));
   assert.match(componentManagerPreviewRuntime, /window\.getComputedStyle\(layout\)/);
   assert.match(componentManagerPreviewRuntime, /window\.innerWidth/);
   assert.doesNotMatch(componentManagerPreviewRuntime, /1440|1024|767/);
   assert.match(css, /\.component-manager__preview-frame/);
+  assert.match(css, /\.component-manager__preview-frame[\s\S]*min-block-size: calc\(var\(--wex-space-64\) \* 16\)/);
   assert.doesNotMatch(manager, /<button|<form|data-component-(?:definition|fixture|registration)|Drawer|Data Card|Collection/);
+});
+
+test('keeps the Admin Shell as a reusable Shared UI structure with WEX presentation', () => {
+  ['<header', '<aside', '<main', '<footer'].forEach((landmark) => assert.match(adminShell, new RegExp(landmark)));
+  ['header', 'sidebar', 'main', 'footer'].forEach((region) => assert.match(adminShell, new RegExp(`data-admin-shell-region="${region}"`)));
+  assert.match(adminShell, /wex-admin-shell/);
+  assert.doesNotMatch(adminShell, /document\.|window\.|record|permission|persist|Drawer|Data Card|Collection/i);
+  assert.match(wexLayout, /\.wex-admin-shell \{/);
+  assert.match(wexLayout, /var\(--wex-space-16\)/);
+  assert.match(wexLayout, /var\(--wex-color-layer-0[12]\)/);
+  assert.match(wexLayout, /var\(--wex-radius-default\)/);
+  assert.match(wexLayout, /@media \(max-width: 1024px\)[\s\S]*\.wex-admin-shell/);
+  assert.doesNotMatch(wexLayout.slice(wexLayout.indexOf('.wex-admin-shell')), /(?:#[0-9a-f]{3,8}|rgb\(|hsl\()/i);
 });
 
 test('moves verified layout presentation values to Layout and presents Typography-aligned Global Tokens', () => {
