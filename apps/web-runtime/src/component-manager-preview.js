@@ -9,11 +9,19 @@ const state = document.querySelector('#component-manager-preview-layout-state');
 const shellMount = document.querySelector('#component-manager-preview-shell');
 
 if (shellMount) {
-  shellMount.innerHTML = createAdminShellMarkup({
-    header: '<p class="wex-type-navigation-default-semibold">Header slot</p>',
-    sidebar: '<p class="wex-type-body-default-regular">Sidebar slot</p>',
-    main: '<h2 class="wex-type-title-default-semibold">Body / Main slot</h2>',
-    footer: '<p class="wex-type-body-small-regular">Footer slot</p>',
+  shellMount.innerHTML = createAdminShellMarkup();
+  [
+    { region: 'header', tag: 'p', className: 'wex-type-navigation-default-semibold', text: 'Header slot' },
+    { region: 'sidebar', tag: 'p', className: 'wex-type-body-default-regular', text: 'Sidebar slot' },
+    { region: 'main', tag: 'h2', className: 'wex-type-title-default-semibold', text: 'Body / Main slot' },
+    { region: 'footer', tag: 'p', className: 'wex-type-body-small-regular', text: 'Footer slot' },
+  ].forEach((fixture) => {
+    const mountRegion = shellMount.querySelector(`[data-admin-shell-region="${fixture.region}"]`);
+    if (!mountRegion) return;
+    const content = document.createElement(fixture.tag);
+    content.className = fixture.className;
+    content.textContent = fixture.text;
+    mountRegion.append(content);
   });
 }
 

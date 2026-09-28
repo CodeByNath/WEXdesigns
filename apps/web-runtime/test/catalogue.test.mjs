@@ -137,8 +137,12 @@ test('keeps Component Manager viewport tooling bound to current WEX layout thres
   assert.match(componentManagerPreview, /data-component-manager-preview-mount/);
   assert.match(componentManagerPreview, /id="component-manager-preview-shell"/);
   assert.match(componentManagerPreviewRuntime, /import \{ createAdminShellMarkup \} from '@weerax\/ui'/);
-  assert.match(componentManagerPreviewRuntime, /shellMount\.innerHTML = createAdminShellMarkup/);
+  assert.match(componentManagerPreviewRuntime, /shellMount\.innerHTML = createAdminShellMarkup\(\)/);
+  assert.match(componentManagerPreviewRuntime, /document\.createElement\(fixture\.tag\)/);
+  assert.match(componentManagerPreviewRuntime, /content\.textContent = fixture\.text/);
+  assert.match(componentManagerPreviewRuntime, /mountRegion\.append\(content\)/);
   ['Header slot', 'Sidebar slot', 'Body \/ Main slot', 'Footer slot'].forEach((slot) => assert.match(componentManagerPreviewRuntime, new RegExp(slot)));
+  assert.doesNotMatch(componentManagerPreviewRuntime, /header: '<|sidebar: '<|main: '<|footer: '</);
   assert.match(componentManagerPreviewRuntime, /window\.getComputedStyle\(layout\)/);
   assert.match(componentManagerPreviewRuntime, /window\.innerWidth/);
   assert.doesNotMatch(componentManagerPreviewRuntime, /1440|1024|767/);
@@ -151,7 +155,7 @@ test('keeps the Admin Shell as a reusable Shared UI structure with WEX presentat
   ['<header', '<aside', '<main', '<footer'].forEach((landmark) => assert.match(adminShell, new RegExp(landmark)));
   ['header', 'sidebar', 'main', 'footer'].forEach((region) => assert.match(adminShell, new RegExp(`data-admin-shell-region="${region}"`)));
   assert.match(adminShell, /wex-admin-shell/);
-  assert.doesNotMatch(adminShell, /document\.|window\.|record|permission|persist|Drawer|Data Card|Collection/i);
+  assert.doesNotMatch(adminShell, /document\.|window\.|record|permission|persist|Drawer|Data Card|Collection|Slots|slots/i);
   assert.match(wexLayout, /\.wex-admin-shell \{/);
   assert.match(wexLayout, /var\(--wex-space-16\)/);
   assert.match(wexLayout, /var\(--wex-color-layer-0[12]\)/);

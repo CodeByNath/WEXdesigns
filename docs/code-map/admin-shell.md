@@ -4,13 +4,15 @@
 
 - Last visited: 2026-09-28
 - Last updated: 2026-09-28
-- Verified against: Builder candidate on `feat/admin-shell`, based on
+- Verified against: Phase 1 correction candidate on `feat/admin-shell`, based on
   `origin/main` at `32e4866edd6576edf2b6f86f5cffc446cf509e03`.
 - Registration status: Candidate is isolated to Component Manager; it is not a
   runtime or product shell.
 
 ### Recent work (newest first)
 
+- Phase 1 correction keeps the Shared UI API fixed and empty; Component Manager
+  mounts neutral fixture nodes into the named regions.
 - Phase 1 authorises the first minimal Shared UI shell candidate for isolated
   Component Manager validation.
 
