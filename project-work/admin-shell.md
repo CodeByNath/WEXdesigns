@@ -1,108 +1,81 @@
 # Admin Shell
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED
 Phase: 1 — Build and validate minimal Admin Shell in Component Manager
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Stop — architectural risk**
 
 Baseline `main`:
 `32e4866edd6576edf2b6f86f5cffc446cf509e03`.
 
-Component Manager is accepted and ready to host separately authorised Shared UI
-component work.
+Candidate reviewed:
+`feat/admin-shell` at
+`d08225c9fd9ad7e2d8be13ca964e60fe78b841b3`.
 
-## Owner direction
+## Accepted scope
 
-Build the first **Admin Shell** as a reusable Shared UI structure and validate it
-inside Component Manager before any product/runtime integration.
-
-Initial shell regions are only:
+Build the first reusable Admin Shell under Shared UI and validate it in
+Component Manager. Initial regions remain only:
 
 - Header
 - Sidebar
 - Body / Main
 - Footer
 
-The shell is not a page, not the business Admin Station, and not domain
-authority. Later components such as Drawer are plugged into it after being built
-and corrected in Component Manager.
+The shell is not a page, business Admin Station, domain authority, Drawer, Data
+Card, Collection, form, or product navigation surface.
 
-## Authority boundary
+## Reviewer finding
 
-- WEX owns visual/layout/responsive/interaction presentation.
-- Shared UI owns the reusable shell structure, rendering mechanics,
-  interaction mechanics, and accessibility mechanics.
-- runtime applications own mounting/assembly.
-- consuming products own domain data, permissions, lifecycle, validation, and
-  workflow legality.
+The pushed candidate is one clean commit ahead of `main` and stays within the
+authorised file area. Its WEX presentation uses existing tokens and existing
+responsive thresholds; no domain/schema/product behaviour was added.
 
-The shell must remain data-agnostic. Do not embed product identity, records,
-navigation data, persistence, permissions, or business behaviour.
+However, the Shared UI API currently accepts arbitrary HTML strings for all
+four slots and returns them interpolated into markup:
 
-## Builder instruction
+`createAdminShellMarkup({ header, sidebar, main, footer })`
 
-1. Confirm only `main` and `Project-work-instructions` exist remotely, then
-   create one topic branch from current `main`.
-2. Start from:
-   - `docs/code-map/component-manager.md`
-   - `docs/code-map/layout.md`
-   - `docs/foundation/studio-operating-model.md`
-   - `docs/architecture/repository-map.md`
-3. Create an Admin Shell Code Map before implementation.
-4. Implement the smallest reusable Admin Shell structure under Shared UI with
-   semantic Header, Sidebar, Main, and Footer regions/slots.
-5. Consume existing WEX layout, spacing, geometry, typography, colour,
-   interaction, and responsive authority. Do not invent local visual values or
-   duplicate WEX breakpoint logic.
-6. Mount the Admin Shell candidate inside Component Manager's isolated preview
-   so Large, Medium, Compact, Fluid, light/dark, keyboard/focus, and landmark
-   semantics can be corrected before runtime-shell adoption.
-7. Use neutral fixture labels/content only as sandbox evidence. Fixtures must
-   remain Component Manager test/demo input, not shell authority or schema.
-8. Do not add Drawer, Data Card, Collection, forms, domain records, adapters,
-   routing, persistence, permissions, product navigation, or real Admin Station
-   behaviour.
-9. Do not create a new serializable/schema contract unless current repository
-   authority already requires it. If a new cross-runtime contract is necessary,
-   stop at that architecture gate and report the exact decision required.
-10. Add focused Shared UI + runtime tests proving region structure,
-    accessibility landmarks, WEX consumption, sandbox mounting, responsive
-    behaviour through the real Component Manager iframe, and absence of domain
-    behaviour.
-11. Run focused tests, `git diff --check`, `pnpm check`, and Chrome
-    validation across all Component Manager viewport modes and themes.
-12. Commit/push one candidate, verify remote SHA, update this same work file to
-    `AWAITING REVIEWER REVIEW` with changed files, checks, browser evidence,
-    limitations/architecture gates, and stop.
+Component Manager then writes that result through `innerHTML`.
 
-## Builder handoff
+That is the wrong composition boundary for the intended dynamic system. The
+Admin Shell should provide stable mount regions that later approved components
+can be mounted into. It must not establish raw HTML payload injection as the
+reusable shell contract. Besides creating an avoidable injection boundary, this
+would make future component composition depend on serialized/rendered markup
+instead of the controlled definition/component architecture.
 
-Candidate: `feat/admin-shell` at
-`d08225c9fd9ad7e2d8be13ca964e60fe78b841b3`, pushed and verified at
-`origin/feat/admin-shell`.
+Do not promote this candidate as-is.
 
-Changed: Shared UI component/export/test; WEX Admin Shell presentation;
-Component Manager isolated mount, sizing, and focused check; Code Maps; and the
-foundation audit allowlist, restricted to Button and Admin Shell.
+## Builder correction instruction
 
-Checks: focused Shared UI/runtime tests, `pnpm check` (35 tasks),
-`pnpm audit:foundation`, and `git diff --check` passed.
-
-Browser evidence: Chrome local preview validated Large 1440px, Medium 1024px,
-Compact 767px, and Fluid. Large uses two columns; narrower modes stack. Light,
-dark, radio focus, keyboard traversal without unexpected shell controls, and
-all four mounted regions were confirmed. Landmark structure has focused-test
-coverage.
-
-Limitations/gates: Pages is main-only, so live verification follows promotion.
-No schema was added; Admin Station integration, Drawer, domain data,
-navigation, permissions, persistence, and product behaviour remain out of
-scope.
+1. Keep the correction inside this Phase 1 and existing `feat/admin-shell`
+   branch.
+2. Preserve the accepted semantic structure and WEX presentation:
+   Header, Sidebar, Main, Footer; current WEX tokens; current responsive
+   thresholds; Component Manager validation.
+3. Remove arbitrary HTML strings from the reusable Admin Shell API.
+4. Make the Shared UI shell expose stable empty structural mount regions only.
+   The shell may render its fixed structural markup, but it must not accept
+   caller-supplied HTML/markup payloads.
+5. Keep neutral preview labels/content strictly in Component Manager fixture
+   code. Mount them into the shell regions from the application preview rather
+   than making fixture markup part of the Shared UI shell contract.
+6. Do not add a new schema/definition contract merely to solve this correction.
+   If stable component mounting cannot be achieved without a new cross-runtime
+   contract, stop and report that architecture gate.
+7. Add focused tests proving the Shared UI API accepts no raw slot markup,
+   exposes exactly the four mount regions, and Component Manager can populate
+   neutral fixtures without changing shell authority.
+8. Re-run focused UI/runtime tests, `git diff --check`, `pnpm check`,
+   foundation audit, and Chrome validation for all viewport modes/themes and
+   landmark semantics.
+9. Commit/push the bounded correction, update this file to
+   `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
 
 ## Boundary
 
-This phase proves the **minimal Admin Shell component only**. Runtime Admin
-Station integration and later pluggable components are separate authorised
-phases.
+Runtime Admin Station integration and later pluggable components remain
+separate authorised phases.
