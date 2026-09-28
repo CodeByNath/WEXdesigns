@@ -47,6 +47,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Build runtime workspace dependencies
+        run: pnpm --filter @weerax/schemas build && pnpm --filter @weerax/ui build
+
       - name: Type-check index
         run: pnpm --filter @weerax/web-runtime type-check
 
