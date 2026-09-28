@@ -10,8 +10,9 @@ const css = await readFile(new URL('../src/catalogue.css', import.meta.url), 'ut
 const runtime = await readFile(new URL('../src/main.js', import.meta.url), 'utf8');
 const componentManagerPreview = await readFile(new URL('../component-manager/preview.html', import.meta.url), 'utf8');
 const componentManagerPreviewRuntime = await readFile(new URL('../src/component-manager-preview.js', import.meta.url), 'utf8');
+const adminStation = await readFile(new URL('../admin-station/index.html', import.meta.url), 'utf8');
+const viteConfig = await readFile(new URL('../vite.config.ts', import.meta.url), 'utf8');
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
-const adminShell = await readFile(new URL('../../../packages/ui/src/components/admin-shell.ts', import.meta.url), 'utf8');
 const wexLayout = await readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8');
 const elementDirectories = await readdir(new URL('../../../packages/catalogue/content/elements', import.meta.url));
 
@@ -106,7 +107,9 @@ test('provides an isolated Component Manager sandbox without registering an unap
   assert.match(manager, /<a aria-current="page" href="\.\/">Component Manager<\/a>/);
   assert.match(manager, /<h1 id="component-manager-title"[^>]*>Component Manager<\/h1>/);
   assert.match(manager, /data-component-manager-sandbox/);
-  assert.match(componentManagerPreview, /Admin Shell preview/);
+  assert.match(componentManagerPreview, /Component preview/);
+  assert.doesNotMatch(componentManagerPreview, /Admin Shell|data-component-manager-preview-mount|component-manager-preview-shell/);
+  assert.doesNotMatch(componentManagerPreviewRuntime, /@weerax\/ui|createAdminShellMarkup|fixture|shellMount|data-admin-shell-region/);
   assert.doesNotMatch(manager, /<button|<form|aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
@@ -134,15 +137,6 @@ test('keeps Component Manager viewport tooling bound to current WEX layout thres
   assert.match(runtime, /dataset\.componentManagerViewport = control\.value/);
   assert.match(runtime, /postMessage\(\{ type: 'wex-theme', dark \}, window\.location\.origin\)/);
   assert.match(componentManagerPreview, /class="wex-layout"/);
-  assert.match(componentManagerPreview, /data-component-manager-preview-mount/);
-  assert.match(componentManagerPreview, /id="component-manager-preview-shell"/);
-  assert.match(componentManagerPreviewRuntime, /import \{ createAdminShellMarkup \} from '@weerax\/ui'/);
-  assert.match(componentManagerPreviewRuntime, /shellMount\.innerHTML = createAdminShellMarkup\(\)/);
-  assert.match(componentManagerPreviewRuntime, /document\.createElement\(fixture\.tag\)/);
-  assert.match(componentManagerPreviewRuntime, /content\.textContent = fixture\.text/);
-  assert.match(componentManagerPreviewRuntime, /mountRegion\.append\(content\)/);
-  ['Header slot', 'Sidebar slot', 'Body \/ Main slot', 'Footer slot'].forEach((slot) => assert.match(componentManagerPreviewRuntime, new RegExp(slot)));
-  assert.doesNotMatch(componentManagerPreviewRuntime, /header: '<|sidebar: '<|main: '<|footer: '</);
   assert.match(componentManagerPreviewRuntime, /window\.getComputedStyle\(layout\)/);
   assert.match(componentManagerPreviewRuntime, /window\.innerWidth/);
   assert.doesNotMatch(componentManagerPreviewRuntime, /1440|1024|767/);
@@ -151,12 +145,17 @@ test('keeps Component Manager viewport tooling bound to current WEX layout thres
   assert.doesNotMatch(manager, /<button|<form|data-component-(?:definition|fixture|registration)|Drawer|Data Card|Collection/);
 });
 
-test('keeps the Admin Shell as a reusable Shared UI structure with WEX presentation', () => {
-  ['<header', '<aside', '<main', '<footer'].forEach((landmark) => assert.match(adminShell, new RegExp(landmark)));
-  ['header', 'sidebar', 'main', 'footer'].forEach((region) => assert.match(adminShell, new RegExp(`data-admin-shell-region="${region}"`)));
-  assert.match(adminShell, /wex-admin-shell/);
-  assert.doesNotMatch(adminShell, /document\.|window\.|record|permission|persist|Drawer|Data Card|Collection|Slots|slots/i);
+test('keeps the Admin Shell as a standalone Admin Station runtime layout', () => {
+  assert.match(viteConfig, /adminStation: fileURLToPath\(new URL\('\.\/admin-station\/index\.html'/);
+  assert.match(adminStation, /data-admin-station-layout/);
+  ['<header', '<aside', '<main', '<footer'].forEach((landmark) => assert.match(adminStation, new RegExp(landmark)));
+  ['header', 'sidebar', 'main', 'footer'].forEach((region) => assert.match(adminStation, new RegExp(`data-admin-station-region="${region}"`)));
+  assert.match(adminStation, /class="wex-admin-shell"/);
+  assert.match(adminStation, /aria-label="Admin Station sidebar"/);
+  assert.doesNotMatch(adminStation, /Drawer|Data Card|Collection|<nav|<form|record|permission|persist|adapter|schema/i);
+  assert.doesNotMatch(pageSource, /admin-station/);
   assert.match(wexLayout, /\.wex-admin-shell \{/);
+  assert.match(wexLayout, /min-block-size: 100vh/);
   assert.match(wexLayout, /var\(--wex-space-16\)/);
   assert.match(wexLayout, /var\(--wex-color-layer-0[12]\)/);
   assert.match(wexLayout, /var\(--wex-radius-default\)/);

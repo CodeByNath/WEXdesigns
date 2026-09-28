@@ -1,26 +1,26 @@
-# Admin Shell
+# Admin Shell / Admin Station
 
 ## Current operating status
 
 - Last visited: 2026-09-28
 - Last updated: 2026-09-28
-- Verified against: Phase 1 correction candidate on `feat/admin-shell`, based on
-  `origin/main` at `32e4866edd6576edf2b6f86f5cffc446cf509e03`.
-- Registration status: Candidate is isolated to Component Manager; it is not a
-  runtime or product shell.
+- Verified against: Phase 4 runtime-layout candidate on
+  `feat/admin-shell-runtime-layout`, based on `origin/main` at
+  `137d8f9db212eb9c7630fd401321f39e439e8249`.
+- Registration status: application/runtime layout; not a Shared UI component
+  or Component Manager specimen.
 
 ### Recent work (newest first)
 
-- Phase 1 correction keeps the Shared UI API fixed and empty; Component Manager
-  mounts neutral fixture nodes into the named regions.
-- Phase 1 authorises the first minimal Shared UI shell candidate for isolated
-  Component Manager validation.
+- Phase 4 moves the Admin Shell from Shared UI to the standalone Admin Station
+  runtime route and restores Component Manager to an empty component sandbox.
 
 ## Purpose and scope
 
-This map routes the reusable Admin Shell structure to its authority, source,
-and validation. It does not define a page, product navigation, domain records,
-permissions, persistence, or a future Drawer integration.
+This map routes the Admin Station's structural application layout to its
+authority, source, and validation. It contains Header, Sidebar, Main, and
+Footer regions only; it does not define navigation, records, permissions,
+persistence, adapters, schemas, or pluggable components.
 
 ## Governing authority and evidence routes
 
@@ -31,29 +31,30 @@ permissions, persistence, or a future Drawer integration.
 
 ## Current source and focused verification
 
-- Shared UI structure: [`packages/ui/src/components/admin-shell.ts`](../../packages/ui/src/components/admin-shell.ts)
+- Runtime route: [`apps/web-runtime/admin-station/index.html`](../../apps/web-runtime/admin-station/index.html)
+- Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css)
-- Isolated browser mount: [`apps/web-runtime/component-manager/preview.html`](../../apps/web-runtime/component-manager/preview.html), [`apps/web-runtime/src/component-manager-preview.js`](../../apps/web-runtime/src/component-manager-preview.js)
-- Focused checks: [`packages/ui/test/admin-shell.test.mjs`](../../packages/ui/test/admin-shell.test.mjs), [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs), [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
+- Focused checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs), [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
 ## Dependency boundary
 
 ```text
-Shared UI Admin Shell structure
-  -> WEX presentation classes and responsive authority
-  -> Component Manager isolated validation mount
+Admin Station runtime layout
+  -> WEX layout, spacing, colour, typography, geometry, responsive authority
+  -> future accepted Shared UI Lego pieces
+  -> future authorised domain adapters
 ```
 
-Applications assemble approved shells. Products supply only permitted data and
-behaviour; neither is represented by this candidate.
+Component Manager independently develops and validates reusable Lego pieces
+before an accepted piece is fitted here.
 
 ## Safe change routing
 
 - Change visual values or responsive behaviour through WEX authority.
-- Change reusable structure, rendering, interaction, or accessibility through
-  Shared UI with isolated Component Manager evidence.
-- Add product assembly, navigation, records, permissions, or pluggable
-  components only through separately authorised work.
+- Develop reusable component mechanics in Component Manager through separately
+  authorised component work.
+- Add navigation, records, permissions, adapters, persistence, or product
+  behaviour only through separately authorised runtime work.
 
 ## Related documents
 

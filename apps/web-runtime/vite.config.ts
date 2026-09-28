@@ -15,6 +15,7 @@ export default defineConfig({
         globalComponents: fileURLToPath(new URL('./global-components/index.html', import.meta.url)),
         componentManager: fileURLToPath(new URL('./component-manager/index.html', import.meta.url)),
         componentManagerPreview: fileURLToPath(new URL('./component-manager/preview.html', import.meta.url)),
+        adminStation: fileURLToPath(new URL('./admin-station/index.html', import.meta.url)),
       },
     },
   },

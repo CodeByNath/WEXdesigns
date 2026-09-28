@@ -2,15 +2,17 @@
 
 ## Current operating status
 
-- Last visited: 2026-09-27
-- Last updated: 2026-09-27
-- Verified against: Phase 3 Builder candidate on
-  `feat/component-manager-viewport`, based on `origin/main` at
-  `6238ff920b9565c0ca3123ab3ca14f9497d0b56d`.
+- Last visited: 2026-09-28
+- Last updated: 2026-09-28
+- Verified against: Phase 4 Admin Station runtime-layout candidate on
+  `feat/admin-shell-runtime-layout`, based on `origin/main` at
+  `137d8f9db212eb9c7630fd401321f39e439e8249`.
 - Registration status: No shared UI component is mounted or registered.
 
 ### Recent work (newest first)
 
+- Phase 4 removes the superseded Admin Shell fixture and mount; the isolated
+  preview remains an empty responsive component sandbox.
 - Phase 3 corrects sandbox-only viewport validation to use an isolated preview
   browsing context, so WEX media-query states respond at the selected widths.
 - Phase 1 establishes an isolated sandbox route without a component, definition,

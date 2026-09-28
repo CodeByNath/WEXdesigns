@@ -60,6 +60,7 @@ blockquote {
   gap: var(--wex-space-16);
   width: 100%;
   min-width: 0;
+  min-block-size: 100vh;
   color: var(--wex-color-text-primary);
 }
 

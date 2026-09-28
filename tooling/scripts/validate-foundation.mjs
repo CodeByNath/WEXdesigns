@@ -131,17 +131,13 @@ assert(
 );
 const uiComponents = readdirSync(resolve(uiSource, 'components')).filter((name) => !name.startsWith('.'));
 assert(
-  JSON.stringify(uiComponents.sort()) === JSON.stringify(['admin-shell.ts', 'button.ts']),
-  'UI exceeds the authorized Button and Admin Shell boundary',
+  JSON.stringify(uiComponents.sort()) === JSON.stringify(['button.ts']),
+  'UI exceeds the authorized Button boundary',
 );
 const buttonPresentation = read('packages/ui/src/components/button.ts');
 assert(buttonPresentation.includes('createButtonPresentation'), 'Button presentation boundary is missing');
 assert(!buttonPresentation.includes('document.'), 'Shared UI Button depends on the browser runtime');
 assert(!buttonPresentation.includes('ButtonState'), 'Shared UI serializes presentation state');
-const adminShell = read('packages/ui/src/components/admin-shell.ts');
-assert(adminShell.includes('createAdminShellMarkup'), 'Shared UI Admin Shell boundary is missing');
-assert(!adminShell.includes('document.'), 'Shared UI Admin Shell depends on the browser runtime');
-assert(!/record|permission|persist|Drawer|Data Card|Collection/i.test(adminShell), 'Shared UI Admin Shell includes domain behaviour');
 const buttonFoundation = read('packages/wex/src/foundations/buttons.css');
 const geometryFoundation = read('packages/wex/src/foundations/geometry.css');
 assert(buttonFoundation.includes('.wex-button--warning'), 'WEX Button foundation is missing');
