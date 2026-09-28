@@ -1,6 +1,6 @@
 # Admin Shell
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Build and validate minimal Admin Shell in Component Manager
 
 ## Reviewer verdict
@@ -76,6 +76,30 @@ navigation data, persistence, permissions, or business behaviour.
 12. Commit/push one candidate, verify remote SHA, update this same work file to
     `AWAITING REVIEWER REVIEW` with changed files, checks, browser evidence,
     limitations/architecture gates, and stop.
+
+## Builder handoff
+
+Candidate: `feat/admin-shell` at
+`d08225c9fd9ad7e2d8be13ca964e60fe78b841b3`, pushed and verified at
+`origin/feat/admin-shell`.
+
+Changed: Shared UI component/export/test; WEX Admin Shell presentation;
+Component Manager isolated mount, sizing, and focused check; Code Maps; and the
+foundation audit allowlist, restricted to Button and Admin Shell.
+
+Checks: focused Shared UI/runtime tests, `pnpm check` (35 tasks),
+`pnpm audit:foundation`, and `git diff --check` passed.
+
+Browser evidence: Chrome local preview validated Large 1440px, Medium 1024px,
+Compact 767px, and Fluid. Large uses two columns; narrower modes stack. Light,
+dark, radio focus, keyboard traversal without unexpected shell controls, and
+all four mounted regions were confirmed. Landmark structure has focused-test
+coverage.
+
+Limitations/gates: Pages is main-only, so live verification follows promotion.
+No schema was added; Admin Station integration, Drawer, domain data,
+navigation, permissions, persistence, and product behaviour remain out of
+scope.
 
 ## Boundary
 
