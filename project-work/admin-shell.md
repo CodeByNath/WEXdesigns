@@ -1,6 +1,6 @@
 # Admin Shell
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 2 — Promotion deployment correction
 
 ## Reviewer verdict
@@ -50,6 +50,20 @@ deployment and hosted verification succeed.
 7. Commit/push the bounded workflow correction on `feat/admin-shell`, update
    this file to `AWAITING REVIEWER REVIEW` with exact SHA and evidence, and
    stop. Do not promote the correction to `main` until Reviewer accepts it.
+
+## Builder correction handoff
+
+Candidate: `feat/admin-shell` at
+`137d8f9db212eb9c7630fd401321f39e439e8249`, pushed and verified at
+`origin/feat/admin-shell`.
+
+Only `.github/workflows/deploy-pages.yml` changed. The workflow now builds
+`@weerax/schemas` and `@weerax/ui` before web-runtime validation, preserving
+the Node 24, pnpm 11.16.0, test, build, and deploy chain.
+
+Local workflow-equivalent dependency builds plus web-runtime type-check, test,
+and production build passed. `pnpm check` and `git diff --check` passed. No
+Admin Shell, WEX, schema, runtime presentation, or product source changed.
 
 ## Post-correction boundary
 
