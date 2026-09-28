@@ -11,6 +11,8 @@ const runtime = await readFile(new URL('../src/main.js', import.meta.url), 'utf8
 const componentManagerPreview = await readFile(new URL('../component-manager/preview.html', import.meta.url), 'utf8');
 const componentManagerPreviewRuntime = await readFile(new URL('../src/component-manager-preview.js', import.meta.url), 'utf8');
 const adminStation = await readFile(new URL('../admin-station/index.html', import.meta.url), 'utf8');
+const adminStationCss = await readFile(new URL('../src/admin-station.css', import.meta.url), 'utf8');
+const adminStationRuntime = await readFile(new URL('../src/admin-station.js', import.meta.url), 'utf8');
 const viteConfig = await readFile(new URL('../vite.config.ts', import.meta.url), 'utf8');
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
 const wexLayout = await readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8');
@@ -152,8 +154,17 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   ['header', 'sidebar', 'main', 'footer'].forEach((region) => assert.match(adminStation, new RegExp(`data-admin-station-region="${region}"`)));
   assert.match(adminStation, /class="wex-admin-shell"/);
   assert.match(adminStation, /aria-label="Admin Station sidebar"/);
+  assert.match(adminStation, /href="\.\.\/src\/admin-station\.css"/);
+  assert.match(adminStation, /src="\.\.\/src\/admin-station\.js"/);
+  assert.doesNotMatch(adminStation, /catalogue\.css|src\/main\.js/);
   assert.doesNotMatch(adminStation, /Drawer|Data Card|Collection|<nav|<form|record|permission|persist|adapter|schema/i);
   assert.doesNotMatch(pageSource, /admin-station/);
+  assert.match(adminStationCss, /packages\/wex\/src\/index\.css/);
+  assert.doesNotMatch(adminStationCss, /catalogue|component-manager|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
+  assert.match(adminStationRuntime, /localStorage\.getItem\('wex-theme'\)/);
+  assert.match(adminStationRuntime, /matchMedia\('\(prefers-color-scheme: dark\)'\)/);
+  assert.match(adminStationRuntime, /root\.dataset\.wexTheme/);
+  assert.doesNotMatch(adminStationRuntime, /typeSystem|componentManager|postMessage|viewport|catalogue/i);
   assert.match(wexLayout, /\.wex-admin-shell \{/);
   assert.match(wexLayout, /min-block-size: 100vh/);
   assert.match(wexLayout, /var\(--wex-space-16\)/);

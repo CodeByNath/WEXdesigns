@@ -1,0 +1,41 @@
+@import "../../../packages/wex/src/index.css";
+
+:root {
+  color-scheme: light;
+  background: var(--wex-color-background);
+  color: var(--wex-color-text-primary);
+}
+
+:root[data-wex-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--wex-color-background);
+  color: var(--wex-color-text-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible,
+[tabindex="-1"]:focus-visible {
+  outline: var(--wex-focus-width) solid var(--wex-color-focus);
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  padding: var(--wex-space-12) var(--wex-space-16);
+  background: var(--wex-color-interactive-primary);
+  color: var(--wex-color-text-inverse);
+  transform: translateY(-100%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
