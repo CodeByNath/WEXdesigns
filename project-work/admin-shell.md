@@ -1,6 +1,6 @@
 # Admin Shell
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Build and validate minimal Admin Shell in Component Manager
 
 ## Reviewer verdict
@@ -74,6 +74,23 @@ Do not promote this candidate as-is.
    landmark semantics.
 9. Commit/push the bounded correction, update this file to
    `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
+
+## Builder correction handoff
+
+Correction candidate: `feat/admin-shell` at
+`f75afb8524c272f62708cc64d163980176150f07`, pushed and verified at
+`origin/feat/admin-shell`.
+
+The Shared UI API is now zero-argument fixed structural markup with exactly
+four empty named landmark regions. Component Manager creates neutral fixture
+nodes with `textContent` and appends them to those regions; raw fixture markup
+is no longer part of the shell API.
+
+Focused Shared UI/runtime tests, `pnpm check` (35 tasks),
+`pnpm audit:foundation`, and `git diff --check` passed. Chrome local preview
+validated Large 1440px, Medium 1024px, Compact 767px, Fluid, light/dark,
+landmarks, visible radio focus, and keyboard traversal without unexpected shell
+controls. Pages is main-only, so live verification remains post-promotion.
 
 ## Boundary
 
