@@ -1,6 +1,6 @@
 # Admin Shell
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 2 — Promote accepted Admin Shell candidate
 
 ## Reviewer verdict
@@ -59,6 +59,22 @@ boundary.
    `Project-work-instructions`.
 8. Update this same file to `AWAITING REVIEWER REVIEW` with exact promotion,
    Pages, hosted-browser, and branch-housekeeping evidence; stop.
+
+## Builder Phase 2 handoff
+
+Promotion completed: `origin/main` is exactly
+`f75afb8524c272f62708cc64d163980176150f07`.
+
+Pages run [#39](https://github.com/CodeByNath/WEXdesigns/actions/runs/36412843463)
+for that SHA failed after 28 seconds at the web-runtime type-check: it cannot
+resolve `@weerax/ui`. The workflow checks `@weerax/web-runtime` without first
+building its workspace UI dependency. Local `pnpm check` passed.
+
+Hosted candidate validation could not occur because no deployment was produced;
+the previous hosted revision remains the only available Pages surface. No source
+was altered after promotion and `feat/admin-shell` remains undeleted, as hosted
+verification and safe branch closure are incomplete. Reviewer direction is
+required for any workflow correction or further promotion action.
 
 ## Boundary
 
