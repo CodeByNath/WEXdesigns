@@ -1,61 +1,45 @@
 # Admin Shell
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3 — Promote Pages workflow correction and close Admin Shell
+Status: ACCEPTED
+Phase: Closed — Minimal reusable Admin Shell
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Accepted Admin Shell implementation:
-`f75afb8524c272f62708cc64d163980176150f07`.
-
-Current `main`:
+Accepted `main`:
 `137d8f9db212eb9c7630fd401321f39e439e8249`.
 
-## Reviewer acceptance — workflow correction
+## Final acceptance
 
-Reviewer independently verified
-`137d8f9db212eb9c7630fd401321f39e439e8249` is exactly one commit ahead of
-current `main`, changing only `.github/workflows/deploy-pages.yml`. It builds
-Schemas and Shared UI before runtime validation, preserving Node 24, pnpm
-11.16.0, and the existing deployment chain. The exact dependency-build,
-type-check, test, and production-build sequence passed independently; no Admin
-Shell, WEX, schema, runtime presentation, or product source changed.
+Reviewer independently verified:
 
-## Builder promotion instruction
+- `main` is the accepted Admin Shell tree plus one bounded Pages workflow
+  correction;
+- the workflow correction changes only
+  `.github/workflows/deploy-pages.yml` and builds required workspace
+  dependencies before web-runtime validation;
+- GitHub Pages run 40 succeeded for exact `main`;
+- remote heads are exactly `main` and `Project-work-instructions`;
+- Shared UI exposes a zero-argument structural shell with exactly four empty
+  mount regions: Header, Sidebar, Main, Footer;
+- Component Manager owns neutral fixture population and does not pass raw slot
+  markup into the Shared UI shell;
+- no schema, adapter, domain records, permissions, persistence, routing,
+  Drawer, Data Card, Collection, or product behaviour was added.
 
-1. Fast-forward only `137d8f9db212eb9c7630fd401321f39e439e8249` to `main`.
-2. Verify `origin/main` equals that SHA and GitHub Pages succeeds for it.
-3. In Chrome, validate the hosted Component Manager’s Admin Shell at Large
-   1440px, Medium 1024px, Compact 767px, Fluid, light/dark, keyboard/focus,
-   and Header/Sidebar/Main/Footer landmarks.
-4. Confirm the hosted shell is structural before Component Manager fixture
-   population and contains no domain/product behaviour.
-5. Only after those checks, delete `feat/admin-shell` and verify remote heads
-   are exactly `main` and `Project-work-instructions`.
-6. Update this file to `AWAITING REVIEWER REVIEW` with promotion, Pages,
-   browser, and branch-housekeeping evidence; stop.
+Builder hosted-Chrome evidence covers Large 1440px, Medium 1024px, Compact
+767px, Fluid, light/dark, keyboard/focus, and the four landmarks.
 
-## Builder Phase 3 handoff
+Owner-supplied hosted presentation evidence also visibly confirms the accepted
+Large-mode structure: full-width Header, Sidebar/Main allocation, Footer, and
+neutral Component Manager fixture content.
 
-`origin/main` was fast-forwarded and verified at
-`137d8f9db212eb9c7630fd401321f39e439e8249`.
-[Pages run #40](https://github.com/CodeByNath/WEXdesigns/actions/runs/36418144460)
-completed successfully for that SHA.
+## Closed boundary
 
-Chrome hosted validation at
-`codebynath.github.io/WEXdesigns/component-manager/` confirmed Large 1440px,
-Medium 1024px, Compact 767px, Fluid, light/dark, visible radio focus, keyboard
-entry/exit without unexpected shell controls, and Header/Sidebar/Main/Footer
-regions. The hosted surface shows only neutral fixture content and no
-domain/product behaviour.
+The accepted Admin Shell is a reusable Shared UI structural component validated
+inside Component Manager. It is not the business Admin Station and contains no
+domain authority.
 
-After those checks, `feat/admin-shell` was deleted remotely. Verified remote
-heads are now exactly `main` and `Project-work-instructions`.
-
-## Boundary
-
-This accepts the minimal reusable Admin Shell and the Pages tooling correction.
-Runtime Admin Station integration and later pluggable components remain
-separate work.
+Runtime Admin Station integration and later pluggable components such as Drawer
+remain separately authorised work.
