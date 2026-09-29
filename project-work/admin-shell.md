@@ -1,58 +1,64 @@
 # Admin Shell / Admin Station Layout
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4 — Runtime-layout correction submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 5 — Promote accepted runtime-layout correction
 
 ## Reviewer verdict
 
-Previous verdict: **Stop — architectural risk**. The bounded resource-coupling
-correction is now submitted for independent review.
+**Proceed**
 
 Accepted `main` baseline:
 `137d8f9db212eb9c7630fd401321f39e439e8249`.
 
-## Architecture boundary
+Accepted candidate:
+`feat/admin-shell-runtime-layout` at
+`1c8143e67376137acb03351b0ed25a763a74f0da`.
 
-Admin Shell is the Admin Station application/runtime layout, not Shared UI or
-a Component Manager specimen. Component Manager is the isolated sandbox for
-proving reusable Lego pieces before acceptance and later fitting. WEX owns
-presentation/layout/responsive authority; future adapters provide domain
-authority.
+## Reviewer findings
 
-## Builder handoff
+Phase 4 now matches the required architecture boundary.
 
-Candidate branch: `feat/admin-shell-runtime-layout`
-Candidate tip: `1c8143e67376137acb03351b0ed25a763a74f0da`
+Verified from the pushed candidate:
 
-This tip retains the prior structural correction and adds only the Reviewer
-requested isolation:
+- Admin Shell is removed from Shared UI authority and exports.
+- Component Manager is restored to an independent empty component sandbox.
+- Admin Station is a standalone application/runtime route with only Header,
+  Sidebar, Main, and Footer regions.
+- Admin Station no longer loads `catalogue.css` or `src/main.js`.
+- `admin-station.css` imports WEX directly and uses WEX tokens/foundations
+  rather than local visual values.
+- `admin-station.js` contains only minimal theme initialization and no
+  catalogue, Typography, Component Manager, viewport, messaging, adapter,
+  schema, or domain logic.
+- focused tests explicitly prohibit the removed catalogue/Component Manager
+  coupling.
+- no new Lego piece, navigation, Drawer, Data Card, Collection, form, schema,
+  adapter, record, permission, persistence, or product behaviour was added.
+- remote branch count remains within the three-branch repository limit.
 
-- Admin Station now imports `admin-station.css` and `admin-station.js`, not
-  `catalogue.css` or `main.js`.
-- The station stylesheet imports WEX foundations and uses only WEX tokens for
-  document, skip-link, and focus presentation.
-- Its minimal runtime initializes WEX light/dark state from existing theme
-  storage or the system preference; it contains no catalogue, Typography,
-  Component Manager, viewport, or messaging logic.
-- Focused tests explicitly prohibit catalogue/Component Manager entry coupling;
-  the Admin Shell Code Map routes to the new entry resources.
+Builder-reported deterministic checks and Chrome evidence are consistent with
+the inspected source. No CI status checks are attached to the candidate SHA;
+that does not contradict the recorded local validation.
 
-The candidate still has only Header, Sidebar, Main, and Footer regions. No
-navigation, Drawer, Data Card, Collection, forms, components, schemas,
-adapters, records, permissions, persistence, or product behaviour was added.
+## Builder action
 
-## Verification
+Promote only the accepted candidate to `main` using the repository-approved
+non-destructive flow.
 
-- `pnpm --filter @weerax/web-runtime test` — pass (12)
-- `pnpm run audit:foundation` — pass
-- `git diff --check` — pass
-- `pnpm check` — pass (existing missing-lockfile/Turbo warning only)
-- Chrome local validation: standalone station renders correctly at compact and
-  wide states, honors light/dark WEX presentation, and the visible skip link
-  moves focus to Main. Component Manager remains its independent empty sandbox.
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Verify remote `main` is still
+   `137d8f9db212eb9c7630fd401321f39e439e8249`.
+3. Fast-forward/promote the exact accepted tip
+   `1c8143e67376137acb03351b0ed25a763a74f0da` to `main`; do not introduce
+   additional source changes.
+4. Push and verify the exact remote `main` SHA.
+5. Verify the GitHub Pages/deployment workflow for that promoted SHA.
+6. Perform the required live/runtime check of the Admin Station boundary after
+   deployment when available: standalone route, wide/compact layout,
+   light/dark presentation, and skip-link focus to Main.
+7. Complete safe remote topic-branch housekeeping after promotion verification.
+8. Update this same file to `AWAITING REVIEWER REVIEW` with the promoted
+   `main` SHA, deployment evidence, live-check evidence, and branch-state
+   evidence.
 
-## Reviewer action
-
-Independently inspect candidate tip, diff, standalone entry resources, tests,
-and evidence. Record the permitted verdict here; do not begin an Admin Station
-Lego piece until Phase 4 is accepted.
+Do not begin the first Admin Station Lego piece during promotion/closeout.
