@@ -1,48 +1,65 @@
 # Admin Shell / Admin Station Layout
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 5 — Runtime-layout promotion submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 5 — Hosted access correction
 
 ## Reviewer verdict
 
-Previous verdict: **Proceed**.
-
-## Promotion
-
-Accepted candidate `1c8143e67376137acb03351b0ed25a763a74f0da` was
-fast-forwarded from `feat/admin-shell-runtime-layout` to `main`.
+**Proceed with safeguards**
 
 Promoted `main`:
 `1c8143e67376137acb03351b0ed25a763a74f0da`.
 
-## Deployment and hosted evidence
+## Verified state
 
-GitHub Pages Run 41 completed successfully for the exact promoted SHA:
-<https://github.com/CodeByNath/WEXdesigns/actions/runs/36562977767>.
+Reviewer independently verified:
 
-Chrome validation at
-<https://codebynath.github.io/WEXdesigns/admin-station/> confirms:
+- `main` is exactly the accepted Admin Station runtime candidate;
+- GitHub Pages Run 41 succeeded for that SHA;
+- the topic branch was safely removed;
+- Admin Station is a standalone runtime route using its own entry CSS/JS;
+- Component Manager remains an independent empty sandbox.
 
-- standalone Admin Station route;
-- Header, Sidebar, Main, Footer layout in compact and wide states;
-- WEX light and dark presentation;
-- visible skip-link focus that moves to Main.
+Owner live-browser evidence confirms the hosted Admin Station route loads and the
+shell regions render.
 
-## Branch closeout
+## Remaining hosted-access defect
 
-The promoted topic SHA was proven an ancestor of `main` before deletion.
-`feat/admin-shell-runtime-layout` was then removed from `origin`.
+The live WEX catalogue/header navigation does not expose Admin Station.
 
-Before this handoff commit, the only remote heads were `main` at
-`1c8143e67376137acb03351b0ed25a763a74f0da` and
-`Project-work-instructions` at `62a21c47d7f197b9b7579335d5c97a7c91dd094d`.
+Verified source shows:
 
-No source changes occurred during promotion or closeout. No Lego piece,
-navigation, Drawer, Data Card, Collection, form, schema, adapter, record,
-permission, persistence, or product behaviour was added.
+- Component Manager navigation ends at `Component Manager`;
+- the root catalogue page has no Admin Station entry;
+- the Admin Station can currently be reached only by entering the route URL
+  directly.
 
-## Reviewer action
+This is a hosted integration/usability defect, not a reason to move Admin
+Station into Component Manager.
 
-Independently verify promotion, Run 41, live route evidence, and branch
-housekeeping. Record final acceptance or a bounded correction in this file.
-Do not begin a new Admin Station Lego piece until final closeout is accepted.
+## Builder correction
+
+Keep this correction inside the current Admin Shell work area.
+
+1. Add an `Admin Station` navigation entry to the existing WEX catalogue
+   navigation so it is reachable from the catalogue pages, including Component
+   Manager.
+2. Add the equivalent Admin Station entry to the root catalogue page links.
+3. Both entries must route to the standalone `admin-station/` application
+   surface.
+4. Do not embed, mount, iframe, preview, or register Admin Station inside
+   Component Manager.
+5. Do not add station navigation/content/components inside the Admin Station
+   shell itself as part of this correction.
+6. Preserve the existing catalogue navigation order and styling conventions;
+   add only the minimum route-access integration required.
+7. Update focused tests so the Admin Station route is required in the catalogue
+   navigation/root entry surface while remaining excluded from Component
+   Manager's preview/mount.
+8. Run web-runtime tests, foundation audit, `pnpm check`, and
+   `git diff --check`; validate the hosted navigation after deployment.
+
+Push the bounded correction and update this same file to
+`AWAITING REVIEWER REVIEW` with the exact candidate SHA and evidence.
+
+Do not begin the first Admin Station Lego piece yet.
