@@ -56,8 +56,9 @@ Keep this correction inside the current Admin Shell work area.
 7. Update focused tests so the Admin Station route is required in the catalogue
    navigation/root entry surface while remaining excluded from Component
    Manager's preview/mount.
-8. Run web-runtime tests, foundation audit, `pnpm check`, and
-   `git diff --check`; validate the hosted navigation after deployment.
+8. Preserve the existing shared WEX theme state across navigation: if the catalogue is in dark mode, opening Admin Station must render the station in dark mode; light must likewise remain light. Do not add a separate Admin Station theme toggle in this correction — that control belongs to a future authorised Header component.
+9. Run web-runtime tests, foundation audit, `pnpm check`, and
+   `git diff --check`; validate hosted navigation and light/dark continuity after deployment.
 
 Push the bounded correction and update this same file to
 `AWAITING REVIEWER REVIEW` with the exact candidate SHA and evidence.
