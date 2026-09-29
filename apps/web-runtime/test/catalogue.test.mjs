@@ -18,7 +18,7 @@ const buttonPresentation = await readFile(new URL('../../../packages/ui/src/comp
 const wexLayout = await readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8');
 const elementDirectories = await readdir(new URL('../../../packages/catalogue/content/elements', import.meta.url));
 
-test('builds a neutral root catalogue entry surface and seven independent routes in order', () => {
+test('builds a neutral root catalogue entry surface and seven catalogue routes plus Admin Station access in order', () => {
   assert.deepEqual(Object.keys(pageByPath), pagePaths);
   assert.match(pageByPath['index.html'], /href="\.\/colour\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/typography\/"/);
@@ -27,7 +27,8 @@ test('builds a neutral root catalogue entry surface and seven independent routes
   assert.match(pageByPath['index.html'], /href="\.\/global-tokens\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/global-components\/"/);
   assert.match(pageByPath['index.html'], /href="\.\/component-manager\/"/);
-  const routes = ['./colour/', './typography/', './actions/', './layout/', './global-tokens/', './global-components/', './component-manager/'];
+  assert.match(pageByPath['index.html'], /href="\.\/admin-station\/"/);
+  const routes = ['./colour/', './typography/', './actions/', './layout/', './global-tokens/', './global-components/', './component-manager/', './admin-station/'];
   const root = pageByPath['index.html'];
   routes.reduce((lastIndex, route) => {
     const index = root.indexOf(`href="${route}"`);
@@ -58,6 +59,9 @@ test('keeps shared navigation, theme mechanics, and keyboard skip access on ever
     }
     if (path !== 'index.html' && path !== 'component-manager/index.html') {
       assert.match(source, /href="\.\.\/component-manager\/">Component Manager<\/a>/);
+    }
+    if (path !== 'index.html') {
+      assert.match(source, /href="\.\.\/admin-station\/">Admin Station<\/a>/);
     }
   });
   assert.match(runtime, /localStorage\.setItem\('wex-theme'/);
@@ -141,6 +145,8 @@ test('keeps Component Manager viewport tooling bound to current WEX layout thres
   assert.match(componentManagerPreview, /class="wex-layout"/);
   assert.match(componentManagerPreviewRuntime, /window\.getComputedStyle\(layout\)/);
   assert.match(componentManagerPreviewRuntime, /window\.innerWidth/);
+  assert.match(manager, /href="\.\.\/admin-station\/">Admin Station<\/a>/);
+  assert.doesNotMatch(manager, /Admin Shell|data-admin-station|wex-admin-shell/);
   assert.doesNotMatch(componentManagerPreviewRuntime, /1440|1024|767/);
   assert.match(css, /\.component-manager__preview-frame/);
   assert.match(css, /\.component-manager__preview-frame[\s\S]*min-block-size: calc\(var\(--wex-space-64\) \* 16\)/);
@@ -158,7 +164,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStation, /src="\.\.\/src\/admin-station\.js"/);
   assert.doesNotMatch(adminStation, /catalogue\.css|src\/main\.js/);
   assert.doesNotMatch(adminStation, /Drawer|Data Card|Collection|<nav|<form|record|permission|persist|adapter|schema/i);
-  assert.doesNotMatch(pageSource, /admin-station/);
+  assert.match(pageSource, /href="\.\.\/admin-station\/">Admin Station<\/a>/);
   assert.match(adminStationCss, /packages\/wex\/src\/index\.css/);
   assert.doesNotMatch(adminStationCss, /catalogue|component-manager|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationRuntime, /localStorage\.getItem\('wex-theme'\)/);
