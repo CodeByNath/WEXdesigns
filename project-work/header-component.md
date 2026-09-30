@@ -1,91 +1,87 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 5 — Formalise recursive composition and Header implementation plan
+Status: BUILDER ACTION REQUIRED
+Phase: 6 — Record atomic-value architecture before Header implementation
 
-## Accepted recursive boundary
+## Reviewer verdict
 
-Header is reusable Shared UI composition, proved in Component Manager before
-Admin Station integration. A parent composes only direct children; each child
-owns its presentation, modes, state, interaction, behaviour, and any direct
-children. Neither padding nor layout/presentation authority cascades through
-ancestors.
+**Proceed with safeguards**
 
-Header directly composes BrandShell and NavigationShell. NavigationShell owns
-ControlEdge and Controls; Controls owns Search, PrimaryNavigation, and exactly
-one inline-end MainAction. PrimaryNavigation owns NavigationItem instances;
-each NavigationItem owns its Icon/Label. BrandShell owns the Logo and Home
-action slots. Header must not reach into any of those child internals.
+Builder Phase 5 findings are directionally sound, but the Owner has now added an
+architecture rule that is broader than Header and must be promoted into repository
+authority before Header source implementation continues.
 
-## Token-only Header presentation contract
+## New Owner architecture rule
 
-Header is `block-size: var(--wex-space-64)` at every viewport. BrandShell is
-`var(--wex-space-64)` square; NavigationShell is `minmax(0, 1fr)`. Every layout
-participant has `min-width: 0`.
+In WEX composition, an **atom** is the primitive UI/content receiver itself, such
+as text, icon, input, heading primitive, span, image, or another approved
+primitive receiver.
 
-The only Header gutters are outer-wrapper `padding-inline:
-var(--wex-space-16)` at Large/Medium and `var(--wex-space-8)` at Compact
-(`<=767px`), followed by exactly one immediate inner-container
-`padding-inline: var(--wex-space-8)`. The effective inset is 24px/16px. No
-deeper Header child gains automatic gutter padding or margin-based separation.
+Every atom value has exactly two source classes:
 
-The smallest authorised Header surface is
-`background: var(--wex-color-background-primary)` and
-`color: var(--wex-color-text-primary)`. ADR 0004 requires a composition to
-begin on Background Primary; its direct child-surface alternation is explicit,
-not inferred from nesting. Header therefore assigns no background to Brand,
-Navigation, Location, Utility, or child controls. Header adds no border,
-radius, shadow, or shell interaction state: no Header-specific authority
-selects one, and shadows have no WEX authority. Light/dark theme inversion is
-provided by the semantic tokens. Focus and native interaction states remain
-with focusable children.
+- **manual/static**;
+- **dynamic/resolved**.
 
-Header itself owns no typography. LocationLabel, Search, PrimaryNavigation, and
-MainAction consume their own accepted WEX type/component rules. This preserves
-the owner-approved >=768px LocationLabel versus <=767px SidebarTrigger
-slot-selection swap without giving Header either child presentation or state.
-The inactive alternative is not rendered or exposed to assistive technology.
+An atom does **not** automatically require its own global/platform ID.
 
-## Direct-slot assembly API
+When the atom has no independent lifecycle, persistence, external reference, or
+ownership requirement, it remains structurally addressable from the owning
+composition identity plus its path/slot:
 
-The future serializable Header assembly contains only:
+`compositionId + structural path -> atom -> value source`
 
-```text
-brand: { logo, homeAction }
-navigation: { location, sidebarTrigger, search, primaryNavigation, mainAction }
-```
+Identity is added only where the node independently requires identity.
 
-The Header selects `location` or `sidebarTrigger` by the accepted WEX Compact
-threshold. It receives opaque, approved child definitions/semantic intents; it
-does not receive functions, routes, CSS, raw values, sidebar state, Search
-data/results, navigation-item internals, or child modes. `mainAction` is one
-required placement slot, not Header action semantics. Search `full`/`icon-only`
-and PrimaryNavigation `fixed`/`scrollable` remain child capabilities.
+This does not authorize arbitrary HTML in schemas. Atom types, attributes,
+value-source forms, and composition rules remain governed contracts.
 
-## Authority result and implementation boundary
+## Recursive composition remains authoritative
 
-The existing recursive layout/composition rules already establish this direct-
-child ownership model; no ADR or architecture-document change is required.
-Existing Button/SemanticAction authority applies only if a child action has an
-accepted record owner. Brand, SidebarTrigger, and MainAction action execution
-remain outside Header until their responsible component/action contract is
-separately authorised.
+`atom -> element/component -> component-as-shell -> larger component -> application shell -> runtime`
 
-The smallest future Component Manager proof is a Header shell with controlled,
-non-interactive child-slot fixtures only. It must check 64px geometry, both
-theme tokens, 24px/16px two-level insets, Navigation remainder, and the
-Location/Sidebar swap at the existing 767px boundary. Slot fixtures must not
-masquerade as Logo, Search, navigation, toggle, or Button implementations; no
-native actions, state, scrolling, or schema are introduced. Admin Station stays
-out of scope.
+At each level the parent owns only direct-child composition. A child that contains
+further children becomes their shell. Ancestor spacing, presentation, state, and
+behaviour do not automatically cascade through the tree.
 
-No source, schema, fixture, mount, topic branch, or integration was created.
+## Required documentation action
 
-## Evidence
+Before Header source implementation, update repository architecture authority so
+the rule is not trapped in this coordination file.
 
-Rechecked verified `main`: [Layout](../docs/code-map/layout.md),
-[authority model](../docs/architecture/authority-model.md),
-[composition architecture](../docs/architecture/composition-architecture.md),
-[core colour ADR](../docs/decisions/0004-core-colour-tokens.md),
-[SemanticAction](../packages/schemas/src/actions/semantic-action.schema.ts),
-and [ADR 0008](../docs/decisions/0008-button-runtime-invocation-authority.md).
+Builder must propose the **smallest bounded documentation change** to
+`docs/architecture/composition-architecture.md` (and only another architecture
+doc if genuinely required) covering:
+
+1. atom definition and examples;
+2. manual/static vs dynamic/resolved atom value sources;
+3. structural addressing by owning composition ID + path;
+4. ID-less atoms by default when no independent identity requirement exists;
+5. the rule for when independent identity becomes necessary;
+6. recursive component-as-shell composition;
+7. parent direct-child ownership only;
+8. prohibition on arbitrary HTML/raw visual values in definitions.
+
+Do not invent a complete atomic schema family yet. This phase records architecture
+authority only.
+
+## Header findings retained
+
+Phase 5 Header presentation findings remain provisionally accepted:
+
+- Header height 64px all devices;
+- Brand 64px square;
+- Navigation takes remaining width;
+- two-level Header gutter only;
+- `Background Primary` / `Text Primary` is the smallest current Header surface;
+- no Header border/radius/shadow without further WEX authority;
+- child internals remain outside Header;
+- Component Manager proof remains the first implementation target.
+
+## Stop boundary
+
+Do not implement Header source, atom schemas, child components, Component Manager
+mounts, or Admin Station integration in this phase.
+
+Prepare the bounded architecture-doc change, commit/push it on the authorised
+topic branch, update this same work file to `AWAITING REVIEWER REVIEW`, and
+report exact branch/SHA and changed files.
