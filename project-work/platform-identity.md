@@ -1,6 +1,6 @@
 # Platform Identity System
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 4 — Implement WEX UI identity schema contracts
 
 ## Reviewer verdict
@@ -82,3 +82,19 @@ system.
 Commit/push one bounded schema topic branch, then update this same file to
 `AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, tests, and any
 deviation. Stop for Reviewer.
+
+## Builder handoff — 2026-10-01
+
+Candidate: `feat/wex-ui-identity-schemas` at
+`802f31c2f7ef58dee16dcfc9e600841d1eee59ba`.
+
+Changed only:
+
+- `packages/schemas/src/identifiers/wex-ui-identity.schema.ts`;
+- `packages/schemas/src/index.ts` public exports;
+- `packages/schemas/test/foundation.test.mjs` focused identity tests.
+
+`pnpm --filter @weerax/schemas check` passed (type-check, build, and 8 tests),
+as did `pnpm audit:foundation` and `git diff --check`. No deviation: no
+issuance, storage, adapter, runtime, UI, Header, or existing identity/action
+contract changed. No browser check applies.
