@@ -1,6 +1,6 @@
 # Platform Identity System
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 3A — Finalise ADR 0013 acceptance state
 
 ## Reviewer verdict
@@ -67,3 +67,14 @@ repository authority.
 
 No generator, registry/storage, Identity Station runtime, adapters, Header IDs,
 bindings runtime or migrations are authorised.
+
+## Builder handoff — 2026-10-01
+
+Candidate: `docs/adr-0013-acceptance` at
+`394fb687c0ef972b2b833d2505933ffb1fde90dc`.
+
+Changed only `docs/decisions/0013-wex-ui-platform-identity.md` (status:
+`Accepted`) and `docs/decisions/README.md` (ADR 0013 moved under `Accepted`).
+No accepted decision content, family policy, ownership, namespace, binding
+model, or implementation boundary changed. `git diff --check` and
+`pnpm audit:foundation` passed. No schema or runtime source changed.
