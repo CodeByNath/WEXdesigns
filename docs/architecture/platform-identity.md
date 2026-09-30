@@ -17,9 +17,9 @@ component is introduced by this document.
 | Identity | Purpose | Owner |
 | --- | --- | --- |
 | Reusable definition/capability | An independently identified reusable UI definition or type | WEX composition authority |
-| UI composition/allocation | One concrete WEX composition/allocation instance | WEX configuration boundary |
+| UI composition/allocation | One concrete WEX composition/allocation instance | WEX UI Identity Authority / Station |
 | Platform/domain reference | An authoritative external record reference | Consuming platform/domain |
-| Binding/reference | An explicit mapping from a WEX allocation slot to an external reference | Integration/configuration boundary |
+| Binding/reference | An explicit mapping from a WEX allocation slot to an external reference | Adapter/integration boundary |
 
 An independently identified reusable capability is not an allocation. A
 platform/domain reference is opaque to WEX. Neither matching names nor identity
@@ -76,12 +76,15 @@ spacing, presentation, state, or behaviour.
 
 ## Allocation lifecycle and placement
 
-Allocation identifiers are immutable once issued. The configuration boundary
-that issues an allocation must reserve it and reject collisions. An allocation
-or binding that must survive a configuration round trip, external reference, or
-platform-to-UI lookup requires durable configuration storage. A platform record
-may resolve to zero, one, or many WEX allocations; reverse lookup is therefore
-an indexed query, not an inferred hierarchy.
+The WEX UI Identity Authority / Station owns the WEX allocation namespace. It
+alone registers/validates families, issues immutable allocation IDs, reserves
+them before assignment, rejects collisions, prevents reuse, and resolves
+allocations. Applications request and consume identities; they do not mint
+independent local IDs. An allocation or binding that must survive a configuration
+round trip, external reference, or platform-to-UI lookup requires durable
+identity-authority storage. A platform record may resolve to zero, one, or many
+WEX allocations; reverse lookup is therefore an indexed query, not an inferred
+hierarchy.
 
 Retired externally referenced allocations are not reissued. Their retirement
 record/tombstone is retained when needed to preserve a durable reference or
@@ -93,16 +96,16 @@ external reference remain structurally addressed and need not mint an identity.
 | `@weerax/schemas` | Framework-neutral serializable identity, parent, and binding validation | Issuance, persistence, lookup, callbacks |
 | Product-side adapters | Explicit mapping and authoritative platform-reference resolution | WEX allocation issuance or domain duplication |
 | Shared UI | Rendering supplied definitions | Registry, persistence, platform authority |
-| Application/integration configuration service | Allocation issuance, reservation, durable configuration, and lookup | Domain-record authority |
+| WEX UI Identity Authority / Station | Family validation, issuance, reservation, durable lifecycle, and lookup | Domain-record authority or presentation ownership |
 
-No reusable-core registry is implied. A consuming application/integration may
-implement the WEX-defined configuration contract only in a separately approved
-phase.
+The Identity Authority / Station is a WEX platform service, separate from the
+WEX presentation package and reusable core packages. Applications may request
+or consume its identities only through separately approved integration.
 
 ## Implementation boundary
 
 The first implementation phase, after ADR acceptance, is limited to pure
 `@weerax/schemas` shapes and focused validation tests. It must not add a
 generator, registry, persistence, adapter, runtime binding, Header ID, or
-migration. Allocation service behaviour requires a later demonstrated consumer
-and a separate approval.
+migration. Identity Authority / Station behaviour requires a later demonstrated
+consumer and a separate approval.

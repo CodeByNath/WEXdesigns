@@ -35,9 +35,9 @@ The following remain distinct:
 4. an explicit binding/reference between the allocation/slot and the platform
    reference.
 
-An allocation identifier is globally unique within the WEX allocation namespace
-and immutable after issuance. It neither identifies a domain record nor encodes
-a parent/child or platform relationship.
+An allocation identifier is globally unique and immutable within the namespace
+owned by the single WEX UI Identity Authority / Station. It neither identifies a
+domain record nor encodes a parent/child or platform relationship.
 
 ### Closed allocation-family policy
 
@@ -92,11 +92,14 @@ handlers, permissions, or payloads.
 
 ### Issuance, lifecycle, and ownership
 
-A consuming application/integration owns a WEX configuration service that
-implements the WEX contract: issuance, reservation, collision rejection,
-durable configuration, and reverse lookup. It is distinct from the domain
-owner. `@weerax/schemas`, `@weerax/wex`, Shared UI, and adapters do not own a
-generator, registry, or persistence store.
+One WEX UI Identity Authority / Station owns the WEX allocation namespace. It
+alone registers and validates families, mints allocation IDs, reserves before
+assignment, rejects collisions, prevents reuse, resolves allocations, maintains
+required reverse lookup, and retains required retirement/tombstone records.
+Applications/products request and consume those identities; they do not mint
+disconnected local IDs. The Authority / Station is distinct from the domain
+owner and the WEX presentation package. `@weerax/schemas`, `@weerax/wex`, Shared
+UI, and adapters do not own a generator, registry, or persistence store.
 
 Allocation identifiers are reserved before use and never reused. Persistence
 and reverse lookup are required when an allocation or binding must survive a
@@ -113,7 +116,7 @@ schemas and focused tests for allocation-ID form, closed family recognition,
 binding serializability, explicit parent/slot structure, and rejection of
 callbacks or undeclared fields. Uniqueness, reservation, reverse lookup,
 persistence, tombstones, and allocation issuance are not schema-test concerns;
-they require a later configuration-service phase with its own storage and
+they require a later Identity Authority / Station phase with its own storage and
 lifecycle tests.
 
 This decision does not alter `EntityIdentifier`, `SemanticAction`, domain
