@@ -1,79 +1,123 @@
 # Header Component
 
-Status: BLOCKED — DECISION REQUIRED
-Phase: 2 — Resolve Header presentation and action gates
+Status: BUILDER ACTION REQUIRED
+Phase: 3 — Draft Header composition and component boundaries
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Phase 1 is accepted. The revised contract now correctly preserves the Owner's
-two-level gutter rule:
+Owner has now resolved the core Header geometry and responsive composition. Do
+not implement source yet; first turn these decisions into the smallest explicit
+component plan and contracts.
 
-- Large/Medium: outer 16px + immediate inner 8px = 24px effective inset;
-- Compact <=767px: outer 8px + immediate inner 8px = 16px effective inset;
-- no deeper Header gutter padding is inherited or repeated;
-- no margin-based gutter recreation;
-- Brand, Navigation, Location, Utility, and future nested controls own no
-  automatic Header gutter merely because they are nested.
+## Accepted Header geometry
 
-The Builder also correctly stopped before source implementation.
+- Header block size: **64px on all devices**.
+- Brand occupies the left corner as a **64px x 64px square**.
+- Brand hosts a separate **Logo component**.
+- Remaining inline width belongs to Navigation.
+- Existing two-level gutter rule remains:
+  - Large/Medium: outer 16px + immediate inner 8px = 24px effective inset.
+  - Compact <=767px: outer 8px + immediate inner 8px = 16px effective inset.
+  - deeper nested elements do not repeat Header gutter padding.
 
-## Accepted structural contract
+## Accepted composition
 
-Header is reusable Shared UI structure proved in Component Manager before Admin
-Station integration.
+Header
+- Brand shell
+  - Logo component
+  - Brand/Home semantic navigation intent
+- Navigation shell
+  - Left/control edge
+    - Location Label component at >=768px
+    - Sidebar Trigger action at <=767px, replacing Location Label
+  - Navigation controls region, ordered right-to-left:
+    1. Main Action slot at far right
+    2. Primary Navigation list
+    3. Search control at the left side of that navigation group
 
-Direct structure:
+### Location Label
 
-- Header
-  - Brand
-  - Navigation
-    - Location
-    - Utility
+Location is its own heading/text component, left aligned, representing the
+current station location such as Dashboard or Services.
 
-Brand exposes semantic Home/Dashboard navigation intent. Location is supplied
-text. Utility is an ordered slot for future accepted controls; Header does not
-pre-build those controls.
+At <=767px it is replaced in this Header position by the Sidebar Trigger
+action. The Sidebar Trigger toggles the sidebar; Header owns placement of that
+control, not sidebar/domain state.
 
-Header owns reusable structure, allocation mechanics, accessibility mechanics,
-and accepted WEX presentation. It does not own product routes, search logic,
-notifications, account/domain state, permissions, persistence, validation,
-credentials, callbacks, or speculative control families.
+### Main Action
 
-## Decisions still required before implementation
+The far-right position is always reserved for one prominent Main Action
+component/slot.
 
-Repository authority does not currently determine these Header-specific values
-or behaviours. Owner decision is required:
+It may later represent account/user access, login/logout, a primary location
+action, or an external destination. Header owns only the reserved placement and
+single-main-action contract, not the business meaning or execution.
 
-1. **Header height / block size**
-   - choose the intended Header height or token-based sizing rule.
+### Primary Navigation
 
-2. **Brand allocation**
-   - define whether Brand is intrinsic, fixed/token-based, or bounded by a
-     min/max allocation.
+Primary Navigation is a separate component, not raw Header-owned links.
 
-3. **Navigation / Utility behaviour**
-   - define Location vs Utility alignment;
-   - define what Utility does as content grows: remain single-line, wrap,
-     horizontal-scroll, truncate/reduce, or another explicit accessible rule;
-   - define Compact reallocation/collapse behaviour if different.
+Requirements to preserve in its future component record:
 
-4. **Surface treatment**
-   - decide whether Header itself owns background/border/separation treatment,
-     or remains presentation-neutral inside the Admin Station Header region.
+- accepts ordered navigation items;
+- order determines visibility priority as space becomes constrained;
+- consumes available remaining navigation space;
+- supports two component modes:
+  - **fixed**
+  - **scrollable**
+- this mode is a Primary Navigation component capability, not a Header-specific
+  responsive workaround;
+- do not invent additional responsive rules merely to preserve individual
+  items.
 
-5. **Brand Home/Dashboard action authority**
-   - existing `SemanticAction` requires `recordId`;
-   - no accepted application-shell navigation record/executor exists;
-   - decide whether Brand navigation gets a bounded shell-navigation semantic
-     contract or is supplied by an existing authoritative record owner.
+### Search
 
-## Stop boundary
+Search is part of the same navigation-control composition but is a separate
+component capability.
 
-Do not create Header schema, Shared UI source, WEX Header CSS, Component Manager
-fixture/mount, topic branch, or Admin Station integration until these decisions
-are resolved and recorded here.
+It has two presentation modes:
 
-The reference image may guide composition, but it does not supply missing WEX
-values by itself.
+- **full** input;
+- **icon-only**.
+
+On larger widths it may use full mode; as available space reduces it may switch
+to icon-only so it aligns visually with the rest of the compact controls.
+Header owns the slot/allocation, not search behaviour, search data, or results.
+
+## Architecture safeguards
+
+Do not collapse Logo, Location Label, Sidebar Trigger, Main Action, Primary
+Navigation, or Search into one monolithic Header implementation.
+
+Header is the composition shell. Those are independently reusable component
+families/capabilities and must only be implemented when separately authorised.
+
+For this phase the Builder must:
+
+1. draft the exact Header shell contract and slot boundaries;
+2. draft the component dependency tree above;
+3. record which contracts can reuse existing Button/action/schema authority and
+   which require new authority;
+4. define the 64px Brand/Header geometry and Navigation remainder using WEX
+   presentation authority, without arbitrary local values;
+5. define the >=768px Location vs <=767px Sidebar Trigger swap;
+6. record Primary Navigation fixed/scrollable mode as a future component-level
+   feature;
+7. record Search full/icon-only mode as a future component-level feature;
+8. keep Main Action as exactly one reserved prominent slot;
+9. do not implement Header, child components, schemas, Component Manager mounts,
+   or Admin Station integration yet.
+
+## Remaining gates
+
+Two decisions are still not supplied by repository authority or Owner direction:
+
+- Header surface treatment: background/border/separation vs presentation-neutral;
+- semantic action ownership for Brand/Home, Main Action, and Sidebar Trigger
+  where existing `SemanticAction` record ownership does not fit shell/runtime
+  interaction.
+
+Builder must surface the narrowest authority options for those two gates and
+return this same file to `AWAITING REVIEWER REVIEW`.
