@@ -8,9 +8,14 @@ Read in this order:
 2. `dependency-rules.md`
 3. `composition-architecture.md`
 4. `atomic-composition.md`
-5. `repository-map.md`
+5. `platform-identity.md`
+6. `repository-map.md`
 
 The composition document is preserved from the supplied DesignMaster authority.
 `atomic-composition.md` supplements it with the current governed atom-level
 composition constraints, without expanding or replacing the historical document.
 Supporting documents do not replace either authority.
+
+`platform-identity.md` records the WEX composition/allocation identity boundary
+and explicit platform-binding model; its namespace and lifecycle decisions are
+made by ADR 0013.
