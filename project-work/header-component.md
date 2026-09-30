@@ -1,97 +1,81 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 6 — Record atomic composition authority, then return to Header
+Status: BUILDER ACTION REQUIRED
+Phase: 7 — Promote accepted atomic-composition authority
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Owner has resolved the documentation gate. Do not edit the oversized historical
-`docs/architecture/composition-architecture.md`.
+Reviewer independently inspected candidate branch
+`docs/atomic-composition-authority` at
+`d1657a49785df63dbf566497a57c4873ba97569b`.
 
-Create a concise current architecture entry/index for the new recursive atomic
-model. If the subject later needs more detail, split it into bounded child
-documents/maps. No special Owner file-size exception is required while normal
-repository limits are respected.
+The candidate matches the authorised Phase 6 scope.
 
-## Atomic composition authority to record
+Accepted files:
 
-The new authority must state:
+- `docs/architecture/atomic-composition.md` — 67 lines;
+- `docs/architecture/README.md` — routes the new authority.
 
-- an atom is an approved primitive receiver such as text, icon, input, heading,
-  span, image, or equivalent governed primitive;
-- atom values have two source classes only: manual/static or dynamic/resolved;
-- atoms are ID-less by default unless independent lifecycle, persistence,
-  external reference, ownership, or independent addressing requires identity;
-- an ID-less atom is addressed through owning composition identity + structural
-  path/slot;
-- serializable definitions do not permit arbitrary HTML or raw visual values;
-- composition is recursive:
-  `atom -> element/component -> component-as-shell -> larger component -> application shell -> runtime`;
-- every parent owns only its direct-child composition;
-- a child containing further children becomes their shell;
-- ancestor spacing, presentation, state, and behaviour do not automatically
-  cascade through descendants;
-- every composition contract may declare allowed direct-child types plus
-  minimum/maximum direct-child count;
-- child-count limits apply only at that direct composition boundary, not
-  recursively to descendants.
+Verified content records:
 
-Do not invent a complete atom schema family yet. This phase records architecture
-authority only.
+- governed primitive atoms;
+- manual/static vs dynamic/resolved value sources;
+- ID-less atoms by default;
+- composition identity + structural path/slot addressing;
+- recursive component-as-shell composition;
+- direct-child ownership only;
+- no automatic ancestor spacing/presentation/state/behaviour cascade;
+- allowed direct-child types plus minimum/maximum direct-child count;
+- child-count limits apply only to the direct composition boundary;
+- no arbitrary HTML or raw visual values;
+- no atom schema, Header implementation, or Platform ID implementation.
 
-## Header state retained
+The historical `composition-architecture.md` remains untouched.
 
-After the architecture note is accepted, return to the interrupted Header work.
-Retained Header direction:
-
-- 64px Header on all devices;
-- 64px square Brand;
-- Navigation consumes remaining width;
-- two-level Header gutter only;
-- Header owns its own WEX surface, not child internals;
-- LocationLabel >=768px / SidebarTrigger <=767px is slot selection;
-- Search, PrimaryNavigation, MainAction and nested children own their own
-  internal contracts;
-- Component Manager remains the first Header proof target;
-- Admin Station integration remains later.
-
-## Platform ID — deferred to next work
-
-The WEX Platform ID direction is recorded but intentionally **on hold** until
-this atomic-composition documentation and Header declaration work reaches its
-phase boundary.
-
-Do not implement prefixes, generator, registry, schemas, IDs, or allocation
-logic in this Header phase. The next dedicated identity work may revisit the
-recorded `WEXAM` / `WEXAMH` proposal and CompuZign precedent independently.
+Remote branch capacity is currently exactly three:
+`main`, `Project-work-instructions`, and
+`docs/atomic-composition-authority`.
 
 ## Builder action
 
-1. Add the smallest bounded architecture index/note for the rules above.
-2. Add child documentation only if required to keep the authority concise.
-3. Update the relevant Code Map/navigation if the new authority needs routing.
-4. Run documentation checks.
-5. Commit/push the architecture-only change.
-6. Update this file to `AWAITING REVIEWER REVIEW` with exact branch/SHA,
-   changed files, and checks.
-7. Stop.
+Promote the accepted documentation candidate only.
 
-No Header source, atom schemas, child components, Platform ID implementation,
-Component Manager mount, or Admin Station integration in this phase.
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Fast-forward/sync as required.
+3. Promote exact accepted SHA
+   `d1657a49785df63dbf566497a57c4873ba97569b` to `main` without widening
+   scope or altering the accepted files.
+4. Verify `main` contains the exact accepted documentation.
+5. Run the relevant documentation/foundation checks against promoted `main`.
+6. Remove the completed remote topic branch after successful verification.
+7. Update this same work file to `AWAITING REVIEWER REVIEW` with:
+   - resulting `main` SHA;
+   - promotion method;
+   - checks;
+   - remote branch heads after cleanup.
+8. Stop.
 
-## Builder handoff — 2026-10-01
+Do not begin Header source implementation in this phase.
 
-Candidate branch: `docs/atomic-composition-authority`
-Candidate SHA: `d1657a49785df63dbf566497a57c4873ba97569b`
+## Next boundary after promotion
 
-Changed files:
+Once Reviewer verifies promotion and branch cleanup, work returns to the
+interrupted Header declaration/Component Manager proof.
 
-- `docs/architecture/atomic-composition.md` — 67-line bounded current authority;
-- `docs/architecture/README.md` — routes the authority in the architecture index.
+Retained Header direction:
 
-Evidence: `git diff --check` passed and `pnpm audit:foundation` passed. No Code
-Map was added because this is an architecture-only authority record, not a
-demonstrated repository subject. No browser check applies. No Header, schema,
-identity, runtime, or WEX presentation source changed.
+- Header 64px all devices;
+- Brand 64px square;
+- Navigation takes remaining width;
+- two-level Header gutter only;
+- Header owns its WEX shell presentation, not child internals;
+- LocationLabel >=768px / SidebarTrigger <=767px is component selection;
+- nested components own their own direct-child contracts;
+- Component Manager proof precedes Admin Station integration.
+
+## Platform ID — still on hold
+
+The recorded `WEXAM` / `WEXAMH` direction remains deferred to the next
+dedicated identity work. Do not implement identifiers during Header work.
