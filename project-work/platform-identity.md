@@ -1,95 +1,69 @@
 # Platform Identity System
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3 — Promote accepted WEX UI identity architecture
+Status: BUILDER ACTION REQUIRED
+Phase: 3A — Finalise ADR 0013 acceptance state
 
 ## Reviewer verdict
 
-**Proceed**
+**Stop — architectural risk**
 
-Reviewer independently inspected candidate branch
-`docs/platform-identity-architecture` at
-`b0c041f2a2155049bbfe6b8d97e49d2a170d9032`.
+The Phase 3 promotion itself is verified:
 
-The Phase 2A correction resolves the issuer contradiction.
+- `main` is exactly `b0c041f2a2155049bbfe6b8d97e49d2a170d9032`;
+- `docs/architecture/platform-identity.md` is present on `main`;
+- ADR 0013 is present on `main`;
+- architecture and decision indexes route the new documents;
+- the completed topic branch has been removed;
+- remote heads are only `main` and `Project-work-instructions`.
 
-Accepted architecture now establishes:
+However, repository authority is internally inconsistent after promotion.
 
-- one authoritative WEX UI Identity Authority / Station owns the WEX UI
-  allocation namespace;
-- applications/products request and consume identities but do not mint
-  disconnected local IDs;
-- allocation IDs are immutable and globally unique within the namespace owned by
-  that single authority;
-- the authority alone owns family validation, minting, reservation, collision
-  rejection, non-reuse, lookup, and required reverse lookup/tombstones;
-- `@weerax/wex` remains presentation authority;
-- `@weerax/schemas` owns serializable identity/parent/binding validation only;
-- adapters map WEX allocations to opaque platform/domain references;
-- platforms/domains retain business/data identity and lifecycle authority;
-- reusable definition identity, WEX allocation identity, platform/domain
-  identity, and binding/reference remain distinct;
-- parent/child relationships and platform bindings are explicit data, never
-  prefix-derived;
+## Blocking authority mismatch
+
+`docs/decisions/0013-wex-ui-platform-identity.md` still says:
+
+`Proposed — architecture authority only`
+
+and `docs/decisions/README.md` still lists ADR 0013 under **Proposed**.
+
+The Reviewer has accepted the architecture, so implementation must not begin
+while repository authority still records the decision as proposed.
+
+## Builder correction
+
+Create one bounded documentation-only topic branch and:
+
+1. change ADR 0013 status from Proposed to **Accepted**;
+2. move ADR 0013 from **Proposed** to **Accepted** in
+   `docs/decisions/README.md`;
+3. do not alter the accepted identity decision text, family policy, ownership,
+   namespace, binding model, or implementation boundary;
+4. run `git diff --check` and `pnpm audit:foundation`;
+5. commit/push the exact correction;
+6. update this same work file to `AWAITING REVIEWER REVIEW` with branch/SHA,
+   changed files and checks;
+7. stop.
+
+## Accepted identity authority retained
+
+Once the status mismatch is corrected, ADR 0013 establishes:
+
+- one centralized WEX UI Identity Authority / Station;
+- closed WEX UI family vocabulary;
+- fixed five-character uppercase unambiguous Base32 suffix;
+- `WEXAM + XXXXX` for Admin Manager allocations;
+- `WEXAMH + XXXXX` for Admin Header allocations;
+- immutable reserved non-reused allocation IDs;
+- explicit parent/slot relationships;
+- explicit platform/domain bindings;
+- WEX UI identity separate from platform/domain identity;
+- schemas own serializable contracts only;
 - primitive atoms remain ID-less unless independent identity is required.
 
-Accepted family policy:
+## Stop boundary
 
-- closed WEX UI family vocabulary;
-- fixed five-character suffix;
-- uppercase unambiguous Base32 alphabet;
-- initial Admin Manager family: `WEXAM + XXXXX`;
-- initial Admin Header allocation family: `WEXAMH + XXXXX`;
-- exact full-form family recognition is required.
+Do not start schema implementation until ADR 0013 is explicitly Accepted in
+repository authority.
 
-The candidate changes only architecture/decision documentation. No schema,
-generator, registry/storage, runtime service, adapter, Header ID, or migration
-was introduced.
-
-Builder-reported checks:
-- `git diff --check` passed;
-- `pnpm audit:foundation` passed.
-
-## Builder action
-
-Promote the accepted documentation candidate only.
-
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Promote exact accepted SHA
-   `b0c041f2a2155049bbfe6b8d97e49d2a170d9032` to `main` without widening
-   scope.
-3. Verify `main` contains the accepted architecture note, ADR 0013, and index
-   routing.
-4. Run the relevant foundation/documentation checks on promoted `main`.
-5. Remove the completed remote topic branch after successful verification.
-6. Update this same work file to `AWAITING REVIEWER REVIEW` with:
-   - resulting `main` SHA;
-   - promotion method;
-   - checks;
-   - remote branch heads after cleanup.
-7. Stop.
-
-## Next boundary after promotion
-
-After Reviewer verifies promotion, the next work phase may define the first
-strict schema contracts/tests for WEX UI allocation IDs, explicit parent/slot
-relationships, and serializable platform bindings.
-
-Do not begin Identity Authority / Station runtime implementation, persistence,
-generator/registry, adapters, Header IDs, or migrations until separately
-authorised.
-
-## Builder promotion handoff — 2026-10-01
-
-- Resulting `main`: `b0c041f2a2155049bbfe6b8d97e49d2a170d9032`.
-- Promotion: fast-forward-only from the accepted candidate; `origin/main`
-  resolves to that exact SHA.
-- Check: `pnpm audit:foundation` passed on promoted `main`.
-- Cleanup: the topic was proven fully contained in `main`, then
-  `docs/platform-identity-architecture` was deleted remotely.
-- Remote heads after cleanup: `main` at
-  `b0c041f2a2155049bbfe6b8d97e49d2a170d9032` and
-  `Project-work-instructions` at `aa8c68ee75e5b21e30c39c398f956c025e2bc8c4`.
-
-No files beyond the accepted documentation candidate changed. No browser check
-applies to this architecture-only promotion.
+No generator, registry/storage, Identity Station runtime, adapters, Header IDs,
+bindings runtime or migrations are authorised.
