@@ -1,6 +1,6 @@
 # Platform Identity System
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Define WEX UI identity architecture boundary
 
 ## Owner direction
@@ -66,29 +66,10 @@ collision resistance, closed vocabulary, immutable identity, binding and
 tombstone concepts. Do not import CompuZign prefixes, entities, storage or
 domain rules into WEX.
 
-## Builder action
+## Completed audit scope
 
-1. Read current `main` authority first:
-   - `docs/architecture/authority-model.md`;
-   - `docs/architecture/atomic-composition.md`;
-   - schema identity/action authority;
-   - repository/dependency rules.
-2. Audit where UI composition identity belongs across `schemas`, adapters,
-   shared UI and applications.
-3. Separate:
-   - reusable UI definition/capability identity;
-   - UI composition/allocation identity;
-   - external platform/domain identity;
-   - adapter/binding identity/reference.
-4. Determine whether UI allocation identity needs reservation, immutability,
-   reverse lookup, tombstones, persistence, or only a subset. Do not copy the
-   CompuZign engine blindly.
-5. Define the minimum serializable binding shape needed to support
-   platform→UI loading and UI→platform resolution without executable callbacks.
-6. Identify validation/collision requirements and fixed-suffix/prefix policy
-   implications.
-7. Identify where parent/child composition identity is stored explicitly.
-8. Record unresolved decisions and architecture risks.
+The audit inspected current architecture, schema/action contracts, package
+boundaries, and the repository's available identity precedent references.
 
 ## Stop boundary
 
@@ -100,3 +81,33 @@ adapters, Header IDs, runtime bindings, or migrations.
 Return this same file to `AWAITING REVIEWER REVIEW` with authority findings,
 proposed identity layers, required architecture-doc/ADR changes, and the
 smallest implementation boundary.
+
+## Builder audit handoff — 2026-10-01
+
+`EntityIdentifier` validates generic UUID/slug values only. `SemanticAction.id`
+is a local action/composition identity and `recordId` is domain identity; neither
+is a WEX allocation namespace.
+
+Proposed layers are: reusable capability/definition ID; immutable WEX
+composition/allocation ID; opaque authoritative platform/domain reference; and
+an explicit binding. The minimum binding is
+`{ uiAllocationId, bindingSlot, platformKey, platformRecordRef }`; its
+allocation-plus-slot is sufficient unless it has independent lifecycle or
+external-reference needs. Parent relationships must be explicit, either as a
+parent allocation ID plus slot or direct-child definition structure—not prefixes.
+
+Schemas should validate serializable shapes only; adapters map and resolve the
+platform reference; shared UI consumes definitions only; an application/
+integration-owned WEX configuration service would own issuance, reservation,
+persistence and reverse lookup. No reusable-core registry is justified.
+
+Format validation plus allocation-time uniqueness/reservation and immutability
+are required. Persistence, reverse lookup and tombstones are required only when
+the allocation/binding outlives its definition or has independent external
+references; this lifecycle decision remains open.
+
+Required next authority: a bounded identity architecture note plus ADR deciding
+closed families, suffix alphabet/length, issuance/reservation, and lifecycle/
+tombstone policy. `WEXAM`/`WEXAMH` remain proposals. Smallest later
+implementation: pure schema shapes and focused tests after that ADR—no
+generator, registry, storage, adapters, runtime binding, or Header work.
