@@ -1,94 +1,82 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3 — Draft Header composition and component boundaries
+Status: BLOCKED — DECISION REQUIRED
+Phase: 4 — Resolve final Header authority gates
 
-## Accepted direction
+## Reviewer verdict
 
-Phase 1 is accepted with safeguards. Header is reusable Shared UI composition,
-proved in Component Manager before Admin Station integration. It owns structure,
-allocation, accessibility mechanics, and accepted WEX presentation—not routes,
-state, permissions, persistence, callbacks, or future controls.
+**Proceed with safeguards**
 
-The root is a semantic `header`; application placement determines whether it is
-the page banner. It is `block-size: var(--wex-space-64)` at every width. Its
-outer wrapper has inline padding of `--wex-space-16` at Large/Medium and
-`--wex-space-8` at Compact (`<=767px`); its sole immediate inner container has
-`--wex-space-8` at every band. The resulting insets are 24px and 16px.
-Padding stops there: no nested Header compartment inherits or repeats it, and
-margins never recreate it. Every participant has `min-width: 0`.
+Phase 3 composition planning is accepted. The proposed Header shell and child
+component boundaries match the Owner direction and current repository authority.
 
-## Header shell contract
+## Accepted Header contract
 
-The immediate inner container is a two-column allocation:
+- Header block size: `var(--wex-space-64)` / 64px at every viewport.
+- Brand shell: 64px x 64px square.
+- Remaining inline width: Navigation shell.
+- Two-level gutter only:
+  - Large/Medium: outer 16px + immediate inner 8px = 24px effective inset;
+  - Compact <=767px: outer 8px + immediate inner 8px = 16px effective inset;
+  - no recursive nested gutter padding and no margin gutters.
+- Navigation:
+  - >=768px: Location Label at control edge;
+  - <=767px: Sidebar Trigger replaces Location Label;
+  - controls region is Search -> Primary Navigation -> exactly one Main Action,
+    with Main Action fixed at inline-end.
+- Primary Navigation is a separate future component with ordered items and
+  `fixed` / `scrollable` component modes.
+- Search is a separate future component with `full` / `icon-only` modes.
+- Logo, Location Label, Sidebar Trigger, Main Action, Primary Navigation, and
+  Search remain independent component families/capabilities; Header must not
+  absorb their internal presentation or behaviour.
 
-```text
-HeaderShell
-├── BrandShell: 64px × 64px (`--wex-space-64`)
-│   ├── Logo slot
-│   └── Home/Dashboard action slot
-└── NavigationShell: minmax(0, 1fr)
-    ├── ControlEdge
-    │   ├── LocationLabel at >=768px
-    │   └── SidebarTrigger at <=767px (replaces, not duplicates, Location)
-    └── Controls
-        ├── Search slot at inline-start
-        ├── PrimaryNavigation slot in remaining control space
-        └── exactly one MainAction slot at inline-end
-```
+The Builder correctly created no Header source, schema, fixture, mount, branch,
+or Admin Station integration.
 
-The inactive Location/Sidebar alternative is not rendered or exposed to
-assistive technology. Header places SidebarTrigger only; the Trigger component
-owns accessible toggle state and must receive it from the sidebar integration.
-Header gives MainAction no product meaning. Logo and LocationLabel own their
-respective mark and text presentation. Header owns no local child widths, gaps,
-typography, or control presentation beyond accepted geometry and gutters.
+## Independent authority check
 
-`HeaderDefinition` is a future serializable assembly contract, not new source:
-`brand { logo, homeAction }`, `navigation { location, sidebarTrigger, search,
-primaryNavigation, mainAction }`. It contains approved child definitions or
-semantic intents only—never functions, routes, CSS, raw values, or sidebar
-state. Child contracts own their own tiers and internal layout.
+Verified `main` confirms:
 
-## Component dependency / authority map
+- current WEX layout has the required 64/16/8 spacing tokens and responsive
+  threshold but no Header-specific surface contract;
+- existing `SemanticAction` requires `recordId`;
+- ADR 0007 binds ordinary Button actions to record-backed semantic commands;
+- ADR 0008 keeps execution in the consuming application and does not establish
+  shell navigation/toggle action ownership.
 
-| Child | Header boundary | Current authority |
-| --- | --- | --- |
-| Logo | fixed Brand slot | New Logo component/asset contract. |
-| LocationLabel | supplied location; >=768px | New text contract; later presentation uses WEX Typography. |
-| SidebarTrigger | <=767px placement | Button only if record-backed; icon/toggle mechanics need authority. |
-| MainAction | one inline-end slot | Button only for an accepted record-backed ordinary action. |
-| PrimaryNavigation | ordered; remaining space | New contract; `fixed`/`scrollable` are component modes. |
-| Search | control-group inline-start | New contract; `full`/`icon-only` are component modes. |
+Therefore shell navigation/toggle intent must not be forced into the existing
+record-backed Button contract without an explicit authority decision.
 
-Existing `ButtonDefinition`/`SemanticAction` can serialize an ordinary action
-only (`id`, `label`, `command`, `recordId`, variant, tier, disabled). They do
-not authorize Header, Logo, navigation, Search, icon-only, toggle, route, or
-sidebar contracts. `@weerax/ui` remains platform-neutral; application browser
-integration owns native invocation and handlers.
+## Owner decisions required
 
-## Narrow remaining authority choices
+### 1. Header surface
 
-**Surface:** choose either (A) a presentation-neutral Header, whose host owns
-surface/border/separation, or (B) a Header-owned WEX surface contract that
-explicitly selects semantic background, border, and any geometry tokens. The
-existing Admin Station region cannot be silently reused as generic Header
-authority.
+Choose one:
 
-**Actions:** choose either (A) designate an application-shell record owner and
-runtime executor, allowing the existing `SemanticAction` for Brand,
-SidebarTrigger, and qualifying MainAction, or (B) approve a bounded new
-shell-intent schema/executor that does not misuse `recordId`. Option B requires
-an action/schema decision; neither option permits callbacks in definitions.
+**A — Presentation-neutral Header**
+Header owns no new background/border/separator. The host/Admin Station region
+provides its surrounding surface.
 
-No Header/child source, schema, fixture, Component Manager mount, topic branch,
-or Admin Station integration was created.
+**B — Header-owned WEX surface**
+Header receives explicit WEX-owned background/border/separator presentation.
+Exact semantic tokens and geometry must be authorised before implementation.
 
-## Evidence
+### 2. Shell action authority
 
-Rechecked verified `main`: [Layout](../docs/code-map/layout.md),
-[authority model](../docs/architecture/authority-model.md),
-[Button schema](../packages/schemas/src/components/button.schema.ts),
-[SemanticAction](../packages/schemas/src/actions/semantic-action.schema.ts),
-[ADR 0007](../docs/decisions/0007-button-semantic-action-authority.md), and
-[ADR 0008](../docs/decisions/0008-button-runtime-invocation-authority.md).
+Choose one:
+
+**A — Record-backed actions only**
+Brand/Home, Sidebar Trigger, and Main Action may use existing
+`SemanticAction` only when a real authoritative record owner and command exist.
+
+**B — Bounded shell-intent contract**
+Create a separate serializable application-shell intent for navigation/toggle
+actions that do not naturally target a domain `recordId`. Runtime execution
+still belongs to the consuming application; no callbacks enter schemas/UI.
+
+## Stop boundary
+
+Do not implement Header or child components until these two decisions are
+resolved. After Owner resolution, Reviewer may authorise the first implementation
+phase in Component Manager. Admin Station integration remains a later phase.
