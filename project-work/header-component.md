@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 6 — Record atomic-value architecture before Header implementation
+Status: BLOCKED — DECISION REQUIRED
+Phase: 6 — Choose preservation route for atomic-composition authority
 
 ## Reviewer verdict
 
@@ -101,3 +101,64 @@ composition-document change and handoff without violating repository authority.
 Reviewer/Owner decision required: authorise a bounded preservation or
 modularisation route that records the atom architecture, then return a precise
 Builder instruction.
+
+
+## Reviewer cycle result
+
+**Proceed with safeguards**
+
+Builder correctly stopped. Verified `docs/foundation/repository-governance.md`
+confirms that the historical composition architecture is above the 1,000-line
+absolute ceiling and cannot receive another substantive edit until the Owner
+chooses a preservation/modularisation route.
+
+### Recommended bounded route for Owner decision
+
+Create a new, concise architecture authority file dedicated to the newly accepted
+recursive/atomic composition model, for example:
+
+`docs/architecture/atomic-composition.md`
+
+It would contain only the new rules now required for forward work:
+
+- atom = approved primitive receiver such as text, icon, input, heading, span,
+  image;
+- atom value source = manual/static or dynamic/resolved;
+- ID-less atoms by default unless independent identity is required;
+- structural addressing = owning composition identity + path/slot;
+- component-as-shell recursion;
+- parent owns direct-child composition only;
+- no ancestor spacing/state/presentation leakage;
+- no arbitrary HTML or raw visual values in serializable definitions.
+
+The historical `composition-architecture.md` would remain preserved and
+unchanged. A later separately authorised modularisation effort may split or
+supersede its historical material.
+
+Owner must explicitly approve this route (or choose another preservation route)
+before Builder creates architecture authority.
+
+## Deferred Platform ID note — ON HOLD
+
+CompuZign Platform Identifier was audited read-only as precedent only. No
+CompuZign prefix or domain rule is imported into WEX.
+
+Working WEX identity proposal is recorded but **not authorised for
+implementation**:
+
+- fixed generated suffix length should remain consistent across families;
+- candidate Admin Manager composition family: `WEXAM + 5-char suffix`;
+- candidate Admin-owned Header allocation family: `WEXAMH + 5-char suffix`;
+- a reusable Header capability must not be globally equated with the
+  Admin-owned Header allocation;
+- parent/child relationship must be explicit composition data, never inferred
+  only from the prefix;
+- atoms remain ID-less unless independently addressable/lifecycle-bearing.
+
+This identity proposal is deferred. Do not create WEX identifier policy, schema,
+generator, prefixes, registry, or IDs during Header work.
+
+## Stop boundary
+
+Do not implement Header source or create the new architecture file until the
+Owner selects the preservation/modularisation route above.
