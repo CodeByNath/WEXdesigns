@@ -1,138 +1,73 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Reverse-engineer Header structure and authority
 
-## Owner intent
+## Owner intent and boundary
 
-Header is the first reusable Admin Station Lego piece. Develop and prove it in
-Component Manager first; do not fit it into Admin Station in this phase.
+Header is the first reusable Admin Station Lego piece. Prove it in Component
+Manager before any Admin Station fit. The reference image is design evidence,
+not value authority.
 
-Owner-provided reference image is design evidence only.
+Header owns reusable structure, layout and accessibility mechanics, and accepted
+WEX presentation only. It must not own a route map, product label, search or
+notification state, account data, permissions, persistence, domain validation,
+credentials, callbacks, or future control families.
 
-## Required structure
+It has two direct compartments: Brand (logo/placement and a semantic
+Home/Dashboard affordance) and Navigation. Navigation has Location (supplied
+active-location text) and Utility (an ordered, application-supplied control
+slot, initially empty). Header does not pre-build Utility controls.
 
-Header contains two top-level compartments:
+## Revised proposed contract
 
-1. **Brand**
-   - logo/brand placement;
-   - primary Home/Dashboard navigation affordance from anywhere;
-   - navigation intent must remain semantic/application-resolved, not a
-     hardcoded product route.
+Use a semantic `header` root; whether it is the page-level banner is determined
+by its application placement. All Header layout participants use `min-width: 0`.
+The parent allocates Header's available inline size; Header does not set a
+hard-coded width or use margin spacing. Brand navigation remains a supplied,
+serializable semantic intent, never a hard-coded route or callback. Native focus
+must remain visible; future presentation uses WEX semantic tokens.
 
-2. **Navigation**
-   - **Location**: active location label such as Dashboard or Services;
-   - **Utility**: right-side shell ready to host future accepted controls such
-     as search, icon-only quick navigation, ordinary buttons, profile/actions,
-     notifications, or similar controls.
+The Owner-resolved gutter model is exact:
 
-Header owns those compartments and their allocation. It does not pre-build the
-future controls.
+- Header outer wrapper: `padding-inline: var(--wex-space-16)` at Large and
+  Medium, changing to `var(--wex-space-8)` at Compact (`<= 767px`).
+- Header inner container: `padding-inline: var(--wex-space-8)` at all bands.
+- Effective content inset: 24px at Large/Medium, 16px at Compact.
 
-## Phase 1 decisions required
+These are separate nested padding responsibilities; neither is recreated with
+margins or collapsed into a local value. Rechecked
+[`layout.css`](../packages/wex/src/foundations/layout.css): its generic
+`.wex-layout` uses `--wex-layout-page-padding` (24px) and its compact equivalent
+(16px) as the *effective* page inset. It must not be applied as Header's outer
+wrapper padding or it would double-count the inner 8px inset.
 
-Before implementation, inspect current WEX/layout/typography/action authority
-and record the smallest defensible Header contract covering:
+A later controlled Component Manager fixture may supply Brand intent, Location,
+and an empty Utility slot only; it may not add an inert search, icon, profile,
+or notification control.
 
-- semantic landmark/structure and accessibility;
-- overall Header width behaviour inside its parent;
-- Header block-size/height;
-- Brand inline allocation/width;
-- Navigation remaining-width allocation;
-- Location vs Utility allocation and alignment;
-- internal padding/gaps and boundary treatment;
-- overflow behaviour;
-- Large / Medium / Compact behaviour at current WEX thresholds;
-- what happens when Utility content grows;
-- light/dark presentation;
-- controlled Component Manager fixture shape;
-- serializable definition/schema needs, if any;
-- semantic action needed for Brand Home/Dashboard navigation.
+## Remaining implementation gates
 
-Use existing WEX values/tokens where authority exists. Do **not** copy arbitrary
-pixel values from the reference. If an exact required width, height, geometry,
-responsive rule, or visual value has no current WEX authority, identify that
-gate and stop before hardcoding it.
+Current authority does not select Header block height, tier interpretation,
+surface/border treatment, Brand/Utility allocation and alignment, or how Utility
+grows/overflows. WEX provides the Large/Medium/Compact thresholds, but no Header
+reallocation rule beyond the accepted Compact outer-padding change. An accepted
+Header/WEX decision must select token-based values and an accessible Utility
+reduction strategy (for example, wrap, scroll, or truncation) before any source
+or responsive media rule is written.
 
-## Architecture boundary
+[`SemanticAction`](../packages/schemas/src/actions/semantic-action.schema.ts)
+requires a domain `recordId`; no accepted application-shell navigation record,
+executor, or handler exists. Reviewer/Owner must decide whether a valid existing
+record owner supplies Brand navigation or a bounded action-contract decision is
+needed. No schema, source, fixture, Component Manager mount, or Admin Station
+integration was created.
 
-Header may own reusable structure, layout mechanics, interaction/accessibility
-mechanics, and registered WEX presentation.
-
-Header must not own route maps, search logic/data, notification state, account
-state, permissions, persistence, domain validation, product-specific labels,
-credentials, backend calls, or executable callbacks.
-
-Application/domain integration later supplies active location, brand
-destination/action, and utility-control definitions through approved contracts.
-
-## Builder findings and proposed contract
+## Evidence
 
 Inspected verified `main` through [Component Manager](../docs/code-map/component-manager.md),
 [Global Components](../docs/code-map/global-components.md), [Layout](../docs/code-map/layout.md),
-[authority model](../docs/architecture/authority-model.md), [semantic actions](../packages/schemas/src/actions/semantic-action.schema.ts),
-and [ADRs 0007](../docs/decisions/0007-button-semantic-action-authority.md) and
-[0008](../docs/decisions/0008-button-runtime-invocation-authority.md).
-
-The smallest defensible structural contract is a reusable `header` with Brand
-and Navigation direct children; Navigation has Location and Utility direct
-children. Each layout participant has `min-width: 0`. The parent allocates the
-Header; Header is full available inline size, with intrinsic Brand and Utility
-allocations and a `minmax(0, 1fr)` Navigation/Location remainder. Brand carries
-one application-supplied `SemanticAction` for Home/Dashboard; no route,
-callback, record logic, or executable control belongs in Header. Location is
-supplied text. Utility is an application-supplied ordered control definition
-slot, initially empty. A controlled Component Manager fixture may supply those
-three serializable values only, and must not introduce an inert search, icon,
-profile, or notification control. Theme presentation must use WEX semantic
-tokens and native focus must remain visible.
-
-## Owner-resolved gutter/padding rule
-
-Owner has now clarified the system gutter model:
-
-- gutters are created with **padding, not margin**;
-- main/outer wrapper inline padding is `var(--wex-space-16)` on desktop and
-  tablet;
-- at `<= 767px`, main/outer wrapper inline padding becomes
-  `var(--wex-space-8)`;
-- the inner container always carries `var(--wex-space-8)` inline padding;
-- therefore effective content inset is **24px** on desktop/tablet
-  (`16 + 8`) and **16px** on Compact (`8 + 8`).
-
-The Builder must model Header compartments using this layered padding rule and
-must not recreate the gutter with margins or collapse it into an unrelated
-single local value. Existing spacing tokens are authoritative for the values.
-
-This Owner decision resolves the Header gutter/padding portion of the previous
-stop gate. It does not by itself resolve Header height, Brand allocation,
-Utility growth/overflow, or Brand semantic-action ownership.
-
-## Stop gates for implementation
-
-No Header-specific authority yet selects its block size, tier interpretation,
-surface/border treatment, Brand allocation, Utility alignment, or Utility growth/overflow behaviour. Header gutter/padding is now Owner-resolved above. WEX provides
-spacing tokens and page bands (Large >1024, Medium 768–1024, Compact ≤767), but
-no Header reallocation or Utility growth/overflow rule. The reference cannot
-fill those gaps. An accepted WEX/Header presentation decision must set these
-values and specify whether Utility wraps, scrolls, truncates, or has another
-accessible reduction before source is written.
-
-`SemanticAction` requires a domain `recordId`; no accepted application-shell
-record or navigation executor/handler exists. Reviewer/Owner must decide
-whether Brand navigation has an existing owner record or needs a bounded action
-contract decision. Therefore no Header schema, source, fixture, Component
-Manager mount, or Admin Station integration was created. Remote capacity is two
-permanent branches; no topic branch was needed.
-
-
-## Reviewer instruction after Owner clarification
-
-Revise the proposed Header contract to incorporate the layered padding model
-exactly. Re-check current WEX layout source because the existing generic
-`.wex-layout` page-padding token represents the effective page inset and must
-not be blindly reused as the Header's outer-wrapper padding if doing so would
-double-count the inner 8px container inset.
-
-Return the updated contract and remaining unresolved gates in this same file.
-Do not implement source until the remaining gates are explicitly resolved.
+[authority model](../docs/architecture/authority-model.md), and
+[ADRs 0007](../docs/decisions/0007-button-semantic-action-authority.md) and
+[0008](../docs/decisions/0008-button-runtime-invocation-authority.md). Remote
+capacity remains the two permanent branches; no topic branch was needed.
