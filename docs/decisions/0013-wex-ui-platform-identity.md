@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — architecture authority only. It creates no identifier generator,
+Accepted — architecture authority only. It creates no identifier generator,
 registry, persistence store, schema, adapter, runtime binding, Header identity,
 or migration.
 
