@@ -1,92 +1,91 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 5 — Formalise recursive composition and Header implementation plan
 
-## Reviewer verdict
+## Accepted recursive boundary
 
-**Proceed with safeguards**
+Header is reusable Shared UI composition, proved in Component Manager before
+Admin Station integration. A parent composes only direct children; each child
+owns its presentation, modes, state, interaction, behaviour, and any direct
+children. Neither padding nor layout/presentation authority cascades through
+ancestors.
 
-Owner has clarified the missing recursive composition rule. Apply it before any
-Header implementation.
+Header directly composes BrandShell and NavigationShell. NavigationShell owns
+ControlEdge and Controls; Controls owns Search, PrimaryNavigation, and exactly
+one inline-end MainAction. PrimaryNavigation owns NavigationItem instances;
+each NavigationItem owns its Icon/Label. BrandShell owns the Logo and Home
+action slots. Header must not reach into any of those child internals.
 
-## Recursive composition authority
+## Token-only Header presentation contract
 
-WEX composition is recursive, not flat.
+Header is `block-size: var(--wex-space-64)` at every viewport. BrandShell is
+`var(--wex-space-64)` square; NavigationShell is `minmax(0, 1fr)`. Every layout
+participant has `min-width: 0`.
 
-`atomic capability -> element -> component -> component-as-shell -> larger component -> application shell -> runtime`
+The only Header gutters are outer-wrapper `padding-inline:
+var(--wex-space-16)` at Large/Medium and `var(--wex-space-8)` at Compact
+(`<=767px`), followed by exactly one immediate inner-container
+`padding-inline: var(--wex-space-8)`. The effective inset is 24px/16px. No
+deeper Header child gains automatic gutter padding or margin-based separation.
 
-At every level:
+The smallest authorised Header surface is
+`background: var(--wex-color-background-primary)` and
+`color: var(--wex-color-text-primary)`. ADR 0004 requires a composition to
+begin on Background Primary; its direct child-surface alternation is explicit,
+not inferred from nesting. Header therefore assigns no background to Brand,
+Navigation, Location, Utility, or child controls. Header adds no border,
+radius, shadow, or shell interaction state: no Header-specific authority
+selects one, and shadows have no WEX authority. Light/dark theme inversion is
+provided by the semantic tokens. Focus and native interaction states remain
+with focusable children.
 
-- a parent owns composition of its **direct children** only;
-- the parent selects which approved child/component is loaded into each direct
-  slot;
-- the parent does not own or reach into the child's internals;
-- the child owns its own presentation, modes, state contract, interaction
-  mechanics, and behaviour;
-- if that child contains further elements/components, it becomes the shell for
-  those direct children and the same rule repeats;
-- nesting does not automatically propagate padding, layout authority,
-  presentation, or behaviour through all ancestor levels.
+Header itself owns no typography. LocationLabel, Search, PrimaryNavigation, and
+MainAction consume their own accepted WEX type/component rules. This preserves
+the owner-approved >=768px LocationLabel versus <=767px SidebarTrigger
+slot-selection swap without giving Header either child presentation or state.
+The inactive alternative is not rendered or exposed to assistive technology.
 
-Example:
+## Direct-slot assembly API
 
-`Header -> Navigation -> PrimaryNavigation -> NavigationItem -> Icon/Label`
+The future serializable Header assembly contains only:
 
-Each level owns only the direct composition relationship beneath it.
+```text
+brand: { logo, homeAction }
+navigation: { location, sidebarTrigger, search, primaryNavigation, mainAction }
+```
 
-## Accepted Header composition
+The Header selects `location` or `sidebarTrigger` by the accepted WEX Compact
+threshold. It receives opaque, approved child definitions/semantic intents; it
+does not receive functions, routes, CSS, raw values, sidebar state, Search
+data/results, navigation-item internals, or child modes. `mainAction` is one
+required placement slot, not Header action semantics. Search `full`/`icon-only`
+and PrimaryNavigation `fixed`/`scrollable` remain child capabilities.
 
-- Header height: 64px all devices.
-- Brand: 64px x 64px.
-- Navigation: remaining inline width.
-- Two-level Header gutter only:
-  - Large/Medium: 16px outer + 8px immediate inner = 24px;
-  - Compact <=767px: 8px outer + 8px immediate inner = 16px;
-  - deeper Header descendants do not inherit/repeat that gutter.
-- Header directly composes:
-  - Brand / Logo;
-  - LocationLabel at >=768px;
-  - SidebarTrigger replacing LocationLabel at <=767px;
-  - Search;
-  - PrimaryNavigation;
-  - exactly one MainAction at inline-end.
-- Header does not own child internals.
-- Navigation may itself be a component/shell for its own direct children.
-- Search owns full/icon-only.
-- PrimaryNavigation owns ordered items and fixed/scrollable.
-- SidebarTrigger owns toggle semantics/state.
-- MainAction and Brand/Home own their own action contracts.
+## Authority result and implementation boundary
 
-## Header presentation ownership
+The existing recursive layout/composition rules already establish this direct-
+child ownership model; no ADR or architecture-document change is required.
+Existing Button/SemanticAction authority applies only if a child action has an
+accepted record owner. Brand, SidebarTrigger, and MainAction action execution
+remain outside Header until their responsible component/action contract is
+separately authorised.
 
-Header owns its reusable WEX presentation. Admin Station loads Header but does
-not restyle or control Header internals.
+The smallest future Component Manager proof is a Header shell with controlled,
+non-interactive child-slot fixtures only. It must check 64px geometry, both
+theme tokens, 24px/16px two-level insets, Navigation remainder, and the
+Location/Sidebar swap at the existing 767px boundary. Slot fixtures must not
+masquerade as Logo, Search, navigation, toggle, or Button implementations; no
+native actions, state, scrolling, or schema are introduced. Admin Station stays
+out of scope.
 
-## Builder action
+No source, schema, fixture, mount, topic branch, or integration was created.
 
-Before implementation:
+## Evidence
 
-1. inspect current WEX surface, border, geometry, spacing, interaction, theme,
-   and typography authority;
-2. determine the smallest existing-token Header surface contract;
-3. define the Header direct-slot API only;
-4. identify where nested components become their own composition shells rather
-   than being flattened into Header;
-5. explicitly prevent ancestor gutter/padding from cascading into deeper child
-   composition;
-6. keep LocationLabel/SidebarTrigger as a slot-selection swap;
-7. do not introduce child-internal schemas, state, action execution, Search
-   modes, PrimaryNavigation scrolling, or Sidebar toggle logic into Header;
-8. determine whether the recursive composition rule requires a bounded ADR or
-   architecture-doc update before source implementation; if so, propose that
-   authority change rather than burying it in Header code;
-9. prepare the smallest Component Manager proof phase using controlled child
-   fixtures/slots only.
-
-If existing WEX authority is insufficient for Header surface values, stop and
-identify the exact missing presentation decision.
-
-Do not implement Header source, child components, or Admin Station integration
-in this phase. Return this file to `AWAITING REVIEWER REVIEW` with the exact
-authority findings and proposed implementation boundary.
+Rechecked verified `main`: [Layout](../docs/code-map/layout.md),
+[authority model](../docs/architecture/authority-model.md),
+[composition architecture](../docs/architecture/composition-architecture.md),
+[core colour ADR](../docs/decisions/0004-core-colour-tokens.md),
+[SemanticAction](../packages/schemas/src/actions/semantic-action.schema.ts),
+and [ADR 0008](../docs/decisions/0008-button-runtime-invocation-authority.md).
