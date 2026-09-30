@@ -1,6 +1,6 @@
 # Platform Identity System
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 2 — Draft WEX UI identity architecture decision
 
 ## Reviewer verdict
@@ -92,3 +92,21 @@ adapters, runtime bindings, Header IDs or migrations in this phase.
 Return this same file to `AWAITING REVIEWER REVIEW` with the proposed authority
 files/ADR, unresolved decisions, exact scope, and required tests for the first
 implementation phase.
+
+## Builder handoff — 2026-10-01
+
+Candidate: `docs/platform-identity-architecture` at
+`16fd8ca7eea465e54318540091655d6417b0e263`.
+
+Changed only: `docs/architecture/platform-identity.md`, its architecture index,
+proposed `docs/decisions/0013-wex-ui-platform-identity.md`, and the decisions
+index. The proposal defines the four identity layers, explicit binding and
+parent/slot boundary, closed candidate-family validation, allocation lifecycle,
+and package ownership. `pnpm audit:foundation` and `git diff --check` passed.
+
+Reviewer/Owner must accept or reject the proposed global-uniqueness,
+configuration-service, lifecycle/tombstone, and `WEXAM`/`WEXAMH` full-form
+parsing policy. The first implementation remains strict schema shapes/tests
+only: format/family, binding serializability, parent/slot, and callback/extra
+field rejection. No generator, registry, persistence, adapter, runtime, Header,
+or other product source changed.
