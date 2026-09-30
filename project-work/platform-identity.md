@@ -1,6 +1,6 @@
 # Platform Identity System
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 2A — Adopt centralized WEX UI identity authority
 
 ## Reviewer verdict
@@ -107,3 +107,17 @@ Architecture correction only.
 
 Do not implement schemas, generator, registry/storage, service runtime, adapters,
 Header IDs, bindings or migrations yet.
+
+## Builder handoff — 2026-10-01
+
+Candidate: `docs/platform-identity-architecture` at
+`b0c041f2a2155049bbfe6b8d97e49d2a170d9032`.
+
+The correction changes only `docs/architecture/platform-identity.md` and
+`docs/decisions/0013-wex-ui-platform-identity.md`; the candidate's two index
+files remain unchanged. It replaces independent application issuers with one
+WEX UI Identity Authority / Station and preserves explicit binding, adapter, and
+package boundaries. `git diff --check` and `pnpm audit:foundation` passed.
+
+No schema, generator, registry/storage, service runtime, adapter, binding,
+Header, or migration source changed.
