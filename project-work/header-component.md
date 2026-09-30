@@ -85,3 +85,19 @@ mounts, or Admin Station integration in this phase.
 Prepare the bounded architecture-doc change, commit/push it on the authorised
 topic branch, update this same work file to `AWAITING REVIEWER REVIEW`, and
 report exact branch/SHA and changed files.
+
+## Builder preflight report — 2026-09-30
+
+No source branch was opened and no product or architecture file was changed.
+
+The required target, `docs/architecture/composition-architecture.md`, is 1,952
+lines. The authoritative `docs/foundation/repository-governance.md` sets a
+1,000-line absolute ceiling and specifically requires an Owner-selected
+preservation or modularisation path before the next substantive change to the
+historical composition architecture. This phase does not record that path or an
+applicable exception. Builder therefore cannot complete the required
+composition-document change and handoff without violating repository authority.
+
+Reviewer/Owner decision required: authorise a bounded preservation or
+modularisation route that records the atom architecture, then return a precise
+Builder instruction.
