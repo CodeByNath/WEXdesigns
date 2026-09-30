@@ -1,68 +1,29 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 7 — Promote accepted atomic-composition authority
+Status: DEFERRED
+Phase: 7 — Atomic-composition authority promoted and verified
 
 ## Reviewer verdict
 
 **Proceed**
 
-Reviewer independently inspected candidate branch
-`docs/atomic-composition-authority` at
-`d1657a49785df63dbf566497a57c4873ba97569b`.
+Reviewer independently verified:
 
-The candidate matches the authorised Phase 6 scope.
+- `main` is exactly `d1657a49785df63dbf566497a57c4873ba97569b`;
+- `docs/architecture/atomic-composition.md` on `main` matches the accepted
+  candidate;
+- `docs/architecture/README.md` routes the new authority;
+- the completed topic branch has been removed;
+- remote heads are only `main` and `Project-work-instructions`.
 
-Accepted files:
+Atomic-composition authority is therefore promoted and accepted.
 
-- `docs/architecture/atomic-composition.md` — 67 lines;
-- `docs/architecture/README.md` — routes the new authority.
+## Header state
 
-Verified content records:
-
-- governed primitive atoms;
-- manual/static vs dynamic/resolved value sources;
-- ID-less atoms by default;
-- composition identity + structural path/slot addressing;
-- recursive component-as-shell composition;
-- direct-child ownership only;
-- no automatic ancestor spacing/presentation/state/behaviour cascade;
-- allowed direct-child types plus minimum/maximum direct-child count;
-- child-count limits apply only to the direct composition boundary;
-- no arbitrary HTML or raw visual values;
-- no atom schema, Header implementation, or Platform ID implementation.
-
-The historical `composition-architecture.md` remains untouched.
-
-Remote branch capacity is currently exactly three:
-`main`, `Project-work-instructions`, and
-`docs/atomic-composition-authority`.
-
-## Builder action
-
-Promote the accepted documentation candidate only.
-
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Fast-forward/sync as required.
-3. Promote exact accepted SHA
-   `d1657a49785df63dbf566497a57c4873ba97569b` to `main` without widening
-   scope or altering the accepted files.
-4. Verify `main` contains the exact accepted documentation.
-5. Run the relevant documentation/foundation checks against promoted `main`.
-6. Remove the completed remote topic branch after successful verification.
-7. Update this same work file to `AWAITING REVIEWER REVIEW` with:
-   - resulting `main` SHA;
-   - promotion method;
-   - checks;
-   - remote branch heads after cleanup.
-8. Stop.
-
-Do not begin Header source implementation in this phase.
-
-## Next boundary after promotion
-
-Once Reviewer verifies promotion and branch cleanup, work returns to the
-interrupted Header declaration/Component Manager proof.
+Header implementation remains intentionally unfinished. The Owner has chosen to
+establish the WEX Platform Identity system before returning to Header so UI
+composition/allocation identity is available before Header allocation is
+formalised.
 
 Retained Header direction:
 
@@ -75,21 +36,12 @@ Retained Header direction:
 - nested components own their own direct-child contracts;
 - Component Manager proof precedes Admin Station integration.
 
-## Platform ID — still on hold
+Resume this same work file after the Platform Identity work reaches its accepted
+boundary. Do not duplicate or restart Header planning elsewhere.
 
-The recorded `WEXAM` / `WEXAMH` direction remains deferred to the next
-dedicated identity work. Do not implement identifiers during Header work.
+## Deferred dependency
 
-## Builder promotion handoff — 2026-10-01
+Platform Identity is now the active prerequisite work area.
 
-- Resulting `main`: `d1657a49785df63dbf566497a57c4873ba97569b`.
-- Promotion: fast-forward-only from the accepted candidate; `origin/main`
-  resolves to that exact SHA.
-- Check: `pnpm audit:foundation` passed on promoted `main`.
-- Cleanup: the topic was proven fully contained in `main`, then
-  `docs/atomic-composition-authority` was deleted remotely.
-- Remote heads after cleanup: `main` at `d1657a49785df63dbf566497a57c4873ba97569b`
-  and `Project-work-instructions` at `4f33cd7501a274bf57d82225f535e53a2851b3ba`.
-
-No files beyond the accepted documentation candidate changed. No browser check
-applies to this architecture-only promotion.
+The Header work must not invent its own identity, allocation, binding, prefix, or
+persistence rules while that system is unresolved.
