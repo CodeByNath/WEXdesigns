@@ -1,84 +1,84 @@
 # Platform Identity System
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3B — Promote accepted ADR 0013 status correction
+Status: BUILDER ACTION REQUIRED
+Phase: 4 — Implement WEX UI identity schema contracts
 
 ## Reviewer verdict
 
 **Proceed**
 
-Reviewer independently inspected candidate branch
-`docs/adr-0013-acceptance` at
-`394fb687c0ef972b2b833d2505933ffb1fde90dc`.
+Reviewer independently verified the Phase 3B promotion:
 
-The correction is exactly bounded to the authority mismatch:
+- `main` is exactly `394fb687c0ef972b2b833d2505933ffb1fde90dc`;
+- ADR 0013 says `Accepted`;
+- `docs/decisions/README.md` lists ADR 0013 under `Accepted`;
+- the completed topic branch is removed;
+- remote heads are only `main` and `Project-work-instructions`.
 
-- ADR 0013 status changed from `Proposed` to `Accepted`;
-- `docs/decisions/README.md` now lists ADR 0013 under `Accepted`;
-- no identity decision content, family policy, namespace, ownership, binding
-  model, lifecycle rule, or implementation boundary changed;
-- no schema or runtime source changed.
+ADR 0013 is now usable implementation authority.
 
-Builder-reported checks:
-- `git diff --check` passed;
-- `pnpm audit:foundation` passed.
+## Authorised schema-only scope
 
-## Builder action
+Implement the smallest strict, framework-neutral contracts in
+`@weerax/schemas` for:
 
-Promote the accepted documentation correction only.
+1. **WEX UI allocation ID**
+   - closed families only: `WEXAM` and `WEXAMH`;
+   - exactly five suffix characters;
+   - alphabet: `ABCDEFGHJKLMNPQRSTUVWXYZ23456789`;
+   - exact full-form recognition so the shared `WEXAM`/`WEXAMH` stem is
+     unambiguous;
+   - reject unknown families, lowercase, wrong lengths, and ambiguous/disallowed
+     characters.
 
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Promote exact accepted SHA
-   `394fb687c0ef972b2b833d2505933ffb1fde90dc` to `main` without widening
-   scope.
-3. Verify `main` contains:
-   - ADR 0013 status `Accepted`;
-   - ADR 0013 listed under `Accepted` in the decision index.
-4. Run the relevant foundation/documentation checks on promoted `main`.
-5. Remove the completed remote topic branch after successful verification.
-6. Update this same work file to `AWAITING REVIEWER REVIEW` with:
-   - resulting `main` SHA;
-   - promotion method;
-   - checks;
-   - remote branch heads after cleanup.
-7. Stop.
+2. **Allocation parent/slot structure**
+   - root allocation: no parent and no parent slot;
+   - separately allocated direct child: both `parentAllocationId` and
+     parent-owned `slot` are required together;
+   - reject half-defined parent relationships;
+   - relationships are explicit data, never inferred from prefixes.
 
-## Accepted identity authority retained
+3. **Platform binding**
+   - strict serializable shape containing:
+     `uiAllocationId`, `bindingSlot`, `platformKey`,
+     `platformRecordRef`;
+   - platform references remain opaque non-empty data;
+   - reject callbacks, handlers, permissions, payloads, resolvers, and
+     undeclared fields.
 
-ADR 0013 now governs:
+4. Public schema exports and focused deterministic tests.
 
-- one centralized WEX UI Identity Authority / Station;
-- closed WEX UI family vocabulary;
-- fixed five-character uppercase unambiguous Base32 suffix;
-- `WEXAM + XXXXX` for Admin Manager allocations;
-- `WEXAMH + XXXXX` for Admin Header allocations;
-- immutable reserved non-reused allocation IDs;
-- explicit parent/slot relationships;
-- explicit platform/domain bindings;
-- WEX UI identity separate from platform/domain identity;
-- schemas own serializable contracts only;
-- primitive atoms remain ID-less unless independent identity is required.
+## Required tests
 
-## Next boundary after promotion
+Prove at minimum:
 
-After Reviewer verifies this promotion and branch cleanup, the first schema-only
-implementation phase may open.
+- valid `WEXAM + XXXXX` and `WEXAMH + XXXXX`;
+- shared-prefix recognition does not misclassify `WEXAMH`;
+- invalid family, length, case, `I`, `O`, `0`, `1` are rejected;
+- root parent structure is valid;
+- child parent+slot pair is valid;
+- parent-only and slot-only structures are rejected;
+- valid binding round-trips;
+- binding unknown/executable fields are rejected;
+- existing `EntityIdentifier`, `SemanticAction`, Button and tier contracts
+  remain unchanged.
 
-Do not begin generator, registry/storage, Identity Station runtime, adapters,
-Header IDs, binding runtime or migrations.
+Run at least:
+- `pnpm --filter @weerax/schemas check`;
+- `pnpm audit:foundation`;
+- `git diff --check`.
 
-## Builder promotion handoff — 2026-10-01
+## Guardrails
 
-- Resulting `main`: `394fb687c0ef972b2b833d2505933ffb1fde90dc`.
-- Promotion: fast-forward-only from the accepted correction; `origin/main`
-  resolves to that exact SHA.
-- Verification: ADR 0013 now says `Accepted` and the decision index lists it
-  under `Accepted`.
-- Check: `pnpm audit:foundation` passed on promoted `main`.
-- Cleanup: `docs/adr-0013-acceptance` was proven contained in `main`, then
-  deleted remotely.
-- Remote heads after cleanup: `main` at
-  `394fb687c0ef972b2b833d2505933ffb1fde90dc` and
-  `Project-work-instructions` at `ebb227538856371bfadaa88ef5e8e2423f82cc74`.
+Do not implement uniqueness, minting, reservation, collision handling, lookup,
+reverse lookup, persistence, retirement/tombstones, Identity Station runtime,
+adapters, dynamic resolution, Header IDs, migrations, or UI integration.
 
-No files beyond the accepted correction changed. No browser check applies.
+Do not modify `EntityIdentifier` or `SemanticAction` to absorb this identity
+system.
+
+## Handoff
+
+Commit/push one bounded schema topic branch, then update this same file to
+`AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, tests, and any
+deviation. Stop for Reviewer.
