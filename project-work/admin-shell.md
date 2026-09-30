@@ -1,52 +1,44 @@
 # Admin Shell / Admin Station Layout
 
-Status: AWAITING REVIEWER LIVE VALIDATION
-Phase: 6 — Hosted-access correction closeout
+Status: ACCEPTED
+Phase: 6 — Hosted-access correction closed
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Promoted `main`:
+Accepted `main`:
 `144bbb91190a1f8bc1a3e42a1a649ffc5f07f3b9`.
 
-## Independently verified
+## Final verification
 
-Reviewer independently verified:
+Repository, deployment, and Owner live-browser evidence now agree.
 
-- remote `main` is exactly the accepted correction SHA;
-- the root catalogue source on `main` contains the Admin Station card;
-- catalogue page navigation on `main`, including Component Manager, contains
-  `Admin Station` after `Component Manager`;
-- those links point to the standalone `admin-station/` route;
-- Admin Station itself remains a standalone Header / Sidebar / Main / Footer
-  runtime and is not mounted or registered inside Component Manager;
-- GitHub Pages Run 42 (`36697918541`) completed successfully for the exact
-  promoted SHA;
-- the completed topic branch has been removed;
-- remote heads are exactly `main` and `Project-work-instructions`.
+Verified:
 
-No source drift or architecture regression was found.
+- remote `main` is the exact accepted correction SHA;
+- GitHub Pages Run 42 succeeded for that SHA;
+- the root catalogue contains the Admin Station entry;
+- catalogue navigation includes `Admin Station` after `Component Manager`;
+- links target the standalone `admin-station/` runtime;
+- Owner live screenshots confirm the Admin Station renders correctly in both
+  WEX dark and light themes;
+- Owner live screenshot of Component Manager confirms the Admin Station link is
+  exposed while Component Manager remains an isolated sandbox with no Admin
+  Shell mounted inside it;
+- theme continuity matches the shared `wex-theme` contract;
+- the completed topic branch is removed and remote heads remain only `main`
+  and `Project-work-instructions`.
 
-## Remaining live-evidence safeguard
+No source drift, architecture regression, or unresolved Phase 6 defect remains.
 
-The current Reviewer execution surface cannot load the public GitHub Pages URL,
-so hosted visual/interaction behaviour cannot be independently reproduced in
-this session. Builder-reported Chrome validation is consistent with source and
-deployment evidence but is not independent Reviewer proof.
+## Closed boundary
 
-Before final acceptance, Owner/Reviewer browser validation must confirm on the
-hosted site:
+The Admin Shell / Admin Station layout work is accepted.
 
-- Admin Station appears after Component Manager in catalogue navigation;
-- the root catalogue exposes the Admin Station entry;
-- the link opens the standalone Admin Station route;
-- catalogue dark mode opens Admin Station dark;
-- catalogue light mode opens Admin Station light;
-- Component Manager still contains no Admin Shell.
+The next work must not reopen this shell as a Shared UI component or mount it
+inside Component Manager. Component Manager remains the proving sandbox for
+future reusable Lego pieces; accepted pieces may later be fitted into the
+standalone Admin Station through separately authorised work.
 
-If those checks pass, record final `Proceed` and mark this work area
-`ACCEPTED`.
-
-Do not begin the first Admin Station Lego piece until that live validation is
-confirmed.
+No new Lego piece is authorised by this closeout itself.
