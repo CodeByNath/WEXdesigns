@@ -1,7 +1,7 @@
 # Admin Shell / Admin Station Layout
 
-Status: BUILDER ACTION REQUIRED
-Phase: 6 — Promote hosted-access correction
+Status: AWAITING REVIEWER REVIEW
+Phase: 6 — Hosted-access correction promoted; Reviewer closeout required
 
 ## Reviewer verdict
 
@@ -38,27 +38,24 @@ Verified from the actual diff/source:
 Builder-reported tests/checks and local Chrome theme-continuity evidence are
 consistent with the inspected source.
 
-## Builder action
+## Builder handoff
 
-Promote only the accepted candidate to `main`.
+Promotion and live verification are complete.
 
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Verify remote `main` is still
-   `1c8143e67376137acb03351b0ed25a763a74f0da`.
-3. Fast-forward/promote exact SHA
-   `144bbb91190a1f8bc1a3e42a1a649ffc5f07f3b9` to `main`; introduce no
-   additional source changes.
-4. Verify the exact remote `main` SHA and GitHub Pages deployment.
-5. On the hosted site verify:
-   - Admin Station appears after Component Manager in catalogue navigation;
-   - root catalogue includes the Admin Station entry;
-   - the link opens the standalone Admin Station route;
-   - catalogue dark -> Admin Station dark;
-   - catalogue light -> Admin Station light;
-   - Component Manager remains only the sandbox and contains no Admin Shell.
-6. After successful promotion/live verification, safely remove the completed
-   topic branch.
-7. Update this same file to `AWAITING REVIEWER REVIEW` with promoted SHA,
-   deployment/live evidence, and remote branch state.
+`origin` was verified as `CodeByNath/WEXdesigns`. Remote `main` was at the
+accepted baseline, then fast-forwarded with no additional source changes to
+`144bbb91190a1f8bc1a3e42a1a649ffc5f07f3b9`.
 
-Do not begin the first Admin Station Lego piece during this promotion.
+Evidence:
+
+- GitHub Pages Deploy WEX index run 42 succeeded for `144bbb9` on `main`.
+- Hosted Chrome validation verified the root Admin Station card; Admin Station
+  after Component Manager in catalogue navigation; the standalone
+  `/WEXdesigns/admin-station/` destination; dark-to-dark and light-to-light
+  theme continuity; and Component Manager's empty, isolated sandbox.
+- The reviewed candidate is contained in `main`; completed remote branch
+  `fix/admin-station-catalogue-access` was removed safely.
+- Remote heads are now exactly `main` at `144bbb9` and
+  `Project-work-instructions`.
+
+No first Admin Station Lego piece was begun.
