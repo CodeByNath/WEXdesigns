@@ -34,6 +34,30 @@ component boundaries match the Owner direction and current repository authority.
 The Builder correctly created no Header source, schema, fixture, mount, branch,
 or Admin Station integration.
 
+## Owner clarification — shell/component ownership
+
+The Header shell controls **which component is loaded into each Header slot**.
+It does not control, duplicate, or reach inside a loaded component's internal
+behaviour, state, presentation mode, action execution, or data logic.
+
+Therefore:
+
+- Header may choose/mount the component assigned to Brand, Location/Sidebar,
+  Search, Primary Navigation, and Main Action slots;
+- each loaded component owns what it is programmed/contracted to do internally;
+- Header does not toggle Search between full/icon modes from outside unless the
+  Search component contract itself exposes and owns such a mode;
+- Header does not implement Primary Navigation scrolling/fixed behaviour;
+  Primary Navigation owns that capability;
+- Header does not own Sidebar Trigger toggle semantics/state;
+- Header does not own Main Action or Brand/Home action execution;
+- replacing LocationLabel with SidebarTrigger at <=767px is a **slot/component
+  selection rule**, not Header control of either component's internals.
+
+This removes child-action semantics from the Header authority gate. Action
+ownership must be resolved in the relevant child component's own authorised
+work when that component is developed.
+
 ## Independent authority check
 
 Verified `main` confirms:
@@ -45,8 +69,7 @@ Verified `main` confirms:
 - ADR 0008 keeps execution in the consuming application and does not establish
   shell navigation/toggle action ownership.
 
-Therefore shell navigation/toggle intent must not be forced into the existing
-record-backed Button contract without an explicit authority decision.
+Therefore child navigation/toggle intent must not be forced into the Header contract or into the existing record-backed Button contract merely to make the Header shell work.
 
 ## Owner decisions required
 
@@ -62,21 +85,16 @@ provides its surrounding surface.
 Header receives explicit WEX-owned background/border/separator presentation.
 Exact semantic tokens and geometry must be authorised before implementation.
 
-### 2. Shell action authority
+### 2. Child action authority
 
-Choose one:
+Resolved at Header level by Owner clarification: **defer to each child
+component's own contract/authority**. Header only loads the selected component
+into its slot and does not own that component's internal action semantics.
 
-**A — Record-backed actions only**
-Brand/Home, Sidebar Trigger, and Main Action may use existing
-`SemanticAction` only when a real authoritative record owner and command exist.
-
-**B — Bounded shell-intent contract**
-Create a separate serializable application-shell intent for navigation/toggle
-actions that do not naturally target a domain `recordId`. Runtime execution
-still belongs to the consuming application; no callbacks enter schemas/UI.
+Brand/Home, Sidebar Trigger, Main Action, Search, and Primary Navigation action
+or interaction authority must be addressed only when those child components
+are separately authorised.
 
 ## Stop boundary
 
-Do not implement Header or child components until these two decisions are
-resolved. After Owner resolution, Reviewer may authorise the first implementation
-phase in Component Manager. Admin Station integration remains a later phase.
+Do not implement child components from this Header phase. Header implementation remains blocked only on the Header surface decision. After that Owner decision, Reviewer may authorise the first Header-shell implementation phase in Component Manager using controlled placeholder/slot fixtures rather than implementing child internals. Admin Station integration remains a later phase.
