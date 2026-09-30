@@ -1,6 +1,6 @@
 # Platform Identity System
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 3 — Promote accepted WEX UI identity architecture
 
 ## Reviewer verdict
@@ -78,3 +78,18 @@ relationships, and serializable platform bindings.
 Do not begin Identity Authority / Station runtime implementation, persistence,
 generator/registry, adapters, Header IDs, or migrations until separately
 authorised.
+
+## Builder promotion handoff — 2026-10-01
+
+- Resulting `main`: `b0c041f2a2155049bbfe6b8d97e49d2a170d9032`.
+- Promotion: fast-forward-only from the accepted candidate; `origin/main`
+  resolves to that exact SHA.
+- Check: `pnpm audit:foundation` passed on promoted `main`.
+- Cleanup: the topic was proven fully contained in `main`, then
+  `docs/platform-identity-architecture` was deleted remotely.
+- Remote heads after cleanup: `main` at
+  `b0c041f2a2155049bbfe6b8d97e49d2a170d9032` and
+  `Project-work-instructions` at `aa8c68ee75e5b21e30c39c398f956c025e2bc8c4`.
+
+No files beyond the accepted documentation candidate changed. No browser check
+applies to this architecture-only promotion.
