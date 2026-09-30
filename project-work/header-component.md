@@ -1,6 +1,6 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 6 — Record atomic composition authority, then return to Header
 
 ## Reviewer verdict
@@ -80,3 +80,18 @@ recorded `WEXAM` / `WEXAMH` proposal and CompuZign precedent independently.
 
 No Header source, atom schemas, child components, Platform ID implementation,
 Component Manager mount, or Admin Station integration in this phase.
+
+## Builder handoff — 2026-10-01
+
+Candidate branch: `docs/atomic-composition-authority`
+Candidate SHA: `d1657a49785df63dbf566497a57c4873ba97569b`
+
+Changed files:
+
+- `docs/architecture/atomic-composition.md` — 67-line bounded current authority;
+- `docs/architecture/README.md` — routes the authority in the architecture index.
+
+Evidence: `git diff --check` passed and `pnpm audit:foundation` passed. No Code
+Map was added because this is an architecture-only authority record, not a
+demonstrated repository subject. No browser check applies. No Header, schema,
+identity, runtime, or WEX presentation source changed.
