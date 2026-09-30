@@ -5,7 +5,11 @@ import {
   ButtonDefinitionSchema,
   ButtonVariantSchema,
   EntityIdentifierSchema,
+  getWexUiAllocationFamily,
   SemanticActionSchema,
+  WexUiAllocationIdSchema,
+  WexUiAllocationPlacementSchema,
+  WexUiPlatformBindingSchema,
   WexTierSchema,
 } from '../dist/index.js';
 
@@ -26,6 +30,67 @@ test('accepts UUID and slug identifiers', () => {
 test('rejects uncontrolled identifiers', () => {
   assert.equal(
     EntityIdentifierSchema.safeParse({ type: 'slug', value: 'Managed Services' }).success,
+    false,
+  );
+});
+
+test('accepts and recognises the closed WEX UI allocation families', () => {
+  assert.equal(WexUiAllocationIdSchema.parse('WEXAMABCDE'), 'WEXAMABCDE');
+  assert.equal(WexUiAllocationIdSchema.parse('WEXAMHABCDE'), 'WEXAMHABCDE');
+  assert.equal(getWexUiAllocationFamily('WEXAMABCDE'), 'WEXAM');
+  assert.equal(getWexUiAllocationFamily('WEXAMHABCDE'), 'WEXAMH');
+
+  for (const value of [
+    'WEXZZABCDE',
+    'WEXAMABCD',
+    'WEXAMHABCDEF',
+    'wexamABCDE',
+    'WEXAMIABCD',
+    'WEXAMOABCD',
+    'WEXAM0ABCD',
+    'WEXAM1ABCD',
+  ]) {
+    assert.equal(WexUiAllocationIdSchema.safeParse(value).success, false);
+    assert.equal(getWexUiAllocationFamily(value), undefined);
+  }
+});
+
+test('requires either a root placement or an explicit parent and slot', () => {
+  assert.deepEqual(WexUiAllocationPlacementSchema.parse({}), {});
+  assert.deepEqual(
+    WexUiAllocationPlacementSchema.parse({
+      parentAllocationId: 'WEXAMABCDE',
+      slot: 'header',
+    }),
+    {
+      parentAllocationId: 'WEXAMABCDE',
+      slot: 'header',
+    },
+  );
+
+  assert.equal(
+    WexUiAllocationPlacementSchema.safeParse({ parentAllocationId: 'WEXAMABCDE' }).success,
+    false,
+  );
+  assert.equal(WexUiAllocationPlacementSchema.safeParse({ slot: 'header' }).success, false);
+});
+
+test('keeps platform bindings strict and serializable', () => {
+  const binding = {
+    uiAllocationId: 'WEXAMHABCDE',
+    bindingSlot: 'record',
+    platformKey: 'compuzign',
+    platformRecordRef: 'service-1',
+  };
+
+  assert.deepEqual(WexUiPlatformBindingSchema.parse(binding), binding);
+  assert.equal(WexUiPlatformBindingSchema.safeParse({ ...binding, callback: () => {} }).success, false);
+  assert.equal(WexUiPlatformBindingSchema.safeParse({ ...binding, handler: 'resolve' }).success, false);
+  assert.equal(WexUiPlatformBindingSchema.safeParse({ ...binding, permission: 'admin' }).success, false);
+  assert.equal(WexUiPlatformBindingSchema.safeParse({ ...binding, payload: {} }).success, false);
+  assert.equal(WexUiPlatformBindingSchema.safeParse({ ...binding, resolver: 'lookup' }).success, false);
+  assert.equal(
+    WexUiPlatformBindingSchema.safeParse({ ...binding, platformRecordRef: '' }).success,
     false,
   );
 });
