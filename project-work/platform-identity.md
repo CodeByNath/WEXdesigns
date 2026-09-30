@@ -1,6 +1,6 @@
 # Platform Identity System
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 3B — Promote accepted ADR 0013 status correction
 
 ## Reviewer verdict
@@ -66,3 +66,19 @@ implementation phase may open.
 
 Do not begin generator, registry/storage, Identity Station runtime, adapters,
 Header IDs, binding runtime or migrations.
+
+## Builder promotion handoff — 2026-10-01
+
+- Resulting `main`: `394fb687c0ef972b2b833d2505933ffb1fde90dc`.
+- Promotion: fast-forward-only from the accepted correction; `origin/main`
+  resolves to that exact SHA.
+- Verification: ADR 0013 now says `Accepted` and the decision index lists it
+  under `Accepted`.
+- Check: `pnpm audit:foundation` passed on promoted `main`.
+- Cleanup: `docs/adr-0013-acceptance` was proven contained in `main`, then
+  deleted remotely.
+- Remote heads after cleanup: `main` at
+  `394fb687c0ef972b2b833d2505933ffb1fde90dc` and
+  `Project-work-instructions` at `ebb227538856371bfadaa88ef5e8e2423f82cc74`.
+
+No files beyond the accepted correction changed. No browser check applies.
