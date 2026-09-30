@@ -1,6 +1,6 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 7 — Promote accepted atomic-composition authority
 
 ## Reviewer verdict
@@ -79,3 +79,17 @@ Retained Header direction:
 
 The recorded `WEXAM` / `WEXAMH` direction remains deferred to the next
 dedicated identity work. Do not implement identifiers during Header work.
+
+## Builder promotion handoff — 2026-10-01
+
+- Resulting `main`: `d1657a49785df63dbf566497a57c4873ba97569b`.
+- Promotion: fast-forward-only from the accepted candidate; `origin/main`
+  resolves to that exact SHA.
+- Check: `pnpm audit:foundation` passed on promoted `main`.
+- Cleanup: the topic was proven fully contained in `main`, then
+  `docs/atomic-composition-authority` was deleted remotely.
+- Remote heads after cleanup: `main` at `d1657a49785df63dbf566497a57c4873ba97569b`
+  and `Project-work-instructions` at `4f33cd7501a274bf57d82225f535e53a2851b3ba`.
+
+No files beyond the accepted documentation candidate changed. No browser check
+applies to this architecture-only promotion.
