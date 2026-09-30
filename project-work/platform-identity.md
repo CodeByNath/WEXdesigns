@@ -1,90 +1,109 @@
 # Platform Identity System
 
 Status: BUILDER ACTION REQUIRED
-Phase: 2A — Resolve WEX allocation namespace and issuer authority
+Phase: 2A — Adopt centralized WEX UI identity authority
 
 ## Reviewer verdict
 
-**Stop — architectural risk**
+**Proceed with safeguards**
 
-Reviewer inspected the pushed candidate
-`docs/platform-identity-architecture` at
-`16fd8ca7eea465e54318540091655d6417b0e263`.
+Owner has selected the issuer model.
 
-The four-layer identity split, explicit parent/slot relationship, serializable
-binding direction, atom-resolution boundary, and separation from domain identity
-are sound.
+The mature CompuZign identifier mechanics remain valid precedent:
+closed families, fixed suffix, centralized validation, reservation before bind,
+immutability, non-reuse, explicit lookup/binding, and tombstones where lifecycle
+requires them.
 
-One unresolved contradiction prevents ADR acceptance.
+WEX must adapt those mechanics to **UI identity**, not copy CompuZign domain
+entities or storage.
 
-## Blocking issue — uniqueness scope versus issuer model
+## Selected authority model
 
-ADR 0013 currently says:
+WEX UI allocation identities are issued through one authoritative **WEX UI
+Identity Authority / Station**.
 
-- every WEX allocation ID is **globally unique within the WEX allocation
-  namespace**;
-- the suffix is exactly five Base32 characters;
-- issuance/reservation is owned by a **consuming application/integration**
-  configuration service;
-- there is no reusable/core registry.
+It owns the WEX UI identifier namespace and is the only authority permitted to:
 
-Those statements do not currently establish a mechanism capable of guaranteeing
-global uniqueness across independent consumers/configuration stores.
+- register/validate WEX UI identity families;
+- mint allocation IDs;
+- reserve before assignment;
+- reject collisions;
+- prevent reuse;
+- resolve allocation identity;
+- maintain reverse lookup where required;
+- retain retirement/tombstone records where required by durable lifecycle.
 
-A five-character Base32 suffix provides 33,554,432 candidates per family.
-Reservation can guarantee non-collision only inside the reservation authority
-that can see the relevant namespace. Independent application-owned issuers
-cannot deterministically guarantee one global WEX namespace without a shared
-authority or a different identity model.
+Applications/products request WEX UI identities. They do not independently mint
+IDs from disconnected local namespaces.
 
-Do not carry CompuZign's five-character suffix into WEX merely because its
-single-platform registry can reserve that space.
+This resolves the prior contradiction between a five-character suffix and
+independent issuers.
 
-## Required correction
+## Ownership boundary
 
-Builder must revise the proposed architecture/ADR to make **namespace scope and
-issuer authority explicit**.
+Do not confuse the identity authority with the presentation package.
 
-Choose and justify one coherent model from repository architecture, for example:
+- `@weerax/wex` remains presentation authority.
+- `@weerax/schemas` owns serializable identity/binding contracts.
+- the WEX UI Identity Authority/Station owns issuance, reservation, lookup and
+  identity lifecycle.
+- adapters bind WEX UI allocations to opaque platform/domain references.
+- consuming platforms remain authoritative for business/data identities,
+  persistence, permissions, validation and domain actions.
 
-1. IDs are unique only within an explicitly identified WEX configuration/runtime
-   namespace, with that namespace participating in the full reference; or
-2. WEX owns a shared/global issuance authority capable of reserving across all
-   consumers; or
-3. use an identifier construction whose uniqueness semantics do not depend on a
-   shared five-character reservation space.
+## Identity domains
 
-Do not select an option merely for convenience. Check it against portability,
-offline/local authoring, multiple products, allocation lookup, persistence and
-future adapter use.
+Keep these distinct:
 
-If the five-character family format remains, state exactly **where its uniqueness
-is guaranteed** and stop calling it global if that guarantee is namespace-local.
+1. reusable UI definition/capability identity;
+2. concrete WEX UI composition/allocation identity;
+3. external platform/domain identity;
+4. explicit serializable binding/reference.
 
-## Additional clarification required
+Bindings and parent/child relationships are explicit data. Prefixes never encode
+relationships.
 
-Use "composition/schema authority" rather than language that could imply
-`@weerax/wex` owns identifier contracts. The WEX package remains presentation
-authority; serializable identity contracts belong to schemas/composition
-authority.
+Primitive atoms remain ID-less unless independent identity is required.
 
-Retain these accepted boundaries:
+## Candidate family policy to retain for ADR correction
 
-- definition/capability identity != allocation identity;
-- WEX UI identity != platform/domain identity;
-- bindings are explicit serializable data;
-- parent/child links are explicit, never prefix-derived;
-- bindings contain no executable callbacks;
-- primitive atoms remain ID-less unless independent identity is required.
+- closed family vocabulary;
+- fixed five-character generated suffix;
+- uppercase unambiguous Base32 alphabet;
+- candidate Admin Manager family: `WEXAM + XXXXX`;
+- candidate Admin-owned Header allocation: `WEXAMH + XXXXX`;
+- exact full-form family recognition because `WEXAM` is a prefix of
+  `WEXAMH`;
+- reusable Header capability remains separate from an Admin Header allocation.
+
+The ADR must define uniqueness as guaranteed by the single authoritative WEX UI
+Identity Authority across the namespace it owns. Do not claim uniqueness outside
+that authority boundary.
+
+## Builder correction
+
+Update the existing candidate branch
+`docs/platform-identity-architecture` only.
+
+Revise the architecture note and ADR so that:
+
+1. application-owned independent issuers are removed;
+2. one WEX UI Identity Authority/Station owns issuance/reservation;
+3. apps request/consume identities but cannot mint independently;
+4. schema/package ownership remains separate from identity-service ownership;
+5. lookup/non-reuse/tombstone behaviour is bounded to demonstrated lifecycle
+   requirements;
+6. the platform↔UI adapter model remains bidirectional and explicit;
+7. CompuZign is cited only as precedent, never as WEX architecture authority.
+
+Run `git diff --check` and `pnpm audit:foundation`.
+
+Return this same file to `AWAITING REVIEWER REVIEW` with the exact candidate
+SHA and changed files.
 
 ## Stop boundary
 
 Architecture correction only.
 
-Do not implement schemas, generators, registries, storage, adapters, runtime
-bindings, Header IDs or migrations.
-
-Update the same candidate branch with the corrected ADR/architecture note, run
-`git diff --check` and `pnpm audit:foundation`, then return this work file to
-`AWAITING REVIEWER REVIEW` with exact SHA and the chosen namespace/issuer
-model.
+Do not implement schemas, generator, registry/storage, service runtime, adapters,
+Header IDs, bindings or migrations yet.
