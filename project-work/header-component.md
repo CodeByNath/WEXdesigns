@@ -1,6 +1,6 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED
 Phase: 1 — Reverse-engineer Header structure and authority
 
 ## Owner intent and boundary
@@ -19,6 +19,38 @@ Home/Dashboard affordance) and Navigation. Navigation has Location (supplied
 active-location text) and Utility (an ordered, application-supplied control
 slot, initially empty). Header does not pre-build Utility controls.
 
+## Reviewer verdict
+
+**Proceed with safeguards**
+
+The Phase 1 investigation is structurally sound and correctly stopped before
+implementation, but the proposed padding contract is incomplete against the
+Owner's latest clarification. Correct the contract before implementation.
+
+## Owner clarification — padding depth rule
+
+The accepted gutter/padding model applies only to the first two composition
+levels:
+
+1. outer/main wrapper;
+2. its immediate inner container.
+
+Deeper nested elements do **not** inherit, repeat, or accumulate those gutter
+paddings automatically.
+
+Therefore:
+
+- Large/Medium: outer 16px + immediate inner 8px = 24px effective content inset;
+- Compact <=767px: outer 8px + immediate inner 8px = 16px effective content inset;
+- children nested below that inner container add **no further gutter padding**
+  unless their own separately accepted component/WEX contract explicitly owns
+  padding.
+
+Do not recreate gutters with margins. Do not recursively apply 8px padding to
+every nested shell. This rule applies to Header Brand, Navigation, Location,
+Utility, and future nested controls: their own internal spacing must come from
+their own accepted contracts, not from inherited Header gutter logic.
+
 ## Revised proposed contract
 
 Use a semantic `header` root; whether it is the page-level banner is determined
@@ -35,8 +67,9 @@ The Owner-resolved gutter model is exact:
 - Header inner container: `padding-inline: var(--wex-space-8)` at all bands.
 - Effective content inset: 24px at Large/Medium, 16px at Compact.
 
-These are separate nested padding responsibilities; neither is recreated with
-margins or collapsed into a local value. Rechecked
+These are exactly two padding responsibilities; neither is recreated with
+margins or collapsed into a local value. Padding stops after the immediate
+inner container and must not recursively accumulate on deeper nested elements. Rechecked
 [`layout.css`](../packages/wex/src/foundations/layout.css): its generic
 `.wex-layout` uses `--wex-layout-page-padding` (24px) and its compact equivalent
 (16px) as the *effective* page inset. It must not be applied as Header's outer
@@ -71,3 +104,22 @@ Inspected verified `main` through [Component Manager](../docs/code-map/component
 [ADRs 0007](../docs/decisions/0007-button-semantic-action-authority.md) and
 [0008](../docs/decisions/0008-button-runtime-invocation-authority.md). Remote
 capacity remains the two permanent branches; no topic branch was needed.
+
+
+## Builder correction
+
+Update the Phase 1 Header contract only:
+
+1. incorporate the two-level padding-depth rule above explicitly;
+2. ensure Brand / Navigation / Location / Utility are not assigned automatic
+   gutter padding merely because they are nested;
+3. preserve the already-correct 24px Large/Medium and 16px Compact effective
+   inset;
+4. leave remaining unresolved gates unchanged: Header height, surface/border,
+   Brand/Utility allocation, Utility overflow/reduction, tier interpretation,
+   and Brand semantic-action ownership;
+5. do not implement Header source, schema, fixture, Component Manager mount, or
+   Admin Station integration yet.
+
+Return this same file to `AWAITING REVIEWER REVIEW` after the contract text is
+corrected.
