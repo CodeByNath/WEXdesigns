@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — implementation placement authority only. It authorises no service,
+Accepted — architecture authority. It authorises no service,
 database, API endpoint, allocation, Header source, schema change, or UI
 composition.
 
