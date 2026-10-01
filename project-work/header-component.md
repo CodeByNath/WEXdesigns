@@ -1,97 +1,79 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 9B-C — Durable bootstrap command submitted; allocation execution remains operationally gated
+Status: BUILDER ACTION REQUIRED
+Phase: 9B-D — Make durable bootstrap concurrency-safe
 
 ## Reviewer verdict
 
 **Stop — architectural risk**
 
-Reviewer independently inspected
+Reviewer independently inspected correction candidate
 `feat/identity-station-bootstrap` at
-`50aea1fb9ffefa38ca5f1974911f4d5ec4afc983`.
+`7195fd8346f8b139d1adb5eb87dd7975c2273025`.
 
-The Station implementation is broadly aligned with ADRs 0013–0015:
+Accepted parts of the correction:
 
-- standalone `apps/identity-station`;
-- schema-only internal dependency plus PostgreSQL client;
-- Station-generated IDs;
-- transactional reserve/assign/lookup;
-- unique `allocation_id`;
-- immutable allocation/family/placement trigger;
-- no-delete ledger protection;
-- root-before-Header gating;
-- strict reserve input excluding caller IDs/platform data;
-- collision retry and lifecycle tests;
-- Header placement persists explicit parent ID + `header` slot.
+- fixture IDs are now explicitly test-only and are no longer claimed as real
+  allocations;
+- a Station-owned bootstrap command uses the accepted Station operations rather
+  than caller-supplied/hardcoded IDs;
+- sequential repeat execution resolves the existing pair rather than creating a
+  second pair;
+- separate database-session read-back is tested;
+- conflicting existing root evidence stops rather than silently choosing one;
+- the command requires an already-configured Station PostgreSQL ledger;
+- no deployment/authentication/Header/UI scope was introduced.
 
-However, Phase 9B required the first **durable** Admin Manager and Admin Header
-allocations. The reported `WEXAMABCDE` and `WEXAMHFGHJK` exist only inside
-disposable PGlite test databases that are deleted after each test. They are test
-fixtures, not allocations retained by the Station-owned authoritative ledger.
+### Remaining risk
 
-Those values therefore must **not** be treated as the real Header platform IDs.
-Doing so would violate reservation/non-reuse authority because no durable ledger
-currently remembers them.
+The bootstrap is repeat-safe only after one transaction has committed. Two
+bootstrap processes started concurrently can both read zero Admin Manager roots,
+then each reserve a different valid `WEXAMxxxxx` because the ledger uniqueness
+constraint is only on `allocation_id`.
 
-## Builder correction — same branch, bounded scope
+That can create two durable Admin Manager roots and then two Headers. A later run
+would detect the conflict, but the namespace would already contain conflicting
+bootstrap allocations that cannot be deleted or reused.
 
-Keep the implementation candidate intact unless correction is required, but
-separate deterministic implementation proof from real allocation bootstrap.
+The first durable bootstrap must therefore be singleton-safe at the database
+transaction boundary, not merely sequentially idempotent.
 
-1. Do not present fixture IDs as real allocations.
-2. Add an explicit Station-owned bootstrap operation/command that, against an
-   already-configured PostgreSQL ledger, performs only:
-   - reserve + assign Admin Manager root;
-   - reserve + assign Admin Header child after the root;
-   - return/print the two assigned IDs and persisted Header parent/slot evidence.
-3. The bootstrap path must call the Station operations; it must not accept,
-   seed, hardcode, or caller-supply allocation IDs.
-4. It must be safe against accidental repeat execution: if the authorised
-   bootstrap allocations already exist, it must stop/resolve them without
-   creating another Admin Manager/Header pair. Do not invent a generic reverse
-   lookup API beyond what is minimally necessary for this bootstrap guard; if
-   that requires architecture beyond ADR 0015, stop and report the gate.
-5. Keep production hosting, credentials, secret management, public API,
-   authentication, bindings, Header UI, and child composition out of scope.
-6. Tests may remain disposable, but must distinguish fixture IDs from durable
-   bootstrap output.
-7. Run focused Station checks plus schemas check, foundation audit, `pnpm check`,
+## Builder correction — same branch only
+
+1. Add the smallest PostgreSQL-backed serialization/singleton guard that makes
+   `bootstrapAdminManagerHeader()` safe across concurrent Station processes.
+   Prefer a Station-owned transaction/database mechanism; do not introduce a
+   generic application lock service.
+2. The guarantee must be: concurrent first bootstrap attempts cannot commit more
+   than one authorised Admin Manager root/Header pair.
+3. Preserve normal `reserve` collision/non-reuse semantics and immutable ledger
+   evidence.
+4. Add a deterministic concurrency test using two independent Station/database
+   sessions against the same PostgreSQL/PGlite ledger. After both attempts
+   settle, exactly one root and one matching Header may exist; the second attempt
+   must resolve the same pair or fail without creating another pair.
+5. Keep fixture IDs non-durable and keep the real durable allocation execution
+   operationally gated.
+6. Do not add production deployment, credentials, auth/public transport,
+   bindings, Header source/UI, or child composition.
+7. Run focused Station check, schemas check, foundation audit, `pnpm check`,
    and `git diff --check`.
 8. Push the bounded correction and update this same file to
    `AWAITING REVIEWER REVIEW`.
 
-### Evidence requirement
+## Operational gate remains
 
-A real Admin Manager/Header allocation cannot be accepted until the bootstrap
-has actually run against a persistent Station-owned PostgreSQL ledger and the
-resulting records can be read back after a separate process/session.
+Even after this implementation is accepted, Phase 10 remains blocked until the
+bootstrap command is actually run against a persistent Station-owned PostgreSQL
+ledger and the assigned Admin Manager/Header IDs plus exact Header parent/slot
+are read back from a separate session.
 
-If no persistent Station-owned PostgreSQL execution surface is currently
-available, report that operational gate explicitly. Do **not** substitute test
-fixtures or repository files for the authoritative ledger.
-
-## Builder handoff
-
-Candidate: `feat/identity-station-bootstrap` at
-`7195fd8346f8b139d1adb5eb87dd7975c2273025` (verified on `origin`).
-
-The candidate adds a Station-owned, idempotent Admin Manager/Header bootstrap
-command that invokes Station reserve/assign paths, returns the two assigned IDs
-and Header parent/slot evidence, and stops on conflicting existing bootstrap
-evidence. It adds separate-session read-back and conflict tests, labels fixture
-IDs as non-durable, and updates the Identity Station Code Map.
-
-Passed: focused Station check; schemas check; foundation audit; `pnpm check`;
-`git diff --check`.
-
-Operational gate: no persistent Station-owned PostgreSQL ledger or credential
-surface is available here. The bootstrap command was therefore not run against
-a durable ledger, and no real Admin Manager/Header IDs were minted or claimed.
+If no persistent Station-owned PostgreSQL execution surface is available, report
+that gate. Do not substitute PGlite test IDs or repository files.
 
 ## Remaining roadmap
 
-Phase 10 stays blocked until the real Header allocation is durably established.
-After that: empty Header shell compartments, then responsive shell proof, then
-promotion/closeout. Stop before all real child-component composition and Admin
-Station fitting.
+After concurrency-safe Station implementation is accepted/promoted: execute and
+verify the real durable bootstrap; then Phase 10 empty Header shell compartments;
+then responsive shell proof; then closeout. Stop before real child-component
+composition and Admin Station fitting.
