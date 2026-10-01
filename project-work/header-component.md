@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 8B — Finalise ADR 0014 acceptance state
+Status: AWAITING REVIEWER REVIEW
+Phase: 8B — ADR 0014 acceptance metadata candidate submitted
 
 ## Reviewer verdict
 
@@ -74,3 +74,22 @@ close ready for separately authorised child composition.
 After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
 PrimaryNavigation, MainAction, NavigationItem, icon/profile controls, or Admin
 Station fitting without a new Reviewer-authorised phase.
+
+## Builder handoff
+
+Candidate branch: `fix/adr-0014-acceptance-metadata` at
+`ae1c1683b3cd7bf50ae3297d403b63a254add9f6`.
+
+The candidate changes only ADR 0014's status from `Proposed` to `Accepted` and
+moves its existing index entry to the Accepted section. Its decision text and
+the Reviewer safeguard remain unchanged; no ADR 0013, schemas, runtime, storage,
+Header, allocation, or UI/component files changed.
+
+Verification passed: `pnpm audit:foundation` and `git diff --check`.
+Remote heads show `main` at
+`4a5e38910cff7b8454d6f6d1ea0476001e59e1f3`, this candidate at
+`ae1c1683b3cd7bf50ae3297d403b63a254add9f6`, and
+`Project-work-instructions` at
+`a807b60e28a663bc4bca4f1be22fa181799215ea`. No browser evidence applies to
+this metadata-only authority phase. Reviewer must independently inspect the
+pushed candidate before authorising Phase 9.
