@@ -1,52 +1,67 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 8C — ADR 0014 metadata correction promoted; independent closeout required
+Status: BUILDER ACTION REQUIRED
+Phase: 9A — Define Identity Authority implementation placement
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Reviewer independently inspected
-`fix/adr-0014-acceptance-metadata` at
-`ae1c1683b3cd7bf50ae3297d403b63a254add9f6`.
+Reviewer independently closed Phase 8C:
 
-Verified:
+- remote `main` is exactly
+  `ae1c1683b3cd7bf50ae3297d403b63a254add9f6`;
+- ADR 0014 is `Accepted — architecture authority`;
+- the decision index lists ADR 0014 under Accepted;
+- the correction topic branch is removed;
+- remote heads are only `main` and `Project-work-instructions`.
 
-- candidate is exactly one commit ahead of current `main`, zero behind;
-- only ADR 0014 and `docs/decisions/README.md` changed;
-- ADR 0014 status is now `Accepted — architecture authority`;
-- ADR 0014 is listed under Accepted in the decision index;
-- the Proposed section is removed because it became empty;
-- ADR 0014 decision text, ADR 0013, schemas, runtime/storage, Header source,
-  allocations, and UI/component files are unchanged;
-- the prior reservation safeguard remains binding: only a successfully
-  committed reservation becomes durable/non-reusable evidence; rejected atomic
-  collision attempts do not consume a candidate ID.
+Phase 8 is closed.
 
-## Builder instruction — Phase 8C only
+## Phase 9 architecture gate
 
-Promote exact accepted candidate
-`ae1c1683b3cd7bf50ae3297d403b63a254add9f6` to `main`.
+ADR 0014 now authorises a durable Station-owned allocation ledger, but current
+repository authority does not yet identify a concrete Identity Authority runtime
+home or storage technology. Repository search found no existing Identity Station,
+SQLite/storage layer, or durable persistence implementation to reuse.
 
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Fast-forward `main` to the exact accepted SHA; do not alter content.
-3. Run `pnpm audit:foundation` and `git diff --check`.
-4. Push and verify remote `main` equals the accepted SHA.
-5. Remove `fix/adr-0014-acceptance-metadata` only after promotion is proven
-   safe.
-6. Update this same work file to `AWAITING REVIEWER REVIEW` with exact
-   promotion/check/remote-head evidence.
-7. Stop for Reviewer.
+Do not invent that placement inside Header work.
 
-Do not begin Phase 9 until Reviewer independently closes this promotion.
+## Builder instruction — Phase 9A only
+
+Determine and propose the smallest repository-authoritative implementation
+placement for the WEX UI Identity Authority / Station.
+
+Required:
+
+1. Start from ADRs 0013/0014, `docs/architecture/platform-identity.md`,
+   `repository-map.md`, dependency rules, and current apps/packages.
+2. Decide only:
+   - which repository layer/application owns the Station runtime;
+   - where its durable Authority-controlled ledger lives;
+   - the minimum API/operation boundary for reserve, assign and lookup needed
+     for the first two allocations;
+   - how atomic uniqueness and permanent non-reuse are enforced.
+3. Preserve:
+   - no generator/registry/persistence in schemas, WEX, Shared UI or adapters;
+   - applications consume identities but do not independently mint them;
+   - successfully committed reservations only are consumed/non-reusable;
+   - no platform/domain record authority enters the Station.
+4. If this requires a new permanent service/package/storage architecture,
+   record it through the smallest follow-up ADR/architecture update.
+5. Do not implement storage, issuer code, mint IDs, allocate Admin Manager/Header,
+   alter Header source, or compose any UI in this phase.
+6. Run `pnpm audit:foundation` and `git diff --check`.
+7. Commit/push one bounded authority candidate, update this same work file to
+   `AWAITING REVIEWER REVIEW`, and stop.
 
 ## Remaining roadmap
 
-### Phase 9 — Identity Authority + concrete Header allocation
-Implement only the minimum accepted issuance/reservation mechanism and allocate
-the Admin Manager root plus Admin Header child with explicit parent/slot. No
-Header presentation or child components.
+### Phase 9B — Identity Authority implementation + first allocations
+After 9A acceptance/promotion only: implement the minimum accepted Station
+mechanism and issue/assign the Admin Manager root plus Admin Header direct child
+with explicit parent/slot persistence. No Header presentation or child
+components.
 
 ### Phase 10 — Empty Header shell compartments
 Implement only Header root, Brand shell, Navigation shell, Navigation
@@ -68,20 +83,3 @@ close ready for separately authorised child composition.
 After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
 PrimaryNavigation, MainAction, NavigationItem, icon/profile controls, or Admin
 Station fitting without a new Reviewer-authorised phase.
-
-## Builder handoff
-
-Promotion completed without altering the accepted correction.
-
-- `origin` verified as `CodeByNath/WEXdesigns`.
-- Remote `main` is exactly `ae1c1683b3cd7bf50ae3297d403b63a254add9f6`.
-- Required checks passed: `pnpm audit:foundation` and `git diff --check`.
-- After verified promotion, remote `fix/adr-0014-acceptance-metadata` was
-  removed. Remote heads now are `main` at
-  `ae1c1683b3cd7bf50ae3297d403b63a254add9f6` and
-  `Project-work-instructions` at
-  `b23550543174224dc0ccef657bacc4a738ff060d`.
-
-No Phase 9 issuance/allocation work, Header source, runtime, browser, or UI
-composition work was started. Reviewer must independently verify the promotion
-and branch closeout before authorising Phase 9.
