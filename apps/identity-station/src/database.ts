@@ -11,4 +11,7 @@ export interface Transaction {
 
 export interface TransactionDatabase {
   withTransaction<Result>(operation: (transaction: Transaction) => Promise<Result>): Promise<Result>;
+  withAdminManagerHeaderBootstrapTransaction<Result>(
+    operation: (transaction: Transaction) => Promise<Result>,
+  ): Promise<Result>;
 }

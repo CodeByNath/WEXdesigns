@@ -14,23 +14,41 @@ function transaction(client: PoolClient): Transaction {
   };
 }
 
+async function withTransaction<Result>(
+  pool: Pool,
+  operation: (current: Transaction) => Promise<Result>,
+  beforeOperation?: (current: Transaction) => Promise<void>,
+): Promise<Result> {
+  const client = await pool.connect();
+
+  try {
+    await client.query('BEGIN');
+    const current = transaction(client);
+    if (beforeOperation !== undefined) await beforeOperation(current);
+    const outcome = await operation(current);
+    await client.query('COMMIT');
+    return outcome;
+  } catch (error) {
+    await client.query('ROLLBACK');
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+
 /** Creates the service-private transaction boundary for a PostgreSQL ledger. */
 export function createPostgresDatabase(pool: Pool): TransactionDatabase {
   return {
-    async withTransaction<Result>(operation: (current: Transaction) => Promise<Result>): Promise<Result> {
-      const client = await pool.connect();
+    withTransaction<Result>(operation: (current: Transaction) => Promise<Result>): Promise<Result> {
+      return withTransaction(pool, operation);
+    },
 
-      try {
-        await client.query('BEGIN');
-        const outcome = await operation(transaction(client));
-        await client.query('COMMIT');
-        return outcome;
-      } catch (error) {
-        await client.query('ROLLBACK');
-        throw error;
-      } finally {
-        client.release();
-      }
+    withAdminManagerHeaderBootstrapTransaction<Result>(
+      operation: (current: Transaction) => Promise<Result>,
+    ): Promise<Result> {
+      return withTransaction(pool, operation, async (current) => {
+        await current.query('SELECT pg_advisory_xact_lock($1, $2)', [0x574558, 0x414d48]);
+      });
     },
   };
 }

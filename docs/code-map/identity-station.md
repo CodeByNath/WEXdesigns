@@ -12,9 +12,9 @@
 
 ### Recent work (newest first)
 
-- Phase 9B-C adds the Node Station, PostgreSQL ledger migration, a guarded
-  durable bootstrap command, and deterministic local lifecycle proof. Test
-  fixture IDs are not durable allocations.
+- Phase 9B-D adds a PostgreSQL-serialized durable bootstrap command and
+  deterministic concurrent-session lifecycle proof. Test fixture IDs are not
+  durable allocations.
 
 ## Purpose and scope
 

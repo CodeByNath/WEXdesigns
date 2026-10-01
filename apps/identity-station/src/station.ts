@@ -272,7 +272,7 @@ export function createIdentityStation(
     },
 
     async bootstrapAdminManagerHeader(): Promise<AdminManagerHeaderBootstrap> {
-      return database.withTransaction(async (transaction) => {
+      return database.withAdminManagerHeaderBootstrapTransaction(async (transaction) => {
         const candidates = await bootstrapCandidates(transaction);
         const roots = candidates.filter((candidate) => candidate.family === 'WEXAM');
         const headers = candidates.filter((candidate) => candidate.family === 'WEXAMH');
