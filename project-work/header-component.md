@@ -1,51 +1,45 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 8B — ADR 0014 acceptance metadata candidate submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 8C — Promote accepted ADR 0014 metadata correction
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Reviewer independently verified Phase 8A promotion:
+Reviewer independently inspected
+`fix/adr-0014-acceptance-metadata` at
+`ae1c1683b3cd7bf50ae3297d403b63a254add9f6`.
 
-- remote `main` is exactly
-  `4a5e38910cff7b8454d6f6d1ea0476001e59e1f3`;
-- the completed topic branch is removed;
-- remote heads are only `main` and `Project-work-instructions`;
-- promoted content matches the previously accepted Phase 8 candidate;
-- no Phase 9 implementation or Header/UI work was introduced.
+Verified:
 
-### Blocking governance defect
+- candidate is exactly one commit ahead of current `main`, zero behind;
+- only ADR 0014 and `docs/decisions/README.md` changed;
+- ADR 0014 status is now `Accepted — architecture authority`;
+- ADR 0014 is listed under Accepted in the decision index;
+- the Proposed section is removed because it became empty;
+- ADR 0014 decision text, ADR 0013, schemas, runtime/storage, Header source,
+  allocations, and UI/component files are unchanged;
+- the prior reservation safeguard remains binding: only a successfully
+  committed reservation becomes durable/non-reusable evidence; rejected atomic
+  collision attempts do not consume a candidate ID.
 
-ADR 0014 is physically present on `main`, but its own status still says
-`Proposed`, and `docs/decisions/README.md` still lists it under
-`Proposed`.
+## Builder instruction — Phase 8C only
 
-Phase 9 must not consume a proposed decision as accepted architecture authority.
-The acceptance state must be made explicit in repository authority first.
+Promote exact accepted candidate
+`ae1c1683b3cd7bf50ae3297d403b63a254add9f6` to `main`.
 
-The prior safeguard remains binding: only successfully committed reservations
-become durable/non-reusable evidence; a rejected atomic collision attempt does
-not consume a new candidate ID.
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Fast-forward `main` to the exact accepted SHA; do not alter content.
+3. Run `pnpm audit:foundation` and `git diff --check`.
+4. Push and verify remote `main` equals the accepted SHA.
+5. Remove `fix/adr-0014-acceptance-metadata` only after promotion is proven
+   safe.
+6. Update this same work file to `AWAITING REVIEWER REVIEW` with exact
+   promotion/check/remote-head evidence.
+7. Stop for Reviewer.
 
-## Builder instruction — Phase 8B only
-
-Create one bounded topic branch from current `main` and change only the
-decision acceptance metadata required to close ADR 0014:
-
-1. change ADR 0014 status from Proposed to Accepted, preserving its decision
-   text and the Reviewer safeguard;
-2. move ADR 0014 from the Proposed section of
-   `docs/decisions/README.md` into Accepted;
-3. do not alter ADR 0013, identity schemas, runtime code, storage, Header source,
-   allocation records, or any UI/component work;
-4. run `pnpm audit:foundation` and `git diff --check`;
-5. commit/push one candidate, update this same work file to
-   `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
-
-Do not begin Phase 9 until Reviewer independently accepts and promotes this
-metadata correction.
+Do not begin Phase 9 until Reviewer independently closes this promotion.
 
 ## Remaining roadmap
 
@@ -74,22 +68,3 @@ close ready for separately authorised child composition.
 After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
 PrimaryNavigation, MainAction, NavigationItem, icon/profile controls, or Admin
 Station fitting without a new Reviewer-authorised phase.
-
-## Builder handoff
-
-Candidate branch: `fix/adr-0014-acceptance-metadata` at
-`ae1c1683b3cd7bf50ae3297d403b63a254add9f6`.
-
-The candidate changes only ADR 0014's status from `Proposed` to `Accepted` and
-moves its existing index entry to the Accepted section. Its decision text and
-the Reviewer safeguard remain unchanged; no ADR 0013, schemas, runtime, storage,
-Header, allocation, or UI/component files changed.
-
-Verification passed: `pnpm audit:foundation` and `git diff --check`.
-Remote heads show `main` at
-`4a5e38910cff7b8454d6f6d1ea0476001e59e1f3`, this candidate at
-`ae1c1683b3cd7bf50ae3297d403b63a254add9f6`, and
-`Project-work-instructions` at
-`a807b60e28a663bc4bca4f1be22fa181799215ea`. No browser evidence applies to
-this metadata-only authority phase. Reviewer must independently inspect the
-pushed candidate before authorising Phase 9.
