@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 8 — Establish first-allocation identity bootstrap authority
+Status: AWAITING REVIEWER REVIEW
+Phase: 8 — Identity bootstrap authority candidate submitted
 
 ## Reviewer verdict
 
@@ -81,3 +81,24 @@ authorised child-component composition.
 After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
 PrimaryNavigation, MainAction, NavigationItem, icon, profile/action controls, or
 Admin Station fitting without a new Reviewer-authorised phase.
+
+## Builder handoff
+
+Candidate branch: `feat/header-identity-bootstrap-authority` at
+`4a5e38910cff7b8454d6f6d1ea0476001e59e1f3`.
+
+The candidate adds proposed ADR 0014 and its decision-index entry only. It
+defines the Station-owned durable allocation ledger, immutable reservation
+evidence, atomic reserve-before-assignment, collision/non-reuse, the Admin
+Manager root shape, and the direct Admin Header `header` slot relationship.
+It creates no allocation or issuer, registry, storage implementation, Header
+source, schema, binding, adapter, or composition.
+
+Verification passed: `pnpm audit:foundation` and `git diff --check`.
+Remote heads show `main` at
+`802f31c2f7ef58dee16dcfc9e600841d1eee59ba`, this candidate at
+`4a5e38910cff7b8454d6f6d1ea0476001e59e1f3`, and
+`Project-work-instructions` at
+`9500e55fdd5320b86d9cec1f5ba4f0a196c6fbc3`. No browser evidence applies to
+this architecture-only phase. Reviewer must independently inspect the pushed
+candidate before deciding Phase 9.
