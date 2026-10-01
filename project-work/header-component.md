@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 9B-C — Separate implementation proof from durable allocation bootstrap
+Status: AWAITING REVIEWER REVIEW
+Phase: 9B-C — Durable bootstrap command submitted; allocation execution remains operationally gated
 
 ## Reviewer verdict
 
@@ -70,6 +70,24 @@ resulting records can be read back after a separate process/session.
 If no persistent Station-owned PostgreSQL execution surface is currently
 available, report that operational gate explicitly. Do **not** substitute test
 fixtures or repository files for the authoritative ledger.
+
+## Builder handoff
+
+Candidate: `feat/identity-station-bootstrap` at
+`7195fd8346f8b139d1adb5eb87dd7975c2273025` (verified on `origin`).
+
+The candidate adds a Station-owned, idempotent Admin Manager/Header bootstrap
+command that invokes Station reserve/assign paths, returns the two assigned IDs
+and Header parent/slot evidence, and stops on conflicting existing bootstrap
+evidence. It adds separate-session read-back and conflict tests, labels fixture
+IDs as non-durable, and updates the Identity Station Code Map.
+
+Passed: focused Station check; schemas check; foundation audit; `pnpm check`;
+`git diff --check`.
+
+Operational gate: no persistent Station-owned PostgreSQL ledger or credential
+surface is available here. The bootstrap command was therefore not run against
+a durable ledger, and no real Admin Manager/Header IDs were minted or claimed.
 
 ## Remaining roadmap
 
