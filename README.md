@@ -35,6 +35,7 @@ DESIGN MASTER COMPOSES; IT DOES NOT INVENT VISUAL VALUES.
 | `packages/schemas` | Framework-neutral Zod and TypeScript contracts |
 | `packages/adapters` | Reserved framework-neutral domain adapter boundary |
 | `packages/ui` | Reserved shared UI boundary; intentionally contains no components |
+| `apps/identity-station` | WEX UI Identity Authority / Station runtime and durable allocation ledger |
 | `apps/studio-agent-runner` | Node contract-validation shell |
 | `apps/web-runtime` | Live WEX index for Elements, Guidelines, and Components |
 | `docs/architecture` | Authority, dependency, composition, and repository maps |

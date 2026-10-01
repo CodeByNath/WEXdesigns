@@ -7,6 +7,7 @@
 | `@weerax/schemas` | Serializable runtime and compile-time contracts | Zod only at foundation | WEX, UI, adapters, apps, React, Preact, Vite, DOM, CSS | Contract definitions | Identity, action, and tier primitives established |
 | `@weerax/adapters` | Future domain-owner integration | `@weerax/schemas` | WEX, UI, apps, React, Preact | Domain owners | Boundary only; no adapters implemented |
 | `@weerax/ui` | Shared rendering and interaction structures | `@weerax/schemas`, `@weerax/wex` | Application-specific domain owners | Shared UI + WEX | Button presentation resolver implemented; other shared components remain unimplemented |
+| `@weerax/identity-station` | WEX UI allocation issuance and durable ledger runtime | `@weerax/schemas`, PostgreSQL client | WEX, UI, adapters, web runtime, domain records | WEX UI Identity Authority / Station | Bootstrap ledger, reserve/assign/lookup operations, and local PostgreSQL proof implemented |
 | `@weerax/studio-agent-runner` | Node validation and future agent/n8n tooling | Required reusable packages | UI presentation ownership | Runtime application | Schema-consumption shell only |
 | `@weerax/web-runtime` | Live WEX shell and future browser application assembly | Required reusable packages | Reusable package authority and stored catalogue structure | Runtime application | Catalogue shell, approved presentation routes, and theme mechanics |
 | `@weerax/typescript-config` | Shared strict TypeScript configuration | None | Runtime or presentation code | Repository tooling | Active |
@@ -24,6 +25,9 @@
                      apps/web-runtime
 
 @weerax/schemas <------ apps/studio-agent-runner
+       ^
+       |
+apps/identity-station ----> PostgreSQL allocation ledger
 ```
 
 `@weerax/ui` may also consume `@weerax/wex`. Applications remain outside reusable core packages. The graph must remain acyclic.

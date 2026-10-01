@@ -43,6 +43,8 @@ If source moves or a map becomes stale, source and governing authority win. Corr
   shared-component validation sandbox.
 - [Admin Shell](admin-shell.md) — navigation to the Admin Station runtime
   layout.
+- [Identity Station](identity-station.md) — navigation to the WEX UI
+  allocation Authority runtime and durable ledger boundary.
 - [Actions and interaction](interaction-focus.md)
 - [Button system](button-system.md) — first demonstrated subject map.
 - [Spacing](spacing.md)

@@ -27,6 +27,7 @@ const manifestPaths = [
   'packages/schemas/package.json',
   'packages/adapters/package.json',
   'packages/ui/package.json',
+  'apps/identity-station/package.json',
   'apps/studio-agent-runner/package.json',
   'apps/web-runtime/package.json',
   'tooling/typescript/package.json',
@@ -55,6 +56,12 @@ assert(
     .get('@weerax/ui')
     .every((name) => ['@weerax/schemas', '@weerax/wex'].includes(name)),
   'UI exceeds its dependency boundary',
+);
+assert(
+  internalDependencies
+    .get('@weerax/identity-station')
+    .every((name) => name === '@weerax/schemas'),
+  'Identity Station exceeds its dependency boundary',
 );
 
 const visiting = new Set();
