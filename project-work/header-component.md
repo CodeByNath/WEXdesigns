@@ -1,47 +1,83 @@
 # Header Component
 
-Status: DEFERRED
-Phase: 7 — Atomic-composition authority promoted and verified
+Status: BUILDER ACTION REQUIRED
+Phase: 8 — Establish first-allocation identity bootstrap authority
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Reviewer independently verified:
+Platform Identity schema authority is accepted, so Header work may resume. The
+Header roadmap is now bounded and must stop before real child-component
+composition.
 
-- `main` is exactly `d1657a49785df63dbf566497a57c4873ba97569b`;
-- `docs/architecture/atomic-composition.md` on `main` matches the accepted
-  candidate;
-- `docs/architecture/README.md` routes the new authority;
-- the completed topic branch has been removed;
-- remote heads are only `main` and `Project-work-instructions`.
+## Owner-approved Header roadmap
 
-Atomic-composition authority is therefore promoted and accepted.
+### Phase 8 — Identity bootstrap authority — ACTIVE
+Resolve the one remaining architecture gate: ADR 0013 requires the WEX UI
+Identity Authority / Station to reserve and issue every concrete allocation, but
+no issuer exists yet.
 
-## Header state
+Builder must:
+- start from ADR 0013, `docs/architecture/platform-identity.md`, atomic
+  composition, dependency rules, and current identity schemas;
+- define the smallest repository authority needed to bootstrap the first durable
+  allocations without permitting applications, Shared UI, schemas, or Header
+  source to mint local IDs;
+- cover the Admin Manager root `WEXAMxxxxx` and its direct Header child
+  `WEXAMHxxxxx`, including reservation-before-assignment, collision/reuse
+  prevention, explicit parent ID + parent-owned slot, and where durable
+  allocation evidence lives;
+- use a new/follow-up ADR if a new architectural decision is required;
+- do **not** mint an ID, implement Header, build a registry/runtime, or compose
+  any child component in this phase.
 
-Header implementation remains intentionally unfinished. The Owner has chosen to
-establish the WEX Platform Identity system before returning to Header so UI
-composition/allocation identity is available before Header allocation is
-formalised.
+Commit/push one bounded authority candidate, update this same work file to
+`AWAITING REVIEWER REVIEW`, and stop.
 
-Retained Header direction:
+### Phase 9 — Identity Authority + concrete Header allocation
+After Phase 8 acceptance only: implement the minimum accepted issuance/reservation
+mechanism, allocate the Admin Manager root and Admin Header child, and prove the
+Header allocation uses the `WEXAMH` family with an explicit parent/slot. No
+Header presentation or child components.
 
-- Header 64px all devices;
-- Brand 64px square;
-- Navigation takes remaining width;
-- two-level Header gutter only;
-- Header owns its WEX shell presentation, not child internals;
-- LocationLabel >=768px / SidebarTrigger <=767px is component selection;
-- nested components own their own direct-child contracts;
-- Component Manager proof precedes Admin Station integration.
+### Phase 10 — Empty Header shell compartments
+Create/refresh the Header Code Map and implement only reusable Header structure:
+- Header root;
+- Brand shell;
+- Navigation shell;
+- Navigation left/location inner shell;
+- Navigation utility/quick-navigation inner shell.
 
-Resume this same work file after the Platform Identity work reaches its accepted
-boundary. Do not duplicate or restart Header planning elsewhere.
+The shell may expose named empty mount boundaries and direct-child count/type
+constraints required by accepted composition authority. Do not load Brand,
+LocationLabel, SidebarTrigger, Search, PrimaryNavigation, MainAction, or any
+other real component.
 
-## Deferred dependency
+### Phase 11 — Responsive shell behaviour proof
+In Component Manager, prove the empty Header shell against WEX viewport modes:
+- 64px Header height on all devices;
+- Brand shell 64px square;
+- Navigation consumes remaining width;
+- two-level Header gutter only: 16px + 8px at Large/Medium, 8px + 8px at
+  <=767px;
+- no inherited/deep gutter accumulation;
+- shell allocation remains valid at 1440px, 1024px, 767px and Fluid;
+- the location-side mount boundary is the responsive replacement point at
+  <=767px, but no real LocationLabel/SidebarTrigger is composed yet;
+- utility region remains shell-ready without inventing child behaviour.
 
-Platform Identity is now the active prerequisite work area.
+Use neutral fixture/placeholders only to prove slot geometry and responsive
+allocation. Validate keyboard/accessibility semantics relevant to the shell,
+light/dark presentation, and actual isolated preview widths.
 
-The Header work must not invent its own identity, allocation, binding, prefix, or
-persistence rules while that system is unresolved.
+### Phase 12 — Promote and close pre-composition Header
+Promote the exact accepted shell candidate, verify hosted Component Manager
+behaviour, remove the topic branch, and close the Header as ready for separately
+authorised child-component composition.
+
+## Hard stop
+
+After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
+PrimaryNavigation, MainAction, NavigationItem, icon, profile/action controls, or
+Admin Station fitting without a new Reviewer-authorised phase.
