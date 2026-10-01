@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 9A-P — Promote accepted Identity Station placement authority
+Status: AWAITING REVIEWER REVIEW
+Phase: 9A-P — Accepted Identity Station placement authority promoted
 
 ## Reviewer verdict
 
@@ -89,3 +89,17 @@ close ready for separately authorised child composition.
 
 After Phase 12, stop before any real child-component composition or Admin
 Station fitting.
+
+## Builder handoff
+
+Promoted the final accepted authority to `main` at
+`27642f1d42facf310a061db52174a57df257e2de`. The acceptance-metadata commit
+changed only `docs/decisions/0015-wex-ui-identity-station-placement.md` and
+`docs/decisions/README.md`; no decision substance changed.
+
+`pnpm audit:foundation` and `git diff --check` passed. The merged
+`proposal/identity-station-placement` branch was deleted only after merge proof.
+Remote heads: `main` at `27642f1d42facf310a061db52174a57df257e2de` and
+`Project-work-instructions` at `94cfb4a3682c101fdf01466a694bba05609463eb`.
+
+No Phase 9B implementation began. Reviewer must independently close promotion.
