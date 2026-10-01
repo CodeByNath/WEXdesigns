@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 8C — Promote accepted ADR 0014 metadata correction
+Status: AWAITING REVIEWER REVIEW
+Phase: 8C — ADR 0014 metadata correction promoted; independent closeout required
 
 ## Reviewer verdict
 
@@ -68,3 +68,20 @@ close ready for separately authorised child composition.
 After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
 PrimaryNavigation, MainAction, NavigationItem, icon/profile controls, or Admin
 Station fitting without a new Reviewer-authorised phase.
+
+## Builder handoff
+
+Promotion completed without altering the accepted correction.
+
+- `origin` verified as `CodeByNath/WEXdesigns`.
+- Remote `main` is exactly `ae1c1683b3cd7bf50ae3297d403b63a254add9f6`.
+- Required checks passed: `pnpm audit:foundation` and `git diff --check`.
+- After verified promotion, remote `fix/adr-0014-acceptance-metadata` was
+  removed. Remote heads now are `main` at
+  `ae1c1683b3cd7bf50ae3297d403b63a254add9f6` and
+  `Project-work-instructions` at
+  `b23550543174224dc0ccef657bacc4a738ff060d`.
+
+No Phase 9 issuance/allocation work, Header source, runtime, browser, or UI
+composition work was started. Reviewer must independently verify the promotion
+and branch closeout before authorising Phase 9.
