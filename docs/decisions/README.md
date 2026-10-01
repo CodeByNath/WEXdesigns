@@ -8,3 +8,7 @@ pending until Reviewer acceptance and promotion.
 
 - [0012: Global Tokens / Typography DNA](0012-global-tokens-typography-dna.md)
 - [0013: WEX UI Platform Identity](0013-wex-ui-platform-identity.md)
+
+## Proposed
+
+- [0014: WEX UI Identity Bootstrap Authority](0014-wex-ui-identity-bootstrap-authority.md)
