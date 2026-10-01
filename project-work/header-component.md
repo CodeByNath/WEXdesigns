@@ -1,67 +1,74 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 9A — Identity Authority placement proposal submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 9A-P — Promote accepted Identity Station placement authority
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Reviewer independently closed Phase 8C:
+Reviewer independently inspected
+`proposal/identity-station-placement` at
+`1c4570e3e9a06fe5ebb78d26f920109832453c1a`.
 
-- remote `main` is exactly
-  `ae1c1683b3cd7bf50ae3297d403b63a254add9f6`;
-- ADR 0014 is `Accepted — architecture authority`;
-- the decision index lists ADR 0014 under Accepted;
-- the correction topic branch is removed;
-- remote heads are only `main` and `Project-work-instructions`.
+Verified:
 
-Phase 8 is closed.
+- candidate is exactly one commit ahead of current `main`, zero behind;
+- changed files are limited to proposed ADR 0015 and the decision index;
+- `apps/identity-station` is defined as a standalone WEX platform runtime,
+  not a reusable package, browser app, adapter, Shared UI layer, or domain
+  service;
+- the Station may consume `@weerax/schemas` but schemas remain free of
+  issuance/persistence/runtime code;
+- durable ledger ownership is Station-only in PostgreSQL
+  `wex_identity.allocation_ledger`;
+- `allocationId` is the transactional uniqueness boundary;
+- only committed reservations consume IDs;
+- immutable family/placement and permanent non-reuse are explicit;
+- first operations are bounded to `reserve`, `assign`, and `lookup`;
+- caller-supplied IDs, platform bindings, reverse platform lookup, retirement
+  operations, bulk allocation, Header source, and UI composition remain out of
+  scope;
+- the Admin Header reservation is correctly gated on an already-assigned Admin
+  Manager root and persists the explicit parent ID + `header` slot.
 
-## Phase 9 architecture gate
+## Safeguard
 
-ADR 0014 now authorises a durable Station-owned allocation ledger, but current
-repository authority does not yet identify a concrete Identity Authority runtime
-home or storage technology. Repository search found no existing Identity Station,
-SQLite/storage layer, or durable persistence implementation to reuse.
+ADR 0015 defers deployment topology, database hosting, credentials, transport
+authentication, and operational access details. Phase 9B must not widen into
+production deployment/authentication architecture merely to prove the first
+allocation lifecycle. Implement only what is necessary to prove the accepted
+Station-owned durable ledger and operation invariants. Any permanent deployment,
+secret-management, public transport, or caller-auth architecture requires its
+own explicit authority if it becomes necessary.
 
-Do not invent that placement inside Header work.
+## Builder instruction — promotion only
 
-## Builder instruction — Phase 9A only
+Promote exact accepted candidate
+`1c4570e3e9a06fe5ebb78d26f920109832453c1a` to `main`.
 
-Determine and propose the smallest repository-authoritative implementation
-placement for the WEX UI Identity Authority / Station.
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Change ADR 0015 status to `Accepted — architecture authority` and move it
+   from Proposed to Accepted in `docs/decisions/README.md` as part of the same
+   bounded authority closeout; do not alter decision substance.
+3. Run `pnpm audit:foundation` and `git diff --check`.
+4. Commit/push the acceptance-metadata correction if required, then promote the
+   exact resulting accepted authority to `main`.
+5. Verify remote `main` and remove the completed topic branch only after the
+   promotion is proven safe.
+6. Update this same work file to `AWAITING REVIEWER REVIEW` with exact final
+   `main` SHA, checks, changed files, and remote-head evidence.
+7. Stop for Reviewer.
 
-Required:
-
-1. Start from ADRs 0013/0014, `docs/architecture/platform-identity.md`,
-   `repository-map.md`, dependency rules, and current apps/packages.
-2. Decide only:
-   - which repository layer/application owns the Station runtime;
-   - where its durable Authority-controlled ledger lives;
-   - the minimum API/operation boundary for reserve, assign and lookup needed
-     for the first two allocations;
-   - how atomic uniqueness and permanent non-reuse are enforced.
-3. Preserve:
-   - no generator/registry/persistence in schemas, WEX, Shared UI or adapters;
-   - applications consume identities but do not independently mint them;
-   - successfully committed reservations only are consumed/non-reusable;
-   - no platform/domain record authority enters the Station.
-4. If this requires a new permanent service/package/storage architecture,
-   record it through the smallest follow-up ADR/architecture update.
-5. Do not implement storage, issuer code, mint IDs, allocate Admin Manager/Header,
-   alter Header source, or compose any UI in this phase.
-6. Run `pnpm audit:foundation` and `git diff --check`.
-7. Commit/push one bounded authority candidate, update this same work file to
-   `AWAITING REVIEWER REVIEW`, and stop.
+Do not begin Phase 9B implementation until Reviewer independently closes this
+promotion.
 
 ## Remaining roadmap
 
 ### Phase 9B — Identity Authority implementation + first allocations
-After 9A acceptance/promotion only: implement the minimum accepted Station
-mechanism and issue/assign the Admin Manager root plus Admin Header direct child
-with explicit parent/slot persistence. No Header presentation or child
-components.
+Implement only the minimum accepted Station mechanism and issue/assign the
+Admin Manager root plus Admin Header direct child with explicit parent/slot
+persistence. No Header presentation or child components.
 
 ### Phase 10 — Empty Header shell compartments
 Implement only Header root, Brand shell, Navigation shell, Navigation
@@ -80,26 +87,5 @@ close ready for separately authorised child composition.
 
 ## Hard stop
 
-After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
-PrimaryNavigation, MainAction, NavigationItem, icon/profile controls, or Admin
-Station fitting without a new Reviewer-authorised phase.
-
-## Builder handoff
-
-Candidate: `proposal/identity-station-placement` at
-`1c4570e3e9a06fe5ebb78d26f920109832453c1a` (pushed remote head verified).
-
-- Adds proposed ADR 0015 and its decision-index entry only.
-- Places the future Authority as standalone Node service
-  `apps/identity-station`, outside presentation, schemas, adapters, Shared UI,
-  and consuming applications.
-- Locates its ledger in the Station-owned PostgreSQL `wex_identity` schema,
-  with `allocation_ledger` as the unique/transactional lifecycle evidence.
-- Bounds first operations to Station-owned `reserve`, `assign`, and `lookup`;
-  only a committed reserve consumes an ID, and the child cannot reserve before
-  its parent is assigned.
-- Passed `pnpm audit:foundation` and `git diff --check`.
-
-No service, dependency, database, schema, issuer, allocation, Header source,
-binding, or UI composition was implemented. Reviewer must assess the proposed
-new permanent service/storage architecture before any Phase 9B work.
+After Phase 12, stop before any real child-component composition or Admin
+Station fitting.
