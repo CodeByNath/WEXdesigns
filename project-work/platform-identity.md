@@ -1,7 +1,7 @@
 # Platform Identity System
 
-Status: BUILDER ACTION REQUIRED
-Phase: 5 — Promote accepted WEX UI identity schema contracts
+Status: AWAITING REVIEWER REVIEW
+Phase: 5 — Promotion complete; independent closeout required
 
 ## Reviewer verdict
 
@@ -61,3 +61,21 @@ adapters, Header identity allocation, migration, or UI integration.
 
 After promotion and independent closeout, Header may resume from its existing
 deferred work file; do not create a replacement Header work area.
+
+## Builder handoff
+
+Promotion completed without scope expansion.
+
+- `origin` verified as `CodeByNath/WEXdesigns`.
+- Remote `main` is exactly `802f31c2f7ef58dee16dcfc9e600841d1eee59ba`.
+- Required checks passed: `pnpm --filter @weerax/schemas check`,
+  `pnpm audit:foundation`, and `git diff --check`.
+- Remote-head evidence after cleanup: only `main` at
+  `802f31c2f7ef58dee16dcfc9e600841d1eee59ba` and
+  `Project-work-instructions` at
+  `51ad01764f675840da6171e2aceea8b4ebcc57d5` remain; remote
+  `feat/wex-ui-identity-schemas` was deleted after the verified promotion.
+
+No browser, deployment, persistence, minting, lookup, adapter, runtime, or UI
+work was performed. Reviewer must independently verify promotion and branch
+closeout before accepting or deferring this work area.
