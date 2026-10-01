@@ -9,6 +9,7 @@ import { PGlite } from '@electric-sql/pglite';
 
 import {
   AllocationNotFoundError,
+  BootstrapAllocationConflictError,
   CandidateExhaustedError,
   InvalidAllocationStateError,
   InvalidBootstrapPlacementError,
@@ -56,7 +57,7 @@ async function fixture(suffixes = ['ABCDE', 'FGHJK', 'LMNPQ']) {
   };
 }
 
-test('reserves and assigns the authorised Admin Manager and Admin Header allocations', async (t) => {
+test('test fixtures prove the authorised Admin Manager and Admin Header lifecycle without minting durable IDs', async (t) => {
   const { postgres, station, dispose } = await fixture();
   t.after(dispose);
 
@@ -74,6 +75,47 @@ test('reserves and assigns the authorised Admin Manager and Admin Header allocat
 
   assert.deepEqual(found?.placement, { parentAllocationId: root.allocationId, slot: 'header' });
   assert.equal(found?.state, 'assigned');
+});
+
+test('the Station bootstrap resolves its existing allocation pair after a separate database session', async (t) => {
+  const dataDirectory = await mkdtemp(join(tmpdir(), 'weerax-identity-station-bootstrap-'));
+  t.after(() => rm(dataDirectory, { recursive: true, force: true }));
+
+  const firstPostgres = await PGlite.create(dataDirectory);
+  await firstPostgres.exec(migration);
+  const firstStation = createIdentityStation(testDatabase(firstPostgres), {
+    nextSuffix: sequence(['ABCDE', 'FGHJK']),
+  });
+  const firstBootstrap = await firstStation.bootstrapAdminManagerHeader();
+  await firstPostgres.close();
+
+  const secondPostgres = await PGlite.create(dataDirectory);
+  t.after(() => secondPostgres.close());
+  const secondStation = createIdentityStation(testDatabase(secondPostgres), {
+    nextSuffix: sequence(['LMNPQ', 'RSTUV']),
+  });
+  const secondBootstrap = await secondStation.bootstrapAdminManagerHeader();
+
+  assert.equal(secondBootstrap.adminManager.allocationId, firstBootstrap.adminManager.allocationId);
+  assert.equal(secondBootstrap.adminHeader.allocationId, firstBootstrap.adminHeader.allocationId);
+  assert.deepEqual(secondBootstrap.adminHeader.placement, {
+    parentAllocationId: firstBootstrap.adminManager.allocationId,
+    slot: 'header',
+  });
+  const rows = await secondPostgres.query('SELECT allocation_id FROM wex_identity.allocation_ledger ORDER BY allocation_id');
+  assert.equal(rows.rows.length, 2);
+});
+
+test('the Station bootstrap stops rather than creating a second pair from conflicting root evidence', async (t) => {
+  const { postgres, station, dispose } = await fixture(['ABCDE', 'FGHJK', 'LMNPQ']);
+  t.after(dispose);
+
+  await station.reserve({ family: 'WEXAM', placement: {} });
+  await station.reserve({ family: 'WEXAM', placement: {} });
+
+  await assert.rejects(() => station.bootstrapAdminManagerHeader(), BootstrapAllocationConflictError);
+  const rows = await postgres.query('SELECT allocation_id FROM wex_identity.allocation_ledger');
+  assert.equal(rows.rows.length, 2);
 });
 
 test('retries a collision without consuming a failed candidate', async (t) => {

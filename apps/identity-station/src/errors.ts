@@ -8,4 +8,6 @@ export class InvalidAllocationStateError extends IdentityStationError {}
 
 export class InvalidBootstrapPlacementError extends IdentityStationError {}
 
+export class BootstrapAllocationConflictError extends IdentityStationError {}
+
 export class CandidateExhaustedError extends IdentityStationError {}

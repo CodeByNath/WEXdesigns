@@ -13,6 +13,7 @@ import {
 import type { Transaction, TransactionDatabase } from './database.js';
 import {
   AllocationNotFoundError,
+  BootstrapAllocationConflictError,
   CandidateExhaustedError,
   InvalidAllocationStateError,
   InvalidBootstrapPlacementError,
@@ -40,6 +41,13 @@ export interface IdentityStation {
   reserve(request: unknown): Promise<AllocationLedgerEntry>;
   assign(allocationId: string): Promise<AllocationLedgerEntry>;
   lookup(allocationId: string): Promise<AllocationLedgerEntry | undefined>;
+  bootstrapAdminManagerHeader(): Promise<AdminManagerHeaderBootstrap>;
+}
+
+/** Durable evidence returned by the one authorised Admin bootstrap command. */
+export interface AdminManagerHeaderBootstrap {
+  readonly adminManager: AllocationLedgerEntry;
+  readonly adminHeader: AllocationLedgerEntry;
 }
 
 export interface IdentityStationOptions {
@@ -147,6 +155,92 @@ async function lookupRow(transaction: Transaction, allocationId: string): Promis
   return rows.rows[0];
 }
 
+async function reserveAllocation(
+  transaction: Transaction,
+  request: ReserveRequest,
+  nextSuffix: () => string,
+  maxReservationAttempts: number,
+): Promise<AllocationLedgerEntry> {
+  const { family, placement } = request;
+  await requireBootstrapPlacement(transaction, family, placement);
+
+  for (let attempt = 0; attempt < maxReservationAttempts; attempt += 1) {
+    const allocationId = WexUiAllocationIdSchema.parse(`${family}${nextSuffix()}`);
+    const inserted = await transaction.query<LedgerRow>(
+      `INSERT INTO wex_identity.allocation_ledger (
+         allocation_id, family, placement_kind, parent_allocation_id, slot, state, reserved_at
+       ) VALUES ($1, $2, $3, $4, $5, 'reserved', CURRENT_TIMESTAMP)
+       ON CONFLICT (allocation_id) DO NOTHING
+       RETURNING allocation_id, family, placement_kind, parent_allocation_id, slot, state,
+                 reserved_at, assigned_at, retired_at`,
+      [
+        allocationId,
+        family,
+        isRoot(placement) ? 'root' : 'child',
+        isRoot(placement) ? null : placement.parentAllocationId,
+        isRoot(placement) ? null : placement.slot,
+      ],
+    );
+
+    if (inserted.rows[0] !== undefined) return entry(inserted.rows[0]);
+  }
+
+  throw new CandidateExhaustedError('could not reserve a unique allocation ID');
+}
+
+async function assignAllocation(transaction: Transaction, allocationId: string): Promise<AllocationLedgerEntry> {
+  const validAllocationId = WexUiAllocationIdSchema.parse(allocationId);
+  const updated = await transaction.query<LedgerRow>(
+    `UPDATE wex_identity.allocation_ledger
+        SET state = 'assigned', assigned_at = CURRENT_TIMESTAMP
+      WHERE allocation_id = $1 AND state = 'reserved'
+    RETURNING allocation_id, family, placement_kind, parent_allocation_id, slot, state,
+              reserved_at, assigned_at, retired_at`,
+    [validAllocationId],
+  );
+
+  if (updated.rows[0] !== undefined) return entry(updated.rows[0]);
+  if (await lookupRow(transaction, validAllocationId) === undefined) {
+    throw new AllocationNotFoundError('allocation is not reserved');
+  }
+  throw new InvalidAllocationStateError('only reserved allocations can be assigned');
+}
+
+interface BootstrapCandidate {
+  readonly allocation_id: string;
+  readonly family: string;
+  readonly placement_kind: string;
+  readonly parent_allocation_id: string | null;
+  readonly slot: string | null;
+}
+
+/**
+ * Finds only the two authorised bootstrap shapes. This is deliberately not a
+ * platform binding or generic reverse-lookup operation.
+ */
+async function bootstrapCandidates(transaction: Transaction): Promise<readonly BootstrapCandidate[]> {
+  const result = await transaction.query<BootstrapCandidate>(
+    `SELECT allocation_id, family, placement_kind, parent_allocation_id, slot
+       FROM wex_identity.allocation_ledger
+      WHERE (family = 'WEXAM' AND placement_kind = 'root')
+         OR (family = 'WEXAMH' AND placement_kind = 'child' AND slot = 'header')`,
+  );
+  return result.rows;
+}
+
+async function assignedOrReserved(
+  transaction: Transaction,
+  allocationId: string,
+): Promise<AllocationLedgerEntry> {
+  const found = await lookupRow(transaction, allocationId);
+  if (found === undefined) throw new AllocationNotFoundError('bootstrap allocation disappeared');
+
+  const allocation = entry(found);
+  if (allocation.state === 'reserved') return assignAllocation(transaction, allocation.allocationId);
+  if (allocation.state === 'assigned') return allocation;
+  throw new BootstrapAllocationConflictError('a retired bootstrap allocation cannot be reused');
+}
+
 export function createIdentityStation(
   database: TransactionDatabase,
   options: IdentityStationOptions = {},
@@ -158,58 +252,68 @@ export function createIdentityStation(
     async reserve(request: unknown): Promise<AllocationLedgerEntry> {
       const { family, placement } = parseReserveRequest(request);
 
-      return database.withTransaction(async (transaction) => {
-        await requireBootstrapPlacement(transaction, family, placement);
-
-        for (let attempt = 0; attempt < maxReservationAttempts; attempt += 1) {
-          const allocationId = WexUiAllocationIdSchema.parse(`${family}${nextSuffix()}`);
-          const inserted = await transaction.query<LedgerRow>(
-            `INSERT INTO wex_identity.allocation_ledger (
-               allocation_id, family, placement_kind, parent_allocation_id, slot, state, reserved_at
-             ) VALUES ($1, $2, $3, $4, $5, 'reserved', CURRENT_TIMESTAMP)
-             ON CONFLICT (allocation_id) DO NOTHING
-             RETURNING allocation_id, family, placement_kind, parent_allocation_id, slot, state,
-                       reserved_at, assigned_at, retired_at`,
-            [
-              allocationId,
-              family,
-              isRoot(placement) ? 'root' : 'child',
-              isRoot(placement) ? null : placement.parentAllocationId,
-              isRoot(placement) ? null : placement.slot,
-            ],
-          );
-
-          if (inserted.rows[0] !== undefined) return entry(inserted.rows[0]);
-        }
-
-        throw new CandidateExhaustedError('could not reserve a unique allocation ID');
-      });
+      return database.withTransaction((transaction) => reserveAllocation(
+        transaction,
+        { family, placement },
+        nextSuffix,
+        maxReservationAttempts,
+      ));
     },
 
     async assign(allocationId: string): Promise<AllocationLedgerEntry> {
-      return database.withTransaction(async (transaction) => {
-        const validAllocationId = WexUiAllocationIdSchema.parse(allocationId);
-        const updated = await transaction.query<LedgerRow>(
-          `UPDATE wex_identity.allocation_ledger
-              SET state = 'assigned', assigned_at = CURRENT_TIMESTAMP
-            WHERE allocation_id = $1 AND state = 'reserved'
-          RETURNING allocation_id, family, placement_kind, parent_allocation_id, slot, state,
-                    reserved_at, assigned_at, retired_at`,
-          [validAllocationId],
-        );
-
-        if (updated.rows[0] !== undefined) return entry(updated.rows[0]);
-        if (await lookupRow(transaction, validAllocationId) === undefined) {
-          throw new AllocationNotFoundError('allocation is not reserved');
-        }
-        throw new InvalidAllocationStateError('only reserved allocations can be assigned');
-      });
+      return database.withTransaction((transaction) => assignAllocation(transaction, allocationId));
     },
 
     async lookup(allocationId: string): Promise<AllocationLedgerEntry | undefined> {
       return database.withTransaction(async (transaction) => {
         const found = await lookupRow(transaction, allocationId);
         return found === undefined ? undefined : entry(found);
+      });
+    },
+
+    async bootstrapAdminManagerHeader(): Promise<AdminManagerHeaderBootstrap> {
+      return database.withTransaction(async (transaction) => {
+        const candidates = await bootstrapCandidates(transaction);
+        const roots = candidates.filter((candidate) => candidate.family === 'WEXAM');
+        const headers = candidates.filter((candidate) => candidate.family === 'WEXAMH');
+
+        if (roots.length > 1) {
+          throw new BootstrapAllocationConflictError('multiple Admin Manager roots require Station-owner resolution');
+        }
+        if (roots.length === 0 && headers.length > 0) {
+          throw new BootstrapAllocationConflictError('an Admin Header exists without its Admin Manager root');
+        }
+
+        const adminManager = roots[0] === undefined
+          ? await assignAllocation(
+            transaction,
+            (await reserveAllocation(transaction, { family: 'WEXAM', placement: {} }, nextSuffix, maxReservationAttempts)).allocationId,
+          )
+          : await assignedOrReserved(transaction, roots[0].allocation_id);
+
+        const matchingHeaders = headers.filter(
+          (candidate) => candidate.parent_allocation_id === adminManager.allocationId,
+        );
+        if (matchingHeaders.length > 1 || (headers.length > 0 && matchingHeaders.length === 0)) {
+          throw new BootstrapAllocationConflictError('existing Admin Header allocation does not resolve to the Admin Manager root');
+        }
+
+        const adminHeader = matchingHeaders[0] === undefined
+          ? await assignAllocation(
+            transaction,
+            (await reserveAllocation(
+              transaction,
+              {
+                family: 'WEXAMH',
+                placement: { parentAllocationId: adminManager.allocationId, slot: 'header' },
+              },
+              nextSuffix,
+              maxReservationAttempts,
+            )).allocationId,
+          )
+          : await assignedOrReserved(transaction, matchingHeaders[0].allocation_id);
+
+        return { adminManager, adminHeader };
       });
     },
   };

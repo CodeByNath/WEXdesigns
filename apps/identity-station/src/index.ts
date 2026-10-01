@@ -1,6 +1,7 @@
 export { createPostgresDatabase } from './postgres.js';
 export {
   createIdentityStation,
+  type AdminManagerHeaderBootstrap,
   type AllocationLedgerEntry,
   type IdentityStation,
   type IdentityStationOptions,
@@ -8,6 +9,7 @@ export {
 } from './station.js';
 export {
   AllocationNotFoundError,
+  BootstrapAllocationConflictError,
   CandidateExhaustedError,
   IdentityStationError,
   InvalidAllocationStateError,

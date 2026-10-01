@@ -12,9 +12,9 @@
 
 ### Recent work (newest first)
 
-- Phase 9B adds the Node Station, PostgreSQL ledger migration, and deterministic
-  local PostgreSQL lifecycle proof for the Admin Manager root and Admin Header
-  direct child only.
+- Phase 9B-C adds the Node Station, PostgreSQL ledger migration, a guarded
+  durable bootstrap command, and deterministic local lifecycle proof. Test
+  fixture IDs are not durable allocations.
 
 ## Purpose and scope
 
@@ -35,6 +35,7 @@ bindings, domain records, or Header presentation.
 ## Current source and focused verification
 
 - Service boundary: [`apps/identity-station/src/station.ts`](../../apps/identity-station/src/station.ts)
+- Durable bootstrap command: [`apps/identity-station/src/bootstrap-command.ts`](../../apps/identity-station/src/bootstrap-command.ts)
 - PostgreSQL transaction adapter:
   [`apps/identity-station/src/postgres.ts`](../../apps/identity-station/src/postgres.ts)
 - Durable migration:
@@ -63,6 +64,10 @@ evidence only; bindings and platform/domain data remain outside it.
   authentication only with separately authorised operational architecture.
 - Add bindings, reverse lookup, retirement operations, bulk issuance, Header
   presentation, or child components only in their separately authorised phase.
+- Run `pnpm --filter @weerax/identity-station bootstrap` only with
+  `WEX_IDENTITY_DATABASE_URL` pointing to an already-configured, Station-owned
+  PostgreSQL ledger; its printed IDs are durable only after that operation and
+  a separate-session read-back succeed.
 
 ## Related documents
 
