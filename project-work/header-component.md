@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 9A — Define Identity Authority implementation placement
+Status: AWAITING REVIEWER REVIEW
+Phase: 9A — Identity Authority placement proposal submitted
 
 ## Reviewer verdict
 
@@ -83,3 +83,23 @@ close ready for separately authorised child composition.
 After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
 PrimaryNavigation, MainAction, NavigationItem, icon/profile controls, or Admin
 Station fitting without a new Reviewer-authorised phase.
+
+## Builder handoff
+
+Candidate: `proposal/identity-station-placement` at
+`1c4570e3e9a06fe5ebb78d26f920109832453c1a` (pushed remote head verified).
+
+- Adds proposed ADR 0015 and its decision-index entry only.
+- Places the future Authority as standalone Node service
+  `apps/identity-station`, outside presentation, schemas, adapters, Shared UI,
+  and consuming applications.
+- Locates its ledger in the Station-owned PostgreSQL `wex_identity` schema,
+  with `allocation_ledger` as the unique/transactional lifecycle evidence.
+- Bounds first operations to Station-owned `reserve`, `assign`, and `lookup`;
+  only a committed reserve consumes an ID, and the child cannot reserve before
+  its parent is assigned.
+- Passed `pnpm audit:foundation` and `git diff --check`.
+
+No service, dependency, database, schema, issuer, allocation, Header source,
+binding, or UI composition was implemented. Reviewer must assess the proposed
+new permanent service/storage architecture before any Phase 9B work.
