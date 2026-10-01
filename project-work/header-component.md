@@ -1,57 +1,51 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 8A — Identity Bootstrap authority promoted; independent closeout required
+Status: BUILDER ACTION REQUIRED
+Phase: 8B — Finalise ADR 0014 acceptance state
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Reviewer independently inspected
-`feat/header-identity-bootstrap-authority` at
-`4a5e38910cff7b8454d6f6d1ea0476001e59e1f3`.
+Reviewer independently verified Phase 8A promotion:
 
-Verified:
+- remote `main` is exactly
+  `4a5e38910cff7b8454d6f6d1ea0476001e59e1f3`;
+- the completed topic branch is removed;
+- remote heads are only `main` and `Project-work-instructions`;
+- promoted content matches the previously accepted Phase 8 candidate;
+- no Phase 9 implementation or Header/UI work was introduced.
 
-- candidate is exactly one commit ahead of current `main`, zero behind;
-- changed files are limited to proposed ADR 0014 and the decision index;
-- the ADR preserves ADR 0013 ownership: only the WEX UI Identity Authority /
-  Station may issue/reserve durable allocation IDs;
-- durable allocation evidence is Station-owned, not app/config/schema/UI/domain
-  state;
-- `allocationId`, family and placement become immutable at reservation;
-- atomic uniqueness, reserve-before-assignment, collision rejection and
-  permanent non-reuse are explicit;
-- first bootstrap shapes are limited to Admin Manager root `WEXAMxxxxx` and
-  direct Admin Header child `WEXAMHxxxxx` at parent-owned `header` slot;
-- no allocation, issuer implementation, storage implementation, Header source,
-  schema, adapter, binding, or component composition was introduced.
+### Blocking governance defect
 
-### Safeguard
+ADR 0014 is physically present on `main`, but its own status still says
+`Proposed`, and `docs/decisions/README.md` still lists it under
+`Proposed`.
 
-ADR 0014's phrase "failed, abandoned, or retired reservation remains evidence"
-must be read as applying only to an allocation ID whose reservation write
-successfully committed. A rejected atomic collision attempt does not create a
-new reservation record. Do not implement failure semantics that consume or
-persist an uncommitted candidate ID.
+Phase 9 must not consume a proposed decision as accepted architecture authority.
+The acceptance state must be made explicit in repository authority first.
 
-## Builder instruction — Phase 8A only
+The prior safeguard remains binding: only successfully committed reservations
+become durable/non-reusable evidence; a rejected atomic collision attempt does
+not consume a new candidate ID.
 
-Promote the exact accepted authority candidate
-`4a5e38910cff7b8454d6f6d1ea0476001e59e1f3` to `main`.
+## Builder instruction — Phase 8B only
 
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Fast-forward `main` to the exact accepted candidate; do not alter the ADR.
-3. Run `pnpm audit:foundation` and `git diff --check`.
-4. Push and verify remote `main` equals the accepted SHA.
-5. Remove `feat/header-identity-bootstrap-authority` only after promotion is
-   proven safe.
-6. Update this same work file to `AWAITING REVIEWER REVIEW` with exact
-   promotion/check/remote-head evidence.
-7. Stop for Reviewer.
+Create one bounded topic branch from current `main` and change only the
+decision acceptance metadata required to close ADR 0014:
 
-Do not begin Phase 9 issuance/allocation work until Reviewer independently
-closes this promotion.
+1. change ADR 0014 status from Proposed to Accepted, preserving its decision
+   text and the Reviewer safeguard;
+2. move ADR 0014 from the Proposed section of
+   `docs/decisions/README.md` into Accepted;
+3. do not alter ADR 0013, identity schemas, runtime code, storage, Header source,
+   allocation records, or any UI/component work;
+4. run `pnpm audit:foundation` and `git diff --check`;
+5. commit/push one candidate, update this same work file to
+   `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
+
+Do not begin Phase 9 until Reviewer independently accepts and promotes this
+metadata correction.
 
 ## Remaining roadmap
 
@@ -80,20 +74,3 @@ close ready for separately authorised child composition.
 After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
 PrimaryNavigation, MainAction, NavigationItem, icon/profile controls, or Admin
 Station fitting without a new Reviewer-authorised phase.
-
-## Builder handoff
-
-Promotion completed without changing the accepted ADR.
-
-- `origin` verified as `CodeByNath/WEXdesigns`.
-- Remote `main` is exactly `4a5e38910cff7b8454d6f6d1ea0476001e59e1f3`.
-- Required checks passed: `pnpm audit:foundation` and `git diff --check`.
-- After verified promotion, remote
-  `feat/header-identity-bootstrap-authority` was removed. Remote heads now are
-  `main` at `4a5e38910cff7b8454d6f6d1ea0476001e59e1f3` and
-  `Project-work-instructions` at
-  `7f064fad72f0b288db64d8be54b951e675f672f2`.
-
-No Phase 9 issuance/allocation work, Header source, runtime, browser, or UI
-composition work was started. Reviewer must independently verify promotion and
-branch closeout before authorising the next phase.
