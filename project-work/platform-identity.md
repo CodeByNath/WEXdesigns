@@ -1,100 +1,63 @@
 # Platform Identity System
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4 — Implement WEX UI identity schema contracts
+Status: BUILDER ACTION REQUIRED
+Phase: 5 — Promote accepted WEX UI identity schema contracts
 
 ## Reviewer verdict
 
 **Proceed**
 
-Reviewer independently verified the Phase 3B promotion:
-
-- `main` is exactly `394fb687c0ef972b2b833d2505933ffb1fde90dc`;
-- ADR 0013 says `Accepted`;
-- `docs/decisions/README.md` lists ADR 0013 under `Accepted`;
-- the completed topic branch is removed;
-- remote heads are only `main` and `Project-work-instructions`.
-
-ADR 0013 is now usable implementation authority.
-
-## Authorised schema-only scope
-
-Implement the smallest strict, framework-neutral contracts in
-`@weerax/schemas` for:
-
-1. **WEX UI allocation ID**
-   - closed families only: `WEXAM` and `WEXAMH`;
-   - exactly five suffix characters;
-   - alphabet: `ABCDEFGHJKLMNPQRSTUVWXYZ23456789`;
-   - exact full-form recognition so the shared `WEXAM`/`WEXAMH` stem is
-     unambiguous;
-   - reject unknown families, lowercase, wrong lengths, and ambiguous/disallowed
-     characters.
-
-2. **Allocation parent/slot structure**
-   - root allocation: no parent and no parent slot;
-   - separately allocated direct child: both `parentAllocationId` and
-     parent-owned `slot` are required together;
-   - reject half-defined parent relationships;
-   - relationships are explicit data, never inferred from prefixes.
-
-3. **Platform binding**
-   - strict serializable shape containing:
-     `uiAllocationId`, `bindingSlot`, `platformKey`,
-     `platformRecordRef`;
-   - platform references remain opaque non-empty data;
-   - reject callbacks, handlers, permissions, payloads, resolvers, and
-     undeclared fields.
-
-4. Public schema exports and focused deterministic tests.
-
-## Required tests
-
-Prove at minimum:
-
-- valid `WEXAM + XXXXX` and `WEXAMH + XXXXX`;
-- shared-prefix recognition does not misclassify `WEXAMH`;
-- invalid family, length, case, `I`, `O`, `0`, `1` are rejected;
-- root parent structure is valid;
-- child parent+slot pair is valid;
-- parent-only and slot-only structures are rejected;
-- valid binding round-trips;
-- binding unknown/executable fields are rejected;
-- existing `EntityIdentifier`, `SemanticAction`, Button and tier contracts
-  remain unchanged.
-
-Run at least:
-- `pnpm --filter @weerax/schemas check`;
-- `pnpm audit:foundation`;
-- `git diff --check`.
-
-## Guardrails
-
-Do not implement uniqueness, minting, reservation, collision handling, lookup,
-reverse lookup, persistence, retirement/tombstones, Identity Station runtime,
-adapters, dynamic resolution, Header IDs, migrations, or UI integration.
-
-Do not modify `EntityIdentifier` or `SemanticAction` to absorb this identity
-system.
-
-## Handoff
-
-Commit/push one bounded schema topic branch, then update this same file to
-`AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, tests, and any
-deviation. Stop for Reviewer.
-
-## Builder handoff — 2026-10-01
-
-Candidate: `feat/wex-ui-identity-schemas` at
+Reviewer independently inspected candidate
+`feat/wex-ui-identity-schemas` at
 `802f31c2f7ef58dee16dcfc9e600841d1eee59ba`.
 
-Changed only:
+Verified:
 
-- `packages/schemas/src/identifiers/wex-ui-identity.schema.ts`;
-- `packages/schemas/src/index.ts` public exports;
-- `packages/schemas/test/foundation.test.mjs` focused identity tests.
+- remote `main` remains exactly
+  `394fb687c0ef972b2b833d2505933ffb1fde90dc`;
+- candidate is exactly one commit ahead of `main` and zero behind;
+- the diff is limited to the authorised three files;
+- allocation IDs accept only the closed `WEXAM` / `WEXAMH` families,
+  exact five-character unambiguous suffixes, and correctly resolve the shared
+  prefix;
+- root versus direct-child placement is explicit and rejects half-defined
+  parent relationships;
+- platform binding is strict and serializable, with the platform record
+  reference kept opaque rather than interpreted;
+- callbacks/handlers/permissions/payloads/resolvers and undeclared binding
+  fields are rejected;
+- `EntityIdentifier` and `SemanticAction` were not modified;
+- focused tests cover the required identity, placement, binding, and existing
+  foundation contracts.
 
-`pnpm --filter @weerax/schemas check` passed (type-check, build, and 8 tests),
-as did `pnpm audit:foundation` and `git diff --check`. No deviation: no
-issuance, storage, adapter, runtime, UI, Header, or existing identity/action
-contract changed. No browser check applies.
+No browser, deployment, persistence, minting, lookup, adapter, or runtime
+boundary applies to this schema-only phase. GitHub exposes no CI run for the
+candidate; Builder-reported required local checks are consistent with the
+inspected source and test scope.
+
+## Builder instruction
+
+Promote only the exact accepted candidate
+`802f31c2f7ef58dee16dcfc9e600841d1eee59ba` to `main` without widening
+scope.
+
+Required transaction:
+
+1. verify `origin` is `CodeByNath/WEXdesigns`;
+2. fast-forward `main` to the exact accepted candidate;
+3. run:
+   - `pnpm --filter @weerax/schemas check`;
+   - `pnpm audit:foundation`;
+   - `git diff --check`;
+4. push `main` and verify remote `main` is exactly the accepted SHA;
+5. delete remote `feat/wex-ui-identity-schemas` after the promotion is
+   verified safe;
+6. update this same work file to `AWAITING REVIEWER REVIEW` with the exact
+   remote `main` SHA, check results, and remote-head evidence;
+7. stop for Reviewer.
+
+Do not begin Identity Station runtime, minting, persistence, reverse lookup,
+adapters, Header identity allocation, migration, or UI integration.
+
+After promotion and independent closeout, Header may resume from its existing
+deferred work file; do not create a replacement Header work area.
