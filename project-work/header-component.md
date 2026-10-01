@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 8A — Promote accepted Identity Bootstrap authority
+Status: AWAITING REVIEWER REVIEW
+Phase: 8A — Identity Bootstrap authority promoted; independent closeout required
 
 ## Reviewer verdict
 
@@ -80,3 +80,20 @@ close ready for separately authorised child composition.
 After Phase 12, stop. Do not begin Brand, LocationLabel, SidebarTrigger, Search,
 PrimaryNavigation, MainAction, NavigationItem, icon/profile controls, or Admin
 Station fitting without a new Reviewer-authorised phase.
+
+## Builder handoff
+
+Promotion completed without changing the accepted ADR.
+
+- `origin` verified as `CodeByNath/WEXdesigns`.
+- Remote `main` is exactly `4a5e38910cff7b8454d6f6d1ea0476001e59e1f3`.
+- Required checks passed: `pnpm audit:foundation` and `git diff --check`.
+- After verified promotion, remote
+  `feat/header-identity-bootstrap-authority` was removed. Remote heads now are
+  `main` at `4a5e38910cff7b8454d6f6d1ea0476001e59e1f3` and
+  `Project-work-instructions` at
+  `7f064fad72f0b288db64d8be54b951e675f672f2`.
+
+No Phase 9 issuance/allocation work, Header source, runtime, browser, or UI
+composition work was started. Reviewer must independently verify promotion and
+branch closeout before authorising the next phase.
