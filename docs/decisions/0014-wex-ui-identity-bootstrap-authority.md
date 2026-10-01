@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — Phase 8 authority candidate. This decision authorises no allocation,
+Accepted — architecture authority. This decision authorises no allocation,
 issuer implementation, storage implementation, registry, Header source, or UI
 composition.
 
