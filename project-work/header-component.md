@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 9B-D — Make durable bootstrap concurrency-safe
+Status: AWAITING REVIEWER REVIEW
+Phase: 9B-D — Concurrency-safe bootstrap submitted; allocation execution remains operationally gated
 
 ## Reviewer verdict
 
@@ -70,6 +70,24 @@ are read back from a separate session.
 
 If no persistent Station-owned PostgreSQL execution surface is available, report
 that gate. Do not substitute PGlite test IDs or repository files.
+
+## Builder handoff
+
+Candidate: `feat/identity-station-bootstrap` at
+`d06538613d6f25b2337daaf9727b5604c3524c75` (verified on `origin`).
+
+The candidate adds a Station-private PostgreSQL transaction-scoped advisory
+lock before `bootstrapAdminManagerHeader()` reads or writes bootstrap evidence.
+It retains normal reservation semantics and adds an adapter-level lock-order
+test plus a deterministic concurrent two-Station PGlite-ledger proof: exactly
+one root and matching Header pair persist, and both calls resolve that pair.
+
+Passed: focused Station check; schemas check; foundation audit; `pnpm check`;
+`git diff --check`.
+
+Operational gate: no persistent Station-owned PostgreSQL ledger or credential
+surface is available here. The bootstrap was not run against durable storage,
+and no real Admin Manager/Header IDs were minted or claimed.
 
 ## Remaining roadmap
 
