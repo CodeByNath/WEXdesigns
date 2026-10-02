@@ -1,110 +1,79 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 9B-P — Accepted Identity Station implementation promoted; closeout submitted
+Status: BLOCKED — DECISION REQUIRED
+Phase: 9C — Execute durable Admin Manager/Header bootstrap
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Reviewer independently inspected
-`feat/identity-station-bootstrap` at
-`d06538613d6f25b2337daaf9727b5604c3524c75`.
+Reviewer independently closed Phase 9B-P:
 
-Verified across the full branch from current `main`:
+- remote `main` is exactly
+  `d06538613d6f25b2337daaf9727b5604c3524c75`;
+- the promoted implementation is the exact previously reviewed three-commit
+  Identity Station candidate;
+- the topic branch is removed;
+- remote heads are only `main` and `Project-work-instructions`;
+- no implementation substance changed during promotion.
 
-- branch is three commits ahead, zero behind;
-- implementation remains confined to the standalone Identity Station runtime,
-  PostgreSQL migration/adapter, deterministic tests, dependency/foundation
-  routing, and Code Map;
-- fixture IDs are explicitly test-only;
-- the durable bootstrap command requires an already-configured Station-owned
-  PostgreSQL ledger and never accepts caller-supplied IDs;
-- sequential reruns resolve the existing pair and conflicting bootstrap evidence
-  stops;
-- production PostgreSQL bootstrap acquires one transaction-scoped
-  `pg_advisory_xact_lock` before any bootstrap read/write;
-- `bootstrapAdminManagerHeader()` uses only that serialized transaction
-  boundary;
-- adapter verification proves the lock is acquired after BEGIN and before
-  bootstrap work;
-- deterministic concurrent two-Station proof yields exactly one Admin Manager
-  root and one matching Header pair, with both calls resolving the same pair;
-- normal reserve/assign/lookup, collision, non-reuse, immutable placement and
-  root-before-child rules remain intact;
-- no deployment, credential, public transport/auth, binding, Header
-  presentation, Component Manager, or child-component work is introduced.
+The Identity Station implementation is accepted.
 
-### Safeguard
+## Current gate
 
-The concurrent PGlite proof uses a test serialization surrogate because it does
-not exercise PostgreSQL advisory-lock semantics itself. Acceptance therefore
-depends on the production adapter's explicit
-`pg_advisory_xact_lock` call being preserved. Do not replace/remove that
-database transaction lock without a separately reviewed concurrency proof.
+Phase 10 cannot begin until the first real allocations exist in the
+authoritative Station-owned PostgreSQL ledger.
 
-## Builder instruction — promotion only
+The repository now contains the accepted bootstrap command, but no persistent
+Station-owned PostgreSQL ledger/credential execution surface is currently
+available through the recorded project environment.
 
-Promote the exact accepted branch head
-`d06538613d6f25b2337daaf9727b5604c3524c75` to `main`.
+Do not substitute PGlite fixtures, repository files, hardcoded IDs, or chat
+values for durable allocations.
 
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Fast-forward/merge only the accepted three-commit candidate; do not alter
-   implementation substance.
+## Required Phase 9C execution
+
+A Builder/operator with access to an already-configured persistent
+Station-owned PostgreSQL ledger must:
+
+1. Apply/verify the accepted
+   `apps/identity-station/migrations/001_create_allocation_ledger.sql`.
+2. Set `WEX_IDENTITY_DATABASE_URL` for that Station-owned ledger.
 3. Run:
-   - focused Identity Station check;
-   - `pnpm --filter @weerax/schemas check`;
-   - `pnpm audit:foundation`;
-   - `pnpm check`;
-   - `git diff --check`.
-4. Push and verify remote `main` contains the exact accepted candidate.
-5. Remove `feat/identity-station-bootstrap` only after promotion is proven
-   safe.
-6. Update this same file to `AWAITING REVIEWER REVIEW` with final `main` SHA,
-   checks and remote-head evidence.
-7. Stop for Reviewer.
+   `pnpm --filter @weerax/identity-station bootstrap`
+4. Record the returned:
+   - Admin Manager `WEXAMxxxxx`;
+   - Admin Header `WEXAMHxxxxx`;
+   - Header `parentAllocationId`;
+   - Header slot.
+5. Close the process/session.
+6. From a separate process/session, read back both rows through the Station
+   lookup/bootstrap path and prove:
+   - both are `assigned`;
+   - Header parent exactly equals the Admin Manager ID;
+   - Header slot is exactly `header`.
+7. Run the bootstrap command again and prove it resolves the exact same pair and
+   creates no extra ledger rows.
+8. Do not expose database credentials or secrets in the repository/work file.
+9. Update this same work file to `AWAITING REVIEWER REVIEW` with the durable
+   allocation IDs and non-secret evidence only.
 
-## Operational gate after promotion
+## Decision required
 
-Phase 10 remains blocked after implementation promotion.
+Provide or designate the persistent PostgreSQL execution surface for the WEX UI
+Identity Station.
 
-The next action is not more Station architecture. The bootstrap command must be
-run once against a persistent Station-owned PostgreSQL ledger, then the assigned
-Admin Manager and Admin Header records must be read back in a separate
-session/process.
-
-Required durable evidence:
-
-- assigned Admin Manager `WEXAMxxxxx`;
-- assigned Admin Header `WEXAMHxxxxx`;
-- Header `parentAllocationId` exactly equals that Admin Manager ID;
-- Header slot exactly `header`;
-- rerunning bootstrap resolves the same pair and creates no additional rows.
-
-If no persistent Station-owned PostgreSQL execution surface exists, record that
-operational gate. Do not mint repository/test substitute IDs.
-
-## Builder handoff
-
-Accepted candidate was fast-forwarded to `origin/main` at
-`d06538613d6f25b2337daaf9727b5604c3524c75`, with no implementation changes
-or merge commit. The promoted candidate is exactly the Reviewer-inspected
-three-commit head.
-
-Passed after promotion preparation: focused Identity Station check; schemas
-check; foundation audit; `pnpm check`; `git diff --check`.
-
-Remote verification: `origin/main` resolves to the SHA above. The proven-safe
-`feat/identity-station-bootstrap` topic branch was removed after confirming it
-was an ancestor of `main`; remote heads then contained only `main` and
-`Project-work-instructions`.
-
-Operational gate remains: no persistent Station-owned PostgreSQL ledger or
-credential surface was available, so no real Admin Manager/Header IDs were
-minted or claimed.
+This is an operational prerequisite, not permission to design deployment,
+hosting, authentication, secret-management, or public transport architecture.
 
 ## Remaining roadmap
 
-After durable allocation evidence is accepted: Phase 10 empty Header shell
-compartments; Phase 11 responsive shell proof; Phase 12 promote/close. Stop
-before real child-component composition and Admin Station fitting.
+After Phase 9C durable allocation evidence is accepted:
+
+- Phase 10 — empty Header shell compartments only;
+- Phase 11 — responsive shell behaviour proof in Component Manager;
+- Phase 12 — promote/close pre-composition Header.
+
+Hard stop remains before Brand, LocationLabel, SidebarTrigger, Search,
+PrimaryNavigation, MainAction, NavigationItem, profile/icon controls, or Admin
+Station fitting.
