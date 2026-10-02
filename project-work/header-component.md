@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: 9B-P — Promote accepted Identity Station implementation
+Status: AWAITING REVIEWER REVIEW
+Phase: 9B-P — Accepted Identity Station implementation promoted; closeout submitted
 
 ## Reviewer verdict
 
@@ -83,6 +83,25 @@ Required durable evidence:
 
 If no persistent Station-owned PostgreSQL execution surface exists, record that
 operational gate. Do not mint repository/test substitute IDs.
+
+## Builder handoff
+
+Accepted candidate was fast-forwarded to `origin/main` at
+`d06538613d6f25b2337daaf9727b5604c3524c75`, with no implementation changes
+or merge commit. The promoted candidate is exactly the Reviewer-inspected
+three-commit head.
+
+Passed after promotion preparation: focused Identity Station check; schemas
+check; foundation audit; `pnpm check`; `git diff --check`.
+
+Remote verification: `origin/main` resolves to the SHA above. The proven-safe
+`feat/identity-station-bootstrap` topic branch was removed after confirming it
+was an ancestor of `main`; remote heads then contained only `main` and
+`Project-work-instructions`.
+
+Operational gate remains: no persistent Station-owned PostgreSQL ledger or
+credential surface was available, so no real Admin Manager/Header IDs were
+minted or claimed.
 
 ## Remaining roadmap
 
