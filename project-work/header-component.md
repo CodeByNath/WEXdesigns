@@ -1,97 +1,91 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 9B-D — Concurrency-safe bootstrap submitted; allocation execution remains operationally gated
+Status: BUILDER ACTION REQUIRED
+Phase: 9B-P — Promote accepted Identity Station implementation
 
 ## Reviewer verdict
 
-**Stop — architectural risk**
+**Proceed with safeguards**
 
-Reviewer independently inspected correction candidate
+Reviewer independently inspected
 `feat/identity-station-bootstrap` at
-`7195fd8346f8b139d1adb5eb87dd7975c2273025`.
+`d06538613d6f25b2337daaf9727b5604c3524c75`.
 
-Accepted parts of the correction:
+Verified across the full branch from current `main`:
 
-- fixture IDs are now explicitly test-only and are no longer claimed as real
-  allocations;
-- a Station-owned bootstrap command uses the accepted Station operations rather
-  than caller-supplied/hardcoded IDs;
-- sequential repeat execution resolves the existing pair rather than creating a
-  second pair;
-- separate database-session read-back is tested;
-- conflicting existing root evidence stops rather than silently choosing one;
-- the command requires an already-configured Station PostgreSQL ledger;
-- no deployment/authentication/Header/UI scope was introduced.
+- branch is three commits ahead, zero behind;
+- implementation remains confined to the standalone Identity Station runtime,
+  PostgreSQL migration/adapter, deterministic tests, dependency/foundation
+  routing, and Code Map;
+- fixture IDs are explicitly test-only;
+- the durable bootstrap command requires an already-configured Station-owned
+  PostgreSQL ledger and never accepts caller-supplied IDs;
+- sequential reruns resolve the existing pair and conflicting bootstrap evidence
+  stops;
+- production PostgreSQL bootstrap acquires one transaction-scoped
+  `pg_advisory_xact_lock` before any bootstrap read/write;
+- `bootstrapAdminManagerHeader()` uses only that serialized transaction
+  boundary;
+- adapter verification proves the lock is acquired after BEGIN and before
+  bootstrap work;
+- deterministic concurrent two-Station proof yields exactly one Admin Manager
+  root and one matching Header pair, with both calls resolving the same pair;
+- normal reserve/assign/lookup, collision, non-reuse, immutable placement and
+  root-before-child rules remain intact;
+- no deployment, credential, public transport/auth, binding, Header
+  presentation, Component Manager, or child-component work is introduced.
 
-### Remaining risk
+### Safeguard
 
-The bootstrap is repeat-safe only after one transaction has committed. Two
-bootstrap processes started concurrently can both read zero Admin Manager roots,
-then each reserve a different valid `WEXAMxxxxx` because the ledger uniqueness
-constraint is only on `allocation_id`.
+The concurrent PGlite proof uses a test serialization surrogate because it does
+not exercise PostgreSQL advisory-lock semantics itself. Acceptance therefore
+depends on the production adapter's explicit
+`pg_advisory_xact_lock` call being preserved. Do not replace/remove that
+database transaction lock without a separately reviewed concurrency proof.
 
-That can create two durable Admin Manager roots and then two Headers. A later run
-would detect the conflict, but the namespace would already contain conflicting
-bootstrap allocations that cannot be deleted or reused.
+## Builder instruction — promotion only
 
-The first durable bootstrap must therefore be singleton-safe at the database
-transaction boundary, not merely sequentially idempotent.
+Promote the exact accepted branch head
+`d06538613d6f25b2337daaf9727b5604c3524c75` to `main`.
 
-## Builder correction — same branch only
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Fast-forward/merge only the accepted three-commit candidate; do not alter
+   implementation substance.
+3. Run:
+   - focused Identity Station check;
+   - `pnpm --filter @weerax/schemas check`;
+   - `pnpm audit:foundation`;
+   - `pnpm check`;
+   - `git diff --check`.
+4. Push and verify remote `main` contains the exact accepted candidate.
+5. Remove `feat/identity-station-bootstrap` only after promotion is proven
+   safe.
+6. Update this same file to `AWAITING REVIEWER REVIEW` with final `main` SHA,
+   checks and remote-head evidence.
+7. Stop for Reviewer.
 
-1. Add the smallest PostgreSQL-backed serialization/singleton guard that makes
-   `bootstrapAdminManagerHeader()` safe across concurrent Station processes.
-   Prefer a Station-owned transaction/database mechanism; do not introduce a
-   generic application lock service.
-2. The guarantee must be: concurrent first bootstrap attempts cannot commit more
-   than one authorised Admin Manager root/Header pair.
-3. Preserve normal `reserve` collision/non-reuse semantics and immutable ledger
-   evidence.
-4. Add a deterministic concurrency test using two independent Station/database
-   sessions against the same PostgreSQL/PGlite ledger. After both attempts
-   settle, exactly one root and one matching Header may exist; the second attempt
-   must resolve the same pair or fail without creating another pair.
-5. Keep fixture IDs non-durable and keep the real durable allocation execution
-   operationally gated.
-6. Do not add production deployment, credentials, auth/public transport,
-   bindings, Header source/UI, or child composition.
-7. Run focused Station check, schemas check, foundation audit, `pnpm check`,
-   and `git diff --check`.
-8. Push the bounded correction and update this same file to
-   `AWAITING REVIEWER REVIEW`.
+## Operational gate after promotion
 
-## Operational gate remains
+Phase 10 remains blocked after implementation promotion.
 
-Even after this implementation is accepted, Phase 10 remains blocked until the
-bootstrap command is actually run against a persistent Station-owned PostgreSQL
-ledger and the assigned Admin Manager/Header IDs plus exact Header parent/slot
-are read back from a separate session.
+The next action is not more Station architecture. The bootstrap command must be
+run once against a persistent Station-owned PostgreSQL ledger, then the assigned
+Admin Manager and Admin Header records must be read back in a separate
+session/process.
 
-If no persistent Station-owned PostgreSQL execution surface is available, report
-that gate. Do not substitute PGlite test IDs or repository files.
+Required durable evidence:
 
-## Builder handoff
+- assigned Admin Manager `WEXAMxxxxx`;
+- assigned Admin Header `WEXAMHxxxxx`;
+- Header `parentAllocationId` exactly equals that Admin Manager ID;
+- Header slot exactly `header`;
+- rerunning bootstrap resolves the same pair and creates no additional rows.
 
-Candidate: `feat/identity-station-bootstrap` at
-`d06538613d6f25b2337daaf9727b5604c3524c75` (verified on `origin`).
-
-The candidate adds a Station-private PostgreSQL transaction-scoped advisory
-lock before `bootstrapAdminManagerHeader()` reads or writes bootstrap evidence.
-It retains normal reservation semantics and adds an adapter-level lock-order
-test plus a deterministic concurrent two-Station PGlite-ledger proof: exactly
-one root and matching Header pair persist, and both calls resolve that pair.
-
-Passed: focused Station check; schemas check; foundation audit; `pnpm check`;
-`git diff --check`.
-
-Operational gate: no persistent Station-owned PostgreSQL ledger or credential
-surface is available here. The bootstrap was not run against durable storage,
-and no real Admin Manager/Header IDs were minted or claimed.
+If no persistent Station-owned PostgreSQL execution surface exists, record that
+operational gate. Do not mint repository/test substitute IDs.
 
 ## Remaining roadmap
 
-After concurrency-safe Station implementation is accepted/promoted: execute and
-verify the real durable bootstrap; then Phase 10 empty Header shell compartments;
-then responsive shell proof; then closeout. Stop before real child-component
-composition and Admin Station fitting.
+After durable allocation evidence is accepted: Phase 10 empty Header shell
+compartments; Phase 11 responsive shell proof; Phase 12 promote/close. Stop
+before real child-component composition and Admin Station fitting.
