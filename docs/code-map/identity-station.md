@@ -4,9 +4,9 @@
 
 - Last visited: 2026-10-03
 - Last updated: 2026-10-03
-- Verified against: `origin/main` at `d06538613d6f25b2337daaf9727b5604c3524c75`.
+- Verified against: `origin/main` at `38b762c04d1b41c8e70616a270dd525646f1e5fa`.
 - Runtime scope: this historical PostgreSQL proof implements allocation-ledger
-  mechanics only. Proposed ADR 0016 removes its former central-authority role;
+  mechanics only. Accepted ADR 0016 removes its former central-authority role;
   it is awaiting conversion to an optional portable storage adapter.
 
 ### Recent work (newest first)
@@ -30,7 +30,7 @@ domain records, or Header presentation.
 - [ADR 0013: WEX UI Platform Identity](../decisions/0013-wex-ui-platform-identity.md)
 - [ADR 0014: WEX UI Identity Bootstrap Authority](../decisions/0014-wex-ui-identity-bootstrap-authority.md)
 - [ADR 0015: WEX UI Identity Station Placement](../decisions/0015-wex-ui-identity-station-placement.md)
-- [Proposed ADR 0016: Portable WEX Identity Spaces](../decisions/0016-portable-wex-identity-spaces.md)
+- [Accepted ADR 0016: Portable WEX Identity Spaces](../decisions/0016-portable-wex-identity-spaces.md)
 - [Platform identity architecture](../architecture/platform-identity.md)
 - [Repository map](../architecture/repository-map.md)
 - [Dependency rules](../architecture/dependency-rules.md)
@@ -56,7 +56,7 @@ domain records, or Header presentation.
 
 The Station may consume schema validation and a PostgreSQL client. It must not
 move WEX identity semantics into schemas, WEX, Shared UI, or the web runtime.
-Under proposed ADR 0016, the WEX Identity Plugin + Tool owns identity semantics
+Under accepted ADR 0016, the WEX Identity Plugin + Tool owns identity semantics
 and operations while host storage adapters persist its contract in host-local
 identity spaces. This Station is no longer the universal issuer or persistence
 owner. The ledger contains allocation lifecycle evidence only; bindings and

@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — supersedes the clauses identified below in ADRs 0013–0015. It is
+Accepted — supersedes the clauses identified below in ADRs 0013–0015. It is
 architecture authority only and authorises no storage contract, adapter,
 runtime, schema, migration, allocation, Header source, or UI composition.
 
