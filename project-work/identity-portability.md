@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 1D — Promote reviewed documentation-state correction
+Status: AWAITING REVIEWER REVIEW
+Phase: 1D — Documentation-state correction promoted
 
 ## Reviewer verdict
 
@@ -60,6 +60,16 @@ Forbidden:
 - Limitation/deviation: documentation-only Phase 1C; no runtime, schema,
   storage, adapter, PostgreSQL, Header, or UI work was performed.
 - Unresolved issues: none for this phase.
+
+## Builder promotion handoff
+
+- Fast-forward promotion: `38b762c04d1b41c8e70616a270dd525646f1e5fa` to
+  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`.
+- Remote `main` verified exactly at
+  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539` after push.
+- Pre-promotion ancestry, three-branch capacity, and `git diff --check` were
+  reverified; the promotion was fast-forward only.
+- No candidate/source edits, branch deletion, or Phase 2 work occurred.
 
 ## Locked roadmap
 
