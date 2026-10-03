@@ -2,32 +2,35 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-02
-- Last updated: 2026-10-02
-- Verified against: Phase 9B candidate `feat/identity-station-bootstrap`, based
-  on `origin/main` at `27642f1d42facf310a061db52174a57df257e2de`.
-- Runtime scope: the standalone Station owns allocation issuance and its ledger;
-  it has no public transport, deployment, caller authentication, platform
-  binding, domain record, or presentation responsibility.
+- Last visited: 2026-10-03
+- Last updated: 2026-10-03
+- Verified against: `origin/main` at `d06538613d6f25b2337daaf9727b5604c3524c75`.
+- Runtime scope: this historical PostgreSQL proof implements allocation-ledger
+  mechanics only. Proposed ADR 0016 removes its former central-authority role;
+  it is awaiting conversion to an optional portable storage adapter.
 
 ### Recent work (newest first)
 
 - Phase 9B-D adds a PostgreSQL-serialized durable bootstrap command and
   deterministic concurrent-session lifecycle proof. Test fixture IDs are not
   durable allocations.
+- Phase 1 Identity Portability records the authority correction: host-local
+  WEX identity spaces and a storage-adapter contract supersede central Station
+  ownership. No runtime conversion is authorised yet.
 
 ## Purpose and scope
 
-This map routes the WEX UI Identity Authority / Station to its accepted
-identity authority, runtime, migration, and focused verification. It does not
-define allocation families, transport, deployment, credentials, platform
-bindings, domain records, or Header presentation.
+This map routes the historical PostgreSQL proof to the portable WEX Identity
+authority, runtime, migration, and focused verification. It does not define
+allocation families, transport, deployment, credentials, platform bindings,
+domain records, or Header presentation.
 
 ## Governing authority and evidence routes
 
 - [ADR 0013: WEX UI Platform Identity](../decisions/0013-wex-ui-platform-identity.md)
 - [ADR 0014: WEX UI Identity Bootstrap Authority](../decisions/0014-wex-ui-identity-bootstrap-authority.md)
 - [ADR 0015: WEX UI Identity Station Placement](../decisions/0015-wex-ui-identity-station-placement.md)
+- [Proposed ADR 0016: Portable WEX Identity Spaces](../decisions/0016-portable-wex-identity-spaces.md)
 - [Platform identity architecture](../architecture/platform-identity.md)
 - [Repository map](../architecture/repository-map.md)
 - [Dependency rules](../architecture/dependency-rules.md)
@@ -52,18 +55,23 @@ bindings, domain records, or Header presentation.
 ```
 
 The Station may consume schema validation and a PostgreSQL client. It must not
-move issuance or persistence into schemas, WEX, Shared UI, adapters, the web
-runtime, or a consuming platform. The ledger contains allocation lifecycle
-evidence only; bindings and platform/domain data remain outside it.
+move WEX identity semantics into schemas, WEX, Shared UI, or the web runtime.
+Under proposed ADR 0016, host storage adapters implement the same portable
+contract in host-local identity spaces; this Station is no longer the universal
+issuer or persistence owner. The ledger contains allocation lifecycle evidence
+only; bindings and platform/domain data remain outside it.
 
 ## Safe change routing
 
-- Change allocation forms, families, lifecycle, or placement through the
-  governing accepted ADRs and identity architecture first.
-- Change database deployment, credentials, public transport, or caller
-  authentication only with separately authorised operational architecture.
-- Add bindings, reverse lookup, retirement operations, bulk issuance, Header
-  presentation, or child components only in their separately authorised phase.
+- Change allocation forms, families, lifecycle, placement, or portable
+  storage-adapter semantics through the governing decisions and identity
+  architecture first.
+- Convert this proof into an optional PostgreSQL adapter only after the shared
+  contract and local-folder reference adapter are accepted.
+- Change database deployment, credentials, public transport, caller
+  authentication, bindings, reverse lookup, retirement operations, bulk
+  issuance, Header presentation, or child components only in their separately
+  authorised phase.
 - Run `pnpm --filter @weerax/identity-station bootstrap` only with
   `WEX_IDENTITY_DATABASE_URL` pointing to an already-configured, Station-owned
   PostgreSQL ledger; its printed IDs are durable only after that operation and

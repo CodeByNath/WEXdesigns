@@ -7,7 +7,7 @@
 | `@weerax/schemas` | Serializable runtime and compile-time contracts | Zod only at foundation | WEX, UI, adapters, apps, React, Preact, Vite, DOM, CSS | Contract definitions | Identity, action, and tier primitives established |
 | `@weerax/adapters` | Future domain-owner integration | `@weerax/schemas` | WEX, UI, apps, React, Preact | Domain owners | Boundary only; no adapters implemented |
 | `@weerax/ui` | Shared rendering and interaction structures | `@weerax/schemas`, `@weerax/wex` | Application-specific domain owners | Shared UI + WEX | Button presentation resolver implemented; other shared components remain unimplemented |
-| `@weerax/identity-station` | WEX UI allocation issuance and durable ledger runtime | `@weerax/schemas`, PostgreSQL client | WEX, UI, adapters, web runtime, domain records | WEX UI Identity Authority / Station | Bootstrap ledger, reserve/assign/lookup operations, and local PostgreSQL proof implemented |
+| `@weerax/identity-station` | Historical PostgreSQL allocation-ledger proof awaiting portable-adapter conversion | `@weerax/schemas`, PostgreSQL client | WEX, UI, adapters, web runtime, domain records | Optional WEX Identity storage-adapter proof | Bootstrap ledger, reserve/assign/lookup operations, and local PostgreSQL proof implemented; not portable identity core |
 | `@weerax/studio-agent-runner` | Node validation and future agent/n8n tooling | Required reusable packages | UI presentation ownership | Runtime application | Schema-consumption shell only |
 | `@weerax/web-runtime` | Live WEX shell and future browser application assembly | Required reusable packages | Reusable package authority and stored catalogue structure | Runtime application | Catalogue shell, approved presentation routes, and theme mechanics |
 | `@weerax/typescript-config` | Shared strict TypeScript configuration | None | Runtime or presentation code | Repository tooling | Active |
@@ -27,10 +27,14 @@
 @weerax/schemas <------ apps/studio-agent-runner
        ^
        |
-apps/identity-station ----> PostgreSQL allocation ledger
+apps/identity-station ----> PostgreSQL allocation ledger (optional adapter proof)
 ```
 
 `@weerax/ui` may also consume `@weerax/wex`. Applications remain outside reusable core packages. The graph must remain acyclic.
+
+WEX Identity is a portable Plugin + Tool with host-local identity spaces. The
+first local folder adapter and the storage-adapter contract remain deferred;
+the current Station must not be treated as universal WEX identity authority.
 
 ## Foundation Stop Gate
 

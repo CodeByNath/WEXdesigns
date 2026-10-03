@@ -7,17 +7,18 @@ does not identify authoritative business records, grant domain permissions, or
 replace a consuming platform's lifecycle, persistence, validation, or action
 authority.
 
-This architecture boundary is paired with [ADR 0013](../decisions/0013-wex-ui-platform-identity.md).
-The ADR decides the identifier namespace and allocation lifecycle. No current
-schema, generator, registry, persistence store, adapter, runtime binding, or
-component is introduced by this document.
+This architecture boundary is paired with [ADR 0013](../decisions/0013-wex-ui-platform-identity.md)
+as corrected by proposed [ADR 0016](../decisions/0016-portable-wex-identity-spaces.md).
+The decisions define identifier form and portable allocation lifecycle
+semantics. No current schema, generator, registry, persistence store, adapter,
+runtime binding, or component is introduced by this document.
 
 ## Four separate identities
 
 | Identity | Purpose | Owner |
 | --- | --- | --- |
 | Reusable definition/capability | An independently identified reusable UI definition or type | WEX composition authority |
-| UI composition/allocation | One concrete WEX composition/allocation instance | WEX UI Identity Authority / Station |
+| UI composition/allocation | One concrete WEX composition/allocation instance | The host's isolated WEX identity space through its approved adapter |
 | Platform/domain reference | An authoritative external record reference | Consuming platform/domain |
 | Binding/reference | An explicit mapping from a WEX allocation slot to an external reference | Adapter/integration boundary |
 
@@ -76,15 +77,16 @@ spacing, presentation, state, or behaviour.
 
 ## Allocation lifecycle and placement
 
-The WEX UI Identity Authority / Station owns the WEX allocation namespace. It
-alone registers/validates families, issues immutable allocation IDs, reserves
-them before assignment, rejects collisions, prevents reuse, and resolves
-allocations. Applications request and consume identities; they do not mint
-independent local IDs. An allocation or binding that must survive a configuration
-round trip, external reference, or platform-to-UI lookup requires durable
-identity-authority storage. A platform record may resolve to zero, one, or many
-WEX allocations; reverse lookup is therefore an indexed query, not an inferred
-hierarchy.
+Each host owns one isolated WEX identity space through an approved storage
+adapter. The adapter registers/validates families, issues immutable allocation
+IDs, reserves them before assignment, rejects collisions, prevents reuse, and
+resolves allocations within that host space. A WEX allocation is addressed by
+its identity-space registration and allocation ID; applications do not create
+disconnected IDs outside that space. An allocation or binding that must survive
+a configuration round trip, external reference, or platform-to-UI lookup
+requires durable adapter storage. A platform record may resolve to zero, one,
+or many WEX allocations; reverse lookup is therefore an indexed query, not an
+inferred hierarchy.
 
 Retired externally referenced allocations are not reissued. Their retirement
 record/tombstone is retained when needed to preserve a durable reference or
@@ -94,18 +96,19 @@ external reference remain structurally addressed and need not mint an identity.
 | Boundary | Responsibility | Must not own |
 | --- | --- | --- |
 | `@weerax/schemas` | Framework-neutral serializable identity, parent, and binding validation | Issuance, persistence, lookup, callbacks |
-| Product-side adapters | Explicit mapping and authoritative platform-reference resolution | WEX allocation issuance or domain duplication |
+| Host storage adapters | WEX identity-space persistence and portable allocation semantics | Host-domain data ownership or altered WEX identity semantics |
+| Product-side adapters | Explicit mapping and authoritative platform-reference resolution | WEX identity issuance outside an approved host identity space or domain duplication |
 | Shared UI | Rendering supplied definitions | Registry, persistence, platform authority |
-| WEX UI Identity Authority / Station | Family validation, issuance, reservation, durable lifecycle, and lookup | Domain-record authority or presentation ownership |
+| WEX Plugin + Tool | Portable identity rules, initialization, inspection, and targeting tooling | Host-domain authority or mandatory backend ownership |
 
-The Identity Authority / Station is a WEX platform service, separate from the
-WEX presentation package and reusable core packages. Applications may request
-or consume its identities only through separately approved integration.
+The WEX Plugin + Tool is separate from the WEX presentation package and
+reusable core packages. PostgreSQL Station infrastructure is optional adapter
+proof, not central authority. Applications may request or consume identities
+only through separately approved integration.
 
 ## Implementation boundary
 
-The first implementation phase, after ADR acceptance, is limited to pure
-`@weerax/schemas` shapes and focused validation tests. It must not add a
-generator, registry, persistence, adapter, runtime binding, Header ID, or
-migration. Identity Authority / Station behaviour requires a later demonstrated
-consumer and a separate approval.
+The next implementation phase, after ADR acceptance, defines the
+framework-neutral storage-adapter contract and identity-space records. It must
+not add an adapter, runtime binding, Header ID, migration, or backend-specific
+storage. Implementation then proceeds with the approved local folder adapter.
