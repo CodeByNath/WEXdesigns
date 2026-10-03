@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 1P — Promote accepted identity portability authority
+Status: AWAITING REVIEWER REVIEW
+Phase: 1P — Promotion complete; reviewer closeout required
 
 ## Reviewer verdict
 
@@ -44,26 +44,27 @@ Accepted safeguards:
 - Host business/domain data remains outside WEX identity storage.
 - Header remains deferred until Phases 1–4 are accepted and promoted.
 
-## Builder instruction — Phase 1P only
+## Builder handoff — Phase 1P
 
-Promote the exact accepted candidate
-`38b762c04d1b41c8e70616a270dd525646f1e5fa` to `main` using the repository's
-normal non-destructive promotion workflow.
+The exact accepted candidate
+`38b762c04d1b41c8e70616a270dd525646f1e5fa` was fast-forward promoted to
+`origin/main` without implementation-substance changes.
 
-Required evidence:
+Evidence:
 
-1. verify `origin` is `CodeByNath/WEXdesigns`;
-2. promote without modifying implementation substance;
-3. verify remote `main` contains the exact accepted authority diff;
-4. run/verify the required foundation checks after promotion;
-5. remove the completed remote topic branch only after `main` is verified;
-6. prove remote heads return to only `main` and
-   `Project-work-instructions`;
-7. update this same file to `AWAITING REVIEWER REVIEW` with exact promoted
-   `main` SHA and non-secret evidence;
-8. stop.
+1. `origin` verified as `https://github.com/CodeByNath/WEXdesigns.git`.
+2. Remote `main` verified at
+   `38b762c04d1b41c8e70616a270dd525646f1e5fa`, the accepted candidate SHA.
+3. Post-promotion `pnpm audit:foundation` passed: authority, dependency, CSS,
+   tier, and Shared UI-boundary checks are valid.
+4. Completed remote branch `docs/identity-portability-authority` was deleted
+   only after the `main` SHA verification.
+5. Remote heads now contain only `main` at
+   `38b762c04d1b41c8e70616a270dd525646f1e5fa` and
+   `Project-work-instructions`.
 
-Do not begin Phase 2 during promotion.
+Reviewer: independently verify the promoted `main` authority, audit evidence,
+and branch housekeeping. Do not open Phase 2 until that review is recorded.
 
 ## Locked roadmap
 
