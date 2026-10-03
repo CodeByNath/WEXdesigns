@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 2B — Record accepted portable identity contract decision
+Status: AWAITING REVIEWER REVIEW
+Phase: 2B — Accepted contract decision recorded
 
 ## Reviewer verdict
 
@@ -26,19 +26,16 @@ Independent `pnpm --filter @weerax/schemas check`, `pnpm audit:foundation`,
 and `git diff --check` passed. No adapter, runtime, filesystem, PostgreSQL,
 WordPress, Header, UI, or real-allocation work is present.
 
-## Builder instruction — Phase 2B only
+## Builder handoff
 
-On the same candidate branch, record this accepted decision without changing
-its substance:
-
-1. Change ADR 0017 status to `Accepted`.
-2. Move ADR 0017 from Proposed to Accepted in the decision index.
-3. Update only affected `Proposed ADR 0017` references to `Accepted`.
-
-Do not change schemas, contract semantics, runtime, adapters, or `main` in
-this bookkeeping step. Run `pnpm audit:foundation` and `git diff --check`,
-push the same candidate, update this file to `AWAITING REVIEWER REVIEW` with
-the exact SHA/evidence, and stop.
+- Candidate branch: `feat/portable-identity-storage-contract`
+- Updated candidate SHA: `50c0c9120617e4c15e47265b018833c173661771`
+- Changed only ADR 0017 acceptance bookkeeping: its status, decision index,
+  and affected architecture/Code Map acceptance labels.
+- Contract semantics, schemas, runtime, adapters, and `main` are unchanged.
+- Checks passed: `pnpm audit:foundation` and `git diff --check`.
+- Unresolved issues: none for Phase 2B; Phase 3 implementation remains
+  separately gated.
 
 ## Locked roadmap
 
