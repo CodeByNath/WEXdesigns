@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 2 — Define portable identity + storage-adapter contract
+Status: AWAITING REVIEWER REVIEW
+Phase: 2 — Portable identity contract candidate submitted
 
 ## Reviewer verdict
 
@@ -44,78 +44,20 @@ Storage Adapter owns only:
 
 Adapters must never invent IDs, families, lifecycle states, or identity meaning.
 
-## Builder instruction — Phase 2 only
+## Builder handoff
 
-Create one topic branch from current `main`.
-
-Define the minimum framework-neutral contract and record shapes required for:
-
-1. **Identity-space registration**
-   - host/platform registration record;
-   - stable identity-space reference used with allocation IDs;
-   - no host business payload.
-
-2. **Initialization state**
-   - detect absent/present WEX identity space;
-   - approval-required state before first creation;
-   - initialized/registered state;
-   - no UI implementation.
-
-3. **Allocation persistence record**
-   - allocation ID;
-   - family;
-   - lifecycle state;
-   - immutable placement: root or exact parentAllocationId + parent-owned slot;
-   - required timestamps/evidence for reserve/assign/retire.
-
-4. **Storage-adapter operations**
-   - detect/open/create space;
-   - read platform registration;
-   - persist registration;
-   - atomic reserve record;
-   - lifecycle transition persistence;
-   - lookup/read;
-   - retirement/non-reuse evidence.
-
-5. **Concurrency/collision contract**
-   - adapter-specific mechanism allowed;
-   - portable guarantee must be identical across backends.
-
-6. **Binding boundary**
-   - preserve existing opaque platform/domain binding separation;
-   - do not move product/domain resolution into storage adapters.
-
-### Required architecture decisions
-
-- Decide where the portable Plugin + Tool contract lives in repository
-  architecture without violating dependency rules.
-- Decide which shapes belong in `@weerax/schemas` versus runtime/plugin code.
-- Keep the contract backend-neutral: no fs paths, SQL, WordPress APIs, database
-  credentials, callbacks, CSS, UI components, or domain logic in schemas.
-- Local folder is only the first future adapter; do not implement it in Phase 2.
-
-### Explicit exclusions
-
-Do not:
-- implement filesystem storage;
-- modify PostgreSQL Station runtime;
-- create WordPress/MySQL integration;
-- mint real Header/Admin IDs;
-- resume Header work;
-- add product-specific records;
-- add UI.
-
-Update/add ADR/architecture/schema-contract documentation only as required by the
-accepted architecture. If a minimal schema shape is necessary to express the
-portable serializable contract, it may be proposed/implemented only if clearly
-framework-neutral and covered by focused validation tests.
-
-Run the relevant checks, including `pnpm audit:foundation`, schema checks if
-schemas change, and `git diff --check`.
-
-Push the candidate, update this same file to
-`AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, checks, and
-unresolved decisions, then stop.
+- Candidate branch: `feat/portable-identity-storage-contract`
+- Pushed SHA: `ea7eb0704d6748f701e23676c4b5a4320e0cfc4d`
+- Defines proposed ADR 0017 and a portable operation/record contract; updates
+  platform-identity and Identity Station navigation.
+- Adds strict `@weerax/schemas` registration, initialization-state, lifecycle
+  record, and lookup-key validation with focused tests and public exports.
+- No adapter, Plugin + Tool runtime, PostgreSQL change, filesystem/WordPress
+  integration, ID allocation, Header work, product record, or UI was added.
+- Checks passed: `pnpm --filter @weerax/schemas check`,
+  `pnpm audit:foundation`, and `git diff --check`.
+- Unresolved decision: ADR 0017 remains Proposed pending Reviewer acceptance;
+  runtime interface and local-folder implementation remain deferred.
 
 ## Locked roadmap
 
