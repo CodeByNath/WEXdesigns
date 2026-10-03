@@ -11,9 +11,9 @@
 
 ### Recent work (newest first)
 
-- Phase 2 proposes the portable identity-space record and storage-operation
-  contract. The candidate adds framework-neutral schema validation only; no
-  adapter, Plugin + Tool runtime, or PostgreSQL conversion is authorised.
+- Phase 2A corrects the portable contract with a first-class WEX-owned platform
+  registration identity. The candidate adds framework-neutral schema validation
+  only; no adapter, Plugin + Tool runtime, or PostgreSQL conversion is authorised.
 - Phase 9B-D adds a PostgreSQL-serialized durable bootstrap command and
   deterministic concurrent-session lifecycle proof. Test fixture IDs are not
   durable allocations.

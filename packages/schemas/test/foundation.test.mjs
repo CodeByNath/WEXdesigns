@@ -99,9 +99,9 @@ test('keeps platform bindings strict and serializable', () => {
   );
 });
 
-test('defines portable identity-space registration and initialization states', () => {
+test('defines WEX-owned platform registration and initialization states', () => {
   const registration = {
-    identitySpaceId: 'host-space-1',
+    wexPlatformRegistrationId: 'opaque-registration-1',
     platformKey: 'host-platform',
     registeredAt: '2026-10-03T00:00:00.000Z',
   };
@@ -116,11 +116,19 @@ test('defines portable identity-space registration and initialization states', (
     WexIdentitySpaceRegistrationSchema.safeParse({ ...registration, domainRecord: 'customer-1' }).success,
     false,
   );
+  assert.equal(
+    WexIdentitySpaceRegistrationSchema.safeParse({ ...registration, identitySpaceId: 'host-space-1' }).success,
+    false,
+  );
+  assert.equal(
+    WexIdentitySpaceRegistrationSchema.safeParse({ platformKey: 'host-platform', registeredAt: registration.registeredAt }).success,
+    false,
+  );
 });
 
 test('defines strict portable lifecycle records without issuing allocations', () => {
   const reserved = {
-    identitySpaceId: 'host-space-1',
+    wexPlatformRegistrationId: 'opaque-registration-1',
     allocationId: 'WEXAMABCDE',
     family: 'WEXAM',
     placement: {},
@@ -156,11 +164,11 @@ test('defines strict portable lifecycle records without issuing allocations', ()
   );
   assert.deepEqual(
     WexIdentityAllocationLookupSchema.parse({
-      identitySpaceId: 'host-space-1',
+      wexPlatformRegistrationId: 'opaque-registration-1',
       allocationId: 'WEXAMABCDE',
     }),
     {
-      identitySpaceId: 'host-space-1',
+      wexPlatformRegistrationId: 'opaque-registration-1',
       allocationId: 'WEXAMABCDE',
     },
   );

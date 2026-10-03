@@ -86,8 +86,9 @@ rules, and resolves allocations within that host space. The adapter only
 creates or opens the host space and durably persists, reads, and atomically
 protects the Plugin + Tool's lifecycle records. It must not invent IDs,
 families, lifecycle states, or identity semantics. A WEX allocation is
-addressed by its identity-space registration and allocation ID; applications do
-not create disconnected IDs outside that space. An allocation or binding that
+addressed by its WEX platform registration identity and allocation ID;
+applications do not create disconnected IDs outside that space. An allocation
+or binding that
 must survive a configuration round trip, external reference, or platform-to-UI
 lookup requires durable adapter storage. A platform record may resolve to zero,
 one, or many WEX allocations; reverse lookup is therefore an indexed query,

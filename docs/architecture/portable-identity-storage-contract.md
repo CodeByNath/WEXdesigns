@@ -32,15 +32,18 @@ are importable data contracts only.
 
 | Record | Required data | Boundary |
 | --- | --- | --- |
-| Identity-space registration | `identitySpaceId`, opaque `platformKey`, `registeredAt` | One WEX registration in one host-local space; no business payload |
+| WEX platform registration | `wexPlatformRegistrationId`, opaque `platformKey`, `registeredAt` | One WEX-owned, durable registration in one host-local space; no business payload |
 | Initialization observation | `absent`, `approval-required`, or `ready` | `approval-required` is a Plugin + Tool state before first creation, not a UI |
 | Allocation lifecycle record | Space ID, allocation ID, family, placement, lifecycle state, reserve timestamp; assignment/retirement evidence when applicable | Durable WEX evidence only |
-| Lookup key | `identitySpaceId`, `allocationId` | Addresses exactly one allocation in one host space |
+| Lookup key | `wexPlatformRegistrationId`, `allocationId` | Addresses exactly one allocation in one host space |
 
-`identitySpaceId + allocationId` is the only portable allocation address. An
-allocation ID alone is not globally unique. A root placement is empty; a child
-placement contains the exact `parentAllocationId` and parent-owned `slot`.
-Parentage is never inferred from a prefix.
+`wexPlatformRegistrationId + allocationId` is the only portable allocation
+address. An allocation ID alone is not globally unique. The Plugin + Tool
+creates and validates the registration ID after explicit approval; its concrete
+format is deliberately unresolved because no existing authority defines a
+platform-ID prefix or family. A root placement is empty; a child placement
+contains the exact `parentAllocationId` and parent-owned `slot`. Parentage is
+never inferred from a prefix.
 
 The lifecycle vocabulary is closed: `reserved`, `assigned`, `retired`. A
 reserved record has `reservedAt`; assignment has `assignedAt`; retirement has
@@ -58,9 +61,9 @@ TypeScript runtime interface in this phase.
 | Operation | Plugin + Tool responsibility | Adapter guarantee |
 | --- | --- | --- |
 | Detect | Ask whether the host WEX space exists | Report absent/present without creating state |
-| Create/open | Obtain explicit approval before first create; supply/read registration | Create or open only the isolated WEX space, never business storage |
+| Create/open | After approval, create/validate the WEX registration ID; on reopen, validate read-back identity | Persist/read only the supplied durable registration in the isolated WEX space; never generate or replace it |
 | Registration read/write | Decide registration validity | Persist/read the strict registration record |
-| Reserve | Generate/validate the ID and construct a `reserved` record | Atomically insert only if its `(identitySpaceId, allocationId)` is unused |
+| Reserve | Generate/validate the ID and construct a `reserved` record | Atomically insert only if its `(wexPlatformRegistrationId, allocationId)` is unused |
 | Transition | Validate legal reserve/assign/retire transition and immutable fields | Atomically compare the expected current state and persist the supplied next record |
 | Lookup | Request an allocation address | Read the record for the exact space/address or report no record |
 
@@ -90,9 +93,11 @@ implementation, not as a different identity model.
 ## Initialization and binding boundary
 
 When detection reports absent, the Plugin + Tool enters `approval-required`.
-It must receive explicit user or administrator approval before creation or the
-first registration write. Approval mechanism and presentation remain host
-integration concerns; the adapter only performs the requested persistence.
+After explicit user or administrator approval it creates the WEX registration
+identity, asks the adapter to create the space and persist the supplied
+registration, then reports `ready`. On reopening, the adapter reads back the
+same durable registration; it cannot generate, replace, or reuse that WEX
+identity. Approval mechanism and presentation remain host integration concerns.
 
 The existing `WexUiPlatformBinding` remains a separate opaque mapping between a
 WEX allocation slot and a platform reference. This storage contract does not

@@ -33,16 +33,24 @@ It is implemented later by the WEX Identity Plugin + Tool and host adapters.
 Schemas validate plain data only; they do not issue IDs, create/open storage,
 perform transitions, provide atomicity, or resolve platform/domain records.
 
-### Stable host-local address
+### WEX-owned platform registration identity
 
-One identity-space registration records the WEX-owned `identitySpaceId`, opaque
-host `platformKey`, and registration timestamp. The portable identity address
-is `(identitySpaceId, allocationId)`. Neither field is a host business record
-or a global namespace claim.
+The Plugin + Tool creates and validates one WEX-owned
+`wexPlatformRegistrationId` only after explicit approval. Its concrete format
+is deliberately unresolved: no existing authority authorises a platform-ID
+prefix or family. The identity is stable, immutable, durable, and never
+silently replaced or reused for that WEX identity space. On reopening an
+existing space, the adapter reads back the same persisted registration identity
+for the Plugin + Tool to validate.
+
+The registration also records opaque host `platformKey` and `registeredAt`.
+`platformKey` is a host-system reference only; it is not a WEX registration ID
+and cannot carry host business data. The portable allocation address is
+`(wexPlatformRegistrationId, allocationId)`, not an allocation ID alone.
 
 ### Lifecycle evidence
 
-Every persisted allocation record contains the identity-space reference,
+Every persisted allocation record contains the WEX platform registration ID,
 allocation ID, closed family, immutable root or parent/slot placement,
 lifecycle state, and reservation timestamp. Assignment adds its timestamp.
 Retirement adds its timestamp and non-empty serializable retirement evidence;
@@ -58,7 +66,7 @@ transition, and lookup. An adapter receives the Plugin + Tool's records and
 performs only backend persistence/read and atomic protection.
 
 The adapter must make initial reservation an atomic create-if-absent operation
-for `(identitySpaceId, allocationId)`, and make lifecycle transitions atomic
+for `(wexPlatformRegistrationId, allocationId)`, and make lifecycle transitions atomic
 compare/write operations against the expected current state. Its backend can
 choose filesystem locking, database transactions, conditional writes, or an
 equivalent mechanism, but every backend must provide collision rejection and
@@ -67,9 +75,10 @@ permanent non-reuse with the same observable meaning.
 ### Initialization and binding boundaries
 
 Detection of an absent identity space returns no registration or allocation
-record. The Plugin + Tool must expose `approval-required` and obtain explicit
-user or administrator approval before it asks an adapter to create a space or
-persist the first registration. This decision defines no approval UI.
+record. The Plugin + Tool must expose `approval-required`, obtain explicit user
+or administrator approval, create the WEX registration identity, then ask the
+adapter to create the space and persist that supplied registration before it
+reports `ready`. This decision defines no approval UI.
 
 The contract does not carry host business data, callbacks, permissions,
 resolvers, or product/domain resolution. Existing WEX allocation-to-platform

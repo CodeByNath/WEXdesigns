@@ -7,12 +7,12 @@ import {
   WexUiAllocationPlacementSchema,
 } from './wex-ui-identity.schema.js';
 
-export const WexIdentitySpaceReferenceSchema = z.string().min(1);
+export const WexPlatformRegistrationIdSchema = z.string().min(1);
 
 export const WexIdentityTimestampSchema = z.string().datetime({ offset: true });
 
 export const WexIdentitySpaceRegistrationSchema = z.object({
-  identitySpaceId: WexIdentitySpaceReferenceSchema,
+  wexPlatformRegistrationId: WexPlatformRegistrationIdSchema,
   platformKey: z.string().min(1),
   registeredAt: WexIdentityTimestampSchema,
 }).strict();
@@ -30,7 +30,7 @@ export const WexIdentityAllocationLifecycleStateSchema = z.enum([
 ]);
 
 const WexIdentityAllocationRecordBase = {
-  identitySpaceId: WexIdentitySpaceReferenceSchema,
+  wexPlatformRegistrationId: WexPlatformRegistrationIdSchema,
   allocationId: WexUiAllocationIdSchema,
   family: WexUiAllocationFamilySchema,
   placement: WexUiAllocationPlacementSchema,
@@ -69,11 +69,11 @@ export const WexIdentityAllocationRecordSchema = z.discriminatedUnion(
 );
 
 export const WexIdentityAllocationLookupSchema = z.object({
-  identitySpaceId: WexIdentitySpaceReferenceSchema,
+  wexPlatformRegistrationId: WexPlatformRegistrationIdSchema,
   allocationId: WexUiAllocationIdSchema,
 }).strict();
 
-export type WexIdentitySpaceReference = z.infer<typeof WexIdentitySpaceReferenceSchema>;
+export type WexPlatformRegistrationId = z.infer<typeof WexPlatformRegistrationIdSchema>;
 export type WexIdentityTimestamp = z.infer<typeof WexIdentityTimestampSchema>;
 export type WexIdentitySpaceRegistration = z.infer<typeof WexIdentitySpaceRegistrationSchema>;
 export type WexIdentityInitializationState = z.infer<typeof WexIdentityInitializationStateSchema>;
