@@ -7,6 +7,10 @@ import {
   EntityIdentifierSchema,
   getWexUiAllocationFamily,
   SemanticActionSchema,
+  WexIdentityAllocationLookupSchema,
+  WexIdentityAllocationRecordSchema,
+  WexIdentityInitializationStateSchema,
+  WexIdentitySpaceRegistrationSchema,
   WexUiAllocationIdSchema,
   WexUiAllocationPlacementSchema,
   WexUiPlatformBindingSchema,
@@ -92,6 +96,73 @@ test('keeps platform bindings strict and serializable', () => {
   assert.equal(
     WexUiPlatformBindingSchema.safeParse({ ...binding, platformRecordRef: '' }).success,
     false,
+  );
+});
+
+test('defines portable identity-space registration and initialization states', () => {
+  const registration = {
+    identitySpaceId: 'host-space-1',
+    platformKey: 'host-platform',
+    registeredAt: '2026-10-03T00:00:00.000Z',
+  };
+
+  assert.deepEqual(WexIdentitySpaceRegistrationSchema.parse(registration), registration);
+  assert.deepEqual(WexIdentityInitializationStateSchema.options, [
+    'absent',
+    'approval-required',
+    'ready',
+  ]);
+  assert.equal(
+    WexIdentitySpaceRegistrationSchema.safeParse({ ...registration, domainRecord: 'customer-1' }).success,
+    false,
+  );
+});
+
+test('defines strict portable lifecycle records without issuing allocations', () => {
+  const reserved = {
+    identitySpaceId: 'host-space-1',
+    allocationId: 'WEXAMABCDE',
+    family: 'WEXAM',
+    placement: {},
+    lifecycleState: 'reserved',
+    reservedAt: '2026-10-03T00:00:00.000Z',
+  };
+  const assigned = {
+    ...reserved,
+    lifecycleState: 'assigned',
+    assignedAt: '2026-10-03T00:01:00.000Z',
+  };
+  const retired = {
+    ...assigned,
+    lifecycleState: 'retired',
+    retiredAt: '2026-10-03T00:02:00.000Z',
+    retirementEvidence: 'superseded-by-host-change',
+  };
+
+  assert.deepEqual(WexIdentityAllocationRecordSchema.parse(reserved), reserved);
+  assert.deepEqual(WexIdentityAllocationRecordSchema.parse(assigned), assigned);
+  assert.deepEqual(WexIdentityAllocationRecordSchema.parse(retired), retired);
+  assert.equal(
+    WexIdentityAllocationRecordSchema.safeParse({ ...reserved, family: 'WEXAMH' }).success,
+    false,
+  );
+  assert.equal(
+    WexIdentityAllocationRecordSchema.safeParse({ ...assigned, callback: () => {} }).success,
+    false,
+  );
+  assert.equal(
+    WexIdentityAllocationRecordSchema.safeParse({ ...retired, retirementEvidence: '' }).success,
+    false,
+  );
+  assert.deepEqual(
+    WexIdentityAllocationLookupSchema.parse({
+      identitySpaceId: 'host-space-1',
+      allocationId: 'WEXAMABCDE',
+    }),
+    {
+      identitySpaceId: 'host-space-1',
+      allocationId: 'WEXAMABCDE',
+    },
   );
 });
 

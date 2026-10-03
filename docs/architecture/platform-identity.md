@@ -8,9 +8,11 @@ replace a consuming platform's lifecycle, persistence, validation, or action
 authority.
 
 This architecture boundary is paired with [ADR 0013](../decisions/0013-wex-ui-platform-identity.md)
-as corrected by proposed [ADR 0016](../decisions/0016-portable-wex-identity-spaces.md).
-The decisions define identifier form and portable allocation lifecycle
-semantics. No current schema, generator, registry, persistence store, adapter,
+as corrected by accepted [ADR 0016](../decisions/0016-portable-wex-identity-spaces.md).
+Proposed [ADR 0017](../decisions/0017-portable-identity-storage-contract.md)
+and the [portable storage contract](portable-identity-storage-contract.md)
+define the next record and operation boundary. Current schemas validate only
+the serializable records; no generator, registry, persistence store, adapter,
 runtime binding, or component is introduced by this document.
 
 ## Four separate identities
@@ -98,7 +100,7 @@ external reference remain structurally addressed and need not mint an identity.
 
 | Boundary | Responsibility | Must not own |
 | --- | --- | --- |
-| `@weerax/schemas` | Framework-neutral serializable identity, parent, and binding validation | Issuance, persistence, lookup, callbacks |
+| `@weerax/schemas` | Framework-neutral serializable identity-space, allocation, parent, and binding validation | Issuance, persistence, lookup execution, callbacks |
 | Host storage adapters | Create/open host WEX space; persist/read lifecycle records; backend atomicity and durability | ID/family/lifecycle invention, identity semantics, or host-domain data ownership |
 | Product-side adapters | Explicit mapping and authoritative platform-reference resolution | WEX identity issuance outside the Plugin + Tool contract or domain duplication |
 | Shared UI | Rendering supplied definitions | Registry, persistence, platform authority |
@@ -111,7 +113,8 @@ only through separately approved integration.
 
 ## Implementation boundary
 
-The next implementation phase, after ADR acceptance, defines the
-framework-neutral storage-adapter contract and identity-space records. It must
-not add an adapter, runtime binding, Header ID, migration, or backend-specific
-storage. Implementation then proceeds with the approved local folder adapter.
+The proposed portable storage contract defines the framework-neutral
+identity-space records and adapter guarantees. It does not add an adapter,
+runtime binding, Header ID, migration, or backend-specific storage. After
+acceptance, implementation proceeds through the separately authorised local
+folder adapter phase.

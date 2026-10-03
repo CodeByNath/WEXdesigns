@@ -4,13 +4,16 @@
 
 - Last visited: 2026-10-03
 - Last updated: 2026-10-03
-- Verified against: `origin/main` at `38b762c04d1b41c8e70616a270dd525646f1e5fa`.
+- Verified against: `origin/main` at `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`.
 - Runtime scope: this historical PostgreSQL proof implements allocation-ledger
   mechanics only. Accepted ADR 0016 removes its former central-authority role;
   it is awaiting conversion to an optional portable storage adapter.
 
 ### Recent work (newest first)
 
+- Phase 2 proposes the portable identity-space record and storage-operation
+  contract. The candidate adds framework-neutral schema validation only; no
+  adapter, Plugin + Tool runtime, or PostgreSQL conversion is authorised.
 - Phase 9B-D adds a PostgreSQL-serialized durable bootstrap command and
   deterministic concurrent-session lifecycle proof. Test fixture IDs are not
   durable allocations.
@@ -31,7 +34,9 @@ domain records, or Header presentation.
 - [ADR 0014: WEX UI Identity Bootstrap Authority](../decisions/0014-wex-ui-identity-bootstrap-authority.md)
 - [ADR 0015: WEX UI Identity Station Placement](../decisions/0015-wex-ui-identity-station-placement.md)
 - [Accepted ADR 0016: Portable WEX Identity Spaces](../decisions/0016-portable-wex-identity-spaces.md)
+- [Proposed ADR 0017: Portable WEX Identity Storage Contract](../decisions/0017-portable-identity-storage-contract.md)
 - [Platform identity architecture](../architecture/platform-identity.md)
+- [Portable WEX Identity storage contract](../architecture/portable-identity-storage-contract.md)
 - [Repository map](../architecture/repository-map.md)
 - [Dependency rules](../architecture/dependency-rules.md)
 
@@ -45,6 +50,10 @@ domain records, or Header presentation.
   [`apps/identity-station/migrations/001_create_allocation_ledger.sql`](../../apps/identity-station/migrations/001_create_allocation_ledger.sql)
 - Local PostgreSQL lifecycle proof:
   [`apps/identity-station/test/station.test.mjs`](../../apps/identity-station/test/station.test.mjs)
+- Portable identity contract records:
+  [`packages/schemas/src/identifiers/wex-identity-space.schema.ts`](../../packages/schemas/src/identifiers/wex-identity-space.schema.ts)
+- Schema contract validation:
+  [`packages/schemas/test/foundation.test.mjs`](../../packages/schemas/test/foundation.test.mjs)
 - Foundation dependency audit:
   [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
@@ -59,14 +68,16 @@ move WEX identity semantics into schemas, WEX, Shared UI, or the web runtime.
 Under accepted ADR 0016, the WEX Identity Plugin + Tool owns identity semantics
 and operations while host storage adapters persist its contract in host-local
 identity spaces. This Station is no longer the universal issuer or persistence
-owner. The ledger contains allocation lifecycle evidence only; bindings and
-platform/domain data remain outside it.
+owner. The schema package validates serializable contract records only; the
+future Plugin + Tool applies the identity rules and adapters provide atomic
+persistence. The ledger contains allocation lifecycle evidence only; bindings
+and platform/domain data remain outside it.
 
 ## Safe change routing
 
 - Change allocation forms, families, lifecycle, placement, or portable
-  storage-adapter semantics through the governing decisions and identity
-  architecture first.
+  storage-adapter semantics through ADR 0017 and the portable contract before
+  implementation.
 - Convert this proof into an optional PostgreSQL adapter only after the shared
   contract and local-folder reference adapter are accepted.
 - Change database deployment, credentials, public transport, caller

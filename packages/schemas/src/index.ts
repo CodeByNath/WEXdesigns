@@ -21,6 +21,22 @@ export {
   type WexUiPlatformBinding,
 } from './identifiers/wex-ui-identity.schema.js';
 export {
+  WexIdentityAllocationLifecycleStateSchema,
+  WexIdentityAllocationLookupSchema,
+  WexIdentityAllocationRecordSchema,
+  WexIdentityInitializationStateSchema,
+  WexIdentitySpaceReferenceSchema,
+  WexIdentitySpaceRegistrationSchema,
+  WexIdentityTimestampSchema,
+  type WexIdentityAllocationLifecycleState,
+  type WexIdentityAllocationLookup,
+  type WexIdentityAllocationRecord,
+  type WexIdentityInitializationState,
+  type WexIdentitySpaceReference,
+  type WexIdentitySpaceRegistration,
+  type WexIdentityTimestamp,
+} from './identifiers/wex-identity-space.schema.js';
+export {
   SemanticActionSchema,
   type SemanticAction,
 } from './actions/semantic-action.schema.js';
