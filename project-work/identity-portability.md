@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 3B — Preserve irreversible lifecycle evidence
+Status: AWAITING REVIEWER REVIEW
+Phase: 3B — Preserve irreversible lifecycle evidence submitted
 
 ## Reviewer verdict
 
@@ -69,8 +69,30 @@ Run:
 `pnpm check`,
 and `git diff --check`.
 
-Push the corrected candidate, update this same file to
-`AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
+## Builder handoff
+
+Candidate: `feat/local-folder-identity-adapter` at
+`fa66bf6ce3c24d8d83c373f3025f429d1533d847` (pushed and remote-verified).
+
+Changed only:
+
+- `packages/adapters/src/local-folder-identity-adapter.ts`
+- `packages/adapters/test/local-folder-identity-adapter.test.mjs`
+
+The adapter now rejects assigned-to-reserved and retired-to-non-retired writes,
+and preserves committed assignment and retirement evidence. Focused tests prove
+rejected rollback/revision attempts leave the persisted record unchanged.
+
+Evidence passed:
+
+- `pnpm --filter @weerax/adapters check` (8 tests);
+- `pnpm --filter @weerax/schemas check` (10 tests);
+- `pnpm audit:foundation`;
+- `pnpm check` (40 tasks); and
+- `git diff --check`.
+
+No browser validation applies: this phase changes no runtime, catalogue, or
+browser-facing presentation. No deviations or unresolved Builder issues.
 
 ## Locked roadmap
 
