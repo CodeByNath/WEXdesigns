@@ -34,7 +34,7 @@ domain records, or Header presentation.
 - [ADR 0014: WEX UI Identity Bootstrap Authority](../decisions/0014-wex-ui-identity-bootstrap-authority.md)
 - [ADR 0015: WEX UI Identity Station Placement](../decisions/0015-wex-ui-identity-station-placement.md)
 - [Accepted ADR 0016: Portable WEX Identity Spaces](../decisions/0016-portable-wex-identity-spaces.md)
-- [Proposed ADR 0017: Portable WEX Identity Storage Contract](../decisions/0017-portable-identity-storage-contract.md)
+- [Accepted ADR 0017: Portable WEX Identity Storage Contract](../decisions/0017-portable-identity-storage-contract.md)
 - [Platform identity architecture](../architecture/platform-identity.md)
 - [Portable WEX Identity storage contract](../architecture/portable-identity-storage-contract.md)
 - [Repository map](../architecture/repository-map.md)

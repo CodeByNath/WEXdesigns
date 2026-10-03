@@ -9,7 +9,7 @@ authority.
 
 This architecture boundary is paired with [ADR 0013](../decisions/0013-wex-ui-platform-identity.md)
 as corrected by accepted [ADR 0016](../decisions/0016-portable-wex-identity-spaces.md).
-Proposed [ADR 0017](../decisions/0017-portable-identity-storage-contract.md)
+Accepted [ADR 0017](../decisions/0017-portable-identity-storage-contract.md)
 and the [portable storage contract](portable-identity-storage-contract.md)
 define the next record and operation boundary. Current schemas validate only
 the serializable records; no generator, registry, persistence store, adapter,
@@ -114,7 +114,7 @@ only through separately approved integration.
 
 ## Implementation boundary
 
-The proposed portable storage contract defines the framework-neutral
+The accepted portable storage contract defines the framework-neutral
 identity-space records and adapter guarantees. It does not add an adapter,
 runtime binding, Header ID, migration, or backend-specific storage. After
 acceptance, implementation proceeds through the separately authorised local

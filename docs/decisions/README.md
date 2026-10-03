@@ -1,8 +1,7 @@
 # Architecture Decisions
 
 Architecture decisions are recorded here. Accepted decisions preserve WEX
-presentation authority and explicit domain ownership; proposed decisions remain
-pending until Reviewer acceptance and promotion.
+presentation authority and explicit domain ownership.
 
 ## Accepted
 
@@ -11,7 +10,4 @@ pending until Reviewer acceptance and promotion.
 - [0014: WEX UI Identity Bootstrap Authority](0014-wex-ui-identity-bootstrap-authority.md)
 - [0015: WEX UI Identity Station Placement](0015-wex-ui-identity-station-placement.md)
 - [0016: Portable WEX Identity Spaces](0016-portable-wex-identity-spaces.md)
-
-## Proposed
-
 - [0017: Portable WEX Identity Storage Contract](0017-portable-identity-storage-contract.md)

@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — defines the framework-neutral contract boundary required by accepted
+Accepted — defines the framework-neutral contract boundary required by accepted
 ADR 0016. It authorises no storage adapter, filesystem or database access,
 runtime Plugin + Tool, allocation, migration, Header work, or UI.
 

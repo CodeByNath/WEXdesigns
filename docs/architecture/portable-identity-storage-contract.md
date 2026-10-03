@@ -3,7 +3,7 @@
 ## Scope
 
 This architecture contract routes the accepted portable ownership model in
-[ADR 0016](../decisions/0016-portable-wex-identity-spaces.md) and the proposed
+[ADR 0016](../decisions/0016-portable-wex-identity-spaces.md) and the accepted
 boundary decision in [ADR 0017](../decisions/0017-portable-identity-storage-contract.md).
 It defines portable data and operation guarantees, not an adapter, storage
 format, transport, approval UI, allocation generator, or domain integration.
