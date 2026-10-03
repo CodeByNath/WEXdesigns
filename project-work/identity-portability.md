@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 1C — Close promoted authority state
+Status: AWAITING REVIEWER REVIEW
+Phase: 1C — Documentation-state correction submitted
 
 ## Reviewer verdict
 
@@ -46,6 +46,18 @@ Forbidden:
 
 Run `pnpm audit:foundation` and `git diff --check`, push, update this same
 file to `AWAITING REVIEWER REVIEW`, and stop.
+
+## Builder handoff
+
+- Candidate branch: `docs/identity-portability-authority-closeout`
+- Pushed candidate SHA:
+  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`
+- Changed only: ADR 0016 status, Identity Station Code Map accepted-status/SHA
+  bookkeeping, and the decision index placement.
+- Evidence: `pnpm audit:foundation` passed; `git diff --check` passed.
+- Limitation/deviation: documentation-only Phase 1C; no runtime, schema,
+  storage, adapter, PostgreSQL, Header, or UI work was performed.
+- Unresolved issues: none for this phase.
 
 ## Locked roadmap
 
