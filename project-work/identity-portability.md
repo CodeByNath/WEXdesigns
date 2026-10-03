@@ -1,70 +1,51 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1P — Promotion complete; reviewer closeout required
+Status: BUILDER ACTION REQUIRED
+Phase: 1C — Close promoted authority state
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Reviewer independently inspected
-`docs/identity-portability-authority` at
-`38b762c04d1b41c8e70616a270dd525646f1e5fa`.
+Promotion is structurally accepted:
 
-Phase 1A is accepted.
+- remote `main` is exactly
+  `38b762c04d1b41c8e70616a270dd525646f1e5fa`;
+- the accepted portability diff is present on `main`;
+- the topic branch is removed;
+- remote heads are only `main` and `Project-work-instructions`;
+- no implementation/runtime/Header scope drift occurred.
 
-The corrected candidate now preserves the Owner's required boundary:
+Two documentation-state corrections remain before Phase 2 can open.
 
-```text
-WEX Identity Plugin + Tool
-  owns identity semantics and operations
-        |
-        v
-WEX Storage Adapter Contract
-  owns persistence mechanics only
-        |
-        v
-Host storage
-```
+### Required corrections
 
-Accepted safeguards:
+1. `docs/decisions/0016-portable-wex-identity-spaces.md` is still marked
+   `Proposed`. The Reviewer has accepted and promoted this decision, so change
+   its status to `Accepted` without altering its decision substance.
 
-- WEX owns platform/system registration semantics, family validation, ID
-  generation/issuance, reserve/assign/retire lifecycle, parent/slot,
-  lookup/targeting, and approval/init flow.
-- Storage adapters create/open the host WEX identity space, persist/read WEX
-  records, and provide backend-specific atomicity/durability only.
-- Adapters must not invent IDs, families, lifecycle states, or alternate identity
-  semantics.
-- Each host has an isolated WEX identity space.
-- Allocation address is host identity-space registration + WEX allocation ID;
-  exact record shape remains Phase 2.
-- PostgreSQL is optional adapter/proof only.
-- Local folder/file storage is the first reference adapter.
-- Host business/domain data remains outside WEX identity storage.
-- Header remains deferred until Phases 1–4 are accepted and promoted.
+2. `docs/code-map/identity-station.md` still says it is verified against the
+   old `main` SHA `d065386...` and still calls ADR 0016 `Proposed`.
+   Update the Code Map to the promoted `main` SHA and accepted ADR state.
+   Do not change runtime claims beyond what the accepted authority supports.
 
-## Builder handoff — Phase 1P
+## Builder instruction — Phase 1C only
 
-The exact accepted candidate
-`38b762c04d1b41c8e70616a270dd525646f1e5fa` was fast-forward promoted to
-`origin/main` without implementation-substance changes.
+Create one documentation-only topic branch from current `main`.
 
-Evidence:
+Allowed changes:
+- ADR 0016 status only;
+- Identity Station Code Map accepted-status/SHA bookkeeping;
+- decision index wording only if needed to move ADR 0016 from Proposed to
+  Accepted.
 
-1. `origin` verified as `https://github.com/CodeByNath/WEXdesigns.git`.
-2. Remote `main` verified at
-   `38b762c04d1b41c8e70616a270dd525646f1e5fa`, the accepted candidate SHA.
-3. Post-promotion `pnpm audit:foundation` passed: authority, dependency, CSS,
-   tier, and Shared UI-boundary checks are valid.
-4. Completed remote branch `docs/identity-portability-authority` was deleted
-   only after the `main` SHA verification.
-5. Remote heads now contain only `main` at
-   `38b762c04d1b41c8e70616a270dd525646f1e5fa` and
-   `Project-work-instructions`.
+Forbidden:
+- no architecture substance changes;
+- no schemas, runtime, storage, adapters, PostgreSQL, Header, or UI changes;
+- do not begin Phase 2.
 
-Reviewer: independently verify the promoted `main` authority, audit evidence,
-and branch housekeeping. Do not open Phase 2 until that review is recorded.
+Run `pnpm audit:foundation` and `git diff --check`, push, update this same
+file to `AWAITING REVIEWER REVIEW`, and stop.
 
 ## Locked roadmap
 
@@ -78,5 +59,5 @@ and branch housekeeping. Do not open Phase 2 until that review is recorded.
 
 Header remains deferred until Phases 1–4 are accepted and promoted.
 
-No Builder may alter this ownership model without Owner + Reviewer architecture
-approval.
+No Builder may alter the accepted ownership model without Owner + Reviewer
+architecture approval.
