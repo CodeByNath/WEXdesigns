@@ -1,80 +1,129 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3P — Accepted local-folder adapter promoted
+Status: BUILDER ACTION REQUIRED
+Phase: 4A — Define platform-registration identity generation + bootstrap authority
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Reviewer independently inspected
-`feat/local-folder-identity-adapter` at
-`fa66bf6ce3c24d8d83c373f3025f429d1533d847`.
+Phase 3 is fully accepted, promoted, and closed.
 
-Phase 3 is accepted.
+Reviewer independently verified:
 
-Accepted implementation:
+- remote `main` is exactly
+  `fa66bf6ce3c24d8d83c373f3025f429d1533d847`;
+- the accepted local-folder adapter is present on `main`;
+- the completed Phase 3 topic branch is deleted;
+- remote heads are exactly `main` and `Project-work-instructions`;
+- Phase 3 ownership and persistence safeguards remain intact.
 
-- local-folder storage remains persistence-only and does not own WEX identity
-  semantics;
-- detection is side-effect free;
-- fresh create vs reopen behavior is correct;
-- platform registration is supplied by WEX and persisted/read without minting or
-  replacement;
-- allocation reserve/read/transition is scoped to the registered WEX space;
-- concurrent reservation collisions are rejected;
-- temp-file + rename persistence avoids valid-looking partial records;
-- filesystem containment rejects symlink/redirection escape;
-- partial/corrupt/incompatible WEX remnants fail closed and cannot be silently
-  reinitialized;
-- restart/readback is proven;
-- immutable allocation evidence cannot change;
-- assigned evidence cannot roll back to reserved;
-- retired evidence cannot roll back or be revised/removed;
-- rejected rollback attempts leave the persisted record unchanged;
-- no host business/domain data, Plugin bootstrap, PostgreSQL, WordPress, Header,
-  real allocation, or UI scope was added.
+A minor authority bookkeeping inconsistency also exists:
+`docs/architecture/repository-map.md` still says the local-folder adapter and
+storage contract are deferred even though both are now accepted/promoted.
+Correct that wording in this phase without changing architecture substance.
 
-Builder-reported checks passed:
-`pnpm --filter @weerax/adapters check`,
-`pnpm --filter @weerax/schemas check`,
-`pnpm audit:foundation`,
-`pnpm check`, and `git diff --check`.
+## Phase 4 objective
 
-## Builder handoff — Phase 3P
+Implement the WEX Identity Plugin + Tool initialization/bootstrap flow:
 
-Verified `origin` is `https://github.com/CodeByNath/WEXdesigns.git`.
-`main` fast-forwarded from
-`50c0c9120617e4c15e47265b018833c173661771` to the exact accepted candidate
-`fa66bf6ce3c24d8d83c373f3025f429d1533d847`; remote `main` was verified at that
-same SHA.
+```text
+detect
+  -> absent
+  -> approval-required
+  -> explicit approval
+  -> WEX creates platform-registration identity
+  -> adapter creates isolated WEX space
+  -> persist registration
+  -> ready
+```
 
-Post-promotion evidence passed:
+For an existing valid space:
 
-- `pnpm --filter @weerax/adapters check` (8 tests);
-- `pnpm --filter @weerax/schemas check` (10 tests);
-- `pnpm audit:foundation`;
-- `pnpm check` (40 tasks); and
-- `git diff --check`.
+```text
+detect present
+  -> read registration
+  -> validate same WEX registration identity
+  -> ready
+```
 
-After `main` verification, remote
-`feat/local-folder-identity-adapter` was deleted. Remote heads are now only:
+But executable bootstrap cannot begin until the concrete generation contract for
+`wexPlatformRegistrationId` is authorised.
 
-- `main` — `fa66bf6ce3c24d8d83c373f3025f429d1533d847`
-- `Project-work-instructions` — `65c9b7ff6ad07152e3bedf5c41c4e3fc5d823306`
+## Phase 4A architecture gate
 
-No browser validation applies: the promoted phase changes only framework-neutral
-storage-adapter code and its tests. No deviations or unresolved Builder issues.
-Do not begin Phase 4 pending Reviewer review.
+The accepted authority says:
+
+- the WEX Plugin + Tool creates/validates the registration identity;
+- adapters and hosts do not generate it;
+- it is immutable, durable and non-reusable for that identity space;
+- its concrete format is deliberately unresolved.
+
+Therefore the Builder must **not** silently choose UUID, random string, host ID,
+Admin Manager ID, or a new WEX prefix in runtime code.
+
+## Builder instruction — Phase 4A only
+
+Create one topic branch from current `main`.
+
+Docs/architecture/schema work only as necessary to resolve and record:
+
+1. the concrete WEX platform-registration identifier format/generation rule;
+2. uniqueness scope and collision behavior;
+3. validation rule;
+4. whether it has its own closed family/prefix or another explicitly authorised
+   WEX-owned opaque format;
+5. proof that it is separate from:
+   - `platformKey`;
+   - Admin Manager `WEXAM...`;
+   - component/allocation IDs;
+   - host/domain IDs;
+6. initialization state-machine contract:
+   - absent -> approval-required;
+   - no persistent mutation before explicit approval;
+   - approval -> generate registration ID -> create space -> persist;
+   - present valid space -> read/validate -> ready;
+   - damaged/inconsistent space -> fail closed, never recreate automatically;
+7. repeat-safe/idempotent bootstrap behavior;
+8. what happens when creation partially fails after approval but before ready;
+9. no credentials/secrets in persisted registration records.
+
+Do not implement the Plugin/Tool runtime yet unless the identifier generation
+authority is already explicitly present in accepted repository authority. If it
+is not, record the proposed decision and stop for Reviewer.
+
+Also update the stale repository-map defer wording to reflect the already
+accepted/promoted storage contract and local-folder adapter.
+
+### Explicit exclusions
+
+Do not:
+- modify the local-folder adapter semantics;
+- modify PostgreSQL Station;
+- add WordPress/MySQL/API adapters;
+- mint real Admin/Header/component allocations;
+- resume Header work;
+- add approval UI;
+- add host business/domain records;
+- invent product permissions or authentication.
+
+Run applicable checks including `pnpm audit:foundation`, schema checks if
+schemas change, and `git diff --check`.
+
+Push the candidate, update this same file to
+`AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, evidence, and
+any unresolved architecture decision, then stop.
 
 ## Locked roadmap
 
-- Phase 4 — Plugin/Tool initialization/bootstrap.
+- Phase 4B — implement Plugin/Tool bootstrap against the accepted registration
+  identity rule and local-folder adapter.
 - Phase 5 — PostgreSQL optional adapter conversion.
 - Phase 6 — component targeting/inspection proof.
 - Phase 7 — separately authorised real-host integration proof.
 
-Header remains deferred until Phases 1–4 are accepted and promoted.
+Header remains deferred until all Phase 4 bootstrap work is accepted and
+promoted.
 
 No Builder may alter the accepted ownership model without Owner + Reviewer
 architecture approval.
