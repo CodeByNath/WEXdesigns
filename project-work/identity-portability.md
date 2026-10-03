@@ -1,7 +1,29 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1 — Restore architecture authority
+
+## Builder handoff
+
+Candidate: `docs/identity-portability-authority` at
+`ce05552844a8b95e4bef135488c1c3944cbbb5f4`, pushed to `origin` from
+`main` baseline `d06538613d6f25b2337daaf9727b5604c3524c75`.
+
+The candidate adds proposed ADR 0016 and updates the identity architecture,
+repository map, Identity Station Code Map, and decision index. ADR 0016
+identifies the exact central-Station/PostgreSQL clauses superseded in ADRs
+0013–0015 and preserves their valid ID form, lifecycle, parent/slot, and
+binding rules as host-local adapter semantics.
+
+Evidence:
+
+- `pnpm audit:foundation` passed.
+- `git diff --check` passed before commit and staging.
+- Remote branch verification returned the exact candidate SHA above.
+- Docs only: no runtime, schema, storage, Header, PostgreSQL, or adapter source
+  changed.
+
+Await Reviewer verdict. Do not begin Phase 2 or Header work.
 
 ## Owner direction — strict
 
