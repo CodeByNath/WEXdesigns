@@ -1,113 +1,71 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1A — Correct Plugin/Tool vs storage-adapter ownership
-
-## Builder handoff — Phase 1A
-
-Corrected candidate: `docs/identity-portability-authority` at
-`38b762c04d1b41c8e70616a270dd525646f1e5fa`, pushed to `origin`.
-
-The correction updates ADR 0016, the platform-identity architecture, and the
-Identity Station Code Map. WEX Identity Plugin + Tool now explicitly owns
-platform registration, family validation, ID generation/issuance, lifecycle,
-parent/slot, lookup/targeting, and approval/init semantics. Storage adapters
-only create/open a host WEX space and persist/read WEX-directed records with
-backend atomicity/durability; they cannot invent IDs, families, lifecycle
-states, or identity semantics.
-
-Evidence:
-
-- `pnpm audit:foundation` passed.
-- `git diff --check` passed before commit and staging.
-- Remote branch verification returned the exact candidate SHA above.
-- Docs only: no runtime, schema, storage, Header, PostgreSQL, or adapter source
-  changed.
-
-Await Reviewer verdict. Do not begin Phase 2 or Header work.
+Status: BUILDER ACTION REQUIRED
+Phase: 1P — Promote accepted identity portability authority
 
 ## Reviewer verdict
 
-**Stop — architectural risk**
+**Proceed with safeguards**
 
 Reviewer independently inspected
 `docs/identity-portability-authority` at
-`ce05552844a8b95e4bef135488c1c3944cbbb5f4`.
+`38b762c04d1b41c8e70616a270dd525646f1e5fa`.
 
-The candidate correctly removes mandatory central PostgreSQL/Station ownership,
-defines host-local WEX identity spaces, preserves host-domain independence, makes
-PostgreSQL optional, records explicit approval-before-init, and defers Header.
+Phase 1A is accepted.
 
-### Blocking ownership error
-
-The proposed authority currently gives the **storage adapter** responsibility to
-register/validate families, issue IDs, reserve/assign lifecycle and effectively
-operate WEX identity semantics.
-
-That is not the Owner direction.
-
-**WEX Identity is the Plugin + Tool. Storage is the adapter.**
-
-The portable WEX identity core must own identity semantics and operations.
-A storage adapter only persists those semantics into the host's available
-storage and provides the backend-specific atomicity/durability mechanism.
-
-Do not replace one central identity authority with many backend-specific identity
-authorities.
-
-## Strict corrected boundary
+The corrected candidate now preserves the Owner's required boundary:
 
 ```text
 WEX Identity Plugin + Tool
-  owns:
-  - platform/system registration semantics
-  - family validation
-  - ID generation/issuance rules
-  - reserve / assign / retire lifecycle rules
-  - parent/slot semantics
-  - lookup/targeting semantics
-  - init/approval flow
-          |
-          v
+  owns identity semantics and operations
+        |
+        v
 WEX Storage Adapter Contract
-  owns:
-  - create/open isolated host WEX space
-  - persist/read lifecycle records
-  - atomic compare/write or equivalent collision protection
-  - durable non-reuse evidence
-  - backend-specific file/DB/API mechanics
-          |
-          v
+  owns persistence mechanics only
+        |
+        v
 Host storage
-  filesystem / WordPress-MySQL / PostgreSQL / API / other
 ```
 
-Changing storage backend must never change WEX identity generation or lifecycle
-meaning.
+Accepted safeguards:
 
-## Builder correction — Phase 1A only
+- WEX owns platform/system registration semantics, family validation, ID
+  generation/issuance, reserve/assign/retire lifecycle, parent/slot,
+  lookup/targeting, and approval/init flow.
+- Storage adapters create/open the host WEX identity space, persist/read WEX
+  records, and provide backend-specific atomicity/durability only.
+- Adapters must not invent IDs, families, lifecycle states, or alternate identity
+  semantics.
+- Each host has an isolated WEX identity space.
+- Allocation address is host identity-space registration + WEX allocation ID;
+  exact record shape remains Phase 2.
+- PostgreSQL is optional adapter/proof only.
+- Local folder/file storage is the first reference adapter.
+- Host business/domain data remains outside WEX identity storage.
+- Header remains deferred until Phases 1–4 are accepted and promoted.
 
-On the same topic branch:
+## Builder instruction — Phase 1P only
 
-1. Correct proposed ADR 0016 and architecture docs so WEX Plugin + Tool owns the
-   portable identity semantics/operations and storage adapters own persistence
-   mechanics only.
-2. Remove wording that makes each adapter an independent identity issuer or
-   family authority.
-3. Preserve host-local identity spaces and the address boundary:
-   platform/system registration + WEX allocation identity.
-4. Keep allocation IDs unique/non-reusable within their registered host space;
-   Phase 2 will define the exact platform-registration record/address shape.
-5. Keep explicit approval before creating a host WEX space.
-6. Keep PostgreSQL as optional adapter/proof only and local folder as first
-   reference adapter.
-7. Explicitly state adapters must not invent IDs, families, lifecycle states or
-   identity semantics outside the WEX Plugin/Tool contract.
-8. Docs only. No runtime/schema/storage/Header changes.
-9. Run `pnpm audit:foundation` and `git diff --check`, push the corrected
-   candidate, update this same file to `AWAITING REVIEWER REVIEW`, and stop.
+Promote the exact accepted candidate
+`38b762c04d1b41c8e70616a270dd525646f1e5fa` to `main` using the repository's
+normal non-destructive promotion workflow.
 
-## Locked roadmap after Phase 1
+Required evidence:
+
+1. verify `origin` is `CodeByNath/WEXdesigns`;
+2. promote without modifying implementation substance;
+3. verify remote `main` contains the exact accepted authority diff;
+4. run/verify the required foundation checks after promotion;
+5. remove the completed remote topic branch only after `main` is verified;
+6. prove remote heads return to only `main` and
+   `Project-work-instructions`;
+7. update this same file to `AWAITING REVIEWER REVIEW` with exact promoted
+   `main` SHA and non-secret evidence;
+8. stop.
+
+Do not begin Phase 2 during promotion.
+
+## Locked roadmap
 
 - Phase 2 — portable WEX identity + storage-adapter contract.
 - Phase 3 — local folder adapter.
