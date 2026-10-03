@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import { mkdir, open, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
-import { basename, dirname, join } from 'node:path';
+import { lstat, mkdir, open, readFile, readdir, realpath, rename, rm, writeFile } from 'node:fs/promises';
+import { basename, dirname, isAbsolute, join, relative } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 
 import {
@@ -48,6 +48,8 @@ function isAlreadyPresent(error: unknown): boolean {
   return typeof error === 'object' && error !== null && 'code' in error && error.code === 'EEXIST';
 }
 
+type SpaceInspection = 'absent' | 'present';
+
 function json(value: unknown): string {
   return `${JSON.stringify(value)}\n`;
 }
@@ -77,13 +79,81 @@ export function createLocalFolderIdentityAdapter(
   const allocationsPath = join(directory, ALLOCATIONS_DIRECTORY);
   const lockPath = join(directory, LOCK_FILE);
 
+  function unsafePath(path: string): LocalFolderIdentityAdapterError {
+    return new LocalFolderIdentityAdapterError(`Unsafe WEX identity-space path: ${path}`);
+  }
+
+  function isWithinSpace(spacePath: string, candidatePath: string): boolean {
+    const relation = relative(spacePath, candidatePath);
+    return relation === '' || (!relation.startsWith('..') && !isAbsolute(relation));
+  }
+
+  async function readEntry(path: string) {
+    try {
+      return await lstat(path);
+    } catch (error) {
+      if (isMissing(error)) return undefined;
+      throw error;
+    }
+  }
+
+  async function requireSpaceDirectory(create: boolean): Promise<string | undefined> {
+    if (create) await mkdir(directory, { recursive: true });
+    const entry = await readEntry(directory);
+    if (entry === undefined) return undefined;
+    if (!entry.isDirectory() || entry.isSymbolicLink()) throw unsafePath(directory);
+    return realpath(directory);
+  }
+
+  async function requireRegularFile(path: string, missingAllowed = false): Promise<boolean> {
+    const entry = await readEntry(path);
+    if (entry === undefined) {
+      if (missingAllowed) return false;
+      throw new LocalFolderIdentityAdapterError(`Missing WEX identity-space record: ${path}`);
+    }
+    if (!entry.isFile() || entry.isSymbolicLink()) throw unsafePath(path);
+    return true;
+  }
+
+  async function requireAllocationsDirectory(spacePath: string, create = false): Promise<string> {
+    if (create) await mkdir(allocationsPath, { recursive: true });
+    const entry = await readEntry(allocationsPath);
+    if (entry === undefined || !entry.isDirectory() || entry.isSymbolicLink()) throw unsafePath(allocationsPath);
+    const resolved = await realpath(allocationsPath);
+    if (!isWithinSpace(spacePath, resolved)) throw unsafePath(allocationsPath);
+    return resolved;
+  }
+
+  async function inspectSpace(): Promise<SpaceInspection> {
+    const spacePath = await requireSpaceDirectory(false);
+    if (spacePath === undefined) return 'absent';
+
+    const entries = (await readdir(spacePath)).filter((entry) => entry !== LOCK_FILE);
+    const hasRegistration = entries.includes(REGISTRATION_FILE);
+    if (!hasRegistration) {
+      if (entries.length === 0) return 'absent';
+      throw new LocalFolderIdentityAdapterError('WEX identity space is damaged or contains incompatible remnants');
+    }
+
+    if (!await requireRegularFile(registrationPath, true)) {
+      throw new LocalFolderIdentityAdapterError('WEX identity space registration is missing');
+    }
+    await requireAllocationsDirectory(spacePath);
+    await readRegistrationRecord();
+    if (entries.some((entry) => entry !== REGISTRATION_FILE && entry !== ALLOCATIONS_DIRECTORY)) {
+      throw new LocalFolderIdentityAdapterError('WEX identity space contains incompatible remnants');
+    }
+    return 'present';
+  }
+
   function allocationPath(key: WexIdentityAllocationLookup): string {
     const parsed = WexIdentityAllocationLookupSchema.parse(key);
     return join(allocationsPath, `${parsed.allocationId}.json`);
   }
 
-  async function readRegistration(): Promise<WexIdentitySpaceRegistration | undefined> {
+  async function readRegistrationRecord(): Promise<WexIdentitySpaceRegistration | undefined> {
     try {
+      if (!await requireRegularFile(registrationPath, true)) return undefined;
       const value = await readFile(registrationPath, 'utf8');
       return parseJson(value, WexIdentitySpaceRegistrationSchema.parse, registrationPath);
     } catch (error) {
@@ -92,9 +162,15 @@ export function createLocalFolderIdentityAdapter(
     }
   }
 
+  async function readRegistration(): Promise<WexIdentitySpaceRegistration | undefined> {
+    if (await inspectSpace() === 'absent') return undefined;
+    return readRegistrationRecord();
+  }
+
   async function readAllocation(key: WexIdentityAllocationLookup): Promise<WexIdentityAllocationRecord | undefined> {
     const path = allocationPath(key);
     try {
+      if (!await requireRegularFile(path, true)) return undefined;
       const value = await readFile(path, 'utf8');
       const record = parseJson(value, WexIdentityAllocationRecordSchema.parse, path);
       if (record.wexPlatformRegistrationId !== key.wexPlatformRegistrationId) {
@@ -118,6 +194,7 @@ export function createLocalFolderIdentityAdapter(
   }
 
   async function writeAtomically(path: string, value: unknown): Promise<void> {
+    await requireRegularFile(path, true);
     const temporaryPath = join(dirname(path), `.${basename(path)}.${randomUUID()}.tmp`);
     try {
       await writeFile(temporaryPath, json(value), { encoding: 'utf8', flag: 'wx' });
@@ -132,9 +209,11 @@ export function createLocalFolderIdentityAdapter(
     for (;;) {
       try {
         handle = await open(lockPath, 'wx');
+        await requireRegularFile(lockPath);
         break;
       } catch (error) {
         if (!isAlreadyPresent(error)) throw error;
+        await requireRegularFile(lockPath);
         await delay(retryDelay);
       }
     }
@@ -149,21 +228,22 @@ export function createLocalFolderIdentityAdapter(
 
   return {
     async detectSpace() {
-      try {
-        await stat(registrationPath);
-      } catch (error) {
-        if (isMissing(error)) return 'absent';
-        throw error;
-      }
-      await readRegistration();
-      return 'present';
+      return inspectSpace();
     },
 
     async createSpace(registration) {
       const parsed = WexIdentitySpaceRegistrationSchema.parse(registration);
-      await mkdir(allocationsPath, { recursive: true });
+      const spacePath = await requireSpaceDirectory(true);
+      if (spacePath === undefined) throw new LocalFolderIdentityAdapterError('Unable to create WEX identity space directory');
+      if (await inspectSpace() === 'present') {
+        throw new LocalFolderIdentityAdapterError('WEX identity space is already registered');
+      }
       await withLock(async () => {
-        if (await readRegistration() !== undefined) {
+        if (await inspectSpace() === 'present') {
+          throw new LocalFolderIdentityAdapterError('WEX identity space is already registered');
+        }
+        await requireAllocationsDirectory(spacePath, true);
+        if (await readRegistrationRecord() !== undefined) {
           throw new LocalFolderIdentityAdapterError('WEX identity space is already registered');
         }
         await writeAtomically(registrationPath, parsed);
@@ -177,8 +257,11 @@ export function createLocalFolderIdentityAdapter(
       if (parsed.lifecycleState !== 'reserved') {
         throw new LocalFolderIdentityAdapterError('Only a supplied reserved allocation can be created');
       }
-      await requireMatchingRegistration(parsed.wexPlatformRegistrationId);
       await withLock(async () => {
+        const spacePath = await requireSpaceDirectory(false);
+        if (spacePath === undefined) throw new LocalFolderIdentityAdapterError('WEX identity space has no registration');
+        await requireAllocationsDirectory(spacePath);
+        await requireMatchingRegistration(parsed.wexPlatformRegistrationId);
         const key = {
           wexPlatformRegistrationId: parsed.wexPlatformRegistrationId,
           allocationId: parsed.allocationId,
@@ -193,8 +276,11 @@ export function createLocalFolderIdentityAdapter(
 
     async transition(transition) {
       const next = WexIdentityAllocationRecordSchema.parse(transition.record);
-      await requireMatchingRegistration(next.wexPlatformRegistrationId);
       await withLock(async () => {
+        const spacePath = await requireSpaceDirectory(false);
+        if (spacePath === undefined) throw new LocalFolderIdentityAdapterError('WEX identity space has no registration');
+        await requireAllocationsDirectory(spacePath);
+        await requireMatchingRegistration(next.wexPlatformRegistrationId);
         const key = {
           wexPlatformRegistrationId: next.wexPlatformRegistrationId,
           allocationId: next.allocationId,
@@ -215,6 +301,9 @@ export function createLocalFolderIdentityAdapter(
 
     async lookup(key) {
       const parsed = WexIdentityAllocationLookupSchema.parse(key);
+      const spacePath = await requireSpaceDirectory(false);
+      if (spacePath === undefined) throw new LocalFolderIdentityAdapterError('WEX identity space has no registration');
+      await requireAllocationsDirectory(spacePath);
       await requireMatchingRegistration(parsed.wexPlatformRegistrationId);
       return readAllocation(parsed);
     },

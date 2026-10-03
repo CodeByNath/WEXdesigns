@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, rm, stat, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -138,4 +138,33 @@ test('restart readback, malformed records, and path escape attempts are rejected
     }),
   );
   assert.equal(await readFile(hostFile, 'utf8'), 'unchanged');
+});
+
+test('rejects symlinked allocation storage that escapes the configured identity space', async (t) => {
+  const { root, directory, adapter } = await fixture(t);
+  await adapter.createSpace(registration);
+  await rm(join(directory, 'allocations'), { recursive: true });
+  const outside = join(root, 'outside-identity-space');
+  await mkdir(outside);
+  await symlink(outside, join(directory, 'allocations'));
+
+  await assert.rejects(() => adapter.reserve(reserved()), LocalFolderIdentityAdapterError);
+  assert.deepEqual(await readdir(outside), []);
+});
+
+test('fails closed for partial, corrupt, or incompatible WEX identity-space remnants', async (t) => {
+  const { directory, adapter } = await fixture(t);
+  await mkdir(join(directory, 'allocations'), { recursive: true });
+  await writeFile(join(directory, 'allocations', 'WEXAMABCDE.json'), JSON.stringify(reserved()));
+  await assert.rejects(() => adapter.detectSpace(), LocalFolderIdentityAdapterError);
+  await assert.rejects(() => adapter.readRegistration(), LocalFolderIdentityAdapterError);
+  await assert.rejects(() => adapter.createSpace(registration), LocalFolderIdentityAdapterError);
+
+  await rm(directory, { recursive: true });
+  await mkdir(directory, { recursive: true });
+  await writeFile(join(directory, 'registration.json'), '{not-json');
+  await mkdir(join(directory, 'allocations'));
+  await assert.rejects(() => adapter.detectSpace(), LocalFolderIdentityAdapterError);
+  await assert.rejects(() => adapter.readRegistration(), LocalFolderIdentityAdapterError);
+  await assert.rejects(() => adapter.createSpace(registration), LocalFolderIdentityAdapterError);
 });
