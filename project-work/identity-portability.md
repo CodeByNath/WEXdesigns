@@ -1,57 +1,44 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 2A — Corrected platform registration contract submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 2B — Record accepted portable identity contract decision
 
 ## Reviewer verdict
 
-**Stop — architectural risk**
+**Proceed with safeguards**
 
-Reviewer independently inspected
-`feat/portable-identity-storage-contract` at
-`ea7eb0704d6748f701e23676c4b5a4320e0cfc4d`.
+Reviewer independently verified candidate
+`b50e84b429966f4f8457abcd1c2fd6624a10af13` is a two-commit direct descendant
+of `main` at `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539` and changes only the
+nine authorised Phase 2 contract/schema files.
 
-The candidate correctly preserves:
+Accepted contract substance:
 
-- WEX Plugin + Tool ownership of identity semantics;
-- storage adapters as persistence/atomicity only;
-- backend neutrality;
-- isolated host-local WEX identity spaces;
-- allocation lifecycle, collision/non-reuse and parent/slot rules;
-- opaque product/domain bindings;
-- no filesystem, PostgreSQL, WordPress, Header or UI implementation.
+- `wexPlatformRegistrationId` is a first-class WEX-owned identity whose format
+  remains deliberately unresolved; `platformKey` is opaque host reference only;
+- the Plugin + Tool creates/validates registration after approval, while the
+  adapter persists/reads it without generating, replacing, or reusing it;
+- the portable address is `(wexPlatformRegistrationId, allocationId)`;
+- lifecycle, collision/non-reuse, parent/slot, binding, backend-neutrality,
+  and no-runtime boundaries remain intact.
 
-### Blocking gap — platform identification is not yet first-class
+Independent `pnpm --filter @weerax/schemas check`, `pnpm audit:foundation`,
+and `git diff --check` passed. No adapter, runtime, filesystem, PostgreSQL,
+WordPress, Header, UI, or real-allocation work is present.
 
-The contract introduces `identitySpaceId` plus opaque `platformKey`, but does
-not define the WEX lifecycle of the **host/platform registration identity
-itself**.
+## Builder instruction — Phase 2B only
 
-Owner direction requires WEX to register each plugged-in system before/alongside
-its component identities so the system and its WEX allocations can be targeted
-as one isolated identity circle.
+On the same candidate branch, record this accepted decision without changing
+its substance:
 
-A plain arbitrary non-empty `identitySpaceId` is therefore insufficient as the
-completed Phase 2 contract.
+1. Change ADR 0017 status to `Accepted`.
+2. Move ADR 0017 from Proposed to Accepted in the decision index.
+3. Update only affected `Proposed ADR 0017` references to `Accepted`.
 
-## Builder handoff
-
-- Candidate branch: `feat/portable-identity-storage-contract`
-- Corrected candidate SHA: `b50e84b429966f4f8457abcd1c2fd6624a10af13`
-- Makes `wexPlatformRegistrationId` a first-class WEX-owned registration
-  identity; its format remains deliberately unresolved with no new prefix.
-- The contract now requires: absent -> approval-required -> Plugin + Tool
-  creates/validates registration -> adapter persists supplied registration ->
-  ready; reopening reads back the same durable identity.
-- `platformKey` remains an opaque host-system reference. Allocation address is
-  `(wexPlatformRegistrationId, allocationId)`; adapters never generate,
-  replace, or reuse either identity.
-- Changed only Phase 2 contract docs/navigation, neutral schema exports, and
-  focused tests. No adapter/runtime/filesystem/PostgreSQL/WordPress/Header/UI
-  work or real allocation was added.
-- Checks passed: `pnpm --filter @weerax/schemas check`,
-  `pnpm audit:foundation`, and `git diff --check`.
-- Unresolved decision: ADR 0017 remains Proposed pending Reviewer acceptance.
+Do not change schemas, contract semantics, runtime, adapters, or `main` in
+this bookkeeping step. Run `pnpm audit:foundation` and `git diff --check`,
+push the same candidate, update this file to `AWAITING REVIEWER REVIEW` with
+the exact SHA/evidence, and stop.
 
 ## Locked roadmap
 
