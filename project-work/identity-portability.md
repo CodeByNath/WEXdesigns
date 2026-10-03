@@ -1,48 +1,76 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 3A — Hardened local-folder adapter candidate submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 3B — Preserve irreversible lifecycle evidence
 
-## Builder handoff
+## Reviewer verdict
 
-The Reviewer’s two Phase 3 filesystem-boundary findings were corrected on the
-existing candidate branch:
+**Stop — architectural risk**
 
-- Branch: `feat/local-folder-identity-adapter`
-- Corrected candidate SHA: `7778d2839ee0fbc3932b989ba4afa8db220a7e1e`
-- Prior reviewed SHA: `714e4c72a117950754f847644688b2aa9129a254`
+Reviewer independently inspected corrected candidate
+`7778d2839ee0fbc3932b989ba4afa8db220a7e1e`.
 
-The adapter now rejects symlinked/non-regular registration, allocation, and
-lock entries; resolves the allocation directory and proves it remains inside
-the configured identity-space directory before persistence; and validates
-write targets before atomic temp-file + rename operations.
+Phase 3A filesystem corrections are accepted:
 
-Detection is still side-effect free. A missing directory or an empty directory
-is `absent`, while a partial, corrupt, or incompatible non-empty WEX space
-fails closed. `createSpace()` refuses to initialise over those remnants, and
-public registration reads also fail closed rather than treating them as absent.
+- symlinked allocation storage is rejected;
+- allocation storage is resolved/checked inside the configured WEX space;
+- registration/allocation/lock entries must be regular non-symlink files;
+- partial/corrupt/incompatible remnants fail closed;
+- missing registration plus existing remnants cannot be silently reinitialized;
+- fresh detection remains side-effect free;
+- normal create/reopen/readback remains supported.
 
-Changed files in this correction:
+One persistence invariant remains blocking.
 
-- `packages/adapters/src/local-folder-identity-adapter.ts`
-- `packages/adapters/test/local-folder-identity-adapter.test.mjs`
+## Blocking gap — irreversible lifecycle evidence
 
-Deterministic test coverage now includes an allocation-directory symlink escape
-with no outside write, partial allocation remnants without registration,
-corrupt registration failure, normal fresh creation, and reopen/readback.
+`transition()` currently verifies only:
 
-Checks passed:
+- current state equals caller-supplied `expectedState`;
+- immutable ID/family/placement/reservation evidence is unchanged.
 
-- `pnpm --filter @weerax/adapters check` — 7/7 tests
-- `pnpm --filter @weerax/schemas check` — 10/10 tests
-- `pnpm audit:foundation`
-- `pnpm check` — 40 tasks successful
-- `git diff --check`
+It can therefore persist a supplied transition such as:
 
-No ID generation, family/lifecycle semantics, Plugin/Tool bootstrap,
-PostgreSQL, WordPress, Header, or UI scope was added. No unresolved Phase 3A
-issue is known. Reviewer must independently inspect the pushed candidate and
-record the next decision here.
+- `retired -> assigned`; or
+- `assigned -> reserved`.
+
+That can erase retirement/assignment evidence and violate the adapter's accepted
+responsibility to provide **durable non-reuse evidence**.
+
+WEX Plugin + Tool still owns lifecycle meaning. The adapter must not invent
+business/lifecycle policy, but it must enforce the persistence-level invariant
+that already-committed evidence cannot be rolled backward or removed.
+
+## Builder correction — Phase 3B only
+
+On the same topic branch:
+
+1. Preserve the accepted ownership boundary: do not move lifecycle authority
+   into the adapter.
+2. Add the minimum persistence guard needed to prevent durable lifecycle
+   evidence from being rolled backward or erased.
+3. At minimum:
+   - a retired record must never be replaced by another lifecycle state;
+   - an assigned record must never be replaced by a reserved record;
+   - existing `assignedAt`, `retiredAt`, and retirement evidence must not be
+     removed once durably committed.
+4. Continue allowing only transitions that preserve accumulated evidence. Do
+   not invent new lifecycle states or domain rules.
+5. Add deterministic tests proving rollback attempts are rejected and the
+   original durable record remains unchanged after rejection.
+6. Retain all accepted Phase 3A filesystem hardening.
+7. Do not begin Phase 4 or modify PostgreSQL, WordPress, Header, UI, identity
+   generation, or approval/bootstrap behavior.
+
+Run:
+`pnpm --filter @weerax/adapters check`,
+`pnpm --filter @weerax/schemas check`,
+`pnpm audit:foundation`,
+`pnpm check`,
+and `git diff --check`.
+
+Push the corrected candidate, update this same file to
+`AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
 
 ## Locked roadmap
 
