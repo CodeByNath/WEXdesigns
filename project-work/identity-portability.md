@@ -1,43 +1,64 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 2B — Accepted contract decision recorded
+Status: BUILDER ACTION REQUIRED
+Phase: 2P — Promote accepted portable identity contract
 
 ## Reviewer verdict
 
 **Proceed with safeguards**
 
-Reviewer independently verified candidate
-`b50e84b429966f4f8457abcd1c2fd6624a10af13` is a two-commit direct descendant
-of `main` at `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539` and changes only the
-nine authorised Phase 2 contract/schema files.
+Reviewer independently inspected
+`feat/portable-identity-storage-contract` at
+`50c0c9120617e4c15e47265b018833c173661771`.
 
-Accepted contract substance:
+Phase 2 is accepted.
 
-- `wexPlatformRegistrationId` is a first-class WEX-owned identity whose format
-  remains deliberately unresolved; `platformKey` is opaque host reference only;
-- the Plugin + Tool creates/validates registration after approval, while the
-  adapter persists/reads it without generating, replacing, or reusing it;
-- the portable address is `(wexPlatformRegistrationId, allocationId)`;
-- lifecycle, collision/non-reuse, parent/slot, binding, backend-neutrality,
-  and no-runtime boundaries remain intact.
+Accepted substance:
 
-Independent `pnpm --filter @weerax/schemas check`, `pnpm audit:foundation`,
-and `git diff --check` passed. No adapter, runtime, filesystem, PostgreSQL,
-WordPress, Header, UI, or real-allocation work is present.
+- `wexPlatformRegistrationId` is a first-class WEX-owned host/platform
+  registration identity; its concrete format remains deliberately unresolved;
+- `platformKey` is an opaque host-system reference only;
+- portable allocation address is
+  `(wexPlatformRegistrationId, allocationId)`;
+- WEX Identity Plugin + Tool owns registration, family validation, issuance,
+  lifecycle, parent/slot, lookup/targeting, and approval/init semantics;
+- storage adapters only create/open the isolated WEX space, persist/read supplied
+  records, and provide backend-specific atomicity/durability;
+- adapters cannot generate/replace/reuse registration IDs or invent allocation
+  identity semantics;
+- lifecycle, collision/non-reuse, binding separation and backend neutrality are
+  preserved;
+- framework-neutral schema records validate data only and contain no issuance,
+  persistence, callbacks, host business data, backend paths, SQL or UI;
+- no adapter/runtime/filesystem/PostgreSQL/WordPress/Header/UI implementation is
+  included.
 
-## Builder handoff
+ADR 0017 is correctly recorded as Accepted without changing its substance.
 
-- Candidate branch: `feat/portable-identity-storage-contract`
-- Updated candidate SHA: `50c0c9120617e4c15e47265b018833c173661771`
-- Changed only ADR 0017 acceptance bookkeeping: its status, decision index,
-  and affected architecture/Code Map acceptance labels.
-- Contract semantics, schemas, runtime, adapters, and `main` are unchanged.
-- Checks passed: `pnpm audit:foundation` and `git diff --check`.
-- Unresolved issues: none for Phase 2B; Phase 3 implementation remains
-  separately gated.
+## Builder instruction — Phase 2P only
 
-## Locked roadmap
+Promote the exact accepted candidate
+`50c0c9120617e4c15e47265b018833c173661771` to `main` using the normal
+non-destructive promotion workflow.
+
+Required evidence:
+
+1. verify `origin` is `CodeByNath/WEXdesigns`;
+2. verify current `origin/main` is
+   `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`;
+3. fast-forward only the accepted candidate to `main`;
+4. verify remote `main` equals the exact accepted candidate SHA;
+5. run/verify `pnpm --filter @weerax/schemas check`,
+   `pnpm audit:foundation`, and `git diff --check`;
+6. remove the completed topic branch only after `main` is verified;
+7. verify remote heads return to only `main` and
+   `Project-work-instructions`;
+8. update this same file to `AWAITING REVIEWER REVIEW` with exact evidence;
+9. stop.
+
+Do not begin Phase 3 during promotion.
+
+## Locked next phases
 
 - Phase 3 — local folder adapter.
 - Phase 4 — Plugin/Tool initialization/bootstrap.
@@ -46,3 +67,6 @@ WordPress, Header, UI, or real-allocation work is present.
 - Phase 7 — separately authorised real-host integration proof.
 
 Header remains deferred until Phases 1–4 are accepted and promoted.
+
+No Builder may alter the accepted ownership model without Owner + Reviewer
+architecture approval.
