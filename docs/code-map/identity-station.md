@@ -56,10 +56,11 @@ domain records, or Header presentation.
 
 The Station may consume schema validation and a PostgreSQL client. It must not
 move WEX identity semantics into schemas, WEX, Shared UI, or the web runtime.
-Under proposed ADR 0016, host storage adapters implement the same portable
-contract in host-local identity spaces; this Station is no longer the universal
-issuer or persistence owner. The ledger contains allocation lifecycle evidence
-only; bindings and platform/domain data remain outside it.
+Under proposed ADR 0016, the WEX Identity Plugin + Tool owns identity semantics
+and operations while host storage adapters persist its contract in host-local
+identity spaces. This Station is no longer the universal issuer or persistence
+owner. The ledger contains allocation lifecycle evidence only; bindings and
+platform/domain data remain outside it.
 
 ## Safe change routing
 

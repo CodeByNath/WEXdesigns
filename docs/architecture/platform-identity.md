@@ -18,7 +18,7 @@ runtime binding, or component is introduced by this document.
 | Identity | Purpose | Owner |
 | --- | --- | --- |
 | Reusable definition/capability | An independently identified reusable UI definition or type | WEX composition authority |
-| UI composition/allocation | One concrete WEX composition/allocation instance | The host's isolated WEX identity space through its approved adapter |
+| UI composition/allocation | One concrete WEX composition/allocation instance | WEX Identity Plugin + Tool, persisted in the host's isolated WEX identity space |
 | Platform/domain reference | An authoritative external record reference | Consuming platform/domain |
 | Binding/reference | An explicit mapping from a WEX allocation slot to an external reference | Adapter/integration boundary |
 
@@ -78,15 +78,18 @@ spacing, presentation, state, or behaviour.
 ## Allocation lifecycle and placement
 
 Each host owns one isolated WEX identity space through an approved storage
-adapter. The adapter registers/validates families, issues immutable allocation
-IDs, reserves them before assignment, rejects collisions, prevents reuse, and
-resolves allocations within that host space. A WEX allocation is addressed by
-its identity-space registration and allocation ID; applications do not create
-disconnected IDs outside that space. An allocation or binding that must survive
-a configuration round trip, external reference, or platform-to-UI lookup
-requires durable adapter storage. A platform record may resolve to zero, one,
-or many WEX allocations; reverse lookup is therefore an indexed query, not an
-inferred hierarchy.
+adapter. The WEX Identity Plugin + Tool registers/validates families, generates
+and issues immutable allocation IDs, applies reserve/assign/retire lifecycle
+rules, and resolves allocations within that host space. The adapter only
+creates or opens the host space and durably persists, reads, and atomically
+protects the Plugin + Tool's lifecycle records. It must not invent IDs,
+families, lifecycle states, or identity semantics. A WEX allocation is
+addressed by its identity-space registration and allocation ID; applications do
+not create disconnected IDs outside that space. An allocation or binding that
+must survive a configuration round trip, external reference, or platform-to-UI
+lookup requires durable adapter storage. A platform record may resolve to zero,
+one, or many WEX allocations; reverse lookup is therefore an indexed query,
+not an inferred hierarchy.
 
 Retired externally referenced allocations are not reissued. Their retirement
 record/tombstone is retained when needed to preserve a durable reference or
@@ -96,10 +99,10 @@ external reference remain structurally addressed and need not mint an identity.
 | Boundary | Responsibility | Must not own |
 | --- | --- | --- |
 | `@weerax/schemas` | Framework-neutral serializable identity, parent, and binding validation | Issuance, persistence, lookup, callbacks |
-| Host storage adapters | WEX identity-space persistence and portable allocation semantics | Host-domain data ownership or altered WEX identity semantics |
-| Product-side adapters | Explicit mapping and authoritative platform-reference resolution | WEX identity issuance outside an approved host identity space or domain duplication |
+| Host storage adapters | Create/open host WEX space; persist/read lifecycle records; backend atomicity and durability | ID/family/lifecycle invention, identity semantics, or host-domain data ownership |
+| Product-side adapters | Explicit mapping and authoritative platform-reference resolution | WEX identity issuance outside the Plugin + Tool contract or domain duplication |
 | Shared UI | Rendering supplied definitions | Registry, persistence, platform authority |
-| WEX Plugin + Tool | Portable identity rules, initialization, inspection, and targeting tooling | Host-domain authority or mandatory backend ownership |
+| WEX Plugin + Tool | Platform registration, family validation, ID issuance, lifecycle, parent/slot, lookup/targeting, and approval/init semantics | Host-domain authority or mandatory backend ownership |
 
 The WEX Plugin + Tool is separate from the WEX presentation package and
 reusable core packages. PostgreSQL Station infrastructure is optional adapter

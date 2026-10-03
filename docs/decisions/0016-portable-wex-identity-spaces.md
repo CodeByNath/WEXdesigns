@@ -23,11 +23,14 @@ portable identity semantics rather than central-service ownership.
 
 ### Host-local identity space
 
-WEX Identity is a portable Plugin + Tool. An approved host storage adapter
-creates and accesses one isolated WEX identity space for that host, registers
-the host platform in that space, and stores WEX allocation lifecycle evidence
-there. The identity address is the pair of its host identity-space registration
-and allocation ID; an allocation ID alone is not globally unique across hosts.
+WEX Identity is a portable Plugin + Tool. It owns platform/system registration,
+family validation, ID generation and issuance, allocation lifecycle, explicit
+parent/slot, lookup/targeting, and initialization/approval semantics. It uses
+an approved host storage adapter to create or open one isolated WEX identity
+space for that host and to persist the platform registration and allocation
+lifecycle evidence there. The identity address is the pair of its host
+identity-space registration and allocation ID; an allocation ID alone is not
+globally unique across hosts.
 
 Installation or initialization must first detect whether the WEX identity space
 exists. When absent, it must require explicit user or administrator approval
@@ -44,18 +47,20 @@ absorb host business data.
 ### Portable allocation semantics
 
 Each approved storage adapter implements one framework-neutral WEX persistence
-contract. Backend choice must not alter allocation, parent/slot, lookup,
-collision, non-reuse, binding-boundary, or approval/init semantics. The
-contract and record shapes are deferred to Phase 2.
+contract. The WEX Plugin + Tool applies the identity rules and sends their
+records and transitions to the adapter; backend choice must not alter
+allocation, parent/slot, lookup, collision, non-reuse, binding-boundary, or
+approval/init semantics. The contract and record shapes are deferred to Phase
+2.
 
-Within one host identity space, the adapter must register and validate the
-closed allocation-family vocabulary, reserve before assignment, reject
-collisions, retain immutable allocation evidence, and never reuse a registered
-allocation. A reservation, assignment, or retirement remains unavailable for
-reuse in that host space. The adapter must provide durable readback and lookup
-required for a registered allocation's lifecycle; its concurrency/atomicity
-mechanism is backend-specific but must prove the same collision and non-reuse
-guarantees.
+Within one host identity space, the WEX Plugin + Tool registers and validates
+the closed allocation-family vocabulary, generates and issues IDs, applies
+reserve-before-assign and retirement lifecycle rules, and requests lookup. The
+storage adapter durably persists and reads those lifecycle records, provides
+atomic compare/write or equivalent collision protection, and retains non-reuse
+evidence. It must not invent IDs, families, lifecycle states, or identity
+semantics outside the WEX Plugin + Tool contract. A reservation, assignment, or
+retirement remains unavailable for reuse in that host space.
 
 The ID forms, uppercase unambiguous Base32 suffix alphabet, closed family
 recognition, explicit root or `parentAllocationId`/parent-owned `slot`
@@ -66,12 +71,15 @@ payloads.
 
 ### Tool and adapter boundary
 
-The WEX Plugin + Tool owns portable identity rules, initialization flow, and
-identity inspection/targeting tooling. A host adapter owns its local WEX-space
-persistence implementation and no host business data. A later host integration
-may use WEX identity to find a registered WEX shell or component for inspection,
-diagnostics, or separately authorised extension without traversing root CSS or
-the host application's component tree.
+The WEX Plugin + Tool owns portable identity semantics and operations:
+platform/system registration, family validation, ID generation and issuance,
+reserve/assign/retire lifecycle, parent/slot, lookup/targeting, and the
+initialization/approval flow. A host adapter owns only its local WEX-space
+persistence mechanics, atomicity/durability implementation, and no host
+business data. It cannot add an alternative issuer or identity authority. A
+later host integration may use WEX identity to find a registered WEX shell or
+component for inspection, diagnostics, or separately authorised extension
+without traversing root CSS or the host application's component tree.
 
 The current Identity Station and its PostgreSQL ledger are an optional storage
 adapter/proof, not the WEX identity core, universal namespace, or mandatory
@@ -86,7 +94,7 @@ decision changes them.
 
 | Earlier decision | Superseded clauses | Still valid |
 | --- | --- | --- |
-| ADR 0013 | “globally unique” allocation namespace; “single WEX UI Identity Authority / Station”; Station-only issuance, durable lifecycle, and lookup; applications may not mint host-local IDs | Four identity layers; exact closed family forms and validation; explicit parent/slot; opaque serializable bindings; reservation-before-use, immutable/non-reusable lifecycle semantics; no domain ownership in WEX |
+| ADR 0013 | “globally unique” allocation namespace; “single WEX UI Identity Authority / Station”; Station-only issuance, durable lifecycle, and lookup | Four identity layers; exact closed family forms and validation; explicit parent/slot; opaque serializable bindings; WEX-only issuance, reservation-before-use, immutable/non-reusable lifecycle semantics; no domain ownership in WEX |
 | ADR 0014 | Station-owned single durable ledger; Station alone chooses/reserves/assigns IDs; Station-only first-allocation bootstrap | Lifecycle evidence fields and immutable placement; reserve-before-assign; root-before-direct-child ordering; collision rejection and non-reuse requirements |
 | ADR 0015 | Standalone Node Station as sole runtime; PostgreSQL `wex_identity` ledger as mandatory placement; Station-only writer/operations; consumer-local storage cannot prove the required semantics | A PostgreSQL transaction/unique boundary is a valid optional proof; reserve, assign, and lookup remain required portable operations; no caller-supplied allocation IDs; no domain-record or presentation ownership |
 
