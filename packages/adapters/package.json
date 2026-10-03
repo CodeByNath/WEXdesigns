@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -14,10 +16,13 @@
     "build": "tsc -p tsconfig.json",
     "type-check": "tsc -p tsconfig.json --noEmit",
     "lint": "tsc -p tsconfig.json --noEmit",
-    "test": "node -e \"\"",
-    "check": "pnpm type-check"
+    "test": "pnpm build && node --test test/*.test.mjs",
+    "check": "pnpm type-check && pnpm test"
   },
   "dependencies": {
     "@weerax/schemas": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.1"
   }
 }

@@ -1,5 +1,7 @@
 # Adapter Source Boundary
 
-Future adapters will own record identity, authoritative data access, mappings, permissions, business validation, persistence, lifecycle rules, relationships, options, commands, and domain errors.
+The local-folder identity adapter owns only filesystem persistence, readback,
+and atomicity for WEX-supplied records. It does not own WEX identity semantics
+or host-domain data.
 
 Framework-specific hooks do not belong in this core package.
