@@ -87,6 +87,54 @@ test('reserves, reads, transitions, and retains allocation evidence', async (t) 
   await assert.rejects(() => adapter.reserve(initial), LocalFolderIdentityAdapterError);
 });
 
+test('rejects lifecycle rollbacks without replacing durable evidence', async (t) => {
+  const { adapter } = await fixture(t);
+  await adapter.createSpace(registration);
+  const initial = reserved();
+  const key = {
+    wexPlatformRegistrationId: registration.wexPlatformRegistrationId,
+    allocationId: initial.allocationId,
+  };
+  await adapter.reserve(initial);
+
+  const assigned = {
+    ...initial,
+    lifecycleState: 'assigned',
+    assignedAt: '2026-10-03T00:02:00.000Z',
+  };
+  await adapter.transition({ expectedState: 'reserved', record: assigned });
+  await assert.rejects(
+    () => adapter.transition({ expectedState: 'assigned', record: initial }),
+    LocalFolderIdentityAdapterError,
+  );
+  assert.deepEqual(await adapter.lookup(key), assigned);
+
+  const retired = {
+    ...assigned,
+    lifecycleState: 'retired',
+    retiredAt: '2026-10-03T00:03:00.000Z',
+    retirementEvidence: 'host-retired',
+  };
+  await adapter.transition({ expectedState: 'assigned', record: retired });
+  await assert.rejects(
+    () => adapter.transition({ expectedState: 'retired', record: assigned }),
+    LocalFolderIdentityAdapterError,
+  );
+  await assert.rejects(
+    () => adapter.transition({
+      expectedState: 'retired',
+      record: { ...retired, retirementEvidence: 'revised-retirement-evidence' },
+    }),
+    LocalFolderIdentityAdapterError,
+  );
+  const { assignedAt: ignoredAssignedAt, ...retiredWithoutAssignmentEvidence } = retired;
+  await assert.rejects(
+    () => adapter.transition({ expectedState: 'retired', record: retiredWithoutAssignmentEvidence }),
+    LocalFolderIdentityAdapterError,
+  );
+  assert.deepEqual(await adapter.lookup(key), retired);
+});
+
 test('rejects immutable evidence changes and concurrent reservation collisions', async (t) => {
   const { adapter } = await fixture(t);
   await adapter.createSpace(registration);

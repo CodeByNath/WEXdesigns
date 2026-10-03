@@ -70,6 +70,17 @@ function sameImmutableEvidence(current: WexIdentityAllocationRecord, next: WexId
     && JSON.stringify(current.placement) === JSON.stringify(next.placement);
 }
 
+function preservesLifecycleEvidence(current: WexIdentityAllocationRecord, next: WexIdentityAllocationRecord): boolean {
+  if (current.lifecycleState === 'reserved') return true;
+  if (current.lifecycleState === 'assigned') {
+    return next.lifecycleState !== 'reserved' && current.assignedAt === next.assignedAt;
+  }
+  return next.lifecycleState === 'retired'
+    && current.assignedAt === next.assignedAt
+    && current.retiredAt === next.retiredAt
+    && current.retirementEvidence === next.retirementEvidence;
+}
+
 export function createLocalFolderIdentityAdapter(
   options: LocalFolderIdentityAdapterOptions,
 ): LocalFolderIdentityAdapter {
@@ -294,6 +305,9 @@ export function createLocalFolderIdentityAdapter(
         }
         if (!sameImmutableEvidence(current, next)) {
           throw new LocalFolderIdentityAdapterError('WEX allocation immutable evidence cannot change');
+        }
+        if (!preservesLifecycleEvidence(current, next)) {
+          throw new LocalFolderIdentityAdapterError('WEX allocation lifecycle evidence cannot be rolled back or removed');
         }
         await writeAtomically(allocationPath(key), next);
       });
