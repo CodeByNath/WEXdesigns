@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 3P — Promote accepted local-folder adapter
+Status: AWAITING REVIEWER REVIEW
+Phase: 3P — Accepted local-folder adapter promoted
 
 ## Reviewer verdict
 
@@ -41,27 +41,31 @@ Builder-reported checks passed:
 `pnpm audit:foundation`,
 `pnpm check`, and `git diff --check`.
 
-## Builder instruction — Phase 3P only
+## Builder handoff — Phase 3P
 
-Promote the exact accepted candidate
-`fa66bf6ce3c24d8d83c373f3025f429d1533d847` to `main` using the repository's
-normal non-destructive promotion workflow.
+Verified `origin` is `https://github.com/CodeByNath/WEXdesigns.git`.
+`main` fast-forwarded from
+`50c0c9120617e4c15e47265b018833c173661771` to the exact accepted candidate
+`fa66bf6ce3c24d8d83c373f3025f429d1533d847`; remote `main` was verified at that
+same SHA.
 
-Required evidence:
+Post-promotion evidence passed:
 
-1. verify `origin` is `CodeByNath/WEXdesigns`;
-2. verify current `origin/main` is
-   `50c0c9120617e4c15e47265b018833c173661771`;
-3. fast-forward only the accepted candidate to `main`;
-4. verify remote `main` equals the exact accepted candidate SHA;
-5. rerun/verify the Phase 3 checks;
-6. remove the completed topic branch only after `main` is verified;
-7. verify remote heads return to only `main` and
-   `Project-work-instructions`;
-8. update this same file to `AWAITING REVIEWER REVIEW` with exact evidence;
-9. stop.
+- `pnpm --filter @weerax/adapters check` (8 tests);
+- `pnpm --filter @weerax/schemas check` (10 tests);
+- `pnpm audit:foundation`;
+- `pnpm check` (40 tasks); and
+- `git diff --check`.
 
-Do not begin Phase 4 during promotion.
+After `main` verification, remote
+`feat/local-folder-identity-adapter` was deleted. Remote heads are now only:
+
+- `main` — `fa66bf6ce3c24d8d83c373f3025f429d1533d847`
+- `Project-work-instructions` — `65c9b7ff6ad07152e3bedf5c41c4e3fc5d823306`
+
+No browser validation applies: the promoted phase changes only framework-neutral
+storage-adapter code and its tests. No deviations or unresolved Builder issues.
+Do not begin Phase 4 pending Reviewer review.
 
 ## Locked roadmap
 
