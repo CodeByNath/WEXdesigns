@@ -1,72 +1,132 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1E — Accepted documentation branch closed
+Status: BUILDER ACTION REQUIRED
+Phase: 2 — Define portable identity + storage-adapter contract
 
 ## Reviewer verdict
 
 **Proceed**
 
-Reviewer independently verified Phase 1D on remote `main` at
-`0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`.
+Phase 1 is closed.
 
-Accepted evidence:
+Reviewer independently verified:
 
-- ADR 0016 is now `Accepted`.
-- The decision index places ADR 0016 under Accepted.
-- The Identity Station Code Map records accepted ADR 0016 and the reviewed
-  authority baseline.
-- The promoted diff contains bookkeeping only; no architecture substance,
-  runtime, schema, storage, adapter, PostgreSQL, Header, or UI changes.
-- The accepted WEX Plugin + Tool / storage-adapter ownership model is unchanged.
+- remote `main` remains
+  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`;
+- the completed closeout topic branch is deleted;
+- remote heads are exactly `main` and `Project-work-instructions`;
+- no Phase 2 source work has started.
 
-The Code Map's `Verified against` SHA is treated as the authority baseline it
-was checked against. Do not create a self-referential update cycle merely
-because the bookkeeping commit itself has a newer SHA.
+## Phase 2 objective
 
-## Builder instruction — Phase 1E only
+Define the portable WEX Identity contract that every storage backend must obey
+before any adapter implementation begins.
 
-The completed remote topic branch
-`docs/identity-portability-authority-closeout` is no longer needed.
+This phase is **contract/architecture only**.
 
-1. Verify remote `main` remains
-   `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`.
-2. Verify the topic branch tip is already contained in `main`.
-3. Delete only that completed remote topic branch.
-4. Verify remote heads are exactly:
-   - `main`
-   - `Project-work-instructions`
-5. Update this same work file to `AWAITING REVIEWER REVIEW` with branch
-   housekeeping evidence and stop.
+### Locked ownership
 
-Do not begin Phase 2 in this closeout step.
+WEX Identity Plugin + Tool owns:
+- platform/system registration semantics;
+- family validation;
+- ID generation/issuance;
+- reserve / assign / retire lifecycle rules;
+- parent/slot semantics;
+- lookup/targeting semantics;
+- initialization/approval semantics.
 
-## Builder handoff
+Storage Adapter owns only:
+- create/open isolated host WEX identity space;
+- persist/read WEX-directed records;
+- atomic compare/write or equivalent collision protection;
+- durable non-reuse evidence;
+- backend-specific filesystem/DB/API mechanics.
 
-- Before deletion, remote `main` and
-  `docs/identity-portability-authority-closeout` both resolved to
-  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`; containment was verified.
-- Deleted only the completed remote topic branch with `git push origin --delete`.
-- Remaining remote heads verified exactly: `main` at
-  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539` and
-  `Project-work-instructions`.
-- No source edits, additional branch operations, or Phase 2 work occurred.
+Adapters must never invent IDs, families, lifecycle states, or identity meaning.
 
-## Next phase after closeout
+## Builder instruction — Phase 2 only
 
-Phase 2 — define the portable WEX Identity + storage-adapter contract.
+Create one topic branch from current `main`.
 
-The Phase 2 design must preserve these locked responsibilities:
+Define the minimum framework-neutral contract and record shapes required for:
 
-- WEX Identity Plugin + Tool owns platform/system registration semantics,
-  family validation, ID generation/issuance, lifecycle, parent/slot,
-  lookup/targeting, and approval/init semantics.
-- Storage adapters only create/open the isolated WEX space, persist/read
-  WEX-directed records, and provide backend atomicity/durability.
-- Backend choice cannot alter WEX identity meaning.
-- No host business/domain data enters WEX identity storage.
-- Local folder/file storage remains the first reference adapter.
-- Header remains deferred until Phases 1–4 are accepted and promoted.
+1. **Identity-space registration**
+   - host/platform registration record;
+   - stable identity-space reference used with allocation IDs;
+   - no host business payload.
 
-No Builder may alter this ownership model without Owner + Reviewer architecture
-approval.
+2. **Initialization state**
+   - detect absent/present WEX identity space;
+   - approval-required state before first creation;
+   - initialized/registered state;
+   - no UI implementation.
+
+3. **Allocation persistence record**
+   - allocation ID;
+   - family;
+   - lifecycle state;
+   - immutable placement: root or exact parentAllocationId + parent-owned slot;
+   - required timestamps/evidence for reserve/assign/retire.
+
+4. **Storage-adapter operations**
+   - detect/open/create space;
+   - read platform registration;
+   - persist registration;
+   - atomic reserve record;
+   - lifecycle transition persistence;
+   - lookup/read;
+   - retirement/non-reuse evidence.
+
+5. **Concurrency/collision contract**
+   - adapter-specific mechanism allowed;
+   - portable guarantee must be identical across backends.
+
+6. **Binding boundary**
+   - preserve existing opaque platform/domain binding separation;
+   - do not move product/domain resolution into storage adapters.
+
+### Required architecture decisions
+
+- Decide where the portable Plugin + Tool contract lives in repository
+  architecture without violating dependency rules.
+- Decide which shapes belong in `@weerax/schemas` versus runtime/plugin code.
+- Keep the contract backend-neutral: no fs paths, SQL, WordPress APIs, database
+  credentials, callbacks, CSS, UI components, or domain logic in schemas.
+- Local folder is only the first future adapter; do not implement it in Phase 2.
+
+### Explicit exclusions
+
+Do not:
+- implement filesystem storage;
+- modify PostgreSQL Station runtime;
+- create WordPress/MySQL integration;
+- mint real Header/Admin IDs;
+- resume Header work;
+- add product-specific records;
+- add UI.
+
+Update/add ADR/architecture/schema-contract documentation only as required by the
+accepted architecture. If a minimal schema shape is necessary to express the
+portable serializable contract, it may be proposed/implemented only if clearly
+framework-neutral and covered by focused validation tests.
+
+Run the relevant checks, including `pnpm audit:foundation`, schema checks if
+schemas change, and `git diff --check`.
+
+Push the candidate, update this same file to
+`AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, checks, and
+unresolved decisions, then stop.
+
+## Locked roadmap
+
+- Phase 3 — local folder adapter.
+- Phase 4 — Plugin/Tool initialization: detect -> approval -> create/open space
+  -> register platform -> ready.
+- Phase 5 — convert PostgreSQL proof into optional adapter.
+- Phase 6 — component targeting/inspection proof.
+- Phase 7 — separately authorised real-host integration proof.
+
+Header remains deferred until Phases 1–4 are accepted and promoted.
+
+No Builder may alter the accepted ownership model without Owner + Reviewer
+architecture approval.
