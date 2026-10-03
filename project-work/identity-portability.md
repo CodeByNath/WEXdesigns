@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 1E — Close accepted documentation branch
+Status: AWAITING REVIEWER REVIEW
+Phase: 1E — Accepted documentation branch closed
 
 ## Reviewer verdict
 
@@ -40,6 +40,17 @@ The completed remote topic branch
    housekeeping evidence and stop.
 
 Do not begin Phase 2 in this closeout step.
+
+## Builder handoff
+
+- Before deletion, remote `main` and
+  `docs/identity-portability-authority-closeout` both resolved to
+  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`; containment was verified.
+- Deleted only the completed remote topic branch with `git push origin --delete`.
+- Remaining remote heads verified exactly: `main` at
+  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539` and
+  `Project-work-instructions`.
+- No source edits, additional branch operations, or Phase 2 work occurred.
 
 ## Next phase after closeout
 
