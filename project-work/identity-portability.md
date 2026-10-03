@@ -1,81 +1,100 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1 — Restore architecture authority
+Status: BUILDER ACTION REQUIRED
+Phase: 1A — Correct Plugin/Tool vs storage-adapter ownership
 
-## Builder handoff
+## Reviewer verdict
 
-Candidate: `docs/identity-portability-authority` at
-`ce05552844a8b95e4bef135488c1c3944cbbb5f4`, pushed to `origin` from
-`main` baseline `d06538613d6f25b2337daaf9727b5604c3524c75`.
+**Stop — architectural risk**
 
-The candidate adds proposed ADR 0016 and updates the identity architecture,
-repository map, Identity Station Code Map, and decision index. ADR 0016
-identifies the exact central-Station/PostgreSQL clauses superseded in ADRs
-0013–0015 and preserves their valid ID form, lifecycle, parent/slot, and
-binding rules as host-local adapter semantics.
+Reviewer independently inspected
+`docs/identity-portability-authority` at
+`ce05552844a8b95e4bef135488c1c3944cbbb5f4`.
 
-Evidence:
+The candidate correctly removes mandatory central PostgreSQL/Station ownership,
+defines host-local WEX identity spaces, preserves host-domain independence, makes
+PostgreSQL optional, records explicit approval-before-init, and defers Header.
 
-- `pnpm audit:foundation` passed.
-- `git diff --check` passed before commit and staging.
-- Remote branch verification returned the exact candidate SHA above.
-- Docs only: no runtime, schema, storage, Header, PostgreSQL, or adapter source
-  changed.
+### Blocking ownership error
 
-Await Reviewer verdict. Do not begin Phase 2 or Header work.
+The proposed authority currently gives the **storage adapter** responsibility to
+register/validate families, issue IDs, reserve/assign lifecycle and effectively
+operate WEX identity semantics.
 
-## Owner direction — strict
+That is not the Owner direction.
 
-WEX Identity is a **Plugin + Tool**, not a mandatory central database service.
+**WEX Identity is the Plugin + Tool. Storage is the adapter.**
 
-WEX defines portable UI identity rules and tooling. When plugged into a host system, an approved storage adapter creates an isolated WEX identity space inside that host's available storage, registers that platform/system, and persists that system's WEX shell/component identities.
+The portable WEX identity core must own identity semantics and operations.
+A storage adapter only persists those semantics into the host's available
+storage and provides the backend-specific atomicity/durability mechanism.
 
-Purpose: directly identify, target, inspect, debug and extend a specific WEX shell/component from inside or outside the host controller without depending on root CSS traversal or host-specific component structure.
+Do not replace one central identity authority with many backend-specific identity
+authorities.
 
-### Non-negotiable invariants
+## Strict corrected boundary
 
-- Each host/system owns its own WEX identity **circle/space** through an adapter.
-- WEX identity does not replace host business/domain identities.
-- WEX must not require PostgreSQL, WordPress, MySQL, filesystem or any one backend.
-- PostgreSQL is one storage adapter/proof only; never universal authority.
-- First reference adapter is local file/folder storage.
-- Installation/init must detect absence and require explicit user/admin approval before creating the WEX space and platform registration.
-- Storage adapters implement one WEX-defined persistence contract; changing backend must not change identity semantics.
-- A registered WEX allocation remains immutable/non-reusable within its host identity space.
-- Host adapters may later target filesystem, WordPress/MySQL, PostgreSQL, API or other demonstrated storage.
-- Do not move host business data into WEX.
-- Do not resume Header work until the recorded resume gate.
-- No Builder may reinterpret these invariants without Owner + Reviewer architecture approval.
+```text
+WEX Identity Plugin + Tool
+  owns:
+  - platform/system registration semantics
+  - family validation
+  - ID generation/issuance rules
+  - reserve / assign / retire lifecycle rules
+  - parent/slot semantics
+  - lookup/targeting semantics
+  - init/approval flow
+          |
+          v
+WEX Storage Adapter Contract
+  owns:
+  - create/open isolated host WEX space
+  - persist/read lifecycle records
+  - atomic compare/write or equivalent collision protection
+  - durable non-reuse evidence
+  - backend-specific file/DB/API mechanics
+          |
+          v
+Host storage
+  filesystem / WordPress-MySQL / PostgreSQL / API / other
+```
 
-## Phased plan
+Changing storage backend must never change WEX identity generation or lifecycle
+meaning.
 
-### Phase 1 — Authority recovery
-Audit ADR 0013–0015, platform-identity architecture, repository map and current Identity Station. Propose the smallest superseding ADR/architecture correction that preserves useful ID format/lifecycle rules but removes mandatory central-Station/PostgreSQL ownership. **Docs only. Stop for review.**
+## Builder correction — Phase 1A only
 
-### Phase 2 — Portable storage contract
-Define framework-neutral storage-adapter contract and identity-space records: platform registration, allocation lifecycle, parent/slot, lookup, collision/non-reuse, bindings boundary, approval/init state. No backend implementation. Stop.
+On the same topic branch:
 
-### Phase 3 — Local folder adapter
-Implement first plug-and-play adapter that creates an isolated WEX folder/file structure after approval, initializes platform identity, and durably stores allocations. Tests must prove restart/readback, collision/non-reuse and no host-data ownership. Stop.
+1. Correct proposed ADR 0016 and architecture docs so WEX Plugin + Tool owns the
+   portable identity semantics/operations and storage adapters own persistence
+   mechanics only.
+2. Remove wording that makes each adapter an independent identity issuer or
+   family authority.
+3. Preserve host-local identity spaces and the address boundary:
+   platform/system registration + WEX allocation identity.
+4. Keep allocation IDs unique/non-reusable within their registered host space;
+   Phase 2 will define the exact platform-registration record/address shape.
+5. Keep explicit approval before creating a host WEX space.
+6. Keep PostgreSQL as optional adapter/proof only and local folder as first
+   reference adapter.
+7. Explicitly state adapters must not invent IDs, families, lifecycle states or
+   identity semantics outside the WEX Plugin/Tool contract.
+8. Docs only. No runtime/schema/storage/Header changes.
+9. Run `pnpm audit:foundation` and `git diff --check`, push the corrected
+   candidate, update this same file to `AWAITING REVIEWER REVIEW`, and stop.
 
-### Phase 4 — Plugin/tool bootstrap
-Implement host-facing initialization flow: detect existing WEX space -> request approval when absent -> create/register -> return platform registration -> expose identity tooling. No product-specific UI. Stop.
+## Locked roadmap after Phase 1
 
-### Phase 5 — PostgreSQL conversion
-Refactor current PostgreSQL Identity Station work to implement the same adapter contract. It must become optional infrastructure, not the core model. Preserve transaction/concurrency proof. Stop.
+- Phase 2 — portable WEX identity + storage-adapter contract.
+- Phase 3 — local folder adapter.
+- Phase 4 — Plugin/Tool initialization: detect -> approval -> create/open space
+  -> register platform -> ready.
+- Phase 5 — convert PostgreSQL proof into optional adapter.
+- Phase 6 — component targeting/inspection proof.
+- Phase 7 — separately authorised real-host integration proof.
 
-### Phase 6 — Component targeting proof
-Prove a registered shell/component can be located by WEX identity and independently inspected/targeted for diagnostics or separately-authorised features without root CSS/tree traversal. No domain feature implementation. Stop.
+Header remains deferred until Phases 1–4 are accepted and promoted.
 
-### Phase 7 — Host integration proof
-Use a separately authorised real host (CompuZign/WordPress is a candidate) to implement its storage adapter and platform registration without importing its domain rules into WEX. Stop.
-
-### Header resume gate
-Header work may resume after Phases 1–4 are accepted and promoted. Allocate/test Header through the portable local adapter first; host-specific fitting remains later.
-
-## Builder instruction — Phase 1 only
-
-Create one topic branch from current `main`. Change architecture/ADR documentation only. Explicitly identify which clauses in ADR 0013–0015 are superseded and what remains valid. Do not modify runtime, schemas, storage, Header, PostgreSQL code or adapters yet.
-
-Run `pnpm audit:foundation` and `git diff --check`, push the candidate, update this file to `AWAITING REVIEWER REVIEW`, and stop.
+No Builder may alter this ownership model without Owner + Reviewer architecture
+approval.
