@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 3 — Implement local folder storage adapter
+Status: AWAITING REVIEWER REVIEW
+Phase: 3 — Local folder storage adapter candidate submitted
 
 ## Reviewer verdict
 
@@ -48,88 +48,25 @@ Local Folder Adapter owns only:
 The adapter must never generate IDs, choose families, decide lifecycle meaning,
 or invent host/domain data.
 
-## Builder instruction — Phase 3 only
+## Builder handoff
 
-Create one topic branch from current `main`.
-
-Implement the minimum local-folder adapter that satisfies ADR 0016 + ADR 0017
-and the portable storage contract.
-
-Required behavior:
-
-1. **Space detection**
-   - detect whether the configured WEX identity space exists;
-   - detection must not create files/directories.
-
-2. **Create/open**
-   - create only when called by the Plugin/Tool after approval;
-   - create an isolated WEX-owned directory structure;
-   - reopening must read existing registration rather than replacing it.
-
-3. **Platform registration persistence**
-   - persist supplied `wexPlatformRegistrationId`, opaque `platformKey`,
-     and registration timestamp;
-   - adapter must not mint or alter them.
-
-4. **Allocation persistence**
-   - atomically create a supplied reserved allocation record only when the
-     portable address is unused;
-   - read exact records by portable address;
-   - persist only valid supplied lifecycle transitions;
-   - no delete/reuse path.
-
-5. **Filesystem atomicity**
-   - use a deterministic filesystem-safe mechanism such as exclusive create,
-     lock + atomic rename, compare/write, or equivalent;
-   - prove concurrent attempts cannot overwrite an occupied allocation;
-   - partial/interrupted writes must not leave a valid-looking corrupt record.
-
-6. **Restart/readback proof**
-   - close/recreate the adapter instance and prove registration/allocation
-     records survive and are readable.
-
-7. **Isolation**
-   - all WEX identity files remain inside the configured WEX identity-space
-     directory;
-   - no host business files/data are touched.
-
-## Required tests
-
-Focused deterministic tests must prove:
-- detection is side-effect free;
-- first create vs reopen behavior;
-- registration immutability/readback;
-- collision rejection;
-- lifecycle compare/write behavior;
-- non-reuse after reserved/assigned/retired records;
-- restart/readback;
-- concurrent reservation safety;
-- malformed/corrupt persisted data is rejected rather than silently accepted;
-- no path escape outside the configured WEX identity space.
-
-## Explicit exclusions
-
-Do not:
-- implement approval UI or full Plugin/Tool bootstrap flow;
-- mint a real WEX platform registration ID;
-- mint real Admin/Header allocations;
-- modify PostgreSQL Station;
-- add WordPress/MySQL/API adapters;
-- resume Header work;
-- add product/domain records or UI.
-
-Use the accepted schemas/contracts. If implementation reveals a contract defect,
-stop and record the architecture gate rather than silently changing semantics.
-
-Run focused adapter tests plus:
-`pnpm --filter @weerax/schemas check`,
-`pnpm audit:foundation`,
-`pnpm check`,
-and `git diff --check`.
-
-Push the candidate, update this same file to
-`AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, test evidence,
-and unresolved issues, then stop.
+- Candidate branch: `feat/local-folder-identity-adapter`
+- Pushed SHA: `714e4c72a117950754f847644688b2aa9129a254`
+- Adds the framework-neutral `@weerax/adapters` local-folder reference adapter:
+  side-effect-free detect; supplied registration create/read; reserved record
+  create; exact lookup; expected-state transition; lock + temp-write/rename.
+- It validates accepted schemas, preserves immutable evidence, persists only
+  supplied WEX records, and never generates IDs or interprets host data.
+- Focused tests pass for detection, create/reopen/readback, lifecycle/non-reuse,
+  concurrent collision, malformed records, restart, and path isolation.
+- Changed files: adapter source/tests/exports/scripts/Node typing; lockfile;
+  adapter documentation; repository and Identity Station Code Maps.
+- Checks passed: `pnpm --filter @weerax/adapters check`,
+  `pnpm --filter @weerax/schemas check`, `pnpm audit:foundation`, `pnpm check`,
+  and `git diff --check`.
+- No Plugin/Tool bootstrap or approval UI, real ID/allocation, PostgreSQL,
+  WordPress/MySQL/API adapter, Header, product/domain record, or UI work added.
+- Unresolved issues: none for Phase 3; Phase 4 remains separately gated.
 
 ## Locked roadmap
 
