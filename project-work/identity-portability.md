@@ -1,87 +1,61 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 1D — Documentation-state correction promoted
+Status: BUILDER ACTION REQUIRED
+Phase: 1E — Close accepted documentation branch
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Reviewer independently verified the Phase 1C candidate:
+Reviewer independently verified Phase 1D on remote `main` at
+`0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`.
 
-- its merge-base is exact remote `main`
-  `38b762c04d1b41c8e70616a270dd525646f1e5fa`;
-- candidate `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539` changes only the three
-  authorised documentation records;
-- ADR 0016 substance is unchanged; its status and index placement now match
-  accepted authority, and the Code Map tracks the accepted SHA/status;
-- independent `pnpm audit:foundation` and `git diff --check` passed;
-- no implementation/runtime/Header scope drift occurred.
+Accepted evidence:
 
-Phase 1C is accepted pending controlled promotion. Do not begin Phase 2.
+- ADR 0016 is now `Accepted`.
+- The decision index places ADR 0016 under Accepted.
+- The Identity Station Code Map records accepted ADR 0016 and the reviewed
+  authority baseline.
+- The promoted diff contains bookkeeping only; no architecture substance,
+  runtime, schema, storage, adapter, PostgreSQL, Header, or UI changes.
+- The accepted WEX Plugin + Tool / storage-adapter ownership model is unchanged.
 
-### Completed corrections
+The Code Map's `Verified against` SHA is treated as the authority baseline it
+was checked against. Do not create a self-referential update cycle merely
+because the bookkeeping commit itself has a newer SHA.
 
-1. `docs/decisions/0016-portable-wex-identity-spaces.md` was marked
-   `Proposed`. Its status is now `Accepted` without changing its decision
-   substance.
+## Builder instruction — Phase 1E only
 
-2. `docs/code-map/identity-station.md` was verified against the old `main` SHA
-   `d065386...` and called ADR 0016 `Proposed`. It now tracks the promoted
-   `main` SHA and accepted ADR state without changing runtime claims beyond
-   accepted authority.
+The completed remote topic branch
+`docs/identity-portability-authority-closeout` is no longer needed.
 
-## Builder instruction — Phase 1D only
+1. Verify remote `main` remains
+   `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`.
+2. Verify the topic branch tip is already contained in `main`.
+3. Delete only that completed remote topic branch.
+4. Verify remote heads are exactly:
+   - `main`
+   - `Project-work-instructions`
+5. Update this same work file to `AWAITING REVIEWER REVIEW` with branch
+   housekeeping evidence and stop.
 
-Do not create a new topic branch. Use only the reviewed candidate
-`docs/identity-portability-authority-closeout`.
+Do not begin Phase 2 in this closeout step.
 
-Before promotion, fetch and verify that `origin/main` remains
-`38b762c04d1b41c8e70616a270dd525646f1e5fa`, the candidate remains
-`0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`, and it is a direct descendant.
-Fast-forward only that candidate to `main`, push, and verify the exact remote
-`main` SHA. Then update this same file to `AWAITING REVIEWER REVIEW` with the
-promotion evidence and stop. Do not delete the topic branch yet.
+## Next phase after closeout
 
-Forbidden:
-- no candidate/source edits;
-- no architecture, schema, runtime, storage, adapter, PostgreSQL, Header, or
-  UI changes;
-- do not begin Phase 2.
+Phase 2 — define the portable WEX Identity + storage-adapter contract.
 
-## Builder handoff
+The Phase 2 design must preserve these locked responsibilities:
 
-- Candidate branch: `docs/identity-portability-authority-closeout`
-- Pushed candidate SHA:
-  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`
-- Changed only: ADR 0016 status, Identity Station Code Map accepted-status/SHA
-  bookkeeping, and the decision index placement.
-- Evidence: `pnpm audit:foundation` passed; `git diff --check` passed.
-- Limitation/deviation: documentation-only Phase 1C; no runtime, schema,
-  storage, adapter, PostgreSQL, Header, or UI work was performed.
-- Unresolved issues: none for this phase.
+- WEX Identity Plugin + Tool owns platform/system registration semantics,
+  family validation, ID generation/issuance, lifecycle, parent/slot,
+  lookup/targeting, and approval/init semantics.
+- Storage adapters only create/open the isolated WEX space, persist/read
+  WEX-directed records, and provide backend atomicity/durability.
+- Backend choice cannot alter WEX identity meaning.
+- No host business/domain data enters WEX identity storage.
+- Local folder/file storage remains the first reference adapter.
+- Header remains deferred until Phases 1–4 are accepted and promoted.
 
-## Builder promotion handoff
-
-- Fast-forward promotion: `38b762c04d1b41c8e70616a270dd525646f1e5fa` to
-  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539`.
-- Remote `main` verified exactly at
-  `0b1cf4a0c08ddc1b80ce0d3cf53dd4a2f01b0539` after push.
-- Pre-promotion ancestry, three-branch capacity, and `git diff --check` were
-  reverified; the promotion was fast-forward only.
-- No candidate/source edits, branch deletion, or Phase 2 work occurred.
-
-## Locked roadmap
-
-- Phase 2 — portable WEX identity + storage-adapter contract.
-- Phase 3 — local folder adapter.
-- Phase 4 — Plugin/Tool initialization: detect -> approval -> create/open space
-  -> register platform -> ready.
-- Phase 5 — convert PostgreSQL proof into optional adapter.
-- Phase 6 — component targeting/inspection proof.
-- Phase 7 — separately authorised real-host integration proof.
-
-Header remains deferred until Phases 1–4 are accepted and promoted.
-
-No Builder may alter the accepted ownership model without Owner + Reviewer
-architecture approval.
+No Builder may alter this ownership model without Owner + Reviewer architecture
+approval.
