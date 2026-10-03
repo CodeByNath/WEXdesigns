@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 2A — Complete platform/system identity registration contract
+Status: AWAITING REVIEWER REVIEW
+Phase: 2A — Corrected platform registration contract submitted
 
 ## Reviewer verdict
 
@@ -34,42 +34,24 @@ as one isolated identity circle.
 A plain arbitrary non-empty `identitySpaceId` is therefore insufficient as the
 completed Phase 2 contract.
 
-## Required Phase 2A correction
+## Builder handoff
 
-On the same topic branch, docs/schema/tests only:
-
-1. Make the host/platform WEX registration identity a first-class WEX-owned
-   identity contract.
-2. Define that the Plugin + Tool, not the host and not the storage adapter,
-   creates/validates this registration identity.
-3. Define its lifecycle guarantees needed now:
-   - created only after explicit approval;
-   - stable/immutable for that WEX identity space;
-   - durable;
-   - not silently replaced/reused;
-   - read back when reopening the existing space.
-4. Keep `platformKey` as an opaque host-system reference only. It must not
-   become the WEX registration identity or carry host business data.
-5. Make the portable allocation address clearly:
-   **WEX platform/space registration identity + WEX allocation ID**.
-6. Do not invent a new platform-ID prefix/family unless existing repository
-   authority already defines one. If no prefix is authorised, keep the concrete
-   identifier format deliberately unresolved while still defining ownership and
-   lifecycle.
-7. Ensure initialization flow distinguishes:
-   absent space -> approval required -> create WEX registration identity ->
-   persist registration -> ready.
-8. Storage adapters persist/read the supplied registration identity; they never
-   generate or replace it.
-9. Add focused schema validation/tests only where a serializable shape is
-   required. Do not put issuance logic into schemas.
-
-Do not widen scope into adapter implementation, Plugin runtime, filesystem,
-PostgreSQL, WordPress, Header, real allocations, or UI.
-
-Run `pnpm --filter @weerax/schemas check`, `pnpm audit:foundation`, and
-`git diff --check`. Push the corrected candidate, update this same file to
-`AWAITING REVIEWER REVIEW`, and stop.
+- Candidate branch: `feat/portable-identity-storage-contract`
+- Corrected candidate SHA: `b50e84b429966f4f8457abcd1c2fd6624a10af13`
+- Makes `wexPlatformRegistrationId` a first-class WEX-owned registration
+  identity; its format remains deliberately unresolved with no new prefix.
+- The contract now requires: absent -> approval-required -> Plugin + Tool
+  creates/validates registration -> adapter persists supplied registration ->
+  ready; reopening reads back the same durable identity.
+- `platformKey` remains an opaque host-system reference. Allocation address is
+  `(wexPlatformRegistrationId, allocationId)`; adapters never generate,
+  replace, or reuse either identity.
+- Changed only Phase 2 contract docs/navigation, neutral schema exports, and
+  focused tests. No adapter/runtime/filesystem/PostgreSQL/WordPress/Header/UI
+  work or real allocation was added.
+- Checks passed: `pnpm --filter @weerax/schemas check`,
+  `pnpm audit:foundation`, and `git diff --check`.
+- Unresolved decision: ADR 0017 remains Proposed pending Reviewer acceptance.
 
 ## Locked roadmap
 
