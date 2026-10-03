@@ -1,7 +1,30 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 1A — Correct Plugin/Tool vs storage-adapter ownership
+
+## Builder handoff — Phase 1A
+
+Corrected candidate: `docs/identity-portability-authority` at
+`38b762c04d1b41c8e70616a270dd525646f1e5fa`, pushed to `origin`.
+
+The correction updates ADR 0016, the platform-identity architecture, and the
+Identity Station Code Map. WEX Identity Plugin + Tool now explicitly owns
+platform registration, family validation, ID generation/issuance, lifecycle,
+parent/slot, lookup/targeting, and approval/init semantics. Storage adapters
+only create/open a host WEX space and persist/read WEX-directed records with
+backend atomicity/durability; they cannot invent IDs, families, lifecycle
+states, or identity semantics.
+
+Evidence:
+
+- `pnpm audit:foundation` passed.
+- `git diff --check` passed before commit and staging.
+- Remote branch verification returned the exact candidate SHA above.
+- Docs only: no runtime, schema, storage, Header, PostgreSQL, or adapter source
+  changed.
+
+Await Reviewer verdict. Do not begin Phase 2 or Header work.
 
 ## Reviewer verdict
 
