@@ -1,70 +1,75 @@
 # WEX Identity Portability
 
-Status: BLOCKED — DECISION REQUIRED  
-Phase: 4B architecture gate — permanent Plugin + Tool residence
+Status: BUILDER ACTION REQUIRED  
+Phase: 4B architecture gate — establish permanent Identity runtime residence
+
+## Owner decision
+
+Approved:
+
+`packages/identity`  
+package name: `@weerax/identity`
+
+This is the permanent residence of the portable WEX Identity Plugin + Tool
+runtime.
 
 ## Reviewer verdict
 
-**Stop — architectural risk**
+**Proceed**
 
-The Builder stop is correct. Accepted authority defines what the portable WEX
-Identity Plugin + Tool owns, but not its permanent repository residence.
+The architecture gate is resolved by Owner approval. Builder must now record
+that decision in repository authority before any Phase 4B runtime implementation
+begins.
 
-Verified constraints:
+## Architecture-only Builder package
 
-- it cannot live in `@weerax/wex`, Shared UI, schemas, or adapters because
-  those layers already have narrower ownership;
-- it cannot be implemented in `@weerax/identity-station`, because ADR 0016
-  explicitly makes that PostgreSQL Station an optional adapter proof rather
-  than the portable identity core;
-- no accepted repository map entry currently owns the Plugin + Tool runtime;
-- creating a new package/app without authority would invent a permanent package
-  boundary.
+Create one documentation/architecture candidate that:
 
-## Architecture decision required
+1. records `packages/identity` / `@weerax/identity` as the permanent WEX
+   Identity Plugin + Tool runtime residence;
+2. defines its ownership as portable WEX identity semantics and runtime:
+   platform registration, family validation, ID generation/issuance,
+   allocation lifecycle orchestration, parent/slot, lookup/targeting, and
+   approval/init semantics;
+3. keeps storage adapters persistence/atomicity-only;
+4. keeps `@weerax/identity-station` as historical PostgreSQL proof / future
+   optional storage adapter, not portable core;
+5. defines allowed dependencies narrowly:
+   `@weerax/schemas` and the approved framework-neutral adapter boundary only;
+6. forbids dependencies on WEX presentation, Shared UI, web runtime,
+   application/domain code, React/browser UI, and host business systems;
+7. updates repository map and dependency rules consistently;
+8. adds/updates the relevant ADR establishing this permanent package boundary;
+9. keeps ADRs 0016–0018 semantics intact except for necessary cross-reference
+   or residence clarification;
+10. makes no runtime, schema, adapter, allocation, UI, Header, PostgreSQL, or
+    host-integration implementation changes.
 
-Resolve one thing only:
+## Required evidence
 
-**Permanent repository residence for the WEX Identity Plugin + Tool runtime.**
+- exact pushed topic branch/SHA;
+- complete changed-file list;
+- `pnpm audit:foundation`;
+- `git diff --check`;
+- confirmation the diff is architecture/documentation only;
+- confirmation Phase 4B runtime implementation has not begun.
 
-Recommended direction for Owner/Reviewer approval:
+Return this same file to `AWAITING REVIEWER REVIEW` after the architecture
+candidate is pushed and remote-verified.
 
-`packages/identity` as `@weerax/identity`.
+## After acceptance
 
-Reason:
-
-- it is reusable WEX system capability, not application assembly;
-- it owns portable identity semantics/runtime while remaining separate from
-  presentation, schemas, adapters, Shared UI, and host-domain code;
-- it may depend on `@weerax/schemas` and the framework-neutral adapter
-  contract/implementation boundary, but no presentation or application layer;
-- host applications/plugins consume it rather than owning its semantics;
-- the historical PostgreSQL Identity Station can later become one optional
-  storage adapter behind this runtime.
-
-This is a new permanent package boundary, so it must be accepted through
-repository architecture before implementation.
-
-## Next Builder instruction after Owner approval
-
-Create one architecture-only ADR/update package that:
-
-1. establishes `packages/identity` / `@weerax/identity` as the permanent
-   portable WEX Identity Plugin + Tool runtime residence;
-2. defines its allowed dependencies and forbidden dependencies;
-3. updates repository/dependency maps consistently;
-4. preserves ADRs 0016–0018 unchanged except for any necessary cross-reference;
-5. explicitly keeps adapters persistence-only and Identity Station optional;
-6. makes no runtime/schema/adapter implementation changes.
-
-After that architecture candidate is accepted, reopen the existing Phase 4B
-Work Package and complete it as one Builder package without intermediate
-micro-reviews.
+Once this package-boundary authority is accepted and promoted, reopen the
+existing Phase 4B Work Package and complete bootstrap implementation as one
+larger Builder package without intermediate micro-review gates.
 
 ## Hard exclusions
 
-No Phase 4B implementation, allocation issuance, PostgreSQL conversion,
-host-specific adapter, Header/UI, approval UI, or domain integration until this
-residence decision is accepted.
+No Phase 4B runtime/schema/adapter implementation yet.
+No allocation issuance implementation.
+No PostgreSQL conversion.
+No host-specific adapter.
+No Header/UI or approval UI.
+No domain integration.
 
 Header remains deferred until Phase 4 bootstrap is accepted and promoted.
