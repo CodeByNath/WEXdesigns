@@ -1,6 +1,6 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED  
+Status: AWAITING REVIEWER REVIEW
 Phase: 4A — Promote ADR 0018 acceptance state
 
 ## Reviewer verdict
@@ -51,6 +51,19 @@ verifies this promotion on `main`.
 
 Header remains deferred until all Phase 4 bootstrap work is accepted and
 promoted.
+
+## Builder promotion handoff
+
+- Fast-forwarded `main` from
+  `06bcf6b7580817e58822862036695965b5ec69b9` to the accepted candidate
+  `4f876eb26510338479d2bf3d7ec3d27773f9384e`; remote `main` was verified at
+  exactly `4f876eb26510338479d2bf3d7ec3d27773f9384e`.
+- `pnpm audit:foundation` passed after promotion.
+- After exact remote-main verification, deleted the completed remote topic
+  branch `docs/adr-0018-acceptance-state`. Remote heads now contain only
+  `main` and `Project-work-instructions`.
+- No Phase 4B schema, adapter, Plugin + Tool runtime, allocation,
+  PostgreSQL-conversion, host-integration, Header, or UI work began.
 
 ## Locked roadmap
 
