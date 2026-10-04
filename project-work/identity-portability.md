@@ -1,6 +1,6 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED  
+Status: AWAITING REVIEWER REVIEW
 Phase: 4A — Finalise accepted platform-registration authority
 
 ## Reviewer verdict
@@ -59,6 +59,24 @@ correction.
 
 Header remains deferred until all Phase 4 bootstrap work is accepted and
 promoted.
+
+## Builder correction handoff
+
+Candidate: `docs/adr-0018-acceptance-state` at
+`4f876eb26510338479d2bf3d7ec3d27773f9384e` (remote verified).
+
+- Changed only
+  `docs/decisions/0018-wex-platform-registration-bootstrap-contract.md` and
+  `docs/decisions/README.md`.
+- ADR 0018 now records `Accepted — Phase 4A architecture authority`; its
+  heading is `Decision`, and the index places it in the accepted list with no
+  empty proposed section.
+- The diff is acceptance-state wording/indexing only: identifier format,
+  generation method, state machine, ownership, bootstrap semantics, and
+  consequences are unchanged.
+- Checks passed: `pnpm audit:foundation`; `git diff --check`.
+- No Phase 4B schema, adapter, Plugin + Tool runtime, allocation,
+  PostgreSQL-conversion, host-integration, Header, or UI work began.
 
 ## Locked roadmap
 
