@@ -1,102 +1,67 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4A — Platform-registration authority proposal submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 4A — Correct platform-registration authority proposal
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Stop — architectural risk**
 
-Phase 3 is fully accepted, promoted, and closed.
+Candidate reviewed:
+`docs/platform-registration-bootstrap-authority` at
+`b68b691da4548a6509a43c0f79eb328338d68a8b`.
 
-Reviewer independently verified:
+The proposal correctly preserves the accepted ownership boundary from ADRs
+0016–0017: the WEX Identity Plugin + Tool owns registration generation and
+validation; the adapter only persists the supplied registration; bootstrap is
+approval-gated and fail-closed; host/domain identity is not reused as WEX
+registration identity.
 
-- remote `main` is exactly
-  `fa66bf6ce3c24d8d83c373f3025f429d1533d847`;
-- the accepted local-folder adapter is present on `main`;
-- the completed Phase 3 topic branch is deleted;
-- remote heads are exactly `main` and `Project-work-instructions`;
-- Phase 3 ownership and persistence safeguards remain intact.
+One blocking contract defect prevents acceptance:
 
-A minor authority bookkeeping inconsistency also exists:
-`docs/architecture/repository-map.md` still says the local-folder adapter and
-storage contract are deferred even though both are now accepted/promoted.
-Correct that wording in this phase without changing architecture substance.
+- the proposed alphabet
+  `ABCDEFGHJKLMNPQRSTUVWXYZ23456789` has **31 symbols**;
+- ADR 0018 says each output character maps one independent uniform five-bit
+  value to that alphabet, but five bits have 32 outcomes;
+- therefore the stated generator cannot be implemented as a uniform direct
+  mapping;
+- 26 base-31 characters contain about **128.8 bits** of entropy, not 130 bits.
 
-## Phase 4 objective
+This must be corrected before runtime/schema implementation so Phase 4B does
+not encode biased or undefined identity generation.
 
-Implement the WEX Identity Plugin + Tool initialization/bootstrap flow:
+## Builder correction — Phase 4A only
 
-```text
-detect
-  -> absent
-  -> approval-required
-  -> explicit approval
-  -> WEX creates platform-registration identity
-  -> adapter creates isolated WEX space
-  -> persist registration
-  -> ready
-```
+Revise the same ADR 0018 proposal on the same topic branch.
 
-For an existing valid space:
+Preserve the existing accepted allocation alphabet. Do **not** invent a new
+symbol or change allocation-ID formats.
 
-```text
-detect present
-  -> read registration
-  -> validate same WEX registration identity
-  -> ready
-```
+Specify a cryptographically secure **uniform base-31 generation method**
+(e.g. rejection sampling or an equivalent unbiased construction), and state the
+entropy/collision claim accurately for 26 base-31 characters. Keep the exact
+`WEXPR-` form and validation regex unless the correction itself proves they
+must change.
 
-But executable bootstrap cannot begin until the concrete generation contract for
-`wexPlatformRegistrationId` is authorised.
+Do not modify schemas, adapters, Plugin + Tool runtime, host integration,
+allocation issuance, Header, or UI.
 
-## Phase 4A architecture gate
+Required evidence:
 
-The accepted authority says:
+- `pnpm audit:foundation`
+- `git diff --check`
+- exact pushed branch/SHA and changed-file list
+- confirmation that no Phase 4B implementation began
 
-- the WEX Plugin + Tool creates/validates the registration identity;
-- adapters and hosts do not generate it;
-- it is immutable, durable and non-reusable for that identity space;
-- its concrete format is deliberately unresolved.
-
-Therefore the Builder must **not** silently choose UUID, random string, host ID,
-Admin Manager ID, or a new WEX prefix in runtime code.
-
-## Builder handoff — Phase 4A
-
-Candidate: `docs/platform-registration-bootstrap-authority` at
-`b68b691da4548a6509a43c0f79eb328338d68a8b` (pushed and remote-verified).
-
-Changed only:
-
-- `docs/decisions/0018-wex-platform-registration-bootstrap-contract.md`
-- `docs/decisions/README.md`
-- `docs/architecture/repository-map.md`
-
-Proposed ADR 0018 defines a distinct `WEXPR-` registration form, 130-bit
-CSPRNG generation, strict validation, collision boundary, approval-gated
-bootstrap state machine, idempotent reopen, partial-failure readback, and the
-no-secrets/no-host-domain-data boundary. The repository map now records that
-the accepted storage contract and local-folder adapter are implemented.
-
-Evidence passed: `pnpm audit:foundation` and `git diff --check`. No schema
-check applies because no schema changed. No runtime or browser validation
-applies because this is documentation-only.
-
-Unresolved architecture decision: ADR 0018 is **Proposed**, not accepted.
-Reviewer acceptance is required before any strict schema or Plugin + Tool
-bootstrap implementation. No Phase 4B work has begun.
+Return this file to `AWAITING REVIEWER REVIEW` after the corrected proposal is
+pushed and remote-verified.
 
 ## Locked roadmap
 
-- Phase 4B — implement Plugin/Tool bootstrap against the accepted registration
-  identity rule and local-folder adapter.
+- Phase 4B — implement Plugin/Tool bootstrap only after ADR 0018 is accepted.
 - Phase 5 — PostgreSQL optional adapter conversion.
 - Phase 6 — component targeting/inspection proof.
 - Phase 7 — separately authorised real-host integration proof.
 
 Header remains deferred until all Phase 4 bootstrap work is accepted and
 promoted.
-
-No Builder may alter the accepted ownership model without Owner + Reviewer
-architecture approval.
