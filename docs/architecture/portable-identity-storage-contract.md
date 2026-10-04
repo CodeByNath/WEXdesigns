@@ -40,11 +40,12 @@ storage, or adapter atomicity into schemas.
 
 `wexPlatformRegistrationId + allocationId` is the only portable allocation
 address. An allocation ID alone is not globally unique. The Plugin + Tool
-creates and validates the registration ID after explicit approval; its concrete
-format is deliberately unresolved because no existing authority defines a
-platform-ID prefix or family. A root placement is empty; a child placement
-contains the exact `parentAllocationId` and parent-owned `slot`. Parentage is
-never inferred from a prefix.
+creates and validates the registration ID after explicit approval. Its concrete
+`WEXPR-` Base32 form and generation requirements are defined by accepted
+[ADR 0018](../decisions/0018-wex-platform-registration-bootstrap-contract.md).
+A root placement is empty; a child placement contains the exact
+`parentAllocationId` and parent-owned `slot`. Parentage is never inferred from
+a prefix.
 
 The lifecycle vocabulary is closed: `reserved`, `assigned`, `retired`. A
 reserved record has `reservedAt`; assignment has `assignedAt`; retirement has

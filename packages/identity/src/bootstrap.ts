@@ -21,7 +21,10 @@ export type WexIdentityBootstrapOptions = {
   platformKey: string;
   approvalGranted: boolean;
   now?: () => Date;
-  randomBytes?: (size: number) => Uint8Array;
+};
+
+type WexIdentityBootstrapTestOptions = WexIdentityBootstrapOptions & {
+  randomBytes: (size: number) => Uint8Array;
 };
 
 export type WexIdentityBootstrapResult =
@@ -68,8 +71,8 @@ async function readRequiredRegistration(
   return parseRegistration(registration);
 }
 
-export function generateWexPlatformRegistrationId(
-  randomBytes: (size: number) => Uint8Array = nodeRandomBytes,
+function generateWexPlatformRegistrationIdWith(
+  randomBytes: (size: number) => Uint8Array,
 ): WexPlatformRegistrationId {
   const random = randomBytes(WEX_PLATFORM_REGISTRATION_SUFFIX_LENGTH);
   if (!(random instanceof Uint8Array) || random.length !== WEX_PLATFORM_REGISTRATION_SUFFIX_LENGTH) {
@@ -81,8 +84,19 @@ export function generateWexPlatformRegistrationId(
   return WexPlatformRegistrationIdSchema.parse(`${WEX_PLATFORM_REGISTRATION_PREFIX}${suffix}`);
 }
 
-export async function bootstrapWexIdentity(
+export function generateWexPlatformRegistrationId(): WexPlatformRegistrationId {
+  return generateWexPlatformRegistrationIdWith(nodeRandomBytes);
+}
+
+export function generateWexPlatformRegistrationIdForTest(
+  randomBytes: (size: number) => Uint8Array,
+): WexPlatformRegistrationId {
+  return generateWexPlatformRegistrationIdWith(randomBytes);
+}
+
+async function bootstrapWexIdentityWith(
   options: WexIdentityBootstrapOptions,
+  randomBytes: (size: number) => Uint8Array,
 ): Promise<WexIdentityBootstrapResult> {
   let observed: 'absent' | 'present';
   try {
@@ -92,7 +106,11 @@ export async function bootstrapWexIdentity(
   }
 
   if (observed === 'present') {
-    return { state: 'ready', registration: await readRequiredRegistration(options.adapter) };
+    const registration = await readRequiredRegistration(options.adapter);
+    if (registration.platformKey !== options.platformKey) {
+      throw bootstrapError('WEX identity registration belongs to a different platform');
+    }
+    return { state: 'ready', registration };
   }
   if (observed !== 'absent') {
     throw bootstrapError('WEX identity adapter returned an invalid space observation');
@@ -100,7 +118,7 @@ export async function bootstrapWexIdentity(
   if (!options.approvalGranted) return { state: 'approval-required' };
 
   const registration = parseRegistration({
-    wexPlatformRegistrationId: generateWexPlatformRegistrationId(options.randomBytes),
+    wexPlatformRegistrationId: generateWexPlatformRegistrationIdWith(randomBytes),
     platformKey: options.platformKey,
     registeredAt: (options.now ?? (() => new Date()))().toISOString(),
   });
@@ -129,4 +147,16 @@ export async function bootstrapWexIdentity(
     throw bootstrapError('WEX identity creation readback does not match the generated registration');
   }
   return { state: 'ready', registration: readback };
+}
+
+export async function bootstrapWexIdentity(
+  options: WexIdentityBootstrapOptions,
+): Promise<WexIdentityBootstrapResult> {
+  return bootstrapWexIdentityWith(options, nodeRandomBytes);
+}
+
+export async function bootstrapWexIdentityForTest(
+  options: WexIdentityBootstrapTestOptions,
+): Promise<WexIdentityBootstrapResult> {
+  return bootstrapWexIdentityWith(options, options.randomBytes);
 }
