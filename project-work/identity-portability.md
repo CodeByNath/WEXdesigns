@@ -1,6 +1,6 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED  
+Status: AWAITING REVIEWER REVIEW
 Phase: 4B — Work Package: portable identity bootstrap implementation
 
 ## Reviewer verdict
@@ -19,98 +19,13 @@ Reviewer independently confirms:
 - remote heads are only `main` and `Project-work-instructions`;
 - the completed architecture branch is removed.
 
-## Work Package outcome
+## Completed scope
 
-Deliver one reviewable Phase 4B candidate implementing and proving portable WEX
-Identity bootstrap against the accepted local-folder adapter boundary.
-
-Builder may complete all included tasks without intermediate Reviewer approval
-while staying inside accepted authority.
-
-## Controlling authority
-
-- ADR 0016 — Portable WEX Identity Spaces
-- ADR 0017 — Portable WEX Identity Storage Contract
-- ADR 0018 — WEX Platform Registration Bootstrap Contract
-- ADR 0019 — WEX Identity Runtime Residence
-- `docs/architecture/platform-identity.md`
-- `docs/architecture/portable-identity-storage-contract.md`
-- `docs/architecture/dependency-rules.md`
-- Identity Code Map
-- verified `main` schemas and local-folder adapter
-
-## Included work
-
-1. Create `packages/identity` / `@weerax/identity` with only
-   `@weerax/schemas` as an internal package dependency.
-2. Add strict schema support for the accepted
-   `WEXPR-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{26}` registration form where
-   required by accepted authority.
-3. Implement cryptographically secure 26-character Base32 registration
-   generation exactly as ADR 0018 defines.
-4. Implement bootstrap orchestration through an injected framework-neutral
-   storage-adapter operation boundary:
-   detect absent/present/damaged state; expose approval-required; create only
-   after explicit approval; persist the supplied registration; exact readback
-   validation; repeat-safe ready; fail closed on mismatch/damage.
-5. Prove ADR 0018 create-failure/readback behavior and the rule that one
-   bootstrap invocation generates at most one registration ID.
-6. Demonstrate integration against the accepted local-folder adapter without
-   making `@weerax/identity` import or depend on the concrete adapter package.
-7. Add focused deterministic tests covering all accepted bootstrap states and
-   invariants.
-8. Update exports, package metadata, Code Maps/repository map/documentation only
-   as required to accurately describe the implemented Phase 4B boundary.
-9. Run the complete relevant repository checks and push one candidate.
-
-## Hard exclusions
-
-Do not implement allocation reserve/assign/retire issuance, PostgreSQL
-conversion, WordPress/MySQL or another host adapter, host business bindings,
-approval UI, Header/UI work, domain permissions, or a generic orchestration
-framework.
-
-Do not make `@weerax/identity` import `@weerax/adapters`,
-`@weerax/identity-station`, WEX presentation, Shared UI, applications, React,
-browser UI, or host/domain systems.
-
-Do not change accepted identity semantics or storage-adapter ownership.
-
-## Stop gates
-
-Stop and return `BLOCKED — DECISION REQUIRED` only if:
-
-- accepted authority is contradictory or materially incomplete;
-- implementation requires a new permanent architecture boundary;
-- scope must widen beyond this package;
-- destructive migration or host/customer-state change becomes necessary;
-- a material security, persistence, concurrency, or dependency-boundary defect
-  cannot be resolved within accepted authority.
-
-Do not stop for ordinary implementation choices, exports, test fixes, package
-wiring, or documentation updates inside this package.
-
-## Required evidence
-
-- exact topic branch and pushed SHA;
-- complete changed-file list;
-- `pnpm audit:foundation`;
-- package-specific checks/tests for schemas, identity, and adapters as relevant;
-- `pnpm check` if executable in the repository;
-- `git diff --check`;
-- tests proving:
-  - no mutation before approval;
-  - exact WEXPR validation/generation;
-  - exact persisted readback;
-  - repeated reopen/idempotence;
-  - damaged/mismatched space fails closed;
-  - create-failure readback semantics;
-  - one generated ID maximum per invocation;
-- confirmation all hard exclusions remain untouched.
-
-Return this same file to `AWAITING REVIEWER REVIEW` once the entire Work
-Package is pushed and remote-verified. Do not self-approve or promote to
-`main`.
+The candidate implements the authorised ADRs 0016–0019 bootstrap boundary only:
+strict WEXPR registration, CSPRNG generation, approval-gated persistence and
+readback through the injected local-folder adapter, and focused proof. It does
+not alter allocation lifecycle, adapter ownership, host/domain boundaries, or
+presentation.
 
 ## Next gate
 
@@ -120,6 +35,31 @@ If accepted, closeout/promotion should be handled as one bounded transaction
 rather than split into avoidable micro-review phases.
 
 Header remains deferred until Phase 4 bootstrap is accepted and promoted.
+
+## Builder handoff
+
+Candidate: `feat/identity-bootstrap` at
+`c470b11bf59f8e33c42996b72d6bf54cdc7503fc` (remote verified).
+
+Changed files:
+
+- `packages/identity/{package.json,tsconfig.json,src/bootstrap.ts,src/index.ts,test/bootstrap.test.mjs}`
+- `packages/schemas/src/identifiers/wex-identity-space.schema.ts`,
+  `packages/schemas/src/index.ts`, `packages/schemas/test/foundation.test.mjs`
+- `packages/adapters/test/local-folder-identity-adapter.test.mjs`,
+  `tooling/scripts/validate-foundation.mjs`, `pnpm-lock.yaml`
+- `docs/architecture/{portable-identity-storage-contract.md,repository-map.md}`,
+  `docs/code-map/identity-station.md`
+
+Evidence: `pnpm audit:foundation`, `pnpm --filter @weerax/identity check`,
+schema and local-folder adapter tests, `pnpm check` (45 tasks), and
+`git diff --check` passed. Nine bootstrap tests prove approval-gated no
+mutation, exact WEXPR generation/readback, idempotent reopen, damaged/mismatch
+fail-closed behaviour, create-failure readback, single-ID generation, and
+test-only local-folder integration. The runtime imports only schemas; the
+concrete adapter appears only in test code. No allocation lifecycle issuance,
+PostgreSQL conversion, host adapter/integration, approval UI, Header/UI,
+permissions, bindings, or generic orchestration work was added.
 
 ## Locked roadmap
 
