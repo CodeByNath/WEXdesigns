@@ -36,12 +36,12 @@ perform transitions, provide atomicity, or resolve platform/domain records.
 ### WEX-owned platform registration identity
 
 The Plugin + Tool creates and validates one WEX-owned
-`wexPlatformRegistrationId` only after explicit approval. Its concrete format
-is deliberately unresolved: no existing authority authorises a platform-ID
-prefix or family. The identity is stable, immutable, durable, and never
-silently replaced or reused for that WEX identity space. On reopening an
-existing space, the adapter reads back the same persisted registration identity
-for the Plugin + Tool to validate.
+`wexPlatformRegistrationId` only after explicit approval. Its concrete
+`WEXPR-` Base32 form and generation requirements are defined by accepted
+[ADR 0018](0018-wex-platform-registration-bootstrap-contract.md). The identity
+is stable, immutable, durable, and never silently replaced or reused for that
+WEX identity space. On reopening an existing space, the adapter reads back the
+same persisted registration identity for the Plugin + Tool to validate.
 
 The registration also records opaque host `platformKey` and `registeredAt`.
 `platformKey` is a host-system reference only; it is not a WEX registration ID

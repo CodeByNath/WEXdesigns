@@ -36,19 +36,11 @@ async function withTransaction<Result>(
   }
 }
 
-/** Creates the service-private transaction boundary for a PostgreSQL ledger. */
+/** Creates the transaction boundary used by the optional PostgreSQL adapter. */
 export function createPostgresDatabase(pool: Pool): TransactionDatabase {
   return {
     withTransaction<Result>(operation: (current: Transaction) => Promise<Result>): Promise<Result> {
       return withTransaction(pool, operation);
-    },
-
-    withAdminManagerHeaderBootstrapTransaction<Result>(
-      operation: (current: Transaction) => Promise<Result>,
-    ): Promise<Result> {
-      return withTransaction(pool, operation, async (current) => {
-        await current.query('SELECT pg_advisory_xact_lock($1, $2)', [0x574558, 0x414d48]);
-      });
     },
   };
 }

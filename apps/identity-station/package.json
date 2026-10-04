@@ -8,8 +8,7 @@
     "type-check": "tsc -p tsconfig.json --noEmit",
     "lint": "tsc -p tsconfig.json --noEmit",
     "test": "pnpm build && node --test test/*.test.mjs",
-    "check": "pnpm type-check && pnpm lint && pnpm test",
-    "bootstrap": "pnpm build && node dist/bootstrap-command.js"
+    "check": "pnpm type-check && pnpm lint && pnpm test"
   },
   "dependencies": {
     "@weerax/schemas": "workspace:*",

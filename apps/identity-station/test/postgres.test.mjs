@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import { createPostgresDatabase } from '../dist/index.js';
 
-test('PostgreSQL bootstrap transaction acquires the Station-owned advisory lock before work', async () => {
+test('PostgreSQL adapter transactions commit supplied persistence operations', async () => {
   const calls = [];
   const client = {
     async query(text, values = []) {
@@ -14,13 +14,12 @@ test('PostgreSQL bootstrap transaction acquires the Station-owned advisory lock 
   };
   const database = createPostgresDatabase({ async connect() { return client; } });
 
-  await database.withAdminManagerHeaderBootstrapTransaction(async (transaction) => {
+  await database.withTransaction(async (transaction) => {
     await transaction.query('SELECT 1');
   });
 
   assert.deepEqual(calls, [
     { text: 'BEGIN', values: [] },
-    { text: 'SELECT pg_advisory_xact_lock($1, $2)', values: [0x574558, 0x414d48] },
     { text: 'SELECT 1', values: [] },
     { text: 'COMMIT', values: [] },
   ]);

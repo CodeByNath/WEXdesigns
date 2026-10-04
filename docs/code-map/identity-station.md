@@ -4,13 +4,17 @@
 
 - Last visited: 2026-10-04
 - Last updated: 2026-10-04
-- Verified against: `origin/main` at `4f876eb26510338479d2bf3d7ec3d27773f9384e`.
-- Runtime scope: this historical PostgreSQL proof implements allocation-ledger
-  mechanics only. Accepted ADR 0016 removes its former central-authority role;
-  it is awaiting conversion to an optional portable storage adapter.
+- Verified against: `origin/main` at `a74be3d66a297a1d7db511f2d15aa73629997037`.
+- Runtime scope: optional PostgreSQL storage-adapter proof for one host-scoped
+  WEX identity space. It persists supplied portable records and supplies
+  transactions/constraints; it never issues IDs or owns lifecycle semantics.
 
 ### Recent work (newest first)
 
+- Phase 5 converts the historical Station runtime into an optional PostgreSQL
+  adapter. Its PGlite proof covers supplied registration persistence, address
+  collision rejection, compare/write transitions, non-reuse, isolated lookup,
+  and fail-closed damaged/mismatched storage evidence.
 - Phase 4B implements `@weerax/identity` bootstrap: strict WEXPR validation,
   CSPRNG generation, approval-gated create/readback, idempotent reopen, and
   fail-closed failure handling through an injected local-folder adapter.
@@ -53,14 +57,16 @@ domain records, or Header presentation.
 
 ## Current source and focused verification
 
-- Service boundary: [`apps/identity-station/src/station.ts`](../../apps/identity-station/src/station.ts)
-- Durable bootstrap command: [`apps/identity-station/src/bootstrap-command.ts`](../../apps/identity-station/src/bootstrap-command.ts)
-- PostgreSQL transaction adapter:
+- PostgreSQL portable storage adapter:
+  [`apps/identity-station/src/adapter.ts`](../../apps/identity-station/src/adapter.ts)
+- PostgreSQL transaction boundary:
   [`apps/identity-station/src/postgres.ts`](../../apps/identity-station/src/postgres.ts)
-- Durable migration:
+- Historical ledger migration retained for additive test proof:
   [`apps/identity-station/migrations/001_create_allocation_ledger.sql`](../../apps/identity-station/migrations/001_create_allocation_ledger.sql)
-- Local PostgreSQL lifecycle proof:
-  [`apps/identity-station/test/station.test.mjs`](../../apps/identity-station/test/station.test.mjs)
+- Portable PostgreSQL adapter migration:
+  [`apps/identity-station/migrations/002_create_portable_identity_adapter.sql`](../../apps/identity-station/migrations/002_create_portable_identity_adapter.sql)
+- Portable PostgreSQL adapter proof:
+  [`apps/identity-station/test/postgres-identity-adapter.test.mjs`](../../apps/identity-station/test/postgres-identity-adapter.test.mjs)
 - Portable identity contract records:
   [`packages/schemas/src/identifiers/wex-identity-space.schema.ts`](../../packages/schemas/src/identifiers/wex-identity-space.schema.ts)
 - Schema contract validation:
@@ -81,21 +87,20 @@ domain records, or Header presentation.
 ```text
 @weerax/schemas -> @weerax/adapters -> local WEX identity-space directory
 @weerax/schemas -> @weerax/identity -> injected storage-adapter boundary
-@weerax/schemas -> apps/identity-station -> PostgreSQL ledger (historical proof)
+@weerax/schemas -> apps/identity-station -> PostgreSQL identity space (optional adapter proof)
 ```
 
 The Station may consume schema validation and a PostgreSQL client. It must not
 move WEX identity semantics into schemas, WEX, Shared UI, or the web runtime.
 Under accepted ADRs 0016–0019, the WEX Identity Plugin + Tool owns identity
 semantics and operations in `@weerax/identity`, while host storage adapters
-persist its contract in host-local identity spaces. This Station is no longer
-the universal issuer or persistence owner. The schema package validates
-serializable contract records only; the separately implemented Plugin + Tool
-will apply the identity rules through an injected framework-neutral adapter
-boundary, and adapters provide atomic persistence. The local-folder adapter is
-a reference persistence mechanism, not the Plugin + Tool or WEX identity
-authority. The ledger contains allocation lifecycle evidence only; bindings and
-platform/domain data remain outside it.
+persist its contract in host-local identity spaces. This PostgreSQL adapter is
+optional and is neither a universal issuer nor a persistence owner. The schema
+package validates serializable contract records only; `@weerax/identity`
+applies identity rules through an injected framework-neutral adapter boundary,
+and adapters provide atomic persistence. The local-folder and PostgreSQL
+adapters are persistence mechanisms, not the Plugin + Tool or WEX identity
+authority. Bindings and platform/domain data remain outside them.
 
 ## Safe change routing
 
@@ -109,16 +114,13 @@ platform/domain data remain outside it.
   focused proof; keep adapters persistence-only and do not add allocation
   lifecycle issuance, approval UI, host integration, or a concrete-adapter
   runtime dependency without separately authorised work.
-- Convert this proof into an optional PostgreSQL adapter only after the shared
-  contract and local-folder reference adapter are accepted.
+- Change PostgreSQL persistence mechanics and focused proof through this map;
+  retain supplied-record semantics and do not add ID issuance, approval UI,
+  host integration, or a mandatory backend.
 - Change database deployment, credentials, public transport, caller
   authentication, bindings, reverse lookup, retirement operations, bulk
   issuance, Header presentation, or child components only in their separately
   authorised phase.
-- Run `pnpm --filter @weerax/identity-station bootstrap` only with
-  `WEX_IDENTITY_DATABASE_URL` pointing to an already-configured, Station-owned
-  PostgreSQL ledger; its printed IDs are durable only after that operation and
-  a separate-session read-back succeed.
 
 ## Related documents
 
