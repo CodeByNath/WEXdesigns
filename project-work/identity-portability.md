@@ -1,33 +1,66 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4B — Work Package correction: portable identity bootstrap
+Status: BUILDER ACTION REQUIRED  
+Phase: 4B — Work Package closeout: promote portable identity bootstrap
 
-## Builder correction handoff
+## Reviewer verdict
 
-Candidate: `feat/identity-bootstrap` at
-`a74be3d66a297a1d7db511f2d15aa73629997037`, pushed and remote-verified.
+**Proceed**
 
-Changed files:
+Accepted candidate:
+`feat/identity-bootstrap` at
+`a74be3d66a297a1d7db511f2d15aa73629997037`.
 
-- `packages/identity/src/bootstrap.ts`
-- `packages/identity/test/bootstrap.test.mjs`
-- `docs/architecture/portable-identity-storage-contract.md`
+Reviewer independently verified the complete Phase 4B Work Package against
+ADRs 0016–0019 and the portable storage/dependency authority.
 
-The present-space path now accepts only a registration whose `platformKey`
-matches the invocation; a mismatch fails closed. Deterministic tests cover
-matching and mismatched reopen paths and prove neither mutates storage nor
-generates an ID.
+Accepted evidence:
 
-The public package API no longer accepts entropy injection: production ID
-generation always uses Node CSPRNG. Deterministic entropy is limited to the
-non-exported test seam; tests prove those helpers are absent from the package
-root API. The concrete local-folder adapter remains test-only. The architecture
-contract now routes the WEXPR format to accepted ADR 0018.
+- `@weerax/identity` resides only in the approved permanent package boundary;
+- production runtime depends internally only on `@weerax/schemas`;
+- the concrete local-folder adapter is used only in tests;
+- WEXPR validation/generation matches ADR 0018;
+- production registration generation always uses Node CSPRNG;
+- deterministic entropy seams are not exported from the package root API;
+- no mutation or ID generation occurs before approval;
+- present-space reopen requires matching `platformKey`;
+- a mismatched/damaged existing space fails closed;
+- exact create/readback and create-failure/readback semantics are preserved;
+- one invocation generates at most one registration identity;
+- the stale unresolved-format architecture wording is corrected;
+- allocation issuance/lifecycle, PostgreSQL conversion, host integration,
+  approval UI, Header/UI, bindings, permissions, and generic orchestration
+  remain untouched.
 
-Checks passed: `pnpm audit:foundation`; `pnpm --filter @weerax/identity check`
-(11 tests); `pnpm --filter @weerax/schemas test` (10); `pnpm --filter
-@weerax/adapters test` (8); `pnpm check` (45 tasks); and `git diff --check`.
-No Phase 4B hard exclusion was changed.
+The correction commit changes only bootstrap implementation/tests and the
+portable storage architecture text. The full branch remains inside the
+authorised Phase 4B scope.
 
-Awaiting Reviewer review; no promotion or Owner decision is claimed.
+Builder-reported checks passed:
+`pnpm audit:foundation`,
+`pnpm --filter @weerax/identity check`,
+schema tests, adapter tests, `pnpm check`, and `git diff --check`.
+
+## Builder closeout transaction
+
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Fast-forward `main` only to
+   `a74be3d66a297a1d7db511f2d15aa73629997037`.
+3. Run `pnpm audit:foundation` and `pnpm check` after promotion.
+4. Verify remote `main` resolves exactly to that SHA.
+5. Delete `feat/identity-bootstrap` only after exact remote-main verification.
+6. Update repository/Code Map status only if promotion requires a factual
+   promoted-state correction; do not widen implementation.
+7. Update this same work file to `AWAITING REVIEWER REVIEW` with exact
+   promotion SHA, checks, and branch-housekeeping evidence.
+8. Stop.
+
+## Next gate
+
+After Reviewer verifies promotion and housekeeping, Phase 4 is complete.
+
+The next Work Package is Phase 5 — convert the historical PostgreSQL Identity
+Station into an optional storage adapter behind the accepted portable identity
+runtime.
+
+Header remains deferred until Phase 4 is verified promoted.
