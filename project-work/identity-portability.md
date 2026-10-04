@@ -1,6 +1,6 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED  
+Status: AWAITING REVIEWER REVIEW
 Phase: 4B architecture gate — establish permanent Identity runtime residence
 
 ## Owner decision
@@ -73,3 +73,19 @@ No Header/UI or approval UI.
 No domain integration.
 
 Header remains deferred until Phase 4 bootstrap is accepted and promoted.
+
+## Builder architecture handoff
+
+Candidate: `docs/identity-runtime-residence` at
+`ea2fbe9eed6b6e724fd831e6f40cb010899611e4` (remote verified).
+
+- Changed only architecture/documentation: ADR 0019, the decision index,
+  repository map, dependency rules, and Identity Code Map.
+- ADR 0019 records `packages/identity` / `@weerax/identity` as the permanent
+  portable Plugin + Tool residence. It depends internally only on schemas and
+  consumes an injected framework-neutral adapter boundary; it forbids concrete
+  adapter, Station, presentation, application, browser/UI, and host/domain
+  dependencies.
+- `pnpm audit:foundation` and `git diff --check` passed.
+- No runtime package/source, schema, adapter, allocation, PostgreSQL,
+  host-integration, Header, or UI work began.
