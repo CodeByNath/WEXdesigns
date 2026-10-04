@@ -10,7 +10,7 @@ import {
 } from '../dist/index.js';
 
 const registration = {
-  wexPlatformRegistrationId: 'opaque-platform-registration',
+  wexPlatformRegistrationId: 'WEXPR-ABCDEFGHJKLMNPQRSTUVWXYZ23',
   platformKey: 'host-platform',
   registeredAt: '2026-10-03T00:00:00.000Z',
 };

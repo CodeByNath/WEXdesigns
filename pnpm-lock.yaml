@@ -68,6 +68,16 @@ importers:
 
   packages/catalogue: {}
 
+  packages/identity:
+    dependencies:
+      '@weerax/schemas':
+        specifier: workspace:*
+        version: link:../schemas
+    devDependencies:
+      '@types/node':
+        specifier: ^24.19.1
+        version: 24.19.1
+
   packages/schemas:
     dependencies:
       zod:

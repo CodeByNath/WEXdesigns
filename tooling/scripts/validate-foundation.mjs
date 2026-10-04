@@ -26,6 +26,7 @@ const manifestPaths = [
   'packages/catalogue/package.json',
   'packages/schemas/package.json',
   'packages/adapters/package.json',
+  'packages/identity/package.json',
   'packages/ui/package.json',
   'apps/identity-station/package.json',
   'apps/studio-agent-runner/package.json',
@@ -50,6 +51,10 @@ assert(internalDependencies.get('@weerax/schemas').length === 0, 'Schemas have a
 assert(
   internalDependencies.get('@weerax/adapters').every((name) => name === '@weerax/schemas'),
   'Adapters exceed their dependency boundary',
+);
+assert(
+  internalDependencies.get('@weerax/identity').every((name) => name === '@weerax/schemas'),
+  'Identity exceeds its dependency boundary',
 );
 assert(
   internalDependencies

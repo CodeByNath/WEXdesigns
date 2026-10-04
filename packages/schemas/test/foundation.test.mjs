@@ -11,6 +11,7 @@ import {
   WexIdentityAllocationRecordSchema,
   WexIdentityInitializationStateSchema,
   WexIdentitySpaceRegistrationSchema,
+  WexPlatformRegistrationIdSchema,
   WexUiAllocationIdSchema,
   WexUiAllocationPlacementSchema,
   WexUiPlatformBindingSchema,
@@ -101,7 +102,7 @@ test('keeps platform bindings strict and serializable', () => {
 
 test('defines WEX-owned platform registration and initialization states', () => {
   const registration = {
-    wexPlatformRegistrationId: 'opaque-registration-1',
+    wexPlatformRegistrationId: 'WEXPR-ABCDEFGHJKLMNPQRSTUVWXYZ23',
     platformKey: 'host-platform',
     registeredAt: '2026-10-03T00:00:00.000Z',
   };
@@ -124,11 +125,20 @@ test('defines WEX-owned platform registration and initialization states', () => 
     WexIdentitySpaceRegistrationSchema.safeParse({ platformKey: 'host-platform', registeredAt: registration.registeredAt }).success,
     false,
   );
+  for (const invalid of [
+    'WEXPR-ABCDEFGHJKLMNPQRSTUVWXYZ2',
+    'WEXPR-ABCDEFGHJKLMNPQRSTUVWXYZ234',
+    'wexpr-ABCDEFGHJKLMNPQRSTUVWXYZ23',
+    'WEXPR-ABCDEFGHJKLMNPQRSTUVWXYZI3',
+    'WEXAMABCDEFGHJKLMNPQRSTUVWXYZ23',
+  ]) {
+    assert.equal(WexPlatformRegistrationIdSchema.safeParse(invalid).success, false);
+  }
 });
 
 test('defines strict portable lifecycle records without issuing allocations', () => {
   const reserved = {
-    wexPlatformRegistrationId: 'opaque-registration-1',
+    wexPlatformRegistrationId: 'WEXPR-ABCDEFGHJKLMNPQRSTUVWXYZ23',
     allocationId: 'WEXAMABCDE',
     family: 'WEXAM',
     placement: {},
@@ -164,11 +174,11 @@ test('defines strict portable lifecycle records without issuing allocations', ()
   );
   assert.deepEqual(
     WexIdentityAllocationLookupSchema.parse({
-      wexPlatformRegistrationId: 'opaque-registration-1',
+      wexPlatformRegistrationId: 'WEXPR-ABCDEFGHJKLMNPQRSTUVWXYZ23',
       allocationId: 'WEXAMABCDE',
     }),
     {
-      wexPlatformRegistrationId: 'opaque-registration-1',
+      wexPlatformRegistrationId: 'WEXPR-ABCDEFGHJKLMNPQRSTUVWXYZ23',
       allocationId: 'WEXAMABCDE',
     },
   );

@@ -5,9 +5,17 @@ import {
   WexUiAllocationFamilySchema,
   WexUiAllocationIdSchema,
   WexUiAllocationPlacementSchema,
+  WEX_UI_ALLOCATION_SUFFIX_ALPHABET,
 } from './wex-ui-identity.schema.js';
 
-export const WexPlatformRegistrationIdSchema = z.string().min(1);
+export const WEX_PLATFORM_REGISTRATION_PREFIX = 'WEXPR-';
+export const WEX_PLATFORM_REGISTRATION_SUFFIX_ALPHABET = WEX_UI_ALLOCATION_SUFFIX_ALPHABET;
+export const WEX_PLATFORM_REGISTRATION_SUFFIX_LENGTH = 26;
+
+export const WexPlatformRegistrationIdSchema = z.string().regex(
+  /^WEXPR-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{26}$/,
+  'wexPlatformRegistrationId must use the WEXPR Base32 form',
+);
 
 export const WexIdentityTimestampSchema = z.string().datetime({ offset: true });
 

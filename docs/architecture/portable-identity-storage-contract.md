@@ -25,8 +25,9 @@ WEX Identity Plugin + Tool
 | Host Storage Adapter | Isolated-space persistence/read and atomicity/durability mechanics | IDs, families, lifecycle meaning, domain resolution |
 | Host platform | Business records, permissions, approval UX, integration wiring | WEX allocation meaning or durable WEX lifecycle ownership |
 
-No adapter package or Plugin + Tool runtime exists in this phase. The schemas
-are importable data contracts only.
+The schemas are importable data contracts only. The later local-folder adapter
+and `@weerax/identity` runtime implement this contract without moving issuance,
+storage, or adapter atomicity into schemas.
 
 ## Serializable records
 

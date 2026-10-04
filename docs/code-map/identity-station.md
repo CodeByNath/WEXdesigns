@@ -11,10 +11,12 @@
 
 ### Recent work (newest first)
 
+- Phase 4B implements `@weerax/identity` bootstrap: strict WEXPR validation,
+  CSPRNG generation, approval-gated create/readback, idempotent reopen, and
+  fail-closed failure handling through an injected local-folder adapter.
 - ADR 0019 establishes `packages/identity` / `@weerax/identity` as the
-  permanent portable Plugin + Tool runtime residence. No runtime source exists
-  yet; a separately authorised Phase 4B implementation must use only schemas
-  and an injected framework-neutral storage-adapter boundary.
+  permanent portable Plugin + Tool runtime residence. Its implementation uses
+  only schemas and an injected framework-neutral storage-adapter boundary.
 - Phase 3 adds the local-folder reference adapter. It persists only supplied
   records under one configured WEX identity-space directory and proves file
   atomicity/readback without becoming an identity authority.
@@ -67,6 +69,10 @@ domain records, or Header presentation.
   [`packages/adapters/src/local-folder-identity-adapter.ts`](../../packages/adapters/src/local-folder-identity-adapter.ts)
 - Local-folder adapter proof:
   [`packages/adapters/test/local-folder-identity-adapter.test.mjs`](../../packages/adapters/test/local-folder-identity-adapter.test.mjs)
+- Portable bootstrap coordinator:
+  [`packages/identity/src/bootstrap.ts`](../../packages/identity/src/bootstrap.ts)
+- Portable bootstrap proof:
+  [`packages/identity/test/bootstrap.test.mjs`](../../packages/identity/test/bootstrap.test.mjs)
 - Foundation dependency audit:
   [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
@@ -99,6 +105,10 @@ platform/domain data remain outside it.
 - Change local-folder persistence mechanics and focused proof through this map;
   do not add Plugin + Tool initialization, approval UI, host-domain data, or
   another backend in this adapter phase.
+- Change portable bootstrap orchestration through `@weerax/identity` and its
+  focused proof; keep adapters persistence-only and do not add allocation
+  lifecycle issuance, approval UI, host integration, or a concrete-adapter
+  runtime dependency without separately authorised work.
 - Convert this proof into an optional PostgreSQL adapter only after the shared
   contract and local-folder reference adapter are accepted.
 - Change database deployment, credentials, public transport, caller
