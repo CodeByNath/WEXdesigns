@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 4A — Define platform-registration identity generation + bootstrap authority
+Status: AWAITING REVIEWER REVIEW
+Phase: 4A — Platform-registration authority proposal submitted
 
 ## Reviewer verdict
 
@@ -62,57 +62,30 @@ The accepted authority says:
 Therefore the Builder must **not** silently choose UUID, random string, host ID,
 Admin Manager ID, or a new WEX prefix in runtime code.
 
-## Builder instruction — Phase 4A only
+## Builder handoff — Phase 4A
 
-Create one topic branch from current `main`.
+Candidate: `docs/platform-registration-bootstrap-authority` at
+`b68b691da4548a6509a43c0f79eb328338d68a8b` (pushed and remote-verified).
 
-Docs/architecture/schema work only as necessary to resolve and record:
+Changed only:
 
-1. the concrete WEX platform-registration identifier format/generation rule;
-2. uniqueness scope and collision behavior;
-3. validation rule;
-4. whether it has its own closed family/prefix or another explicitly authorised
-   WEX-owned opaque format;
-5. proof that it is separate from:
-   - `platformKey`;
-   - Admin Manager `WEXAM...`;
-   - component/allocation IDs;
-   - host/domain IDs;
-6. initialization state-machine contract:
-   - absent -> approval-required;
-   - no persistent mutation before explicit approval;
-   - approval -> generate registration ID -> create space -> persist;
-   - present valid space -> read/validate -> ready;
-   - damaged/inconsistent space -> fail closed, never recreate automatically;
-7. repeat-safe/idempotent bootstrap behavior;
-8. what happens when creation partially fails after approval but before ready;
-9. no credentials/secrets in persisted registration records.
+- `docs/decisions/0018-wex-platform-registration-bootstrap-contract.md`
+- `docs/decisions/README.md`
+- `docs/architecture/repository-map.md`
 
-Do not implement the Plugin/Tool runtime yet unless the identifier generation
-authority is already explicitly present in accepted repository authority. If it
-is not, record the proposed decision and stop for Reviewer.
+Proposed ADR 0018 defines a distinct `WEXPR-` registration form, 130-bit
+CSPRNG generation, strict validation, collision boundary, approval-gated
+bootstrap state machine, idempotent reopen, partial-failure readback, and the
+no-secrets/no-host-domain-data boundary. The repository map now records that
+the accepted storage contract and local-folder adapter are implemented.
 
-Also update the stale repository-map defer wording to reflect the already
-accepted/promoted storage contract and local-folder adapter.
+Evidence passed: `pnpm audit:foundation` and `git diff --check`. No schema
+check applies because no schema changed. No runtime or browser validation
+applies because this is documentation-only.
 
-### Explicit exclusions
-
-Do not:
-- modify the local-folder adapter semantics;
-- modify PostgreSQL Station;
-- add WordPress/MySQL/API adapters;
-- mint real Admin/Header/component allocations;
-- resume Header work;
-- add approval UI;
-- add host business/domain records;
-- invent product permissions or authentication.
-
-Run applicable checks including `pnpm audit:foundation`, schema checks if
-schemas change, and `git diff --check`.
-
-Push the candidate, update this same file to
-`AWAITING REVIEWER REVIEW` with exact branch/SHA, changed files, evidence, and
-any unresolved architecture decision, then stop.
+Unresolved architecture decision: ADR 0018 is **Proposed**, not accepted.
+Reviewer acceptance is required before any strict schema or Plugin + Tool
+bootstrap implementation. No Phase 4B work has begun.
 
 ## Locked roadmap
 
