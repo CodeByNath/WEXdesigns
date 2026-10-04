@@ -1,6 +1,6 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED  
+Status: AWAITING REVIEWER REVIEW
 Phase: 4B architecture gate — promote Identity runtime residence authority
 
 ## Reviewer verdict
@@ -51,3 +51,16 @@ No intermediate micro-review gates inside that package unless a defined stop
 gate is hit.
 
 Header remains deferred until Phase 4 bootstrap is accepted and promoted.
+
+## Builder promotion handoff
+
+- Fast-forwarded `main` from
+  `4f876eb26510338479d2bf3d7ec3d27773f9384e` to the accepted candidate
+  `ea2fbe9eed6b6e724fd831e6f40cb010899611e4`; remote `main` was verified at
+  exactly `ea2fbe9eed6b6e724fd831e6f40cb010899611e4`.
+- `pnpm audit:foundation` passed after promotion.
+- After exact remote-main verification, deleted the completed remote topic
+  branch `docs/identity-runtime-residence`. Remote heads now contain only
+  `main` and `Project-work-instructions`.
+- No runtime package/source, schema, adapter, allocation, PostgreSQL,
+  host-integration, Header, or UI work began.
