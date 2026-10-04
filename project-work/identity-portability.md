@@ -1,6 +1,6 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED  
+Status: BLOCKED — DECISION REQUIRED
 Phase: 4B — Work Package: portable identity bootstrap implementation
 
 ## Reviewer verdict
@@ -95,6 +95,26 @@ promotion can be included with closeout rather than split into unnecessary
 micro-review phases.
 
 Header remains deferred until Phase 4 bootstrap is accepted and promoted.
+
+## Builder stop-gate report
+
+Phase 4B cannot begin because the permanent WEX Identity Plugin + Tool runtime
+residence is not resolvable from accepted authority:
+
+- `docs/architecture/platform-identity.md` requires the Plugin + Tool to be
+  separate from the WEX presentation package and reusable core packages.
+- `docs/architecture/portable-identity-storage-contract.md` says no Plugin +
+  Tool runtime exists; the current workspace exposes only schemas, adapters,
+  presentation packages, applications, and the historical PostgreSQL Station.
+- ADR 0016 makes that Station an optional adapter proof, not the portable WEX
+  identity core. Placing the runtime there would contradict accepted authority.
+- Creating a new package/app would establish a permanent package boundary that
+  current authority does not assign.
+
+No topic branch was created and no schema, adapter, Plugin + Tool runtime,
+allocation, PostgreSQL conversion, host integration, Header, or UI work began.
+An accepted architecture decision must assign the Plugin + Tool's permanent
+residence and permitted dependency direction before this Work Package can run.
 
 ## Locked roadmap
 
