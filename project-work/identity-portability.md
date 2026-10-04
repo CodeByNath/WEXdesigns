@@ -1,85 +1,33 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED  
+Status: AWAITING REVIEWER REVIEW
 Phase: 4B — Work Package correction: portable identity bootstrap
 
-## Reviewer verdict
+## Builder correction handoff
 
-**Stop — architectural risk**
+Candidate: `feat/identity-bootstrap` at
+`a74be3d66a297a1d7db511f2d15aa73629997037`, pushed and remote-verified.
 
-Candidate reviewed:
-`feat/identity-bootstrap` at
-`c470b11bf59f8e33c42996b72d6bf54cdc7503fc`.
+Changed files:
 
-The package is structurally sound and stays inside the approved
-`@weerax/identity` boundary, but three identity-safety defects must be fixed
-before promotion.
+- `packages/identity/src/bootstrap.ts`
+- `packages/identity/test/bootstrap.test.mjs`
+- `docs/architecture/portable-identity-storage-contract.md`
 
-## Required corrections
+The present-space path now accepts only a registration whose `platformKey`
+matches the invocation; a mismatch fails closed. Deterministic tests cover
+matching and mismatched reopen paths and prove neither mutates storage nor
+generates an ID.
 
-### 1. Existing-space platform mismatch must fail closed
+The public package API no longer accepts entropy injection: production ID
+generation always uses Node CSPRNG. Deterministic entropy is limited to the
+non-exported test seam; tests prove those helpers are absent from the package
+root API. The concrete local-folder adapter remains test-only. The architecture
+contract now routes the WEXPR format to accepted ADR 0018.
 
-On `detectSpace() === 'present'`, bootstrap currently validates only the
-persisted record shape and returns `ready`.
+Checks passed: `pnpm audit:foundation`; `pnpm --filter @weerax/identity check`
+(11 tests); `pnpm --filter @weerax/schemas test` (10); `pnpm --filter
+@weerax/adapters test` (8); `pnpm check` (45 tasks); and `git diff --check`.
+No Phase 4B hard exclusion was changed.
 
-The invocation already supplies `platformKey`. If the durable registration
-belongs to a different `platformKey`, that is an observed registration
-mismatch and must fail closed rather than silently returning another host's WEX
-identity space.
-
-Add deterministic proof for:
-- present + matching platformKey -> ready;
-- present + different platformKey -> failure;
-- no mutation or ID generation in either reopen path.
-
-### 2. Production callers must not be able to downgrade CSPRNG guarantees
-
-ADR 0018 requires the Plugin + Tool to obtain independent uniform five-bit
-values from a cryptographically secure random source.
-
-The public exported API currently exposes `randomBytes` injection through
-`WexIdentityBootstrapOptions` and through
-`generateWexPlatformRegistrationId(randomBytes)`, allowing a production caller
-to supply an insecure deterministic source.
-
-Keep deterministic testability without making insecure entropy selection part
-of the public production contract. Use an internal/test-only seam or another
-bounded mechanism that preserves ADR 0018's mandatory CSPRNG guarantee.
-
-### 3. Remove stale authority contradiction
-
-`docs/architecture/portable-identity-storage-contract.md` still states that
-the concrete `wexPlatformRegistrationId` format is deliberately unresolved.
-
-ADR 0018 has already resolved it. Update that architecture text to route to the
-accepted WEXPR format without changing the semantics.
-
-## Preserve
-
-Do not widen the package. Keep:
-
-- `@weerax/identity` depending internally only on `@weerax/schemas`;
-- concrete local-folder adapter usage in tests only;
-- adapters persistence/atomicity-only;
-- one-ID-per-invocation behavior;
-- exact readback/create-failure semantics;
-- all Phase 4B hard exclusions.
-
-## Required evidence
-
-Push the correction on the same topic branch and report:
-
-- exact new SHA and changed-file list;
-- `pnpm audit:foundation`;
-- `pnpm --filter @weerax/identity check`;
-- relevant schema/adapter tests;
-- `pnpm check`;
-- `git diff --check`;
-- explicit tests for matching/mismatched present-space `platformKey`;
-- evidence the public production API cannot select a non-CSPRNG entropy source.
-
-Return this file to `AWAITING REVIEWER REVIEW` after remote verification.
-
-No Owner decision is required. This remains the same Phase 4B Work Package.
-
-Header remains deferred until Phase 4 bootstrap is accepted and promoted.
+Awaiting Reviewer review; no promotion or Owner decision is claimed.
