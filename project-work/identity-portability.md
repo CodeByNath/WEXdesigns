@@ -1,76 +1,68 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4A — Promote accepted platform-registration authority
+Status: BUILDER ACTION REQUIRED  
+Phase: 4A — Finalise accepted platform-registration authority
 
 ## Reviewer verdict
 
-**Proceed**
+**Stop — architectural risk**
 
-Accepted candidate:
-`docs/platform-registration-bootstrap-authority` at
-`06bcf6b7580817e58822862036695965b5ec69b9`.
+Promotion evidence is otherwise correct:
 
-Independent review confirms:
+- remote `main` is exactly
+  `06bcf6b7580817e58822862036695965b5ec69b9`;
+- the completed topic branch is deleted;
+- remote heads are only `main` and `Project-work-instructions`;
+- the accepted Base32 correction remains intact;
+- no Phase 4B implementation has begun.
 
-- the preserved alphabet `ABCDEFGHJKLMNPQRSTUVWXYZ23456789` contains exactly
-  32 symbols: 24 letters plus digits `2`–`9`;
-- ADR 0013 already defines that alphabet as unambiguous Base32;
-- mapping independent uniform CSPRNG five-bit values `0`–`31` one-to-one to
-  those 32 symbols is unbiased;
-- 26 Base32 characters provide exactly `32^26 = 2^130` possible suffixes,
-  i.e. 130 bits of entropy;
-- the correction commit from
-  `b68b691da4548a6509a43c0f79eb328338d68a8b` to
-  `06bcf6b7580817e58822862036695965b5ec69b9` changes only ADR 0018;
-- no schema, adapter, Plugin + Tool runtime, host integration, allocation,
-  Header, or UI implementation was introduced by the correction.
+One governance defect blocks Phase 4B:
 
-The previous Reviewer base-31 objection was incorrect and is superseded.
+- `docs/decisions/0018-wex-platform-registration-bootstrap-contract.md` still
+  says `Proposed — Phase 4A architecture gate`;
+- `docs/decisions/README.md` still lists ADR 0018 under `## Proposed`;
+- therefore repository authority still records the contract as proposed rather
+  than accepted, even though the Reviewer accepted and promoted the candidate.
 
-## Builder action — promotion only
+Phase 4B must not implement against authority that the repository itself still
+labels proposed.
 
-Promote the accepted Phase 4A authority to `main`.
+## Builder correction — Phase 4A only
 
-1. Verify `origin` is `CodeByNath/WEXdesigns`.
-2. Verify remote heads remain within the three-branch limit.
-3. Fast-forward `main` only to the exact accepted candidate
-   `06bcf6b7580817e58822862036695965b5ec69b9`.
-4. Run `pnpm audit:foundation`.
-5. Verify remote `main` resolves exactly to that SHA.
-6. Delete the completed topic branch
-   `docs/platform-registration-bootstrap-authority` only after the exact main
-   promotion is verified safe.
-7. Update this same work file to `AWAITING REVIEWER REVIEW` with promotion,
-   check, branch-housekeeping, and remote-SHA evidence.
-8. Stop. Do not begin Phase 4B.
+Create one bounded documentation topic branch and make only the acceptance-state
+correction:
 
-No source/runtime/schema implementation is authorised in this promotion step.
+1. Change ADR 0018 status from `Proposed` to `Accepted`.
+2. Change `## Proposed decision` to `## Decision`.
+3. Move ADR 0018 in `docs/decisions/README.md` from `## Proposed` to the
+   accepted list; remove the empty Proposed section if it becomes empty.
+4. Do not change the accepted identifier format, generation method, state
+   machine, ownership, bootstrap semantics, or consequences.
+5. Do not modify schemas, adapters, Plugin + Tool runtime, allocation issuance,
+   PostgreSQL conversion, host integration, Header, or UI.
+
+Required evidence:
+
+- `pnpm audit:foundation`
+- `git diff --check`
+- exact pushed branch/SHA and changed-file list
+- confirmation that the diff is acceptance-state wording/indexing only
+- confirmation that no Phase 4B implementation began
+
+Return this same work file to `AWAITING REVIEWER REVIEW` after the correction
+is pushed and remote-verified.
 
 ## Next gate
 
-Phase 4B — Plugin + Tool bootstrap implementation remains closed until Reviewer
-independently verifies the Phase 4A promotion on `main`.
+Phase 4B remains closed until Reviewer verifies and promotes this acceptance
+correction.
 
 Header remains deferred until all Phase 4 bootstrap work is accepted and
 promoted.
 
-## Builder promotion handoff
-
-- Fast-forwarded `main` from
-  `fa66bf6ce3c24d8d83c373f3025f429d1533d847` to the accepted candidate
-  `06bcf6b7580817e58822862036695965b5ec69b9`; remote `main` was verified at
-  exactly `06bcf6b7580817e58822862036695965b5ec69b9`.
-- `pnpm audit:foundation` passed after promotion.
-- After the exact remote-main verification, deleted the completed remote topic
-  branch `docs/platform-registration-bootstrap-authority`. Remote heads now
-  contain only `main` and `Project-work-instructions`.
-- No Phase 4B schema, adapter, Plugin + Tool runtime, host integration,
-  allocation, Header, or UI work began.
-
 ## Locked roadmap
 
-- Phase 4B — implement Plugin + Tool bootstrap after promotion review.
+- Phase 4B — Plugin + Tool bootstrap.
 - Phase 5 — PostgreSQL optional adapter conversion.
 - Phase 6 — component targeting/inspection proof.
 - Phase 7 — separately authorised real-host integration proof.
