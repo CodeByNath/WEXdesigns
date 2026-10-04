@@ -2,15 +2,19 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-03
-- Last updated: 2026-10-03
-- Verified against: `origin/main` at `50c0c9120617e4c15e47265b018833c173661771`.
+- Last visited: 2026-10-04
+- Last updated: 2026-10-04
+- Verified against: `origin/main` at `4f876eb26510338479d2bf3d7ec3d27773f9384e`.
 - Runtime scope: this historical PostgreSQL proof implements allocation-ledger
   mechanics only. Accepted ADR 0016 removes its former central-authority role;
   it is awaiting conversion to an optional portable storage adapter.
 
 ### Recent work (newest first)
 
+- ADR 0019 establishes `packages/identity` / `@weerax/identity` as the
+  permanent portable Plugin + Tool runtime residence. No runtime source exists
+  yet; a separately authorised Phase 4B implementation must use only schemas
+  and an injected framework-neutral storage-adapter boundary.
 - Phase 3 adds the local-folder reference adapter. It persists only supplied
   records under one configured WEX identity-space directory and proves file
   atomicity/readback without becoming an identity authority.
@@ -38,6 +42,8 @@ domain records, or Header presentation.
 - [ADR 0015: WEX UI Identity Station Placement](../decisions/0015-wex-ui-identity-station-placement.md)
 - [Accepted ADR 0016: Portable WEX Identity Spaces](../decisions/0016-portable-wex-identity-spaces.md)
 - [Accepted ADR 0017: Portable WEX Identity Storage Contract](../decisions/0017-portable-identity-storage-contract.md)
+- [Accepted ADR 0018: WEX Platform Registration Bootstrap Contract](../decisions/0018-wex-platform-registration-bootstrap-contract.md)
+- [Accepted ADR 0019: WEX Identity Runtime Residence](../decisions/0019-wex-identity-runtime-residence.md)
 - [Platform identity architecture](../architecture/platform-identity.md)
 - [Portable WEX Identity storage contract](../architecture/portable-identity-storage-contract.md)
 - [Repository map](../architecture/repository-map.md)
@@ -68,19 +74,22 @@ domain records, or Header presentation.
 
 ```text
 @weerax/schemas -> @weerax/adapters -> local WEX identity-space directory
+@weerax/schemas -> @weerax/identity -> injected storage-adapter boundary
 @weerax/schemas -> apps/identity-station -> PostgreSQL ledger (historical proof)
 ```
 
 The Station may consume schema validation and a PostgreSQL client. It must not
 move WEX identity semantics into schemas, WEX, Shared UI, or the web runtime.
-Under accepted ADR 0016, the WEX Identity Plugin + Tool owns identity semantics
-and operations while host storage adapters persist its contract in host-local
-identity spaces. This Station is no longer the universal issuer or persistence
-owner. The schema package validates serializable contract records only; the
-future Plugin + Tool applies the identity rules and adapters provide atomic
-persistence. The local-folder adapter is a reference persistence mechanism, not
-the Plugin + Tool or WEX identity authority. The ledger contains allocation
-lifecycle evidence only; bindings and platform/domain data remain outside it.
+Under accepted ADRs 0016–0019, the WEX Identity Plugin + Tool owns identity
+semantics and operations in `@weerax/identity`, while host storage adapters
+persist its contract in host-local identity spaces. This Station is no longer
+the universal issuer or persistence owner. The schema package validates
+serializable contract records only; the separately implemented Plugin + Tool
+will apply the identity rules through an injected framework-neutral adapter
+boundary, and adapters provide atomic persistence. The local-folder adapter is
+a reference persistence mechanism, not the Plugin + Tool or WEX identity
+authority. The ledger contains allocation lifecycle evidence only; bindings and
+platform/domain data remain outside it.
 
 ## Safe change routing
 

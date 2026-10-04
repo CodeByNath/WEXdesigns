@@ -12,3 +12,4 @@ presentation authority and explicit domain ownership.
 - [0016: Portable WEX Identity Spaces](0016-portable-wex-identity-spaces.md)
 - [0017: Portable WEX Identity Storage Contract](0017-portable-identity-storage-contract.md)
 - [0018: WEX Platform Registration Bootstrap Contract](0018-wex-platform-registration-bootstrap-contract.md)
+- [0019: WEX Identity Runtime Residence](0019-wex-identity-runtime-residence.md)
