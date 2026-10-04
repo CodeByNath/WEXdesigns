@@ -36,6 +36,10 @@ The suffix alphabet is the existing allocation alphabet:
 ABCDEFGHJKLMNPQRSTUVWXYZ23456789
 ```
 
+It contains exactly 32 symbols: 24 permitted uppercase letters and the eight
+digits `2`–`9`. No symbol is added, removed, or substituted for registration
+generation.
+
 The exact validation rule is:
 
 ```text
@@ -50,11 +54,13 @@ undeclared fields.
 
 ### Generation, uniqueness, and collision boundary
 
-For a new approved identity space, the Plugin + Tool obtains 26 independent
-uniform five-bit values from a cryptographically secure random source and maps
-each to the alphabet above. The resulting 130-bit suffix is opaque: it carries
-no host, user, domain, timestamp, placement, allocation-family, or lifecycle
-meaning.
+For a new approved identity space, the Plugin + Tool obtains 26 independent,
+uniform five-bit values from a cryptographically secure random source. Each
+value from `0` through `31` maps one-to-one, in alphabet order, to the 32
+symbols above. This produces an unbiased uniform suffix over exactly `32^26`
+possible values (130 bits of entropy). The resulting suffix is opaque: it
+carries no host, user, domain, timestamp, placement, allocation-family, or
+lifecycle meaning.
 
 Its scope is portable across WEX identity spaces. No global registry or
 mandatory backend is introduced; the CSPRNG value provides collision resistance
