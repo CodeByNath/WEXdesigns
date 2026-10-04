@@ -1,91 +1,53 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4B architecture gate — establish permanent Identity runtime residence
-
-## Owner decision
-
-Approved:
-
-`packages/identity`  
-package name: `@weerax/identity`
-
-This is the permanent residence of the portable WEX Identity Plugin + Tool
-runtime.
+Status: BUILDER ACTION REQUIRED  
+Phase: 4B architecture gate — promote Identity runtime residence authority
 
 ## Reviewer verdict
 
 **Proceed**
 
-The architecture gate is resolved by Owner approval. Builder must now record
-that decision in repository authority before any Phase 4B runtime implementation
-begins.
+Accepted candidate:
+`docs/identity-runtime-residence` at
+`ea2fbe9eed6b6e724fd831e6f40cb010899611e4`.
 
-## Architecture-only Builder package
+Independent review confirms:
 
-Create one documentation/architecture candidate that:
+- candidate is exactly one commit ahead of `main`;
+- changes are architecture/documentation only;
+- ADR 0019 records `packages/identity` / `@weerax/identity` as the permanent
+  portable WEX Identity Plugin + Tool runtime residence;
+- `@weerax/identity` owns portable identity semantics/runtime and depends
+  internally only on `@weerax/schemas`;
+- storage is consumed through an injected framework-neutral adapter boundary,
+  so the identity runtime does not import a concrete adapter implementation;
+- adapters remain persistence/atomicity-only;
+- `@weerax/identity-station` remains historical PostgreSQL proof / future
+  optional adapter and is not portable core;
+- repository map, dependency rules, ADR index, and Identity Code Map agree;
+- no runtime, schema, adapter, allocation, PostgreSQL, host-integration, Header,
+  or UI implementation was introduced.
 
-1. records `packages/identity` / `@weerax/identity` as the permanent WEX
-   Identity Plugin + Tool runtime residence;
-2. defines its ownership as portable WEX identity semantics and runtime:
-   platform registration, family validation, ID generation/issuance,
-   allocation lifecycle orchestration, parent/slot, lookup/targeting, and
-   approval/init semantics;
-3. keeps storage adapters persistence/atomicity-only;
-4. keeps `@weerax/identity-station` as historical PostgreSQL proof / future
-   optional storage adapter, not portable core;
-5. defines allowed dependencies narrowly:
-   `@weerax/schemas` and the approved framework-neutral adapter boundary only;
-6. forbids dependencies on WEX presentation, Shared UI, web runtime,
-   application/domain code, React/browser UI, and host business systems;
-7. updates repository map and dependency rules consistently;
-8. adds/updates the relevant ADR establishing this permanent package boundary;
-9. keeps ADRs 0016–0018 semantics intact except for necessary cross-reference
-   or residence clarification;
-10. makes no runtime, schema, adapter, allocation, UI, Header, PostgreSQL, or
-    host-integration implementation changes.
+The architecture candidate matches the Owner-approved package boundary.
 
-## Required evidence
+## Builder closeout — promotion only
 
-- exact pushed topic branch/SHA;
-- complete changed-file list;
-- `pnpm audit:foundation`;
-- `git diff --check`;
-- confirmation the diff is architecture/documentation only;
-- confirmation Phase 4B runtime implementation has not begun.
+1. Verify `origin` is `CodeByNath/WEXdesigns`.
+2. Fast-forward `main` only to
+   `ea2fbe9eed6b6e724fd831e6f40cb010899611e4`.
+3. Run `pnpm audit:foundation`.
+4. Verify remote `main` resolves exactly to that SHA.
+5. Delete `docs/identity-runtime-residence` only after exact remote-main
+   verification proves it safe.
+6. Update this same work file to `AWAITING REVIEWER REVIEW` with promotion,
+   check, branch-housekeeping, and exact remote-SHA evidence.
+7. Stop. Do not begin runtime implementation yet.
 
-Return this same file to `AWAITING REVIEWER REVIEW` after the architecture
-candidate is pushed and remote-verified.
+## Next gate
 
-## After acceptance
-
-Once this package-boundary authority is accepted and promoted, reopen the
-existing Phase 4B Work Package and complete bootstrap implementation as one
-larger Builder package without intermediate micro-review gates.
-
-## Hard exclusions
-
-No Phase 4B runtime/schema/adapter implementation yet.
-No allocation issuance implementation.
-No PostgreSQL conversion.
-No host-specific adapter.
-No Header/UI or approval UI.
-No domain integration.
+After Reviewer verifies this promotion/housekeeping, reopen Phase 4B as one
+bounded Work Package covering the full portable bootstrap implementation.
+No intermediate micro-review gates inside that package unless a defined stop
+gate is hit.
 
 Header remains deferred until Phase 4 bootstrap is accepted and promoted.
-
-## Builder architecture handoff
-
-Candidate: `docs/identity-runtime-residence` at
-`ea2fbe9eed6b6e724fd831e6f40cb010899611e4` (remote verified).
-
-- Changed only architecture/documentation: ADR 0019, the decision index,
-  repository map, dependency rules, and Identity Code Map.
-- ADR 0019 records `packages/identity` / `@weerax/identity` as the permanent
-  portable Plugin + Tool residence. It depends internally only on schemas and
-  consumes an injected framework-neutral adapter boundary; it forbids concrete
-  adapter, Station, presentation, application, browser/UI, and host/domain
-  dependencies.
-- `pnpm audit:foundation` and `git diff --check` passed.
-- No runtime package/source, schema, adapter, allocation, PostgreSQL,
-  host-integration, Header, or UI work began.
