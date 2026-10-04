@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed — Phase 4A architecture gate. It changes no schema, adapter, Plugin +
+Accepted — Phase 4A architecture authority. It changes no schema, adapter, Plugin +
 Tool runtime, host integration, allocation, Header, or UI.
 
 ## Context
@@ -19,7 +19,7 @@ prefix implicitly. This proposal supplies the missing concrete contract without
 making `platformKey`, an Admin Manager allocation, a component ID, or a host
 domain ID into WEX registration identity.
 
-## Proposed decision
+## Decision
 
 ### Registration identifier
 
