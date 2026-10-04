@@ -157,3 +157,43 @@ Rules:
 - At a clean chat start, read the handover first, then run the normal WeeraX Project Cycle against the repository.
 - Update the same Google Doc after material project-state changes or before intentionally starting a new chat.
 - Do not create a new handover document for every chat; keep the existing document concise and current.
+
+
+## Work Package Mode
+
+Default to a bounded **Work Package** instead of one micro-task at a time when
+multiple related implementation steps can safely proceed under already accepted
+authority.
+
+A Work Package must define:
+
+- one clear outcome;
+- the included related tasks;
+- controlling authority;
+- hard exclusions;
+- required checks/evidence;
+- explicit stop gates;
+- one final Builder handoff.
+
+Builder may complete all included tasks in the package without stopping for
+Reviewer approval between each internal step.
+
+Builder must stop immediately when:
+
+- a new architecture decision is required;
+- repository authority is missing or contradictory;
+- scope must widen beyond the package;
+- a destructive migration/deployment/customer-state change appears;
+- a required dependency or capability is unavailable;
+- a material test, security, accessibility, persistence, migration, or runtime
+  failure cannot be resolved within accepted authority.
+
+Reviewer should review the completed package as one unit, not create unnecessary
+micro-review gates for internal steps that stayed within accepted authority.
+
+Use single-phase mode only for architecture gates, destructive/high-risk work,
+or when the active work file explicitly requires a separate approval boundary.
+
+Promotion, required documentation/status updates, deterministic checks, and
+handoff evidence should be included in the same package where repository rules
+allow, so safe work is not fragmented into avoidable review cycles.
