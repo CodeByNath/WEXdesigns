@@ -1,68 +1,85 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 4B — Work Package: portable identity bootstrap implementation
+Status: BUILDER ACTION REQUIRED  
+Phase: 4B — Work Package correction: portable identity bootstrap
 
 ## Reviewer verdict
 
-**Proceed**
+**Stop — architectural risk**
 
-Phase 4B architecture authority is now fully promoted and verified.
+Candidate reviewed:
+`feat/identity-bootstrap` at
+`c470b11bf59f8e33c42996b72d6bf54cdc7503fc`.
 
-Reviewer independently confirms:
+The package is structurally sound and stays inside the approved
+`@weerax/identity` boundary, but three identity-safety defects must be fixed
+before promotion.
 
-- remote `main` is exactly
-  `ea2fbe9eed6b6e724fd831e6f40cb010899611e4`;
-- ADR 0019 is accepted on `main`;
-- `packages/identity` / `@weerax/identity` is the permanent portable WEX
-  Identity Plugin + Tool runtime residence;
-- remote heads are only `main` and `Project-work-instructions`;
-- the completed architecture branch is removed.
+## Required corrections
 
-## Completed scope
+### 1. Existing-space platform mismatch must fail closed
 
-The candidate implements the authorised ADRs 0016–0019 bootstrap boundary only:
-strict WEXPR registration, CSPRNG generation, approval-gated persistence and
-readback through the injected local-folder adapter, and focused proof. It does
-not alter allocation lifecycle, adapter ownership, host/domain boundaries, or
-presentation.
+On `detectSpace() === 'present'`, bootstrap currently validates only the
+persisted record shape and returns `ready`.
 
-## Next gate
+The invocation already supplies `platformKey`. If the durable registration
+belongs to a different `platformKey`, that is an observed registration
+mismatch and must fail closed rather than silently returning another host's WEX
+identity space.
 
-Reviewer audits the completed Phase 4B Work Package as one unit.
+Add deterministic proof for:
+- present + matching platformKey -> ready;
+- present + different platformKey -> failure;
+- no mutation or ID generation in either reopen path.
 
-If accepted, closeout/promotion should be handled as one bounded transaction
-rather than split into avoidable micro-review phases.
+### 2. Production callers must not be able to downgrade CSPRNG guarantees
+
+ADR 0018 requires the Plugin + Tool to obtain independent uniform five-bit
+values from a cryptographically secure random source.
+
+The public exported API currently exposes `randomBytes` injection through
+`WexIdentityBootstrapOptions` and through
+`generateWexPlatformRegistrationId(randomBytes)`, allowing a production caller
+to supply an insecure deterministic source.
+
+Keep deterministic testability without making insecure entropy selection part
+of the public production contract. Use an internal/test-only seam or another
+bounded mechanism that preserves ADR 0018's mandatory CSPRNG guarantee.
+
+### 3. Remove stale authority contradiction
+
+`docs/architecture/portable-identity-storage-contract.md` still states that
+the concrete `wexPlatformRegistrationId` format is deliberately unresolved.
+
+ADR 0018 has already resolved it. Update that architecture text to route to the
+accepted WEXPR format without changing the semantics.
+
+## Preserve
+
+Do not widen the package. Keep:
+
+- `@weerax/identity` depending internally only on `@weerax/schemas`;
+- concrete local-folder adapter usage in tests only;
+- adapters persistence/atomicity-only;
+- one-ID-per-invocation behavior;
+- exact readback/create-failure semantics;
+- all Phase 4B hard exclusions.
+
+## Required evidence
+
+Push the correction on the same topic branch and report:
+
+- exact new SHA and changed-file list;
+- `pnpm audit:foundation`;
+- `pnpm --filter @weerax/identity check`;
+- relevant schema/adapter tests;
+- `pnpm check`;
+- `git diff --check`;
+- explicit tests for matching/mismatched present-space `platformKey`;
+- evidence the public production API cannot select a non-CSPRNG entropy source.
+
+Return this file to `AWAITING REVIEWER REVIEW` after remote verification.
+
+No Owner decision is required. This remains the same Phase 4B Work Package.
 
 Header remains deferred until Phase 4 bootstrap is accepted and promoted.
-
-## Builder handoff
-
-Candidate: `feat/identity-bootstrap` at
-`c470b11bf59f8e33c42996b72d6bf54cdc7503fc` (remote verified).
-
-Changed files:
-
-- `packages/identity/{package.json,tsconfig.json,src/bootstrap.ts,src/index.ts,test/bootstrap.test.mjs}`
-- `packages/schemas/src/identifiers/wex-identity-space.schema.ts`,
-  `packages/schemas/src/index.ts`, `packages/schemas/test/foundation.test.mjs`
-- `packages/adapters/test/local-folder-identity-adapter.test.mjs`,
-  `tooling/scripts/validate-foundation.mjs`, `pnpm-lock.yaml`
-- `docs/architecture/{portable-identity-storage-contract.md,repository-map.md}`,
-  `docs/code-map/identity-station.md`
-
-Evidence: `pnpm audit:foundation`, `pnpm --filter @weerax/identity check`,
-schema and local-folder adapter tests, `pnpm check` (45 tasks), and
-`git diff --check` passed. Nine bootstrap tests prove approval-gated no
-mutation, exact WEXPR generation/readback, idempotent reopen, damaged/mismatch
-fail-closed behaviour, create-failure readback, single-ID generation, and
-test-only local-folder integration. The runtime imports only schemas; the
-concrete adapter appears only in test code. No allocation lifecycle issuance,
-PostgreSQL conversion, host adapter/integration, approval UI, Header/UI,
-permissions, bindings, or generic orchestration work was added.
-
-## Locked roadmap
-
-- Phase 5 — PostgreSQL optional adapter conversion.
-- Phase 6 — component targeting/inspection proof.
-- Phase 7 — separately authorised real-host integration proof.
