@@ -1,6 +1,6 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 4A — Correct platform-registration authority proposal
 
 ## Reviewer verdict
@@ -65,3 +65,21 @@ pushed and remote-verified.
 
 Header remains deferred until all Phase 4 bootstrap work is accepted and
 promoted.
+
+## Builder correction handoff
+
+Candidate: `docs/platform-registration-bootstrap-authority` at
+`06bcf6b7580817e58822862036695965b5ec69b9` (remote verified).
+
+- Revised only
+  `docs/decisions/0018-wex-platform-registration-bootstrap-contract.md`.
+- The preserved accepted alphabet and schema literal
+  `ABCDEFGHJKLMNPQRSTUVWXYZ23456789` contain 32 symbols, not 31 (24 permitted
+  letters plus `2`–`9`). The proposal now states the one-to-one, unbiased
+  mapping of independent CSPRNG five-bit values `0`–`31`, `32^26` possible
+  suffixes, and 130 bits of entropy. A base-31/rejection construction would
+  contradict the mandated unchanged alphabet and the accepted ADR 0013
+  Base32 contract.
+- Checks passed: `pnpm audit:foundation`; `git diff --check`.
+- No schema, adapter, Plugin + Tool runtime, host integration, allocation,
+  Header, or UI work was begun; Phase 4B remains untouched.
