@@ -33,8 +33,9 @@ apps/identity-station ----> PostgreSQL allocation ledger (optional adapter proof
 `@weerax/ui` may also consume `@weerax/wex`. Applications remain outside reusable core packages. The graph must remain acyclic.
 
 WEX Identity is a portable Plugin + Tool with host-local identity spaces. The
-first local folder adapter and the storage-adapter contract remain deferred;
-the current Station must not be treated as universal WEX identity authority.
+storage-adapter contract and first local-folder reference adapter are accepted
+and implemented; Plugin + Tool bootstrap remains separately gated. The current
+Station must not be treated as universal WEX identity authority.
 
 ## Foundation Stop Gate
 
