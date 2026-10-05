@@ -164,6 +164,8 @@ const headerFoundation = read('packages/wex/src/foundations/header.css');
 const geometryFoundation = read('packages/wex/src/foundations/geometry.css');
 assert(headerFoundation.includes('.wex-admin-shell__header {'), 'WEX Admin Header shell foundation is missing');
 assert(headerFoundation.includes('block-size: var(--wex-space-64)'), 'Header does not consume the approved height');
+assert(headerFoundation.includes('.wex-admin-shell__brand {'), 'Header Brand compartment is missing');
+assert(headerFoundation.includes('inline-size: var(--wex-space-64)'), 'Header Brand does not consume the approved allocation');
 assert(headerFoundation.includes('@media (max-width: 767px)'), 'Header compact boundary is missing');
 assert(!/(?:#[0-9a-f]{3,8}|rgb\(|hsl\()/i.test(headerFoundation), 'Header foundation contains raw colour values');
 assert(!headerFoundation.includes('wex-admin-header'), 'Header retains a parallel application shell');

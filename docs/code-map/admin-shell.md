@@ -11,8 +11,8 @@
 
 ### Recent work (newest first)
 
-- ADR 0021 establishes Header as the Admin Station shell and Logo as its first
-  reusable child. It does not fit Logo into the empty Header region.
+- The Logo fitting work mounts the host-neutral Logo fixture into Header's
+  existing Brand compartment without adding identity-host or domain behaviour.
 - Phase 4 moves the Admin Shell from Shared UI to the standalone Admin Station
   runtime route and restores Component Manager to an empty component sandbox.
 

@@ -13,6 +13,14 @@
   color: var(--wex-color-text-primary);
 }
 
+.wex-admin-shell__brand {
+  display: grid;
+  place-items: center;
+  min-inline-size: 0;
+  inline-size: var(--wex-space-64);
+  block-size: var(--wex-space-64);
+}
+
 @media (max-width: 767px) {
   .wex-admin-shell__header {
     padding-inline: var(--wex-space-8);

@@ -182,9 +182,15 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationRuntime, /localStorage\.getItem\('wex-theme'\)/);
   assert.match(adminStationRuntime, /matchMedia\('\(prefers-color-scheme: dark\)'\)/);
   assert.match(adminStationRuntime, /root\.dataset\.wexTheme/);
+  assert.match(adminStationRuntime, /createLogoPresentation/);
+  assert.match(adminStationRuntime, /brand\.dataset\.headerCompartment = 'brand'/);
+  assert.match(adminStationRuntime, /element\.dataset\.logoCapability = 'logo'/);
+  assert.match(adminStationRuntime, /label: 'Logo'/);
   assert.doesNotMatch(adminStationRuntime, /typeSystem|componentManager|postMessage|viewport|catalogue/i);
+  assert.doesNotMatch(adminStationRuntime, /route:|callback|identitySpace|WEXAMH|fetch\(/);
   assert.match(wexLayout, /\.wex-admin-shell \{/);
   assert.match(headerFoundation, /\.wex-admin-shell__header\s*\{/);
+  assert.match(headerFoundation, /\.wex-admin-shell__brand\s*\{/);
   assert.doesNotMatch(headerFoundation, /wex-admin-header/);
   assert.match(wexLayout, /min-block-size: 100vh/);
   assert.match(wexLayout, /var\(--wex-space-16\)/);

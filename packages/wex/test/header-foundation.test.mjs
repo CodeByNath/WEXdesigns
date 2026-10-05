@@ -15,6 +15,7 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(base[1], /grid-template-columns: var\(--wex-space-64\) minmax\(0, 1fr\);/);
   assert.match(base[1], /block-size: var\(--wex-space-64\);/);
   assert.match(base[1], /padding-inline: var\(--wex-space-16\);/);
+  assert.match(header, /\.wex-admin-shell__brand\s*\{[\s\S]*inline-size: var\(--wex-space-64\);/);
   assert.doesNotMatch(header, /wex-admin-header|wex-header__|location-label|sidebar-trigger|primary-navigation|main-action/);
   assert.doesNotMatch(header, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });

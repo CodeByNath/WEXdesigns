@@ -56,8 +56,9 @@ The Header shell and Logo boundaries and focused verification are:
   [`apps/web-runtime/src/component-manager-preview.js`](../../apps/web-runtime/src/component-manager-preview.js)
 - Component Manager focused proof:
   [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
-- Empty Admin Station Header region:
-  [`apps/web-runtime/admin-station/index.html`](../../apps/web-runtime/admin-station/index.html)
+- Admin Station Header shell and fitted Logo proof:
+  [`apps/web-runtime/admin-station/index.html`](../../apps/web-runtime/admin-station/index.html),
+  [`apps/web-runtime/src/admin-station.js`](../../apps/web-runtime/src/admin-station.js)
 - Authority/dependency audit:
   [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
