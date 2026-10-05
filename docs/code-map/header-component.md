@@ -6,23 +6,23 @@
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
 - Authority verified against `origin/main` at
-  `239d32c3f1e25489e159f9b016d3abf7ffa04ae5`; Header authority is recorded in
-  ADR 0020. No Header source, schema, fixture, mount, or application fitting is
-  implemented.
+  `abb0a4c7c795f592077acaf4ee8273c8d724bb5d`; the submitted Header authority
+  candidate is recorded in ADR 0020 and awaits Reviewer acceptance. No Header
+  source, schema, fixture, mount, or application fitting is implemented.
 
 ### Recent work (newest first)
 
-- ADR 0020 establishes the reusable Header family, its direct-child boundary,
+- ADR 0020 proposes the reusable Header family, its direct-child boundary,
   WEX-specific allocation semantics, responsive replacement rule, future
   serializable-contract boundary, and identity separation. It authorises no
-  implementation.
+  implementation unless accepted by Reviewer.
 
 ## Purpose and scope
 
 This map routes the first future reusable Shared UI Header candidate to its
-accepted authority, existing WEX foundations, identity boundary, validation
-surface, and eventual application fitting boundary. It is navigation evidence;
-it does not restate the Header contract or introduce implementation.
+submitted authority candidate, existing WEX foundations, identity boundary,
+validation surface, and eventual application fitting boundary. It is navigation
+evidence; it does not restate the Header contract or introduce implementation.
 
 ## Governing authority and evidence routes
 

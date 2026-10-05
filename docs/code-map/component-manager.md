@@ -5,13 +5,13 @@
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
 - Verified against: `origin/main` at
-  `239d32c3f1e25489e159f9b016d3abf7ffa04ae5`.
+  `abb0a4c7c795f592077acaf4ee8273c8d724bb5d`.
 - Registration status: No shared UI component is mounted or registered.
 
 ### Recent work (newest first)
 
-- ADR 0020 establishes Header as the first future Shared UI candidate. It does
-  not add a definition, fixture, mount, browser interaction, or registration.
+- ADR 0020 is a submitted Header authority candidate. It does not add a
+  definition, fixture, mount, browser interaction, or registration.
 - Phase 4 removes the superseded Admin Shell fixture and mount; the isolated
   preview remains an empty responsive component sandbox.
 - Phase 3 corrects sandbox-only viewport validation to use an isolated preview
@@ -66,8 +66,9 @@ authority.
 ## Safe change routing
 
 - Add a mount, fixture, or definition input only with a separately approved
-  component phase and that component's authority. Header work follows ADR 0020
-  and must remain isolated here until its later Admin Station fitting phase.
+  component phase and accepted component authority. The submitted Header
+  candidate must remain isolated here until Reviewer acceptance and its later
+  Admin Station fitting phase.
 - Change responsive thresholds through WEX layout authority, not this sandbox.
 - Do not use the sandbox to register a component or introduce domain behaviour.
 

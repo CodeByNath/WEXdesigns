@@ -5,13 +5,13 @@
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
 - Verified against: `origin/main` at
-  `239d32c3f1e25489e159f9b016d3abf7ffa04ae5`.
+  `abb0a4c7c795f592077acaf4ee8273c8d724bb5d`.
 - Registration status: No global component family is registered.
 
 ### Recent work (newest first)
 
-- ADR 0020 establishes Header family authority only. It does not register a
-  Header or any other component family in this catalogue.
+- ADR 0020 is a submitted Header authority candidate only. It does not
+  register a Header or any other component family in this catalogue.
 - Phase 1 establishes an empty catalogue entrypoint without adding a component
   registration, implementation, or authority.
 
@@ -48,8 +48,9 @@ responsible for browser and domain integration.
 ## Safe change routing
 
 - Register a component family only after its demonstrated need and authority
-  are accepted in a separately authorised phase. ADR 0020's Header authority
-  still requires separate implementation and registration work.
+  are accepted in a separately authorised phase. The submitted ADR 0020
+  candidate still requires Reviewer acceptance, separate implementation, and
+  registration work.
 - A proposed new component requires its own demonstrated need and authority;
   do not infer it from this catalogue entrypoint.
 

@@ -5,14 +5,14 @@
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
 - Verified against: `origin/main` at
-  `239d32c3f1e25489e159f9b016d3abf7ffa04ae5`.
+  `abb0a4c7c795f592077acaf4ee8273c8d724bb5d`.
 - Registration status: application/runtime layout; not a Shared UI component
   or Component Manager specimen.
 
 ### Recent work (newest first)
 
-- ADR 0020 establishes the future reusable Header family. It does not fit,
-  mount, or otherwise alter the empty Admin Station Header region.
+- ADR 0020 is a submitted future reusable Header authority candidate. It does
+  not fit, mount, or otherwise alter the empty Admin Station Header region.
 - Phase 4 moves the Admin Shell from Shared UI to the standalone Admin Station
   runtime route and restores Component Manager to an empty component sandbox.
 
@@ -55,8 +55,8 @@ before an accepted piece is fitted here.
 
 - Change visual values or responsive behaviour through WEX authority.
 - Develop reusable component mechanics in Component Manager through separately
-  authorised component work. Header implementation must be accepted there
-  before a separately authorised Admin Station fitting phase.
+  authorised component work. The submitted Header candidate must be accepted
+  there before a separately authorised Admin Station fitting phase.
 - Add navigation, records, permissions, adapters, persistence, or product
   behaviour only through separately authorised runtime work.
 
