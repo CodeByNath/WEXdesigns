@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: Header implementation Work Package — contract, WEX, Shared UI, Component Manager proof
+Status: AWAITING REVIEWER REVIEW
+Phase: Header implementation Work Package — candidate submitted for review
 
 ## Reviewer verdict
 
@@ -125,3 +125,65 @@ and deviations in this same file; set `AWAITING REVIEWER REVIEW` and stop.
 After Reviewer accepts the exact candidate SHA, the streamlined exact-SHA
 promotion-closeout rule applies; no second Reviewer promotion gate is required
 unless the promoted/runtime evidence differs from the accepted candidate.
+
+## Builder handoff — 2026-10-05
+
+Candidate branch: `feat/header-component`
+
+Exact remote candidate: `e1a2bd722f57f716eb009d881c200180e30f5e71`
+
+Remote verification: `git ls-remote --heads origin refs/heads/feat/header-component`
+returned that exact SHA.
+
+### Delivered boundary
+
+- Strict, framework-neutral Header schema with exactly one Brand and one
+  Navigation direct child, and closed opaque capability slots for Location,
+  Search, PrimaryNavigation, and MainAction.
+- WEX Header foundation: 64px Header and Brand, existing 16px/8px gutters,
+  existing compact <=767px location replacement, and explicit start/end
+  allocation: Location/SidebarTrigger at inline-start; Search,
+  PrimaryNavigation, and MainAction at inline-end in that order.
+- Browser-free Shared UI presentation resolver, with no route, callback,
+  search, persistence, or domain behavior.
+- Isolated Component Manager Header fixture with inert placeholder links and
+  semantic `header`/`nav` structure. Header remains unregistered and is not
+  fitted into Admin Station.
+
+### Changed files
+
+- `apps/web-runtime/component-manager/{index,preview}.html`
+- `apps/web-runtime/src/component-manager-preview.js`
+- `apps/web-runtime/test/catalogue.test.mjs`
+- `packages/schemas/src/{index.ts,components/header.schema.ts}` and
+  `packages/schemas/test/foundation.test.mjs`
+- `packages/ui/src/{index.ts,components/header.ts}` and
+  `packages/ui/test/header.test.mjs`
+- `packages/wex/src/{index.css,foundations/header.css}` and
+  `packages/wex/test/header-foundation.test.mjs`
+- `tooling/scripts/validate-foundation.mjs`
+- `docs/code-map/{header-component,component-manager,global-components,admin-shell}.md`
+
+### Evidence
+
+- Passed: `pnpm build`, `pnpm check`, `pnpm audit:foundation`, and
+  `git diff --check`.
+- Focused schema, UI, WEX, and Component Manager tests all passed. The WEX
+  test asserts both compact replacement and the required start/end allocation.
+- Chromium fixture validation before the final alignment-only CSS correction:
+  Large (1440px) and Medium (1024px) showed Location; Compact (767px)
+  replaced it with Open sidebar; dark theme persisted; keyboard focus on Open
+  sidebar was visible; semantic Header navigation and inert fixture slots were
+  present. The resulting candidate retains that fixture and adds the focused
+  allocation regression test.
+
+### Limitations and deviations
+
+- No real child component family, route, search execution, Sidebar behavior,
+  Global Components registration, or Admin Station fitting is included by
+  design.
+- The owner-requested final alignment adjustment was made after the observed
+  Chromium pass; its exact start/end behavior is enforced by the focused WEX
+  regression test. Reviewer should visually confirm that allocation on the
+  exact SHA before authorising promotion.
+- No other deviations or stop-gate triggers occurred.
