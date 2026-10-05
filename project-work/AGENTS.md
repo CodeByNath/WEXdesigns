@@ -197,3 +197,15 @@ or when the active work file explicitly requires a separate approval boundary.
 Promotion, required documentation/status updates, deterministic checks, and
 handoff evidence should be included in the same package where repository rules
 allow, so safe work is not fragmented into avoidable review cycles.
+
+
+## Exact-SHA Promotion Closure
+
+To reduce unnecessary approval loops after Reviewer acceptance:
+
+1. When Reviewer accepts a pushed candidate by exact SHA and explicitly authorises exact-SHA fast-forward promotion, that same Builder cycle may complete promotion, required deterministic checks, exact-tree/diff verification, safe topic-branch deletion, Code Map verification-metadata refreshes that only reflect the promoted SHA, and the final coordination update without another approval request.
+2. Those closeout-only operations are pre-authorised only when they do not change product architecture, implementation content, schema meaning, runtime behaviour, visual values, or scope beyond the exact accepted candidate and factual post-promotion metadata.
+3. If promotion requires any content change beyond factual acceptance/verification metadata, stop and return to Reviewer unless that exact metadata change was already included in the Reviewer instruction.
+4. After a clean exact-SHA promotion/closeout, Builder may mark the active phase `ACCEPTED` and record the final main SHA/evidence. A second Reviewer-only “promotion verification” gate is not required before the next authorised work package, unless the active work file explicitly requires one or the promotion/deployment/runtime evidence differs from the accepted candidate.
+5. Browser/live-runtime work still requires its separately stated post-promotion runtime evidence where relevant. Exact Git equality does not substitute for required browser/deployment validation.
+6. Architecture gates, destructive changes, migrations/customer-state changes, new dependencies, new ownership boundaries, and scope widening still require Reviewer/Owner approval and are never auto-closed by this rule.
