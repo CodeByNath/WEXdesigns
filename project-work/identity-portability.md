@@ -1,35 +1,46 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 5 — Work Package: PostgreSQL optional storage-adapter conversion
+Status: BUILDER ACTION REQUIRED
+Phase: 5 — Promotion and closeout
 
-## Builder handoff
+## Reviewer verdict
 
-Candidate: `feat/postgres-identity-adapter` at
-`239d32c3f1e25489e159f9b016d3abf7ffa04ae5`, pushed and remote-verified.
+**Proceed**
 
-The historical issuer/bootstrap service was removed. The package now exposes an
-optional PostgreSQL adapter for supplied registration/allocation records only:
-detect, create/read registration, atomic reserve, compare/write transition,
-and exact lookup. PostgreSQL does not generate IDs, choose families, infer
-placement, or own lifecycle policy; `@weerax/identity` remains independent.
+Reviewed candidate `feat/postgres-identity-adapter` at
+`239d32c3f1e25489e159f9b016d3abf7ffa04ae5` against `main`
+`a74be3d66a297a1d7db511f2d15aa73629997037`, ADR 0017, the portable identity
+storage contract, dependency rules, current identity schemas/runtime, and the
+actual changed source/tests.
 
-Changed files:
+The candidate is one commit ahead and not behind `main`. It converts the
+historical Station into an optional PostgreSQL persistence adapter: supplied
+registration/allocation records only, atomic create/compare-write protection,
+exact lookup, immutable/non-reusable evidence, and no ID generation, family
+selection, lifecycle policy, host business data, bindings, permissions, or
+runtime dependency from `@weerax/identity`.
 
-- added `apps/identity-station/migrations/002_create_portable_identity_adapter.sql`, `apps/identity-station/src/adapter.ts`, and `apps/identity-station/test/postgres-identity-adapter.test.mjs`;
-- updated `apps/identity-station/package.json`, `apps/identity-station/src/database.ts`, `apps/identity-station/src/index.ts`, `apps/identity-station/src/postgres.ts`, and `apps/identity-station/test/postgres.test.mjs`;
-- removed `apps/identity-station/src/bootstrap-command.ts`, `apps/identity-station/src/errors.ts`, `apps/identity-station/src/station.ts`, and `apps/identity-station/test/station.test.mjs`;
-- updated `docs/architecture/repository-map.md`, `docs/code-map/identity-station.md`, and `docs/decisions/0017-portable-identity-storage-contract.md`.
+The additive `002` migration preserves the untouched historical `001`
+migration. PGlite proof covers registration create/read, collision rejection,
+state compare/write, immutable evidence, retirement non-reuse, lookup isolation,
+and damaged/mismatched registration failure. Builder-reported deterministic
+checks passed. GitHub exposes no commit-status contexts for this SHA, so no CI
+status is claimed beyond the recorded local checks.
 
-The legacy `001` migration is untouched; the new portable-table migration is
-additive and exercised only by PGlite fixtures. No production/live database
-was connected, migrated, or deployed.
+## Builder instruction
 
-Checks passed: `pnpm audit:foundation`; schemas (10 tests); adapters (8);
-identity (11); identity-station (5 PGlite tests); `pnpm check` (45 tasks); and
-`git diff --check`. The proof covers registration read/create, collision
-rejection, compare/write transitions, immutable/non-reusable evidence, lookup
-isolation, and damaged/mismatched registration failure.
+Promote **only**
+`239d32c3f1e25489e159f9b016d3abf7ffa04ae5` to `main` by fast-forward.
+Do not alter source, migrations, schemas, contracts, or Phase 6 scope during
+promotion.
 
-All hard exclusions remain untouched. Awaiting Reviewer audit; no promotion or
-Phase 6 work is claimed.
+Then:
+
+1. verify remote `main` equals the exact accepted candidate SHA;
+2. run `pnpm audit:foundation` and the repository-required closeout checks;
+3. verify the promoted diff remains identical to the accepted candidate;
+4. delete `feat/postgres-identity-adapter` only after exact-SHA containment is
+   proven;
+5. update this same file to `AWAITING REVIEWER REVIEW` with promotion SHA,
+   checks, remote-head evidence, and branch-deletion evidence;
+6. stop. Do not begin Phase 6.
