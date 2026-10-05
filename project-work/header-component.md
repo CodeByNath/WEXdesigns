@@ -1,7 +1,7 @@
 # Header / Admin Station Shell
 
-Status: BUILDER ACTION REQUIRED
-Phase: Exact-SHA promotion and closeout
+Status: ACCEPTED
+Phase: Header shell correction and isolated Logo foundation — promoted and closed
 
 ## Reviewer verdict
 
@@ -67,3 +67,19 @@ Then, in the same closeout transaction:
 
 Do **not** begin Logo fitting, WEX Identity Phase 7, or the next Header child in
 this promotion cycle.
+
+## Closeout
+
+Accepted candidate `ddbdf89208bf8bca077ae01cf4b86da1d03e77e5` was
+fast-forwarded to `main`. Its tree was verified identical to remote `main`
+before the permitted factual Code Map SHA refresh. Final `main` is
+`f438b0002ecac86d113639fba4464992052a673e`; its only follow-up content is that
+verification metadata.
+
+Post-promotion `pnpm check`, `pnpm audit:foundation`, focused WEX and
+web-runtime checks, and `git diff --check` passed. `feat/header-shell-logo` was
+proven contained, then deleted locally and from origin. Remote heads are now
+only `main` and `Project-work-instructions`.
+
+This work area is closed. The required next boundary is Logo fitting into the
+Header Brand compartment; do not open it without separately authorised work.
