@@ -1,64 +1,76 @@
-# Header Component
+# Header / Admin Station Shell
 
-Status: BLOCKED — DECISION REQUIRED
-Phase: Admin Station fitting gate — choose first real WEX Identity host
+Status: BUILDER ACTION REQUIRED
+Phase: Architecture correction + first real child component
 
-## Reviewer verdict
+## Owner correction
 
-**Proceed with safeguards**
+The previous Header-as-Shared-UI-component direction is rejected.
 
-The Header implementation Work Package is accepted and closed.
+**Header is an identified application shell, not a reusable component.**
 
-Verified repository state:
-- accepted Header implementation candidate:
-  `e1a2bd722f57f716eb009d881c200180e30f5e71`;
-- current `main` contains that candidate plus factual Code Map metadata refresh;
-- exact browser proof passed for Large, Medium, and Compact alignment;
-- `feat/header-component` is deleted;
-- remote heads are only `main` and `Project-work-instructions`.
+Its WEX identity identifies the concrete Header allocation and its direct
+composition compartments. Header owns placement/composition of its direct
+children; it does not become a Component Manager specimen and does not own the
+internals of those children.
 
-The next normal step is fitting the accepted Header into the Admin Station
-Header region.
+Current intended shape:
 
-## Single architecture gate
+```text
+Admin Station
+└─ Header shell (WEXAMH)
+   ├─ Brand compartment
+   │  └─ Logo component
+   └─ Navigation compartment
+      ├─ Location component
+      ├─ Search component
+      ├─ Navigation System component
+      └─ Main Action component
+```
 
-A real Admin Station Header fit is no longer only a preview. Under accepted WEX
-Identity authority, the concrete Admin Manager/Header placement is the first
-real allocation shape:
+The existing Header shell geometry remains the starting allocation evidence:
+64px Header height and 64px × 64px Brand compartment. Do not invent new visual
+values in this correction package.
 
-- Admin Manager root = `WEXAM`;
-- Admin Header child = `WEXAMH`;
-- Header child placement = parent-owned `header` slot;
-- root must be assigned before Header reservation;
-- allocation must come through the portable WEX Identity Plugin + Tool, not an
-  application-local ID.
+## Builder work package
 
-`project-work/identity-portability.md` deliberately leaves Phase 7 real-host
-integration deferred until the Owner explicitly authorises the host.
+Correct the accepted regression introduced by the former Header component work,
+then establish **Logo** as the first actual Header child component.
 
-## Owner decision required
+1. Read the Header Code Map, ADR 0020, recursive composition/identity authority,
+   Admin Station authority, and the actual `e1a2bd7...` Header implementation
+   before editing.
+2. Record the Owner correction in repository architecture authority. Supersede
+   any clause that calls Header a reusable Shared UI component or Component
+   Manager specimen.
+3. Remove the Header reusable-component boundary from `@weerax/ui` and remove
+   the Header specimen/mount from Component Manager.
+4. Preserve Header only as the Admin Station/application shell composition
+   boundary. WEX may continue to own approved Header presentation/geometry;
+   schemas may describe serializable shell composition/compartments, but neither
+   may turn Header back into a reusable UI component.
+5. Preserve WEX Identity semantics: the real Header allocation is `WEXAMH`
+   under the Admin Manager `WEXAM` root at parent slot `header`. Do not
+   perform Phase 7 host registration/fitting in this package unless separately
+   authorised.
+6. Create the **Logo component** as the first real reusable Header child.
+   Component Manager is the design/validation surface for Logo.
+7. Logo receives the existing 64px × 64px Brand compartment allocation. Header
+   controls that compartment; Logo controls only its own internal rendering and
+   presentation contract.
+8. Keep Logo platform/domain neutral. Do not hardcode a consuming product route,
+   business identity, callback, or host behaviour.
+9. Update focused tests, foundation/dependency audit, Code Maps, and browser
+   evidence for Component Manager showing Logo rather than Header.
 
-Authorise **WEXdesigns Admin Station / `apps/web-runtime`** as the first real
-host for WEX Identity Phase 7.
+## Hard exclusions
 
-If approved, the next Builder package will be one combined package, not several
-micro-phases:
+No Location/Search/Navigation System/Main Action implementation yet. No
+CompuZign or other product rules. No Sidebar/Main/Footer work. No new WEX visual
+values. No real-host WEX Identity Phase 7 integration. Do not delete accepted
+portable identity work.
 
-1. establish/open the Admin Station's approved WEX identity space through the
-   portable local-folder reference adapter;
-2. issue/assign the `WEXAM` root and `WEXAMH` Header child with explicit
-   parent `header` placement;
-3. wire only the minimum application integration needed for Admin Station to
-   consume the accepted Header with that identity address;
-4. fit the accepted Header into the Admin Station Header region;
-5. validate responsive/theme/accessibility/runtime behaviour;
-6. update Code Maps/evidence;
-7. hand off once for Reviewer review, then use the streamlined exact-SHA
-   promotion/closeout path.
-
-Hard exclusions remain: no CompuZign/WordPress/domain rules, no business
-navigation/search/account behaviour, no new identity semantics, no mandatory
-PostgreSQL dependency, no speculative registry, and no Sidebar/Main/Footer
-component work.
-
-No Builder action is authorised until the Owner approves this host choice.
+Run the required deterministic checks and Component Manager browser proof.
+Push one bounded topic branch and hand back the exact SHA with changed files,
+tests, browser evidence, and any unresolved authority conflict. Stop for
+Reviewer.
