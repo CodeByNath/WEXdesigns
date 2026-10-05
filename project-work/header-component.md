@@ -1,7 +1,7 @@
 # Header / Admin Station Shell
 
-Status: BUILDER ACTION REQUIRED
-Phase: Architecture correction + first real child component
+Status: AWAITING REVIEWER REVIEW
+Phase: Architecture correction + first real child component — candidate submitted
 
 ## Owner correction
 
@@ -70,7 +70,28 @@ CompuZign or other product rules. No Sidebar/Main/Footer work. No new WEX visual
 values. No real-host WEX Identity Phase 7 integration. Do not delete accepted
 portable identity work.
 
-Run the required deterministic checks and Component Manager browser proof.
-Push one bounded topic branch and hand back the exact SHA with changed files,
-tests, browser evidence, and any unresolved authority conflict. Stop for
-Reviewer.
+## Builder handoff
+
+Candidate branch: `feat/header-shell-logo`
+Candidate SHA: `ec23fa579303c3f449e2b49074589a3f81768b7d`
+
+The candidate supersedes reusable Header authority with ADR 0021, removes the
+Header schema/UI resolver/specimen, preserves the existing Admin Station Header
+shell, and adds Logo as the isolated Component Manager child candidate. Header
+shell geometry retains the approved 64px Header and 64px × 64px Brand
+allocation. No Phase 7 registration, identity issuance, Admin Station fitting,
+other Header children, product rule, or new visual value was added.
+
+Evidence:
+
+- `pnpm build`, `pnpm check`, `pnpm audit:foundation`, focused package checks,
+  and `git diff --check` passed.
+- Chrome browser proof at local candidate preview: Component Manager exposes
+  Logo only; Fluid, Large (1440px), and Compact (767px) preview states report
+  expected WEX layout values; dark theme propagates into the isolated frame;
+  compact keyboard focus is visibly rendered; accessibility tree exposes the
+  Logo heading, fixture text, labelled viewport controls, and live status.
+- Remote verification: `origin/feat/header-shell-logo` resolves to the exact
+  candidate SHA above.
+
+No unresolved authority conflict or deviation. Stop for Reviewer.
