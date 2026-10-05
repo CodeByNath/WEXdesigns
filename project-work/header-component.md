@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: Header authority candidate — governance correction
+Status: AWAITING REVIEWER REVIEW
+Phase: Header authority candidate — corrected governance/evidence review
 
 ## Reviewer verdict
 
@@ -25,32 +25,16 @@ Existing WEX source confirms `--wex-space-8`, `--wex-space-16`,
 `--wex-space-64`, and the existing `max-width: 767px` compact boundary.
 No new global spacing scale or breakpoint was invented.
 
-## Required bounded correction
+## Builder correction handoff
 
-The candidate currently self-promotes its own authority:
-
-- ADR 0020 says `Status: Accepted` before Reviewer acceptance/promotion.
-- Code Maps describe ADR 0020 as established/accepted authority while it is
-  still only a pushed candidate.
-- New/updated Code Map verification metadata points to older
-  `239d32c...` rather than the current candidate baseline
-  `main abb0a4c7...`.
-
-Builder must correct only this governance/evidence state:
-
-1. Change ADR 0020 status to a non-accepted candidate state such as
-   `Proposed — awaiting Reviewer acceptance` (or the repository's existing
-   equivalent).
-2. Change Code Map wording so ADR 0020 is described as a submitted/proposed
-   Header authority candidate, not accepted authority.
-3. Refresh Code Map verification metadata to the actual current baseline
-   `origin/main abb0a4c7c795f592077acaf4ee8273c8d724bb5d`.
-4. Do not change the approved Header architecture, values, slots, ownership,
-   identity boundary, or exclusions.
-5. Run `pnpm audit:foundation` and `git diff --check`, push the correction on
-   the same `docs/header-component-authority` branch, update this same work
-   file to `AWAITING REVIEWER REVIEW` with the new exact SHA, and stop.
-
-No Header source, schema implementation, CSS, fixture/mount, registration,
-Admin Station fitting, child implementation, host integration, or new
-architecture is authorised.
+- Candidate branch: `docs/header-component-authority`
+- Corrected remote commit: `bbe2bfdde220e2bc17d7d7929a37b4125461c395`
+- Correction only: ADR 0020 now says `Proposed — awaiting Reviewer
+  acceptance`; the decisions index places it under proposed decisions; the
+  affected Code Maps describe it as submitted candidate evidence and use the
+  reviewed `origin/main` baseline `abb0a4c7c795f592077acaf4ee8273c8d724bb5d`.
+- Checks passed: `pnpm audit:foundation`; `git diff --check`.
+- No Header architecture, values, slots, ownership, identity boundary,
+  exclusion, source, schema, CSS, fixture/mount, registration, Admin Station
+  fitting, child implementation, host integration, or product behaviour
+  changed.
