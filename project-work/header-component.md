@@ -48,6 +48,11 @@ Component Manager, without fitting it into Admin Station.
    - Large/Medium gutters 16px outer + 8px immediate inner;
    - compact gutters 8px outer + 8px immediate inner;
    - responsive LocationLabel/SidebarTrigger presentation/composition rule;
+   - Navigation alignment: Location/SidebarTrigger is the left-aligned/start
+     region; Search and PrimaryNavigation belong to the right-aligned/end
+     utility region; MainAction remains the final inline-end slot;
+   - preserve the right-side order as Search -> PrimaryNavigation -> MainAction
+     unless later child authority changes that internal child ordering;
    - no local raw visual values where an accepted WEX value exists.
 
 3. **Shared UI structure**
@@ -63,12 +68,29 @@ Component Manager, without fitting it into Admin Station.
    - use controlled inert fixture data/capability placeholders for child slots;
    - prove Large/Medium/compact behaviour through existing viewport controls;
    - validate theme continuity, semantic structure, keyboard/focus behaviour
-     where applicable, overflow/layout stability, and the responsive location
-     replacement;
+     where applicable, overflow/layout stability, responsive location
+     replacement, and the required split alignment: Location at inline-start,
+     Search + PrimaryNavigation + MainAction at inline-end;
    - do not register/finalise the Header in Global Components and do not fit it
      into Admin Station in this package.
 
 5. Update focused tests and relevant Code Maps.
+
+## Owner presentation correction — 2026-10-05
+
+The current visual fixture showing Location, Search, and PrimaryNavigation
+clustered together on the left is not accepted.
+
+Required Header navigation allocation:
+- Brand remains its fixed Header child allocation;
+- LocationLabel / SidebarTrigger occupies the Navigation inline-start side;
+- Search and PrimaryNavigation are right-aligned within Navigation;
+- MainAction remains the final prominent inline-end control;
+- Header/Navigation owns this allocation only; Search and PrimaryNavigation
+  continue to own their own internals and modes.
+
+This is a Header-specific WEX composition/presentation rule, not domain
+navigation behaviour and not permission to create new child component families.
 
 ## Hard exclusions
 
