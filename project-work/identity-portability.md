@@ -1,56 +1,53 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 6 — Work Package submitted: portable allocation lifecycle + identity targeting proof
+Status: BUILDER ACTION REQUIRED
+Phase: 6 — Promotion and closeout
 
 ## Reviewer verdict
 
 **Proceed**
 
-Phase 5 promotion/closeout is independently verified. Remote `main` is exactly
-`239d32c3f1e25489e159f9b016d3abf7ffa04ae5`; comparison against the accepted
-candidate is identical. Remote heads are only `main` and
-`Project-work-instructions`. No GitHub commit-status contexts are exposed, so
-no CI claim is added beyond the Builder's recorded deterministic checks.
+Reviewed candidate `feat/portable-identity-lifecycle` at
+`abb0a4c7c795f592077acaf4ee8273c8d724bb5d` against `main`
+`239d32c3f1e25489e159f9b016d3abf7ffa04ae5`, the Phase 6 work package,
+ADRs 0013–0019 as corrected by ADR 0016, platform-identity architecture,
+portable storage contract, dependency rules, current schemas, and the actual
+pushed source/tests.
 
-## Outcome
+The candidate is one commit ahead and not behind `main`. It keeps portable
+identity semantics in `@weerax/identity`, extends only the injected
+framework-neutral adapter boundary, preserves adapter persistence-only
+ownership, and adds no concrete-adapter runtime dependency, host/domain data,
+binding authority, registry, CSS selector protocol, component-tree traversal,
+or UI authority.
 
-Complete the next portable Identity capability without adding host/domain or UI
-authority: `@weerax/identity` must own allocation issuance/lifecycle and prove
-that an already registered concrete WEX allocation can be located and targeted
-by its portable identity address without root CSS traversal or walking a host
-component tree.
+The implementation provides closed-family CSPRNG reservation, bounded
+collision retry only when durable occupancy is evidenced, reserve/assign/retire
+lifecycle, exact portable lookup, immutable placement/evidence, assigned-root
+before Header-child reservation, restart/non-reuse proof, and direct
+identity-address targeting of a test-only fixture. No new permanent targeting
+architecture is introduced.
 
-## Controlling authority
+Builder-reported focused identity/adapters tests, `pnpm audit:foundation`,
+`pnpm check`, and `git diff --check` passed. GitHub exposes no commit-status
+contexts for this SHA, so no separate CI result is claimed.
 
-ADRs 0013–0019 as corrected by ADR 0016; platform-identity architecture;
-portable-identity-storage contract; dependency rules; current schemas; accepted
-local-folder adapter; accepted optional PostgreSQL adapter.
+## Builder instruction
 
-## Builder handoff
+Promote **only**
+`abb0a4c7c795f592077acaf4ee8273c8d724bb5d` to `main` by fast-forward.
+Do not change source, schemas, identity semantics, targeting architecture, or
+open Phase 7 during promotion.
 
-Candidate: `feat/portable-identity-lifecycle` at
-`abb0a4c7c795f592077acaf4ee8273c8d724bb5d`, one commit ahead and not behind
-`main` `239d32c3f1e25489e159f9b016d3abf7ffa04ae5`.
+Then:
 
-`@weerax/identity` now owns CSPRNG reserve, assign, retire, and exact-address
-lookup through the extended injected adapter boundary. It validates closed
-families and immutable evidence, enforces the first authorised root/header
-shape and assigned-root-before-child reservation, and bounds only evidenced
-address-collision retries. The targeting proof reads the durable address and
-selects a test-only target fixture directly. No permanent registry, mapping,
-host traversal, CSS selector protocol, concrete-adapter runtime import,
-binding, host/domain data, UI, or PostgreSQL-specific dependency was added.
-
-Changed files: `packages/identity/src/allocation.ts`, `bootstrap.ts`, `index.ts`,
-`test/allocation.test.mjs`, `docs/code-map/identity-station.md`, and
-`docs/architecture/repository-map.md` (410 insertions, 13 deletions).
-
-Checks passed: focused `@weerax/identity` tests (14/14), focused
-`@weerax/adapters` tests (8/8), `pnpm audit:foundation`, `pnpm check` (45/45),
-and `git diff --check`.
-
-Remote heads: `main` at `239d32c3f1e25489e159f9b016d3abf7ffa04ae5`, candidate
-at `abb0a4c7c795f592077acaf4ee8273c8d724bb5d`, and
-`Project-work-instructions` at `50eefc6614c6fbd75b131c17d9ebfdafae80849f`.
-Stop for independent Reviewer inspection; do not begin a new phase.
+1. verify remote `main` equals the exact accepted candidate SHA;
+2. verify the promoted tree/diff is identical to the accepted candidate;
+3. run `pnpm audit:foundation` and repository-required closeout checks;
+4. prove candidate containment, then delete
+   `feat/portable-identity-lifecycle`;
+5. confirm remote heads return to only `main` and
+   `Project-work-instructions`;
+6. update this same file to `AWAITING REVIEWER REVIEW` with exact promotion
+   SHA, checks, diff/containment evidence, and branch-deletion evidence;
+7. stop. Do not begin Phase 7, Header source fitting, or host integration.
