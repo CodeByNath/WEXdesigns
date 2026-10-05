@@ -1,48 +1,45 @@
 # Header Component
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Header authority promoted; closeout awaiting Reviewer verification
+Status: BUILDER ACTION REQUIRED
+Phase: Header authority closeout — Code Map verification correction
 
 ## Reviewer verdict
 
-**Proceed**
+**Proceed with safeguards**
 
-Reviewed corrected candidate `docs/header-component-authority` at
-`bbe2bfdde220e2bc17d7d7929a37b4125461c395` against `main`
-`abb0a4c7c795f592077acaf4ee8273c8d724bb5d`.
+The Header authority promotion is independently verified.
 
-The governance correction is complete. ADR 0020 is now proposed rather than
-self-accepted; the decisions index and affected Code Maps describe it as a
-candidate; verification metadata points to the correct current `main`
-baseline.
+Remote `main` is exactly
+`64159f9475fc1dee203bb8ffc450e10c3cf364eb`, identical to the final accepted
+candidate. ADR 0020 is correctly marked `Accepted`, the decisions index lists
+it under Accepted, and the completed topic branch has been deleted. Remote
+heads are only `main` and `Project-work-instructions`.
 
-The substantive Header authority is accepted. It preserves the Owner-approved
-plan without widening architecture: reusable Header family; recursive
-direct-child ownership; 64px Header and Brand allocation; 16px/8px
-Large/Medium gutters; 8px/8px compact gutters; existing <=767px responsive
-replacement boundary; child-owned Search and PrimaryNavigation modes; one
-MainAction slot; schema/WEX/Shared UI/application separation; and reusable
-Header capability separate from concrete `WEXAMH` allocation identity.
+One closeout evidence defect remains:
 
-Existing WEX source confirms the referenced spacing tokens and compact
-breakpoint. No new global spacing scale, breakpoint, host/domain authority, or
-identity mechanism is introduced.
+- `docs/code-map/header-component.md` still says its authority was verified
+  against pre-promotion `origin/main`
+  `abb0a4c7c795f592077acaf4ee8273c8d724bb5d`.
 
-## Builder closeout handoff
+That is now stale because accepted Header authority lives on `main` at
+`64159f9475fc1dee203bb8ffc450e10c3cf364eb`.
 
-- Final accepted SHA: `64159f9475fc1dee203bb8ffc450e10c3cf364eb`.
-  The acceptance-metadata commit was pushed to
-  `docs/header-component-authority`, then fast-forwarded unchanged to
-  `origin/main`.
-- Checks passed: `pnpm audit:foundation`; `git diff --check`.
-- Promotion evidence: after push, `origin/main` and the candidate resolved to
-  the same SHA and `git diff --exit-code origin/main...origin/docs/header-component-authority`
-  returned clean.
-- Containment and housekeeping: `git merge-base --is-ancestor
-  origin/docs/header-component-authority origin/main` passed before the remote
-  topic branch was deleted. A pruned remote-head check now lists only `main`
-  and `Project-work-instructions`.
-- Scope remained acceptance metadata plus the already-reviewed Header
-  authority. No Header schema/source implementation, WEX CSS, child component,
-  Component Manager mount, Global Components registration, Admin Station
-  fitting, host integration, or product behaviour was added.
+## Builder instruction
+
+Correct only Header Code Map verification metadata:
+
+1. update `docs/code-map/header-component.md` so its verified `origin/main`
+   SHA is `64159f9475fc1dee203bb8ffc450e10c3cf364eb`;
+2. inspect the adjacent Header-touched Code Maps from the accepted authority
+   closeout and correct any equivalent stale pre-promotion verification SHA if
+   present;
+3. do not alter Header architecture, ADR 0020, slots, presentation values,
+   ownership, schema boundary, identity separation, or implementation scope;
+4. run `pnpm audit:foundation` and `git diff --check`;
+5. because the authority topic branch is already safely closed, make this
+   bounded documentation correction using the repository-approved maintenance
+   workflow, record the exact resulting `main` SHA and checks in this same
+   file, set `AWAITING REVIEWER REVIEW`, and stop.
+
+Do not begin Header schema/source implementation until this evidence correction
+is independently closed.
