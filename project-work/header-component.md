@@ -1,7 +1,7 @@
 # Header / Admin Station Shell
 
-Status: BUILDER ACTION REQUIRED
-Phase: Logo fitting into existing Header Brand compartment
+Status: AWAITING REVIEWER REVIEW
+Phase: Logo fitting into existing Header Brand compartment — candidate submitted
 
 ## Standing sequence guardrail
 
@@ -66,3 +66,31 @@ presentation values, stop and return to Reviewer.
 Run required deterministic checks and browser proof. Push one bounded topic
 branch, update this same file to `AWAITING REVIEWER REVIEW` with exact SHA,
 changed files, checks, browser evidence, and any deviation, then stop.
+
+## Builder handoff
+
+Candidate: `a059026cf5475fcf2604235d7f76b54cf12e4b95` on
+`feat/logo-header-fitting` (from accepted baseline
+`f438b0002ecac86d113639fba4464992052a673e`).
+
+The real Admin Station runtime now resolves the existing host-neutral
+`{ label: 'Logo' }` contract through `createLogoPresentation`, mounts it inside
+the sole Header shell's `brand` compartment, and keeps the Header-owned
+64px × 64px allocation in WEX CSS. No Logo contract change, Header abstraction,
+identity-host work, routes, callbacks, adapters, API calls, persistence, or new
+WEX values were introduced.
+
+Changed files: `apps/web-runtime/src/admin-station.js`, its focused catalogue
+test, `packages/wex/src/foundations/header.css`, its focused foundation test,
+`tooling/scripts/validate-foundation.mjs`, and the two factual Header/Admin
+Code Maps.
+
+Checks passed: `pnpm --filter @weerax/wex test` (14/14),
+`pnpm --filter @weerax/web-runtime check` (12/12), `pnpm audit:foundation`,
+`git diff --check`, and full `pnpm check` (45 successful tasks).
+
+Browser evidence (fresh tabs only): Admin Station rendered Logo in its Header at
+the compact viewport in both dark and light themes; its large breakpoint was
+also exercised at temporary 80% page zoom and reset to 100%. Tab reaches the
+visible “Skip to main content” link first. A fresh Component Manager tab still
+showed its isolated Logo specimen independently. No deviations from the package.
