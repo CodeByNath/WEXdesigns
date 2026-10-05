@@ -5,7 +5,7 @@
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
 - Verified against: `origin/main` at
-  `e1a2bd722f57f716eb009d881c200180e30f5e71`.
+  `ddbdf89208bf8bca077ae01cf4b86da1d03e77e5`.
 - Registration status: Logo is mounted only as an isolated inert fixture;
   no component is registered in Global Components or fitted into Admin Station.
 

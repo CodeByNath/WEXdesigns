@@ -5,7 +5,7 @@
 - Created: 2026-10-05
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
-- Authority verified against `origin/main` at `01c0bd6fa1c2f7837f5dc6c0dffc5b2a72a40a9e`.
+- Authority verified against `origin/main` at `ddbdf89208bf8bca077ae01cf4b86da1d03e77e5`.
   ADR 0021 defines Header as the Admin Station shell and Logo as its first
   reusable child; no Admin Station fitting is implemented.
 
