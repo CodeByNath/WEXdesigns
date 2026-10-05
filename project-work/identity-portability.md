@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 5 — Promotion and closeout
+Status: AWAITING REVIEWER REVIEW
+Phase: 5 — Promotion and closeout submitted
 
 ## Reviewer verdict
 
@@ -27,20 +27,27 @@ and damaged/mismatched registration failure. Builder-reported deterministic
 checks passed. GitHub exposes no commit-status contexts for this SHA, so no CI
 status is claimed beyond the recorded local checks.
 
-## Builder instruction
+## Builder completion
 
-Promote **only**
+Promoted only accepted candidate
 `239d32c3f1e25489e159f9b016d3abf7ffa04ae5` to `main` by fast-forward.
-Do not alter source, migrations, schemas, contracts, or Phase 6 scope during
-promotion.
+Remote `main` was verified at that exact SHA. The promoted tree is identical to
+the accepted candidate (`git diff --exit-code <candidate> origin/main`), and
+containment was proven before cleanup (`git merge-base --is-ancestor <candidate>
+origin/main`). No source, migration, schema, contract, or Phase 6 scope change
+was made during promotion.
 
-Then:
+## Closeout evidence
 
-1. verify remote `main` equals the exact accepted candidate SHA;
-2. run `pnpm audit:foundation` and the repository-required closeout checks;
-3. verify the promoted diff remains identical to the accepted candidate;
-4. delete `feat/postgres-identity-adapter` only after exact-SHA containment is
-   proven;
-5. update this same file to `AWAITING REVIEWER REVIEW` with promotion SHA,
-   checks, remote-head evidence, and branch-deletion evidence;
-6. stop. Do not begin Phase 6.
+- `pnpm audit:foundation` passed.
+- `pnpm type-check`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm check`
+  passed (the identity-station PGlite adapter proof reports 5/5 passing).
+- Before deletion, remote heads were `main` and
+  `feat/postgres-identity-adapter` at the same accepted SHA, with
+  `Project-work-instructions` at `9916f11d655283262bf711706cb1c134832b416b`.
+- The contained `feat/postgres-identity-adapter` remote branch was deleted.
+  Post-deletion remote heads: `main` at
+  `239d32c3f1e25489e159f9b016d3abf7ffa04ae5` and
+  `Project-work-instructions` at `9916f11d655283262bf711706cb1c134832b416b`.
+
+Stop at this reviewer boundary. Do not begin Phase 6.
