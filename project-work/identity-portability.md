@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 6 — Promotion and closeout
+Status: AWAITING REVIEWER REVIEW
+Phase: 6 — Promotion and closeout submitted
 
 ## Reviewer verdict
 
@@ -32,22 +32,28 @@ Builder-reported focused identity/adapters tests, `pnpm audit:foundation`,
 `pnpm check`, and `git diff --check` passed. GitHub exposes no commit-status
 contexts for this SHA, so no separate CI result is claimed.
 
-## Builder instruction
+## Builder completion
 
-Promote **only**
+Promoted only accepted candidate
 `abb0a4c7c795f592077acaf4ee8273c8d724bb5d` to `main` by fast-forward.
-Do not change source, schemas, identity semantics, targeting architecture, or
-open Phase 7 during promotion.
+Remote `main` was verified at that exact SHA. The promoted tree is identical to
+the accepted candidate (`git diff --exit-code <candidate> origin/main`), and
+containment was proven before cleanup (`git merge-base --is-ancestor <candidate>
+origin/main`). No source, schema, identity-semantics, targeting-architecture,
+or Phase 7 change was made during promotion.
 
-Then:
+## Closeout evidence
 
-1. verify remote `main` equals the exact accepted candidate SHA;
-2. verify the promoted tree/diff is identical to the accepted candidate;
-3. run `pnpm audit:foundation` and repository-required closeout checks;
-4. prove candidate containment, then delete
-   `feat/portable-identity-lifecycle`;
-5. confirm remote heads return to only `main` and
-   `Project-work-instructions`;
-6. update this same file to `AWAITING REVIEWER REVIEW` with exact promotion
-   SHA, checks, diff/containment evidence, and branch-deletion evidence;
-7. stop. Do not begin Phase 7, Header source fitting, or host integration.
+- `pnpm audit:foundation` passed.
+- `pnpm type-check`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm check`
+  passed (the identity lifecycle/targeting proof reports 14/14 passing).
+- Before deletion, remote heads were `main` and
+  `feat/portable-identity-lifecycle` at the same accepted SHA, with
+  `Project-work-instructions` at `dcf663c3692938e2e786047e71c80f9760452a01`.
+- The contained `feat/portable-identity-lifecycle` remote branch was deleted.
+  Post-deletion remote heads: `main` at
+  `abb0a4c7c795f592077acaf4ee8273c8d724bb5d` and
+  `Project-work-instructions` at `dcf663c3692938e2e786047e71c80f9760452a01`.
+
+Stop at this reviewer boundary. Do not begin Phase 7, Header source fitting, or
+host integration.
