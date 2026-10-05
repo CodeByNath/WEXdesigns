@@ -6,7 +6,7 @@
 | `@weerax/catalogue` | File-backed Elements, Guidelines, and Components content structure | None internally | Presentation and domain behavior | Catalogue organization | Structure established; entry contract unresolved |
 | `@weerax/schemas` | Serializable runtime and compile-time contracts | Zod only at foundation | WEX, UI, adapters, apps, React, Preact, Vite, DOM, CSS | Contract definitions | Identity, action, and tier primitives established |
 | `@weerax/adapters` | Framework-neutral WEX storage and future domain-owner integration | `@weerax/schemas` | WEX, UI, apps, React, Preact | Portable storage contract / domain owners | Local-folder WEX Identity reference adapter implemented; no domain adapter |
-| `@weerax/identity` | Portable WEX Identity Plugin + Tool runtime | `@weerax/schemas`; injected approved storage-adapter boundary | WEX, UI, apps, Station, React, browser UI, host/domain systems | ADRs 0016–0019 | Bootstrap runtime implemented; allocation lifecycle remains separately gated |
+| `@weerax/identity` | Portable WEX Identity Plugin + Tool runtime | `@weerax/schemas`; injected approved storage-adapter boundary | WEX, UI, apps, Station, React, browser UI, host/domain systems | ADRs 0016–0019 | Bootstrap and portable allocation lifecycle implemented; no host integration or registry |
 | `@weerax/ui` | Shared rendering and interaction structures | `@weerax/schemas`, `@weerax/wex` | Application-specific domain owners | Shared UI + WEX | Button presentation resolver implemented; other shared components remain unimplemented |
 | `@weerax/identity-station` | Optional PostgreSQL WEX identity storage-adapter proof | `@weerax/schemas`, PostgreSQL client | WEX, UI, adapters, web runtime, domain records | Portable storage contract | Persists supplied registration and allocation records with PostgreSQL atomicity; not portable identity core |
 | `@weerax/studio-agent-runner` | Node validation and future agent/n8n tooling | Required reusable packages | UI presentation ownership | Runtime application | Schema-consumption shell only |
@@ -35,11 +35,13 @@ apps/identity-station ----> PostgreSQL identity space (optional adapter proof)
 
 WEX Identity is a portable Plugin + Tool with host-local identity spaces.
 `@weerax/identity` is its approved permanent runtime residence and consumes an
-injected framework-neutral storage-adapter boundary. Its bootstrap runtime and
-local-folder integration proof are implemented; allocation lifecycle remains
-separately gated. The storage-adapter contract and first local-folder reference
-adapter are accepted and implemented. The PostgreSQL adapter is optional and
-must not be treated as universal WEX identity authority.
+injected framework-neutral storage-adapter boundary. Its bootstrap and portable
+allocation lifecycle orchestrate CSPRNG issuance, lifecycle transitions, and
+exact identity-address lookup without importing an adapter or resolving a host
+target. The local-folder proof covers the authorised root/header sequence and
+test-fixture targeting; it creates no registry or host traversal layer. The
+PostgreSQL adapter is optional and must not be treated as universal WEX identity
+authority.
 
 ## Foundation Stop Gate
 

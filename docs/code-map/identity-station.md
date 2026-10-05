@@ -2,15 +2,20 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-04
-- Last updated: 2026-10-04
-- Verified against: `origin/main` at `a74be3d66a297a1d7db511f2d15aa73629997037`.
+- Last visited: 2026-10-05
+- Last updated: 2026-10-05
+- Verified against: `origin/main` at `239d32c3f1e25489e159f9b016d3abf7ffa04ae5`.
 - Runtime scope: optional PostgreSQL storage-adapter proof for one host-scoped
   WEX identity space. It persists supplied portable records and supplies
   transactions/constraints; it never issues IDs or owns lifecycle semantics.
 
 ### Recent work (newest first)
 
+- Phase 6 implements portable allocation lifecycle orchestration in
+  `@weerax/identity`: CSPRNG reservation, assignment, retirement, exact
+  address lookup, and an injected adapter boundary. Focused local-folder proof
+  covers root-before-header ordering, restart readback, bounded collision
+  retry, non-reuse, and direct identity-address targeting of a test fixture.
 - Phase 5 converts the historical Station runtime into an optional PostgreSQL
   adapter. Its PGlite proof covers supplied registration persistence, address
   collision rejection, compare/write transitions, non-reuse, isolated lookup,
@@ -77,8 +82,12 @@ domain records, or Header presentation.
   [`packages/adapters/test/local-folder-identity-adapter.test.mjs`](../../packages/adapters/test/local-folder-identity-adapter.test.mjs)
 - Portable bootstrap coordinator:
   [`packages/identity/src/bootstrap.ts`](../../packages/identity/src/bootstrap.ts)
+- Portable allocation lifecycle coordinator:
+  [`packages/identity/src/allocation.ts`](../../packages/identity/src/allocation.ts)
 - Portable bootstrap proof:
   [`packages/identity/test/bootstrap.test.mjs`](../../packages/identity/test/bootstrap.test.mjs)
+- Portable allocation lifecycle and targeting proof:
+  [`packages/identity/test/allocation.test.mjs`](../../packages/identity/test/allocation.test.mjs)
 - Foundation dependency audit:
   [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
@@ -110,10 +119,10 @@ authority. Bindings and platform/domain data remain outside them.
 - Change local-folder persistence mechanics and focused proof through this map;
   do not add Plugin + Tool initialization, approval UI, host-domain data, or
   another backend in this adapter phase.
-- Change portable bootstrap orchestration through `@weerax/identity` and its
-  focused proof; keep adapters persistence-only and do not add allocation
-  lifecycle issuance, approval UI, host integration, or a concrete-adapter
-  runtime dependency without separately authorised work.
+- Change portable bootstrap or allocation lifecycle orchestration through
+  `@weerax/identity` and its focused proof; keep adapters persistence-only and
+  do not add approval UI, host integration, a concrete-adapter runtime
+  dependency, registry, component-tree traversal, or CSS selector protocol.
 - Change PostgreSQL persistence mechanics and focused proof through this map;
   retain supplied-record semantics and do not add ID issuance, approval UI,
   host integration, or a mandatory backend.

@@ -7,6 +7,9 @@ import {
   WEX_PLATFORM_REGISTRATION_SUFFIX_ALPHABET,
   WEX_PLATFORM_REGISTRATION_SUFFIX_LENGTH,
   type WexIdentitySpaceRegistration,
+  type WexIdentityAllocationLifecycleState,
+  type WexIdentityAllocationLookup,
+  type WexIdentityAllocationRecord,
   type WexPlatformRegistrationId,
 } from '@weerax/schemas';
 
@@ -14,6 +17,12 @@ export type WexIdentityStorageAdapter = {
   detectSpace(): Promise<'absent' | 'present'>;
   createSpace(registration: WexIdentitySpaceRegistration): Promise<void>;
   readRegistration(): Promise<WexIdentitySpaceRegistration | undefined>;
+  reserve(record: WexIdentityAllocationRecord): Promise<void>;
+  transition(transition: {
+    expectedState: WexIdentityAllocationLifecycleState;
+    record: WexIdentityAllocationRecord;
+  }): Promise<void>;
+  lookup(key: WexIdentityAllocationLookup): Promise<WexIdentityAllocationRecord | undefined>;
 };
 
 export type WexIdentityBootstrapOptions = {
