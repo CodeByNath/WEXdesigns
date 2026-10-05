@@ -5,7 +5,7 @@
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
 - Verified against: `origin/main` at
-  `06faa4509926f0f55db3e749dd65a99d5ad1e75c`.
+  `e1a2bd722f57f716eb009d881c200180e30f5e71`.
 - Registration status: Header is mounted only as an isolated inert fixture;
   no component is registered in Global Components or fitted into Admin Station.
 

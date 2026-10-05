@@ -6,7 +6,7 @@
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
 - Authority verified against `origin/main` at
-  `06faa4509926f0f55db3e749dd65a99d5ad1e75c`; accepted Header authority is
+  `e1a2bd722f57f716eb009d881c200180e30f5e71`; accepted Header authority is
   recorded in ADR 0020. The reusable Header is implemented and mounted only as
   an inert Component Manager fixture; no Admin Station fitting is implemented.
 
