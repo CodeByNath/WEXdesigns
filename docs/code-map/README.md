@@ -41,9 +41,8 @@ If source moves or a map becomes stale, source and governing authority win. Corr
   shared-component catalogue entrypoint and its registration boundary.
 - [Component Manager](component-manager.md) — navigation to the isolated
   shared-component validation sandbox.
-- [Header Component](header-component.md) — navigation to the submitted
-  reusable Shared UI Header authority candidate and its future implementation
-  boundary.
+- [Header Component](header-component.md) — navigation to the first accepted
+  reusable Shared UI Header family and its future implementation boundary.
 - [Admin Shell](admin-shell.md) — navigation to the Admin Station runtime
   layout.
 - [Identity Station](identity-station.md) — navigation to the WEX UI

@@ -2,9 +2,9 @@
 
 ## Status
 
-Proposed — awaiting Reviewer acceptance. The candidate defines Header-family
-authority only. Schema, Shared UI, WEX, Component Manager, and application
-implementation each require separately authorised work.
+Accepted — Header-family authority only. Schema, Shared UI, WEX, Component
+Manager, and application implementation each require separately authorised
+work.
 
 ## Context and authority inspected
 

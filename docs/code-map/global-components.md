@@ -10,8 +10,8 @@
 
 ### Recent work (newest first)
 
-- ADR 0020 is a submitted Header authority candidate only. It does not
-  register a Header or any other component family in this catalogue.
+- ADR 0020 establishes Header family authority only. It does not register a
+  Header or any other component family in this catalogue.
 - Phase 1 establishes an empty catalogue entrypoint without adding a component
   registration, implementation, or authority.
 
@@ -48,9 +48,8 @@ responsible for browser and domain integration.
 ## Safe change routing
 
 - Register a component family only after its demonstrated need and authority
-  are accepted in a separately authorised phase. The submitted ADR 0020
-  candidate still requires Reviewer acceptance, separate implementation, and
-  registration work.
+  are accepted in a separately authorised phase. ADR 0020's Header authority
+  still requires separate implementation and registration work.
 - A proposed new component requires its own demonstrated need and authority;
   do not infer it from this catalogue entrypoint.
 
