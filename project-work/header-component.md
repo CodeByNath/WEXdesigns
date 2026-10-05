@@ -1,22 +1,83 @@
 # Header Component
 
-Status: DEFERRED
-Phase: Header work paused for Identity Portability architecture correction
+Status: BUILDER ACTION REQUIRED
+Phase: Header authority recovery and implementation contract
 
 ## Reviewer verdict
 
-**Stop — architectural risk**
+**Proceed**
 
-Owner clarified that the current central-PostgreSQL interpretation is not the intended WEX identity model.
+The Identity Portability resume gate is satisfied through accepted/promoted
+Phase 6. Header work is active again.
 
-WEX Identity is a **portable Plugin + Tool**. It identifies WEX shells/components inside each consuming system so they can be directly targeted, inspected, debugged and extended without traversing root CSS or the host application's internal tree.
+## Outcome
 
-The current accepted ADR 0013–0015 wording centralises allocation authority/storage in one Station and explicitly prevents host-local identity storage. That conflicts with Owner direction.
+Recover and formalise the already-approved Header architecture into repository
+authority before any Header source implementation. This phase is authority/docs
+only.
 
-Header implementation is therefore deferred. Do not execute Phase 9C PostgreSQL bootstrap and do not begin Header shell implementation until the identity portability correction reaches its recorded resume gate.
+## Existing accepted direction to preserve
 
-The single active work area is now:
+Header is a reusable Shared UI component developed first in Component Manager,
+then fitted into the Admin Station Header region only after component
+acceptance.
 
-`project-work/identity-portability.md`
+Composition boundary:
+- Header composes Brand and Navigation;
+- Navigation composes Location/SidebarTrigger, Search, PrimaryNavigation, and
+  MainAction;
+- each child owns its own internals;
+- LocationLabel is used at >=768px and SidebarTrigger replaces it at <=767px;
+- Header height is 64px;
+- Brand allocation is 64px x 64px;
+- Navigation consumes remaining inline width;
+- gutters are 16px outer + 8px immediate inner at Large/Medium and 8px + 8px
+  at <=767px;
+- deeper descendants do not accumulate ancestor gutter padding;
+- MainAction is exactly one prominent inline-end slot;
+- PrimaryNavigation owns ordered items and its own fixed/scrollable modes;
+- Search owns its own full/icon-only modes.
 
-When that work explicitly authorises Header resumption, return to this same file. Do not create a replacement Header work file.
+Architecture boundaries:
+- Header owns reusable structure, direct-child composition, layout/allocation
+  mechanics, accessibility mechanics, and accepted WEX presentation;
+- it does not own business navigation rules, route maps, search data/behaviour,
+  notifications, account state, permissions, persistence, domain validation,
+  credentials, callbacks, or product-specific labels;
+- Admin Station remains the application shell and is not a Shared UI component;
+- Component Manager remains an isolated validation sandbox;
+- atoms remain governed by the accepted recursive-composition and identity
+  rules;
+- Header identity/allocation must use the accepted portable WEX Identity
+  architecture, not a local ad-hoc ID.
+
+## Builder work
+
+1. Inspect current Header-related authority, Atomic Composition, WEX Layout,
+   Component Manager, Admin Shell, Global Components, identity authority, and
+   current source.
+2. Record the durable Header component/composition contract through the
+   repository's normal architecture authority (ADR/architecture doc as
+   appropriate).
+3. Resolve the exact reusable definition/schema boundary needed before source
+   implementation, including direct-child slots/counts and responsive
+   replacement rules.
+4. Reconcile every required Header geometry/presentation value against existing
+   WEX authority. If any value above lacks valid WEX presentation authority,
+   record the gap instead of hardcoding it.
+5. Update relevant Code Maps/navigation evidence.
+6. Run documentation/foundation checks required by the repository.
+7. Push one bounded candidate, update this same file to
+   `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
+
+## Hard exclusions
+
+No Header Shared UI source, CSS, Component Manager fixture/mount, Admin Station
+fitting, new child-component implementation, host/domain adapter, binding,
+route behaviour, or speculative catalogue expansion in this phase.
+
+## Stop gate
+
+Stop as `BLOCKED — DECISION REQUIRED` if the accepted Header direction cannot
+be represented without inventing a new ownership boundary, visual value,
+component family, or identity semantic not already authorised.
