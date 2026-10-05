@@ -1,7 +1,7 @@
 # Header / Admin Station Shell
 
-Status: BUILDER ACTION REQUIRED
-Phase: Architecture correction + first real child component — correction round
+Status: AWAITING REVIEWER REVIEW
+Phase: Architecture correction + first real child component — correction submitted
 
 ## Reviewer verdict
 
@@ -48,3 +48,23 @@ Re-run focused tests, `pnpm check`, `pnpm audit:foundation`,
 `git diff --check`, and Component Manager browser proof. Amend/push the same
 topic branch, update this file with the new exact SHA and evidence, then stop
 for Reviewer.
+
+## Builder correction handoff
+
+Candidate branch: `feat/header-shell-logo`
+Candidate SHA: `ddbdf89208bf8bca077ae01cf4b86da1d03e77e5`
+
+The correction removes `.wex-admin-header` and routes approved Header
+presentation to the existing `.wex-admin-shell__header` only. Component Manager
+now supplies a controlled `component-manager__logo-allocation` using the
+existing 64px WEX value; it does not render a Header shell. The Admin Shell
+Code Map now directs only reusable Header children to Component Manager.
+
+Evidence: focused WEX and web-runtime checks, `pnpm check`,
+`pnpm audit:foundation`, and `git diff --check` passed. New-tab Chrome proof
+at the local candidate Component Manager confirmed Logo-only semantics,
+64px allocation context, Large 1440px and Compact 767px responses, dark-theme
+continuity, labelled controls/live status, and visible compact keyboard focus.
+Remote `origin/feat/header-shell-logo` resolves to the exact SHA above.
+
+No unresolved conflict or deviation. Stop for Reviewer.
