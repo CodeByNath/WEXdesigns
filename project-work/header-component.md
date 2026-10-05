@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: Header authority recovery and contract authoring
+Status: AWAITING REVIEWER REVIEW
+Phase: Header authority candidate submitted for Reviewer review
 
 ## Reviewer verdict
 
@@ -84,17 +84,19 @@ implementation, Component Manager fixture/mount, Global Components registration,
 Admin Station fitting, host/domain adapter, binding, route/search behaviour, or
 speculative component catalogue expansion.
 
-## Evidence and handoff
+## Builder handoff
 
-Run documentation/foundation validation required by the repository, including
-`pnpm audit:foundation` and `git diff --check`. Use one bounded docs/authority
-topic branch. Push the candidate, record exact remote SHA, changed files, checks,
-and any unresolved authority issue in this same file, set
-`AWAITING REVIEWER REVIEW`, and stop.
-
-## Stop gate
-
-Stop only if the repository authority directly contradicts the Owner-approved
-Header plan above or if formalising it requires a new ownership layer outside
-Schemas -> Shared UI/WEX -> Application composition. Do not reopen already
-decided Header geometry merely because it is not yet present in `main`.
+- Candidate branch: `docs/header-component-authority`
+- Remote commit: `a23363569a7aa5e1c2f03686f04319dc9df16d8c`
+- Candidate files: `docs/decisions/0020-header-component-authority.md`,
+  `docs/decisions/README.md`, `docs/code-map/header-component.md`,
+  `docs/code-map/README.md`, `docs/code-map/component-manager.md`,
+  `docs/code-map/global-components.md`, and `docs/code-map/admin-shell.md`.
+- Checks passed: `pnpm audit:foundation`; `git diff --check`.
+- Result: the ADR formalises the approved Header family, direct-child slot and
+  count rules, responsive replacement, WEX-specific semantics, future
+  serializable boundary, and WEX Identity separation. The Header Code Map and
+  adjacent navigation maps route the next Builder to that authority.
+- No unresolved authority conflict or deviation. No Header source, schema, CSS,
+  child component, fixture/mount, registration, Admin Station fitting, adapter,
+  binding, or product behaviour was added.
