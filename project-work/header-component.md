@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: Header authority recovery and implementation contract
+Status: BLOCKED — DECISION REQUIRED
+Phase: Header authority recovery blocked before contract authoring
 
 ## Reviewer verdict
 
@@ -15,6 +15,30 @@ Phase 6. Header work is active again.
 Recover and formalise the already-approved Header architecture into repository
 authority before any Header source implementation. This phase is authority/docs
 only.
+
+## Builder authority finding
+
+The Identity Portability resume gate is satisfied, but the Header contract
+cannot yet be authored without new authority. Atomic Composition supplies only
+recursive direct-child ownership and count constraints; it defines no Header
+component family or serializable definition/schema. Global Components confirms
+that no component family is registered. Component Manager is an empty sandbox,
+and Admin Station is an application shell rather than Header authority.
+
+Current WEX Layout establishes page/shell allocation and the spacing scale, but
+does not assign Header-specific presentation semantics. In particular, it does
+not authorise a 64px Header height, 64px Brand allocation, 16px/8px Header
+gutters, the 768px LocationLabel/SidebarTrigger replacement, Search modes, or
+PrimaryNavigation fixed/scrollable behaviour. The historical source confirms
+spacing tokens, not those Header uses.
+
+Decision required: establish the Header component-family and serializable
+direct-child/schema boundary, and either cite or define the Header-specific WEX
+presentation and responsive rules. Existing identity authority already keeps a
+reusable Header capability distinct from a concrete `WEXAMH` allocation; no
+new local ID mechanism is permitted. After this authority is accepted, Builder
+can resume the documentation-only contract phase. No source or Code Map change
+was made while blocked.
 
 ## Existing accepted direction to preserve
 
@@ -50,25 +74,6 @@ Architecture boundaries:
   rules;
 - Header identity/allocation must use the accepted portable WEX Identity
   architecture, not a local ad-hoc ID.
-
-## Builder work
-
-1. Inspect current Header-related authority, Atomic Composition, WEX Layout,
-   Component Manager, Admin Shell, Global Components, identity authority, and
-   current source.
-2. Record the durable Header component/composition contract through the
-   repository's normal architecture authority (ADR/architecture doc as
-   appropriate).
-3. Resolve the exact reusable definition/schema boundary needed before source
-   implementation, including direct-child slots/counts and responsive
-   replacement rules.
-4. Reconcile every required Header geometry/presentation value against existing
-   WEX authority. If any value above lacks valid WEX presentation authority,
-   record the gap instead of hardcoding it.
-5. Update relevant Code Maps/navigation evidence.
-6. Run documentation/foundation checks required by the repository.
-7. Push one bounded candidate, update this same file to
-   `AWAITING REVIEWER REVIEW` with exact SHA/evidence, and stop.
 
 ## Hard exclusions
 
