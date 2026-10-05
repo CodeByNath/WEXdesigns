@@ -6,7 +6,7 @@
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
 - Authority verified against `origin/main` at
-  `abb0a4c7c795f592077acaf4ee8273c8d724bb5d`; accepted Header authority is
+  `64159f9475fc1dee203bb8ffc450e10c3cf364eb`; accepted Header authority is
   recorded in ADR 0020. No Header source, schema, fixture, mount, or application
   fitting is implemented.
 
