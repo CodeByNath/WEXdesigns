@@ -1,53 +1,71 @@
 # WEX Identity Portability
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 5 — Promotion and closeout submitted
+Status: BUILDER ACTION REQUIRED
+Phase: 6 — Work Package: portable allocation lifecycle + identity targeting proof
 
 ## Reviewer verdict
 
 **Proceed**
 
-Reviewed candidate `feat/postgres-identity-adapter` at
-`239d32c3f1e25489e159f9b016d3abf7ffa04ae5` against `main`
-`a74be3d66a297a1d7db511f2d15aa73629997037`, ADR 0017, the portable identity
-storage contract, dependency rules, current identity schemas/runtime, and the
-actual changed source/tests.
+Phase 5 promotion/closeout is independently verified. Remote `main` is exactly
+`239d32c3f1e25489e159f9b016d3abf7ffa04ae5`; comparison against the accepted
+candidate is identical. Remote heads are only `main` and
+`Project-work-instructions`. No GitHub commit-status contexts are exposed, so
+no CI claim is added beyond the Builder's recorded deterministic checks.
 
-The candidate is one commit ahead and not behind `main`. It converts the
-historical Station into an optional PostgreSQL persistence adapter: supplied
-registration/allocation records only, atomic create/compare-write protection,
-exact lookup, immutable/non-reusable evidence, and no ID generation, family
-selection, lifecycle policy, host business data, bindings, permissions, or
-runtime dependency from `@weerax/identity`.
+## Outcome
 
-The additive `002` migration preserves the untouched historical `001`
-migration. PGlite proof covers registration create/read, collision rejection,
-state compare/write, immutable evidence, retirement non-reuse, lookup isolation,
-and damaged/mismatched registration failure. Builder-reported deterministic
-checks passed. GitHub exposes no commit-status contexts for this SHA, so no CI
-status is claimed beyond the recorded local checks.
+Complete the next portable Identity capability without adding host/domain or UI
+authority: `@weerax/identity` must own allocation issuance/lifecycle and prove
+that an already registered concrete WEX allocation can be located and targeted
+by its portable identity address without root CSS traversal or walking a host
+component tree.
 
-## Builder completion
+## Controlling authority
 
-Promoted only accepted candidate
-`239d32c3f1e25489e159f9b016d3abf7ffa04ae5` to `main` by fast-forward.
-Remote `main` was verified at that exact SHA. The promoted tree is identical to
-the accepted candidate (`git diff --exit-code <candidate> origin/main`), and
-containment was proven before cleanup (`git merge-base --is-ancestor <candidate>
-origin/main`). No source, migration, schema, contract, or Phase 6 scope change
-was made during promotion.
+ADRs 0013–0019 as corrected by ADR 0016; platform-identity architecture;
+portable-identity-storage contract; dependency rules; current schemas; accepted
+local-folder adapter; accepted optional PostgreSQL adapter.
 
-## Closeout evidence
+## Included work
 
-- `pnpm audit:foundation` passed.
-- `pnpm type-check`, `pnpm lint`, `pnpm test`, `pnpm build`, and `pnpm check`
-  passed (the identity-station PGlite adapter proof reports 5/5 passing).
-- Before deletion, remote heads were `main` and
-  `feat/postgres-identity-adapter` at the same accepted SHA, with
-  `Project-work-instructions` at `9916f11d655283262bf711706cb1c134832b416b`.
-- The contained `feat/postgres-identity-adapter` remote branch was deleted.
-  Post-deletion remote heads: `main` at
-  `239d32c3f1e25489e159f9b016d3abf7ffa04ae5` and
-  `Project-work-instructions` at `9916f11d655283262bf711706cb1c134832b416b`.
+1. Extend the injected `WexIdentityStorageAdapter` boundary used by
+   `@weerax/identity` with the already-authorised reserve, transition, and
+   exact-lookup operations. Do not import a concrete adapter.
+2. Implement the minimum portable allocation lifecycle in
+   `@weerax/identity`: closed-family validation, CSPRNG allocation-ID
+   generation, reserve-before-assignment, assignment, retirement, immutable
+   placement/evidence, collision retry within a bounded safe policy, and exact
+   lookup by `(wexPlatformRegistrationId, allocationId)`.
+3. Prove the first authorised concrete shapes through the local-folder adapter:
+   one `WEXAM` Admin Manager root, then one `WEXAMH` direct child in parent
+   slot `header`; root must be assigned before child reservation.
+4. Add a focused identity-targeting proof showing a registered allocation can be
+   located/inspected/selected from its identity address directly. A test-only
+   fixture may represent the target. Do **not** create a permanent component
+   registry, host tree traversal layer, CSS selector protocol, or new shared-UI
+   abstraction unless existing repository authority already defines it.
+5. Update the relevant Code Map/repository documentation to the implemented
+   boundary only.
 
-Stop at this reviewer boundary. Do not begin Phase 6.
+## Hard exclusions
+
+No Header presentation/source fitting; no Component Manager work; no host
+adapter/integration; no bindings/reverse platform lookup; no business data,
+permissions, callbacks, credentials, approval UI, PostgreSQL-specific runtime
+dependency, new allocation families, or speculative registry architecture.
+
+## Evidence
+
+Run focused identity + local-adapter tests, collision/non-reuse and restart
+readback proof, root-before-child proof, targeting proof, `pnpm audit:foundation`,
+`pnpm check`, and `git diff --check`.
+
+Use one topic branch within the three-branch limit. Push the candidate, record
+exact remote SHA/diff/checks here, set `AWAITING REVIEWER REVIEW`, and stop.
+
+## Stop gate
+
+Stop as `BLOCKED — DECISION REQUIRED` if proving targeting requires a new
+permanent registry/mapping/package/application boundary not already authorised.
+Do not invent that architecture inside this phase.
