@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: Header authority acceptance, promotion, and closeout
+Status: AWAITING REVIEWER REVIEW
+Phase: Header authority promoted; closeout awaiting Reviewer verification
 
 ## Reviewer verdict
 
@@ -28,33 +28,21 @@ Existing WEX source confirms the referenced spacing tokens and compact
 breakpoint. No new global spacing scale, breakpoint, host/domain authority, or
 identity mechanism is introduced.
 
-## Builder instruction
+## Builder closeout handoff
 
-Complete the acceptance and promotion as one bounded closeout transaction.
-
-1. On the same `docs/header-component-authority` branch, change only acceptance
-   metadata/evidence:
-   - ADR 0020 status -> `Accepted`;
-   - move ADR 0020 from Proposed to Accepted in the decisions index;
-   - update affected Code Map wording from submitted/proposed candidate to
-     accepted Header authority;
-   - refresh verification metadata to the final accepted candidate/main
-     relationship as appropriate.
-2. Do not change Header architecture, values, slots, ownership, schema design
-   boundary, identity separation, or exclusions.
-3. Run `pnpm audit:foundation` and `git diff --check`.
-4. Push the acceptance-metadata commit and verify the remote branch SHA.
-5. Fast-forward `main` to that exact final candidate SHA.
-6. Verify remote `main` exactly matches the final accepted candidate and the
-   promoted diff contains only the already-reviewed authority plus acceptance
-   metadata.
-7. Prove containment, then delete `docs/header-component-authority`.
-8. Confirm remote heads return to only `main` and
-   `Project-work-instructions`.
-9. Update this same file to `AWAITING REVIEWER REVIEW` with the exact final
-   SHA, checks, promotion/diff evidence, and branch-deletion evidence.
-10. Stop.
-
-Do not begin Header schema/source implementation, WEX CSS, child components,
-Component Manager mount, Global Components registration, Admin Station fitting,
-or host integration during this closeout.
+- Final accepted SHA: `64159f9475fc1dee203bb8ffc450e10c3cf364eb`.
+  The acceptance-metadata commit was pushed to
+  `docs/header-component-authority`, then fast-forwarded unchanged to
+  `origin/main`.
+- Checks passed: `pnpm audit:foundation`; `git diff --check`.
+- Promotion evidence: after push, `origin/main` and the candidate resolved to
+  the same SHA and `git diff --exit-code origin/main...origin/docs/header-component-authority`
+  returned clean.
+- Containment and housekeeping: `git merge-base --is-ancestor
+  origin/docs/header-component-authority origin/main` passed before the remote
+  topic branch was deleted. A pruned remote-head check now lists only `main`
+  and `Project-work-instructions`.
+- Scope remained acceptance metadata plus the already-reviewed Header
+  authority. No Header schema/source implementation, WEX CSS, child component,
+  Component Manager mount, Global Components registration, Admin Station
+  fitting, host integration, or product behaviour was added.
