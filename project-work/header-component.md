@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: Header implementation Work Package — final browser proof + conditional promotion
+Status: ACCEPTED
+Phase: Header implementation Work Package — promoted and closed
 
 ## Reviewer verdict
 
@@ -31,36 +31,21 @@ The candidate is one commit ahead and not behind `main`. Builder-reported
 `pnpm build`, `pnpm check`, `pnpm audit:foundation`, focused tests, and
 `git diff --check` passed. GitHub exposes no separate commit-status contexts.
 
-## Safeguard before promotion
+## Builder closeout — 2026-10-05
 
-The Builder's Chromium pass occurred **before** the final alignment CSS
-correction. Therefore the exact accepted candidate SHA still needs one final
-visual/browser verification; this is evidence completion, not a new design
-approval.
+Exact-SHA browser proof passed without changing candidate
+`e1a2bd722f57f716eb009d881c200180e30f5e71`: at large and medium widths,
+Location remained inline-start while Search, PrimaryNavigation, and MainAction
+were ordered at inline-end; at 767px and below, SidebarTrigger replaced
+Location without clipping. Dark-theme continuity, visible keyboard focus, and
+semantic Header/navigation structure also passed.
 
-On exact SHA `e1a2bd722f57f716eb009d881c200180e30f5e71`, verify in the existing
-Component Manager preview:
+The exact candidate was fast-forwarded to `main`; factual Code Map verification
+metadata was then refreshed in `01c0bd6fa1c2f7837f5dc6c0dffc5b2a72a40a9e`.
+`pnpm build`, `pnpm check`, focused package tests, `pnpm audit:foundation`, and
+`git diff --check` passed. Containment is verified: candidate is an ancestor of
+`main`, and the only candidate-to-main diff is the four Code Map metadata files.
 
-1. Large and Medium: Location stays at inline-start; Search,
-   PrimaryNavigation, MainAction are grouped at inline-end in that order.
-2. Compact <=767px: SidebarTrigger replaces Location at inline-start; the
-   right-side group remains stable without destructive overlap/clipping.
-3. Theme continuity remains correct.
-4. Relevant keyboard focus remains visible and semantic Header/navigation
-   structure remains intact.
-
-If and only if those checks pass **without changing the candidate**, Builder is
-pre-authorised under the streamlined exact-SHA rule to:
-
-- fast-forward this exact SHA to `main`;
-- run required deterministic closeout checks;
-- refresh factual Code Map verification metadata to the promoted SHA;
-- verify exact tree equality/containment;
-- delete `feat/header-component`;
-- mark this phase `ACCEPTED` with final evidence and stop.
-
-No second Reviewer promotion gate is required.
-
-If browser proof requires any source/CSS/schema change, do not promote. Push
-the correction on the same topic branch, set `AWAITING REVIEWER REVIEW`, and
-stop.
+`feat/header-component` has been deleted locally and from origin after that
+verification; its implementation remains recoverable from `main`. No second
+Reviewer gate was required by the streamlined exact-SHA rule.
