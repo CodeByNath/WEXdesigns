@@ -10,10 +10,8 @@
 
 ### Recent work (newest first)
 
-- The Header work package implements and validates Header only in Component
-  Manager. It does not register Header or any other family in this catalogue.
-- ADR 0020 establishes Header family authority only. It does not register a
-  Header or any other component family in this catalogue.
+- ADR 0021 validates Logo only in Component Manager. It does not register Logo
+  or any other family in this catalogue.
 - Phase 1 establishes an empty catalogue entrypoint without adding a component
   registration, implementation, or authority.
 
@@ -50,7 +48,7 @@ responsible for browser and domain integration.
 ## Safe change routing
 
 - Register a component family only after its demonstrated need and authority
-  are accepted in a separately authorised phase. ADR 0020's Header authority
+  are accepted in a separately authorised phase. ADR 0021's Logo authority
   has isolated implementation proof but still requires separate registration
   work.
 - A proposed new component requires its own demonstrated need and authority;

@@ -1,36 +1,28 @@
-# Header Component
+# Header Shell and Logo Component
 
 ## Current operating status
 
 - Created: 2026-10-05
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
-- Authority verified against `origin/main` at
-  `e1a2bd722f57f716eb009d881c200180e30f5e71`; accepted Header authority is
-  recorded in ADR 0020. The reusable Header is implemented and mounted only as
-  an inert Component Manager fixture; no Admin Station fitting is implemented.
+- Authority verified against `origin/main` at `01c0bd6fa1c2f7837f5dc6c0dffc5b2a72a40a9e`.
+  ADR 0021 defines Header as the Admin Station shell and Logo as its first
+  reusable child; no Admin Station fitting is implemented.
 
 ### Recent work (newest first)
 
-- The Header work package adds the strict serializable contract, WEX Header
-  foundation, platform-neutral Shared UI presentation resolver, focused tests,
-  and an isolated Component Manager fixture. It does not register Header in
-  Global Components or fit it into Admin Station.
-- ADR 0020 establishes the reusable Header family, its direct-child boundary,
-  WEX-specific allocation semantics, responsive replacement rule, future
-  serializable-contract boundary, and identity separation. It authorises no
-  implementation.
+- ADR 0021 supersedes the former reusable Header boundary. Header remains the
+  Admin Station shell; Logo is the isolated Component Manager candidate.
 
 ## Purpose and scope
 
-This map routes the first future reusable Shared UI Header candidate to its
-accepted authority, existing WEX foundations, identity boundary, validation
-surface, and eventual application fitting boundary. It is navigation evidence;
-it does not restate the Header contract or introduce implementation.
+This map routes the Admin Station Header shell and its first reusable Logo
+child to their authority, WEX foundations, identity boundary, and validation
+surface. It is navigation evidence; it does not restate their contracts.
 
 ## Governing authority and evidence routes
 
-- [ADR 0020: Header Component Authority](../decisions/0020-header-component-authority.md)
+- [ADR 0021: Header Shell and Logo Component Authority](../decisions/0021-header-shell-and-logo-component-authority.md)
 - [Atomic Composition](../architecture/atomic-composition.md)
 - [Authority Model](../architecture/authority-model.md)
 - [Dependency Rules](../architecture/dependency-rules.md)
@@ -43,7 +35,7 @@ it does not restate the Header contract or introduce implementation.
 
 ## Current source and focused verification
 
-The implemented Header boundaries and focused verification are:
+The Header shell and Logo boundaries and focused verification are:
 
 - WEX layout and compact responsive foundation:
   [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css)
@@ -52,13 +44,13 @@ The implemented Header boundaries and focused verification are:
 - Header WEX presentation foundation and focused proof:
   [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css),
   [`packages/wex/test/header-foundation.test.mjs`](../../packages/wex/test/header-foundation.test.mjs)
-- Framework-neutral Header contract and proof:
-  [`packages/schemas/src/components/header.schema.ts`](../../packages/schemas/src/components/header.schema.ts),
+- Framework-neutral Logo contract and proof:
+  [`packages/schemas/src/components/logo.schema.ts`](../../packages/schemas/src/components/logo.schema.ts),
   [`packages/schemas/test/foundation.test.mjs`](../../packages/schemas/test/foundation.test.mjs)
-- Platform-neutral Header presentation resolver and proof:
-  [`packages/ui/src/components/header.ts`](../../packages/ui/src/components/header.ts),
-  [`packages/ui/test/header.test.mjs`](../../packages/ui/test/header.test.mjs)
-- Isolated future component validation surface:
+- Platform-neutral Logo presentation resolver and proof:
+  [`packages/ui/src/components/logo.ts`](../../packages/ui/src/components/logo.ts),
+  [`packages/ui/test/logo.test.mjs`](../../packages/ui/test/logo.test.mjs)
+- Isolated Logo validation surface:
   [`apps/web-runtime/component-manager/index.html`](../../apps/web-runtime/component-manager/index.html),
   [`apps/web-runtime/component-manager/preview.html`](../../apps/web-runtime/component-manager/preview.html),
   [`apps/web-runtime/src/component-manager-preview.js`](../../apps/web-runtime/src/component-manager-preview.js)
@@ -72,28 +64,24 @@ The implemented Header boundaries and focused verification are:
 ## Dependency boundary
 
 ```text
-Header definition         -> @weerax/schemas
-Header structure          -> @weerax/ui + @weerax/wex
-Component Manager fixture -> isolated candidate validation
-Admin Station             -> later application fitting
+Header shell              -> Admin Station + WEX
+Logo definition           -> @weerax/schemas
+Logo presentation         -> @weerax/ui + @weerax/wex
+Component Manager fixture -> isolated Logo validation
+Admin Station             -> later fitting
 ```
 
-The Header family must keep schema, WEX, Shared UI, application, domain, and
-portable identity concerns on their established sides of the dependency graph.
-An Admin Header allocation is not the reusable Header capability and is never
-created through a local application ID.
+Header owns direct compartments only. Logo retains its internal presentation
+boundary. `WEXAMH` is an Admin Header allocation, not a reusable capability,
+and is never created through a local application ID.
 
 ## Safe change routing
 
-- Change Header slots, ownership, allocation semantics, responsive replacement,
-  or the serializable boundary through ADR 0020 before implementation.
-- Change WEX values or responsive behaviour through WEX authority, not a
-  Header definition or application stylesheet.
-- Change Header schema, WEX/Shared UI implementation, or isolated fixture
-  through ADR 0020 and their focused proofs; retain opaque child boundaries.
-- Fit an accepted Header into Admin Station only in a later authorised
-  application phase; do not use that fit to create route, search, account, or
-  domain behaviour.
+- Change Header shell ownership or Logo scope through ADR 0021.
+- Change WEX values through WEX authority, not a Logo definition.
+- Add Header children only through separate authority; do not infer them.
+- Fit into Admin Station or integrate WEX identity only in separately
+  authorised work.
 
 ## Related documents
 

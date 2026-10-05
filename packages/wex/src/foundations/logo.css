@@ -1,0 +1,15 @@
+/* Reusable Logo internal presentation; its parent owns allocation. */
+
+.wex-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+  min-block-size: 0;
+  color: var(--wex-color-text-accent);
+}
+
+.wex-logo__label {
+  overflow-wrap: anywhere;
+  text-align: center;
+}

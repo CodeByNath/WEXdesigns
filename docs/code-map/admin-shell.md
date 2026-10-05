@@ -11,8 +11,8 @@
 
 ### Recent work (newest first)
 
-- ADR 0020 establishes the future reusable Header family. It does not fit,
-  mount, or otherwise alter the empty Admin Station Header region.
+- ADR 0021 establishes Header as the Admin Station shell and Logo as its first
+  reusable child. It does not fit Logo into the empty Header region.
 - Phase 4 moves the Admin Shell from Shared UI to the standalone Admin Station
   runtime route and restores Component Manager to an empty component sandbox.
 

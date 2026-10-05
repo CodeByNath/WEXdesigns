@@ -6,16 +6,13 @@
 - Last updated: 2026-10-05
 - Verified against: `origin/main` at
   `e1a2bd722f57f716eb009d881c200180e30f5e71`.
-- Registration status: Header is mounted only as an isolated inert fixture;
+- Registration status: Logo is mounted only as an isolated inert fixture;
   no component is registered in Global Components or fitted into Admin Station.
 
 ### Recent work (newest first)
 
-- The Header work package mounts the accepted Header candidate in the isolated
-  preview with controlled capability placeholders and proves its responsive
-  location replacement. It adds no domain behaviour or Admin Station fitting.
-- ADR 0020 establishes Header as the first future Shared UI candidate. It does
-  not add a definition, fixture, mount, browser interaction, or registration.
+- ADR 0021 mounts Logo, the first reusable Header child, in the isolated
+  preview. It adds no Header component, domain behaviour, or Admin Station fitting.
 - Phase 4 removes the superseded Admin Shell fixture and mount; the isolated
   preview remains an empty responsive component sandbox.
 - Phase 3 corrects sandbox-only viewport validation to use an isolated preview
@@ -45,7 +42,7 @@ component contract, WEX values, domain data, or a page-builder model.
   [`apps/web-runtime/src/main.js`](../../apps/web-runtime/src/main.js)
 - Isolated responsive preview:
   [`apps/web-runtime/component-manager/preview.html`](../../apps/web-runtime/component-manager/preview.html)
-- Isolated Header fixture renderer:
+- Isolated Logo fixture renderer:
   [`apps/web-runtime/src/component-manager-preview.js`](../../apps/web-runtime/src/component-manager-preview.js)
 - Focused check: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
 
@@ -71,9 +68,9 @@ authority.
 
 ## Safe change routing
 
-- Header follows ADR 0020 and is the only authorised fixture here. Keep its
-  child capabilities inert and isolated until a later Admin Station fitting
-  phase; do not register it in Global Components from this surface.
+- Logo follows ADR 0021 and is the only authorised fixture here. Keep it
+  isolated until a later Admin Station fitting phase; do not register it in
+  Global Components from this surface.
 - Change responsive thresholds through WEX layout authority, not this sandbox.
 - Do not use the sandbox to register a component or introduce domain behaviour.
 

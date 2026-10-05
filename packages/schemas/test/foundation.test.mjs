@@ -5,7 +5,7 @@ import {
   ButtonDefinitionSchema,
   ButtonVariantSchema,
   EntityIdentifierSchema,
-  HeaderDefinitionSchema,
+  LogoDefinitionSchema,
   getWexUiAllocationFamily,
   SemanticActionSchema,
   WexIdentityAllocationLookupSchema,
@@ -265,45 +265,9 @@ test('defines an action-bound Button without serializing presentation state', ()
   }
 });
 
-test('defines a strict Header with only its governed direct-child slots', () => {
-  const header = {
-    brand: { capability: 'brand' },
-    navigation: {
-      location: {
-        locationLabel: 'location-label',
-        sidebarTrigger: 'sidebar-trigger',
-      },
-      search: { capability: 'search' },
-      primaryNavigation: { capability: 'primary-navigation' },
-      mainAction: { capability: 'main-action' },
-    },
-  };
-
-  assert.deepEqual(HeaderDefinitionSchema.parse(header), header);
-  assert.equal(HeaderDefinitionSchema.safeParse({ ...header, id: 'WEXAMHABCDE' }).success, false);
-  assert.equal(HeaderDefinitionSchema.safeParse({ ...header, callback: () => {} }).success, false);
-  assert.equal(
-    HeaderDefinitionSchema.safeParse({
-      ...header,
-      navigation: { ...header.navigation, route: '/admin' },
-    }).success,
-    false,
-  );
-  assert.equal(
-    HeaderDefinitionSchema.safeParse({
-      ...header,
-      navigation: {
-        ...header.navigation,
-        location: { locationLabel: 'location-label', sidebarTrigger: 'menu' },
-      },
-    }).success,
-    false,
-  );
-  assert.equal(
-    HeaderDefinitionSchema.safeParse({
-      ...header,
-      navigation: { ...header.navigation, search: { capability: 'primary-navigation' } },
-    }).success,
-    false,
-  );
+test('defines a strict, host-neutral Logo contract', () => {
+  assert.deepEqual(LogoDefinitionSchema.parse({ label: 'Logo' }), { label: 'Logo' });
+  assert.equal(LogoDefinitionSchema.safeParse({ label: '' }).success, false);
+  assert.equal(LogoDefinitionSchema.safeParse({ label: 'Logo', route: '/admin' }).success, false);
+  assert.equal(LogoDefinitionSchema.safeParse({ label: 'Logo', callback: () => {} }).success, false);
 });
