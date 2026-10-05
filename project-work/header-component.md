@@ -1,70 +1,69 @@
 # Header / Admin Station Shell
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Architecture correction + first real child component — correction submitted
+Status: BUILDER ACTION REQUIRED
+Phase: Exact-SHA promotion and closeout
 
 ## Reviewer verdict
 
-**Proceed with safeguards**
+**Proceed**
 
-Candidate reviewed: `feat/header-shell-logo` at
-`ec23fa579303c3f449e2b49074589a3f81768b7d`.
+Accepted candidate: `feat/header-shell-logo` at
+`ddbdf89208bf8bca077ae01cf4b86da1d03e77e5`.
 
-The main correction is sound: reusable Header schema/UI/specimen are removed,
-ADR 0021 supersedes ADR 0020, Logo is isolated in Component Manager, and no
-Phase 7 identity-host work or other Header-child work was introduced.
+Reviewer verified against current `main`
+`01c0bd6fa1c2f7837f5dc6c0dffc5b2a72a40a9e`:
 
-One architecture leak remains before promotion.
+- reusable Header schema/UI/specimen removed;
+- existing `.wex-admin-shell__header` is the single Header shell;
+- no parallel `.wex-admin-header` shell remains;
+- Logo is the first reusable Header child and is isolated in Component Manager;
+- Component Manager provides only the controlled 64px × 64px Brand allocation
+  context and does not render the Header shell;
+- ADR 0021 supersedes the reusable-Header direction;
+- no Admin Station Logo fitting, Phase 7 identity-host work, other Header-child
+  implementation, product rule, or new WEX visual value was introduced;
+- candidate is two commits ahead and zero behind `main`;
+- GitHub exposes no commit-status contexts, so only the recorded local checks and
+  browser proof are claimed.
 
-## Required correction
+## Standing sequence guardrail
 
-Admin Station already owns the concrete Header shell:
+Keep this order for this work area on every future cycle unless the Owner
+explicitly changes it:
 
-`<header class="wex-admin-shell__header" data-admin-station-region="header">`
+```text
+Header Shell
+-> Logo Component
+-> fit Logo into Header
+-> record the proven shell/compartment/component pattern
+-> only then move to the next Header child
+```
 
-Do **not** introduce a second Header shell concept through
-`.wex-admin-header` / `.wex-admin-header__brand`.
+Do not pre-build Location, Search, Navigation System, Main Action, or a broader
+shell abstraction before the Logo path is proven end to end.
 
-Correct the candidate so:
+Rule:
+- Shell owns compartments and placement.
+- Component owns its own structure/mechanics.
+- WEX owns presentation.
+- Data/value resolution comes through the proper schema/adapter/runtime path.
 
-1. the existing `.wex-admin-shell__header` remains the single Admin Station
-   Header shell;
-2. approved Header-shell geometry/presentation is routed to that existing shell
-   boundary through WEX authority, without creating another Header component or
-   another application shell;
-3. the 64px × 64px Brand allocation remains a Header-owned compartment, but
-   Component Manager must not render a Header shell merely to test Logo;
-4. Logo's Component Manager fixture may provide only the controlled 64px × 64px
-   Brand allocation context needed to validate Logo, using existing WEX values;
-5. do not fit Logo into Admin Station and do not start WEX Identity Phase 7;
-6. remove the stale Admin Shell Code Map instruction saying Header
-   implementation must be developed/accepted in Component Manager. Header is
-   the shell; reusable children are developed there;
-7. refresh only factual Code Map verification metadata needed by this candidate.
+## Builder instruction
 
-Keep all prior hard exclusions.
+Promote **only**
+`ddbdf89208bf8bca077ae01cf4b86da1d03e77e5` to `main` by fast-forward.
 
-Re-run focused tests, `pnpm check`, `pnpm audit:foundation`,
-`git diff --check`, and Component Manager browser proof. Amend/push the same
-topic branch, update this file with the new exact SHA and evidence, then stop
-for Reviewer.
+Then, in the same closeout transaction:
 
-## Builder correction handoff
+1. verify remote `main` equals the accepted candidate SHA;
+2. run `pnpm check`, `pnpm audit:foundation`, focused package checks, and
+   `git diff --check`;
+3. verify the promoted tree/diff is identical to the accepted candidate;
+4. delete `feat/header-shell-logo` only after containment is proven;
+5. refresh factual Code Map verification metadata only where required;
+6. update this same file to `ACCEPTED` with final `main` SHA, checks,
+   remote-head evidence, and branch-deletion evidence;
+7. stop.
 
-Candidate branch: `feat/header-shell-logo`
-Candidate SHA: `ddbdf89208bf8bca077ae01cf4b86da1d03e77e5`
-
-The correction removes `.wex-admin-header` and routes approved Header
-presentation to the existing `.wex-admin-shell__header` only. Component Manager
-now supplies a controlled `component-manager__logo-allocation` using the
-existing 64px WEX value; it does not render a Header shell. The Admin Shell
-Code Map now directs only reusable Header children to Component Manager.
-
-Evidence: focused WEX and web-runtime checks, `pnpm check`,
-`pnpm audit:foundation`, and `git diff --check` passed. New-tab Chrome proof
-at the local candidate Component Manager confirmed Logo-only semantics,
-64px allocation context, Large 1440px and Compact 767px responses, dark-theme
-continuity, labelled controls/live status, and visible compact keyboard focus.
-Remote `origin/feat/header-shell-logo` resolves to the exact SHA above.
-
-No unresolved conflict or deviation. Stop for Reviewer.
+Do **not** begin Logo fitting, WEX Identity Phase 7, or the next Header child in
+this promotion cycle.
