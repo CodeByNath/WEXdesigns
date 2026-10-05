@@ -26,20 +26,26 @@ That is now stale because accepted Header authority lives on `main` at
 
 ## Builder instruction
 
-Correct only Header Code Map verification metadata:
+Use the normal maintenance topic-branch handoff. This instruction does **not**
+authorize Builder to update `main` directly.
 
-1. update `docs/code-map/header-component.md` so its verified `origin/main`
-   SHA is `64159f9475fc1dee203bb8ffc450e10c3cf364eb`;
-2. inspect the adjacent Header-touched Code Maps from the accepted authority
+1. Create one bounded maintenance/docs topic branch from current `main`.
+2. Update `docs/code-map/header-component.md` so its verified `origin/main`
+   SHA is `64159f9475fc1dee203bb8ffc450e10c3cf364eb`.
+3. Inspect the adjacent Header-touched Code Maps from the accepted authority
    closeout and correct any equivalent stale pre-promotion verification SHA if
-   present;
-3. do not alter Header architecture, ADR 0020, slots, presentation values,
-   ownership, schema boundary, identity separation, or implementation scope;
-4. run `pnpm audit:foundation` and `git diff --check`;
-5. because the authority topic branch is already safely closed, make this
-   bounded documentation correction using the repository-approved maintenance
-   workflow, record the exact resulting `main` SHA and checks in this same
-   file, set `AWAITING REVIEWER REVIEW`, and stop.
+   present.
+4. Do not alter Header architecture, ADR 0020, slots, presentation values,
+   ownership, schema boundary, identity separation, or implementation scope.
+5. Run `pnpm audit:foundation` and `git diff --check`.
+6. Commit and push only this documentation correction on the maintenance topic
+   branch.
+7. Update this same file to `AWAITING REVIEWER REVIEW` with the exact remote
+   candidate branch/SHA, changed files, and checks; then stop.
+8. Reviewer will independently verify the candidate and explicitly authorize
+   promotion to `main` in the next cycle. The phrase “resulting main SHA” is
+   post-promotion closeout evidence, not current Builder permission to push or
+   merge to `main`.
 
 Do not begin Header schema/source implementation until this evidence correction
 is independently closed.
