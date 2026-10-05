@@ -1,7 +1,7 @@
 # Header Component
 
-Status: BUILDER ACTION REQUIRED
-Phase: Header Code Map verification correction — promotion and closeout
+Status: AWAITING REVIEWER REVIEW
+Phase: Header Code Map verification correction promoted; closeout awaiting review
 
 ## Reviewer verdict
 
@@ -29,23 +29,17 @@ changed.
 Builder-reported `pnpm audit:foundation` and `git diff --check` passed.
 GitHub exposes no separate commit-status contexts for this SHA.
 
-## Builder instruction
+## Builder closeout handoff
 
-Promote **only**
-`06faa4509926f0f55db3e749dd65a99d5ad1e75c` to `main` by fast-forward.
-
-Then:
-
-1. verify remote `main` equals that exact SHA;
-2. verify the promoted tree/diff is identical to the accepted maintenance
-   candidate;
-3. run `pnpm audit:foundation` and `git diff --check`;
-4. prove containment, then delete `docs/header-code-map-verification`;
-5. confirm remote heads return to only `main` and
-   `Project-work-instructions`;
-6. update this same file to `AWAITING REVIEWER REVIEW` with exact promotion
-   SHA, checks, containment/diff evidence, and branch-deletion evidence;
-7. stop.
-
-Do not begin Header schema/source implementation until Reviewer independently
-closes this promotion.
+- Final promoted SHA: `06faa4509926f0f55db3e749dd65a99d5ad1e75c`.
+  Remote `main` resolves to exactly this SHA.
+- Candidate equality: `git diff --exit-code HEAD...origin/docs/header-code-map-verification`
+  and the post-promotion comparison of `origin/main` to the candidate both
+  returned clean.
+- Checks passed: `pnpm audit:foundation`; `git diff --check`.
+- Containment and housekeeping: `git merge-base --is-ancestor
+  origin/docs/header-code-map-verification HEAD` passed before deletion. The
+  remote maintenance branch was deleted, then a pruned remote-head check
+  confirmed only `main` and `Project-work-instructions` remain.
+- Scope remained limited to the four reviewed Code Map verification SHA
+  corrections. No Header architecture, implementation, or other scope changed.
