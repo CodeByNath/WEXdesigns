@@ -5,11 +5,15 @@
 - Last visited: 2026-10-05
 - Last updated: 2026-10-05
 - Verified against: `origin/main` at
-  `64159f9475fc1dee203bb8ffc450e10c3cf364eb`.
-- Registration status: No shared UI component is mounted or registered.
+  `06faa4509926f0f55db3e749dd65a99d5ad1e75c`.
+- Registration status: Header is mounted only as an isolated inert fixture;
+  no component is registered in Global Components or fitted into Admin Station.
 
 ### Recent work (newest first)
 
+- The Header work package mounts the accepted Header candidate in the isolated
+  preview with controlled capability placeholders and proves its responsive
+  location replacement. It adds no domain behaviour or Admin Station fitting.
 - ADR 0020 establishes Header as the first future Shared UI candidate. It does
   not add a definition, fixture, mount, browser interaction, or registration.
 - Phase 4 removes the superseded Admin Shell fixture and mount; the isolated
@@ -41,6 +45,8 @@ component contract, WEX values, domain data, or a page-builder model.
   [`apps/web-runtime/src/main.js`](../../apps/web-runtime/src/main.js)
 - Isolated responsive preview:
   [`apps/web-runtime/component-manager/preview.html`](../../apps/web-runtime/component-manager/preview.html)
+- Isolated Header fixture renderer:
+  [`apps/web-runtime/src/component-manager-preview.js`](../../apps/web-runtime/src/component-manager-preview.js)
 - Focused check: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
 
 ## Dependency boundary
@@ -65,9 +71,9 @@ authority.
 
 ## Safe change routing
 
-- Add a mount, fixture, or definition input only with a separately approved
-  component phase and that component's authority. Header work follows ADR 0020
-  and must remain isolated here until its later Admin Station fitting phase.
+- Header follows ADR 0020 and is the only authorised fixture here. Keep its
+  child capabilities inert and isolated until a later Admin Station fitting
+  phase; do not register it in Global Components from this surface.
 - Change responsive thresholds through WEX layout authority, not this sandbox.
 - Do not use the sandbox to register a component or introduce domain behaviour.
 

@@ -15,6 +15,8 @@ const adminStationCss = await readFile(new URL('../src/admin-station.css', impor
 const adminStationRuntime = await readFile(new URL('../src/admin-station.js', import.meta.url), 'utf8');
 const viteConfig = await readFile(new URL('../vite.config.ts', import.meta.url), 'utf8');
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
+const headerPresentation = await readFile(new URL('../../../packages/ui/src/components/header.ts', import.meta.url), 'utf8');
+const headerFoundation = await readFile(new URL('../../../packages/wex/src/foundations/header.css', import.meta.url), 'utf8');
 const wexLayout = await readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8');
 const elementDirectories = await readdir(new URL('../../../packages/catalogue/content/elements', import.meta.url));
 
@@ -108,14 +110,20 @@ test('keeps the Global Components catalogue entrypoint empty', () => {
   assert.doesNotMatch(components, /Button|wex-button|<button|aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
-test('provides an isolated Component Manager sandbox without registering an unapproved component', () => {
+test('provides an isolated Component Manager sandbox with the approved Header candidate only', () => {
   const manager = pageByPath['component-manager/index.html'];
   assert.match(manager, /<a aria-current="page" href="\.\/">Component Manager<\/a>/);
   assert.match(manager, /<h1 id="component-manager-title"[^>]*>Component Manager<\/h1>/);
   assert.match(manager, /data-component-manager-sandbox/);
+  assert.match(manager, /mounts the approved Header candidate with controlled inert capability placeholders/);
   assert.match(componentManagerPreview, /Component preview/);
-  assert.doesNotMatch(componentManagerPreview, /Admin Shell|data-component-manager-preview-mount|component-manager-preview-shell/);
-  assert.doesNotMatch(componentManagerPreviewRuntime, /@weerax\/ui|createAdminShellMarkup|fixture|shellMount|data-admin-shell-region/);
+  assert.match(componentManagerPreview, /data-component-manager-header-preview/);
+  assert.match(componentManagerPreview, /id="component-manager-header-mount"/);
+  assert.match(componentManagerPreviewRuntime, /createHeaderPresentation/);
+  assert.match(componentManagerPreviewRuntime, /element\.dataset\.headerCapability = 'header'/);
+  assert.match(componentManagerPreviewRuntime, /aria-label', 'Header navigation'/);
+  assert.doesNotMatch(componentManagerPreview, /Admin Shell|data-admin-shell-region/);
+  assert.doesNotMatch(componentManagerPreviewRuntime, /createAdminShellMarkup|route:|search\.execute|callback|data-admin-shell-region/);
   assert.doesNotMatch(manager, /<button|<form|aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 
@@ -151,6 +159,9 @@ test('keeps Component Manager viewport tooling bound to current WEX layout thres
   assert.match(css, /\.component-manager__preview-frame/);
   assert.match(css, /\.component-manager__preview-frame[\s\S]*min-block-size: calc\(var\(--wex-space-64\) \* 16\)/);
   assert.doesNotMatch(manager, /<button|<form|data-component-(?:definition|fixture|registration)|Drawer|Data Card|Collection/);
+  assert.match(componentManagerPreviewRuntime, /locationLabel: 'location-label'/);
+  assert.match(componentManagerPreviewRuntime, /sidebarTrigger: 'sidebar-trigger'/);
+  assert.match(headerFoundation, /@media \(max-width: 767px\)/);
 });
 
 test('keeps the Admin Shell as a standalone Admin Station runtime layout', () => {
@@ -230,4 +241,6 @@ test('keeps the catalogue package and shared Button presentation platform-neutra
   assert.deepEqual(elementDirectories.sort(), ['color', 'grid-theory', 'icons', 'motion', 'pictograms', 'spacing', 'themes', 'typography']);
   assert.match(buttonPresentation, /createButtonPresentation/);
   assert.doesNotMatch(buttonPresentation, /document\.|aria-pressed|#[0-9a-f]{3,8}/i);
+  assert.match(headerPresentation, /createHeaderPresentation/);
+  assert.doesNotMatch(headerPresentation, /document\.|callback|route|#[0-9a-f]{3,8}/i);
 });

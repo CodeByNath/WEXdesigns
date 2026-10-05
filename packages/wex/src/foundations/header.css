@@ -1,0 +1,111 @@
+/* Reusable Header allocation and responsive presentation foundation. */
+
+.wex-header {
+  display: grid;
+  grid-template-columns: var(--wex-space-64) minmax(0, 1fr);
+  align-items: stretch;
+  min-inline-size: 0;
+  block-size: var(--wex-space-64);
+  min-block-size: var(--wex-space-64);
+  padding-inline: var(--wex-space-16);
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  background: var(--wex-color-layer-01);
+  color: var(--wex-color-text-primary);
+}
+
+.wex-header__brand,
+.wex-header__navigation,
+.wex-header__location-label,
+.wex-header__sidebar-trigger,
+.wex-header__search,
+.wex-header__primary-navigation,
+.wex-header__main-action {
+  min-inline-size: 0;
+}
+
+.wex-header__brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--wex-space-64);
+  block-size: var(--wex-space-64);
+  color: var(--wex-color-text-accent);
+}
+
+.wex-header__navigation {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: var(--wex-space-8);
+  min-inline-size: 0;
+  padding-inline: var(--wex-space-8);
+}
+
+.wex-header__location-label,
+.wex-header__sidebar-trigger,
+.wex-header__search,
+.wex-header__primary-navigation,
+.wex-header__main-action {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--wex-space-40);
+}
+
+.wex-header__location-label,
+.wex-header__sidebar-trigger {
+  grid-column: 1;
+}
+
+.wex-header__search {
+  grid-column: 3;
+  justify-self: end;
+}
+
+.wex-header__primary-navigation {
+  grid-column: 4;
+  justify-self: end;
+}
+
+.wex-header__location-label,
+.wex-header__search,
+.wex-header__primary-navigation {
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-header__sidebar-trigger {
+  display: none;
+}
+
+.wex-header__primary-navigation {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.wex-header__main-action {
+  grid-column: 5;
+  justify-self: end;
+}
+
+.wex-header__search:focus-visible,
+.wex-header__sidebar-trigger:focus-visible,
+.wex-header__main-action:focus-visible {
+  outline: var(--wex-focus-width) solid var(--wex-color-focus);
+}
+
+@media (max-width: 767px) {
+  .wex-header {
+    padding-inline: var(--wex-space-8);
+  }
+
+  .wex-header__navigation {
+    padding-inline: var(--wex-space-8);
+  }
+
+  .wex-header__location-label {
+    display: none;
+  }
+
+  .wex-header__sidebar-trigger {
+    display: inline-flex;
+  }
+}

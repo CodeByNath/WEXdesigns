@@ -139,19 +139,32 @@ const uiSource = resolve(root, 'packages/ui/src');
 const uiFiles = readdirSync(uiSource).filter((name) => !name.startsWith('.')).sort();
 assert(
   JSON.stringify(uiFiles) === JSON.stringify(['components', 'index.ts']),
-  'UI exceeds the Button-only boundary',
+  'UI exceeds the authorized shared-component boundary',
 );
 const uiComponents = readdirSync(resolve(uiSource, 'components')).filter((name) => !name.startsWith('.'));
 assert(
-  JSON.stringify(uiComponents.sort()) === JSON.stringify(['button.ts']),
-  'UI exceeds the authorized Button boundary',
+  JSON.stringify(uiComponents.sort()) === JSON.stringify(['button.ts', 'header.ts']),
+  'UI exceeds the authorized Button and Header boundary',
 );
 const buttonPresentation = read('packages/ui/src/components/button.ts');
 assert(buttonPresentation.includes('createButtonPresentation'), 'Button presentation boundary is missing');
 assert(!buttonPresentation.includes('document.'), 'Shared UI Button depends on the browser runtime');
 assert(!buttonPresentation.includes('ButtonState'), 'Shared UI serializes presentation state');
+const headerSchema = read('packages/schemas/src/components/header.schema.ts');
+assert(headerSchema.includes('HeaderDefinitionSchema'), 'Header schema contract is missing');
+assert(!headerSchema.includes('callback'), 'Header schema serializes callbacks');
+assert(!headerSchema.includes('breakpoint:'), 'Header schema serializes a breakpoint');
+const headerPresentation = read('packages/ui/src/components/header.ts');
+assert(headerPresentation.includes('createHeaderPresentation'), 'Header presentation boundary is missing');
+assert(!headerPresentation.includes('document.'), 'Shared UI Header depends on the browser runtime');
+assert(!headerPresentation.includes('callback'), 'Shared UI Header serializes callbacks');
 const buttonFoundation = read('packages/wex/src/foundations/buttons.css');
+const headerFoundation = read('packages/wex/src/foundations/header.css');
 const geometryFoundation = read('packages/wex/src/foundations/geometry.css');
+assert(headerFoundation.includes('.wex-header {'), 'WEX Header foundation is missing');
+assert(headerFoundation.includes('block-size: var(--wex-space-64)'), 'Header does not consume the approved height');
+assert(headerFoundation.includes('@media (max-width: 767px)'), 'Header compact boundary is missing');
+assert(!/(?:#[0-9a-f]{3,8}|rgb\(|hsl\()/i.test(headerFoundation), 'Header foundation contains raw colour values');
 assert(buttonFoundation.includes('.wex-button--warning'), 'WEX Button foundation is missing');
 assert(!buttonFoundation.includes('data-wex-button-state'), 'WEX Button accepts authored presentation state');
 for (const tier of ['small', 'default', 'large']) {

@@ -51,3 +51,12 @@ export {
   type ButtonDefinitionInput,
   type ButtonVariant,
 } from './components/button.schema.js';
+export {
+  HeaderDefinitionSchema,
+  HeaderLocationSlotSchema,
+  HeaderNavigationDefinitionSchema,
+  type HeaderDefinition,
+  type HeaderDefinitionInput,
+  type HeaderLocationSlot,
+  type HeaderNavigationDefinition,
+} from './components/header.schema.js';
