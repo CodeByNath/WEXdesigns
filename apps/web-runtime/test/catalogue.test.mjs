@@ -122,6 +122,7 @@ test('provides an isolated Component Manager sandbox with the approved Logo cand
   assert.match(componentManagerPreviewRuntime, /createLogoPresentation/);
   assert.match(componentManagerPreviewRuntime, /element\.dataset\.logoCapability = 'logo'/);
   assert.match(componentManagerPreview, /data-header-compartment="brand"/);
+  assert.match(componentManagerPreview, /class="component-manager__logo-allocation"/);
   assert.doesNotMatch(componentManagerPreview, /Admin Shell|data-admin-shell-region/);
   assert.doesNotMatch(componentManagerPreviewRuntime, /createAdminShellMarkup|route:|callback|data-admin-shell-region/);
   assert.doesNotMatch(manager, /<button|<form|aria-pressed|onclick=|addEventListener\(['"]click/);
@@ -158,6 +159,7 @@ test('keeps Component Manager viewport tooling bound to current WEX layout thres
   assert.doesNotMatch(componentManagerPreviewRuntime, /1440|1024|767/);
   assert.match(css, /\.component-manager__preview-frame/);
   assert.match(css, /\.component-manager__preview-frame[\s\S]*min-block-size: calc\(var\(--wex-space-64\) \* 16\)/);
+  assert.match(css, /\.component-manager__logo-allocation[\s\S]*inline-size: var\(--wex-space-64\);/);
   assert.doesNotMatch(manager, /<button|<form|data-component-(?:definition|fixture|registration)|Drawer|Data Card|Collection/);
   assert.match(componentManagerPreviewRuntime, /label: 'Logo'/);
   assert.match(headerFoundation, /@media \(max-width: 767px\)/);
@@ -182,6 +184,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationRuntime, /root\.dataset\.wexTheme/);
   assert.doesNotMatch(adminStationRuntime, /typeSystem|componentManager|postMessage|viewport|catalogue/i);
   assert.match(wexLayout, /\.wex-admin-shell \{/);
+  assert.match(headerFoundation, /\.wex-admin-shell__header\s*\{/);
+  assert.doesNotMatch(headerFoundation, /wex-admin-header/);
   assert.match(wexLayout, /min-block-size: 100vh/);
   assert.match(wexLayout, /var\(--wex-space-16\)/);
   assert.match(wexLayout, /var\(--wex-color-layer-0[12]\)/);

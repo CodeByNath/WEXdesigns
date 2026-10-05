@@ -186,7 +186,8 @@ input:focus-visible,
 
 .component-manager__viewport,
 .component-manager__viewport-options,
-.component-manager__viewport-canvas {
+.component-manager__viewport-canvas,
+.component-manager__logo-allocation {
   display: grid;
   min-width: 0;
 }
@@ -234,6 +235,12 @@ input:focus-visible,
   inline-size: 100%;
   min-block-size: calc(var(--wex-space-64) * 16);
   border: 0;
+}
+
+.component-manager__logo-allocation {
+  place-items: center;
+  inline-size: var(--wex-space-64);
+  block-size: var(--wex-space-64);
 }
 
 .colour-groups,

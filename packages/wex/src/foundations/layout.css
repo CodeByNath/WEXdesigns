@@ -73,10 +73,6 @@ blockquote {
 
 .wex-admin-shell__header {
   grid-area: header;
-  padding: var(--wex-space-16);
-  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  border-radius: var(--wex-radius-default);
-  background: var(--wex-color-layer-02);
 }
 
 .wex-admin-shell__sidebar {

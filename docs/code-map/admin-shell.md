@@ -36,7 +36,8 @@ persistence, adapters, schemas, or pluggable components.
 - Runtime route: [`apps/web-runtime/admin-station/index.html`](../../apps/web-runtime/admin-station/index.html)
 - Runtime entry resources: [`apps/web-runtime/src/admin-station.css`](../../apps/web-runtime/src/admin-station.css), [`apps/web-runtime/src/admin-station.js`](../../apps/web-runtime/src/admin-station.js)
 - Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
-- WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css)
+- WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css),
+  [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css)
 - Focused checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs), [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
 ## Dependency boundary
@@ -54,9 +55,9 @@ before an accepted piece is fitted here.
 ## Safe change routing
 
 - Change visual values or responsive behaviour through WEX authority.
-- Develop reusable component mechanics in Component Manager through separately
-  authorised component work. Header implementation must be accepted there
-  before a separately authorised Admin Station fitting phase.
+- Develop reusable Header children in Component Manager through separately
+  authorised component work. Header is already the Admin Station shell and is
+  never a Component Manager specimen.
 - Add navigation, records, permissions, adapters, persistence, or product
   behaviour only through separately authorised runtime work.
 

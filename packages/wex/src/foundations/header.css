@@ -1,6 +1,6 @@
-/* Admin Station Header shell allocation and responsive presentation. */
+/* Existing Admin Station Header shell presentation. */
 
-.wex-admin-header {
+.wex-admin-shell__header {
   display: grid;
   grid-template-columns: var(--wex-space-64) minmax(0, 1fr);
   align-items: stretch;
@@ -13,22 +13,8 @@
   color: var(--wex-color-text-primary);
 }
 
-.wex-admin-header__brand,
-.wex-admin-header__navigation {
-  min-inline-size: 0;
-}
-
-.wex-admin-header__brand {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  inline-size: var(--wex-space-64);
-  block-size: var(--wex-space-64);
-  color: var(--wex-color-text-accent);
-}
-
 @media (max-width: 767px) {
-  .wex-admin-header {
+  .wex-admin-shell__header {
     padding-inline: var(--wex-space-8);
   }
 }
