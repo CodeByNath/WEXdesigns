@@ -1,7 +1,7 @@
 # WEX Identity Portability
 
-Status: BUILDER ACTION REQUIRED
-Phase: 6 — Work Package: portable allocation lifecycle + identity targeting proof
+Status: AWAITING REVIEWER REVIEW
+Phase: 6 — Work Package submitted: portable allocation lifecycle + identity targeting proof
 
 ## Reviewer verdict
 
@@ -27,45 +27,30 @@ ADRs 0013–0019 as corrected by ADR 0016; platform-identity architecture;
 portable-identity-storage contract; dependency rules; current schemas; accepted
 local-folder adapter; accepted optional PostgreSQL adapter.
 
-## Included work
+## Builder handoff
 
-1. Extend the injected `WexIdentityStorageAdapter` boundary used by
-   `@weerax/identity` with the already-authorised reserve, transition, and
-   exact-lookup operations. Do not import a concrete adapter.
-2. Implement the minimum portable allocation lifecycle in
-   `@weerax/identity`: closed-family validation, CSPRNG allocation-ID
-   generation, reserve-before-assignment, assignment, retirement, immutable
-   placement/evidence, collision retry within a bounded safe policy, and exact
-   lookup by `(wexPlatformRegistrationId, allocationId)`.
-3. Prove the first authorised concrete shapes through the local-folder adapter:
-   one `WEXAM` Admin Manager root, then one `WEXAMH` direct child in parent
-   slot `header`; root must be assigned before child reservation.
-4. Add a focused identity-targeting proof showing a registered allocation can be
-   located/inspected/selected from its identity address directly. A test-only
-   fixture may represent the target. Do **not** create a permanent component
-   registry, host tree traversal layer, CSS selector protocol, or new shared-UI
-   abstraction unless existing repository authority already defines it.
-5. Update the relevant Code Map/repository documentation to the implemented
-   boundary only.
+Candidate: `feat/portable-identity-lifecycle` at
+`abb0a4c7c795f592077acaf4ee8273c8d724bb5d`, one commit ahead and not behind
+`main` `239d32c3f1e25489e159f9b016d3abf7ffa04ae5`.
 
-## Hard exclusions
+`@weerax/identity` now owns CSPRNG reserve, assign, retire, and exact-address
+lookup through the extended injected adapter boundary. It validates closed
+families and immutable evidence, enforces the first authorised root/header
+shape and assigned-root-before-child reservation, and bounds only evidenced
+address-collision retries. The targeting proof reads the durable address and
+selects a test-only target fixture directly. No permanent registry, mapping,
+host traversal, CSS selector protocol, concrete-adapter runtime import,
+binding, host/domain data, UI, or PostgreSQL-specific dependency was added.
 
-No Header presentation/source fitting; no Component Manager work; no host
-adapter/integration; no bindings/reverse platform lookup; no business data,
-permissions, callbacks, credentials, approval UI, PostgreSQL-specific runtime
-dependency, new allocation families, or speculative registry architecture.
+Changed files: `packages/identity/src/allocation.ts`, `bootstrap.ts`, `index.ts`,
+`test/allocation.test.mjs`, `docs/code-map/identity-station.md`, and
+`docs/architecture/repository-map.md` (410 insertions, 13 deletions).
 
-## Evidence
+Checks passed: focused `@weerax/identity` tests (14/14), focused
+`@weerax/adapters` tests (8/8), `pnpm audit:foundation`, `pnpm check` (45/45),
+and `git diff --check`.
 
-Run focused identity + local-adapter tests, collision/non-reuse and restart
-readback proof, root-before-child proof, targeting proof, `pnpm audit:foundation`,
-`pnpm check`, and `git diff --check`.
-
-Use one topic branch within the three-branch limit. Push the candidate, record
-exact remote SHA/diff/checks here, set `AWAITING REVIEWER REVIEW`, and stop.
-
-## Stop gate
-
-Stop as `BLOCKED — DECISION REQUIRED` if proving targeting requires a new
-permanent registry/mapping/package/application boundary not already authorised.
-Do not invent that architecture inside this phase.
+Remote heads: `main` at `239d32c3f1e25489e159f9b016d3abf7ffa04ae5`, candidate
+at `abb0a4c7c795f592077acaf4ee8273c8d724bb5d`, and
+`Project-work-instructions` at `50eefc6614c6fbd75b131c17d9ebfdafae80849f`.
+Stop for independent Reviewer inspection; do not begin a new phase.
