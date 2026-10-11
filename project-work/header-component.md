@@ -1,7 +1,7 @@
 # Header / Admin Station Shell
 
-Status: AWAITING REVIEWER REVIEW
-Phase: Admin Dashboard shell promoted — hosted verification pending
+Status: ACCEPTED
+Phase: Admin Dashboard shell promoted — review closed; host-specific interaction validation deferred
 
 ## Owner direction and authority
 One bounded work package: finish the existing WEX Admin Station dashboard shell so later approved components can be fitted without redesigning layout. This **supersedes the unimplemented Header-only correction**, incorporating its grid-row fix. Use the Owner's standalone HTML only as UI/behaviour reference, not code or design authority. First read `project-work/AGENTS.md`, `PROJECT-RULES.md`, relevant Code Maps, ADR 0021/0022 and current `main` source.
@@ -48,3 +48,8 @@ Candidate `2e7e1333fb9c39c5782df2795f898dea5bdd12f3` fast-forwarded onto `main` 
 Then factual Code Map metadata only (`docs/code-map/admin-shell.md`): final `main` `2fd8c718c2044c8965f85194fd150b55303420e0`. Pages Run 49 succeeded for `2e7e133`; hosted `admin-station/` returns 200 with the new Sidebar controls. Hosted responsive/focus behaviour was **not** browser-tested.
 
 Housekeeping: `feat/admin-dashboard-shell` was an ancestor of `main` and is deleted; remote heads are only `main` and `Project-work-instructions`. No divergences. Pin/unpin, scrim and motion tokens remain deferred. **Reviewer:** independently verify hosted behaviour, then accept or return a bounded correction.
+
+
+## Reviewer closeout — 11 October 2026
+
+**Verdict: Proceed with safeguards.** Owner explicitly accepts closeout of the new WEX Admin Dashboard shell, deferring remaining hosted responsive, focus and interaction verification until its first QSD `/studio/` host integration. This is a deferred verification obligation, **not** a claim that those runtime checks passed. Accepted `main` remains `2fd8c718c2044c8965f85194fd150b55303420e0`; Pages Run 49 succeeded for the deployed shell commit. No shell additions or fixes authorised by this closeout. Next separate work area: `project-work/qsd-studio-host.md`.
