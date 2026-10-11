@@ -1,16 +1,25 @@
 import { LogoDefinitionSchema, type LogoDefinitionInput } from '@weerax/schemas';
+import type { RenderElementDescription } from '../render-description.js';
 
-export interface LogoPresentation {
-  readonly className: string;
-  readonly label: string;
-}
+export type LogoRenderDescription = RenderElementDescription;
 
-/** Resolves a serializable Logo definition without browser or host behaviour. */
-export function createLogoPresentation(input: LogoDefinitionInput): LogoPresentation {
+/** Resolves Logo's complete structure without browser or host behaviour. */
+export function createLogoRenderDescription(input: LogoDefinitionInput): LogoRenderDescription {
   const logo = LogoDefinitionSchema.parse(input);
 
   return {
-    className: 'wex-logo',
-    label: logo.label,
+    kind: 'element',
+    tagName: 'span',
+    classNames: ['wex-logo', 'wex-type-navigation-default-semibold'],
+    attributes: { 'data-logo-capability': 'logo' },
+    children: [
+      {
+        kind: 'element',
+        tagName: 'span',
+        classNames: ['wex-logo__label'],
+        attributes: {},
+        children: [{ kind: 'text', value: logo.label }],
+      },
+    ],
   };
 }

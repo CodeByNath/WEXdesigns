@@ -13,6 +13,7 @@ const componentManagerPreviewRuntime = await readFile(new URL('../src/component-
 const adminStation = await readFile(new URL('../admin-station/index.html', import.meta.url), 'utf8');
 const adminStationCss = await readFile(new URL('../src/admin-station.css', import.meta.url), 'utf8');
 const adminStationRuntime = await readFile(new URL('../src/admin-station.js', import.meta.url), 'utf8');
+const renderDescriptionMaterializer = await readFile(new URL('../src/render-description.js', import.meta.url), 'utf8');
 const viteConfig = await readFile(new URL('../vite.config.ts', import.meta.url), 'utf8');
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
 const logoPresentation = await readFile(new URL('../../../packages/ui/src/components/logo.ts', import.meta.url), 'utf8');
@@ -119,8 +120,8 @@ test('provides an isolated Component Manager sandbox with the approved Logo cand
   assert.match(componentManagerPreview, /Component preview/);
   assert.match(componentManagerPreview, /data-component-manager-logo-preview/);
   assert.match(componentManagerPreview, /id="component-manager-logo-mount"/);
-  assert.match(componentManagerPreviewRuntime, /createLogoPresentation/);
-  assert.match(componentManagerPreviewRuntime, /element\.dataset\.logoCapability = 'logo'/);
+  assert.match(componentManagerPreviewRuntime, /createLogoRenderDescription/);
+  assert.match(componentManagerPreviewRuntime, /materializeRenderDescription/);
   assert.match(componentManagerPreview, /data-header-compartment="brand"/);
   assert.match(componentManagerPreview, /class="component-manager__logo-allocation"/);
   assert.doesNotMatch(componentManagerPreview, /Admin Shell|data-admin-shell-region/);
@@ -182,12 +183,15 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationRuntime, /localStorage\.getItem\('wex-theme'\)/);
   assert.match(adminStationRuntime, /matchMedia\('\(prefers-color-scheme: dark\)'\)/);
   assert.match(adminStationRuntime, /root\.dataset\.wexTheme/);
-  assert.match(adminStationRuntime, /createLogoPresentation/);
+  assert.match(adminStationRuntime, /createLogoRenderDescription/);
+  assert.match(adminStationRuntime, /materializeRenderDescription/);
   assert.match(adminStationRuntime, /brand\.dataset\.headerCompartment = 'brand'/);
-  assert.match(adminStationRuntime, /element\.dataset\.logoCapability = 'logo'/);
   assert.match(adminStationRuntime, /label: 'Logo'/);
   assert.doesNotMatch(adminStationRuntime, /typeSystem|componentManager|postMessage|viewport|catalogue/i);
   assert.doesNotMatch(adminStationRuntime, /route:|callback|identitySpace|WEXAMH|fetch\(/);
+  assert.match(renderDescriptionMaterializer, /document\.createElement\(description\.tagName\)/);
+  assert.match(renderDescriptionMaterializer, /document\.createTextNode\(description\.value\)/);
+  assert.doesNotMatch(renderDescriptionMaterializer, /Logo|Header|CompuZign|fixture/i);
   assert.match(wexLayout, /\.wex-admin-shell \{/);
   assert.match(headerFoundation, /\.wex-admin-shell__header\s*\{/);
   assert.match(headerFoundation, /\.wex-admin-shell__brand\s*\{/);
@@ -250,6 +254,7 @@ test('keeps the catalogue package and shared Button and Logo presentations platf
   assert.deepEqual(elementDirectories.sort(), ['color', 'grid-theory', 'icons', 'motion', 'pictograms', 'spacing', 'themes', 'typography']);
   assert.match(buttonPresentation, /createButtonPresentation/);
   assert.doesNotMatch(buttonPresentation, /document\.|aria-pressed|#[0-9a-f]{3,8}/i);
-  assert.match(logoPresentation, /createLogoPresentation/);
+  assert.match(logoPresentation, /createLogoRenderDescription/);
+  assert.match(logoPresentation, /wex-logo__label/);
   assert.doesNotMatch(logoPresentation, /document\.|callback|route|#[0-9a-f]{3,8}/i);
 });

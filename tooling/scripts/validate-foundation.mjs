@@ -138,7 +138,7 @@ assert(buttonSchema.includes('disabled: z.boolean().default(false)'), 'Button di
 const uiSource = resolve(root, 'packages/ui/src');
 const uiFiles = readdirSync(uiSource).filter((name) => !name.startsWith('.')).sort();
 assert(
-  JSON.stringify(uiFiles) === JSON.stringify(['components', 'index.ts']),
+  JSON.stringify(uiFiles) === JSON.stringify(['components', 'index.ts', 'render-description.ts']),
   'UI exceeds the authorized shared-component boundary',
 );
 const uiComponents = readdirSync(resolve(uiSource, 'components')).filter((name) => !name.startsWith('.'));
@@ -154,9 +154,12 @@ const logoSchema = read('packages/schemas/src/components/logo.schema.ts');
 assert(logoSchema.includes('LogoDefinitionSchema'), 'Logo schema contract is missing');
 assert(!logoSchema.includes('callback'), 'Logo schema serializes callbacks');
 const logoPresentation = read('packages/ui/src/components/logo.ts');
-assert(logoPresentation.includes('createLogoPresentation'), 'Logo presentation boundary is missing');
+assert(logoPresentation.includes('createLogoRenderDescription'), 'Logo render-description boundary is missing');
 assert(!logoPresentation.includes('document.'), 'Shared UI Logo depends on the browser runtime');
 assert(!logoPresentation.includes('callback'), 'Shared UI Logo serializes callbacks');
+const renderDescription = read('packages/ui/src/render-description.ts');
+assert(renderDescription.includes("kind: 'element'"), 'Shared UI render-description contract is missing');
+assert(!renderDescription.includes('document.'), 'Shared UI render description depends on the browser runtime');
 assert(!existsSync(resolve(root, 'packages/schemas/src/components/header.schema.ts')), 'Header remains a reusable schema');
 assert(!existsSync(resolve(root, 'packages/ui/src/components/header.ts')), 'Header remains a reusable UI component');
 const buttonFoundation = read('packages/wex/src/foundations/buttons.css');

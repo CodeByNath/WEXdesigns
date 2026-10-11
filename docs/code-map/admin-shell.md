@@ -2,17 +2,17 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-05
-- Last updated: 2026-10-05
-- Verified against: `origin/main` at
-  `ddbdf89208bf8bca077ae01cf4b86da1d03e77e5`.
+- Last visited: 2026-10-11
+- Last updated: 2026-10-11
+- Active candidate: Logo is fitted into Header's WEX-owned Brand compartment
+  via the shared render description authorised by ADR 0022.
 - Registration status: application/runtime layout; not a Shared UI component
   or Component Manager specimen.
 
 ### Recent work (newest first)
 
-- The Logo fitting work mounts the host-neutral Logo fixture into Header's
-  existing Brand compartment without adding identity-host or domain behaviour.
+- The Logo fitting work mounts the Shared UI-owned Logo structure through a
+  generic web materializer, without identity-host or domain behaviour.
 - Phase 4 moves the Admin Shell from Shared UI to the standalone Admin Station
   runtime route and restores Component Manager to an empty component sandbox.
 
@@ -38,6 +38,7 @@ persistence, adapters, schemas, or pluggable components.
 - Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css),
   [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css)
+- Generic web materializer: [`apps/web-runtime/src/render-description.js`](../../apps/web-runtime/src/render-description.js)
 - Focused checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs), [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
 ## Dependency boundary
@@ -45,7 +46,7 @@ persistence, adapters, schemas, or pluggable components.
 ```text
 Admin Station runtime layout
   -> WEX layout, spacing, colour, typography, geometry, responsive authority
-  -> future accepted Shared UI Lego pieces
+  -> accepted Shared UI Logo render description via generic materializer
   -> future authorised domain adapters
 ```
 

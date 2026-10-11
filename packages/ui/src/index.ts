@@ -3,6 +3,11 @@ export {
   type ButtonPresentation,
 } from './components/button.js';
 export {
-  createLogoPresentation,
-  type LogoPresentation,
+  createLogoRenderDescription,
+  type LogoRenderDescription,
 } from './components/logo.js';
+export type {
+  RenderDescription,
+  RenderElementDescription,
+  RenderTextDescription,
+} from './render-description.js';

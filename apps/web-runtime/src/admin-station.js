@@ -1,4 +1,5 @@
-import { createLogoPresentation } from '@weerax/ui';
+import { createLogoRenderDescription } from '@weerax/ui';
+import { materializeRenderDescription } from './render-description.js';
 
 const root = document.documentElement;
 const savedTheme = window.localStorage.getItem('wex-theme');
@@ -14,20 +15,10 @@ const logoFixture = { label: 'Logo' };
 
 function renderHeaderLogo() {
   if (!header) return;
-  const logo = createLogoPresentation(logoFixture);
   const brand = document.createElement('div');
   brand.className = 'wex-admin-shell__brand';
   brand.dataset.headerCompartment = 'brand';
-
-  const element = document.createElement('span');
-  element.className = `${logo.className} wex-type-navigation-default-semibold`;
-  element.dataset.logoCapability = 'logo';
-
-  const label = document.createElement('span');
-  label.className = 'wex-logo__label';
-  label.textContent = logo.label;
-  element.append(label);
-  brand.append(element);
+  brand.append(materializeRenderDescription(createLogoRenderDescription(logoFixture)));
   header.replaceChildren(brand);
 }
 

@@ -1,4 +1,5 @@
-import { createLogoPresentation } from '@weerax/ui';
+import { createLogoRenderDescription } from '@weerax/ui';
+import { materializeRenderDescription } from './render-description.js';
 
 const root = document.documentElement;
 /** @type {HTMLElement | null} */
@@ -13,16 +14,7 @@ const logoFixture = { label: 'Logo' };
 
 function renderLogoFixture() {
   if (!logoMount) return;
-  const logo = createLogoPresentation(logoFixture);
-  const element = document.createElement('span');
-  element.className = `${logo.className} wex-type-navigation-default-semibold`;
-  element.dataset.logoCapability = 'logo';
-
-  const label = document.createElement('span');
-  label.className = 'wex-logo__label';
-  label.textContent = logo.label;
-  element.append(label);
-  logoMount.replaceChildren(element);
+  logoMount.replaceChildren(materializeRenderDescription(createLogoRenderDescription(logoFixture)));
 }
 function resolveWexLayoutResponse() {
   if (!layout || !state) return;

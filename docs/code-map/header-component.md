@@ -3,16 +3,18 @@
 ## Current operating status
 
 - Created: 2026-10-05
-- Last visited: 2026-10-05
-- Last updated: 2026-10-05
-- Authority verified against `origin/main` at `ddbdf89208bf8bca077ae01cf4b86da1d03e77e5`.
-  ADR 0021 defines Header as the Admin Station shell and Logo as its first
-  reusable child; no Admin Station fitting is implemented.
+- Last visited: 2026-10-11
+- Last updated: 2026-10-11
+- Authority begins with ADRs 0021 and 0022. The active Logo candidate fits the
+  shared render description into Admin Station's Header Brand compartment.
 
 ### Recent work (newest first)
 
 - ADR 0021 supersedes the former reusable Header boundary. Header remains the
   Admin Station shell; Logo is the isolated Component Manager candidate.
+- ADR 0022 makes Shared UI the single author of Logo's structure; Component
+  Manager and Admin Station use the same description through a generic web
+  materializer.
 
 ## Purpose and scope
 
@@ -23,6 +25,7 @@ surface. It is navigation evidence; it does not restate their contracts.
 ## Governing authority and evidence routes
 
 - [ADR 0021: Header Shell and Logo Component Authority](../decisions/0021-header-shell-and-logo-component-authority.md)
+- [ADR 0022: Logo Render Description Boundary](../decisions/0022-logo-render-description-boundary.md)
 - [Atomic Composition](../architecture/atomic-composition.md)
 - [Authority Model](../architecture/authority-model.md)
 - [Dependency Rules](../architecture/dependency-rules.md)
@@ -49,7 +52,10 @@ The Header shell and Logo boundaries and focused verification are:
   [`packages/schemas/test/foundation.test.mjs`](../../packages/schemas/test/foundation.test.mjs)
 - Platform-neutral Logo presentation resolver and proof:
   [`packages/ui/src/components/logo.ts`](../../packages/ui/src/components/logo.ts),
+  [`packages/ui/src/render-description.ts`](../../packages/ui/src/render-description.ts),
   [`packages/ui/test/logo.test.mjs`](../../packages/ui/test/logo.test.mjs)
+- Generic web render-description materializer:
+  [`apps/web-runtime/src/render-description.js`](../../apps/web-runtime/src/render-description.js)
 - Isolated Logo validation surface:
   [`apps/web-runtime/component-manager/index.html`](../../apps/web-runtime/component-manager/index.html),
   [`apps/web-runtime/component-manager/preview.html`](../../apps/web-runtime/component-manager/preview.html),
@@ -67,9 +73,9 @@ The Header shell and Logo boundaries and focused verification are:
 ```text
 Header shell              -> Admin Station + WEX
 Logo definition           -> @weerax/schemas
-Logo presentation         -> @weerax/ui + @weerax/wex
-Component Manager fixture -> isolated Logo validation
-Admin Station             -> later fitting
+Logo render description   -> @weerax/ui + @weerax/wex
+Web materializer          -> platform DOM only
+Component Manager/Admin Station -> shared Logo description
 ```
 
 Header owns direct compartments only. Logo retains its internal presentation
@@ -81,8 +87,9 @@ and is never created through a local application ID.
 - Change Header shell ownership or Logo scope through ADR 0021.
 - Change WEX values through WEX authority, not a Logo definition.
 - Add Header children only through separate authority; do not infer them.
-- Fit into Admin Station or integrate WEX identity only in separately
-  authorised work.
+- Change Logo's structural render boundary through ADR 0022; do not extend the
+  materializer beyond this narrow contract without separate authority.
+- Integrate WEX identity only in separately authorised work.
 
 ## Related documents
 
