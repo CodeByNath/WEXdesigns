@@ -5,8 +5,9 @@
 - Created: 2026-10-05
 - Last visited: 2026-10-11
 - Last updated: 2026-10-11
-- Authority begins with ADRs 0021 and 0022. The active Logo candidate fits the
-  shared render description into Admin Station's Header Brand compartment.
+- Verified on `main` at `2266dc8c8a38a80b5567fdecaa8c0c65b05513d5`.
+  ADRs 0021 and 0022 define Header's Brand compartment and Logo's shared
+  render description now fitted within it.
 
 ### Recent work (newest first)
 

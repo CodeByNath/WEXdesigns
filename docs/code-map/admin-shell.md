@@ -4,8 +4,9 @@
 
 - Last visited: 2026-10-11
 - Last updated: 2026-10-11
-- Active candidate: Logo is fitted into Header's WEX-owned Brand compartment
-  via the shared render description authorised by ADR 0022.
+- Verified on `main` at `2266dc8c8a38a80b5567fdecaa8c0c65b05513d5`: Logo is
+  fitted into Header's WEX-owned Brand compartment via the shared render
+  description authorised by ADR 0022.
 - Registration status: application/runtime layout; not a Shared UI component
   or Component Manager specimen.
 
