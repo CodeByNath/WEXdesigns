@@ -1,6 +1,6 @@
 # Header / Admin Station Shell
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: Complete existing Admin Dashboard shell (Owner supersedes Header-only package)
 
 ## Owner direction and authority
@@ -19,5 +19,19 @@ Verified `main` baseline `046b9bf3dae1f645565019d01ac32e15df54b7d0`: `packages/w
 ## Hard boundaries
 Shells only; **no new components**, placeholder or real data, API routes, platform adapters, ID changes, WordPress/PHP, TAG CSS, navigation items, business rules, Body editor, inline style or arbitrary hardcoded visual values. Use existing WEX foundation tokens and presentation ownership. No speculative abstraction.
 
-## Evidence and handoff
-Test desktop, 1024px, 768px, <=767px and narrow mobile; light/dark; exact Header height; Logo preserved; Sidebar collapsed/expanded/drawer; body reflow/scroll; Footer fit; keyboard/focus/Escape/backdrop and no submenus. Run focused tests, `pnpm check`, `pnpm audit:foundation`, `git diff --check` and browser proof. Verify origin and branch capacity. Implement and push one bounded topic branch; update this file to `AWAITING REVIEWER REVIEW` with pushed SHA, checks, screenshots/observations and unresolved items. Stop; no self-approval.
+## Builder handoff
+Remote candidate: `origin/feat/admin-dashboard-shell` @ `2e7e1333fb9c39c5782df2795f898dea5bdd12f3` (one commit on `main` `046b9bf`). Origin verified as `CodeByNath/WEXdesigns`; remote heads were 2 before the push (now 3, at capacity).
+
+Changed: `layout.css` (shell grid/Sidebar/Main/Footer/drawer), `admin-station/index.html`, `admin-station.js`, new `admin-station-sidebar.js`, `catalogue.test.mjs`, `docs/code-map/admin-shell.md`. `header.css` unchanged.
+
+Checks: `pnpm check` (45/45 tasks), `pnpm audit:foundation`, `git diff --check` pass.
+
+Chrome (headless, DevTools protocol, local dev server): 176/176 assertions at 1440, 1024, 768, 767, 375 and 320px, light and dark. Header 64px, Brand 64×64 with Logo, rail 80↔264px with Main reflow, empty Footer 0px, Body scrolls independently with no page overflow. Compact: closed initially, trigger beside Brand, drawer under Header without moving Main, focus moves to close, Tab wraps, Escape/backdrop/close return focus, rest of page inert, resize past 768px closes. 2px focus-visible outline; Enter/Space operate controls; AX tree shows banner, sidebar, main, footer, named buttons. Screenshots/script are local scratch only.
+
+## Deviations / items for Reviewer
+- **Icons:** no WEX icon system found. Vendored three Heroicons 2.2.0 outline SVGs (MIT notice in HTML) inline; **no new dependency**. Say if a package dependency is preferred.
+- **Sidebar widths:** no WEX sizing authority exists. 80px and 264px are composed from spacing tokens as shell-local properties; confirm or ratify.
+- **No scrim or motion tokens exist:** backdrop is a transparent click-catcher; no transitions.
+- **Pin/unpin not implemented** (no specified behaviour); no persistence added.
+- Removed the ≤1024px Sidebar/Main stacking, which contradicted this package; updated its test and the old `Drawer` guard.
+- Code Map verification metadata refreshes on promotion. Not yet validated: live GitHub Pages (main-only).
