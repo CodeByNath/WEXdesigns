@@ -1,78 +1,23 @@
 # Header / Admin Station Shell
 
 Status: BUILDER ACTION REQUIRED
-Phase: Fix real Header shell presentation
+Phase: Complete existing Admin Dashboard shell (Owner supersedes Header-only package)
 
-## Owner direction
+## Owner direction and authority
+One bounded work package: finish the existing WEX Admin Station dashboard shell so later approved components can be fitted without redesigning layout. This **supersedes the unimplemented Header-only correction**, incorporating its grid-row fix. Use the Owner's standalone HTML only as UI/behaviour reference, not code or design authority. First read `project-work/AGENTS.md`, `PROJECT-RULES.md`, relevant Code Maps, ADR 0021/0022 and current `main` source.
 
-Fix the Admin Station shell starting with the **Header shell only**.
+Verified `main` baseline `046b9bf3dae1f645565019d01ac32e15df54b7d0`: `packages/wex/src/foundations/layout.css` already owns `.wex-admin-shell` with Header/Sidebar/Main/Footer; `header.css` owns real 64px Header/Brand geometry. Root grid lacks explicit rows and currently stacks Sidebar/Main at <=1024px. Preserve existing runtime at `apps/web-runtime/admin-station/`, existing Logo fitting/connection, and WEX theme.
 
-Current live/browser evidence shows the Header's 64px element sitting inside an
-implicitly stretched grid row, leaving a large empty band before Sidebar/Main.
-That presentation is not acceptable.
+## Single Builder work package
+1. **Root shell:** fix stretched Header grid row; make full-viewport, correctly tracked dashboard layout with Header above Sidebar + Main, existing Footer below, no unnecessary gaps. Preserve stable Body space and independent scrolling, including empty content.
+2. **Header shell:** preserve existing 64px Header, 64×64 Brand/Logo allocation and its working connection. No Header components or content added.
+3. **Sidebar shell:** layout-only shell, 80px collapsed and 264px expanded *reference targets*, subject to approved WEX sizing authority. Implement TypeScript/JS interaction using existing runtime conventions: toggle open/close; desktop pin/unpin if supported; width reflow to Main; focus/keyboard semantics. Do not create navigation menus/items or submenus.
+4. **Compact <=767px:** Sidebar closed initially; accessible trigger placement in Header shell; open as overlay drawer under Header without pushing Main; Escape, backdrop, focus return, scroll containment. Use established WEX drawer semantics where applicable.
+5. **Main/Body shell:** correctly sized responsive empty composition region; no sample data, editor or contents. **Footer:** preserve existing structural shell, avoid unwanted occupied height and viewport overflow.
+6. **Icons:** Owner selects **Heroicons SVG (called “WEX Heroic” by Owner)** as the shell-control icon source if no approved existing WEX icon system exists. Verify repository icon authority and dependency rules first. Use SVG for Sidebar/drawer controls only, with WEX-controlled size/colour/states; do not create a new icon component family or parallel visual-token system. If adopting Heroicons needs a new architectural/dependency decision, stop at that gate and report options.
 
-## Verified cause
+## Hard boundaries
+Shells only; **no new components**, placeholder or real data, API routes, platform adapters, ID changes, WordPress/PHP, TAG CSS, navigation items, business rules, Body editor, inline style or arbitrary hardcoded visual values. Use existing WEX foundation tokens and presentation ownership. No speculative abstraction.
 
-On `main` at
-`046b9bf3dae1f645565019d01ac32e15df54b7d0`:
-
-- `.wex-admin-shell` has `min-block-size: 100vh`;
-- it declares grid areas/columns but **no explicit grid-template-rows**;
-- Header itself correctly declares a 64px block size;
-- therefore free block-space is distributed across implicit grid rows instead
-  of keeping the Header row at its owned 64px height.
-
-## Builder work package — Header shell only
-
-1. Read current Admin Station runtime, WEX layout/header foundations, ADR 0021,
-   ADR 0022, and Header/Admin Shell Code Maps before editing.
-2. Correct the Admin Station grid row sizing so the Header row is exactly the
-   accepted 64px Header height and no stretched blank Header row remains.
-3. Keep `.wex-admin-shell__header` as the one real Header shell.
-4. Preserve the existing fitted Logo and Brand compartment; verify Logo is
-   visibly rendered inside the 64px × 64px Brand allocation.
-5. Preserve current Header background, bottom border, WEX values, and compact
-   padding rules unless a verified conflict requires correction.
-6. Do not redesign Sidebar, Main, or Footer. They may remain empty structural
-   regions in this package.
-7. Verify Header behaviour at:
-   - Large/Desktop
-   - 1024px
-   - 767px and below
-   - light and dark themes
-8. Capture browser evidence showing there is no large empty band between Header
-   and the next shell row.
-
-## Hard exclusions
-
-No Location, Search, Navigation System, Main Action, Sidebar redesign, Main
-redesign, Footer redesign, CompuZign adapter/API work, Identity Phase 7, new
-Header abstraction, or new WEX visual values.
-
-## Acceptance target
-
-The Admin Station should now begin visually as:
-
-```text
-┌──────────────────── Header — 64px ────────────────────┐
-│ [ Logo / Brand 64×64 ]                                │
-├───────────────────────────────────────────────────────┤
-│ next Admin Station row begins immediately             │
-```
-
-The Header must not occupy or reserve a stretched viewport-height row.
-
-Run focused tests, `pnpm check`, `pnpm audit:foundation`,
-`git diff --check`, and browser proof. Push one bounded topic branch, update
-this same work file to `AWAITING REVIEWER REVIEW` with exact SHA and evidence,
-then stop.
-
-## Owner-approved next target — queued, NOT YET AUTHORISED
-
-After the Header correction is independently reviewed and accepted, open the next phase in this same Header/Admin Station work area: **complete the existing WEX Admin Dashboard shell** using the Owner's TAG Tours empty-shell HTML only as a visual/behaviour reference. The Owner can supply the HTML to the Builder if useful; it is not architecture authority.
-
-Scope: reuse the existing `.wex-admin-shell`, 64px Header and connected Logo/Brand allocation; complete Sidebar and Main/Body **shells** only. The Sidebar has an 80px collapsed rail / 264px expanded reference fit (resolve through accepted WEX geometry), expand/collapse and desktop pin semantics only where approved, and a <=767px overlay drawer with dismissal, focus restoration and scroll containment. **No submenus.** Main/Body remains a correctly sized, independently scrollable **empty shell**. Preserve existing Footer authority. Reconcile current <=1024px stacked layout with the requested two-region dashboard without inventing WEX values.
-
-Hard exclusions: no new components, no sample or real data, placeholders, API routes, adapters, identity changes, WordPress/PHP/CSS copying, TAG business UI, Body editor, or local visual tokens/inline styling. Reuse WEX foundations, current runtime and relevant ADRs/Code Maps. Validate desktop/tablet/mobile, dark/light, keyboard/focus, sidebar behaviour and no Header stretching. Submit one bounded pushed Builder handover with checks and browser evidence; stop at architecture gaps.
-
-**Queueing this target does not change the current Phase or Status, authorise implementation, or close the Header correction.**
+## Evidence and handoff
+Test desktop, 1024px, 768px, <=767px and narrow mobile; light/dark; exact Header height; Logo preserved; Sidebar collapsed/expanded/drawer; body reflow/scroll; Footer fit; keyboard/focus/Escape/backdrop and no submenus. Run focused tests, `pnpm check`, `pnpm audit:foundation`, `git diff --check` and browser proof. Verify origin and branch capacity. Implement and push one bounded topic branch; update this file to `AWAITING REVIEWER REVIEW` with pushed SHA, checks, screenshots/observations and unresolved items. Stop; no self-approval.
