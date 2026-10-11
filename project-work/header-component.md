@@ -66,3 +66,13 @@ Run focused tests, `pnpm check`, `pnpm audit:foundation`,
 `git diff --check`, and browser proof. Push one bounded topic branch, update
 this same work file to `AWAITING REVIEWER REVIEW` with exact SHA and evidence,
 then stop.
+
+## Owner-approved next target — queued, NOT YET AUTHORISED
+
+After the Header correction is independently reviewed and accepted, open the next phase in this same Header/Admin Station work area: **complete the existing WEX Admin Dashboard shell** using the Owner's TAG Tours empty-shell HTML only as a visual/behaviour reference. The Owner can supply the HTML to the Builder if useful; it is not architecture authority.
+
+Scope: reuse the existing `.wex-admin-shell`, 64px Header and connected Logo/Brand allocation; complete Sidebar and Main/Body **shells** only. The Sidebar has an 80px collapsed rail / 264px expanded reference fit (resolve through accepted WEX geometry), expand/collapse and desktop pin semantics only where approved, and a <=767px overlay drawer with dismissal, focus restoration and scroll containment. **No submenus.** Main/Body remains a correctly sized, independently scrollable **empty shell**. Preserve existing Footer authority. Reconcile current <=1024px stacked layout with the requested two-region dashboard without inventing WEX values.
+
+Hard exclusions: no new components, no sample or real data, placeholders, API routes, adapters, identity changes, WordPress/PHP/CSS copying, TAG business UI, Body editor, or local visual tokens/inline styling. Reuse WEX foundations, current runtime and relevant ADRs/Code Maps. Validate desktop/tablet/mobile, dark/light, keyboard/focus, sidebar behaviour and no Header stretching. Submit one bounded pushed Builder handover with checks and browser evidence; stop at architecture gaps.
+
+**Queueing this target does not change the current Phase or Status, authorise implementation, or close the Header correction.**
