@@ -1,64 +1,78 @@
 # Header / Admin Station Shell
 
-Status: BLOCKED — DECISION REQUIRED
-Phase: Logo fitting exposed reusable-rendering boundary
+Status: BUILDER ACTION REQUIRED
+Phase: Resolve reusable rendering boundary, then complete Logo fitting
 
-## Reviewer verdict
+## Owner decision
 
-**Stop — architectural risk**
+Proceed with the minimum abstraction forced by the real Logo use case:
 
-The first end-to-end Logo fit exposed the exact boundary this proof was meant to test.
+**Shared UI owns one platform-neutral render description for Logo.**
+The consuming runtime owns only the generic platform materializer.
 
-The branch content shows Admin Station calling `createLogoPresentation()` but then
-re-authoring Logo internals itself:
+Required flow:
 
-- creates the Logo wrapper element;
-- applies the Logo class;
-- creates `.wex-logo__label`;
-- inserts the supplied label.
+```text
+Logo schema/value
+-> @weerax/ui Logo render description
+-> generic runtime materializer
+-> Header Brand compartment
+```
 
-Component Manager separately authors the same internal Logo structure.
+This must remain narrower than a page builder or general rendering framework.
 
-That violates the standing rule:
+## Architecture requirements
 
-- Shell owns compartments and placement.
-- **Component owns its own structure/mechanics.**
-- WEX owns presentation.
+1. Header remains the existing identified Admin Station shell
+   `.wex-admin-shell__header`.
+2. Header owns the Brand compartment and its 64px × 64px allocation.
+3. Logo owns its internal structure once in Shared UI.
+4. Component Manager and Admin Station must consume the **same** Logo render
+   description. Neither may re-author Logo-specific internal DOM.
+5. The runtime materializer must be generic and platform-facing only; it must
+   not know Logo, Header, business data, or CompuZign semantics.
+6. Schemas remain serializable and contain no DOM nodes, callbacks, component
+   constructors, CSS fragments, or application functions.
+7. `@weerax/ui` remains platform-neutral: no `document`, browser lifecycle,
+   host/domain ownership, API calls, persistence, or CompuZign imports.
+8. WEX continues to own presentation values/classes.
 
-If accepted, every consuming shell/runtime would have to know and reproduce a
-component's internal DOM structure. That is not a reusable component boundary.
+Record this accepted boundary in repository authority (normally a new ADR that
+builds on ADR 0021) before implementation.
 
-## Architecture decision required
+## Current candidate evidence
 
-Define the minimum reusable rendering boundary for a WEX Shared UI component so
-Logo can own its structure once while remaining platform-neutral and preserving
-the dependency rules.
+Existing topic branch: `feat/logo-header-fitting`
+Valid pushed SHA:
+`a05902646b9d4bcc4c6c4b93baa56cddb5bfed4e`.
 
-The solution must satisfy all of these:
+The previous handoff SHA was metadata error only.
 
-1. Admin Station owns only the Header Brand compartment and mounts Logo into it.
-2. Logo internal structure is authored once by the reusable component boundary,
-   not separately in Component Manager and Admin Station.
-3. WEX continues to own Logo presentation values/classes.
-4. Schemas remain serializable and contain no DOM/component constructors.
-5. `@weerax/ui` remains free of application/domain ownership and must obey the
-   current dependency rules.
-6. Do not broaden this into a generic page builder, renderer framework, or new
-   component catalogue abstraction. Solve only what the real Logo use case
-   forces.
+## Builder work package
 
-## Evidence issue
+On the same topic branch:
 
-The handoff records candidate SHA
-`a059026cf5475fcf2604235d7f76b54cf12e4b95`, but GitHub cannot resolve that
-commit SHA even though the remote topic branch exists. Before the next review,
-Builder must push/verify a resolvable exact remote SHA.
+1. add the minimum reusable render-description contract/type needed by Logo;
+2. refactor Logo so its internal wrapper/label structure is authored once in
+   Shared UI;
+3. add the minimum generic web-runtime materializer required to render that
+   description;
+4. make Component Manager and Admin Station both use that same Logo structure;
+5. preserve the existing Logo schema unless the render boundary genuinely
+   requires a separately justified contract change;
+6. keep the Header Brand compartment and 64×64 allocation owned by Header/WEX;
+7. correct stale Code Map text about Admin Station Logo fitting;
+8. re-run focused tests, `pnpm check`, `pnpm audit:foundation`,
+   `git diff --check`, and browser proof in Component Manager + Admin Station.
 
-The branch also contains stale Header Code Map text saying no Admin Station Logo
-fitting is implemented / Admin Station is "later fitting"; that must be corrected
-when the architecture decision is implemented.
+## Hard exclusions
 
-## Standing sequence remains locked
+No Location, Search, Navigation System, Main Action, Sidebar, Main, Footer,
+Global Components registration, real-host WEX Identity Phase 7, CompuZign
+adapter/API integration, generic page-builder/runtime framework, or new WEX
+visual values.
+
+## Standing sequence
 
 ```text
 Header Shell
@@ -68,4 +82,5 @@ Header Shell
 -> only then move to the next Header child
 ```
 
-Do not move to another Header child, identity-host work, or broader abstraction.
+Push one corrected exact SHA, update this same file to
+`AWAITING REVIEWER REVIEW`, and stop.
