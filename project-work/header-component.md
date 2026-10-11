@@ -1,7 +1,7 @@
 # Header / Admin Station Shell
 
-Status: BUILDER ACTION REQUIRED
-Phase: Resolve reusable rendering boundary, then complete Logo fitting
+Status: AWAITING REVIEWER REVIEW
+Phase: Builder package complete — independent review required
 
 ## Owner decision
 
@@ -42,11 +42,15 @@ builds on ADR 0021) before implementation.
 
 ## Current candidate evidence
 
-Existing topic branch: `feat/logo-header-fitting`
-Valid pushed SHA:
-`a05902646b9d4bcc4c6c4b93baa56cddb5bfed4e`.
+Review the exact remote candidate:
+`feat/logo-header-fitting` at
+`2266dc8c8a38a80b5567fdecaa8c0c65b05513d5`.
 
-The previous handoff SHA was metadata error only.
+The package records ADR 0022 before implementation, emits Logo's complete
+platform-neutral structure from Shared UI, and has both Component Manager and
+Admin Station materialize that same description through one generic web
+materializer. The Logo schema and Header's WEX-owned 64px × 64px Brand
+allocation are unchanged.
 
 ## Builder work package
 
@@ -85,11 +89,14 @@ Header Shell
 Push one corrected exact SHA, update this same file to
 `AWAITING REVIEWER REVIEW`, and stop.
 
-## Executor capability note — 2026-10-11
+## Builder evidence — 2026-10-11
 
-Keep Builder ownership and this status. This surface cannot complete the
-required checks or local browser proof: its Node 24 binary exits because
-`libsimdjson.33.dylib` is unavailable, while the only alternate local Node is
-v22.23.1 (below the repository's required v24). Resume the package on a
-surface with working Node 24 and a local web-preview browser; no implementation
-handoff has been pushed.
+- `pnpm --filter @weerax/ui test`, `pnpm --filter @weerax/web-runtime check`,
+  `pnpm check`, `pnpm audit:foundation`, and `git diff --check` pass.
+- Chrome proof used the exact local candidate at `127.0.0.1:5173/WEXdesigns/`:
+  Component Manager rendered Logo, its compact 767px preview, and dark theme;
+  Admin Station rendered Logo in Header and its keyboard skip link reached
+  `#admin-station-main`.
+- GitHub Pages remains main-only, so the local candidate preview is the
+  pre-promotion browser evidence. No Pages deployment or real-host integration
+  was performed.
