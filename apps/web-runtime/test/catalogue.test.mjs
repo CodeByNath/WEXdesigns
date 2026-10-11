@@ -13,6 +13,7 @@ const componentManagerPreviewRuntime = await readFile(new URL('../src/component-
 const adminStation = await readFile(new URL('../admin-station/index.html', import.meta.url), 'utf8');
 const adminStationCss = await readFile(new URL('../src/admin-station.css', import.meta.url), 'utf8');
 const adminStationRuntime = await readFile(new URL('../src/admin-station.js', import.meta.url), 'utf8');
+const adminStationSidebar = await readFile(new URL('../src/admin-station-sidebar.js', import.meta.url), 'utf8');
 const renderDescriptionMaterializer = await readFile(new URL('../src/render-description.js', import.meta.url), 'utf8');
 const viteConfig = await readFile(new URL('../vite.config.ts', import.meta.url), 'utf8');
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
@@ -176,7 +177,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStation, /href="\.\.\/src\/admin-station\.css"/);
   assert.match(adminStation, /src="\.\.\/src\/admin-station\.js"/);
   assert.doesNotMatch(adminStation, /catalogue\.css|src\/main\.js/);
-  assert.doesNotMatch(adminStation, /Drawer|Data Card|Collection|<nav|<form|record|permission|persist|adapter|schema/i);
+  assert.doesNotMatch(adminStation, /Data Card|Collection|<nav|<form|<ul|<li[ >]|record|permission|persist|adapter|schema|style=/i);
   assert.match(pageSource, /href="\.\.\/admin-station\/">Admin Station<\/a>/);
   assert.match(adminStationCss, /packages\/wex\/src\/index\.css/);
   assert.doesNotMatch(adminStationCss, /catalogue|component-manager|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
@@ -196,11 +197,12 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(headerFoundation, /\.wex-admin-shell__header\s*\{/);
   assert.match(headerFoundation, /\.wex-admin-shell__brand\s*\{/);
   assert.doesNotMatch(headerFoundation, /wex-admin-header/);
-  assert.match(wexLayout, /min-block-size: 100vh/);
+  assert.match(wexLayout, /block-size: 100dvh;/);
+  assert.match(wexLayout, /grid-template-rows: auto minmax\(0, 1fr\) auto;/);
   assert.match(wexLayout, /var\(--wex-space-16\)/);
   assert.match(wexLayout, /var\(--wex-color-layer-0[12]\)/);
   assert.match(wexLayout, /var\(--wex-radius-default\)/);
-  assert.match(wexLayout, /@media \(max-width: 1024px\)[\s\S]*\.wex-admin-shell/);
+  assert.doesNotMatch(wexLayout.match(/@media \(max-width: 1024px\)\s*\{[\s\S]*?\n\}/)?.[0] ?? '', /wex-admin-shell/);
   assert.doesNotMatch(wexLayout.slice(wexLayout.indexOf('.wex-admin-shell')), /(?:#[0-9a-f]{3,8}|rgb\(|hsl\()/i);
 });
 
@@ -257,4 +259,34 @@ test('keeps the catalogue package and shared Button and Logo presentations platf
   assert.match(logoPresentation, /createLogoRenderDescription/);
   assert.match(logoPresentation, /wex-logo__label/);
   assert.doesNotMatch(logoPresentation, /document\.|callback|route|#[0-9a-f]{3,8}/i);
+});
+
+test('provides the Admin Station Sidebar rail, compact drawer, and Heroicons shell controls without content', () => {
+  ['toggle', 'open', 'close', 'backdrop'].forEach((control) => assert.match(adminStation, new RegExp(`data-sidebar-control="${control}"`)));
+  assert.match(adminStation, /data-sidebar="collapsed" data-sidebar-drawer="closed"/);
+  assert.match(adminStation, /aria-controls="admin-station-sidebar"/);
+  assert.equal((adminStation.match(/<svg /g) ?? []).length, 3);
+  assert.equal((adminStation.match(/<svg [^>]*aria-hidden="true"/g) ?? []).length, 3);
+  assert.match(adminStation, /Heroicons[\s\S]*MIT License/);
+  assert.match(adminStation, /<main[^>]*><\/main>/);
+  assert.match(adminStation, /<footer[^>]*><\/footer>/);
+  assert.doesNotMatch(adminStation, /<a [^>]*href="(?!#admin-station-main)/);
+  assert.match(adminStationRuntime, /initSidebar\(shell\)/);
+  assert.match(adminStationRuntime, /header\.prepend\(brand\)/);
+  assert.match(adminStationSidebar, /COMPACT_QUERY = '\(max-width: 767px\)'/);
+  assert.match(adminStationSidebar, /matchMedia\(COMPACT_QUERY\)/);
+  assert.match(adminStationSidebar, /event\.key === 'Escape'/);
+  assert.match(adminStationSidebar, /returnFocus/);
+  assert.match(adminStationSidebar, /\.inert = true/);
+  assert.match(adminStationSidebar, /aria-expanded/);
+  assert.doesNotMatch(adminStationSidebar, /localStorage|fetch\(|route|callback|viewport|innerHTML/i);
+  assert.match(wexLayout, /--wex-admin-shell-sidebar-collapsed: calc\(var\(--wex-space-64\) \+ var\(--wex-space-16\)\);/);
+  assert.match(wexLayout, /--wex-admin-shell-sidebar-expanded: calc\(var\(--wex-space-64\) \* 4 \+ var\(--wex-space-8\)\);/);
+  const compact = wexLayout.slice(wexLayout.indexOf('@media (max-width: 767px)'));
+  assert.match(compact, /grid-template-areas:\s*"header"\s*"main"\s*"footer";/);
+  assert.match(compact, /position: absolute;[\s\S]*visibility: hidden;/);
+  assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__sidebar \{\s*visibility: visible;/);
+  assert.match(wexLayout, /\.wex-admin-shell__footer:not\(:empty\)/);
+  const shellRules = wexLayout.slice(wexLayout.indexOf('.wex-admin-shell')).replace(/@media \([^)]*\)/g, '');
+  assert.doesNotMatch(shellRules, /\d+px|transition|animation|rgba?\(|color-mix/);
 });

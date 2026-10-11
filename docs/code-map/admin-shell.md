@@ -12,6 +12,11 @@
 
 ### Recent work (newest first)
 
+- The dashboard shell work package gives the root grid explicit tracks and a
+  full-height layout, an empty collapsible Sidebar rail, a compact overlay
+  drawer, and Heroicons shell controls. Candidate on
+  `feat/admin-dashboard-shell`; verification metadata above refreshes on
+  promotion.
 - The Logo fitting work mounts the Shared UI-owned Logo structure through a
   generic web materializer, without identity-host or domain behaviour.
 - Phase 4 moves the Admin Shell from Shared UI to the standalone Admin Station
@@ -36,6 +41,7 @@ persistence, adapters, schemas, or pluggable components.
 
 - Runtime route: [`apps/web-runtime/admin-station/index.html`](../../apps/web-runtime/admin-station/index.html)
 - Runtime entry resources: [`apps/web-runtime/src/admin-station.css`](../../apps/web-runtime/src/admin-station.css), [`apps/web-runtime/src/admin-station.js`](../../apps/web-runtime/src/admin-station.js)
+- Sidebar rail and compact drawer interaction: [`apps/web-runtime/src/admin-station-sidebar.js`](../../apps/web-runtime/src/admin-station-sidebar.js)
 - Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css),
   [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css)

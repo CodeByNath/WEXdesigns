@@ -1,4 +1,5 @@
 import { createLogoRenderDescription } from '@weerax/ui';
+import { initSidebar } from './admin-station-sidebar.js';
 import { materializeRenderDescription } from './render-description.js';
 
 const root = document.documentElement;
@@ -19,7 +20,10 @@ function renderHeaderLogo() {
   brand.className = 'wex-admin-shell__brand';
   brand.dataset.headerCompartment = 'brand';
   brand.append(materializeRenderDescription(createLogoRenderDescription(logoFixture)));
-  header.replaceChildren(brand);
+  header.prepend(brand);
 }
 
 renderHeaderLogo();
+
+const shell = document.querySelector('[data-admin-station-layout]');
+if (shell instanceof HTMLElement) initSidebar(shell);

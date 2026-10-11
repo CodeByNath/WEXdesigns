@@ -51,17 +51,30 @@ blockquote {
 }
 
 .wex-admin-shell {
+  /* Sidebar reference targets, composed only from WEX spacing tokens. */
+  --wex-admin-shell-sidebar-collapsed: calc(var(--wex-space-64) + var(--wex-space-16));
+  --wex-admin-shell-sidebar-expanded: calc(var(--wex-space-64) * 4 + var(--wex-space-8));
+  --wex-admin-shell-sidebar-current: var(--wex-admin-shell-sidebar-collapsed);
+
+  position: relative;
   display: grid;
   grid-template-areas:
     "header header"
     "sidebar main"
     "footer footer";
-  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
-  gap: var(--wex-space-16);
+  grid-template-columns: var(--wex-admin-shell-sidebar-current) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
   width: 100%;
   min-width: 0;
-  min-block-size: 100vh;
+  block-size: 100vh;
+  block-size: 100dvh;
+  overflow: hidden;
+  background: var(--wex-color-layer-02);
   color: var(--wex-color-text-primary);
+}
+
+.wex-admin-shell[data-sidebar="expanded"] {
+  --wex-admin-shell-sidebar-current: var(--wex-admin-shell-sidebar-expanded);
 }
 
 .wex-admin-shell__header,
@@ -69,6 +82,7 @@ blockquote {
 .wex-admin-shell__sidebar,
 .wex-admin-shell__main {
   min-width: 0;
+  min-height: 0;
 }
 
 .wex-admin-shell__header {
@@ -77,25 +91,74 @@ blockquote {
 
 .wex-admin-shell__sidebar {
   grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: var(--wex-space-12);
   padding: var(--wex-space-16);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border-inline-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  background: var(--wex-color-layer-02);
+}
+
+.wex-admin-shell__sidebar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-controls {
+  justify-content: flex-end;
+}
+
+.wex-admin-shell__control {
+  display: grid;
+  place-items: center;
+  inline-size: var(--wex-space-40);
+  block-size: var(--wex-space-40);
+  padding: 0;
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   border-radius: var(--wex-radius-default);
-  background: var(--wex-color-layer-02);
+  background: transparent;
+  color: var(--wex-color-icon-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.wex-admin-shell__control:hover {
+  border-color: var(--wex-color-border-interactive);
+}
+
+.wex-admin-shell__control svg {
+  inline-size: var(--wex-space-24);
+  block-size: var(--wex-space-24);
+}
+
+.wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-toggle svg {
+  transform: rotate(180deg);
+}
+
+.wex-admin-shell__drawer-trigger,
+.wex-admin-shell__drawer-close,
+.wex-admin-shell__backdrop {
+  display: none;
 }
 
 .wex-admin-shell__main {
   grid-area: main;
   padding: var(--wex-space-16);
-  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  border-radius: var(--wex-radius-default);
+  overflow: auto;
   background: var(--wex-color-layer-01);
 }
 
+/* The Footer occupies space only when it holds content. */
 .wex-admin-shell__footer {
   grid-area: footer;
+}
+
+.wex-admin-shell__footer:not(:empty) {
   padding: var(--wex-space-16);
-  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  border-radius: var(--wex-radius-default);
+  border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-layer-02);
 }
 
@@ -114,20 +177,70 @@ blockquote {
   .wex-layout {
     max-width: 100%;
   }
-
-  .wex-admin-shell {
-    grid-template-areas:
-      "header"
-      "sidebar"
-      "main"
-      "footer";
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 
 @media (max-width: 767px) {
   .wex-layout {
     max-width: 100%;
     padding-inline: var(--wex-layout-page-padding-compact);
+  }
+
+  .wex-admin-shell,
+  .wex-admin-shell[data-sidebar="expanded"] {
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wex-admin-shell__main {
+    padding: var(--wex-space-8);
+  }
+
+  .wex-admin-shell__drawer-trigger {
+    display: grid;
+    grid-column: 2;
+    justify-self: start;
+    align-self: center;
+  }
+
+  /* Closed by default; opens as an overlay below the Header without moving Main. */
+  .wex-admin-shell__sidebar {
+    position: absolute;
+    z-index: 2;
+    inset-block: var(--wex-space-64) 0;
+    inset-inline-start: 0;
+    inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-space-64)));
+    visibility: hidden;
+  }
+
+  .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__sidebar {
+    visibility: visible;
+  }
+
+  .wex-admin-shell__sidebar-controls,
+  .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-controls {
+    justify-content: flex-end;
+  }
+
+  .wex-admin-shell__sidebar-toggle {
+    display: none;
+  }
+
+  .wex-admin-shell__drawer-close {
+    display: grid;
+  }
+
+  .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__backdrop {
+    position: absolute;
+    z-index: 1;
+    inset: var(--wex-space-64) 0 0;
+    display: block;
+    inline-size: 100%;
+  }
+
+  .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__main {
+    overflow: hidden;
   }
 }
