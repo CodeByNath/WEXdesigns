@@ -1,63 +1,68 @@
 # Header / Admin Station Shell
 
-Status: ACCEPTED
-Phase: Closed — Logo render boundary promoted and verified
+Status: BUILDER ACTION REQUIRED
+Phase: Fix real Header shell presentation
 
-## Reviewer verdict
+## Owner direction
 
-**Proceed**
+Fix the Admin Station shell starting with the **Header shell only**.
 
-Accepted candidate:
-`feat/logo-header-fitting` at
-`2266dc8c8a38a80b5567fdecaa8c0c65b05513d5`.
+Current live/browser evidence shows the Header's 64px element sitting inside an
+implicitly stretched grid row, leaving a large empty band before Sidebar/Main.
+That presentation is not acceptable.
 
-Reviewer verified against `main`
-`f438b0002ecac86d113639fba4464992052a673e`:
+## Verified cause
 
-- ADR 0022 records the narrow Logo render-description boundary;
-- Logo internal wrapper/label structure is authored once in `@weerax/ui`;
-- Component Manager and Admin Station both consume that same Logo description;
-- the web materializer knows only generic element/text descriptions and has no
-  Logo, Header, CompuZign, or business semantics;
-- Header remains the existing `.wex-admin-shell__header` shell;
-- Header/WEX retain ownership of the 64px × 64px Brand allocation;
-- Logo schema remains unchanged and serializable;
-- no DOM/browser API was introduced into `@weerax/ui`;
-- no Location, Search, Navigation System, Main Action, Identity Phase 7,
-  CompuZign integration, Global Components registration, or new WEX values
-  were introduced;
-- Code Maps now reflect the actual Logo fitting boundary;
-- candidate is three commits ahead and zero behind `main`;
-- GitHub exposes no commit-status contexts, so CI is not claimed.
+On `main` at
+`046b9bf3dae1f645565019d01ac32e15df54b7d0`:
 
-This is the proven first shell -> compartment -> component rendering path.
+- `.wex-admin-shell` has `min-block-size: 100vh`;
+- it declares grid areas/columns but **no explicit grid-template-rows**;
+- Header itself correctly declares a 64px block size;
+- therefore free block-space is distributed across implicit grid rows instead
+  of keeping the Header row at its owned 64px height.
 
-## Standing sequence
+## Builder work package — Header shell only
+
+1. Read current Admin Station runtime, WEX layout/header foundations, ADR 0021,
+   ADR 0022, and Header/Admin Shell Code Maps before editing.
+2. Correct the Admin Station grid row sizing so the Header row is exactly the
+   accepted 64px Header height and no stretched blank Header row remains.
+3. Keep `.wex-admin-shell__header` as the one real Header shell.
+4. Preserve the existing fitted Logo and Brand compartment; verify Logo is
+   visibly rendered inside the 64px × 64px Brand allocation.
+5. Preserve current Header background, bottom border, WEX values, and compact
+   padding rules unless a verified conflict requires correction.
+6. Do not redesign Sidebar, Main, or Footer. They may remain empty structural
+   regions in this package.
+7. Verify Header behaviour at:
+   - Large/Desktop
+   - 1024px
+   - 767px and below
+   - light and dark themes
+8. Capture browser evidence showing there is no large empty band between Header
+   and the next shell row.
+
+## Hard exclusions
+
+No Location, Search, Navigation System, Main Action, Sidebar redesign, Main
+redesign, Footer redesign, CompuZign adapter/API work, Identity Phase 7, new
+Header abstraction, or new WEX visual values.
+
+## Acceptance target
+
+The Admin Station should now begin visually as:
 
 ```text
-Header Shell
--> Logo Component
--> fit Logo into Header
--> record the proven shell/compartment/component pattern
--> only then move to the next Header child
+┌──────────────────── Header — 64px ────────────────────┐
+│ [ Logo / Brand 64×64 ]                                │
+├───────────────────────────────────────────────────────┤
+│ next Admin Station row begins immediately             │
 ```
 
-## Promotion closeout
+The Header must not occupy or reserve a stretched viewport-height row.
 
-The accepted candidate was fast-forwarded exactly to remote `main` at
-`2266dc8c8a38a80b5567fdecaa8c0c65b05513d5`. Commit
-`046b9bf3dae1f645565019d01ac32e15df54b7d0` follows only with factual Code
-Map verification metadata; it does not alter implementation or architecture.
-
-On the promoted candidate, `pnpm --filter @weerax/ui test`,
-`pnpm --filter @weerax/web-runtime check`, `pnpm check`,
-`pnpm audit:foundation`, and `git diff --check` passed. The accepted topic was
-proven an ancestor of `main`, then deleted locally and from `origin`.
-
-Remote heads after closeout: `main` at
-`046b9bf3dae1f645565019d01ac32e15df54b7d0` and
-`Project-work-instructions` holding this closeout record. No topic branch
-remains.
-
-Do **not** begin the next Header child, CompuZign adapter/API integration, or
-Identity Phase 7 in this promotion cycle.
+Run focused tests, `pnpm check`, `pnpm audit:foundation`,
+`git diff --check`, and browser proof. Push one bounded topic branch, update
+this same work file to `AWAITING REVIEWER REVIEW` with exact SHA and evidence,
+then stop.
