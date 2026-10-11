@@ -84,3 +84,12 @@ Header Shell
 
 Push one corrected exact SHA, update this same file to
 `AWAITING REVIEWER REVIEW`, and stop.
+
+## Executor capability note — 2026-10-11
+
+Keep Builder ownership and this status. This surface cannot complete the
+required checks or local browser proof: its Node 24 binary exits because
+`libsimdjson.33.dylib` is unavailable, while the only alternate local Node is
+v22.23.1 (below the repository's required v24). Resume the package on a
+surface with working Node 24 and a local web-preview browser; no implementation
+handoff has been pushed.
