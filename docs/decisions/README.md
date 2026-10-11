@@ -14,6 +14,7 @@ presentation authority and explicit domain ownership.
 - [0018: WEX Platform Registration Bootstrap Contract](0018-wex-platform-registration-bootstrap-contract.md)
 - [0019: WEX Identity Runtime Residence](0019-wex-identity-runtime-residence.md)
 - [0021: Header Shell and Logo Component Authority](0021-header-shell-and-logo-component-authority.md)
+- [0022: Logo Render Description Boundary](0022-logo-render-description-boundary.md)
 
 ## Superseded
 
