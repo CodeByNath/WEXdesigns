@@ -1,7 +1,7 @@
 # Header / Admin Station Shell
 
-Status: BUILDER ACTION REQUIRED
-Phase: Promote reviewed Admin Dashboard shell candidate with safeguards
+Status: AWAITING REVIEWER REVIEW
+Phase: Admin Dashboard shell promoted — hosted verification pending
 
 ## Owner direction and authority
 One bounded work package: finish the existing WEX Admin Station dashboard shell so later approved components can be fitted without redesigning layout. This **supersedes the unimplemented Header-only correction**, incorporating its grid-row fix. Use the Owner's standalone HTML only as UI/behaviour reference, not code or design authority. First read `project-work/AGENTS.md`, `PROJECT-RULES.md`, relevant Code Maps, ADR 0021/0022 and current `main` source.
@@ -41,3 +41,10 @@ Chrome (headless, DevTools protocol, local dev server): 176/176 assertions at 14
 Independently inspected pushed diff `main...2e7e1333fb9c39c5782df2795f898dea5bdd12f3` (6 files), especially shell CSS, DOM, Sidebar JS, existing Logo hook and tests. Candidate meets the bounded shell-only scope, with no data/menu items/components. **Builder-reported** checks and 176 browser assertions are not independently rerun; screenshot/script artifacts were not pushed. Heroicons are inline SVG shell controls with MIT attribution, not a package/icon-family implementation. Reference widths are composed from existing WEX spacing tokens; pin persistence/interaction was not implemented and is deferred, not represented as complete.
 
 **Next Builder action — promotion only, no feature expansion:** confirm origin, current source SHA, branch limits and checks; promote exactly the reviewed candidate through repository-approved main workflow, refresh Code Map verification metadata, verify pushed `main` SHA/CI/Pages; record any divergences and stop. Do not add pin behaviour, components, data, APIs or local styling. After deployment, Reviewer must independently verify hosted responsive/sidebar/focus behaviour before final acceptance; if runtime differs, return bounded correction. Existing separate work branch must be cleaned up only when safely verified under repository housekeeping rules.
+
+## Builder promotion record
+Candidate `2e7e1333fb9c39c5782df2795f898dea5bdd12f3` fast-forwarded onto `main` unchanged (exact tree match). `pnpm check`, `pnpm audit:foundation` and `git diff --check` rerun clean on that tree. Pushed with the Owner's explicit instruction.
+
+Then factual Code Map metadata only (`docs/code-map/admin-shell.md`): final `main` `2fd8c718c2044c8965f85194fd150b55303420e0`. Pages Run 49 succeeded for `2e7e133`; hosted `admin-station/` returns 200 with the new Sidebar controls. Hosted responsive/focus behaviour was **not** browser-tested.
+
+Housekeeping: `feat/admin-dashboard-shell` was an ancestor of `main` and is deleted; remote heads are only `main` and `Project-work-instructions`. No divergences. Pin/unpin, scrim and motion tokens remain deferred. **Reviewer:** independently verify hosted behaviour, then accept or return a bounded correction.
