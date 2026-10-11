@@ -4,9 +4,9 @@
 
 - Last visited: 2026-10-11
 - Last updated: 2026-10-11
-- Verified on `main` at `2266dc8c8a38a80b5567fdecaa8c0c65b05513d5`: Logo is
+- Verified on `main` at `2e7e1333fb9c39c5782df2795f898dea5bdd12f3`: Logo is
   fitted into Header's WEX-owned Brand compartment via the shared render
-  description authorised by ADR 0022.
+  description authorised by ADR 0022, within the dashboard shell below.
 - Registration status: application/runtime layout; not a Shared UI component
   or Component Manager specimen.
 
@@ -14,9 +14,7 @@
 
 - The dashboard shell work package gives the root grid explicit tracks and a
   full-height layout, an empty collapsible Sidebar rail, a compact overlay
-  drawer, and Heroicons shell controls. Candidate on
-  `feat/admin-dashboard-shell`; verification metadata above refreshes on
-  promotion.
+  drawer, and Heroicons shell controls, promoted to `main`.
 - The Logo fitting work mounts the Shared UI-owned Logo structure through a
   generic web materializer, without identity-host or domain behaviour.
 - Phase 4 moves the Admin Shell from Shared UI to the standalone Admin Station
