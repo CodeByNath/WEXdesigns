@@ -1,7 +1,7 @@
 # Header / Admin Station Shell
 
-Status: BUILDER ACTION REQUIRED
-Phase: Exact-SHA promotion and closeout — Logo render boundary
+Status: ACCEPTED
+Phase: Closed — Logo render boundary promoted and verified
 
 ## Reviewer verdict
 
@@ -42,24 +42,22 @@ Header Shell
 -> only then move to the next Header child
 ```
 
-## Builder closeout instruction
+## Promotion closeout
 
-Promote **only**
-`2266dc8c8a38a80b5567fdecaa8c0c65b05513d5`
-to `main` by fast-forward.
+The accepted candidate was fast-forwarded exactly to remote `main` at
+`2266dc8c8a38a80b5567fdecaa8c0c65b05513d5`. Commit
+`046b9bf3dae1f645565019d01ac32e15df54b7d0` follows only with factual Code
+Map verification metadata; it does not alter implementation or architecture.
 
-Then:
+On the promoted candidate, `pnpm --filter @weerax/ui test`,
+`pnpm --filter @weerax/web-runtime check`, `pnpm check`,
+`pnpm audit:foundation`, and `git diff --check` passed. The accepted topic was
+proven an ancestor of `main`, then deleted locally and from `origin`.
 
-1. verify remote `main` contains the exact accepted candidate tree;
-2. run `pnpm --filter @weerax/ui test`,
-   `pnpm --filter @weerax/web-runtime check`, `pnpm check`,
-   `pnpm audit:foundation`, and `git diff --check`;
-3. refresh only factual Code Map verification metadata if needed;
-4. prove the topic branch is fully contained, then delete
-   `feat/logo-header-fitting` locally and remotely;
-5. update this same work file to `ACCEPTED` with final `main` SHA,
-   checks, remote-head evidence, and branch deletion evidence;
-6. stop.
+Remote heads after closeout: `main` at
+`046b9bf3dae1f645565019d01ac32e15df54b7d0` and
+`Project-work-instructions` at `61df077abb71e4cfe6457ef1f15b6bceffe92d65`.
+No topic branch remains.
 
 Do **not** begin the next Header child, CompuZign adapter/API integration, or
 Identity Phase 7 in this promotion cycle.
