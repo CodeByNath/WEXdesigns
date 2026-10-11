@@ -56,8 +56,8 @@ proven an ancestor of `main`, then deleted locally and from `origin`.
 
 Remote heads after closeout: `main` at
 `046b9bf3dae1f645565019d01ac32e15df54b7d0` and
-`Project-work-instructions` at `61df077abb71e4cfe6457ef1f15b6bceffe92d65`.
-No topic branch remains.
+`Project-work-instructions` holding this closeout record. No topic branch
+remains.
 
 Do **not** begin the next Header child, CompuZign adapter/API integration, or
 Identity Phase 7 in this promotion cycle.
