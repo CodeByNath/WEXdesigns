@@ -1,7 +1,7 @@
 # QSD /studio WEX Host Integration
 
-Status: BUILDER ACTION REQUIRED
-Phase: 1 — WEX runtime mount and identity storage proof
+Status: BLOCKED — QSD HOST BUILDER HANDOFF REQUIRED
+Phase: 1 — Owner-approved host contract; QSD implementation prerequisite
 
 ## Owner authorization (11 October 2026)
 
@@ -26,3 +26,9 @@ No logo plug, Service/Category records, drawers, navigation data, old QSD UI/tem
 ## Handoff evidence
 
 Builder must provide exact WEX branch/SHA, changed paths, tests, independent auth/storage checks, route/asset contract, and host limitations. QSD live `/studio/` success cannot be claimed until separately authorised QSD integration/deployment and subsequent Reviewer runtime check (including responsive, keyboard and focus checks deferred from Dashboard review). Stop at Phase 1 boundary; no automatic next data plug.
+
+## Owner approval — 12 October 2026
+
+**Reviewer verdict: Proceed with safeguards.** Owner explicitly approved the QSD host integration contract; do not ask for a second architecture approval. QSD owns `/studio/` routing, protected delivery of independently built WEX assets, QSD-session access control, a private writable WEX identity-storage location, and an authorization/approval-gated host handshake. WEX owns its dashboard, all presentation, identity semantics, portable bootstrap and storage adapter logic. Preserve QSD `/station/`; no legacy QSD UI, no business records, no automatic plugs.
+
+**Next authorised actor: QSD Builder, under QSD's own project workflow.** Implement only the host-side seam after reading QSD repository authority and record exact pushed SHA, tests and staging evidence. WEX source work remains paused until a verified QSD host contract is available. No QSD source may be changed through this WEX coordination file. Reviewer then checks QSD proof, unblocks WEX Builder's bounded Phase 1, and verifies `/studio/` end-to-end. Existing WEX storage-init administrator approval remains a required runtime security action; this Owner approval is architecture approval, not blanket permission to create storage on an arbitrary host.
