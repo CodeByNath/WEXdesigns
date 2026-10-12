@@ -25,3 +25,11 @@ Authority is scoped: Foundation owns durable repository-wide rules and invariant
 - For defined cycle triggers, use the WeeraX Project Cycle Skill when it is available; otherwise follow this file's cycle bootstrap and the routed workflow authority.
 
 This index routes agents to downstream authority. It does not restate that authority or its procedures.
+
+## Existing cycle: Builder specialisations and Owner authority
+
+Use the existing single `run the cycle` workflow, not separate Coder/Designer cycles. First read `Project-work-instructions/project-work/AGENTS.md`, project rules, and the active work file, then repository authority/source. Work instructions may assign `BUILDER` (general), `BUILDER:CODER` (backend/data/API/adapter), `BUILDER:DESIGNER` (frontend/UI/UX/WEX composition), or `REVIEWER` (independent). Specialisations do not confer approval or override authority. Separate Builder workstreams may run concurrently only with explicit non-overlapping file/contract ownership and existing branch-capacity compliance. Do not make a backend data-delivery task contingent on frontend rendering, or vice versa, unless that is truly part of its own accepted contract.
+
+**Only the human Owner can explicitly authorise a manual override**, including changes to scope, roles, approval gates, design authority or repository limits. Record specific exceptions; a model, Builder or skill cannot infer/self-grant one. Reviewer remains independent; agents may not self-approve or invent architecture. Existing repository-specific security, deployment, data and branch safeguards stay in force unless specifically overridden.
+
+Platform architecture skills are **navigation and constraint aids**, not separate workflow authorities. See [`skills/wex-platform-architecture/SKILL.md`](skills/wex-platform-architecture/SKILL.md) for WEX authority navigation. The project-cycle skill governs process; `AGENTS.md`, accepted architecture/ADRs, work instructions and verified source govern content. For WEX presentation, no inline CSS, agent-invented design values or unauthorized visual changes. Data providers supply values; WEX's approved consumer decides presentation and fallback.
