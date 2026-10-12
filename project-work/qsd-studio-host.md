@@ -1,7 +1,7 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED
-Phase: WEX Phase 1 — connect existing WEX Dashboard to accepted QSD host
+Status: BUILDER ACTION REQUIRED — UI-only host mount; identity integration DEFERRED
+Phase: WEX Phase 1A — host-portable Dashboard mounting only; identity protocol gate deferred
 Actor: WEX Builder
 Reviewer verdict: Proceed with safeguards (2026-10-12)
 
@@ -16,7 +16,7 @@ Before work read `project-work/AGENTS.md`, `PROJECT-RULES.md`, WEX `docs/code-ma
 ## Bounded WEX Builder instruction
 1. Build WEX-owned, host-portable release assets for the **existing** Admin Dashboard Header/Sidebar/Main/Footer and empty Body to mount at `#qsd-studio-host`. Preserve working Logo fitting, existing presentation tokens, Heroicons shell controls and responsive/sidebar/focus behaviour. Do not redesign or create components.
 2. Adapt runtime asset URLs/base without GitHub Pages assumptions and emit a compatible, versioned manifest; document precisely how a QSD host installer can place the WEX output in its `studio-assets/` location. Do not modify QSD source from WEX.
-3. Provide only the narrow browser-to-host handshake needed for authorised storage/status/readback through approved WEX identity bootstrap/adapter contracts; keep ID semantics and domain ownership separate. A browser never writes host files directly. No automatic first initialization: explicit administrator approval is still required at runtime. If the QSD single-blob API cannot faithfully support existing WEX identity adapter contracts, STOP for Reviewer architecture decision rather than inventing a new persistence protocol.
+3. **Identity integration is explicitly DEFERRED in Phase 1A.** Do not call QSD's single-blob identity endpoints; do not implement a substitute lifecycle protocol, write identities, or trigger bootstrap/initialization. Mount the already-built visual Dashboard without identity storage. Preserve existing independent Logo *presentation fitting*, but do not connect a QSD business logo or identity. Record the separate architecture mismatch for a future approved adapter-capable host contract.
 4. Add deterministic checks for asset manifest, mount, unauthorized/error state, isolation/storage readback and compatibility with existing standalone WEX runtime. Run required WEX checks and record exact SHA, files and tests. No claim of QSD-host live success before authorized staging/browser validation.
 
 ## Exclusions / acceptance gates
@@ -26,3 +26,12 @@ QSD staging requires separate approval, administrator-set verified private `QSD_
 
 ## Builder handoff
 Use WEX governance for one permitted topic branch. Push candidate; verify remote SHA; update THIS work file to `AWAITING REVIEWER REVIEW` with changed scope, tests, manifest/build contract and unverified runtime items. Stop; Reviewer audits before integration/deployment.
+
+
+## Reviewer decision — identity API incompatibility (12 October 2026)
+
+**Verdict: Proceed with safeguards.** Builder correctly stopped before modifying source. Verified WEX accepted local-folder identity adapter contract declares `detectSpace`, `createSpace`, `readRegistration`, atomic `reserve`, guarded `transition`, and exact `lookup`, including locking/atomic filesystem writes. QSD `main` `69a106b` provides only status/init and a single `GET/PUT storage/identity` JSON blob with non-atomic `file_put_contents`; it cannot fulfill the accepted adapter contract. No source candidate exists; no implementation review is claimed.
+
+**Bounded decision:** defer WEX identity integration and explicitly *narrow* this phase to WEX-owned Dashboard bundle/manifest, `#qsd-studio-host` mounting, existing shell layout and Sidebar/focus responsiveness, and authorised-host presentation/error handling. Body empty; no persistence/identity calls, registration, bootstrap or WEX UI IDs. WEX does not inherit QSD presentation or WordPress query logic. This uses no new identity abstraction. Validate standalone WEX and host-mount fixture deterministically; record live runtime as pending. Builder can now proceed on existing approved Phase 1A scope, one topic branch, and hand off pushed SHA for review.
+
+**Future architecture gate (NOT authorised to implement):** a QSD host-side adapter-capable API must preserve WEX identity atomic reserve, transition, lookup and registration invariants with secure storage/host approval. Do not merely rename the blob API or implement client-side read/modify/write. Scope/accept that protocol through repository authority and a separate QSD phase before identity integration resumes; retain previous QSD private-root and staging-runtime gates. Do not modify QSD source here or deploy.
