@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED — Phase 1A promotion only
 Phase: WEX Phase 1A — host-portable Dashboard mounting only; identity protocol gate deferred
-Actor: WEX Builder
+Actor: WEX Builder — reviewed-source promotion
 Reviewer verdict: Proceed with safeguards (2026-10-12)
 
 ## Verified prerequisites and authority
@@ -47,3 +47,12 @@ Unverified and deliberately pending: actual authenticated QSD `/studio/` runtime
 **Bounded decision:** defer WEX identity integration and explicitly *narrow* this phase to WEX-owned Dashboard bundle/manifest, `#qsd-studio-host` mounting, existing shell layout and Sidebar/focus responsiveness, and authorised-host presentation/error handling. Body empty; no persistence/identity calls, registration, bootstrap or WEX UI IDs. WEX does not inherit QSD presentation or WordPress query logic. This uses no new identity abstraction. Validate standalone WEX and host-mount fixture deterministically; record live runtime as pending. Builder can now proceed on existing approved Phase 1A scope, one topic branch, and hand off pushed SHA for review.
 
 **Future architecture gate (NOT authorised to implement):** a QSD host-side adapter-capable API must preserve WEX identity atomic reserve, transition, lookup and registration invariants with secure storage/host approval. Do not merely rename the blob API or implement client-side read/modify/write. Scope/accept that protocol through repository authority and a separate QSD phase before identity integration resumes; retain previous QSD private-root and staging-runtime gates. Do not modify QSD source here or deploy.
+
+
+## Reviewer review — Phase 1A candidate (12 October 2026)
+
+**Verdict: Proceed with safeguards.** Independently inspected remote `feature/qsd-studio-host-phase-1a` at `8409ae51f74dfe9ffb22b1b284c2a44c1a5eba8f` against WEX `main` `2fd8c718c2044c8965f85194fd150b55303420e0`. Source adds a host-specific Vite manifest/relative bundle, mounts the existing empty Header/Sidebar/Main/Footer at `#qsd-studio-host`, reuses approved WEX theme/Logo/Sidebar presentation, and makes no QSD, business-data, identity or storage calls. Current independent evidence is pushed diff/source; build, 16 tests and browser checks are Builder-reported, not independently rerun. Actual QSD `/studio/` runtime remains untested.
+
+**Next Builder action — promotion only:** verify approved origin, remote HEADs (max three), exact candidate tree and required checks; promote ONLY the reviewed `8409ae5` source to WEX `main` through repo-approved fast-forward workflow, verify pushed main SHA and CI/Pages, record any factual Code Map metadata update separately if required. Verify topic branch is fully contained before safe cleanup; branch deletion remains an explicitly gated destructive action. Update THIS file with main SHA, CI result, remote head state and limitations; stop for Reviewer. No code expansion, staging deploy, QSD writes or identity/data plugs.
+
+**Runtime safeguard:** when QSD installation is separately authorized, verify asset loading, WEX-only styling, authenticated/unauthenticated access, existing shell responsiveness/keyboard/focus and missing-mount recovery; do not claim host runtime validated based on local fixtures. The incompatible QSD identity blob interface remains DEFERRED.
