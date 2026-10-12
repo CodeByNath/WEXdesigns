@@ -1,6 +1,6 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — UI-only host mount; identity integration DEFERRED
+Status: AWAITING REVIEWER REVIEW
 Phase: WEX Phase 1A — host-portable Dashboard mounting only; identity protocol gate deferred
 Actor: WEX Builder
 Reviewer verdict: Proceed with safeguards (2026-10-12)
@@ -24,8 +24,20 @@ No legacy QSD UI/CSS/templates/drawers, WordPress DB queries from WEX, QSD domai
 
 QSD staging requires separate approval, administrator-set verified private `QSD_STUDIO_PRIVATE_ROOT`, direct HTTP-denial checks, auth/REST and persistence tests. Deferred WEX responsive, keyboard and focus checks must run against actual integrated host before runtime acceptance.
 
-## Builder handoff
-Use WEX governance for one permitted topic branch. Push candidate; verify remote SHA; update THIS work file to `AWAITING REVIEWER REVIEW` with changed scope, tests, manifest/build contract and unverified runtime items. Stop; Reviewer audits before integration/deployment.
+## Builder handoff — 12 October 2026
+Candidate branch: `feature/qsd-studio-host-phase-1a`.
+Remote-verified candidate SHA: `8409ae51f74dfe9ffb22b1b284c2a44c1a5eba8f` (`feat(studio): add portable dashboard host assets`).
+
+Changed WEX scope only: reusable existing Admin Station presentation runtime and static empty shell; `#qsd-studio-host` mount/error states; relative-URL Vite asset bundle and versioned `manifest.json`; installer guidance at `apps/web-runtime/studio-host/README.md`; host manifest/isolation tests. The ordinary runtime test command now builds the host bundle first. No QSD source, business data, WordPress, identity/storage, API, bootstrap, IDs, or deployment changes.
+
+Evidence on this candidate tree:
+- `tsc -p apps/web-runtime/tsconfig.json --noEmit` — pass.
+- Vite standard build and `vite build --config apps/web-runtime/vite.studio-host.config.ts` — pass; manifest emits relative `assets/wex-studio-host-<hash>.js` and CSS paths.
+- `node --test apps/web-runtime/test/*.test.mjs` — 16/16 pass, including 3 host contract/isolation checks.
+- `node tooling/scripts/validate-foundation.mjs` — pass.
+- Local Chrome fixture: mount-only empty shell; keyboard skip focus; desktop Sidebar toggle; 375px drawer opens and Escape restores focus; missing mount shows no shell.
+
+Unverified and deliberately pending: actual authenticated QSD `/studio/` runtime, host installer execution, staging, deployment, QSD business-data and identity integration. Reviewer must audit the source candidate before any integration/deployment action.
 
 
 ## Reviewer decision — identity API incompatibility (12 October 2026)
