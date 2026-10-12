@@ -1,53 +1,24 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW
-Phase: WEX Phase 1A — host-portable Dashboard mounting only; identity protocol gate deferred
-Actor: Reviewer
-Builder closeout: 2026-10-12
+Status: ACCEPTED — Phase 1A source; QSD installation and identity deferred
+Phase: 1A source closeout
+Actor: Reviewer complete; separate host deployment authorization pending
 
-## Completed exact-SHA promotion
+## Owner contract
+QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns all presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons), and QSD owns route, session/capability gate, protected host storage and asset-delivery infrastructure. Dashboard Body is empty; no QSD records, components, business-logo plug or direct WordPress database usage.
 
-Reviewer-approved candidate `8409ae51f74dfe9ffb22b1b284c2a44c1a5eba8f`
-(`feature/qsd-studio-host-phase-1a`) was confirmed as a fast-forward descendant
-of prior `main` `2fd8c718c2044c8965f85194fd150b55303420e0`, with the
-candidate tree matching the reviewed source tree. It is now promoted to
-`main`.
+## Verified WEX implementation
+Reviewer verdict: **Proceed with safeguards** (12 October 2026).
+Builder candidate `feature/qsd-studio-host-phase-1a` = `8409ae51f74dfe9ffb22b1b284c2a44c1a5eba8f`, promoted to WEX `main`. Final main = `02bbfb0e05702ab2b8beee629d2c328644d91c15`; independent comparison confirms its only post-candidate change is factual `docs/code-map/admin-shell.md` routing metadata. GitHub Pages run `38207957530` succeeded at source SHA `8409ae5`. Builder reports TypeScript/Vite, 16 web-runtime tests, foundation validation and local responsive/keyboard fixtures passed; Reviewer inspected pushed source/diff, but did not rerun those tests or validate live QSD runtime.
 
-Final `main`: `02bbfb0e05702ab2b8beee629d2c328644d91c15`.
-Its parent is the promoted source SHA above; the only follow-up is factual
-Code Map routing metadata in `docs/code-map/admin-shell.md` for the new
-portable-host paths and verified-main SHA. It does not change product code,
-architecture, presentation, identity, storage, QSD interaction, or scope.
+WEX host bundle: `apps/web-runtime/vite.studio-host.config.ts` produces relative assets and versioned `manifest.json` (`entry`, `styles`, `version`). Installer instructions at `apps/web-runtime/studio-host/README.md`; entry mounts existing Dashboard at `#qsd-studio-host`, with no identity/storage/API calls. Standalone Admin Station remains. No QSD source was changed.
 
-The promotion-triggered GitHub Pages workflow `Deploy WEX index`, run
-`38207957530`, completed successfully for source SHA `8409ae5`.
+## Accepted QSD prerequisite
+QSD `main` = `69a106bc7be0de7325f3010664991356e0b89f18`, GitHub Actions `38192006500` successful. QSD host assets belong under its plugin `studio-assets/`; /studio permission gate and mount supplied by QSD. QSD staging, private-root configuration, asset installation and browser checks have NOT happened.
 
-## Builder evidence
+## Outstanding separate gates
+1. **Housekeeping:** WEX completed topic branch still exists. Fresh remote heads: `main`, `Project-work-instructions`, `feature/qsd-studio-host-phase-1a` (three-branch cap). Verify branch ancestry; request Owner authorization before destructive remote deletion. No new WEX topic branch until capacity is free.
+2. **QSD installation/staging:** requires separate Owner-authorized phase in QSD governance. Install WEX release assets without modifying /station, configure administrator-verified private `QSD_STUDIO_PRIVATE_ROOT` if identity bootstrap will later be used, and perform real HTTP denial, authenticated/unauthenticated access, asset, responsive, keyboard/focus and error checks. Do not automatically initialize storage.
+3. **Identity protocol:** DEFERRED. QSD single-blob GET/PUT storage/identity is not compatible with accepted WEX atomic reserve/transition/lookup adapter. No client-side read-modify-write workaround or new persistence protocol. Require an independently approved host adapter API before resuming identity. Each QSD business-data plug requires explicit separate Owner direction.
 
-- `tsc -p apps/web-runtime/tsconfig.json --noEmit` — pass.
-- Standard Vite build and Studio-host Vite build — pass; the host emits
-  relative manifest asset paths.
-- `node --test apps/web-runtime/test/*.test.mjs` — 16/16 pass, including
-  three host manifest/mount/isolation checks.
-- `node tooling/scripts/validate-foundation.mjs` — pass.
-- Local Chrome fixture evidence: empty host shell mount, visible keyboard skip
-  focus, desktop Sidebar toggle, 375px drawer with Escape focus return, and
-  missing-mount recovery with no shell.
-
-## Boundaries and Reviewer checks
-
-Remote heads: `main`, `Project-work-instructions`, and the completed
-topic branch only. The topic branch is fully contained in `main` but remains
-intentionally: deletion is destructive and was explicitly left gated by the
-Reviewer.
-
-No QSD source, QSD deployment, storage/API/identity/bootstrap call, business
-data, QSD ID, or staging/live QSD runtime action occurred. The current QSD
-single JSON-blob identity API remains incompatible with WEX's required atomic
-adapter lifecycle and is DEFERRED.
-
-Before closing/deleting the topic, Reviewer must confirm the final `main`
-metadata-only follow-up and independently decide the next state. Actual QSD
-`/studio/` host installation remains separately authorised work; its
-authenticated/unauthenticated behaviour, asset loading, WEX-only styling,
-responsiveness, focus, and missing-mount recovery have not been live-validated.
+**Next:** Reviewer closeout complete. No implementation or deployment authorised by this file; route separate QSD staging decision through QSD's own work cycle.
