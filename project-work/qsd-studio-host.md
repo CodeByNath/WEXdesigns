@@ -1,6 +1,6 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: ACCEPTED — Phase 1A source; QSD installation and identity deferred
+Status: ACCEPTED — Phase 1A; authorized branch cleanup pending
 Phase: 1A source closeout
 Actor: Reviewer complete; separate host deployment authorization pending
 
@@ -22,3 +22,9 @@ QSD `main` = `69a106bc7be0de7325f3010664991356e0b89f18`, GitHub Actions `3819200
 3. **Identity protocol:** DEFERRED. QSD single-blob GET/PUT storage/identity is not compatible with accepted WEX atomic reserve/transition/lookup adapter. No client-side read-modify-write workaround or new persistence protocol. Require an independently approved host adapter API before resuming identity. Each QSD business-data plug requires explicit separate Owner direction.
 
 **Next:** Reviewer closeout complete. No implementation or deployment authorised by this file; route separate QSD staging decision through QSD's own work cycle.
+
+
+## Owner-authorized branch retirement — 12 October 2026
+Owner explicitly approved closing completed WEX topic branch `feature/qsd-studio-host-phase-1a`. Reviewer freshly verified `main` `02bbfb0e05702ab2b8beee629d2c328644d91c15` is **ahead by one metadata-only commit** of topic `8409ae51f74dfe9ffb22b1b284c2a44c1a5eba8f` with `behind_by=0`: all topic commits are on main. Remote heads currently main, Project-work-instructions, and that topic only.
+
+**WEX Builder housekeeping only:** Verify remote repo and refs again; delete **only** remote `feature/qsd-studio-host-phase-1a` if it remains fully merged into `main`, then verify and record final two remote heads in this same file. This explicit Owner approval authorizes that deletion; no new topic branch, WEX source modification, deploy, QSD work, or next implementation phase. Stop after cleanup. Reviewer execution surface cannot delete remote Git refs, so this must run in Git-capable VS Code Builder.
