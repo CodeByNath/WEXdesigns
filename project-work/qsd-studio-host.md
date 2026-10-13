@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: REVIEWED — Phase 1B source accepted; promotion pending
+Status: BUILDER ACTION REQUIRED — Phase 1B accepted-source promotion
 Phase: 1B — QSD Profile Logo data consumption / presentation boundary
-Actor: REVIEWER complete — separate source promotion/host integration step pending
+Actor: BUILDER:DESIGNER — promotion and closeout only; Reviewer verifies afterwards
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -132,3 +132,8 @@ verdict only; do not promote or deploy this candidate.
 ## Independent Reviewer verdict — Phase 1B (2026-10-13)
 
 **Proceed with safeguards.** Reviewed pushed remote candidate `e6fead7f776ad32c09fd10d0c1fb8224c04053c3` against `main` baseline `18d670f4e918d2258ae63de3fa60c2a624a51105`, including correction diff after `3af9200f`. Verified Studio entry consumes preloaded `globalThis.wexStudioHostOptions` once, validates the closed `source -> imageUrl` binding, resolves HTTPS values to existing shared Logo image description, and keeps label-only fallback. Existing Header/Logo component boundaries retained; no QSD API, storage, identity, or deployment work in candidate. ADR 0023 and installer reference describe the seam. Builder reports web-runtime 18/18, foundation audit, and local browser fixture; Reviewer inspected remote source but did not independently rerun checks or verify real QSD image networking. Fixture URL `example.test` is not proof of actual QSD image delivery. **Accept the bounded WEX-side Phase 1B source candidate only.** Do not claim live integration; separately authorise/promote source under existing governance and coordinate QSD host preloading of approved values followed by deployed browser verification. No new Designer implementation requested. This review records verdict, not a merge or deployment.
+
+
+## Reviewer next-action assignment — accepted-source promotion (2026-10-13)
+
+**NEXT OWNER: BUILDER:DESIGNER (Codex), not QSD Coder.** Reviewer has completed and accepted Phase 1B source at `codex/logo-property-binding` SHA `e6fead7f776ad32c09fd10d0c1fb8224c04053c3` with safeguards. Independently rechecked remote GitHub comparison: against `main` `18d670f4e918d2258ae63de3fa60c2a624a51105`, candidate is **3 ahead, 0 behind**, 21 changed files. This assignment explicitly authorises **promotion of only that exact accepted candidate to WEX main**, following existing Git protection/check rules; no other source implementation, QSD edits, deployment or new phase. Verify remote heads and CI/protection, then use a non-force-push fast-forward merge or repository-required approved PR path. Stop and report any changed base, failing required checks, or protection gate; do not bypass. Verify final main SHA and successful WEX workflows. After proving candidate contained in main, perform safe remote topic deletion only if Git-capable and governance permits; otherwise report remaining branch for a capable executor without deleting unverified work. Record exact promotion/workflow/branch results in THIS file, set AWAITING REVIEWER REVIEW, and stop. Reviewer then closes Phase 1B; QSD actual Profile input injection is **separate integration validation**, using already completed QSD producer, not repeat backend construction. No source change is authorised by this coordination record except accepted candidate promotion.
