@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: ACCEPTED — Phase 1A closed
-Phase: 1A source closeout complete
-Actor: Reviewer complete; separate host-deployment authorisation pending
+Status: BUILDER ACTION REQUIRED — Phase 1B WEX Logo consumer
+Phase: 1B — QSD Profile Logo data consumption / presentation boundary
+Actor: BUILDER:DESIGNER (Codex + ChatGPT); Reviewer after pushed evidence
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -28,3 +28,14 @@ QSD `main` = `69a106bc7be0de7325f3010664991356e0b89f18`; GitHub Actions `3819200
 ## Owner governance update — 12 October 2026
 
 Owner-only manual overrides and exclusive WEX design-token authority are now recorded in project-work/AGENTS.md. Next requested integration is QSD authoritative Logo -> existing Header Brand/Logo allocation, backend Claude Code and frontend Codex/ChatGPT separated. No WEX UI modifications or fabricated platform IDs. This is future work, not a reopened WEX Phase 1A; QSD staging/browser/identity gates and QSD work-cycle authority apply. Any missing atomic adapter or placement contract requires Owner/Reviewer decision.
+
+
+## Phase 1B — Owner-authorised Designer handoff (2026-10-13)
+
+Owner authorises WEX UI work now. Phase 1A remains ACCEPTED and is not reopened. **Existing QSD data producer is separate:** `GET /qsd/v1/admin/account` pairs `nodes.profile.platform_id` (QSDASTP Profile identity) with `brand.logo_url`; Builder added a contract test at QSD topic `79d597c`, pending separate Reviewer acceptance. QSD data delivery must not be blocked on WEX rendering.
+
+**Designer objective:** Read WEX `AGENTS.md`, platform skill, accepted Logo/Header ADRs and schemas, code maps and actual `main` runtime. Determine the smallest approved WEX consumer-side change needed to pass externally supplied logo data to the existing Header Brand/Logo allocation while keeping Header ignorant of component internals. Use verified existing contracts, registered WEX values and browser/evidence checks. No new Logo/Header component, invented platform ID, QSD backend edit, inline CSS, locally chosen design values, direct DOM targeting or identity-storage workaround. WEX owns presentation/empty/error outcomes; QSD owns Profile/Logo data.
+
+**Architecture gate:** Existing Logo schema is `{label}` and ADR 0022 deliberately excludes an image URL; ADR 0021 says Brand is a layout allocation, not a registered external-data slot. If consuming external image data requires changing this accepted boundary, **STOP before implementation** and return a concise source-backed decision for Owner approval rather than inventing schema or bypassing it. Read-only audit is authorised immediately. Only once existing authority permits implementation, perform bounded UI-only work, run defined checks, push a topic branch (branch-cap preflight), report SHA/evidence and stop for Reviewer. No production deployment.
+
+**Reviewer correction:** Do not tell Owner Designer work is already authorised unless the current active work file actually says `BUILDER:DESIGNER`. Confirm branch status and active file each time before saying ready. This paragraph now supplies the explicit role and phase.
