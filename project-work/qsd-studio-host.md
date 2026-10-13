@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED — Phase 1B correction
 Phase: 1B — QSD Profile Logo data consumption / presentation boundary
-Actor: REVIEWER — independent review of pushed Designer candidate required
+Actor: BUILDER:DESIGNER — fix unconsumed host binding input; return to Reviewer
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -82,3 +82,8 @@ Evidence:
 Reviewer: inspect the remote diff and exact candidate tree, confirm the closed
 HTTPS/binding/render boundary and label compatibility, then issue the required
 verdict. Do not treat this handoff as deployment or QSD-host proof.
+
+
+## Reviewer — Phase 1B pushed candidate `3af9200f` (2026-10-13)
+
+**Verdict: Proceed with safeguards.** Inspected main-to-topic diff and actual source: ADR 0023, closed HTTPS image property, label fallback, shared Logo renderer and WEX containment styles stay within Logo-first scope. Builder reports 45/45 `pnpm check`, foundation audit and local Chrome label fixture; Reviewer has not independently rerun tests. **Correction required:** `apps/web-runtime/src/studio-host.js` defines `mountStudioHost(options)` but immediately calls `mountStudioHost()` with no options; the actual bundled entry supplies no host-provided data or callable integration handoff. Thus the Logo still cannot receive an external source through the loaded host bundle. In the same topic, implement the smallest stable host-to-WEX input invocation that genuinely reaches `logoImageBinding`/`sourceValues`, with test showing host-supplied valid URL renders and disconnected label remains; do not add QSD API calls, IDs, storage, global connector machinery or new presentation. Clarify README and source maps as necessary, fix stale candidate SHA references, run checks, push and report. Do not declare QSD live Logo connection in this WEX phase. Return for independent review; do not promote/deploy yet.
