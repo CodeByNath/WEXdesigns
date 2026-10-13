@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — Phase 1B WEX Logo consumer
+Status: AWAITING REVIEWER REVIEW
 Phase: 1B — QSD Profile Logo data consumption / presentation boundary
-Actor: BUILDER:DESIGNER (Codex + ChatGPT); Reviewer after pushed evidence
+Actor: REVIEWER — independent review of pushed Designer candidate required
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -48,3 +48,37 @@ Owner authorises WEX UI work now. Phase 1A remains ACCEPTED and is not reopened.
 **Builder: DESIGNER — authorised work in order:** (1) Read accepted ADR 0021/0022, Logo schema/UI resolver, Header allocation, runtime, maps and current tests. (2) Prepare the *smallest durable WEX authority change* needed for external image-valued property binding, recording a focused ADR amendment/new ADR and the exact schema/render/runtime boundary before changing the implementation. This Owner decision authorises that narrowly scoped amendment; no broad component-connector architecture. (3) Implement the approved-by-Owner Logo-first binding seam: external source value is resolved through an application/domain adapter boundary, the WEX component consumes the typed value, and WEX controls null/error/unsafe URL rendering according to its accepted presentation authority. (4) Test the existing `{label}` fixture compatibility, typed binding validation, Header independence, and disconnected/invalid/valid Logo values; run relevant build/checks. (5) Commit/push bounded topic SHA and report files/tests and remaining integration proof; hand off to independent Reviewer. Do **not** edit QSD source, invoke identity storage, deploy production or prebuild grid/carousel/repeater machinery.
 
 **Sequencing:** Prior architecture stop is resolved **for this Logo-first bounded change** by Owner approval. Changes to accepted ADR/schema still require the usual documentation and Reviewer evidence; Builder cannot self-accept. Larger generic collections (loops, grids, carousels) are future forcing cases, not this phase. If a new fundamental authority conflict beyond this narrowly approved Logo/image property-binding direction arises, stop and report it. Existing QSD API pairing is a separate producer-side contract; do not block data-producer acceptance on browser rendering.
+
+
+## Builder handoff — Phase 1B Logo-first binding (2026-10-13)
+
+Remote candidate: `origin/codex/logo-property-binding` @
+`3af9200f7311a4c33f2d4191df4d95d7a432377a`, published from the exact
+verified candidate tree. It is based on `origin/main`
+`18d670f4e918d2258ae63de3fa60c2a624a51105`.
+
+Delivered boundary:
+- ADR 0023 defines one serializable `source -> imageUrl` Logo binding, while
+  preserving the existing label-only `LogoDefinition`;
+- the application boundary resolves only validated HTTPS image values;
+- Shared UI renders the typed image inside the existing Brand allocation, or
+  retains the label fallback for disconnected, invalid, or unsafe values;
+- Header remains unaware of Logo internals; no QSD API, storage, identity,
+  deployment, business-data, or body change was made.
+
+Changed paths: Logo schema/UI/render-description/WEX presentation, Admin
+Station/Studio-host runtime seam, focused schema/UI/runtime tests, ADR 0023,
+and Header/Admin Shell Code Maps.
+
+Evidence:
+- `pnpm check` passed: 45/45 tasks;
+- `pnpm audit:foundation` and `git diff --check` passed;
+- focused schema, UI, web-runtime, invalid/disconnected/valid binding tests
+  passed;
+- local Chrome validation confirmed the existing Header Brand label fallback in
+  the Admin Station shell. The valid-image path is covered by the runtime test;
+  no QSD host/staging integration is in this repository or authorised phase.
+
+Reviewer: inspect the remote diff and exact candidate tree, confirm the closed
+HTTPS/binding/render boundary and label compatibility, then issue the required
+verdict. Do not treat this handoff as deployment or QSD-host proof.
