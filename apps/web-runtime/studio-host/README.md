@@ -31,6 +31,24 @@ The manifest has QSD's required shape:
 and enqueues them on QSD's authorised `/studio/` route. The bundle does not
 depend on a GitHub Pages base path.
 
+## Logo input boundary
+
+Before loading the WEX entry, the host may assign one serializable object to
+`globalThis.wexStudioHostOptions`. Its only currently approved shape is the
+closed Logo property binding and its already-resolved source values:
+
+```js
+globalThis.wexStudioHostOptions = {
+  logoImageBinding: { source: 'profile.logo', target: 'imageUrl' },
+  sourceValues: { 'profile.logo': 'https://media.example/logo.svg' },
+};
+```
+
+This is a one-time bundle-initialisation value, not a connector, event bus,
+host API, identity protocol, or data-loading mechanism. The host retains all
+record lookup and authorisation. The bundle accepts only a safe HTTPS URL; an
+absent, invalid, or unsafe value keeps the label-only Logo fallback.
+
 The `version` defaults to `0.0.0`, the current package release label. A
 release process may supply a different label with
 `WEX_STUDIO_ASSET_VERSION=<label>` when building; the filename hashes still
@@ -44,6 +62,6 @@ required atomic lifecycle operations. Do not add client-side read/modify/write
 behaviour, call QSD storage endpoints, or trigger QSD storage initialization
 from this bundle.
 
-`fixture.html` and `error-fixture.html` are local browser fixtures for the
-successful mount and missing-host-mount states. They are not QSD deployment
-files.
+`fixture.html` configures the approved Logo input and demonstrates the
+successful image mount; `error-fixture.html` covers the missing-host-mount
+state. They are local browser fixtures, not QSD deployment files.

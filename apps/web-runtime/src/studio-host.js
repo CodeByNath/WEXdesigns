@@ -4,6 +4,14 @@ import { mountAdminStation } from './admin-station-shell.js';
 import { resolveLogoImagePropertyBinding } from './logo-property-binding.js';
 
 const MOUNT_SELECTOR = '#qsd-studio-host';
+const HOST_OPTIONS_KEY = 'wexStudioHostOptions';
+
+function readStudioHostOptions() {
+  const options = Reflect.get(globalThis, HOST_OPTIONS_KEY);
+  return typeof options === 'object' && options !== null && !Array.isArray(options)
+    ? options
+    : {};
+}
 
 /**
  * Mounts the WEX-owned Dashboard only when the host has supplied its approved
@@ -34,4 +42,4 @@ export function mountStudioHost(options = {}) {
   }
 }
 
-mountStudioHost();
+mountStudioHost(readStudioHostOptions());

@@ -1,5 +1,14 @@
 <!doctype html>
 <html lang="en" data-wex-theme="light">
   <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>WEX Studio host fixture</title></head>
-  <body><div id="qsd-studio-host"></div><script type="module" src="../src/studio-host.js"></script></body>
+  <body>
+    <div id="qsd-studio-host"></div>
+    <script>
+      globalThis.wexStudioHostOptions = {
+        logoImageBinding: { source: 'profile.logo', target: 'imageUrl' },
+        sourceValues: { 'profile.logo': 'https://example.test/qsd-profile-logo.svg' },
+      };
+    </script>
+    <script type="module" src="../src/studio-host.js"></script>
+  </body>
 </html>

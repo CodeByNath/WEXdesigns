@@ -7,6 +7,7 @@ const source = await readFile(new URL('../src/studio-host.js', import.meta.url),
 const shell = await readFile(new URL('../src/admin-station-shell.js', import.meta.url), 'utf8');
 const config = await readFile(new URL('../vite.studio-host.config.ts', import.meta.url), 'utf8');
 const guide = await readFile(new URL('../studio-host/README.md', import.meta.url), 'utf8');
+const fixture = await readFile(new URL('../studio-host/fixture.html', import.meta.url), 'utf8');
 const output = new URL('../studio-host-dist/', import.meta.url);
 const manifest = JSON.parse(await readFile(new URL('manifest.json', output), 'utf8'));
 
@@ -31,8 +32,10 @@ test('emits the QSD-compatible, relative Studio asset manifest and files', async
   }));
 });
 
-test('mounts the existing empty Admin Station shell only at the QSD host mount', () => {
+test('mounts the existing empty Admin Station shell with the approved host Logo input', () => {
   assert.match(source, /#qsd-studio-host/);
+  assert.match(source, /wexStudioHostOptions/);
+  assert.match(source, /mountStudioHost\(readStudioHostOptions\(\)\)/);
   assert.match(source, /resolveLogoImagePropertyBinding/);
   assert.match(source, /mountAdminStation\(mount, \{ logoProperties \}\)/);
   assert.match(source, /mount-unavailable/);
@@ -42,11 +45,13 @@ test('mounts the existing empty Admin Station shell only at the QSD host mount',
   assert.match(shell, /<main[^>]*><\/main>/);
   assert.match(shell, /<footer[^>]*><\/footer>/);
   assert.doesNotMatch(shell, /<nav|<form|Data Card|Collection|record|permission|persist|adapter|schema/i);
+  assert.match(fixture, /globalThis\.wexStudioHostOptions/);
+  assert.match(fixture, /https:\/\/example\.test\/qsd-profile-logo\.svg/);
 });
 
 test('keeps the Studio bundle relative-path based and excludes the deferred host protocol', () => {
   assert.match(config, /base: '\.\/'/);
   assert.match(config, /manifest\.json/);
   assert.match(guide, /studio-assets/);
-  assert.doesNotMatch(source, /QSDStudioConfig|fetch\(|storage\/|bootstrapWexIdentity|createSpace\(/);
+  assert.doesNotMatch(source, /QSDStudioConfig|fetch\(|storage\/|bootstrapWexIdentity|createSpace\(|addEventListener|dispatchEvent/);
 });

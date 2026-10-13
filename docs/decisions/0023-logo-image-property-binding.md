@@ -29,6 +29,13 @@ malformed, or non-HTTPS values resolve to no image property and preserve the
 label-only Logo. WEX does not fetch, persist, identify, or otherwise interpret
 the external record.
 
+For the portable Studio bundle, that runtime boundary is one optional,
+serializable `globalThis.wexStudioHostOptions` value read once as the bundle
+initialises. It carries only the approved binding and already-resolved source
+values. It is not a host API, callback, event channel, global registry, or
+general connector mechanism; the host must resolve and authorise its record
+before assigning it.
+
 Shared UI consumes the resolved typed property, not the binding or source
 record. For a safe image URL it emits the existing Logo wrapper with a generic
 image render description using the Logo label as `alt` text. Otherwise it emits
