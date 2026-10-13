@@ -9,5 +9,6 @@ export {
 export type {
   RenderDescription,
   RenderElementDescription,
+  RenderImageDescription,
   RenderTextDescription,
 } from './render-description.js';

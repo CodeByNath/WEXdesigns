@@ -27,13 +27,14 @@ const shellMarkup = `
 /**
  * Mounts the existing empty WEX Admin Station shell into a host-provided node.
  * @param {HTMLElement} mount
+ * @param {object} [options]
  */
-export function mountAdminStation(mount) {
+export function mountAdminStation(mount, options = {}) {
   const template = mount.ownerDocument.createElement('template');
   template.innerHTML = shellMarkup;
   mount.replaceChildren(template.content.cloneNode(true));
   const shell = mount.querySelector('[data-admin-station-layout]');
   if (!(shell instanceof HTMLElement)) throw new Error('WEX Admin Station shell could not mount');
-  initialiseAdminStation(shell);
+  initialiseAdminStation(shell, options);
   return shell;
 }

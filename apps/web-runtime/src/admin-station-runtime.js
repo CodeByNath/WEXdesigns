@@ -11,8 +11,9 @@ const logoFixture = { label: 'Logo' };
  * shell. It owns presentation mechanics only; it has no host, identity, or
  * persistence behaviour.
  * @param {HTMLElement} shell
+ * @param {{ logoProperties?: import('@weerax/schemas').LogoPresentationPropertiesInput }} [options]
  */
-export function initialiseAdminStation(shell) {
+export function initialiseAdminStation(shell, options = {}) {
   const documentRoot = shell.ownerDocument.documentElement;
   const view = shell.ownerDocument.defaultView;
   if (view) {
@@ -26,7 +27,7 @@ export function initialiseAdminStation(shell) {
     const brand = shell.ownerDocument.createElement('div');
     brand.className = 'wex-admin-shell__brand';
     brand.dataset.headerCompartment = 'brand';
-    brand.append(materializeRenderDescription(createLogoRenderDescription(logoFixture)));
+    brand.append(materializeRenderDescription(createLogoRenderDescription(logoFixture, options.logoProperties)));
     header.prepend(brand);
   }
 

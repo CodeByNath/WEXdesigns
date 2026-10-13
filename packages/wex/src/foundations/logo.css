@@ -13,3 +13,10 @@
   overflow-wrap: anywhere;
   text-align: center;
 }
+
+.wex-logo__image {
+  display: block;
+  max-inline-size: 100%;
+  max-block-size: 100%;
+  object-fit: contain;
+}

@@ -3,14 +3,18 @@
 ## Current operating status
 
 - Created: 2026-10-05
-- Last visited: 2026-10-11
-- Last updated: 2026-10-11
-- Verified on `main` at `2266dc8c8a38a80b5567fdecaa8c0c65b05513d5`.
-  ADRs 0021 and 0022 define Header's Brand compartment and Logo's shared
-  render description now fitted within it.
+- Last visited: 2026-10-13
+- Last updated: 2026-10-13
+- Verified source candidate on `codex/logo-property-binding` at
+  `3971693e7b3468b9d48bf8011d9c1ac916de9994`. ADRs 0021–0023 define Header's
+  Brand compartment, Logo's shared render description, and the narrow
+  external-image property-binding boundary.
 
 ### Recent work (newest first)
 
+- ADR 0023 preserves Logo's label-only definition while allowing an
+  application-resolved, typed HTTPS image property through a closed,
+  serializable binding descriptor.
 - ADR 0021 supersedes the former reusable Header boundary. Header remains the
   Admin Station shell; Logo is the isolated Component Manager candidate.
 - ADR 0022 makes Shared UI the single author of Logo's structure; Component
@@ -27,6 +31,7 @@ surface. It is navigation evidence; it does not restate their contracts.
 
 - [ADR 0021: Header Shell and Logo Component Authority](../decisions/0021-header-shell-and-logo-component-authority.md)
 - [ADR 0022: Logo Render Description Boundary](../decisions/0022-logo-render-description-boundary.md)
+- [ADR 0023: Logo Image Property Binding](../decisions/0023-logo-image-property-binding.md)
 - [Atomic Composition](../architecture/atomic-composition.md)
 - [Authority Model](../architecture/authority-model.md)
 - [Dependency Rules](../architecture/dependency-rules.md)
@@ -57,6 +62,8 @@ The Header shell and Logo boundaries and focused verification are:
   [`packages/ui/test/logo.test.mjs`](../../packages/ui/test/logo.test.mjs)
 - Generic web render-description materializer:
   [`apps/web-runtime/src/render-description.js`](../../apps/web-runtime/src/render-description.js)
+- Application-side Logo property resolver:
+  [`apps/web-runtime/src/logo-property-binding.js`](../../apps/web-runtime/src/logo-property-binding.js)
 - Isolated Logo validation surface:
   [`apps/web-runtime/component-manager/index.html`](../../apps/web-runtime/component-manager/index.html),
   [`apps/web-runtime/component-manager/preview.html`](../../apps/web-runtime/component-manager/preview.html),
@@ -74,6 +81,7 @@ The Header shell and Logo boundaries and focused verification are:
 ```text
 Header shell              -> Admin Station + WEX
 Logo definition           -> @weerax/schemas
+Logo image binding        -> application/domain adapter
 Logo render description   -> @weerax/ui + @weerax/wex
 Web materializer          -> platform DOM only
 Component Manager/Admin Station -> shared Logo description
@@ -88,8 +96,9 @@ and is never created through a local application ID.
 - Change Header shell ownership or Logo scope through ADR 0021.
 - Change WEX values through WEX authority, not a Logo definition.
 - Add Header children only through separate authority; do not infer them.
-- Change Logo's structural render boundary through ADR 0022; do not extend the
-  materializer beyond this narrow contract without separate authority.
+- Change Logo's structural render boundary through ADRs 0022 and 0023; do not
+  extend the materializer beyond their narrow contract without separate
+  authority.
 - Integrate WEX identity only in separately authorised work.
 
 ## Related documents

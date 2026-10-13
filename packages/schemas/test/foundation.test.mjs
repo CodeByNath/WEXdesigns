@@ -6,6 +6,9 @@ import {
   ButtonVariantSchema,
   EntityIdentifierSchema,
   LogoDefinitionSchema,
+  LogoImagePropertyBindingSchema,
+  LogoImageUrlSchema,
+  LogoPresentationPropertiesSchema,
   getWexUiAllocationFamily,
   SemanticActionSchema,
   WexIdentityAllocationLookupSchema,
@@ -270,4 +273,21 @@ test('defines a strict, host-neutral Logo contract', () => {
   assert.equal(LogoDefinitionSchema.safeParse({ label: '' }).success, false);
   assert.equal(LogoDefinitionSchema.safeParse({ label: 'Logo', route: '/admin' }).success, false);
   assert.equal(LogoDefinitionSchema.safeParse({ label: 'Logo', callback: () => {} }).success, false);
+});
+
+test('defines a closed, serializable Logo image property binding', () => {
+  const binding = { source: 'host.logo', target: 'imageUrl' };
+  assert.deepEqual(LogoImagePropertyBindingSchema.parse(binding), binding);
+  assert.equal(LogoImagePropertyBindingSchema.safeParse({ ...binding, target: 'label' }).success, false);
+  assert.equal(LogoImagePropertyBindingSchema.safeParse({ ...binding, callback: () => {} }).success, false);
+  assert.equal(LogoImagePropertyBindingSchema.safeParse({ ...binding, platform: 'qsd' }).success, false);
+
+  assert.equal(LogoImageUrlSchema.safeParse('https://cdn.example.test/logo.svg').success, true);
+  assert.equal(LogoImageUrlSchema.safeParse('http://cdn.example.test/logo.svg').success, false);
+  assert.equal(LogoImageUrlSchema.safeParse('javascript:alert(1)').success, false);
+  assert.equal(LogoPresentationPropertiesSchema.safeParse({}).success, true);
+  assert.equal(
+    LogoPresentationPropertiesSchema.safeParse({ imageUrl: 'https://cdn.example.test/logo.svg' }).success,
+    true,
+  );
 });

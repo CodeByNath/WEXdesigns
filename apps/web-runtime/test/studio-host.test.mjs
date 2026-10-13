@@ -33,7 +33,8 @@ test('emits the QSD-compatible, relative Studio asset manifest and files', async
 
 test('mounts the existing empty Admin Station shell only at the QSD host mount', () => {
   assert.match(source, /#qsd-studio-host/);
-  assert.match(source, /mountAdminStation\(mount\)/);
+  assert.match(source, /resolveLogoImagePropertyBinding/);
+  assert.match(source, /mountAdminStation\(mount, \{ logoProperties \}\)/);
   assert.match(source, /mount-unavailable/);
   assert.match(source, /mount-error/);
   assert.match(shell, /data-admin-station-layout/);

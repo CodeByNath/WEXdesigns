@@ -53,6 +53,13 @@ export {
 } from './components/button.schema.js';
 export {
   LogoDefinitionSchema,
+  LogoImagePropertyBindingSchema,
+  LogoImageUrlSchema,
+  LogoPresentationPropertiesSchema,
   type LogoDefinition,
   type LogoDefinitionInput,
+  type LogoImagePropertyBinding,
+  type LogoImagePropertyBindingInput,
+  type LogoPresentationProperties,
+  type LogoPresentationPropertiesInput,
 } from './components/logo.schema.js';

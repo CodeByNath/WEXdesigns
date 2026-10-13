@@ -11,6 +11,8 @@ export function materializeRenderDescription(description) {
   const element = document.createElement(description.tagName);
   element.classList.add(...description.classNames);
   Object.entries(description.attributes).forEach(([name, value]) => element.setAttribute(name, value));
-  description.children.forEach((child) => element.append(materializeRenderDescription(child)));
+  if (description.kind === 'element') {
+    description.children.forEach((child) => element.append(materializeRenderDescription(child)));
+  }
   return element;
 }

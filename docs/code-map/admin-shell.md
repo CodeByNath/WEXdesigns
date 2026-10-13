@@ -2,16 +2,20 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-12
-- Last updated: 2026-10-12
-- Verified on `main` at `8409ae51f74dfe9ffb22b1b284c2a44c1a5eba8f`: the existing
-  Logo-fitted, empty Dashboard shell remains standalone, and the portable
-  Studio entry mounts that same presentation shell without host data or identity behaviour.
+- Last visited: 2026-10-13
+- Last updated: 2026-10-13
+- Verified source candidate on `codex/logo-property-binding` at
+  `3971693e7b3468b9d48bf8011d9c1ac916de9994`: the Logo-fitted, empty Dashboard
+  shell remains standalone, and the portable Studio entry exposes only the
+  narrow Logo image-property adapter seam.
 - Registration status: application/runtime layout; not a Shared UI component
   or Component Manager specimen.
 
 ### Recent work (newest first)
 
+- Logo image property binding accepts an application-resolved typed value at
+  the Studio/Admin Station boundary; it does not fetch QSD data or change the
+  empty Dashboard body.
 - Phase 1A adds a relative-asset Studio host entry that mounts this empty shell
   at a host-provided `#qsd-studio-host`; its manifest and installer guidance
   are WEX-owned. It makes no QSD, business-data, identity, storage, or
@@ -45,6 +49,8 @@ persistence, adapters, schemas, or pluggable components.
 - Runtime route: [`apps/web-runtime/admin-station/index.html`](../../apps/web-runtime/admin-station/index.html)
 - Runtime entry resources: [`apps/web-runtime/src/admin-station.css`](../../apps/web-runtime/src/admin-station.css), [`apps/web-runtime/src/admin-station.js`](../../apps/web-runtime/src/admin-station.js), [`apps/web-runtime/src/admin-station-runtime.js`](../../apps/web-runtime/src/admin-station-runtime.js), [`apps/web-runtime/src/admin-station-shell.js`](../../apps/web-runtime/src/admin-station-shell.js)
 - Portable Studio host: [`apps/web-runtime/src/studio-host.js`](../../apps/web-runtime/src/studio-host.js), [`apps/web-runtime/vite.studio-host.config.ts`](../../apps/web-runtime/vite.studio-host.config.ts), [`apps/web-runtime/studio-host/README.md`](../../apps/web-runtime/studio-host/README.md)
+- Logo image property adapter:
+  [`apps/web-runtime/src/logo-property-binding.js`](../../apps/web-runtime/src/logo-property-binding.js)
 - Sidebar rail and compact drawer interaction: [`apps/web-runtime/src/admin-station-sidebar.js`](../../apps/web-runtime/src/admin-station-sidebar.js)
 - Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css),
