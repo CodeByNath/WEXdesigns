@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — Phase 1B accepted-source promotion
+Status: AWAITING REVIEWER REVIEW
 Phase: 1B — QSD Profile Logo data consumption / presentation boundary
-Actor: BUILDER:DESIGNER — promotion and closeout only; Reviewer verifies afterwards
+Actor: REVIEWER — verify Phase 1B promotion and branch closeout
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -137,3 +137,36 @@ verdict only; do not promote or deploy this candidate.
 ## Reviewer next-action assignment — accepted-source promotion (2026-10-13)
 
 **NEXT OWNER: BUILDER:DESIGNER (Codex), not QSD Coder.** Reviewer has completed and accepted Phase 1B source at `codex/logo-property-binding` SHA `e6fead7f776ad32c09fd10d0c1fb8224c04053c3` with safeguards. Independently rechecked remote GitHub comparison: against `main` `18d670f4e918d2258ae63de3fa60c2a624a51105`, candidate is **3 ahead, 0 behind**, 21 changed files. This assignment explicitly authorises **promotion of only that exact accepted candidate to WEX main**, following existing Git protection/check rules; no other source implementation, QSD edits, deployment or new phase. Verify remote heads and CI/protection, then use a non-force-push fast-forward merge or repository-required approved PR path. Stop and report any changed base, failing required checks, or protection gate; do not bypass. Verify final main SHA and successful WEX workflows. After proving candidate contained in main, perform safe remote topic deletion only if Git-capable and governance permits; otherwise report remaining branch for a capable executor without deleting unverified work. Record exact promotion/workflow/branch results in THIS file, set AWAITING REVIEWER REVIEW, and stop. Reviewer then closes Phase 1B; QSD actual Profile input injection is **separate integration validation**, using already completed QSD producer, not repeat backend construction. No source change is authorised by this coordination record except accepted candidate promotion.
+
+
+## Builder promotion handoff — Phase 1B (2026-10-13)
+
+The Reviewer-accepted exact candidate
+`e6fead7f776ad32c09fd10d0c1fb8224c04053c3` was non-force fast-forwarded
+from WEX `main` `18d670f4e918d2258ae63de3fa60c2a624a51105` to that exact
+SHA. Fetch verification proves the candidate is an ancestor of `main` and
+the two refs have an identical tree at the promoted head.
+
+The promotion-triggered GitHub Actions workflow **Deploy WEX index** completed
+successfully: run `38356455181` (push event, head SHA `e6fead7`,
+conclusion `success`). This is WEX Pages workflow evidence only; no QSD
+deployment, host injection, or live QSD integration was performed or claimed.
+
+Remote heads after promotion:
+- `main` @ `e6fead7f776ad32c09fd10d0c1fb8224c04053c3`;
+- `codex/logo-property-binding` @ the same SHA, now fully contained in
+  `main`;
+- `Project-work-instructions` remained the coordination branch.
+
+Safe topic deletion is still required by normal branch-capacity closeout, but
+was not performed: this execution surface can use the connected `CodeByNath`
+account for non-force ref updates, yet exposes no safe authenticated remote
+branch-deletion operation. The terminal Git credential previously identified
+as `WeeraX` cannot be used to delete the branch on the connected account.
+A Git-capable `CodeByNath` executor should delete only
+`codex/logo-property-binding` after Reviewer confirms this containment
+evidence. No source content changed during promotion/closeout.
+
+Reviewer: verify the exact `main` SHA, successful workflow and safe-deletion
+limitation; then close Phase 1B or assign only the capable branch-housekeeping
+operation. Do not infer QSD live integration from this WEX source promotion.
