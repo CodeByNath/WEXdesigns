@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW — Phase 1B branch housekeeping complete
+Status: ACCEPTED — Phase 1B WEX Logo binding and branch closeout complete
 Phase: 1B — QSD Profile Logo data consumption / presentation boundary
-Actor: REVIEWER — verify topic-branch deletion and close Phase 1B
+Actor: REVIEWER complete — no WEX Builder work pending
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -198,3 +198,8 @@ Evidence:
 
 Reviewer: verify the remote heads and close Phase 1B. QSD host injection and
 staging verification remain a separately governed integration phase.
+
+
+## Reviewer final closeout — 2026-10-13
+
+Independently verified GitHub remote heads: only `main` @ `e6fead7f776ad32c09fd10d0c1fb8224c04053c3` and `Project-work-instructions`; `codex/logo-property-binding` is absent. Previously verified WEX Pages run `38356455181` succeeded on the accepted exact main SHA. **Phase 1B accepted and closed for WEX source, promotion and topic housekeeping.** There is NO pending Codex or WEX Builder task. This does not establish that QSD's real Profile logo is wired into `/studio` or visible in staging. **NEXT OWNER: Reviewer/coordinator** to verify QSD repository's current integration authority and, only if separately authorised there, route actual host input/staging validation to its assigned actor. Do not rebuild QSD's already established data producer; do not reopen Phase 1B or begin Dashboard refinements before live Logo is verified.
