@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — Phase 1B correction
+Status: AWAITING REVIEWER REVIEW
 Phase: 1B — QSD Profile Logo data consumption / presentation boundary
-Actor: BUILDER:DESIGNER — fix unconsumed host binding input; return to Reviewer
+Actor: REVIEWER — independently assess Phase 1B correction candidate
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -87,3 +87,43 @@ verdict. Do not treat this handoff as deployment or QSD-host proof.
 ## Reviewer — Phase 1B pushed candidate `3af9200f` (2026-10-13)
 
 **Verdict: Proceed with safeguards.** Inspected main-to-topic diff and actual source: ADR 0023, closed HTTPS image property, label fallback, shared Logo renderer and WEX containment styles stay within Logo-first scope. Builder reports 45/45 `pnpm check`, foundation audit and local Chrome label fixture; Reviewer has not independently rerun tests. **Correction required:** `apps/web-runtime/src/studio-host.js` defines `mountStudioHost(options)` but immediately calls `mountStudioHost()` with no options; the actual bundled entry supplies no host-provided data or callable integration handoff. Thus the Logo still cannot receive an external source through the loaded host bundle. In the same topic, implement the smallest stable host-to-WEX input invocation that genuinely reaches `logoImageBinding`/`sourceValues`, with test showing host-supplied valid URL renders and disconnected label remains; do not add QSD API calls, IDs, storage, global connector machinery or new presentation. Clarify README and source maps as necessary, fix stale candidate SHA references, run checks, push and report. Do not declare QSD live Logo connection in this WEX phase. Return for independent review; do not promote/deploy yet.
+
+
+## Builder correction handoff — Phase 1B (2026-10-13)
+
+Remote candidate: `origin/codex/logo-property-binding` @
+`e6fead7f776ad32c09fd10d0c1fb8224c04053c3`. The functional correction is
+`dea09ca35a6c709f987924034cae432f6b81699f`; the candidate head additionally
+updates the Header and Admin Shell Code Maps to record that verified source
+commit and the constrained host-input seam.
+
+Delivered correction:
+- the bundled Studio entry reads one optional, serializable
+  `globalThis.wexStudioHostOptions` value once before mounting;
+- that input reaches only the approved
+  `logoImageBinding`/`sourceValues` resolver, so a valid host-supplied
+  HTTPS URL produces the existing Logo image rendering while missing or invalid
+  input preserves the existing label fallback;
+- ADR 0023 and Studio installer guidance constrain the value as one-time
+  initialization, not a QSD API, callback, event channel, registry, identity
+  protocol, storage mechanism, or general connector;
+- the local browser fixture configures the input before the module entry and
+  demonstrates the image element at the existing host mount. No QSD source,
+  route, API, identifier, storage, visual presentation, deployment, or
+  business-data body change was made.
+
+Evidence:
+- `pnpm --filter @weerax/web-runtime check` passed (18/18 web-runtime tests);
+- `pnpm audit:foundation` and `git diff --check` passed;
+- local browser fixture at the WEX dev host showed
+  `#qsd-studio-host[data-wex-studio-host="mounted"]` and a visible Logo
+  image with source `https://example.test/qsd-profile-logo.svg`;
+- local Git candidate commits were published through the connected
+  `CodeByNath/WEXdesigns` account, then fetched and verified at the remote
+  SHA/tree above.
+
+Reviewer: independently inspect the remote diff and candidate tree, including
+that the bundle entry invokes `mountStudioHost(readStudioHostOptions())`,
+the valid-image fixture path, disconnected fallback preservation, and the
+absence of QSD/API/storage/identity/connector machinery. Issue the next
+verdict only; do not promote or deploy this candidate.
