@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — Phase 1C Logo visual failure reproduction
+Status: BLOCKED — Phase 1C deployed Logo runtime investigation needs host-side evidence
 Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: BUILDER:DESIGNER — WEX consumer-side verification/fix only
+Actor: REVIEWER coordination — Designer stopped at host integration gate
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -213,3 +213,9 @@ Independently verified GitHub remote heads: only `main` @ `e6fead7f776ad32c09fd1
 **BUILDER:DESIGNER instruction — one bounded package:** (1) Identify/reproduce the precise WEX Dashboard URL/entry and inspect computed Logo DOM; distinguish standalone Pages from QSD `/studio/`. (2) Check the real host input before WEX entry load and whether it resolves `logoImageBinding` / `sourceValues`; verify actual image URL, HTTP accessibility, image load and the live rendered `img`. (3) Correct **only WEX-owned** missing propagation/fallback/entry issues proven by evidence, preserving ADR 0021–0023, WEX styles, label-only compatibility and Header separation. No placeholder fake image, hardcoded business URL, fabricated platform ID, QSD edits, WordPress API calls, storage, identity, new component or design tokens. (4) Run focused tests, `pnpm check`, foundation audit, and responsive Chrome proof; commit/push candidate and update this same file with exact SHA and results; stop for independent Reviewer. **Acceptance requires real rendered image, not merely test existence.**
 
 **Stop gate:** If actual failure is QSD host preloading/media/deployment, report exact missing host input/asset/HTTP evidence and stop. WEX Builder cannot modify QSD; a separate Owner-authorised QSD work cycle must own that correction. Do not claim completion, deploy or open Dashboard refinements before visible image evidence.
+
+
+## Phase 1C Designer report — 14 October 2026
+Designer reports **no WEX source changes** and clean tree. Staging supplies pre-module `wexStudioHostOptions`, HTTPS WebP returns HTTP 200, and deployed bundle includes Logo resolver; fresh reload still renders only literal `Logo` fallback and produces no console error. These are Builder-reported staging observations, **not independently reproduced Reviewer evidence**. Do not accept the Logo as visually complete or assign another speculative WEX UI correction.
+
+**Next bounded integration investigation:** Host-capable QSD actor must compare exact deployed entry/manifest hash and execution order, inspect `wexStudioHostOptions.logoImageBinding` and matching `sourceValues` at WEX module evaluation, trace resolver output and image-element insertion, and check media/network/DOM results on the actual staging route. Distinguish a QSD host injection/asset mismatch from a WEX consumer bug based on observed values; fix only within owning repo after its own approved phase. No identity/storage work, no visual redesign, no production deployment. Keep Phase 1C open until screenshot/DOM evidence proves the real Logo image visible in the Header.
