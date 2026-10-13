@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED — accepted Phase 1B branch housekeeping
 Phase: 1B — QSD Profile Logo data consumption / presentation boundary
-Actor: REVIEWER — verify Phase 1B promotion and branch closeout
+Actor: BUILDER:DESIGNER — delete contained topic branch only; Reviewer verifies closure
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -170,3 +170,10 @@ evidence. No source content changed during promotion/closeout.
 Reviewer: verify the exact `main` SHA, successful workflow and safe-deletion
 limitation; then close Phase 1B or assign only the capable branch-housekeeping
 operation. Do not infer QSD live integration from this WEX source promotion.
+
+
+## Reviewer promotion verification and next owner — 2026-10-13
+
+**Phase 1B implementation: ACCEPTED.** Independently verified GitHub `main` is exactly `e6fead7f776ad32c09fd10d0c1fb8224c04053c3`, identical to topic `codex/logo-property-binding`. GitHub Actions `Deploy WEX index` completed **successfully** for this exact main SHA (run `38356455181`). This verifies source promotion/Pages workflow, not QSD API-to-Logo staging runtime. The approved typed image binding, label fallback and existing Header shell boundaries remain the accepted scope.
+
+**NEXT OWNER: BUILDER:DESIGNER (Codex), housekeeping only.** On a Git-capable authenticated `CodeByNath` terminal, verify both remote refs still point to the same SHA, then delete only remote `codex/logo-property-binding` using a non-force ref deletion, fetch/prune and verify that the remote now contains only `main` and `Project-work-instructions`. Preserve any old local branches, especially `feat/postgres-identity-adapter` and `feat/wex-dna-presentation`; they are NOT part of this cleanup. Update this SAME handover with deletion evidence and `AWAITING REVIEWER REVIEW`. No UI edits, additional commits to main, QSD changes or deployment. This Reviewer surface lacks an authenticated branch-delete action, so branch deletion was not falsely claimed. After closure, QSD host injection/staging verification requires its separately governed integration phase; producer implementation already exists and must not be repeated.
