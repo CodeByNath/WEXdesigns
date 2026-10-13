@@ -5,17 +5,19 @@
 - Last visited: 2026-10-13
 - Last updated: 2026-10-13
 - Verified source candidate on `codex/logo-property-binding` at
-  `3971693e7b3468b9d48bf8011d9c1ac916de9994`: the Logo-fitted, empty Dashboard
-  shell remains standalone, and the portable Studio entry exposes only the
-  narrow Logo image-property adapter seam.
+  `dea09ca35a6c709f987924034cae432f6b81699f`: the Logo-fitted, empty Dashboard
+  shell remains standalone, and the portable Studio entry consumes only the
+  narrow Logo image-property adapter seam through a one-time serializable
+  host input.
 - Registration status: application/runtime layout; not a Shared UI component
   or Component Manager specimen.
 
 ### Recent work (newest first)
 
 - Logo image property binding accepts an application-resolved typed value at
-  the Studio/Admin Station boundary; it does not fetch QSD data or change the
-  empty Dashboard body.
+  the Studio/Admin Station boundary. The entry reads the sole serializable
+  host input once as it loads; it does not fetch QSD data or change the empty
+  Dashboard body.
 - Phase 1A adds a relative-asset Studio host entry that mounts this empty shell
   at a host-provided `#qsd-studio-host`; its manifest and installer guidance
   are WEX-owned. It makes no QSD, business-data, identity, storage, or

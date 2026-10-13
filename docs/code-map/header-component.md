@@ -6,9 +6,10 @@
 - Last visited: 2026-10-13
 - Last updated: 2026-10-13
 - Verified source candidate on `codex/logo-property-binding` at
-  `3971693e7b3468b9d48bf8011d9c1ac916de9994`. ADRs 0021–0023 define Header's
+  `dea09ca35a6c709f987924034cae432f6b81699f`. ADRs 0021–0023 define Header's
   Brand compartment, Logo's shared render description, and the narrow
-  external-image property-binding boundary.
+  external-image property-binding boundary, including the Studio entry's
+  one-time serializable host input.
 
 ### Recent work (newest first)
 
@@ -64,6 +65,8 @@ The Header shell and Logo boundaries and focused verification are:
   [`apps/web-runtime/src/render-description.js`](../../apps/web-runtime/src/render-description.js)
 - Application-side Logo property resolver:
   [`apps/web-runtime/src/logo-property-binding.js`](../../apps/web-runtime/src/logo-property-binding.js)
+- Studio entry's one-time host input boundary:
+  [`apps/web-runtime/src/studio-host.js`](../../apps/web-runtime/src/studio-host.js)
 - Isolated Logo validation surface:
   [`apps/web-runtime/component-manager/index.html`](../../apps/web-runtime/component-manager/index.html),
   [`apps/web-runtime/component-manager/preview.html`](../../apps/web-runtime/component-manager/preview.html),
