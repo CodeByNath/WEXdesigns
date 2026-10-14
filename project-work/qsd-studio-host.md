@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — branch housekeeping only
+Status: AWAITING REVIEWER REVIEW
 Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: BUILDER:DESIGNER — remove contained topic branch with authorised Git credentials
+Actor: REVIEWER — resolve verified remote branch-deletion restriction
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -318,3 +318,23 @@ housekeeping action. QSD asset rebuild/install and authenticated `img.complete
 
 ## Reviewer promotion verification — 14 October 2026
 **Verdict: Proceed with safeguards.** Independently compared reviewed candidate `17e4ca2afd043d9462420d00ff8d3bdee4e86438` with WEX remote `main`: **identical, zero commits difference**. Promotion accepted for WEX source; Builder reports successful Pages workflow `38506288740` at that SHA. Remote heads still `main`, `Project-work-instructions`, `codex/studio-host-build-deps` (three-branch cap full). Failed deletion is a GitHub credential/permission issue, not a code failure. **BUILDER:DESIGNER housekeeping only:** using a Git-capable authorised `CodeByNath` executor, delete ONLY the verified fully-contained `codex/studio-host-build-deps` remote branch, then fetch/prune and report remaining exact remote heads; if permission remains unavailable, stop and report the blocker. No source modification or new branch. Keep real Logo visual acceptance open: QSD host assets still require separate governed installation and live authenticated image proof. Do not begin Dashboard refinements on source promotion alone.
+
+## Builder branch-housekeeping report — 14 October 2026
+
+No WEX source, main ref, deployment, QSD asset, or browser-runtime change was
+made in this housekeeping attempt. Remote heads were verified as
+`main` and `codex/studio-host-build-deps` both at
+`17e4ca2afd043d9462420d00ff8d3bdee4e86438`, with the topic zero commits
+ahead/behind `main`; `Project-work-instructions` remains separate.
+
+Deletion was attempted only for that contained topic after successful promotion
+and workflow `38506288740`. The terminal remains unauthorised (`WeeraX`
+credential: GitHub HTTP 403). The browser surface signed into the connected
+`CodeByNath` account was also used on the repository Branches page and
+returned **“Branch could not be deleted.”** No detailed remote reason was
+provided. The branch remains present.
+
+Reviewer: inspect repository protection/permissions or assign a repository
+administrator to remove only `codex/studio-host-build-deps`; do not reopen
+source work or call visual Logo acceptance complete. QSD asset installation and
+authenticated image proof remain separately governed.
