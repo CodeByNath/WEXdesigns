@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED — branch housekeeping only
 Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: REVIEWER — verify promotion and branch-closeout limitation
+Actor: BUILDER:DESIGNER — remove contained topic branch with authorised Git credentials
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -314,3 +314,7 @@ Reviewer: verify exact `main` SHA, successful workflow and the deletion
 limitation; close WEX Phase 1C source/promotion or assign solely that bounded
 housekeeping action. QSD asset rebuild/install and authenticated `img.complete
 && img.naturalWidth > 0` proof remain separately authorised external work.
+
+
+## Reviewer promotion verification — 14 October 2026
+**Verdict: Proceed with safeguards.** Independently compared reviewed candidate `17e4ca2afd043d9462420d00ff8d3bdee4e86438` with WEX remote `main`: **identical, zero commits difference**. Promotion accepted for WEX source; Builder reports successful Pages workflow `38506288740` at that SHA. Remote heads still `main`, `Project-work-instructions`, `codex/studio-host-build-deps` (three-branch cap full). Failed deletion is a GitHub credential/permission issue, not a code failure. **BUILDER:DESIGNER housekeeping only:** using a Git-capable authorised `CodeByNath` executor, delete ONLY the verified fully-contained `codex/studio-host-build-deps` remote branch, then fetch/prune and report remaining exact remote heads; if permission remains unavailable, stop and report the blocker. No source modification or new branch. Keep real Logo visual acceptance open: QSD host assets still require separate governed installation and live authenticated image proof. Do not begin Dashboard refinements on source promotion alone.
