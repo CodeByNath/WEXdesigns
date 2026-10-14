@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — Phase 1C WEX Logo consumer correction
+Status: DEFERRED — Phase 1C WEX correction withdrawn pending QSD raw URL repair
 Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: BUILDER:DESIGNER (Codex) — WEX source and browser proof
+Actor: REVIEWER — no WEX Builder action pending
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -228,3 +228,7 @@ Designer reports **no WEX source changes** and clean tree. Staging supplies pre-
 **BUILDER:DESIGNER — one correction package:** Inspect `main` Code Maps, ADR 0021–0023, `LogoImagePropertyBindingSchema`, `LogoImageUrlSchema`, `apps/web-runtime/src/logo-property-binding.js`, `studio-host.js`, `admin-station-runtime.js`, UI render description/materializer and tests. Reproduce the host-shaped binding object and exact source-map key/value under real module initialization. Trace parsed binding -> resolved `logoProperties` -> emitted image description -> actual DOM; specifically test a valid real-format HTTPS WebP URL, missing/invalid input and the label fallback. Identify why the accepted host-shaped input still resolves to text and implement the smallest **evidence-backed WEX-owned** correction. Do not silently change external QSD field names or data ownership. Preserve current label-only compatibility and WEX/Header separation. Do not add a new component, connector, identity/storage layer, CSS values or invented fallback image.
 
 **Proof:** focused tests plus `pnpm check` and foundation audit; Chrome/local host fixture with pre-entry `wexStudioHostOptions` and a real served image, DOM showing `<img>` in Header rather than blue text; record entry and binding payload shape (no secrets), network image load and responsive regression. Push only corrected WEX source on an authorised topic branch (remote head cap: three) and update this same file to `AWAITING REVIEWER REVIEW` with exact SHA, diff and tests. Stop for independent review; no QSD editing or staging/production deployment. If exact live payload differs from documented contract and needs host changes, return a precise evidence-backed interface discrepancy, not an unproven fix. **Visual Logo acceptance remains OPEN.**
+
+
+## Owner withdrawal of WEX Designer task — 14 October 2026
+Owner expressly cancels the previous WEX `BUILDER:DESIGNER` Logo correction assignment (commit `0f8fb3a`). **Do not execute that instruction.** Exact live Console data shows `window.wexStudioHostOptions.sourceValues["profile.logo"]` contains literal Markdown link markup `[https://...](https://... "https://...")`, not the bare HTTPS URL WEX accepts; DOM query `.wex-logo img` returns null. WEX's strict fallback is expected for this input. QSD `project-work/wex-studio-host.md` now assigns `BUILDER:CODER` to trace/correct that host value at its source (QSD coordination commit `792f16c`). No WEX source work, topic branch, deploy, or Logo acceptance authorised here. Resume only if correct raw input is later proven to fail WEX rendering. Older Designer instructions above are superseded.
