@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW
+Status: BLOCKED — repository administrator required for contained topic branch deletion
 Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: REVIEWER — resolve verified remote branch-deletion restriction
+Actor: Owner/repository administrator — remove protected or permission-blocked completed topic branch
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -338,3 +338,7 @@ Reviewer: inspect repository protection/permissions or assign a repository
 administrator to remove only `codex/studio-host-build-deps`; do not reopen
 source work or call visual Logo acceptance complete. QSD asset installation and
 authenticated image proof remain separately governed.
+
+
+## Reviewer final housekeeping assessment — 14 Oct 2026
+**Verdict: Proceed with safeguards.** Independently verified remote branch list still contains `main`, `Project-work-instructions`, and `codex/studio-host-build-deps`. Builder reports command-line GitHub HTTP 403 and web UI “Branch could not be deleted”; no exposed integration here can delete the remote ref. The promoted WEX correction remains on `main` at reviewed `17e4ca2`. Close source/promotion review as accepted; **do not reassign deletion to Codex with the same denied credentials**. Owner/repository administrator must inspect GitHub branch rules and permissions and remove only the verified-contained topic branch `codex/studio-host-build-deps` when allowed. No force push, deletion of permanent branches, source rework, or QSD action through WEX. Visual Logo acceptance stays open pending independently governed QSD asset install and authenticated browser image proof.
