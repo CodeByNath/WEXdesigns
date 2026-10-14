@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED — accepted WEX candidate promotion
 Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: REVIEWER — independently assess Phase 1C WEX candidate
+Actor: BUILDER:DESIGNER — promote accepted WEX build correction to main
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -280,3 +280,9 @@ diagnosis, build order and emitted-bundle assertions. Do not treat local
 real-image evidence as QSD deployment proof; require separately authorised
 post-promotion QSD asset installation/staging verification before visual
 acceptance.
+
+
+## Reviewer assessment — 14 Oct 2026
+**Verdict: Proceed with safeguards.** Independently compared `e6fead7..17e4ca2` on `codex/studio-host-build-deps`: only runtime build script, Studio fixture/README and tests changed. Source confirms deterministic `schemas -> ui -> Vite` build order. Emitted-entry assertions check `wex-logo__image` and `wexStudioHostOptions`; fixture supports real HTTPS media. ADR 0023 boundary, no new presentation values, and QSD ownership preserved. Builder reports focused 4/4, full `pnpm check` 45/45, Chrome loaded image (400×364; 390px responsive), but these test/browser reports are not independently rerun here. **Accept WEX source correction for promotion only, NOT real QSD visual acceptance.**
+
+**BUILDER:DESIGNER next bounded action:** Fast-forward or otherwise governed promote exact reviewed candidate `17e4ca2afd043d9462420d00ff8d3bdee4e86438` to WEX `main` following repository process; verify resulting remote SHA and CI. No source additions, QSD writes or deployment. Remove completed WEX topic branch after verified promotion to restore branch capacity. Update this same file with exact main SHA, CI and branch cleanup evidence; stop for Reviewer. **After promotion**, QSD requires a separately authorised host asset rebuild/install from the new WEX `main` and authenticated browser proof of `img.complete && img.naturalWidth > 0`. Do not call Logo finished until this external integration succeeds.
