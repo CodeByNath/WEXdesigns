@@ -14,6 +14,11 @@ From the repository root, build the release assets:
 pnpm --filter @weerax/web-runtime build:studio-host
 ```
 
+This command rebuilds the Schema and Shared UI workspace dependencies before
+Vite packages the host entry. Do not invoke Vite's Studio configuration alone:
+that can package stale workspace output and omit an already-approved Logo
+rendering branch.
+
 The resulting `apps/web-runtime/studio-host-dist/` directory contains a
 versioned `manifest.json` and its relative `assets/` files. Copy the contents
 of that directory (not the directory itself) into QSD's plugin-local
