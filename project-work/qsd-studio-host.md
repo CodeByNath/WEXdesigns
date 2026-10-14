@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BLOCKED — repository administrator required for contained topic branch deletion
-Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: Owner/repository administrator — remove protected or permission-blocked completed topic branch
+Status: BUILDER ACTION REQUIRED — Dashboard UI refinement local-work handoff
+Phase: 2A — Owner-directed Dashboard UI refinement batch handoff
+Actor: BUILDER:DESIGNER — inspect local UI work, commit and push for review
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -342,3 +342,9 @@ authenticated image proof remain separately governed.
 
 ## Reviewer final housekeeping assessment — 14 Oct 2026
 **Verdict: Proceed with safeguards.** Independently verified remote branch list still contains `main`, `Project-work-instructions`, and `codex/studio-host-build-deps`. Builder reports command-line GitHub HTTP 403 and web UI “Branch could not be deleted”; no exposed integration here can delete the remote ref. The promoted WEX correction remains on `main` at reviewed `17e4ca2`. Close source/promotion review as accepted; **do not reassign deletion to Codex with the same denied credentials**. Owner/repository administrator must inspect GitHub branch rules and permissions and remove only the verified-contained topic branch `codex/studio-host-build-deps` when allowed. No force push, deletion of permanent branches, source rework, or QSD action through WEX. Visual Logo acceptance stays open pending independently governed QSD asset install and authenticated browser image proof.
+
+
+## Reviewer cycle — 15 October 2026: Owner reports local UI refinements
+Remote WEX heads verified: only `main` and `Project-work-instructions`; remote `main` remains `17e4ca2afd043d9462420d00ff8d3bdee4e86438`. Completed `codex/studio-host-build-deps` topic is gone. Thus **no pushed UI refinement candidate exists to audit**. Earlier branch deletion blocker is resolved; historical Logo work accepted visually on QSD staging (separate QSD record).
+
+**BUILDER:DESIGNER — next bounded handoff:** Preserve Owner's existing local UI edits. Inspect local working tree, current branch and changes against WEX `main`, active WEX layout/presentation authority and agreed Owner-directed Dashboard refinement scope. Do not overwrite/discard uncommitted work. If changes fit the authorised visual iteration and no architecture/new-token/schema/identity/domain gate is crossed, create the one permitted topic branch, commit logically and push exact candidate to `CodeByNath/WEXdesigns`; verify remote SHA. Run relevant WEX checks and capture Header/Sidebar/Main/Footer responsive, focus/accessibility and interaction evidence. Update THIS work file with actual changed files, exact branch/SHA, check output, limitations and `AWAITING REVIEWER REVIEW`, then stop. If local edits require a new WEX visual value/contract or otherwise exceed approved scope, stop at the specific gate and report it, without inventing values or promoting/deploying. No QSD edits or deployment. Reviewer cannot accept changes that exist only locally.
