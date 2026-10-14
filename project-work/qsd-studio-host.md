@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: DEFERRED — Phase 1C WEX correction withdrawn pending QSD raw URL repair
+Status: BUILDER ACTION REQUIRED — Phase 1C real WEX Logo rendering failure
 Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: REVIEWER — no WEX Builder action pending
+Actor: BUILDER:DESIGNER — inspect WEX runtime and correct proven source defect
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -232,3 +232,9 @@ Designer reports **no WEX source changes** and clean tree. Staging supplies pre-
 
 ## Owner withdrawal of WEX Designer task — 14 October 2026
 Owner expressly cancels the previous WEX `BUILDER:DESIGNER` Logo correction assignment (commit `0f8fb3a`). **Do not execute that instruction.** Exact live Console data shows `window.wexStudioHostOptions.sourceValues["profile.logo"]` contains literal Markdown link markup `[https://...](https://... "https://...")`, not the bare HTTPS URL WEX accepts; DOM query `.wex-logo img` returns null. WEX's strict fallback is expected for this input. QSD `project-work/wex-studio-host.md` now assigns `BUILDER:CODER` to trace/correct that host value at its source (QSD coordination commit `792f16c`). No WEX source work, topic branch, deploy, or Logo acceptance authorised here. Resume only if correct raw input is later proven to fail WEX rendering. Older Designer instructions above are superseded.
+
+
+## Owner browser proof — 14 October 2026 (supersedes Markdown hypothesis)
+**Verdict: Proceed with safeguards.** Owner's authenticated screenshot at `https://www.staging2.qldscubadive.com.au/studio/` shows live `sourceValues['profile.logo']` first character code **104** ('h'), `startsWithHttps:true`, `imgExists:false`, `imgLoaded:false`; Header still shows literal text `Logo`. Thus copied Markdown was a chat artefact, NOT proven host data corruption. Earlier QSD sanitization is separate and does not solve the visual failure. The screenshot does not alone establish entire URL validity or exact consumer failure, so diagnose before fixing.
+
+**BUILDER:DESIGNER — WEX-only correction:** At WEX accepted main, trace `studio-host.js` read of `wexStudioHostOptions`, `resolveLogoImagePropertyBinding` and URL schema, `mountAdminStation`/Admin Station init, `createLogoRenderDescription`, and DOM materialization. Reproduce with exact host-shaped object and real plain HTTPS .webp URL under deployed entry timing. Log/test where properties are dropped or validation fails (without disclosing secrets), inspect whether `<img>` created or fallback chosen, and whether module loaded twice/stale artefact. Implement only the demonstrated WEX-owned correction. Ensure test fails before fix, passes after; verify real rendered `img`, loaded asset, responsive nonregression; run focused tests, `pnpm check`, foundation audit. No new component, WEX values, QSD edits, hardcoded URL, identity/storage or production change. Respect 3-branch cap. Push WEX candidate, record exact SHA/test/DOM evidence in SAME work file, stop for independent Reviewer. If a full URL or live timing discrepancy proves the fault is outside WEX, stop with exact evidence instead of a speculative patch. **Owner visual acceptance remains open.**
