@@ -244,3 +244,15 @@ Every Builder or Reviewer response concerning a controlled work cycle, implement
 The quoted example for current Logo work is: Repository `CodeByNath/WEXdesigns`; Instruction commit `78c24be`; Next Action `BUILDER ACTION REQUIRED`; QSD `No further correction assigned from this evidence`. **Example values must NOT be reused after the branch state changes.**
 
 Use `Not verified` when a field cannot be established; do not invent SHAs, status, other-repo results or assignment. Footer reports facts, does not authorise work in another repository. Keep verdicts, evidence, test details and blockers in normal text above it. This is an output/handoff convention only, not architecture or a change in role authority.
+
+## Owner-directed visual refinement batches (all Builders/Reviewers)
+
+Within an **already authorised, bounded UI refinement phase**, the Owner may pinpoint visual and interaction changes directly to BUILDER:DESIGNER (Codex or any assigned agent), iterate through several corrections, and choose when the batch is ready for independent Reviewer acceptance. **No Reviewer round-trip is required for every visual adjustment.**
+
+Builder must: (1) read WEX main authority, active scope, existing registered tokens, layout and UI contracts; (2) implement only in-scope visual refinements on the authorised topic branch, keeping a concise change log; (3) inspect responsive sizes, keyboard/focus/accessibility and relevant interactions during iteration; (4) run phase-required checks; (5) when Owner says the batch is ready, push the exact candidate and update the SAME active work file to `AWAITING REVIEWER REVIEW` with commit SHA, changed areas, checks and screenshots/DOM evidence; then stop. Do not self-approve, promote, deploy or mark the batch accepted.
+
+Reviewer independently inspects the **complete batch** once, checks WEX authority, dependencies, accessibility, compatibility, security/runtime implications where relevant, regressions and actual visual evidence. Provide one verdict and, if needed, **one consolidated correction instruction** rather than a round-trip for each pixel change. Builder may resume only the authorised correction scope.
+
+**Hard stop before proceeding**, even mid-iteration, if a change requires a new or unregistered WEX visual value/token/variant, component or schema contract, architecture or ownership shift, domain adapter, identity/persistence/security change, external host API/record ownership, production deployment, or a destructive action. Owner direction does not silently grant exceptions; obtain explicit decision and repository authority updates as required. Use configuration/composition instead of speculative new abstractions.
+
+This is a **batching convention inside the same existing Builder/Reviewer cycle**, not a new approval role, a licence to change any UI without bounds, or permission to skip the final independent review. It applies to future UI refinements; the Logo visual acceptance and QSD boundaries remain separately governed.
