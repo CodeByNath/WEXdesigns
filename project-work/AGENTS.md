@@ -231,3 +231,16 @@ The existing `run the cycle` sequence and independent Reviewer are unchanged. Ev
 Parallel CODER and DESIGNER work is permitted only where the Owner/work instructions give distinct, non-overlapping scopes, file ownership, and branch/handover plans within existing capacity. Same feature may have distinct bounded work areas; do not add a competing approval system or overwrite the other agent's work. Shared contract work requires a defined interface, not a speculative architecture gate. One agent cannot block its independent producer-side task merely because another agent's consumer cannot render yet. Example: Profile ID -> QSD logo data -> stop; WEX independently handles Logo rendering/fallback. An actual missing contract required to complete the agent's **own assigned operation** is a stop condition.
 
 Only Owner can authorise manual exceptions or scope overrides, explicitly and specifically. Every agent reads root `AGENTS.md`, `Project-work-instructions/project-work/AGENTS.md`, current active file, and the **existing platform-architecture skill** when an architecture decision is relevant. Platform skills explain **domain architecture**, not new work-cycle rules; `run the cycle` uses the single WeeraX Project Cycle procedure. Product authority stays in each repo, never transplanted from CompuZign.
+
+## Mandatory four-line status footer — Builder and Reviewer
+
+Every Builder or Reviewer response concerning a controlled work cycle, implementation, review, correction, or handoff **must end** with these four numbered fields, in this order, populated from the current verified coordination state:
+
+1. Repository: `CodeByNath/WEXdesigns` (or the expressly authorised target repository)
+2. Instruction commit: `<exact current Project-work-instructions commit SHA>` (never confuse with source candidate SHA)
+3. Next Action: `<current work-file Status and responsible actor>`
+4. QSD: `<verified cross-repository action state, or "No QSD action assigned">`
+
+The quoted example for current Logo work is: Repository `CodeByNath/WEXdesigns`; Instruction commit `78c24be`; Next Action `BUILDER ACTION REQUIRED`; QSD `No further correction assigned from this evidence`. **Example values must NOT be reused after the branch state changes.**
+
+Use `Not verified` when a field cannot be established; do not invent SHAs, status, other-repo results or assignment. Footer reports facts, does not authorise work in another repository. Keep verdicts, evidence, test details and blockers in normal text above it. This is an output/handoff convention only, not architecture or a change in role authority.
