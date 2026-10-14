@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — Phase 1C real WEX Logo rendering failure
+Status: AWAITING REVIEWER REVIEW
 Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: BUILDER:DESIGNER — inspect WEX runtime and correct proven source defect
+Actor: REVIEWER — independently assess Phase 1C WEX candidate
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -238,3 +238,45 @@ Owner expressly cancels the previous WEX `BUILDER:DESIGNER` Logo correction assi
 **Verdict: Proceed with safeguards.** Owner's authenticated screenshot at `https://www.staging2.qldscubadive.com.au/studio/` shows live `sourceValues['profile.logo']` first character code **104** ('h'), `startsWithHttps:true`, `imgExists:false`, `imgLoaded:false`; Header still shows literal text `Logo`. Thus copied Markdown was a chat artefact, NOT proven host data corruption. Earlier QSD sanitization is separate and does not solve the visual failure. The screenshot does not alone establish entire URL validity or exact consumer failure, so diagnose before fixing.
 
 **BUILDER:DESIGNER — WEX-only correction:** At WEX accepted main, trace `studio-host.js` read of `wexStudioHostOptions`, `resolveLogoImagePropertyBinding` and URL schema, `mountAdminStation`/Admin Station init, `createLogoRenderDescription`, and DOM materialization. Reproduce with exact host-shaped object and real plain HTTPS .webp URL under deployed entry timing. Log/test where properties are dropped or validation fails (without disclosing secrets), inspect whether `<img>` created or fallback chosen, and whether module loaded twice/stale artefact. Implement only the demonstrated WEX-owned correction. Ensure test fails before fix, passes after; verify real rendered `img`, loaded asset, responsive nonregression; run focused tests, `pnpm check`, foundation audit. No new component, WEX values, QSD edits, hardcoded URL, identity/storage or production change. Respect 3-branch cap. Push WEX candidate, record exact SHA/test/DOM evidence in SAME work file, stop for independent Reviewer. If a full URL or live timing discrepancy proves the fault is outside WEX, stop with exact evidence instead of a speculative patch. **Owner visual acceptance remains open.**
+
+
+## Builder handoff — Phase 1C Studio-host dependency build (14 October 2026)
+
+Remote candidate: `origin/codex/studio-host-build-deps` @
+`17e4ca2afd043d9462420d00ff8d3bdee4e86438`, based exactly on WEX `main`
+`e6fead7f776ad32c09fd10d0c1fb8224c04053c3`.
+
+Evidence-backed WEX defect: live staging supplied the documented pre-module
+binding shape (`source: "profile.logo"`, target `imageUrl`, matching
+`profile.logo` plain HTTPS WebP) and loaded the accepted host-option resolver,
+but its emitted bundle contained a label-only Logo render function. The
+configured `build:studio-host` previously invoked Vite without rebuilding
+workspace Schema/UI output, permitting that mixed-version asset.
+
+Delivered bounded correction:
+- `build:studio-host` now builds `@weerax/schemas`, then `@weerax/ui`,
+  before Vite packages the portable entry;
+- regression proof checks the emitted entry contains both the Logo image branch
+  and `wexStudioHostOptions`, and locks the dependency-build command;
+- the local-only Studio fixture accepts an HTTPS `logoUrl` query input for
+  non-hardcoded real-media validation. Production entry contract, Logo
+  schema/property boundary, Header, styles, label fallback and QSD ownership
+  are unchanged.
+
+Evidence:
+- focused Studio-host check passed (4/4); full `pnpm check` passed (45/45);
+  Foundation audit and `git diff --check` passed;
+- local Chrome fixture used the staging WebP through the real host-shaped
+  binding: mounted state, one visible `img`, no text fallback, HTTPS source,
+  successful natural image size `400×364`; at 390px it remained loaded at
+  `64×58` with no Header overflow;
+- staging inspection found the current page still renders literal `Logo`.
+  This candidate is WEX source only; it has not been deployed to QSD/staging.
+  No QSD source, API, storage, identity, production deployment, visual value
+  or component change was made.
+
+Reviewer: inspect the remote diff/tree and verify the stale-workspace-output
+diagnosis, build order and emitted-bundle assertions. Do not treat local
+real-image evidence as QSD deployment proof; require separately authorised
+post-promotion QSD asset installation/staging verification before visual
+acceptance.
