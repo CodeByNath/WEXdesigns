@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BLOCKED — Phase 1C deployed Logo runtime investigation needs host-side evidence
+Status: BUILDER ACTION REQUIRED — Phase 1C WEX Logo consumer correction
 Phase: 1C — WEX Dashboard Logo visible-image acceptance
-Actor: REVIEWER coordination — Designer stopped at host integration gate
+Actor: BUILDER:DESIGNER (Codex) — WEX source and browser proof
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -219,3 +219,12 @@ Independently verified GitHub remote heads: only `main` @ `e6fead7f776ad32c09fd1
 Designer reports **no WEX source changes** and clean tree. Staging supplies pre-module `wexStudioHostOptions`, HTTPS WebP returns HTTP 200, and deployed bundle includes Logo resolver; fresh reload still renders only literal `Logo` fallback and produces no console error. These are Builder-reported staging observations, **not independently reproduced Reviewer evidence**. Do not accept the Logo as visually complete or assign another speculative WEX UI correction.
 
 **Next bounded integration investigation:** Host-capable QSD actor must compare exact deployed entry/manifest hash and execution order, inspect `wexStudioHostOptions.logoImageBinding` and matching `sourceValues` at WEX module evaluation, trace resolver output and image-element insertion, and check media/network/DOM results on the actual staging route. Distinguish a QSD host injection/asset mismatch from a WEX consumer bug based on observed values; fix only within owning repo after its own approved phase. No identity/storage work, no visual redesign, no production deployment. Keep Phase 1C open until screenshot/DOM evidence proves the real Logo image visible in the Header.
+
+
+## Owner reassignment — WEX correction, 14 October 2026
+
+**Verdict: Proceed with safeguards.** Owner explicitly confirms the remaining correction belongs to WEX, not QSD. Previous QSD staging deployment rebuilt its bundle at WEX accepted `e6fead7`, yet Owner screenshot still shows blue literal `Logo` in Header. Reopen ONLY WEX consumer-side Phase 1C. No QSD source/backend assignment from this work file.
+
+**BUILDER:DESIGNER — one correction package:** Inspect `main` Code Maps, ADR 0021–0023, `LogoImagePropertyBindingSchema`, `LogoImageUrlSchema`, `apps/web-runtime/src/logo-property-binding.js`, `studio-host.js`, `admin-station-runtime.js`, UI render description/materializer and tests. Reproduce the host-shaped binding object and exact source-map key/value under real module initialization. Trace parsed binding -> resolved `logoProperties` -> emitted image description -> actual DOM; specifically test a valid real-format HTTPS WebP URL, missing/invalid input and the label fallback. Identify why the accepted host-shaped input still resolves to text and implement the smallest **evidence-backed WEX-owned** correction. Do not silently change external QSD field names or data ownership. Preserve current label-only compatibility and WEX/Header separation. Do not add a new component, connector, identity/storage layer, CSS values or invented fallback image.
+
+**Proof:** focused tests plus `pnpm check` and foundation audit; Chrome/local host fixture with pre-entry `wexStudioHostOptions` and a real served image, DOM showing `<img>` in Header rather than blue text; record entry and binding payload shape (no secrets), network image load and responsive regression. Push only corrected WEX source on an authorised topic branch (remote head cap: three) and update this same file to `AWAITING REVIEWER REVIEW` with exact SHA, diff and tests. Stop for independent review; no QSD editing or staging/production deployment. If exact live payload differs from documented contract and needs host changes, return a precise evidence-backed interface discrepancy, not an unproven fix. **Visual Logo acceptance remains OPEN.**
