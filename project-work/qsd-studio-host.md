@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED — approved Phase 2A promotion to main
 Phase: 2A — Owner-directed Dashboard UI refinement batch handoff
-Actor: BUILDER:DESIGNER — fix TS7006; rerun checks; resubmit candidate
+Actor: BUILDER:DESIGNER — promote exact reviewed corrected candidate and report CI
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -384,3 +384,9 @@ guarded ref updates. An initial API blob encoding mismatch created intermediate
 commit `ca41b02`; it was immediately restored non-force in `943e7be`.
 Reviewer must inspect the final net diff/tree and this two-commit history.
 No promotion, deployment, QSD write, or presentation change occurred.
+
+
+## Reviewer decision — 15 October 2026 (corrected candidate)
+**Verdict: Proceed with safeguards.** Independently compared remote `943e7bea2e102e76475784114e311eac5ca37259` to originally approved `ef684955`. Net correction is only a `@param {boolean} hovered` JSDoc at `setHoverRail` in Admin Sidebar; original visuals, CSS, tokens, schemas and contracts unchanged. Remote comparison shows two intermediate commits with net change restricted to that file; Builder's handoff explains an API encoding correction. Builder supplied successful `pnpm check` 45/45, `pnpm audit:foundation`, `pnpm type-check`, 15/15 Header/Sidebar checks and clean diff; tests were not independently rerun by Reviewer. Owner previously tested visual behaviour and authorised promotion conditioned on checks.
+
+**BUILDER:DESIGNER:** promote exactly `943e7bea2e102e76475784114e311eac5ca37259` (tree `e3a31d7d9f20b5b1c0e29c4375a60a2ab8c6f567`) to WEX `main` using approved non-force process. Verify remote main SHA and CI/workflow results, write exact promotion/verification evidence in this SAME file and stop. If GitHub refuses or CI fails, stop and report; do not force push or fabricate success. Do not deploy QSD or begin new scope. Reviewer performs final promotion acceptance from pushed evidence.
