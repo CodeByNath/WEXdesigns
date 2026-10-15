@@ -8,14 +8,14 @@ const COMPACT_QUERY = '(max-width: 767px)';
 export function initSidebar(shell) {
   const compact = window.matchMedia(COMPACT_QUERY);
   /** @param {string} name @returns {HTMLElement | null} */
-  const control = (name) => shell.querySelector(\`[data-sidebar-control="\${name}"]\`);
+  const control = (name) => shell.querySelector(`[data-sidebar-control="${name}"]`);
   const toggle = control('toggle');
   const openTrigger = control('open');
   const closeButton = control('close');
   const backdrop = control('backdrop');
   const sidebar = shell.querySelector('[data-admin-station-region="sidebar"]');
   const inertRegions = ['main', 'footer']
-    .map((name) => shell.querySelector(\`[data-admin-station-region="\${name}"]\`))
+    .map((name) => shell.querySelector(`[data-admin-station-region="${name}"]`))
     .filter((region) => region instanceof HTMLElement);
   /** @type {HTMLElement | null} */
   let returnFocus = null;
