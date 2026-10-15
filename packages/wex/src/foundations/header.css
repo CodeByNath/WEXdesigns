@@ -1,28 +1,57 @@
 /* Existing Admin Station Header shell presentation. */
 
 .wex-admin-shell__header {
-  display: grid;
-  grid-template-columns: var(--wex-space-64) minmax(0, 1fr);
-  align-items: stretch;
+  position: relative;
   min-inline-size: 0;
   block-size: var(--wex-space-64);
   min-block-size: var(--wex-space-64);
-  padding-inline: var(--wex-space-16);
+  padding: var(--wex-space-8);
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-layer-01);
   color: var(--wex-color-text-primary);
 }
 
 .wex-admin-shell__brand {
-  display: grid;
-  place-items: center;
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wex-space-8);
   min-inline-size: 0;
-  inline-size: var(--wex-space-64);
-  block-size: var(--wex-space-64);
+  box-sizing: border-box;
+  inline-size: var(--wex-admin-shell-sidebar-header);
+  block-size: 100%;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  padding: var(--wex-space-16);
+  background: var(--wex-color-background-accent);
+  color: var(--wex-color-on-accent);
+}
+
+.wex-admin-shell__brand .wex-logo {
+  color: var(--wex-color-on-accent);
+}
+
+.wex-admin-shell__brand-title {
+  display: none;
+}
+
+.wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
+  padding-inline: var(--wex-space-16);
+  justify-content: flex-start;
+}
+
+.wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand-title {
+  display: inline;
 }
 
 @media (max-width: 767px) {
   .wex-admin-shell__header {
-    padding-inline: var(--wex-space-8);
+    padding: var(--wex-space-4);
+  }
+
+  .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
+    inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-space-64)));
   }
 }

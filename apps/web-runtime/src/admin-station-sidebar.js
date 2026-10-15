@@ -14,7 +14,7 @@ export function initSidebar(shell) {
   const closeButton = control('close');
   const backdrop = control('backdrop');
   const sidebar = shell.querySelector('[data-admin-station-region="sidebar"]');
-  const inertRegions = ['header', 'main', 'footer']
+  const inertRegions = ['main', 'footer']
     .map((name) => shell.querySelector(`[data-admin-station-region="${name}"]`))
     .filter((region) => region instanceof HTMLElement);
   /** @type {HTMLElement | null} */
@@ -25,26 +25,48 @@ export function initSidebar(shell) {
 
   const isDrawerOpen = () => shell.dataset.sidebarDrawer === 'open';
 
+  function openCompactDrawer() {
+    shell.dataset.sidebar = 'expanded';
+    shell.dataset.sidebarHovered = 'false';
+    ui.toggle.setAttribute('aria-expanded', 'true');
+    ui.toggle.setAttribute('aria-label', 'Collapse sidebar');
+    ui.openTrigger.setAttribute('aria-label', 'Close sidebar');
+    openDrawer({ focus: false });
+  }
+
   function toggleRail() {
     const next = shell.dataset.sidebar === 'expanded' ? 'collapsed' : 'expanded';
     shell.dataset.sidebar = next;
+    shell.dataset.sidebarHovered = 'false';
     ui.toggle.setAttribute('aria-expanded', String(next === 'expanded'));
     ui.toggle.setAttribute('aria-label', next === 'expanded' ? 'Collapse sidebar' : 'Expand sidebar');
   }
 
-  function openDrawer() {
+  /** Temporarily expands the desktop rail without changing its persistent state. */
+  function setHoverRail(hovered) {
+    if (compact.matches || shell.dataset.sidebar === 'expanded') return;
+    shell.dataset.sidebarHovered = hovered ? 'true' : 'false';
+  }
+
+  function openDrawer({ focus = true } = {}) {
     if (isDrawerOpen()) return;
     returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : ui.openTrigger;
     shell.dataset.sidebarDrawer = 'open';
     ui.openTrigger.setAttribute('aria-expanded', 'true');
     inertRegions.forEach((region) => { region.inert = true; });
-    ui.closeButton.focus();
+    if (focus) ui.closeButton.focus();
   }
 
   function closeDrawer({ restoreFocus = true } = {}) {
     if (!isDrawerOpen()) return;
     shell.dataset.sidebarDrawer = 'closed';
+    if (compact.matches) {
+      shell.dataset.sidebar = 'collapsed';
+      ui.toggle.setAttribute('aria-expanded', 'false');
+      ui.toggle.setAttribute('aria-label', 'Expand sidebar');
+    }
     ui.openTrigger.setAttribute('aria-expanded', 'false');
+    ui.openTrigger.setAttribute('aria-label', 'Open sidebar');
     inertRegions.forEach((region) => { region.inert = false; });
     if (restoreFocus) (returnFocus?.isConnected ? returnFocus : ui.openTrigger).focus();
     returnFocus = null;
@@ -76,10 +98,38 @@ export function initSidebar(shell) {
     }
   }
 
-  ui.toggle.addEventListener('click', toggleRail);
-  ui.openTrigger.addEventListener('click', openDrawer);
+  ui.toggle.addEventListener('click', () => {
+    if (compact.matches) {
+      openCompactDrawer();
+      return;
+    }
+    toggleRail();
+  });
+  ui.panel.addEventListener('pointerover', (event) => {
+    if (event.target instanceof Element && event.target.closest('[data-sidebar-control="toggle"]')) return;
+    setHoverRail(true);
+  });
+  ui.panel.addEventListener('pointerleave', () => setHoverRail(false));
+  ui.openTrigger.addEventListener('click', () => {
+    if (!compact.matches) {
+      openDrawer();
+      return;
+    }
+    if (isDrawerOpen()) {
+      closeDrawer();
+      return;
+    }
+    openCompactDrawer();
+  });
   ui.closeButton.addEventListener('click', () => closeDrawer());
   ui.backdrop.addEventListener('click', () => closeDrawer());
   document.addEventListener('keydown', onKeydown);
-  compact.addEventListener('change', () => closeDrawer({ restoreFocus: false }));
+  compact.addEventListener('change', () => {
+    shell.dataset.sidebarHovered = 'false';
+    if (compact.matches && shell.dataset.sidebar === 'expanded') {
+      openDrawer({ focus: false });
+      return;
+    }
+    closeDrawer({ restoreFocus: false });
+  });
 }

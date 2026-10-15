@@ -55,6 +55,7 @@ blockquote {
   --wex-admin-shell-sidebar-collapsed: calc(var(--wex-space-64) + var(--wex-space-16));
   --wex-admin-shell-sidebar-expanded: calc(var(--wex-space-64) * 4 + var(--wex-space-8));
   --wex-admin-shell-sidebar-current: var(--wex-admin-shell-sidebar-collapsed);
+  --wex-admin-shell-sidebar-header: var(--wex-admin-shell-sidebar-collapsed);
 
   position: relative;
   display: grid;
@@ -74,6 +75,11 @@ blockquote {
 }
 
 .wex-admin-shell[data-sidebar="expanded"] {
+  --wex-admin-shell-sidebar-current: var(--wex-admin-shell-sidebar-expanded);
+  --wex-admin-shell-sidebar-header: var(--wex-admin-shell-sidebar-expanded);
+}
+
+.wex-admin-shell[data-sidebar-hovered="true"] {
   --wex-admin-shell-sidebar-current: var(--wex-admin-shell-sidebar-expanded);
 }
 
@@ -107,20 +113,38 @@ blockquote {
   justify-content: center;
 }
 
+.wex-admin-shell__sidebar-label {
+  display: none;
+  color: var(--wex-color-text-secondary);
+  text-transform: uppercase;
+}
+
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-controls {
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.wex-admin-shell[data-sidebar-hovered="true"] .wex-admin-shell__sidebar-controls {
+  justify-content: space-between;
+}
+
+.wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-label {
+  display: inline;
+}
+
+.wex-admin-shell[data-sidebar-hovered="true"] .wex-admin-shell__sidebar-label {
+  display: inline;
 }
 
 .wex-admin-shell__control {
   display: grid;
   place-items: center;
-  inline-size: var(--wex-space-40);
-  block-size: var(--wex-space-40);
+  inline-size: calc(var(--wex-space-32) + var(--wex-space-4));
+  block-size: calc(var(--wex-space-32) + var(--wex-space-4));
   padding: 0;
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   border-radius: var(--wex-radius-default);
   background: transparent;
-  color: var(--wex-color-icon-primary);
+  color: var(--wex-color-text-secondary);
   font: inherit;
   cursor: pointer;
 }
@@ -130,8 +154,8 @@ blockquote {
 }
 
 .wex-admin-shell__control svg {
-  inline-size: var(--wex-space-24);
-  block-size: var(--wex-space-24);
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-toggle svg {
@@ -199,37 +223,39 @@ blockquote {
   }
 
   .wex-admin-shell__drawer-trigger {
+    position: absolute;
+    z-index: 2;
     display: grid;
-    grid-column: 2;
-    justify-self: start;
-    align-self: center;
+    inset-block-start: var(--wex-space-12);
+    inset-inline-start: calc(var(--wex-admin-shell-sidebar-collapsed) + var(--wex-space-16));
   }
 
-  /* Closed by default; opens as an overlay below the Header without moving Main. */
+  /* Compact navigation is an overlay, opened only from the Header control. */
   .wex-admin-shell__sidebar {
+    display: none;
     position: absolute;
     z-index: 2;
     inset-block: var(--wex-space-64) 0;
     inset-inline-start: 0;
     inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-space-64)));
-    visibility: hidden;
   }
 
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__sidebar {
-    visibility: visible;
+    display: flex;
   }
 
-  .wex-admin-shell__sidebar-controls,
-  .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-controls {
-    justify-content: flex-end;
-  }
-
-  .wex-admin-shell__sidebar-toggle {
+  .wex-admin-shell__sidebar-controls {
     display: none;
   }
 
-  .wex-admin-shell__drawer-close {
-    display: grid;
+  .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__drawer-trigger {
+    inset-inline-start: min(
+      calc(var(--wex-admin-shell-sidebar-expanded) - var(--wex-space-32) - var(--wex-space-4) - var(--wex-space-16)),
+      calc(100% - var(--wex-space-64) - var(--wex-space-32) - var(--wex-space-4) - var(--wex-space-16))
+    );
+    border-color: transparent;
+    background: transparent;
+    color: var(--wex-color-on-accent);
   }
 
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__backdrop {

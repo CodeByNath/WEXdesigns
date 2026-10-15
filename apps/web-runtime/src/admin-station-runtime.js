@@ -17,9 +17,14 @@ export function initialiseAdminStation(shell, options = {}) {
   const documentRoot = shell.ownerDocument.documentElement;
   const view = shell.ownerDocument.defaultView;
   if (view) {
+    const requestedTheme = new URL(view.location.href).searchParams.get('theme');
     const savedTheme = view.localStorage.getItem('wex-theme');
     const prefersDark = view.matchMedia('(prefers-color-scheme: dark)').matches;
-    documentRoot.dataset.wexTheme = savedTheme ? (savedTheme === 'dark' ? 'dark' : 'light') : (prefersDark ? 'dark' : 'light');
+    documentRoot.dataset.wexTheme = requestedTheme === 'dark' || requestedTheme === 'light'
+      ? requestedTheme
+      : savedTheme
+        ? (savedTheme === 'dark' ? 'dark' : 'light')
+        : (prefersDark ? 'dark' : 'light');
   }
 
   const header = shell.querySelector('[data-admin-station-region="header"]');
@@ -28,6 +33,10 @@ export function initialiseAdminStation(shell, options = {}) {
     brand.className = 'wex-admin-shell__brand';
     brand.dataset.headerCompartment = 'brand';
     brand.append(materializeRenderDescription(createLogoRenderDescription(logoFixture, options.logoProperties)));
+    const title = shell.ownerDocument.createElement('span');
+    title.className = 'wex-admin-shell__brand-title wex-type-navigation-default-semibold';
+    title.textContent = 'Studio';
+    brand.append(title);
     header.prepend(brand);
   }
 
