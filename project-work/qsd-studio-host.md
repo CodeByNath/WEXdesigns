@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: AWAITING REVIEWER REVIEW
+Status: ACCEPTED — Phase 2A WEX Dashboard UI main promotion
 Phase: 2A — Owner-directed Dashboard UI refinement batch handoff
-Actor: BUILDER:DESIGNER — promote exact reviewed corrected candidate and report CI
+Actor: REVIEWER — source promotion accepted; QSD installation not in scope
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -407,3 +407,7 @@ completed successfully for head SHA `943e7be`.
 No source additions, QSD write, deployment to QSD, or new scope occurred during
 promotion. The topic branch remains until Reviewer completes final promotion
 acceptance and authorises any housekeeping.
+
+
+## Reviewer final acceptance — 15 October 2026
+**Verdict: Proceed.** Independently compared WEX `main` with approved `943e7bea2e102e76475784114e311eac5ca37259`: zero commits ahead or behind. Github Actions WEX Pages run `38673046456` deploy job completed **success**, including dependency build, type-check, tests, build, Pages artifact upload and Pages deployment. Reviewer accepts **Phase 2A WEX main promotion only**; previous token and no-inline-CSS audit and Owner's visual testing remain applicable. No QSD `/studio` asset install or authenticated QSD runtime proof for these refinements. Completed topic `codex/split-window-icons` can be removed through authorised housekeeping after confirming contained in `main`; no source changes or force pushes needed. Further Dashboard changes require a new bounded scope.
