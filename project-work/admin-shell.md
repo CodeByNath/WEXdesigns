@@ -1,7 +1,27 @@
 # Admin Shell / Admin Station Layout
 
-Status: ACCEPTED
-Phase: 6 — Hosted-access correction closed
+Status: AWAITING REVIEWER REVIEW
+Phase: 7 — Owner-directed responsive refinement batch
+
+## Current Builder handoff
+
+The Owner explicitly authorised this bounded follow-up for independent review.
+
+- Candidate branch: `codex/split-window-icons`
+- Candidate SHA: `ef684955f9d42c5bf79b2de0d0a04b0213306e7f`
+- Scope: responsive Admin Station header/sidebar composition only; retained WEX
+  tokens, no inline CSS or runtime style injection, no new component or schema.
+- Evidence: compact header split-control open/close, compact drawer alignment,
+  desktop hover rail/logo separation, and pinned desktop-to-compact resizing
+  were verified in the local browser preview.
+- Checks: `node --test packages/wex/test/header-foundation.test.mjs
+  apps/web-runtime/test/catalogue.test.mjs`; `node
+  tooling/scripts/validate-foundation.mjs`; `git diff --check`.
+
+Reviewer: inspect the exact pushed SHA against this bounded scope. Hosted
+GitHub Pages evidence remains a post-promotion boundary.
+
+## Prior reviewer verdict
 
 ## Reviewer verdict
 
