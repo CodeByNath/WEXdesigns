@@ -1,6 +1,6 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — approved Phase 2A promotion to main
+Status: AWAITING REVIEWER REVIEW
 Phase: 2A — Owner-directed Dashboard UI refinement batch handoff
 Actor: BUILDER:DESIGNER — promote exact reviewed corrected candidate and report CI
 
@@ -390,3 +390,20 @@ No promotion, deployment, QSD write, or presentation change occurred.
 **Verdict: Proceed with safeguards.** Independently compared remote `943e7bea2e102e76475784114e311eac5ca37259` to originally approved `ef684955`. Net correction is only a `@param {boolean} hovered` JSDoc at `setHoverRail` in Admin Sidebar; original visuals, CSS, tokens, schemas and contracts unchanged. Remote comparison shows two intermediate commits with net change restricted to that file; Builder's handoff explains an API encoding correction. Builder supplied successful `pnpm check` 45/45, `pnpm audit:foundation`, `pnpm type-check`, 15/15 Header/Sidebar checks and clean diff; tests were not independently rerun by Reviewer. Owner previously tested visual behaviour and authorised promotion conditioned on checks.
 
 **BUILDER:DESIGNER:** promote exactly `943e7bea2e102e76475784114e311eac5ca37259` (tree `e3a31d7d9f20b5b1c0e29c4375a60a2ab8c6f567`) to WEX `main` using approved non-force process. Verify remote main SHA and CI/workflow results, write exact promotion/verification evidence in this SAME file and stop. If GitHub refuses or CI fails, stop and report; do not force push or fabricate success. Do not deploy QSD or begin new scope. Reviewer performs final promotion acceptance from pushed evidence.
+
+
+## Builder promotion handoff — Phase 2A (15 October 2026)
+
+The exact Reviewer-approved candidate
+`943e7bea2e102e76475784114e311eac5ca37259` was non-force promoted from
+WEX `main` `17e4ca2afd043d9462420d00ff8d3bdee4e86438` to that exact SHA.
+Fetch verification confirms `origin/main` and
+`origin/codex/split-window-icons` have identical tree
+`e3a31d7d9f20b5b1c0e29c4375a60a2ab8c6f567`.
+
+GitHub Actions [Deploy WEX index run 38673046456](https://github.com/CodeByNath/WEXdesigns/actions/runs/38673046456)
+completed successfully for head SHA `943e7be`.
+
+No source additions, QSD write, deployment to QSD, or new scope occurred during
+promotion. The topic branch remains until Reviewer completes final promotion
+acceptance and authorises any housekeeping.
