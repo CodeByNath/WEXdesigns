@@ -43,3 +43,15 @@ The three remote heads remain `main`, `Project-work-instructions`, and
 source edit, deployment, QSD change, or visual claim was made. A Git-capable
 `CodeByNath` executor must delete only the verified contained topic, fetch
 and confirm the two permanent heads, then rerun this WEX cycle.
+
+## Branch housekeeping complete — Phase 2C (15 October 2026)
+
+Owner directed the housekeeping-only step using the `kalhomer` credential
+(push access to this repository). Before deletion, remote
+`codex/split-window-icons` was re-verified at `943e7be`, identical to `main`
+(0 ahead / 0 behind). It was deleted with a plain, non-force delete. Remote
+heads are now only `main` (`943e7be`) and `Project-work-instructions`.
+
+Housekeeping only: no Phase 2C topic branch, source edit, deployment or QSD
+change was made. The Phase 2C Logo containment task above remains assigned to
+BUILDER:DESIGNER (Codex) and may now open its topic branch.
