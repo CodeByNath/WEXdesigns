@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: ACCEPTED — Phase 2A WEX Dashboard UI main promotion
-Phase: 2A — Owner-directed Dashboard UI refinement batch handoff
-Actor: REVIEWER — source promotion accepted; QSD installation not in scope
+Status: BUILDER ACTION REQUIRED — Phase 2B WEX runtime delivery contract audit
+Phase: 2B — remove repeated per-host compiled-bundle handoff
+Actor: BUILDER:DESIGNER — inspect existing WEX host delivery and propose smallest contract fix
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -411,3 +411,11 @@ acceptance and authorises any housekeeping.
 
 ## Reviewer final acceptance — 15 October 2026
 **Verdict: Proceed.** Independently compared WEX `main` with approved `943e7bea2e102e76475784114e311eac5ca37259`: zero commits ahead or behind. Github Actions WEX Pages run `38673046456` deploy job completed **success**, including dependency build, type-check, tests, build, Pages artifact upload and Pages deployment. Reviewer accepts **Phase 2A WEX main promotion only**; previous token and no-inline-CSS audit and Owner's visual testing remain applicable. No QSD `/studio` asset install or authenticated QSD runtime proof for these refinements. Completed topic `codex/split-window-icons` can be removed through authorised housekeeping after confirming contained in `main`; no source changes or force pushes needed. Further Dashboard changes require a new bounded scope.
+
+
+## Phase 2B — Owner correction: WEX must be dynamically consumed (15 Oct 2026)
+Owner rejects the repeated **copy-built-WEX-bundle into each consuming application repo** as the permanent workflow. Phase 2A UI source acceptance remains closed; QSD staging 1F may finish for immediate visibility but MUST NOT be fossilised as the standard WEX delivery protocol.
+
+**BUILDER:DESIGNER — bounded investigation, not speculative implementation:** Inspect verified WEX `main` Studio host entry, existing build manifest, Pages release/deployment, current host contract and QSD /studio's exact loader and asset policies (QSD read-only for this WEX-side audit). Design the **smallest reusable WEX-owned, version-addressable runtime delivery path** that allows a host to mount WEX and pass approved host-owned profile/Logo data without copying newly generated WEX assets into the host repo for every visual change. Reuse existing Studio host manifest/asset pipeline and shell contracts before creating a package, schema, component, token or framework. Check deterministic version promotion, cache invalidation, rollback, CSP/cross-origin constraints, authenticated host/data isolation, failure fallback, staging-vs-production control and avoid unreviewed live-code drift. No domain rules in WEX, no remote executable input from host definitions.
+
+**Architecture gate:** identify the existing authority that permits this delivery path; if absent, submit one specific ADR decision and concrete files/contracts requiring change for Owner/Reviewer acceptance. Do not implement or deploy a new live-code loading mechanism before acceptance. Deliver a concise one-stage migration plan that removes recurring QSD asset commits and allows future consuming products to use the same WEX-owned distribution. Preserve accepted Logo binding and QSD integration unchanged until replacement is accepted and tested. Report findings in THIS file, then stop for Reviewer; do not open a second work area. This architectural correction is distinct from QSD's already-assigned staging visual update.
