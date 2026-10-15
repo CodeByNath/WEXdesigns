@@ -1,8 +1,8 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: DEFERRED — WEX delivery architecture Phase 2B
-Phase: 2B — eliminate repeated host-bundle copies
-Actor: NONE — no WEX Builder action in this phase until Phase 1F QSD staging acceptance
+Status: BUILDER ACTION REQUIRED — Phase 2C Logo 64px containment
+Phase: 2C — contain Header Logo at approved 64 x 64 px
+Actor: BUILDER:DESIGNER (Codex) — WEX presentation-only correction
 
 ## Ownership
 - WEX Builder: **BUILDER:DESIGNER (Codex)**. Works only in `CodeByNath/WEXdesigns`. Owns WEX presentation, schemas as authorised, runtime package and publishing mechanism. **Must not edit/deploy QSD.**
@@ -20,3 +20,10 @@ After Reviewer closes/defers QSD Phase 1F, activate this phase with **Codex**, o
 
 ## Historical evidence
 Previous Logo correction `17e4ca2` and QSD Phase 1E visual acceptance are already recorded in Git history. Previous UI diff and TS7006 correction, successful checks, acceptance and main promotion are recorded in this file's Git history; this current file states only the actionable handoff.
+
+## Owner-reported regression — Phase 2C (15 Oct 2026)
+Screenshot of QSD /studio shows the real Logo image overflowing the Header into the Sidebar and other regions, apparently growing when Sidebar layout changes. WEX `main` verified: `packages/wex/src/foundations/logo.css` constrains `.wex-logo__image` only by percentages; `header.css` expands Brand allocation to sidebar width and does not bound Logo itself. Exact root cause needs Builder reproduction. Owner requirement: **Logo image remains inside a 64 by 64 px maximum area**, preserves aspect ratio, and never overlaps adjacent regions, in collapsed, expanded, hovered or compact layouts. Host may supply wide/tall artwork. Header/Brand allocation can change independently, but not Logo bounds.
+
+**BUILDER:DESIGNER (Codex), WEX only:** Inspect approved Logo/Header ADRs and source. Reproduce the image overflow using a realistic wide source and collapsed/expanded/hover/compact states. Make the minimum WEX-owned, token-only CSS/presentation fix using existing approved 64px geometry, with no inline styles, new tokens, local QSD CSS or schema/domain/host API changes. Preserve Logo binding and fallback. Test image dimensions and containment with DOM/bounding rectangles, accessibility, responsive and `pnpm check`. Existing remote topic `codex/split-window-icons` occupies the third branch slot and is already on `main`; confirm containment and follow authorised housekeeping before opening a new topic; do not force-delete or overwrite it. Submit exact branch/SHA, test evidence and screenshots in THIS work file as `AWAITING REVIEWER REVIEW`; stop for independent review. QSD deployment is a later **QSD:CODER (Claude)** task only after WEX approval and relevant host handoff. No QSD action assigned by this WEX phase.
+
+**Phase 2B permanent distribution architecture remains DEFERRED** until separately activated after this UI correction. Do not start it concurrently.
