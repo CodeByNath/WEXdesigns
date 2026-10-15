@@ -257,5 +257,8 @@ Reviewer independently inspects the **complete batch** once, checks WEX authorit
 
 This is a **batching convention inside the same existing Builder/Reviewer cycle**, not a new approval role, a licence to change any UI without bounds, or permission to skip the final independent review. It applies to future UI refinements; the Logo visual acceptance and QSD boundaries remain separately governed.
 
+
+**Before starting new implementation:** First check remote branches and finish any safe, authorised housekeeping from the previous accepted phase. If a completed topic branch is still occupying the allowed slot, verify it is fully contained in `main` and remove it with an authorised Git-capable executor before assigning or opening the next topic. If deletion is denied, record the exact blocker and responsible actor; do not repeatedly assign implementation work that cannot start. Never delete a branch without verified containment and appropriate authorisation.
+
 ## Single Next Action and status-footer clarity
 When work spans WEX and a consuming host, assign **one immediate next Builder action**, in one active work file. Other phases must be explicitly ACCEPTED, DEFERRED, or blocked, not concurrently marked BUILDER ACTION REQUIRED for the same actor unless Owner explicitly requests parallel work. The mandatory four-field footer identifies the responsible Builder **only in field 3, Next Action**. Field 4, QSD, states factual cross-repo status (for example, staging target and verification state), **not a second Next Action or Builder assignment**. Preserve all four fields. Never infer or silently change a second repository's active work status; coordinate and record any necessary cross-repo deferral explicitly.
