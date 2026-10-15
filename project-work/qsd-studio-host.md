@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — approved UI refinement promotion with checks
+Status: BUILDER ACTION REQUIRED — Phase 2A TypeScript correction before promotion
 Phase: 2A — Owner-directed Dashboard UI refinement batch handoff
-Actor: BUILDER:DESIGNER — verify checks and promote reviewed UI candidate
+Actor: BUILDER:DESIGNER — fix TS7006; rerun checks; resubmit candidate
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -354,3 +354,9 @@ Remote WEX heads verified: only `main` and `Project-work-instructions`; remote `
 **Verdict: Proceed with safeguards.** Owner confirmed they visually tested each adjustment and explicitly authorised promotion if WEX CSS/authority conditions pass. Reviewed pushed `codex/split-window-icons` against `main`: nine changed files, limited to Admin Station shell/Sidebar/runtime, WEX Header/Layout CSS, tests and foundation audit. Source inspection found **no inline `style` attributes, JS style assignments, raw colour literals or new global WEX token declarations**. Presentation rules use registered `var(--wex-...)` references; existing local sidebar geometry variables are recomposed from existing spacing tokens. The expanded/hover/compact sidebar and focus/inert behaviour are within the existing shell boundary; no schemas, adapters, domain records or shared components changed. This is source audit, not an independent runtime test; Owner reports manual visual tests. Branch is one commit ahead of WEX `main` and is not yet formally handed off.
 
 **BUILDER:DESIGNER promotion instruction:** Verify exact remote SHA of `codex/split-window-icons`, execute `pnpm check`, foundation audit, typecheck and applicable Sidebar responsive/keyboard tests; report failures before attempting promotion. If all pass and the candidate remains unchanged, promote **that exact reviewed commit** to WEX `main` using permitted non-force workflow; verify remote SHA and CI. Do not add unreviewed changes or deploy QSD. Update SAME active file with SHA, test/CI evidence and branch outcome, stop for Reviewer. If any check fails, stop and submit bounded correction; do not self-approve. UI scope acceptance is for WEX source only, not automatic QSD staging installation.
+
+
+## Reviewer check failure — 15 October 2026
+**Verdict: Proceed with safeguards — no main promotion yet.** Builder reports `pnpm check` failed on UI candidate `ef684955`: TypeScript TS7006, implicit `any` parameter `hovered` in `apps/web-runtime/src/admin-station-sidebar.js` `setHoverRail(hovered)`. Independently verified untyped declaration in the pushed branch. `main` remains unmodified; Builder reports no ref or coordination changes and pre-existing untracked `.pnpm-store/` preserved.
+
+**BUILDER:DESIGNER — bounded correction:** Add an explicit boolean JSDoc param annotation for `setHoverRail(hovered)`, preserving its existing behaviour. Check other new JS params for typecheck issues without widening UI scope. Run `pnpm check` plus required foundation audit/Sidebar checks. Commit/push correction on the SAME `codex/split-window-icons` topic, record exact new candidate SHA and check evidence in this same work file, set `AWAITING REVIEWER REVIEW`, and stop. Do NOT promote original `ef684955` or new corrected SHA to `main` until independent Reviewer verifies the correction and passes the promotion gate. No new tokens, CSS, interaction changes, QSD edits or deploy.
