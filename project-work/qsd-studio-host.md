@@ -1,8 +1,8 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: AWAITING REVIEWER REVIEW — Phase 2C Logo 64px containment
+Status: REVIEWED — Phase 2C exact-SHA promotion authorised
 Phase: 2C — contain Header Logo at approved 64 x 64 px
-Actor: BUILDER:DESIGNER (Codex) — WEX presentation-only correction
+Actor: BUILDER:DESIGNER (Codex) — exact-SHA promotion/closeout
 
 ## Ownership
 - WEX Builder: **BUILDER:DESIGNER (Codex)**. Works only in `CodeByNath/WEXdesigns`. Owns WEX presentation, schemas as authorised, runtime package and publishing mechanism. **Must not edit/deploy QSD.**
@@ -67,3 +67,6 @@ Evidence:
 - Compact accessibility: opening drawer sets main/footer inert; Escape closes it, restores focus to “Open sidebar”, and clears inert state.
 
 No QSD action, host install, or deployment was performed. Reviewer must independently inspect remote candidate/diff/evidence and issue the next recorded verdict.
+
+## Independent Reviewer verdict — Phase 2C
+**Proceed with safeguards.** Verified pushed `codex/logo-containment-64` at `3c9e136e12be218b2bfac068594b92f4ddfc5865`: exactly one commit ahead of accepted `main`, no divergence, and exactly two files changed (`logo.css` and focused test). Logo bounds use existing `--wex-space-64` and percent-responsive limits; artwork retains `object-fit: contain`. No domain/schema/API/QSD change. Builder reports passing `pnpm check` and DOM rectangle checks; Reviewer verified source/diff but has not independently run a browser. **Authorise Codex exact-SHA fast-forward to WEX `main` now**, no source alterations, then verify checks/main equality, safely delete completed topic per branch governance, record closure in this same file. QSD `/studio` must be separately updated via its existing manual host install and browser-verified before claiming runtime fix. No additional Owner approval needed for clean WEX exact-SHA closeout; do not begin unrelated delivery architecture work.
