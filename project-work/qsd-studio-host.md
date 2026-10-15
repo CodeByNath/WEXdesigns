@@ -27,3 +27,19 @@ Screenshot of QSD /studio shows the real Logo image overflowing the Header into 
 **BUILDER:DESIGNER (Codex), WEX only:** Inspect approved Logo/Header ADRs and source. Reproduce the image overflow using a realistic wide source and collapsed/expanded/hover/compact states. Make the minimum WEX-owned, token-only CSS/presentation fix using existing approved 64px geometry, with no inline styles, new tokens, local QSD CSS or schema/domain/host API changes. Preserve Logo binding and fallback. Test image dimensions and containment with DOM/bounding rectangles, accessibility, responsive and `pnpm check`. Existing remote topic `codex/split-window-icons` occupies the third branch slot and is already on `main`; confirm containment and follow authorised housekeeping before opening a new topic; do not force-delete or overwrite it. Submit exact branch/SHA, test evidence and screenshots in THIS work file as `AWAITING REVIEWER REVIEW`; stop for independent review. QSD deployment is a later **QSD:CODER (Claude)** task only after WEX approval and relevant host handoff. No QSD action assigned by this WEX phase.
 
 **Phase 2B permanent distribution architecture remains DEFERRED** until separately activated after this UI correction. Do not start it concurrently.
+
+
+## Builder capability preflight — Phase 2C (15 October 2026)
+
+Remote `codex/split-window-icons` is exactly contained in WEX `main`
+`943e7bea2e102e76475784114e311eac5ca37259` (zero commits ahead or
+behind). Required deletion of only that completed topic was attempted, but the
+terminal `WeeraX` credential received GitHub HTTP 403. The connected
+`CodeByNath` GitHub surface exposes guarded ref updates but no ref-deletion
+operation.
+
+The three remote heads remain `main`, `Project-work-instructions`, and
+`codex/split-window-icons`; branch capacity is full. No Phase 2C branch,
+source edit, deployment, QSD change, or visual claim was made. A Git-capable
+`CodeByNath` executor must delete only the verified contained topic, fetch
+and confirm the two permanent heads, then rerun this WEX cycle.
