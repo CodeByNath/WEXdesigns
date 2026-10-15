@@ -1,6 +1,6 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: BUILDER ACTION REQUIRED — Phase 2C Logo 64px containment
+Status: AWAITING REVIEWER REVIEW — Phase 2C Logo 64px containment
 Phase: 2C — contain Header Logo at approved 64 x 64 px
 Actor: BUILDER:DESIGNER (Codex) — WEX presentation-only correction
 
@@ -55,3 +55,15 @@ heads are now only `main` (`943e7be`) and `Project-work-instructions`.
 Housekeeping only: no Phase 2C topic branch, source edit, deployment or QSD
 change was made. The Phase 2C Logo containment task above remains assigned to
 BUILDER:DESIGNER (Codex) and may now open its topic branch.
+
+## Builder handoff — Phase 2C (15 October 2026)
+
+Candidate: `codex/logo-containment-64` at `3c9e136e12be218b2bfac068594b92f4ddfc5865`, based on accepted `main` `943e7bea2e102e76475784114e311eac5ca37259`. Scope is WEX-only: Logo wrapper is token-bounded with existing `--wex-space-64`; image fills that box with `object-fit: contain`. No new token, inline style, schema, host/API, QSD, deployment, or distribution change.
+
+Evidence:
+- Added focused `packages/wex/test/logo-foundation.test.mjs`; preserves existing image binding and label fallback.
+- `pnpm check` passed: Foundation audit plus 45/45 Turbo tasks.
+- Codex in-app local Studio fixture used a real 1200×160 HTTPS image. DOM rectangles: collapsed 48×31px, hover 48×31px, expanded 64×31px, compact open drawer 64×31px. Each image rect was inside Brand and at most 64px per axis. Desktop-expanded and compact screenshots captured in the local in-app browser.
+- Compact accessibility: opening drawer sets main/footer inert; Escape closes it, restores focus to “Open sidebar”, and clears inert state.
+
+No QSD action, host install, or deployment was performed. Reviewer must independently inspect remote candidate/diff/evidence and issue the next recorded verdict.
