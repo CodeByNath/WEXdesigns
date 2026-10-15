@@ -1,8 +1,8 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: REVIEWED — Phase 2C exact-SHA promotion authorised
+Status: PROMOTED — Phase 2C branch cleanup pending
 Phase: 2C — contain Header Logo at approved 64 x 64 px
-Actor: BUILDER:DESIGNER (Codex) — exact-SHA promotion/closeout
+Actor: BUILDER:DESIGNER (Codex) — completed-topic branch cleanup/closeout
 
 ## Ownership
 - WEX Builder: **BUILDER:DESIGNER (Codex)**. Works only in `CodeByNath/WEXdesigns`. Owns WEX presentation, schemas as authorised, runtime package and publishing mechanism. **Must not edit/deploy QSD.**
@@ -70,3 +70,6 @@ No QSD action, host install, or deployment was performed. Reviewer must independ
 
 ## Independent Reviewer verdict — Phase 2C
 **Proceed with safeguards.** Verified pushed `codex/logo-containment-64` at `3c9e136e12be218b2bfac068594b92f4ddfc5865`: exactly one commit ahead of accepted `main`, no divergence, and exactly two files changed (`logo.css` and focused test). Logo bounds use existing `--wex-space-64` and percent-responsive limits; artwork retains `object-fit: contain`. No domain/schema/API/QSD change. Builder reports passing `pnpm check` and DOM rectangle checks; Reviewer verified source/diff but has not independently run a browser. **Authorise Codex exact-SHA fast-forward to WEX `main` now**, no source alterations, then verify checks/main equality, safely delete completed topic per branch governance, record closure in this same file. QSD `/studio` must be separately updated via its existing manual host install and browser-verified before claiming runtime fix. No additional Owner approval needed for clean WEX exact-SHA closeout; do not begin unrelated delivery architecture work.
+
+## Reviewer promotion verification — 15 October 2026
+Verified remote `main` is exactly `3c9e136e12be218b2bfac068594b92f4ddfc5865` and its tree is identical to `codex/logo-containment-64` (ahead=0, behind=0). Accepted Logo sizing CSS and focused test exist on `main`; no new source work is pending. Existing `codex/logo-containment-64` remote topic remains after promotion. **Codex:** use authorised Git-capable execution to safely delete ONLY the identical completed topic branch, verify two remaining remote heads (`main`, `Project-work-instructions`), mark Phase 2C ACCEPTED here and stop. This is housekeeping, not a new UI-review phase. Do not reimplement Logo work or request another review for unchanged content. QSD staging has not been verified with this new version.
