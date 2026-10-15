@@ -1,8 +1,8 @@
 # QSD /studio — WEX Dashboard host integration
 
-Status: BUILDER ACTION REQUIRED — Dashboard UI refinement local-work handoff
+Status: BUILDER ACTION REQUIRED — approved UI refinement promotion with checks
 Phase: 2A — Owner-directed Dashboard UI refinement batch handoff
-Actor: BUILDER:DESIGNER — inspect local UI work, commit and push for review
+Actor: BUILDER:DESIGNER — verify checks and promote reviewed UI candidate
 
 ## Owner contract
 QSD /studio hosts WEX's existing independently styled Dashboard; /station remains untouched. WEX owns presentation (Header, Sidebar, Main, Footer, existing Logo fitting, Heroicons); QSD owns route, session/capability gate, protected host storage and asset delivery. Dashboard Body is empty: no QSD records, components, business-logo plug, or direct WordPress database usage.
@@ -348,3 +348,9 @@ authenticated image proof remain separately governed.
 Remote WEX heads verified: only `main` and `Project-work-instructions`; remote `main` remains `17e4ca2afd043d9462420d00ff8d3bdee4e86438`. Completed `codex/studio-host-build-deps` topic is gone. Thus **no pushed UI refinement candidate exists to audit**. Earlier branch deletion blocker is resolved; historical Logo work accepted visually on QSD staging (separate QSD record).
 
 **BUILDER:DESIGNER — next bounded handoff:** Preserve Owner's existing local UI edits. Inspect local working tree, current branch and changes against WEX `main`, active WEX layout/presentation authority and agreed Owner-directed Dashboard refinement scope. Do not overwrite/discard uncommitted work. If changes fit the authorised visual iteration and no architecture/new-token/schema/identity/domain gate is crossed, create the one permitted topic branch, commit logically and push exact candidate to `CodeByNath/WEXdesigns`; verify remote SHA. Run relevant WEX checks and capture Header/Sidebar/Main/Footer responsive, focus/accessibility and interaction evidence. Update THIS work file with actual changed files, exact branch/SHA, check output, limitations and `AWAITING REVIEWER REVIEW`, then stop. If local edits require a new WEX visual value/contract or otherwise exceed approved scope, stop at the specific gate and report it, without inventing values or promoting/deploying. No QSD edits or deployment. Reviewer cannot accept changes that exist only locally.
+
+
+## Reviewer UI refinement audit — 15 October 2026
+**Verdict: Proceed with safeguards.** Owner confirmed they visually tested each adjustment and explicitly authorised promotion if WEX CSS/authority conditions pass. Reviewed pushed `codex/split-window-icons` against `main`: nine changed files, limited to Admin Station shell/Sidebar/runtime, WEX Header/Layout CSS, tests and foundation audit. Source inspection found **no inline `style` attributes, JS style assignments, raw colour literals or new global WEX token declarations**. Presentation rules use registered `var(--wex-...)` references; existing local sidebar geometry variables are recomposed from existing spacing tokens. The expanded/hover/compact sidebar and focus/inert behaviour are within the existing shell boundary; no schemas, adapters, domain records or shared components changed. This is source audit, not an independent runtime test; Owner reports manual visual tests. Branch is one commit ahead of WEX `main` and is not yet formally handed off.
+
+**BUILDER:DESIGNER promotion instruction:** Verify exact remote SHA of `codex/split-window-icons`, execute `pnpm check`, foundation audit, typecheck and applicable Sidebar responsive/keyboard tests; report failures before attempting promotion. If all pass and the candidate remains unchanged, promote **that exact reviewed commit** to WEX `main` using permitted non-force workflow; verify remote SHA and CI. Do not add unreviewed changes or deploy QSD. Update SAME active file with SHA, test/CI evidence and branch outcome, stop for Reviewer. If any check fails, stop and submit bounded correction; do not self-approve. UI scope acceptance is for WEX source only, not automatic QSD staging installation.
