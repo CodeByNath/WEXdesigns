@@ -1,8 +1,8 @@
 # WEX Studio versioned delivery — active work
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED — exact-SHA promotion and published-release verification
 Phase: 2B — WEX release producer, multi-step package
-Actor: REVIEWER — independently inspect the pushed Phase 2B candidate
+Actor: BUILDER:DESIGNER (Codex) — promote accepted candidate and verify public release
 Owner authorisation: 16 October 2026 — complete phased WEX-to-QSD delivery without recurring micro-approvals; stop only at an actual authority/security conflict.
 
 ## Audited baseline
@@ -21,6 +21,12 @@ WEX owns an immutable, verifiable, explicitly versioned Studio bundle. QSD can c
 No QSD writes from WEX; no Profile/data/API/identity changes, inline CSS, new UI, speculative packages, mutable `latest` selectors, production deploy or silent host update. Never expose secrets. If the release origin requires unavailable credentials/admin permissions, incompatible host CSP/MIME/CORS, an unapproved paid service, or changes to security/authority beyond this expressly authorised delivery scope, record exact evidence and stop instead of inventing access. Preserve existing Pages/catalogue behaviour.
 
 QSD consumer instruction lives in its own `project-work/wex-studio-host.md` and may begin once an independently accepted, verified WEX release artifact/contract exists. No more manual WEX bundle-copy cycles.
+
+
+## Independent Reviewer decision — 16 October 2026
+**Verdict: Proceed with safeguards.** Independently compared pushed `codex/qsd-versioned-release-contract` at `e45a48d15a44436a2b9474c4f6d527ff7948cc5d` against `main` `ec445a73dc98b94f1781096e94ccc34e48bff32c`: 3 commits ahead, 0 behind. Inspected actual workflow patch, immutable release manifest and verifier. The manifest declares `wex-studio-host@1`, source SHA `7d1dd544fb92f5d019e5034cd15ede94857b671d`, hashed relative entry/styles and SHA-384 asset inventory. The verifier validates releases and rejects edits to previously present release directories when supplied a valid base. Builder reports 45/45 clean `pnpm check` tasks and focused checks; these checks were not independently executed here.
+
+**Authorise exact-SHA, non-force fast-forward promotion to WEX main**, with no implementation-content changes or extra release content. Codex/authorised Git executor must verify exact tree, run deterministic release checks, confirm Pages workflow passes, then independently fetch the resulting public manifest/module/CSS/font URLs and verify response MIME, CORS, full digest matches and browser module loading. Test immutable path and baseline rollback retrieval; check CDN caching behaviour without assuming Pages provides immutable headers. **Do not mark this work ACCEPTED or release QSD dependency until successful public evidence is recorded in this same file.** If public delivery fails, record actual failure and stop for a bounded correction; do not pass an unverified URL to Claude. Once public checks pass, safely delete only the identical completed topic branch and mark Phase 2B ACCEPTED with exact WEX release URL, manifest digest, verification result and QSD handoff. Never auto-deploy QSD or production. No new Owner round-trip for successful verification-only closeout.
 
 ## Builder blocker — 16 October 2026
 
