@@ -1,8 +1,8 @@
 # WEX Studio versioned delivery — active work
 
-Status: BLOCKED — DECISION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 2B — WEX release producer, multi-step package
-Actor: BUILDER:DESIGNER (Codex)
+Actor: REVIEWER — independently inspect the pushed Phase 2B candidate
 Owner authorisation: 16 October 2026 — complete phased WEX-to-QSD delivery without recurring micro-approvals; stop only at an actual authority/security conflict.
 
 ## Audited baseline
@@ -42,3 +42,35 @@ to another credential, remove the workflow guard, force push, or publish the
 unreviewed candidate. Owner/Reviewer must provide a `kalhomer` credential with
 `workflow` scope (or record a specific credential exception) before Builder
 can push and submit the candidate for review.
+
+## Builder handoff — Phase 2B (16 October 2026)
+
+Credential blocker resolved by Owner: candidate pushed by the Owner with a
+`workflow`-scoped credential. No force push, no credential exception beyond
+that, and the workflow guard was not removed.
+
+Candidate: `codex/qsd-versioned-release-contract` at
+`e45a48d15a44436a2b9474c4f6d527ff7948cc5d`, 3 commits ahead of WEX `main`
+`ec445a73dc98b94f1781096e94ccc34e48bff32c` (0 behind). Remote SHA verified.
+Release ID `wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d`
+(contract `wex-studio-host@1`, source `7d1dd54`), SHA-384 manifest for all
+runtime files including fonts. Workflow change: full-history checkout,
+retained-release verify step (hashes + no-overwrite against push base), and a
+built release-tree presence check; triggers/permissions unchanged. Proposed
+ADR 0024 plus Code Map/README contract documentation.
+
+Evidence (re-run by Claude Code on exact `e45a48d`, clean worktree):
+- `pnpm check`, Turbo cache forced off: Foundation audit passed; 45/45 tasks,
+  0 cached.
+- `verify-studio-releases.mjs --base ec445a7`: passed; focused
+  `studio-release.test.mjs` 1/1 passed (Codex reported Studio suite 20/20).
+- `git diff --check` clean outside generated release assets; the minified
+  release JS contains trailing whitespace, which cannot be edited without
+  breaking its recorded digest.
+
+Limitations: Pages is `main`-only, so release URLs, MIME/CORS/cache headers
+and browser module loading are not yet verified for this candidate; Codex
+recorded existing Pages origin HTTPS/CORS readability only. With no valid push
+base (manual dispatch), the verifier checks digests but skips the
+no-overwrite comparison. No QSD write, host selection or deployment made.
+Stop for independent Reviewer review.
