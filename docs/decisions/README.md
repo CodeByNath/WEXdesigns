@@ -17,6 +17,10 @@ presentation authority and explicit domain ownership.
 - [0022: Logo Render Description Boundary](0022-logo-render-description-boundary.md)
 - [0023: Logo Image Property Binding](0023-logo-image-property-binding.md)
 
+## Proposed
+
+- [0024: Versioned Studio Release Delivery](0024-versioned-studio-release-delivery.md)
+
 ## Superseded
 
 - [0020: Header Component Authority](0020-header-component-authority.md) —

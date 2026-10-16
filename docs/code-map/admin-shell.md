@@ -14,6 +14,12 @@
 
 ### Recent work (newest first)
 
+- Phase 2B adds the WEX-owned retained Studio-release producer:
+  `tooling/scripts/studio-release.mjs` verifies final emitted bytes and writes
+  an immutable source-SHA directory under `apps/web-runtime/public/studio-releases/`.
+  The Pages workflow validates retained release directories; QSD consumption,
+  lock selection and staging proof remain outside this repository.
+
 - Logo image property binding accepts an application-resolved typed value at
   the Studio/Admin Station boundary. The entry reads the sole serializable
   host input once as it loads; it does not fetch QSD data or change the empty
@@ -51,6 +57,7 @@ persistence, adapters, schemas, or pluggable components.
 - Runtime route: [`apps/web-runtime/admin-station/index.html`](../../apps/web-runtime/admin-station/index.html)
 - Runtime entry resources: [`apps/web-runtime/src/admin-station.css`](../../apps/web-runtime/src/admin-station.css), [`apps/web-runtime/src/admin-station.js`](../../apps/web-runtime/src/admin-station.js), [`apps/web-runtime/src/admin-station-runtime.js`](../../apps/web-runtime/src/admin-station-runtime.js), [`apps/web-runtime/src/admin-station-shell.js`](../../apps/web-runtime/src/admin-station-shell.js)
 - Portable Studio host: [`apps/web-runtime/src/studio-host.js`](../../apps/web-runtime/src/studio-host.js), [`apps/web-runtime/vite.studio-host.config.ts`](../../apps/web-runtime/vite.studio-host.config.ts), [`apps/web-runtime/studio-host/README.md`](../../apps/web-runtime/studio-host/README.md)
+- Release producer and proof: [`tooling/scripts/studio-release.mjs`](../../tooling/scripts/studio-release.mjs), [`tooling/scripts/verify-studio-releases.mjs`](../../tooling/scripts/verify-studio-releases.mjs), [`apps/web-runtime/test/studio-release.test.mjs`](../../apps/web-runtime/test/studio-release.test.mjs)
 - Logo image property adapter:
   [`apps/web-runtime/src/logo-property-binding.js`](../../apps/web-runtime/src/logo-property-binding.js)
 - Sidebar rail and compact drawer interaction: [`apps/web-runtime/src/admin-station-sidebar.js`](../../apps/web-runtime/src/admin-station-sidebar.js)

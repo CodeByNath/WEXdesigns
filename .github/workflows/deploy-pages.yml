@@ -33,6 +33,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -56,8 +58,14 @@ jobs:
       - name: Test index
         run: pnpm --filter @weerax/web-runtime test
 
+      - name: Verify retained Studio releases
+        run: node tooling/scripts/verify-studio-releases.mjs --base "${{ github.event.before }}"
+
       - name: Build index
         run: pnpm --filter @weerax/web-runtime build
+
+      - name: Verify published Studio release tree
+        run: test -d apps/web-runtime/dist/studio-releases
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

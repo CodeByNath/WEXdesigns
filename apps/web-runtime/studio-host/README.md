@@ -59,6 +59,24 @@ release process may supply a different label with
 `WEX_STUDIO_ASSET_VERSION=<label>` when building; the filename hashes still
 identify the exact emitted assets.
 
+## Versioned Pages releases
+
+The WEX producer creates a retained release with:
+
+```sh
+pnpm --filter @weerax/web-runtime build:studio-release
+```
+
+Each release is a complete, relative asset directory at
+`/WEXdesigns/studio-releases/wex-studio-v1-<full-source-sha>/`. Its manifest
+uses `wex-studio-host@1` and lists SHA-384 digests for every JS, CSS and font
+file. A consumer must pin the release ID and manifest digest; it must not load
+`main`, `latest`, or a mutable host directory. A retained release is created
+only once and validates exactly on repeat builds, preserving explicit rollback.
+
+The existing plugin-local installation above remains the historical QSD host
+path until QSD separately accepts and implements its release lock/loader.
+
 ## Phase boundary
 
 Identity integration is deferred. QSD's current single JSON-blob endpoint is
