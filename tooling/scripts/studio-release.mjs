@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { cp, access, mkdir, readdir, readFile, rm } from 'node:fs/promises';
+import { cp, access, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
@@ -64,6 +64,27 @@ export async function verifyReleaseDirectory(directory, expected = {}) {
   return manifest;
 }
 
+async function hydrateReleaseManifest(directory, { releaseId, sourceSha }) {
+  const manifestPath = join(directory, 'manifest.json');
+  const buildManifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+  assert.ok(safeRelativePath(buildManifest.entry));
+  assert.ok(Array.isArray(buildManifest.styles) && buildManifest.styles.every(safeRelativePath));
+  const files = await filesAt(directory);
+  const digests = {};
+  for (const path of files) {
+    const relativePath = relative(directory, path);
+    if (relativePath !== 'manifest.json') digests[relativePath] = sha384(await readFile(path));
+  }
+  const manifest = {
+    contract: 'wex-studio-host@1',
+    ...buildManifest,
+    releaseId,
+    sourceSha,
+    files: Object.fromEntries(Object.entries(digests).sort(([left], [right]) => left.localeCompare(right))),
+  };
+  await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+}
+
 function run(command, args, options = {}) {
   return new Promise((resolveRun, rejectRun) => {
     const child = spawn(command, args, { cwd: root, stdio: 'inherit', ...options });
@@ -101,8 +122,9 @@ export async function buildStudioRelease() {
   assert.equal(status, '', 'release builds require a clean tracked worktree');
 
   await run('pnpm', ['--filter', '@weerax/web-runtime', 'build:studio-host'], {
-    env: { ...process.env, WEX_STUDIO_ASSET_VERSION: releaseId, WEX_STUDIO_RELEASE_ID: releaseId, WEX_STUDIO_SOURCE_SHA: sourceSha },
+    env: { ...process.env, WEX_STUDIO_ASSET_VERSION: releaseId },
   });
+  await hydrateReleaseManifest(buildRoot, { releaseId, sourceSha });
   const built = await verifyReleaseDirectory(buildRoot, { releaseId, sourceSha });
 
   if (await pathExists(destination)) {
