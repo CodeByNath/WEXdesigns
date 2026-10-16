@@ -1,7 +1,7 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: BUILDER ACTION REQUIRED — Phase 2B delivery contract investigation
-Phase: 2B — versioned WEX runtime delivery to QSD
+Status: AWAITING REVIEWER REVIEW
+Phase: 2B — versioned WEX runtime delivery to QSD (proposal submitted)
 Actor: BUILDER:DESIGNER (Codex) — WEX delivery contract audit and proposal
 
 ## Owner activation — Phase 2B (16 October 2026)
@@ -11,6 +11,85 @@ Owner wants to refine the Logo from this chat without repeatedly passing a manua
 **Codex, WEX only:** Use the Code Maps and accepted main authority first. Inspect actual WEX Studio build output, manifest/versioning, GitHub Pages publication, and QSD loader/integration read-only. Design the **smallest safe versioned WEX release contract** so QSD can consume a pinned approved runtime without copying rebuilt WEX assets into QSD for every UI change. Include exact release artifact, stable manifest/immutable version path, integrity verification, compatibility/API contract, rollback, caching, CSP, staging approval/promotion, and retained QSD host data/Profile Logo isolation. Reuse current tooling where possible. First deliver an evidence-backed bounded technical proposal and identify required ADR/Owner decisions; **do not implement a new runtime distribution architecture before approval**. No QSD writes, deployment, visual changes, speculative packages/abstractions, or direct unpinned main/latest loading. Keep one active work file; push the proposal/handoff with tests or evidence as appropriate, then stop for Reviewer.
 
 Target first proving case: the accepted fixed 64×64px Logo on QSD staging, followed by rapid WEX Dashboard refinements. Automating updates must retain explicit version selection and rollback; do not silently update consuming hosts.
+
+## Builder handoff — Phase 2B (16 October 2026)
+
+No runtime, QSD, deployment, presentation, schema, or source change was made.
+This is a bounded release-contract proposal for review, not accepted architecture.
+
+### Verified current state
+
+- WEX `main` is `ec445a73dc98b94f1781096e94ccc34e48bff32c`. Its Studio build
+  emits relative hashed assets plus `{entry, styles, version}`; `version`
+  defaults to `0.0.0` or `WEX_STUDIO_ASSET_VERSION`. `studio-host-dist/` is
+  ignored. Pages deploys only the mutable `apps/web-runtime/dist` built from
+  `main`; it does not publish or retain versioned Studio releases.
+- QSD staging is `882c823ad4a7d341e5af690b71a42f1d2d6dfc8f`. Its actual
+  `StudioAssetGateway` reads only plugin-local `studio-assets/manifest.json`,
+  validates relative paths, then loads files with `filemtime` cache versions.
+  It neither consumes `manifest.version` nor verifies asset integrity or
+  remote-origin CSP. The staged manifest is still `version: "0.0.0"`.
+- The closed Logo handoff remains correct and isolated: QSD writes
+  `globalThis.wexStudioHostOptions` before the module, with only the resolved
+  HTTPS `profile.logo` value; WEX reads it once. No host record/API, storage,
+  identity, or Logo binding change is proposed.
+- `pnpm` is unavailable on this execution surface, so no fresh Studio build or
+  WEX check was claimed. Source, emitted staged asset inventory, workflow and
+  QSD loader were inspected read-only.
+
+### Smallest safe candidate contract (requires approval)
+
+1. WEX publishes one immutable release directory per approved release at a
+   WEX-controlled origin, not a `main`, `latest`, mutable host directory, or
+   GitHub Pages root. Exact form: `wex-studio-host/<release-id>/`, containing
+   `manifest.json` and all relative `assets/` files. `release-id` must bind a
+   release tag and full WEX source SHA; it is selected explicitly by QSD.
+2. The exact release artifact is that complete directory plus a canonical
+   manifest. The manifest must declare `contract: "wex-studio-host@1"`,
+   `releaseId`, full `sourceSha`, relative entry/style paths, and SHA-384
+   digests for every delivered file. A release job builds once from the named
+   WEX SHA, rejects unsafe/missing paths and hash mismatches, and publishes
+   only the verified directory. Vite hashes remain filenames, not authority.
+3. QSD stores one reviewed release lock (release ID, immutable manifest URL,
+   expected manifest SHA-384, WEX compatibility contract) in host deployment
+   configuration. Its loader fetches/validates only that lock and manifest,
+   checks every path/hash, emits SRI for the entry and stylesheet, and fails
+   closed to the existing empty Studio mount. It never follows a mutable
+   selector or lets browser input choose a release.
+4. The host-facing compatibility contract stays deliberately narrow:
+   `#qsd-studio-host` and one pre-module, serializable
+   `globalThis.wexStudioHostOptions` Logo value. An incompatible major
+   contract, missing mount, invalid lock, hash failure, or unsupported option
+   fails closed; it does not add a QSD API, event channel, storage operation,
+   or identity behaviour.
+5. Staging promotion is explicit: WEX release evidence -> QSD staging lock
+   update -> authenticated `/studio/` browser/Logo proof -> Reviewer/Owner
+   acceptance -> separately explicit production lock promotion. Rollback is
+   selecting a previously retained, verified lock; no rebuild or asset copy.
+   Retain the current and at least one approved rollback release.
+6. Cache policy must make release paths immutable (`immutable` long-lived
+   assets; immutable manifest per release) while the small QSD lock is
+   revalidated/no-cache. QSD CSP must allow only the approved WEX release
+   origin for script/style/font and retain QSD's existing policy; no wildcard
+   or `unsafe-inline` expansion. Because browser SRI cannot cover nested font
+   fetches, origin immutability plus the complete manifest digest inventory is
+   required and release verification must fetch and hash every file.
+
+### Required decision gate before implementation
+
+An ADR/Owner decision is required to choose and prove the immutable WEX
+release origin and retention model. Current GitHub Pages deployment replaces a
+single `main` artifact, so it cannot by itself satisfy immutable version paths
+or cache control. The decision must also authorise the new release-manifest
+schema, release job/publishing credentials, QSD remote-loader/SRI/CSP changes,
+lock storage/approval ownership, supported WEX/QSD compatibility policy, and
+staging-to-production promotion authority. GitHub Release assets are not
+assumed suitable until browser module MIME type, CORS, CSP, retention and
+immutability are independently demonstrated.
+
+Reviewer should either approve this bounded contract and assign the ADR/Owner
+gate, or return one consolidated correction. Builder must not implement it,
+alter QSD, deploy, or start a new WEX release phase until then.
 
 ## Exact-SHA promotion closeout — Phase 2D (16 October 2026)
 
