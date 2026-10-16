@@ -1,8 +1,16 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: ACCEPTED — Phase 2D fixed Logo geometry promoted to WEX `main`
-Phase: 2D — fixed 64×64px Logo, independent of Sidebar state
-Actor: None assigned — deferred Phase 2B is not activated; awaiting Reviewer/Owner direction
+Status: BUILDER ACTION REQUIRED — Phase 2B delivery contract investigation
+Phase: 2B — versioned WEX runtime delivery to QSD
+Actor: BUILDER:DESIGNER (Codex) — WEX delivery contract audit and proposal
+
+## Owner activation — Phase 2B (16 October 2026)
+
+Owner wants to refine the Logo from this chat without repeatedly passing a manual WEX rebuild / QSD asset-commit / deployment task to Claude. **Phase 2B is now ACTIVE**, after accepted Phase 2D was promoted on WEX main at `ec445a73dc98b94f1781096e94ccc34e48bff32c`. Existing QSD manual Phase 1G refresh has been explicitly deferred; do not initiate it.
+
+**Codex, WEX only:** Use the Code Maps and accepted main authority first. Inspect actual WEX Studio build output, manifest/versioning, GitHub Pages publication, and QSD loader/integration read-only. Design the **smallest safe versioned WEX release contract** so QSD can consume a pinned approved runtime without copying rebuilt WEX assets into QSD for every UI change. Include exact release artifact, stable manifest/immutable version path, integrity verification, compatibility/API contract, rollback, caching, CSP, staging approval/promotion, and retained QSD host data/Profile Logo isolation. Reuse current tooling where possible. First deliver an evidence-backed bounded technical proposal and identify required ADR/Owner decisions; **do not implement a new runtime distribution architecture before approval**. No QSD writes, deployment, visual changes, speculative packages/abstractions, or direct unpinned main/latest loading. Keep one active work file; push the proposal/handoff with tests or evidence as appropriate, then stop for Reviewer.
+
+Target first proving case: the accepted fixed 64×64px Logo on QSD staging, followed by rapid WEX Dashboard refinements. Automating updates must retain explicit version selection and rollback; do not silently update consuming hosts.
 
 ## Exact-SHA promotion closeout — Phase 2D (16 October 2026)
 
