@@ -6,10 +6,12 @@
   "scripts": {
     "build": "vite build",
     "build:studio-host": "pnpm --filter @weerax/schemas build && pnpm --filter @weerax/ui build && vite build --config vite.studio-host.config.ts",
+    "build:studio-release": "node ../../tooling/scripts/studio-release.mjs",
     "type-check": "tsc -p tsconfig.json --noEmit",
     "lint": "tsc -p tsconfig.json --noEmit",
     "test": "pnpm build:studio-host && node --test test/*.test.mjs",
     "test:studio-host": "pnpm build:studio-host && node --test test/studio-host.test.mjs",
+    "test:studio-release": "node --test test/studio-release.test.mjs",
     "check": "pnpm type-check && pnpm test",
     "dev": "vite --host 0.0.0.0"
   },
