@@ -1,8 +1,8 @@
 # WEX Studio versioned delivery — active work
 
-Status: BUILDER ACTION REQUIRED — exact-SHA promotion and published-release verification
-Phase: 2B — WEX release producer, multi-step package
-Actor: BUILDER:DESIGNER (Codex) — promote accepted candidate and verify public release
+Status: ACCEPTED — Phase 2B promoted and public release verified
+Phase: 2B — WEX release producer, multi-step package (closed)
+Actor: None in WEX. QSD consumer work may begin under QSD's own `project-work/wex-studio-host.md`.
 Owner authorisation: 16 October 2026 — complete phased WEX-to-QSD delivery without recurring micro-approvals; stop only at an actual authority/security conflict.
 
 ## Audited baseline
@@ -80,3 +80,37 @@ recorded existing Pages origin HTTPS/CORS readability only. With no valid push
 base (manual dispatch), the verifier checks digests but skips the
 no-overwrite comparison. No QSD write, host selection or deployment made.
 Stop for independent Reviewer review.
+
+## Exact-SHA promotion closeout — 16 October 2026
+
+Promotion: non-force fast-forward `main` `ec445a7` → `e45a48d15a44436a2b9474c4f6d527ff7948cc5d`
+(exact reviewed candidate, tree `7656c7cf`; no content changes). Pre-push on the
+exact tree, clean worktree: `verify-studio-releases.mjs --base ec445a7` passed;
+`studio-release.test.mjs` 1/1; `pnpm check` Foundation audit + 45/45 tasks, 0 cached.
+Pages run `38860174506` (push, `e45a48d`): success, including "Verify retained
+Studio releases" and "Verify published Studio release tree".
+
+Public release (QSD handoff):
+- Release ID: `wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d` (contract `wex-studio-host@1`)
+- Manifest URL: https://codebynath.github.io/WEXdesigns/studio-releases/wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d/manifest.json
+- Manifest digest: `sha384-TGJL9R8YXT5xSlCTXoBG8NtbtuBnbXUKEZiqzlU5MBnGuoIgoREBquPzbO7Cob7W`
+  (public bytes identical to committed manifest)
+
+Public evidence: all 74 manifest files fetched with 200 and SHA-384 match (75
+with manifest); missing path 404. Headers: JS `application/javascript`, CSS
+`text/css`, fonts `font/woff2`, manifest `application/json`; `access-control-allow-origin: *`;
+`cache-control: max-age=600` (no `immutable` — immutability rests on the retained
+path and no-overwrite guard, per ADR 0024). Browser: Owner opened a cross-origin
+test page (`http://127.0.0.1:5500`, Live Server) loading the public CSS and
+module entry with SRI `integrity` + `crossorigin`: PASS — module mounted, CSS
+loaded, 2 fonts loaded, no errors, Logo and Header rendered. Test page not committed.
+
+Rollback: this is the first retained WEX release, so no earlier WEX release
+directory exists. Rollback reference for QSD is its current plugin-local
+`studio-assets/` installation; this release stays retrievable at its pinned
+path for later rollback once a successor exists.
+
+Housekeeping: `codex/qsd-versioned-release-contract` was identical to `main`
+(`e45a48d`) and has been deleted; remote heads are now `main` and
+`Project-work-instructions`. No QSD write, host selection, production deploy or
+Google Drive handover update (Drive connector not authorised in this session).
