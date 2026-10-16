@@ -61,11 +61,14 @@ jobs:
       - name: Verify retained Studio releases
         run: node tooling/scripts/verify-studio-releases.mjs --base "${{ github.event.before }}"
 
+      - name: Verify Studio staging pointer
+        run: node tooling/scripts/studio-staging-pointer.mjs verify --base "${{ github.event.before }}"
+
       - name: Build index
         run: pnpm --filter @weerax/web-runtime build
 
       - name: Verify published Studio release tree
-        run: test -d apps/web-runtime/dist/studio-releases
+        run: test -d apps/web-runtime/dist/studio-releases && test -f apps/web-runtime/dist/studio-releases/staging-pointer.json
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -80,3 +83,6 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify live Studio staging pointer
+        run: node tooling/scripts/studio-staging-pointer.mjs verify-live --url "${{ steps.deployment.outputs.page_url }}"

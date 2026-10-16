@@ -14,6 +14,12 @@
 
 ### Recent work (newest first)
 
+- Phase 2E adds the WEX-owned staging-only release pointer
+  (`studio-releases/staging-pointer.json`, ADR 0025). Only the pointer moves;
+  `tooling/scripts/studio-staging-pointer.mjs` proposes and verifies it, the
+  Pages workflow gates and live-checks it, and promotion to `main` is the
+  approval. Consumer adoption stays outside this repository.
+
 - Phase 2B adds the WEX-owned retained Studio-release producer:
   `tooling/scripts/studio-release.mjs` verifies final emitted bytes and writes
   an immutable source-SHA directory under `apps/web-runtime/public/studio-releases/`.
@@ -57,6 +63,7 @@ persistence, adapters, schemas, or pluggable components.
 - Runtime route: [`apps/web-runtime/admin-station/index.html`](../../apps/web-runtime/admin-station/index.html)
 - Runtime entry resources: [`apps/web-runtime/src/admin-station.css`](../../apps/web-runtime/src/admin-station.css), [`apps/web-runtime/src/admin-station.js`](../../apps/web-runtime/src/admin-station.js), [`apps/web-runtime/src/admin-station-runtime.js`](../../apps/web-runtime/src/admin-station-runtime.js), [`apps/web-runtime/src/admin-station-shell.js`](../../apps/web-runtime/src/admin-station-shell.js)
 - Portable Studio host: [`apps/web-runtime/src/studio-host.js`](../../apps/web-runtime/src/studio-host.js), [`apps/web-runtime/vite.studio-host.config.ts`](../../apps/web-runtime/vite.studio-host.config.ts), [`apps/web-runtime/studio-host/README.md`](../../apps/web-runtime/studio-host/README.md)
+- Staging pointer: [`ADR 0025`](../decisions/0025-studio-staging-release-pointer.md), [`tooling/scripts/studio-staging-pointer.mjs`](../../tooling/scripts/studio-staging-pointer.mjs), [`apps/web-runtime/test/studio-staging-pointer.test.mjs`](../../apps/web-runtime/test/studio-staging-pointer.test.mjs)
 - Release producer and proof: [`tooling/scripts/studio-release.mjs`](../../tooling/scripts/studio-release.mjs), [`tooling/scripts/verify-studio-releases.mjs`](../../tooling/scripts/verify-studio-releases.mjs), [`apps/web-runtime/test/studio-release.test.mjs`](../../apps/web-runtime/test/studio-release.test.mjs)
 - Logo image property adapter:
   [`apps/web-runtime/src/logo-property-binding.js`](../../apps/web-runtime/src/logo-property-binding.js)

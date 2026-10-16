@@ -1,0 +1,10 @@
+{
+  "schema": "wex-studio-staging-pointer@1",
+  "contract": "wex-studio-host@1",
+  "change": "advance",
+  "sequence": 1,
+  "releaseId": "wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d",
+  "manifestPath": "wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d/manifest.json",
+  "manifestDigest": "sha384-TGJL9R8YXT5xSlCTXoBG8NtbtuBnbXUKEZiqzlU5MBnGuoIgoREBquPzbO7Cob7W",
+  "previous": null
+}

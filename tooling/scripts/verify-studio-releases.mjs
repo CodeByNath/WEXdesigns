@@ -25,6 +25,7 @@ async function main() {
     const changed = git('diff', '--name-only', base, 'HEAD', '--', releasePath)
       .split('\n').filter(Boolean);
     for (const path of changed) {
+      if (path === `${releasePath}/staging-pointer.json`) continue; // the pointer is the one mutable file; verified separately
       const releaseId = path.split('/')[4];
       assert.ok(releaseId, `unexpected Studio release path: ${path}`);
       const prior = `${releasePath}/${releaseId}`;

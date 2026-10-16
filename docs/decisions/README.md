@@ -20,6 +20,7 @@ presentation authority and explicit domain ownership.
 ## Proposed
 
 - [0024: Versioned Studio Release Delivery](0024-versioned-studio-release-delivery.md)
+- [0025: Studio Staging Release Pointer](0025-studio-staging-release-pointer.md)
 
 ## Superseded
 
