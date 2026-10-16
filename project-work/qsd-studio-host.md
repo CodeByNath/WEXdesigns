@@ -29,6 +29,12 @@ Evidence:
   restored focus to `Open sidebar`. Desktop-expanded and compact screenshots
   were captured in the in-app browser.
 
+Housekeeping: completed remote `codex/logo-containment-64` was re-verified
+identical to `main` `3c9e136` (0 ahead/0 behind, identical tree) and deleted
+with a plain non-force delete under Owner direction using the `kalhomer`
+credential. Remote heads: `main`, `Project-work-instructions`,
+`codex/logo-fixed-64`.
+
 No QSD action, host install, or deployment was performed. Reviewer must
 independently inspect the remote candidate/diff/evidence and issue the next
 recorded verdict.
