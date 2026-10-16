@@ -1,6 +1,6 @@
 # WEX Studio versioned delivery — active work
 
-Status: BUILDER ACTION REQUIRED
+Status: BLOCKED — DECISION REQUIRED
 Phase: 2B — WEX release producer, multi-step package
 Actor: BUILDER:DESIGNER (Codex)
 Owner authorisation: 16 October 2026 — complete phased WEX-to-QSD delivery without recurring micro-approvals; stop only at an actual authority/security conflict.
@@ -21,3 +21,24 @@ WEX owns an immutable, verifiable, explicitly versioned Studio bundle. QSD can c
 No QSD writes from WEX; no Profile/data/API/identity changes, inline CSS, new UI, speculative packages, mutable `latest` selectors, production deploy or silent host update. Never expose secrets. If the release origin requires unavailable credentials/admin permissions, incompatible host CSP/MIME/CORS, an unapproved paid service, or changes to security/authority beyond this expressly authorised delivery scope, record exact evidence and stop instead of inventing access. Preserve existing Pages/catalogue behaviour.
 
 QSD consumer instruction lives in its own `project-work/wex-studio-host.md` and may begin once an independently accepted, verified WEX release artifact/contract exists. No more manual WEX bundle-copy cycles.
+
+## Builder blocker — 16 October 2026
+
+Candidate `codex/qsd-versioned-release-contract` is local at
+`e45a48d15a44436a2b9474c4f6d527ff7948cc5d` (three commits ahead of WEX
+`main`): retained source-SHA Pages release, SHA-384 manifest for all 75 files,
+no-overwrite workflow guard, focused release proof, proposed ADR 0024 and
+contract documentation. `pnpm check` passed (Foundation audit; 45/45 tasks),
+the focused Studio suite passed (20/20), and the static Pages build contained
+the release tree. Existing Pages browser and response evidence confirms the
+current public origin is HTTPS and CORS-readable; candidate URLs cannot be
+verified until candidate publication/promotion.
+
+Push was refused by GitHub using the Owner-directed `kalhomer` credential:
+`refusing to allow an OAuth App to create or update workflow
+.github/workflows/deploy-pages.yml without workflow scope`. No remote topic,
+release URL, QSD write, deployment, or host selection was made. Do not switch
+to another credential, remove the workflow guard, force push, or publish the
+unreviewed candidate. Owner/Reviewer must provide a `kalhomer` credential with
+`workflow` scope (or record a specific credential exception) before Builder
+can push and submit the candidate for review.
