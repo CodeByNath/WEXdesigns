@@ -1,8 +1,25 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: BUILDER ACTION REQUIRED — accepted Phase 2D exact-SHA promotion/closeout
+Status: ACCEPTED — Phase 2D fixed Logo geometry promoted to WEX `main`
 Phase: 2D — fixed 64×64px Logo, independent of Sidebar state
-Actor: BUILDER:DESIGNER (Codex) — exact-SHA promotion and branch cleanup
+Actor: None assigned — deferred Phase 2B is not activated; awaiting Reviewer/Owner direction
+
+## Exact-SHA promotion closeout — Phase 2D (16 October 2026)
+
+Executed under Owner direction on Codex's behalf (Claude Code, `kalhomer`
+credential). No content change.
+
+- `pnpm check` on exact `ec445a7` in a clean worktree, Turbo cache forced off:
+  Foundation audit passed; 45/45 tasks, 0 cached.
+- `main` fast-forwarded `3c9e136` → `ec445a73dc98b94f1781096e94ccc34e48bff32c`
+  (non-force); remote `main` tree identical to the candidate.
+- `codex/logo-fixed-64` re-verified 0 ahead/0 behind `main`, identical tree, and
+  deleted (non-force). Remote heads: `main`, `Project-work-instructions`.
+- WEX Pages workflow `38845225860` on `ec445a7`: success. Live Pages browser
+  behaviour was not separately inspected.
+
+QSD `/studio` is not updated or verified with this version; no QSD action was
+performed.
 
 ## Reviewer decision — Phase 2D (16 October 2026)
 
