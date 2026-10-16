@@ -1,8 +1,37 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: BUILDER ACTION REQUIRED — Phase 2D fixed Logo geometry
+Status: AWAITING REVIEWER REVIEW
 Phase: 2D — fixed 64×64px Logo, independent of Sidebar state
-Actor: BUILDER:DESIGNER (Codex) — completed-topic housekeeping then fixed-size correction
+Actor: REVIEWER — independently inspect the pushed Phase 2D candidate
+
+## Builder handoff — Phase 2D (16 October 2026)
+
+Candidate branch: `codex/logo-fixed-64`
+
+Candidate SHA: `ec445a73dc98b94f1781096e94ccc34e48bff32c`, based on accepted
+WEX `main` `3c9e136e12be218b2bfac068594b92f4ddfc5865`.
+
+Scope: WEX-only Logo/Header presentation. Logo is a non-shrinking fixed
+`--wex-space-64` square; the approved Brand allocation is itself 64px high
+and has no inner padding that can shrink Logo. Artwork retains `object-fit:
+contain`. No inline CSS, new token, schema, host/API, QSD, deployment, or
+distribution change.
+
+Evidence:
+
+- Focused Header/Logo tests pin the fixed token geometry and parent allocation.
+- `pnpm check` passed: Foundation audit and 45/45 Turbo tasks; `git diff
+  --check` passed.
+- Local Studio fixture DOM rectangles were exactly 64×64px for Logo and Brand
+  in desktop collapsed, expanded, hover rail, and 375px compact drawer states.
+  Wide (1200×160), tall (160×800), and square (800×800) HTTPS artwork stayed
+  contained; invalid URL retained the label fallback. Compact drawer Escape
+  restored focus to `Open sidebar`. Desktop-expanded and compact screenshots
+  were captured in the in-app browser.
+
+No QSD action, host install, or deployment was performed. Reviewer must
+independently inspect the remote candidate/diff/evidence and issue the next
+recorded verdict.
 
 ## Ownership
 - WEX Builder: **BUILDER:DESIGNER (Codex)**. Works only in `CodeByNath/WEXdesigns`. Owns WEX presentation, schemas as authorised, runtime package and publishing mechanism. **Must not edit/deploy QSD.**
