@@ -21,10 +21,9 @@
   min-inline-size: 0;
   box-sizing: border-box;
   inline-size: var(--wex-admin-shell-sidebar-header);
-  block-size: 100%;
+  block-size: var(--wex-space-64);
   inset-block-start: 0;
   inset-inline-start: 0;
-  padding: var(--wex-space-16);
   background: var(--wex-color-background-accent);
   color: var(--wex-color-on-accent);
 }
@@ -38,7 +37,6 @@
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
-  padding-inline: var(--wex-space-16);
   justify-content: flex-start;
 }
 

@@ -2,12 +2,11 @@
 
 .wex-logo {
   display: inline-flex;
+  flex: none;
   align-items: center;
   justify-content: center;
-  inline-size: min(100%, var(--wex-space-64));
-  block-size: min(100%, var(--wex-space-64));
-  min-inline-size: 0;
-  min-block-size: 0;
+  inline-size: var(--wex-space-64);
+  block-size: var(--wex-space-64);
   color: var(--wex-color-text-accent);
 }
 
