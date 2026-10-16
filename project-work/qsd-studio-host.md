@@ -1,6 +1,6 @@
 # WEX-to-QSD staging auto-update — active work
 
-Status: BUILDER ACTION REQUIRED
+Status: AWAITING REVIEWER REVIEW
 Phase: 2E — approved WEX release automatically selected by QSD staging
 Actor: BUILDER:CODER / Codex in WEX — design and implement WEX-side trigger and release metadata, then handoff QSD integration
 Owner authorised: 16 October 2026. Objective: **no repeat QSD commit, manual pin edit, or Claude handoff for each approved WEX UI refinement**.
@@ -32,3 +32,41 @@ Reviewer independently inspected `CodeByNath/qldscubadive` **staging** exact SHA
 - Existing QSD pin is **fixed PHP constants**, not automatically refreshed. A staging-only dynamically refreshed *approval pointer* must be specified by WEX as a verifiable contract; QSD Builder separately implements staging consumer after WEX release approval. Staging may advance by approved pointer; production remains permanently pinned absent explicit approval.
 
 This QSD inspection is sufficient for WEX Phase 2E contract design. Any additional QSD implementation fact needed must be requested from Reviewer, not retrieved by WEX Builder.
+
+
+## Builder handoff — Phase 2E producer candidate
+
+- Branch: `studio-staging-pointer` (pushed to `origin`; remote SHA verified by `git ls-remote`)
+- Candidate SHA: `1cd438e5826307a6b00a65e7b85dc01fbb475377` (based on `main` `e45a48d15a44436a2b9474c4f6d527ff7948cc5d`)
+- Scope: WEX repository only. No QSD, Compuzign or other repository was read for this phase after the Reviewer-supplied evidence; no UI/visual file changed.
+  Disclosure: before that boundary was written, the Builder ran a read-only `git fetch`/`grep` in a local sibling clone while looking for the loader; no content from it was used.
+
+### What changed
+- **Authority:** `docs/decisions/0025-studio-staging-release-pointer.md` (Proposed): publish vs approve semantics, pointer contract `wex-studio-staging-pointer@1`, producer verification, rollback/failure, threat model with residual trust, and the normative consumer contract. Indexed in `docs/decisions/README.md`; Code Map `docs/code-map/admin-shell.md` refreshed.
+- **Pointer:** `apps/web-runtime/public/studio-releases/staging-pointer.json` (the only mutable file under `studio-releases/`). Initial value: sequence 1, `advance`, release `wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d`, `manifestDigest` `sha384-TGJL9R8YXT5xSlCTXoBG8NtbtuBnbXUKEZiqzlU5MBnGuoIgoREBquPzbO7Cob7W`, which equals the digest the Reviewer reported for QSD's current pin. No absolute URL in the pointer.
+- **Automation:** `tooling/scripts/studio-staging-pointer.mjs` with `propose --release <id> [--rollback]`, `verify [--base <sha>]`, `verify-live --url <pages-url>`; `pnpm --filter @weerax/web-runtime propose:studio-staging`. `verify-studio-releases.mjs` exempts exactly the pointer path from the immutable-release rule.
+- **CI (`deploy-pages.yml`):** new pre-build `Verify Studio staging pointer` step (with `--base ${{ github.event.before }}`), pointer presence in the published tree check, and a post-deploy `Verify live Studio staging pointer` step (live pointer byte-identical to deployed; live manifest digest equals pointer, 6 attempts, 10 s apart).
+
+### Guarantees enforced (see ADR 0025)
+Canonical exact-shape pointer; release directory and raw manifest digest verified; release source commit must be an ancestor of the deploying commit (no unreviewed-branch adoption); `previous` release must stay retained and verifiable; sequence +1 with `previous` equal to the prior pointer; `advance` must descend from the previous release, `rollback` must be older and explicit. Only the pointer moves; releases are never overwritten.
+
+### Evidence
+- `node --test` focused: `apps/web-runtime/test/studio-staging-pointer.test.mjs`, 7 tests (bootstrap/chain, tampered bytes and digest, shape/path-escape/canonical, sequence skip/replay/forged previous, downgrade vs rollback, unreachable source and missing previous, committed pointer). `pnpm --filter @weerax/web-runtime test`: 27 pass, 0 fail.
+- `pnpm check` from repository root: 45/45 tasks successful.
+- CI-equivalent dry run against base `e45a48d`: `verify-studio-releases.mjs --base e45a48d…` passes; `studio-staging-pointer.mjs verify --base e45a48d…` prints `verified staging pointer wex-studio-v1-7d1dd544…`.
+- **Workflow proof is NOT yet available.** Pages deploys from `main` only, so the Actions run and `verify-live` step cannot execute until the Reviewer promotes this candidate. The Builder did not merge to `main`. `gh` is not installed on this surface; Reviewer should read the run from GitHub after promotion. Compatibility: no change to `wex-studio-host@1`, manifests, release directories or the Logo host binding.
+
+### Single QSD handoff (for the QSD Builder, after WEX 2E is accepted and published)
+Based only on the Reviewer-supplied evidence (`StudioReleaseLock`, `StudioAssetGateway` at staging `c706f69a…`) and ADR 0025 "Consumer contract":
+1. **Staging only.** Replace the staging path's four fixed constants with a pointer-selected release; leave production on its fixed pin, untouched, and never reading the pointer.
+2. **Fetch** `https://<allowlisted Pages origin>/WEXdesigns/studio-releases/staging-pointer.json` with `wp_remote_get` (HTTPS, no cross-origin redirect). The origin and prefix are PHP constants; nothing comes from request, query, cookie or REST input.
+3. **Validate** the pointer to the ADR 0025 table (exact keys, schema, contract `wex-studio-host@1`, release-ID regex, `manifestPath === releaseId + '/manifest.json'`, digest shape). Build `MANIFEST_URL` as `<prefix>/<manifestPath>`; set `EXPECTED_MANIFEST_DIGEST = manifestDigest`, `RELEASE_ID = releaseId`, `EXPECTED_CONTRACT` stays the constant.
+4. **Reuse** the existing `verifiedRelease()` unchanged for manifest checks (200, raw-byte digest, contract/releaseId, inventory, entry/styles), and keep SRI + `crossorigin=anonymous` enqueue.
+5. **Replay/downgrade guard:** persist the highest accepted `sequence` (and its releaseId); reject a lower sequence, reject an equal sequence naming a different release, accept a higher one only when `previous.releaseId` equals the currently selected release (a `rollback` change is accepted on the same rule).
+6. **Cache:** the pointer result may be transient-cached ≤ 300 s like the manifest; expect up to roughly 10 min Pages cache plus 300 s before staging reflects an approval.
+7. **Failure:** on any pointer/manifest failure serve the last fully verified release; if none, enqueue nothing. Never enqueue unverified assets.
+8. **Preserve** route/auth/capability checks before any fetch, the single `profile.logo` host binding written before the module script, and QSD ownership of REST config, CSS, cache and deployment.
+Acceptance for QSD (Reviewer-defined): a pointer change on WEX `main` alters the staging Studio release within the cache bound with no QSD commit; tampered pointer/manifest and lower sequence are refused; production unchanged.
+
+### Housekeeping and next action
+Remote branches after this push: `main`, `Project-work-instructions`, `studio-staging-pointer` (three; at capacity). After independent acceptance and promotion, the topic branch must be removed before another topic opens. Builder stops here for Reviewer.
