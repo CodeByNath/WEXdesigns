@@ -1,8 +1,8 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: PROMOTED — Phase 2C branch cleanup pending
-Phase: 2C — contain Header Logo at approved 64 x 64 px
-Actor: BUILDER:DESIGNER (Codex) — completed-topic branch cleanup/closeout
+Status: BUILDER ACTION REQUIRED — Phase 2D fixed Logo geometry
+Phase: 2D — fixed 64×64px Logo, independent of Sidebar state
+Actor: BUILDER:DESIGNER (Codex) — completed-topic housekeeping then fixed-size correction
 
 ## Ownership
 - WEX Builder: **BUILDER:DESIGNER (Codex)**. Works only in `CodeByNath/WEXdesigns`. Owns WEX presentation, schemas as authorised, runtime package and publishing mechanism. **Must not edit/deploy QSD.**
@@ -73,3 +73,10 @@ No QSD action, host install, or deployment was performed. Reviewer must independ
 
 ## Reviewer promotion verification — 15 October 2026
 Verified remote `main` is exactly `3c9e136e12be218b2bfac068594b92f4ddfc5865` and its tree is identical to `codex/logo-containment-64` (ahead=0, behind=0). Accepted Logo sizing CSS and focused test exist on `main`; no new source work is pending. Existing `codex/logo-containment-64` remote topic remains after promotion. **Codex:** use authorised Git-capable execution to safely delete ONLY the identical completed topic branch, verify two remaining remote heads (`main`, `Project-work-instructions`), mark Phase 2C ACCEPTED here and stop. This is housekeeping, not a new UI-review phase. Do not reimplement Logo work or request another review for unchanged content. QSD staging has not been verified with this new version.
+
+
+## Owner instruction — Phase 2D (16 October 2026)
+
+QSD Phase 1F was closed as **DEFERRED** by Owner direction (visual gate not independently accepted). Do not send Logo geometry work back to QSD. WEX `main` currently has Phase 2C at `3c9e136e12be218b2bfac068594b92f4ddfc5865`; CSS currently uses `min(100%, var(--wex-space-64))` on `.wex-logo`, so its allocated box can shrink below 64px. **Owner requires a fixed 64×64px Logo box at all times, including expanded/collapsed/hover Sidebar and compact layout.** This is exact geometry, **not a maximum**. Artwork (wide, tall, square) must retain its aspect ratio inside this fixed box (`object-fit: contain`); never stretch or crop the image, overlap Header/Sidebar, or change Logo dimensions on Sidebar interaction. Resolve any parent slot/header layout conflict through approved WEX geometry/composition only.
+
+**Codex bounded task:** first safely delete completed remote `codex/logo-containment-64` only after verifying it is identical to `main` (last verified 0 ahead/behind); confirm branch capacity, then open one authorised topic. Inspect current Logo/Header design authority, Code Maps and source. Apply minimal WEX-only token-based presentation correction; no QSD edits, inline CSS, invented tokens, schema/host bindings/API changes, or new component. Test DOM rect equals exactly 64×64 for Logo wrapper in all listed states and viewports; image fits with preserved aspect ratio, no overlap, and fallback remains intact. Check keyboard/accessibility and run `pnpm check`; record screenshot evidence. Push topic plus same-file handoff `AWAITING REVIEWER REVIEW` with exact SHA/tests, stop for independent Reviewer. Do not self-promote or commence deferred Phase 2B delivery redesign. If authoritative responsive geometry forbids a fixed box, stop with the exact conflicting source rather than invent a rule.
