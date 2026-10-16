@@ -1,8 +1,12 @@
 # WEX Dashboard — QSD consumer handoff
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED — accepted Phase 2D exact-SHA promotion/closeout
 Phase: 2D — fixed 64×64px Logo, independent of Sidebar state
-Actor: REVIEWER — independently inspect the pushed Phase 2D candidate
+Actor: BUILDER:DESIGNER (Codex) — exact-SHA promotion and branch cleanup
+
+## Reviewer decision — Phase 2D (16 October 2026)
+
+**Verdict: Proceed with safeguards.** Independently verified pushed candidate `ec445a73dc98b94f1781096e94ccc34e48bff32c` on `codex/logo-fixed-64` is exactly 1 commit ahead of `main` `3c9e136e12be218b2bfac068594b92f4ddfc5865`, 0 behind. Diff contains only `header.css`, `logo.css` and focused tests. Fixed `var(--wex-space-64)` inline/block Logo dimensions, `flex:none`, Brand 64px block allocation and removed Brand padding implement the Owner's fixed-size requirement without new tokens/schema/QSD changes. `object-fit:contain` remains. Builder reports `pnpm check` 45/45, screenshots, wide/tall/square fixture rects exactly 64×64 and compact keyboard checks; Reviewer inspected actual remote source/diff but has not independently run browser or CI checks. **Authorize Codex exact-SHA fast-forward promotion to WEX `main` with NO content change**, verify new main equals candidate, run required checks, remove only the identical completed topic branch through a Git-capable executor, and record final main SHA and factual verification here as ACCEPTED. WEX Pages live runtime and any QSD host remain separate evidence boundaries; do not claim QSD deployment or visual acceptance. Stop after closeout; do not activate deferred Phase 2B automatically.
 
 ## Builder handoff — Phase 2D (16 October 2026)
 
