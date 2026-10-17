@@ -29,6 +29,7 @@ function studioHostManifest(): Plugin {
 
 export default defineConfig({
   base: './',
+  publicDir: false,
   plugins: [studioHostManifest()],
   build: {
     outDir: 'studio-host-dist',
