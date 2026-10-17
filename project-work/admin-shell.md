@@ -1,9 +1,30 @@
 # Admin Shell / Admin Station Layout
 
-Status: ACCEPTED — Phase 7 already incorporated into main; closed
-Phase: 7 — Owner-directed responsive refinement batch (CLOSED)
+Status: AWAITING REVIEWER REVIEW
+Phase: 8 — Owner-directed Logo leading-inset refinement
 
 ## Current Builder handoff
+
+The Owner requested that the Logo retain its established left padding without
+breaking Admin Station layout rules.
+
+- Candidate branch: `codex/logo-left-padding`
+- Candidate SHA: `0a2e15ffc16790b7b117b5e7a398a32e44dddae6`
+- Scope: restore only the existing `--wex-space-16` leading inset when the
+  Header brand is expanded; retain the existing Logo, Header, responsive and
+  compact-drawer contracts. No new token, breakpoint, component, schema,
+  inline CSS or runtime style injection.
+- Evidence: local Admin Station preview verified the inset on expanded desktop
+  and at 390px with the compact drawer open; labelled drawer control and focus
+  traversal remain present.
+- Checks: `node --test packages/wex/test/header-foundation.test.mjs
+  apps/web-runtime/test/catalogue.test.mjs`; `node
+  tooling/scripts/validate-foundation.mjs`; `git diff --check`.
+
+Reviewer: inspect the exact pushed SHA against this bounded scope. Hosted
+GitHub Pages evidence remains a post-promotion boundary.
+
+## Phase 7 Builder handoff
 
 The Owner explicitly authorised this bounded follow-up for independent review.
 
