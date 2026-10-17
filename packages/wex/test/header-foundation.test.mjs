@@ -13,9 +13,9 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   const base = header.match(/\.wex-admin-shell__header\s*\{([\s\S]*?)\}/);
   assert.ok(base, 'missing Header base rule');
   assert.match(base[1], /position: relative;/);
-  assert.match(base[1], /block-size: calc\(var\(--wex-space-64\) \+ var\(--wex-space-16\)\);/);
+  assert.match(base[1], /block-size: var\(--wex-space-64\);/);
   assert.match(base[1], /padding: var\(--wex-space-8\);/);
-  assert.match(header, /\.wex-admin-shell__brand\s*\{[\s\S]*position: absolute;[\s\S]*z-index: 1;[\s\S]*box-sizing: border-box;[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-header\) - \(var\(--wex-space-8\) \* 2\)\);[\s\S]*block-size: var\(--wex-space-64\);[\s\S]*inset-block-start: var\(--wex-space-8\);[\s\S]*inset-inline-start: var\(--wex-space-8\);[\s\S]*background: var\(--wex-color-background-accent\);[\s\S]*color: var\(--wex-color-on-accent\);/);
+  assert.match(header, /\.wex-admin-shell__brand\s*\{[\s\S]*position: absolute;[\s\S]*z-index: 1;[\s\S]*box-sizing: border-box;[\s\S]*inline-size: var\(--wex-admin-shell-sidebar-header\);[\s\S]*block-size: var\(--wex-space-64\);[\s\S]*inset-block-start: 0;[\s\S]*inset-inline-start: 0;[\s\S]*background: var\(--wex-color-background-accent\);[\s\S]*color: var\(--wex-color-on-accent\);/);
   assert.doesNotMatch(header.match(/\.wex-admin-shell__brand\s*\{([\s\S]*?)\}/)?.[1] ?? '', /padding/);
   assert.match(header, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*color: var\(--wex-color-on-accent\);/);
   assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*justify-content: flex-start;/);
@@ -25,9 +25,10 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.doesNotMatch(header, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
-test('keeps the compact Header and Logo allocation inside the eight-pixel wrapper rule', () => {
+test('uses the existing compact boundary for Header and Logo padding', () => {
   const compact = header.match(/@media \(max-width: 767px\)\s*\{([\s\S]*)\}/);
   assert.ok(compact, 'missing compact Header rule');
-  assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*inline-size: min\([\s\S]*calc\(var\(--wex-admin-shell-sidebar-expanded\) - \(var\(--wex-space-8\) \* 2\)\),[\s\S]*calc\(100% - var\(--wex-space-64\) - \(var\(--wex-space-8\) \* 2\)\)[\s\S]*\);/);
+  assert.match(compact[1], /\.wex-admin-shell__header\s*\{[\s\S]*padding: var\(--wex-space-4\);/);
+  assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*inline-size: min\(var\(--wex-admin-shell-sidebar-expanded\), calc\(100% - var\(--wex-space-64\)\)\);/);
   assert.doesNotMatch(header, /(?:768px|1024px|1440px)/);
 });

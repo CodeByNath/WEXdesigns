@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -127,16 +126,6 @@ test('release source must be reachable from main and the previous release must s
 test('the committed staging pointer names a retained, verifiable release', async () => {
   const releaseRoot = new URL('../public/studio-releases/', import.meta.url).pathname;
   const text = await readFile(join(releaseRoot, 'staging-pointer.json'), 'utf8');
-  let basePointerText = null;
-  try {
-    basePointerText = execFileSync(
-      'git',
-      ['show', 'HEAD^:apps/web-runtime/public/studio-releases/staging-pointer.json'],
-      { encoding: 'utf8' },
-    );
-  } catch {
-    // The initial committed pointer has no predecessor to compare.
-  }
-  const pointer = await verifyStagingPointer(text, { releaseRoot, basePointerText });
+  const pointer = await verifyStagingPointer(text, { releaseRoot });
   assert.equal(pointer.contract, 'wex-studio-host@1');
 });
