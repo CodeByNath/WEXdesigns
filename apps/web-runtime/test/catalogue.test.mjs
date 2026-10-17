@@ -175,7 +175,6 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   ['<header', '<aside', '<main', '<footer'].forEach((landmark) => assert.match(adminStation, new RegExp(landmark)));
   ['header', 'sidebar', 'main', 'footer'].forEach((region) => assert.match(adminStation, new RegExp(`data-admin-station-region="${region}"`)));
   assert.match(adminStation, /class="wex-admin-shell"/);
-  assert.match(adminStation, /class="wex-admin-station-page"/);
   assert.match(adminStation, /aria-label="Admin Station sidebar"/);
   assert.match(adminStation, /href="\.\.\/src\/admin-station\.css"/);
   assert.match(adminStation, /src="\.\.\/src\/admin-station\.js"/);
@@ -308,7 +307,6 @@ test('provides the Admin Station Sidebar rail, compact drawer, and split-window 
   assert.match(wexLayout, /--wex-admin-shell-sidebar-expanded: calc\(var\(--wex-space-64\) \* 4 \+ var\(--wex-space-8\)\);/);
   assert.match(wexLayout, /--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-collapsed\);/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar="expanded"\] \{[\s\S]*--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-expanded\);/);
-  assert.match(wexLayout, /\.wex-admin-station-page\s*\{[\s\S]*padding-inline: var\(--wex-space-16\);/);
   assert.match(wexLayout, /\.wex-admin-shell\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   ['sidebar', 'main', 'footer:not\\(:empty\\)'].forEach((region) => {
     assert.match(wexLayout, new RegExp(`\\.wex-admin-shell__${region}\\s*\\{[\\s\\S]*padding: var\\(--wex-space-4\\);`));

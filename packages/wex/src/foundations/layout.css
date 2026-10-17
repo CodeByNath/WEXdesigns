@@ -50,16 +50,6 @@ blockquote {
   padding-inline: var(--wex-layout-page-padding);
 }
 
-.wex-admin-station-page {
-  width: 100%;
-  min-width: 0;
-  min-block-size: 100vh;
-  min-block-size: 100dvh;
-  padding-inline: var(--wex-space-16);
-  background: var(--wex-color-layer-02);
-  color: var(--wex-color-text-primary);
-}
-
 .wex-admin-shell {
   /* Sidebar reference targets, composed only from WEX spacing tokens. */
   --wex-admin-shell-sidebar-collapsed: calc(var(--wex-space-64) + var(--wex-space-16));
