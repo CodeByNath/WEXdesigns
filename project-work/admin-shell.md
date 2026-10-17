@@ -1,7 +1,7 @@
 # Admin Shell / Admin Station Layout
 
-Status: ACCEPTED — Phase 8 direct UI refinement promoted to main; closed
-Phase: 8 — Owner-directed Logo leading-inset refinement (CLOSED)
+Status: WEX PUBLICATION PENDING — Phase 8 source merged; immutable release/pointer not yet published
+Phase: 8 — Logo leading-inset source complete; WEX Studio delivery outstanding
 
 ## Current Builder handoff
 
@@ -91,3 +91,7 @@ No new Lego piece is authorised by this closeout itself.
 ## Phase 8 closeout — 17 October 2026
 
 **Proceed.** Exact candidate `0a2e15ffc16790b7b117b5e7a398a32e44dddae6` contains one added `--wex-space-16` header Logo leading inset and its corresponding test assertion, no component/schema/layout rewrites. Fast-forwarded remote WEX `main` from `1cd438e5826307a6b00a65e7b85dc01fbb475377` to that exact candidate (non-force, expected-SHA guard). Builder reported focused tests and local desktop/390px preview; post-promotion Pages/live verification is not claimed here. This UI refinement is CLOSED; do not reinstate a review queue or demand another cycle for this completed change. No QSD source/deploy changes.
+
+## Owner-directed direct UI delivery completion — 17 October 2026
+
+Existing Logo inset UI source `0a2e15ffc16790b7b117b5e7a398a32e44dddae6` is on WEX `main`, but the published immutable Studio release and staging pointer still select `wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d`. Do NOT describe the Owner-visible result as complete. **Next action: WEX Builder (direct UI delivery, no formal Reviewer queue)** must build/publish a NEW immutable Studio release from accepted WEX source, advance staging pointer with approved WEX tools, safely promote to WEX `main`, check Pages release/pointer live verification, and close this WEX delivery state after proof. WEX-only work. QSD staging auto-adoption is separately pending Phase 1I runtime proof; do not claim QSD fixed pin means Phase 1I source is undeployed (QSD staging already contains the code but activation is unverified). Never read/modify QSD from the WEX Builder. Owner UI refinements do not create automatic Reviewer handoffs.
