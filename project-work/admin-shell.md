@@ -1,7 +1,7 @@
 # Admin Shell / Admin Station Layout
 
-Status: AWAITING REVIEWER REVIEW
-Phase: 8 — Owner-directed Logo leading-inset refinement
+Status: ACCEPTED — Phase 8 direct UI refinement promoted to main; closed
+Phase: 8 — Owner-directed Logo leading-inset refinement (CLOSED)
 
 ## Current Builder handoff
 
@@ -87,3 +87,7 @@ No new Lego piece is authorised by this closeout itself.
 ## Reviewer closeout — 17 October 2026
 
 **Verdict: Proceed.** Remote source comparison confirms Phase 7 candidate `ef684955f9d42c5bf79b2de0d0a04b0213306e7f` is an ancestor of WEX `main` at `1cd438e5826307a6b00a65e7b85dc01fbb475377` (eight later commits); remote topic branch no longer exists and repository retains only `main` and `Project-work-instructions`. No source promotion or branch cleanup remains. The previously recorded local browser/check evidence is historical; this closeout does not claim a new live UI check. Phase 7 is CLOSED, not an active Reviewer gate. New direct Owner UI refinements (including Logo left padding) must not be blocked by this completed handoff.
+
+## Phase 8 closeout — 17 October 2026
+
+**Proceed.** Exact candidate `0a2e15ffc16790b7b117b5e7a398a32e44dddae6` contains one added `--wex-space-16` header Logo leading inset and its corresponding test assertion, no component/schema/layout rewrites. Fast-forwarded remote WEX `main` from `1cd438e5826307a6b00a65e7b85dc01fbb475377` to that exact candidate (non-force, expected-SHA guard). Builder reported focused tests and local desktop/390px preview; post-promotion Pages/live verification is not claimed here. This UI refinement is CLOSED; do not reinstate a review queue or demand another cycle for this completed change. No QSD source/deploy changes.
