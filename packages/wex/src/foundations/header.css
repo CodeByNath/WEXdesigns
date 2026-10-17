@@ -29,6 +29,7 @@
 }
 
 .wex-admin-shell__brand .wex-logo {
+  padding-inline-start: var(--wex-space-8);
   color: var(--wex-color-on-accent);
 }
 
