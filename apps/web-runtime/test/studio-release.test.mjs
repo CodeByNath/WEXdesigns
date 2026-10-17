@@ -18,5 +18,9 @@ test('retained Studio releases are complete, content-addressed and path-safe', a
     assert.ok(safeRelativePath(releaseId));
     const manifest = await verifyReleaseDirectory(join(releaseRoot.pathname, releaseId));
     assert.equal(manifest.releaseId, releaseId);
+    assert.ok(
+      Object.keys(manifest.files).every((path) => !path.startsWith('studio-releases/')),
+      `${releaseId} must not embed retained Studio releases`,
+    );
   }
 });
