@@ -1,8 +1,8 @@
 # WEX-to-QSD staging auto-update — active work
 
-Status: AWAITING REVIEWER REVIEW
+Status: BUILDER ACTION REQUIRED — exact-SHA promotion and Pages pointer proof
 Phase: 2E — approved WEX release automatically selected by QSD staging
-Actor: BUILDER:CODER / Codex in WEX — design and implement WEX-side trigger and release metadata, then handoff QSD integration
+Actor: BUILDER:CODER (WEX only) — promote reviewed Phase 2E candidate; verify public pointer
 Owner authorised: 16 October 2026. Objective: **no repeat QSD commit, manual pin edit, or Claude handoff for each approved WEX UI refinement**.
 
 ## Accepted baseline
@@ -70,3 +70,9 @@ Acceptance for QSD (Reviewer-defined): a pointer change on WEX `main` alters the
 
 ### Housekeeping and next action
 Remote branches after this push: `main`, `Project-work-instructions`, `studio-staging-pointer` (three; at capacity). After independent acceptance and promotion, the topic branch must be removed before another topic opens. Builder stops here for Reviewer.
+
+
+## Independent Reviewer decision — 17 October 2026
+**Verdict: Proceed with safeguards.** Inspected remote `studio-staging-pointer` SHA `1cd438e5826307a6b00a65e7b85dc01fbb475377`, exactly 1 commit ahead of WEX `main` `e45a48d15a44436a2b9474c4f6d527ff7948cc5d`, 0 behind. Nine changed WEX-only files: ADR 0025, pointer JSON, proposal/verification script and tests, Pages workflow, release verification exception, runtime command and docs. Source review confirms canonical pointer and release digest checks, source ancestry, explicit sequence/rollback chain, post-Pages live pointer/manifest digest verification and no QSD source edits. Builder-reported `pnpm check` 45/45 and tests 27/27 were not independently re-run. Existing Pages source cannot prove the candidate URL works until promotion.
+
+Authorise **non-force fast-forward of exact candidate SHA to WEX `main`**, with no implementation changes, then verify identical remote tree, CI Pages run including `Verify live Studio staging pointer`, publicly fetch pointer JSON/manifest and compare bytes/digests/headers. Record exact workflow/SHA/URL and test facts here before marking Phase 2E ACCEPTED; if verification fails, stop and report the concrete issue. Only after published acceptance provide QSD Phase 1I handoff; it remains a separate QSD Builder task. Safely remove the completed topic branch only after identical heads confirmed. Do not touch any other repository, auto-update production, or claim QSD auto-consumer installed.
