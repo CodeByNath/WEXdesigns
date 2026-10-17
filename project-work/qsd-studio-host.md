@@ -1,8 +1,8 @@
 # WEX-to-QSD staging auto-update — active work
 
-Status: BUILDER ACTION REQUIRED — exact-SHA promotion and Pages pointer proof
+Status: ACCEPTED — Phase 2E promoted and publicly verified on `main`
 Phase: 2E — approved WEX release automatically selected by QSD staging
-Actor: BUILDER:CODER (WEX only) — promote reviewed Phase 2E candidate; verify public pointer
+Actor: none (WEX side closed). QSD Phase 1I auto-consumer implementation is a separate QSD Builder task per the handoff below.
 Owner authorised: 16 October 2026. Objective: **no repeat QSD commit, manual pin edit, or Claude handoff for each approved WEX UI refinement**.
 
 ## Accepted baseline
@@ -68,7 +68,7 @@ Based only on the Reviewer-supplied evidence (`StudioReleaseLock`, `StudioAssetG
 8. **Preserve** route/auth/capability checks before any fetch, the single `profile.logo` host binding written before the module script, and QSD ownership of REST config, CSS, cache and deployment.
 Acceptance for QSD (Reviewer-defined): a pointer change on WEX `main` alters the staging Studio release within the cache bound with no QSD commit; tampered pointer/manifest and lower sequence are refused; production unchanged.
 
-### Housekeeping and next action
+### Housekeeping and next action (superseded — see promotion below)
 Remote branches after this push: `main`, `Project-work-instructions`, `studio-staging-pointer` (three; at capacity). After independent acceptance and promotion, the topic branch must be removed before another topic opens. Builder stops here for Reviewer.
 
 
@@ -76,3 +76,18 @@ Remote branches after this push: `main`, `Project-work-instructions`, `studio-st
 **Verdict: Proceed with safeguards.** Inspected remote `studio-staging-pointer` SHA `1cd438e5826307a6b00a65e7b85dc01fbb475377`, exactly 1 commit ahead of WEX `main` `e45a48d15a44436a2b9474c4f6d527ff7948cc5d`, 0 behind. Nine changed WEX-only files: ADR 0025, pointer JSON, proposal/verification script and tests, Pages workflow, release verification exception, runtime command and docs. Source review confirms canonical pointer and release digest checks, source ancestry, explicit sequence/rollback chain, post-Pages live pointer/manifest digest verification and no QSD source edits. Builder-reported `pnpm check` 45/45 and tests 27/27 were not independently re-run. Existing Pages source cannot prove the candidate URL works until promotion.
 
 Authorise **non-force fast-forward of exact candidate SHA to WEX `main`**, with no implementation changes, then verify identical remote tree, CI Pages run including `Verify live Studio staging pointer`, publicly fetch pointer JSON/manifest and compare bytes/digests/headers. Record exact workflow/SHA/URL and test facts here before marking Phase 2E ACCEPTED; if verification fails, stop and report the concrete issue. Only after published acceptance provide QSD Phase 1I handoff; it remains a separate QSD Builder task. Safely remove the completed topic branch only after identical heads confirmed. Do not touch any other repository, auto-update production, or claim QSD auto-consumer installed.
+
+## Builder promotion and post-publication verification — 17 October 2026 (BUILDER:CODER, exact-SHA closeout per Reviewer authorisation)
+
+- Verified `origin` resolves to `CodeByNath/WEXdesigns` before acting.
+- Verified `origin/studio-staging-pointer` (`1cd438e5826307a6b00a65e7b85dc01fbb475377`) was a clean fast-forward of `origin/main` (`e45a48d15a44436a2b9474c4f6d527ff7948cc5d`) via `git merge-base --is-ancestor`.
+- Non-force fast-forward push: `git push origin studio-staging-pointer:main` → `e45a48d..1cd438e main`. Confirmed via `git ls-remote origin main` → `1cd438e5826307a6b00a65e7b85dc01fbb475377`, identical to the accepted candidate (no divergent tree to diff; it is the exact same commit).
+- CI Pages workflow "Deploy WEX index" run `38994010321` for head SHA `1cd438e…` (`https://github.com/CodeByNath/WEXdesigns/actions/runs/38994010321`): `completed` / `success`. All 16 numbered steps succeeded, including step 9 `Verify retained Studio releases`, step 10 `Verify Studio staging pointer` (pre-deploy), and step 16 `Verify live Studio staging pointer` (post-deploy).
+- Independently fetched the live pointer: `GET https://codebynath.github.io/WEXdesigns/studio-releases/staging-pointer.json` → HTTP 200, `content-length: 400`, body byte-identical to the committed pointer (`schema wex-studio-staging-pointer@1`, `contract wex-studio-host@1`, `change advance`, `sequence 1`, `releaseId wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d`, `manifestDigest sha384-TGJL9R8YXT5xSlCTXoBG8NtbtuBnbXUKEZiqzlU5MBnGuoIgoREBquPzbO7Cob7W`, `previous null`).
+- Independently fetched the live manifest: `GET https://codebynath.github.io/WEXdesigns/studio-releases/wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d/manifest.json` → HTTP 200. Recomputed SHA-384 locally with `openssl dgst -sha384`: `sha384-TGJL9R8YXT5xSlCTXoBG8NtbtuBnbXUKEZiqzlU5MBnGuoIgoREBquPzbO7Cob7W`, exactly matching the pointer's `manifestDigest`. Manifest `contract` = `wex-studio-host@1`, `releaseId` matches, 74 files inventoried.
+- No other repository was read, cloned, fetched, or written. No implementation content changed during promotion; only the pre-authorised exact-SHA fast-forward and factual verification/closeout steps were performed.
+- Topic branch removed after identical-heads confirmation: `git push origin --delete studio-staging-pointer`. Remote heads now exactly `main` (`1cd438e…`) and `Project-work-instructions` — two, under the three-branch capacity.
+
+**Phase 2E: ACCEPTED.** Final `main` SHA: `1cd438e5826307a6b00a65e7b85dc01fbb475377`. Production QSD remains untouched and still pinned to its existing fixed constants; only the WEX-side staging pointer contract is now published and live-verified.
+
+The "Single QSD handoff" section above is now actionable: QSD Phase 1I auto-consumer implementation is a separate QSD Builder task, not performed from this repository or this session.
