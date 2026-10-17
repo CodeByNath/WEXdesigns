@@ -50,6 +50,16 @@ blockquote {
   padding-inline: var(--wex-layout-page-padding);
 }
 
+.wex-admin-station-page {
+  width: 100%;
+  min-width: 0;
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+  padding-inline: var(--wex-space-16);
+  background: var(--wex-color-layer-02);
+  color: var(--wex-color-text-primary);
+}
+
 .wex-admin-shell {
   /* Sidebar reference targets, composed only from WEX spacing tokens. */
   --wex-admin-shell-sidebar-collapsed: calc(var(--wex-space-64) + var(--wex-space-16));
@@ -67,7 +77,7 @@ blockquote {
   grid-template-rows: auto minmax(0, 1fr) auto;
   width: 100%;
   min-width: 0;
-  padding-inline: var(--wex-space-16);
+  padding: var(--wex-space-8);
   block-size: 100vh;
   block-size: 100dvh;
   overflow: hidden;
@@ -217,7 +227,6 @@ blockquote {
       "main"
       "footer";
     grid-template-columns: minmax(0, 1fr);
-    padding-inline: var(--wex-space-8);
   }
 
   .wex-admin-shell__main {
