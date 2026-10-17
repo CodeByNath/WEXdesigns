@@ -307,10 +307,14 @@ test('provides the Admin Station Sidebar rail, compact drawer, and split-window 
   assert.match(wexLayout, /--wex-admin-shell-sidebar-expanded: calc\(var\(--wex-space-64\) \* 4 \+ var\(--wex-space-8\)\);/);
   assert.match(wexLayout, /--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-collapsed\);/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar="expanded"\] \{[\s\S]*--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-expanded\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar\s*\{[\s\S]*padding: var\(--wex-space-16\);/);
+  assert.match(wexLayout, /\.wex-admin-shell\s*\{[\s\S]*padding-inline: var\(--wex-space-16\);/);
+  ['sidebar', 'main', 'footer:not\\(:empty\\)'].forEach((region) => {
+    assert.match(wexLayout, new RegExp(`\\.wex-admin-shell__${region}\\s*\\{[\\s\\S]*padding: var\\(--wex-space-4\\);`));
+  });
   assert.match(wexLayout, /\.wex-admin-shell__control svg \{\s*inline-size: var\(--wex-icon-size-20\);\s*block-size: var\(--wex-icon-size-20\);\s*\}/);
   const compact = wexLayout.slice(wexLayout.indexOf('@media (max-width: 767px)'));
   assert.match(compact, /grid-template-areas:\s*"header"\s*"main"\s*"footer";/);
+  assert.match(compact, /\.wex-admin-shell,[\s\S]*padding-inline: var\(--wex-space-8\);/);
   assert.match(compact, /\.wex-admin-shell__drawer-trigger\s*\{[\s\S]*display: grid;[\s\S]*inset-inline-start: calc\(var\(--wex-admin-shell-sidebar-collapsed\) \+ var\(--wex-space-16\)\);/);
   assert.match(compact, /\.wex-admin-shell__sidebar\s*\{[\s\S]*display: none;[\s\S]*inline-size: min\(var\(--wex-admin-shell-sidebar-expanded\), calc\(100% - var\(--wex-space-64\)\)\);/);
   assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__sidebar\s*\{\s*display: flex;/);
