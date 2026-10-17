@@ -65,6 +65,7 @@ blockquote {
     "footer footer";
   grid-template-columns: var(--wex-admin-shell-sidebar-current) minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--wex-space-8);
   width: 100%;
   min-width: 0;
   padding: var(--wex-space-8);
@@ -100,8 +101,8 @@ blockquote {
   grid-area: sidebar;
   display: flex;
   flex-direction: column;
-  gap: var(--wex-space-12);
-  padding: var(--wex-space-4);
+  gap: var(--wex-space-8);
+  padding: 0;
   overflow: auto;
   overscroll-behavior: contain;
   border-inline-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
@@ -111,6 +112,7 @@ blockquote {
 .wex-admin-shell__sidebar-controls {
   display: flex;
   align-items: center;
+  gap: var(--wex-space-8);
   justify-content: center;
 }
 
@@ -121,11 +123,11 @@ blockquote {
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-controls {
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .wex-admin-shell[data-sidebar-hovered="true"] .wex-admin-shell__sidebar-controls {
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-label {
@@ -171,7 +173,7 @@ blockquote {
 
 .wex-admin-shell__main {
   grid-area: main;
-  padding: var(--wex-space-4);
+  padding: 0;
   overflow: auto;
   background: var(--wex-color-layer-01);
 }
@@ -182,7 +184,7 @@ blockquote {
 }
 
 .wex-admin-shell__footer:not(:empty) {
-  padding: var(--wex-space-4);
+  padding: 0;
   border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-layer-02);
 }
@@ -219,15 +221,11 @@ blockquote {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .wex-admin-shell__main {
-    padding: var(--wex-space-4);
-  }
-
   .wex-admin-shell__drawer-trigger {
     position: absolute;
     z-index: 2;
     display: grid;
-    inset-block-start: var(--wex-space-12);
+    inset-block-start: calc(var(--wex-space-24) - var(--wex-space-2));
     inset-inline-start: calc(var(--wex-admin-shell-sidebar-collapsed) + var(--wex-space-16));
   }
 
@@ -236,7 +234,7 @@ blockquote {
     display: none;
     position: absolute;
     z-index: 2;
-    inset-block: var(--wex-space-64) 0;
+    inset-block: calc(var(--wex-space-64) + var(--wex-space-16)) 0;
     inset-inline-start: 0;
     inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-space-64)));
   }
@@ -262,7 +260,7 @@ blockquote {
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__backdrop {
     position: absolute;
     z-index: 1;
-    inset: var(--wex-space-64) 0 0;
+    inset: calc(var(--wex-space-64) + var(--wex-space-16)) 0 0;
     display: block;
     inline-size: 100%;
   }

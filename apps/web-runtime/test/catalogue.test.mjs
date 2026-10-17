@@ -308,8 +308,9 @@ test('provides the Admin Station Sidebar rail, compact drawer, and split-window 
   assert.match(wexLayout, /--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-collapsed\);/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar="expanded"\] \{[\s\S]*--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-expanded\);/);
   assert.match(wexLayout, /\.wex-admin-shell\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
+  assert.match(wexLayout, /\.wex-admin-shell\s*\{[\s\S]*gap: var\(--wex-space-8\);/);
   ['sidebar', 'main', 'footer:not\\(:empty\\)'].forEach((region) => {
-    assert.match(wexLayout, new RegExp(`\\.wex-admin-shell__${region}\\s*\\{[\\s\\S]*padding: var\\(--wex-space-4\\);`));
+    assert.match(wexLayout, new RegExp(`\\.wex-admin-shell__${region}\\s*\\{[\\s\\S]*padding: 0;`));
   });
   assert.match(wexLayout, /\.wex-admin-shell__control svg \{\s*inline-size: var\(--wex-icon-size-20\);\s*block-size: var\(--wex-icon-size-20\);\s*\}/);
   const compact = wexLayout.slice(wexLayout.indexOf('@media (max-width: 767px)'));

@@ -166,13 +166,13 @@ const buttonFoundation = read('packages/wex/src/foundations/buttons.css');
 const headerFoundation = read('packages/wex/src/foundations/header.css');
 const geometryFoundation = read('packages/wex/src/foundations/geometry.css');
 assert(headerFoundation.includes('.wex-admin-shell__header {'), 'WEX Admin Header shell foundation is missing');
-assert(headerFoundation.includes('block-size: calc(var(--wex-space-64) + var(--wex-space-8))'), 'Header does not preserve the nested Logo allocation');
+assert(headerFoundation.includes('block-size: calc(var(--wex-space-64) + var(--wex-space-16))'), 'Header does not preserve the nested Logo allocation');
 assert(headerFoundation.includes('.wex-admin-shell__brand {'), 'Header Brand compartment is missing');
 assert(
   headerFoundation.includes('position: absolute;')
-    && headerFoundation.includes('inline-size: calc(var(--wex-admin-shell-sidebar-header) - (var(--wex-space-4) * 2))')
-    && headerFoundation.includes('inset-inline-start: var(--wex-space-4);'),
-  'Header Brand does not preserve its four-pixel nested sidebar allocation',
+    && headerFoundation.includes('inline-size: calc(var(--wex-admin-shell-sidebar-header) - (var(--wex-space-8) * 2))')
+    && headerFoundation.includes('inset-inline-start: var(--wex-space-8);'),
+  'Header Brand does not preserve its eight-pixel nested sidebar allocation',
 );
 assert(headerFoundation.includes('@media (max-width: 767px)'), 'Header compact boundary is missing');
 assert(!/(?:#[0-9a-f]{3,8}|rgb\(|hsl\()/i.test(headerFoundation), 'Header foundation contains raw colour values');
