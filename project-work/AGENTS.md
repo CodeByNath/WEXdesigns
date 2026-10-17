@@ -13,6 +13,12 @@ Before any project work:
 9. Do not advance until the current phase is accepted or explicitly deferred by the Reviewer.
 10. Never treat `Project-work-instructions` as product architecture authority.
 
+## Owner-approved direct UI refinement lane — 17 October 2026
+
+The Owner explicitly authorises **ordinary WEX Admin Dashboard UI refinements** without invoking the formal Builder/Reviewer project cycle, unless the Owner says `run the cycle` or explicitly requests a governed phase. This applies to presentation adjustments within existing accepted WEX tokens, allocations, component contracts, architecture and repository safety rules. The direct lane is **not** authority for unreviewed architecture/schema/domain/API changes, cross-repository access, production QSD deployments, branch-capacity overrides, or bypassing required automated checks. Make the requested WEX-only UI change, verify it and report the result; do not invent a new work-file gate or require Reviewer reapproval of an already accepted/merged phase. Respect the Owner's stated Logo left padding and existing Header allocations.
+
+**Completion hygiene:** when a submitted candidate is already contained in `main` and its topic branch is gone, Reviewer must close the matching active work file as `ACCEPTED` instead of indefinitely leaving `AWAITING REVIEWER REVIEW`; check actual ancestry and evidence first. A closed historical phase must not block a new, separately authorised direct UI refinement. For a formal cycle, continue following the full existing role protocol. Never claim direct UI changes landed on `main` until the remote SHA and relevant checks are verified.
+
 ## Cycle Trigger Meaning
 
 For this repository, `run the cycle`, `continue the work`, `review the latest work`, or equivalent always mean the **WeeraX Project Cycle**, not a package-manager validation command.
