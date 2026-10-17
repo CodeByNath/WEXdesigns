@@ -3,9 +3,9 @@
   "contract": "wex-studio-host@1",
   "change": "advance",
   "sequence": 2,
-  "releaseId": "wex-studio-v1-ca70fcf803206783601f311df3bd93bfa4292208",
-  "manifestPath": "wex-studio-v1-ca70fcf803206783601f311df3bd93bfa4292208/manifest.json",
-  "manifestDigest": "sha384-/Ll7CCpHLyD880ZnU9u/wrMV/FVr/uCfbIf1LAcqfl+ia9bxD8eVS+Sz8uT0DmLC",
+  "releaseId": "wex-studio-v1-bace0c02f8eea0accc0a34abe50b9b3f9495f04a",
+  "manifestPath": "wex-studio-v1-bace0c02f8eea0accc0a34abe50b9b3f9495f04a/manifest.json",
+  "manifestDigest": "sha384-3jlxXA+kdS1C6tVotcpGbVU2jDy9obPhyY/K3VE1Iw+e7qDyvQwAEEbwzflIERil",
   "previous": {
     "sequence": 1,
     "releaseId": "wex-studio-v1-7d1dd544fb92f5d019e5034cd15ede94857b671d",

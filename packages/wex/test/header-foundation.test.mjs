@@ -17,8 +17,8 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(base[1], /padding: var\(--wex-space-8\);/);
   assert.match(header, /\.wex-admin-shell__brand\s*\{[\s\S]*position: absolute;[\s\S]*z-index: 1;[\s\S]*box-sizing: border-box;[\s\S]*inline-size: var\(--wex-admin-shell-sidebar-header\);[\s\S]*block-size: var\(--wex-space-64\);[\s\S]*inset-block-start: 0;[\s\S]*inset-inline-start: 0;[\s\S]*background: var\(--wex-color-background-accent\);[\s\S]*color: var\(--wex-color-on-accent\);/);
   assert.doesNotMatch(header.match(/\.wex-admin-shell__brand\s*\{([\s\S]*?)\}/)?.[1] ?? '', /padding/);
-  assert.match(header, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*padding-inline-start: var\(--wex-space-8\);[\s\S]*color: var\(--wex-color-on-accent\);/);
-  assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*justify-content: flex-start;/);
+  assert.match(header, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*color: var\(--wex-color-on-accent\);/);
+  assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*padding-inline-start: var\(--wex-space-16\);[\s\S]*justify-content: flex-start;/);
   assert.doesNotMatch(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__header/);
   assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand-title\s*\{[\s\S]*display: inline;/);
   assert.doesNotMatch(header, /wex-admin-header|wex-header__|location-label|sidebar-trigger|primary-navigation|main-action/);
