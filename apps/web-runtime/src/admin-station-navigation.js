@@ -1,8 +1,13 @@
 const ICON_STROKE_WIDTH = '1.75';
 
+/** @typedef {'dashboard' | 'products' | 'tools' | 'chevron'} SidebarIconName */
+/** @typedef {{ id: string, label: string, active?: boolean }} SidebarLeafInput */
+/** @typedef {{ id: string, label: string, icon: SidebarIconName, active?: boolean, expanded?: boolean, children?: readonly SidebarLeafInput[] }} SidebarTabInput */
+
 /**
  * Local presentation inputs for the first Sidebar navigation component.
  * Commands for these items are deliberately supplied by a future host layer.
+ * @type {readonly SidebarTabInput[]}
  */
 const sidebarTabInputs = Object.freeze([
   Object.freeze({ id: 'dashboard', label: 'Dashboard', icon: 'dashboard' }),
@@ -21,29 +26,30 @@ const sidebarTabInputs = Object.freeze([
   Object.freeze({ id: 'tools', label: 'Tools', icon: 'tools', expanded: false, children: Object.freeze([]) }),
 ]);
 
-const iconShapes = Object.freeze({
-  dashboard: Object.freeze([
-    Object.freeze(['rect', { x: '3.75', y: '3.75', width: '6.5', height: '6.5', rx: '1.25' }]),
-    Object.freeze(['rect', { x: '13.75', y: '3.75', width: '6.5', height: '6.5', rx: '1.25' }]),
-    Object.freeze(['rect', { x: '3.75', y: '13.75', width: '6.5', height: '6.5', rx: '1.25' }]),
-    Object.freeze(['rect', { x: '13.75', y: '13.75', width: '6.5', height: '6.5', rx: '1.25' }]),
-  ]),
-  products: Object.freeze([
-    Object.freeze(['path', { d: 'm12 3.75 8.25 4.5L12 12.75 3.75 8.25 12 3.75Z' }]),
-    Object.freeze(['path', { d: 'M3.75 8.25v7.5L12 20.25l8.25-4.5v-7.5M12 12.75v7.5' }]),
-  ]),
-  tools: Object.freeze([
-    Object.freeze(['path', { d: 'M4 6.5h16M4 12h16M4 17.5h16' }]),
-    Object.freeze(['circle', { cx: '8', cy: '6.5', r: '1.5' }]),
-    Object.freeze(['circle', { cx: '15.5', cy: '12', r: '1.5' }]),
-    Object.freeze(['circle', { cx: '10.5', cy: '17.5', r: '1.5' }]),
-  ]),
-  chevron: Object.freeze([
-    Object.freeze(['path', { d: 'm6.75 9.25 5.25 5.25 5.25-5.25' }]),
-  ]),
-});
+/** @type {Record<SidebarIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
+const iconShapes = {
+  dashboard: [
+    ['rect', { x: '3.75', y: '3.75', width: '6.5', height: '6.5', rx: '1.25' }],
+    ['rect', { x: '13.75', y: '3.75', width: '6.5', height: '6.5', rx: '1.25' }],
+    ['rect', { x: '3.75', y: '13.75', width: '6.5', height: '6.5', rx: '1.25' }],
+    ['rect', { x: '13.75', y: '13.75', width: '6.5', height: '6.5', rx: '1.25' }],
+  ],
+  products: [
+    ['path', { d: 'm12 3.75 8.25 4.5L12 12.75 3.75 8.25 12 3.75Z' }],
+    ['path', { d: 'M3.75 8.25v7.5L12 20.25l8.25-4.5v-7.5M12 12.75v7.5' }],
+  ],
+  tools: [
+    ['path', { d: 'M4 6.5h16M4 12h16M4 17.5h16' }],
+    ['circle', { cx: '8', cy: '6.5', r: '1.5' }],
+    ['circle', { cx: '15.5', cy: '12', r: '1.5' }],
+    ['circle', { cx: '10.5', cy: '17.5', r: '1.5' }],
+  ],
+  chevron: [
+    ['path', { d: 'm6.75 9.25 5.25 5.25 5.25-5.25' }],
+  ],
+};
 
-/** @param {Document} document @param {keyof typeof iconShapes} name */
+/** @param {Document} document @param {SidebarIconName} name */
 function createIcon(document, name) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.classList.add('wex-admin-shell__sidebar-tab-icon');
@@ -125,7 +131,7 @@ export function mountSidebarNavigation(shell) {
     const children = document.createElement('ul');
     children.id = groupId;
     children.className = 'wex-admin-shell__sidebar-tab-children';
-    item.children.forEach((child) => {
+    (item.children ?? []).forEach((child) => {
       const childItem = document.createElement('li');
       childItem.append(createLeafTab(document, child));
       children.append(childItem);
@@ -140,6 +146,7 @@ export function mountSidebarNavigation(shell) {
     const selected = event.target instanceof Element ? event.target.closest('.wex-admin-shell__sidebar-tab--leaf') : null;
     if (!(selected instanceof HTMLButtonElement)) return;
     list.querySelectorAll('.wex-admin-shell__sidebar-tab--leaf').forEach((tab) => {
+      if (!(tab instanceof HTMLButtonElement)) return;
       const active = tab === selected;
       tab.dataset.sidebarTabActive = String(active);
       tab.setAttribute('aria-pressed', String(active));
