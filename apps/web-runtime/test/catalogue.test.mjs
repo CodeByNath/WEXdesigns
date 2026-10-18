@@ -287,7 +287,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, and split-window 
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar-hovered="true"\] \.wex-admin-shell__sidebar-label\s*\{\s*display: inline;/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-label\s*\{[\s\S]*color: var\(--wex-color-text-secondary\);[\s\S]*text-transform: uppercase;/);
   assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*color: var\(--wex-color-text-secondary\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*inline-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\)\);[\s\S]*block-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\)\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*inline-size: var\(--wex-space-32\);[\s\S]*block-size: var\(--wex-space-32\);/);
   assert.match(adminStation, /<main[^>]*><div class="wex-admin-shell__page"><\/div><\/main>/);
   assert.match(adminStation, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions"><\/div>/);
   assert.match(adminStation, /<footer[^>]*><\/footer>/);
@@ -311,7 +311,8 @@ test('provides the Admin Station Sidebar rail, compact drawer, and split-window 
   assert.match(wexLayout, /--wex-admin-shell-sidebar-expanded: calc\(var\(--wex-space-64\) \* 4 \+ var\(--wex-space-8\)\);/);
   assert.match(wexLayout, /--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-collapsed\);/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar="expanded"\] \{[\s\S]*--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-expanded\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar\s*\{[\s\S]*padding: var\(--wex-space-16\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*inline-size: var\(--wex-space-32\);[\s\S]*block-size: var\(--wex-space-32\);/);
   assert.match(wexLayout, /\.wex-admin-shell__control svg \{\s*inline-size: var\(--wex-icon-size-20\);\s*block-size: var\(--wex-icon-size-20\);\s*\}/);
   const compact = wexLayout.slice(wexLayout.indexOf('@media (max-width: 767px)'));
   assert.match(compact, /grid-template-areas:\s*"header"\s*"main"\s*"footer";/);
