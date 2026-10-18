@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — Phase A spacing and gap alignment
+Status: OWNER LIVE VALIDATION REQUIRED — Phase A published to WEX Studio
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -31,15 +31,23 @@ WEX spacing tokens.
 
 ## Phase A checklist
 
-- [ ] Confirm the current shell wrappers and registered spacing tokens.
-- [ ] Give Main and its first inner wrapper `--wex-space-8` padding.
-- [ ] Set Header wrapper padding to zero; apply the specified Brand and
+- [x] Confirm the current shell wrappers and registered spacing tokens.
+- [x] Give Main and its first inner wrapper `--wex-space-8` padding.
+- [x] Set Header wrapper padding to zero; apply the specified Brand and
   Navigation-shell edge padding.
-- [ ] Apply `--wex-space-8` as the default gap only to Phase-A layout
+- [x] Apply `--wex-space-8` as the default gap only to Phase-A layout
   containers with direct siblings.
-- [ ] Run WEX/runtime checks, publish the immutable Studio release and advance
+- [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
+
+Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
+immutable release `wex-studio-v1-2979d8759380ccbf54a72d21d0fa032da9157cba`,
+and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
+(sequence 8). `pnpm --filter @weerax/web-runtime test` passed 27/27,
+`pnpm --filter @weerax/wex test` passed 15/15, release/pointer integrity
+checks passed, Pages run 75 succeeded, and live pointer/manifest verification
+passed. The remaining checkbox is intentionally Owner-owned.
 
 ## Intended composition
 
@@ -102,6 +110,5 @@ composition only; it does not authorise values outside WEX authority.
 
 ## Ready state
 
-Phase A is in progress under the Owner’s explicit padding/gap instruction.
-Steps B–E remain gated. Once the Builder checklist is complete, live validation
-is owned by the Owner and its checkbox remains open until confirmed.
+Phase A is published for Owner validation. Steps B–E remain gated. Live
+validation is Owner-owned and its checkbox remains open until confirmed.
