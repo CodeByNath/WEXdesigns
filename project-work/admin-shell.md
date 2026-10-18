@@ -1,6 +1,6 @@
 # Admin Shell — Studio delivery correction
 
-Status: BUILDER ACTION REQUIRED — package latest WEX UI into QSD-consumable Studio release
+Status: AWAITING REVIEWER REVIEW — Delivery D1 Studio release packaged, published and live-verified
 Phase: Delivery D1 — build, retain, publish and verify one current WEX Studio release
 Actor: BUILDER:CODER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -16,3 +16,20 @@ WEX `main` at `583474a1fb8a5cb7f0719db48ae5ccb03eb47149` includes recent header 
 5. Reviewer then checks resulting WEX producer evidence and QSD staging adoption/browser UI separately. No QSD Builder work until a verified QSD-specific defect is found.
 
 **Scope exclusions:** Do not redesign Header, change UI beyond already-committed corrections, modify QSD, touch old immutable releases, bypass anti-replay, or conflate website Pages deployment with Studio release publication. Execute this bounded release packaging/promotion task without asking Owner to decide implementation minutiae. Stop only for newly evidenced architecture or tooling contradictions.
+
+## Delivery D1 complete — 18 October 2026, BUILDER:CODER (Claude Code)
+
+Confirmed the CSS-consumption path before building: `apps/web-runtime/src/studio-host.js` imports `admin-station.css`, which imports `packages/wex/src/index.css`, which imports both `header.css` (commit `8ec9dc6`) and `layout.css` (commit `583474a1`). Both fixes are compiled into the Studio host bundle; no import/build disconnect.
+
+Built from WEX `main` `583474a1fb8a5cb7f0719db48ae5ccb03eb47149` (clean tracked worktree; one incidental untracked local `.pnpm-store/` cache directory, unrelated to any branch, was removed first) via `node tooling/scripts/studio-release.mjs`:
+
+- **New release**: `wex-studio-v1-583474a1fb8a5cb7f0719db48ae5ccb03eb47149`, manifest digest `sha384-KaKuzmkI0BUA8rVQeJ6ZX/d1/Bd0RYcALzqEiU+WFWw4Ji2MwzTbw9/fRiRoeDNB`. Verified byte-for-byte via `verifyReleaseDirectory`. Committed to `main` at `f88c675` (75 files, additive only — no existing release directory touched).
+- **Pointer**: proposed and verified via `studio-staging-pointer.mjs propose`/`verify` — sequence 6, `previous` exactly matches the retained sequence-5 record (release `1d7784ac…`, digest `sha384-v2ZHYL6F…`). Committed to `main` at `f066614`.
+- **Checks**: `pnpm --filter @weerax/web-runtime test` 27/27 pass (run both before and after the pointer commit). `node tooling/scripts/verify-studio-releases.mjs --base 583474a1…` exit 0. `node tooling/scripts/studio-staging-pointer.mjs verify --base f88c675…` exit 0.
+- **Push**: `git push origin main` — fast-forward `583474a1 → f066614`, no force, no history rewrite.
+- **Pages CI**: workflow run `39106331238` (head `f066614`) completed successfully (confirmed via the public Actions API, read-only, no `gh` auth used).
+- **Live verification**: `node tooling/scripts/studio-staging-pointer.mjs verify-live --url https://codebynath.github.io/WEXdesigns/` → `verified live staging pointer and manifest`. Live pointer confirmed `sequence:6`, releaseId `wex-studio-v1-583474a1fb8a5cb7f0719db48ae5ccb03eb47149`.
+
+WEX `main` is now at `f066614`, live sequence 6. No sequence 7 advance was made. No QSD repo/runtime was accessed from this Builder role; this is WEX producer-side evidence only, not a QSD adoption claim. No Header redesign, no UI change beyond the two already-committed/reviewed fixes, no existing release directory modified, no anti-replay bypass.
+
+**Reviewer**: independently verify the pushed commits/live state and separately check QSD's actual adoption of sequence 6.
