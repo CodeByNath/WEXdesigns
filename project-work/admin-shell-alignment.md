@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — add Logo shell inline-end padding
+Status: OWNER LIVE VALIDATION REQUIRED — Logo shell padding correction published
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -39,7 +39,7 @@ spacing tokens.
   containers with direct siblings.
 - [x] Owner visual correction: remove the outer Admin Shell grid gap while
   preserving internal shell/component gaps and padding.
-- [ ] Owner visual correction: add `--wex-space-16` padding to the Logo shell
+- [x] Owner visual correction: add `--wex-space-16` padding to the Logo shell
   inline end while retaining its existing padding and allocation.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
@@ -61,6 +61,17 @@ shell/component gaps and padding are retained. `pnpm --filter @weerax/web-runtim
 test` passed 27/27, `pnpm --filter @weerax/wex test` passed 15/15,
 release/pointer integrity checks and live pointer/manifest verification passed,
 and [Pages run 76](https://github.com/CodeByNath/WEXdesigns/actions/runs/39114011483)
+succeeded. Owner live validation remains open.
+
+Logo padding evidence: source `a266631d7095aecdabfb577e8a0a7bb6d28c106e`,
+immutable release `wex-studio-v1-a266631d7095aecdabfb577e8a0a7bb6d28c106e`,
+and `main` pointer commit `3e115aac546932b9743e8b551d9939d9c54403e6`
+(sequence 10). The Brand/Logo shell retains its `--wex-space-16` inline-start
+and gains the same inline-end padding without changing its allocation.
+`pnpm --filter @weerax/wex test` passed 15/15, `pnpm --filter
+@weerax/web-runtime test` passed 27/27, release/pointer integrity checks and
+live pointer/manifest verification passed, and
+[Pages run 77](https://github.com/CodeByNath/WEXdesigns/actions/runs/39114266700)
 succeeded. Owner live validation remains open.
 
 ## Intended composition
