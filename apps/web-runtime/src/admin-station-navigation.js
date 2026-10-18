@@ -51,8 +51,12 @@ const iconShapes = {
 
 /** @param {Document} document @param {SidebarIconName} name */
 function createIcon(document, name) {
+  const icon = document.createElement('span');
+  icon.classList.add('wex-admin-shell__sidebar-tab-icon');
+  if (name === 'chevron') icon.classList.add('wex-admin-shell__sidebar-tab-icon--disclosure');
+
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.classList.add('wex-admin-shell__sidebar-tab-icon');
+  svg.classList.add('wex-admin-shell__sidebar-tab-icon-svg');
   svg.setAttribute('viewBox', '0 0 24 24');
   svg.setAttribute('fill', 'none');
   svg.setAttribute('stroke', 'currentColor');
@@ -66,7 +70,8 @@ function createIcon(document, name) {
     Object.entries(attributes).forEach(([attribute, value]) => node.setAttribute(attribute, value));
     svg.append(node);
   });
-  return svg;
+  icon.append(svg);
+  return icon;
 }
 
 /** @param {Document} document @param {string} label */
