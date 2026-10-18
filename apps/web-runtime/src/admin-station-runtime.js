@@ -1,5 +1,6 @@
 import { createLogoRenderDescription } from '@weerax/ui';
 
+import { mountSidebarNavigation } from './admin-station-navigation.js';
 import { initSidebar } from './admin-station-sidebar.js';
 import { materializeRenderDescription } from './render-description.js';
 
@@ -40,5 +41,6 @@ export function initialiseAdminStation(shell, options = {}) {
     header.prepend(brand);
   }
 
+  mountSidebarNavigation(shell);
   initSidebar(shell);
 }

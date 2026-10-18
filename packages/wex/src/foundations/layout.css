@@ -53,7 +53,7 @@ blockquote {
 .wex-admin-shell {
   /* Sidebar reference targets, composed only from WEX spacing tokens. */
   --wex-admin-shell-sidebar-collapsed: var(--wex-space-64);
-  --wex-admin-shell-sidebar-expanded: calc(var(--wex-space-64) * 4 + var(--wex-space-8));
+  --wex-admin-shell-sidebar-expanded: calc(var(--wex-space-64) * 5 + var(--wex-space-8));
   --wex-admin-shell-sidebar-current: var(--wex-admin-shell-sidebar-collapsed);
   --wex-admin-shell-sidebar-header: var(--wex-admin-shell-sidebar-collapsed);
 
@@ -119,6 +119,92 @@ blockquote {
   display: none;
   color: var(--wex-color-text-secondary);
   text-transform: uppercase;
+}
+
+.wex-admin-shell__sidebar-navigation,
+.wex-admin-shell__sidebar-tab-list,
+.wex-admin-shell__sidebar-tab-children {
+  display: grid;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-shell__sidebar-navigation {
+  min-width: 0;
+}
+
+.wex-admin-shell__sidebar-tab-list,
+.wex-admin-shell__sidebar-tab-children {
+  padding: 0;
+  list-style: none;
+}
+
+.wex-admin-shell__sidebar-tab-children {
+  padding-inline-start: var(--wex-space-32);
+}
+
+.wex-admin-shell__sidebar-tab {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--wex-space-8);
+  inline-size: 100%;
+  min-block-size: var(--wex-space-48);
+  padding: var(--wex-space-4) var(--wex-space-8);
+  border: var(--wex-border-width-default) solid transparent;
+  border-radius: var(--wex-radius-large);
+  background: transparent;
+  color: var(--wex-color-text-primary);
+  font: inherit;
+  text-align: start;
+}
+
+button.wex-admin-shell__sidebar-tab {
+  cursor: pointer;
+}
+
+.wex-admin-shell__sidebar-tab:hover {
+  border-color: var(--wex-color-border-interactive);
+}
+
+.wex-admin-shell__sidebar-tab[data-sidebar-tab-active="true"] {
+  border-color: transparent;
+  background: var(--wex-color-light-grey);
+  color: var(--wex-color-text-accent);
+}
+
+.wex-admin-shell__sidebar-tab-icon {
+  flex: 0 0 auto;
+  inline-size: var(--wex-icon-size-24);
+  block-size: var(--wex-icon-size-24);
+}
+
+.wex-admin-shell__sidebar-tab-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.wex-admin-shell__sidebar-tab--group .wex-admin-shell__sidebar-tab-icon:last-child {
+  margin-inline-start: auto;
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
+}
+
+.wex-admin-shell__sidebar-tab--group[aria-expanded="true"] .wex-admin-shell__sidebar-tab-icon:last-child {
+  transform: rotate(180deg);
+}
+
+.wex-admin-shell:not([data-sidebar="expanded"]):not([data-sidebar-hovered="true"]) .wex-admin-shell__sidebar-tab {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.wex-admin-shell:not([data-sidebar="expanded"]):not([data-sidebar-hovered="true"]) .wex-admin-shell__sidebar-tab-label,
+.wex-admin-shell:not([data-sidebar="expanded"]):not([data-sidebar-hovered="true"]) .wex-admin-shell__sidebar-tab--group .wex-admin-shell__sidebar-tab-icon:last-child,
+.wex-admin-shell:not([data-sidebar="expanded"]):not([data-sidebar-hovered="true"]) .wex-admin-shell__sidebar-tab-children {
+  display: none;
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar-controls {

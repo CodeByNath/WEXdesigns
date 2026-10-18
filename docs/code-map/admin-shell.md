@@ -47,8 +47,9 @@
 
 This map routes the Admin Station's structural application layout to its
 authority, source, and validation. It contains Header, Sidebar, Main, and
-Footer regions only; it does not define navigation, records, permissions,
-persistence, adapters, schemas, or pluggable components.
+Footer regions, plus the owner-authorised local Sidebar-tab presentation. It
+does not define product navigation, records, permissions, persistence,
+adapters, schemas, or pluggable components.
 
 ## Governing authority and evidence routes
 
@@ -68,6 +69,8 @@ persistence, adapters, schemas, or pluggable components.
 - Logo image property adapter:
   [`apps/web-runtime/src/logo-property-binding.js`](../../apps/web-runtime/src/logo-property-binding.js)
 - Sidebar rail and compact drawer interaction: [`apps/web-runtime/src/admin-station-sidebar.js`](../../apps/web-runtime/src/admin-station-sidebar.js)
+- Sidebar-tab presentation and disclosure controls:
+  [`apps/web-runtime/src/admin-station-navigation.js`](../../apps/web-runtime/src/admin-station-navigation.js)
 - Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css),
   [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css)
@@ -80,6 +83,7 @@ persistence, adapters, schemas, or pluggable components.
 Admin Station runtime layout
   -> WEX layout, spacing, colour, typography, geometry, responsive authority
   -> accepted Shared UI Logo render description via generic materializer
+  -> local Sidebar-tab presentation with no product command bindings
   -> future authorised domain adapters
 ```
 
@@ -92,8 +96,8 @@ before an accepted piece is fitted here.
 - Develop reusable Header children in Component Manager through separately
   authorised component work. Header is already the Admin Station shell and is
   never a Component Manager specimen.
-- Add navigation, records, permissions, adapters, persistence, or product
-  behaviour only through separately authorised runtime work.
+- Add product navigation, records, permissions, adapters, persistence, or
+  product behaviour only through separately authorised runtime work.
 
 ## Related documents
 

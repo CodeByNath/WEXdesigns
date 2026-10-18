@@ -16,6 +16,7 @@ const adminStationRuntime = await readFile(new URL('../src/admin-station.js', im
 const adminStationShell = await readFile(new URL('../src/admin-station-shell.js', import.meta.url), 'utf8');
 const adminStationRuntimeBehaviour = await readFile(new URL('../src/admin-station-runtime.js', import.meta.url), 'utf8');
 const adminStationSidebar = await readFile(new URL('../src/admin-station-sidebar.js', import.meta.url), 'utf8');
+const adminStationNavigation = await readFile(new URL('../src/admin-station-navigation.js', import.meta.url), 'utf8');
 const renderDescriptionMaterializer = await readFile(new URL('../src/render-description.js', import.meta.url), 'utf8');
 const viteConfig = await readFile(new URL('../vite.config.ts', import.meta.url), 'utf8');
 const buttonPresentation = await readFile(new URL('../../../packages/ui/src/components/button.ts', import.meta.url), 'utf8');
@@ -179,7 +180,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStation, /href="\.\.\/src\/admin-station\.css"/);
   assert.match(adminStation, /src="\.\.\/src\/admin-station\.js"/);
   assert.doesNotMatch(adminStation, /catalogue\.css|src\/main\.js/);
-  assert.doesNotMatch(adminStation, /Data Card|Collection|<nav|<form|<ul|<li[ >]|record|permission|persist|adapter|schema|style=/i);
+  assert.match(adminStation, /<nav class="wex-admin-shell__sidebar-navigation" aria-label="Admin navigation" data-sidebar-navigation><\/nav>/);
+  assert.doesNotMatch(adminStation, /Data Card|Collection|<form|record|permission|persist|adapter|schema|style=/i);
   assert.match(pageSource, /href="\.\.\/admin-station\/">Admin Station<\/a>/);
   assert.match(adminStationCss, /packages\/wex\/src\/index\.css/);
   assert.doesNotMatch(adminStationCss, /catalogue|component-manager|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
@@ -270,7 +272,7 @@ test('keeps the catalogue package and shared Button and Logo presentations platf
   assert.doesNotMatch(logoPresentation, /document\.|callback|route|#[0-9a-f]{3,8}/i);
 });
 
-test('provides the Admin Station Sidebar rail, compact drawer, and rounded split-window shell controls without content', () => {
+test('provides the Admin Station Sidebar rail, compact drawer, rounded split-window controls, and local navigation tabs', () => {
   ['toggle', 'open', 'close', 'backdrop'].forEach((control) => assert.match(adminStation, new RegExp(`data-sidebar-control="${control}"`)));
   assert.match(adminStation, /data-sidebar="collapsed" data-sidebar-hovered="false" data-sidebar-drawer="closed"/);
   assert.match(adminStation, /aria-controls="admin-station-sidebar"/);
@@ -284,6 +286,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, and rounded split
   assert.match(adminStationShell, /adapted from Heroicons 24\/outline \(view-columns\)[\s\S]*MIT License/);
   assert.match(adminStation, /wex-admin-shell__sidebar-label wex-type-navigation-small-semibold[^>]*>Menu<\/span>/);
   assert.match(adminStationShell, /wex-admin-shell__sidebar-label wex-type-navigation-small-semibold[^>]*>Menu<\/span>/);
+  assert.match(adminStationShell, /<nav class="wex-admin-shell__sidebar-navigation" aria-label="Admin navigation" data-sidebar-navigation><\/nav>/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__sidebar-label\s*\{\s*display: inline;/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar-hovered="true"\] \{\s*--wex-admin-shell-sidebar-current: var\(--wex-admin-shell-sidebar-expanded\);/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar-hovered="true"\] \.wex-admin-shell__sidebar-label\s*\{\s*display: inline;/);
@@ -297,7 +300,15 @@ test('provides the Admin Station Sidebar rail, compact drawer, and rounded split
   assert.match(adminStation, /<footer[^>]*><\/footer>/);
   assert.doesNotMatch(adminStation, /<a [^>]*href="(?!#admin-station-main)/);
   assert.match(adminStationRuntimeBehaviour, /initSidebar\(shell\)/);
+  assert.match(adminStationRuntimeBehaviour, /mountSidebarNavigation\(shell\)/);
   assert.match(adminStationRuntimeBehaviour, /header\.prepend\(brand\)/);
+  assert.match(adminStationNavigation, /sidebarTabInputs/);
+  ['Dashboard', 'Product Manager', 'New Product', 'All Products', 'Product Keywords', 'Tools'].forEach((label) => assert.match(adminStationNavigation, new RegExp(`label: '${label}'`)));
+  assert.match(adminStationNavigation, /dataset\.sidebarTabActive/);
+  assert.match(adminStationNavigation, /aria-pressed/);
+  assert.match(adminStationNavigation, /aria-expanded/);
+  assert.match(adminStationNavigation, /data-sidebar-navigation/);
+  assert.doesNotMatch(adminStationNavigation, /localStorage|fetch\(|location|route|callback|innerHTML/i);
   assert.match(adminStationSidebar, /COMPACT_QUERY = '\(max-width: 767px\)'/);
   assert.match(adminStationSidebar, /matchMedia\(COMPACT_QUERY\)/);
   assert.match(adminStationSidebar, /function openCompactDrawer\(\) \{[\s\S]*shell\.dataset\.sidebar = 'expanded';[\s\S]*openDrawer\(\{ focus: false \}\);/);
@@ -312,10 +323,13 @@ test('provides the Admin Station Sidebar rail, compact drawer, and rounded split
   assert.match(adminStationSidebar, /aria-expanded/);
   assert.doesNotMatch(adminStationSidebar, /localStorage|fetch\(|route|callback|viewport|innerHTML/i);
   assert.match(wexLayout, /--wex-admin-shell-sidebar-collapsed: var\(--wex-space-64\);/);
-  assert.match(wexLayout, /--wex-admin-shell-sidebar-expanded: calc\(var\(--wex-space-64\) \* 4 \+ var\(--wex-space-8\)\);/);
+  assert.match(wexLayout, /--wex-admin-shell-sidebar-expanded: calc\(var\(--wex-space-64\) \* 5 \+ var\(--wex-space-8\)\);/);
   assert.match(wexLayout, /--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-collapsed\);/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar="expanded"\] \{[\s\S]*--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-expanded\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar\s*\{[\s\S]*padding: var\(--wex-space-16\);[\s\S]*background: var\(--wex-color-layer-01\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*gap: var\(--wex-space-8\);[\s\S]*min-block-size: var\(--wex-space-48\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\[data-sidebar-tab-active="true"\]\s*\{[\s\S]*background: var\(--wex-color-light-grey\);[\s\S]*color: var\(--wex-color-text-accent\);/);
+  assert.match(wexLayout, /\.wex-admin-shell:not\(\[data-sidebar="expanded"\]\):not\(\[data-sidebar-hovered="true"\]\) \.wex-admin-shell__sidebar-tab-label/);
   assert.match(wexLayout, /\.wex-admin-shell__main\s*\{[\s\S]*background: var\(--wex-color-layer-02\);/);
   assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*inline-size: var\(--wex-space-32\);[\s\S]*block-size: var\(--wex-space-32\);/);
   assert.match(wexLayout, /\.wex-admin-shell__control svg \{\s*inline-size: var\(--wex-icon-size-20\);\s*block-size: var\(--wex-icon-size-20\);\s*\}/);

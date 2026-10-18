@@ -41,7 +41,7 @@ test('builds the Logo renderer dependencies before packaging Studio assets', () 
   assert.match(command, /^pnpm --filter @weerax\/schemas build && pnpm --filter @weerax\/ui build && vite build --config vite\.studio-host\.config\.ts$/);
 });
 
-test('mounts the existing empty Admin Station shell with the approved host Logo input', () => {
+test('mounts the Admin Station shell with local Sidebar navigation presentation and the approved host Logo input', () => {
   assert.match(source, /#qsd-studio-host/);
   assert.match(source, /wexStudioHostOptions/);
   assert.match(source, /mountStudioHost\(readStudioHostOptions\(\)\)/);
@@ -54,7 +54,8 @@ test('mounts the existing empty Admin Station shell with the approved host Logo 
   assert.match(shell, /<main[^>]*><div class="wex-admin-shell__page"><\/div><\/main>/);
   assert.match(shell, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions"><\/div>/);
   assert.match(shell, /<footer[^>]*><\/footer>/);
-  assert.doesNotMatch(shell, /<nav|<form|Data Card|Collection|record|permission|persist|adapter|schema/i);
+  assert.match(shell, /<nav class="wex-admin-shell__sidebar-navigation" aria-label="Admin navigation" data-sidebar-navigation><\/nav>/);
+  assert.doesNotMatch(shell, /<form|Data Card|Collection|record|permission|persist|adapter|schema/i);
   assert.match(fixture, /globalThis\.wexStudioHostOptions/);
   assert.match(fixture, /new URLSearchParams\(window\.location\.search\)\.get\('logoUrl'\)/);
   assert.match(fixture, /https:\/\/example\.test\/qsd-profile-logo\.svg/);
