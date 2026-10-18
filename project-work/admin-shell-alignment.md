@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION — Sidebar navigation and padding hierarchy
+Status: OWNER LIVE VALIDATION — Sidebar navigation, padding hierarchy, and header-height correction
 Phase: D — Sidebar tabs
 Actor: OWNER (live QSD validation)
 Repository: `CodeByNath/WEXdesigns`
@@ -55,11 +55,12 @@ spacing tokens.
 The Brand/Logo shell aligns its contents to inline start in both default and
 expanded states.
 
-The Header is fixed at `--wex-space-64` on every viewport. Its collapsed
-Brand/Logo shell is a `64px × 64px` square; its Logo allocation uses the
-remaining space after `--wex-space-16` on both inline edges and
-`--wex-space-4` on both block edges. The collapsed Sidebar rail matches the
-same `64px` inline size.
+The Header is fixed at `--wex-space-64` on every viewport and may never exceed
+that block size. The collapsed Sidebar rail is independently `76px` inline,
+so its 8px Sidebar wrapper and 8px navigation compartment leave a true 44px
+icon allocation. The Header Brand shell aligns to that rail inline, while its
+Logo allocation remains constrained by `--wex-space-16` on both inline edges
+and `--wex-space-4` on both block edges within the 64px Header.
 
 The Sidebar follows the normal nested-shell rule: the Sidebar wrapper owns
 `--wex-space-8`, and each first-level compartment—the Menu/toggle controls
@@ -129,6 +130,16 @@ The Header/Brand and collapsed Sidebar rail are 76px, producing a verified
 44px × 44px Sidebar icon allocation with 20px SVG glyphs. Runtime type-check
 and 27/27 tests passed; release/pointer integrity passed, and
 [Pages run 102](https://github.com/CodeByNath/WEXdesigns/actions/runs/39128096302)
+succeeded. Owner live validation remains open.
+
+Header-height correction evidence: source
+`94a2f5192f28f6d87f922d4e886bf7dbc744292e`, immutable release
+`wex-studio-v1-94a2f5192f28f6d87f922d4e886bf7dbc744292e`, and `main`
+pointer commit `1e0fe48070c7faced016e6aa55f98f08201b9e4a` (sequence 26).
+The Header and Brand are capped at 64px on every viewport; the Sidebar rail
+remains independently 76px to retain the verified 44px × 44px tab-icon
+allocation. Runtime type-check and 27/27 tests passed; release/pointer
+integrity passed, and [Pages run 105](https://github.com/CodeByNath/WEXdesigns/actions/runs/39128432536)
 succeeded. Owner live validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
