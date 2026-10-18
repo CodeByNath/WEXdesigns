@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION REQUIRED — Phase A published to WEX Studio
+Status: BUILDER ACTION REQUIRED — remove outer Admin Shell grid gap
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -37,6 +37,8 @@ WEX spacing tokens.
   Navigation-shell edge padding.
 - [x] Apply `--wex-space-8` as the default gap only to Phase-A layout
   containers with direct siblings.
+- [ ] Owner visual correction: remove the outer Admin Shell grid gap while
+  preserving internal shell/component gaps and padding.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
