@@ -100,6 +100,13 @@ function setGroupExpanded(control, items, expanded) {
   items.hidden = !expanded;
 }
 
+/** @param {HTMLElement} control @param {HTMLElement} items */
+function syncGroupActive(control, items) {
+  control.dataset.sidebarTabActive = String(Boolean(
+    items.querySelector('.wex-admin-shell__sidebar-tab--leaf[data-sidebar-tab-active="true"]'),
+  ));
+}
+
 /**
  * Mounts repeated, local Sidebar-tab presentation and its disclosure controls.
  * @param {HTMLElement} shell
@@ -128,9 +135,6 @@ export function mountSidebarNavigation(shell) {
     group.type = 'button';
     group.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__sidebar-tab--group';
     group.dataset.sidebarTab = item.id;
-    // A group is a disclosure control, not a selectable page. Only a leaf may
-    // be active, preventing a parent and its current child being selected at once.
-    group.dataset.sidebarTabActive = 'false';
     group.setAttribute('aria-controls', groupId);
     group.append(createIcon(document, item.icon), createLabel(document, item.label), createIcon(document, 'chevron'));
 
@@ -142,6 +146,8 @@ export function mountSidebarNavigation(shell) {
       childItem.append(createLeafTab(document, child));
       children.append(childItem);
     });
+    // Groups are disclosure controls, but reflect the selected child context.
+    syncGroupActive(group, children);
     setGroupExpanded(group, children, Boolean(item.expanded));
     group.addEventListener('click', () => setGroupExpanded(group, children, group.getAttribute('aria-expanded') !== 'true'));
     listItem.append(group, children);
@@ -156,6 +162,12 @@ export function mountSidebarNavigation(shell) {
       const active = tab === selected;
       tab.dataset.sidebarTabActive = String(active);
       tab.setAttribute('aria-pressed', String(active));
+    });
+    list.querySelectorAll('.wex-admin-shell__sidebar-tab--group').forEach((group) => {
+      if (!(group instanceof HTMLElement)) return;
+      const groupId = group.getAttribute('aria-controls');
+      const children = groupId ? document.getElementById(groupId) : null;
+      if (children instanceof HTMLElement) syncGroupActive(group, children);
     });
   });
 
