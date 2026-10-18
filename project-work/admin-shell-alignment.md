@@ -13,6 +13,22 @@ shell remains the baseline: Header, Sidebar, Main/Body and Footer, existing
 Logo allocation, existing responsive drawer behaviour, and registered WEX
 tokens only.
 
+## Owner spacing contract
+
+Use padding and parent-owned `gap`, never margins, for shell layout. The Admin
+Shell Main wrapper has `--wex-space-8` padding on every viewport; its first
+inner wrapper also has `--wex-space-8` padding. Deeper wrappers receive no
+automatic padding—add a registered padding token only when that wrapper owns a
+real boundary. Layout containers with sibling children default to
+`--wex-space-8` gap; this is not a global `div` selector or an override of
+component-internal spacing.
+
+The Header main wrapper has zero padding on every viewport. Its left Brand
+shell has `--wex-space-16` at inline start and `--wex-space-4` on both block
+edges. Its right Navigation shell mirrors that rule: `--wex-space-16` at inline
+end and `--wex-space-4` on both block edges. All named values already exist as
+WEX spacing tokens.
+
 ## Intended composition
 
 ```text
