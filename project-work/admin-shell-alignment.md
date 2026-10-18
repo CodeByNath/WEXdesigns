@@ -66,7 +66,9 @@ The Sidebar follows the normal nested-shell rule: the Sidebar wrapper owns
 `--wex-space-8`, and each first-level compartment—the Menu/toggle controls
 and the navigation action container—also owns `--wex-space-8`. The Logo block
 allocation is fixed with both minimum and maximum block size at `56px`,
-preserving the Brand shell's `4px` block padding within the 64px Header.
+preserving the Brand shell's `4px` block padding within the 64px Header. A
+collapsed navigation tab occupies the resulting `44px × 44px` content box, and
+its icon wrapper inherits that full allocation.
 
 ## Phase A checklist
 
@@ -160,6 +162,16 @@ The Logo width is fixed to the collapsed Sidebar rail's padded 44px allocation
 in both collapsed and expanded Brand states; it no longer consumes the expanded
 Brand title space. Runtime type-check and 27/27 tests passed; release/pointer
 integrity passed, and [Pages run 111](https://github.com/CodeByNath/WEXdesigns/actions/runs/39128942885)
+succeeded. Owner live validation remains open.
+
+Collapsed tab-size evidence: source
+`c87f3769ff35dfd678b48cb2839536ceffb96b36`, immutable release
+`wex-studio-v1-c87f3769ff35dfd678b48cb2839536ceffb96b36`, and `main`
+pointer commit `d311cf23eab220da4d759abe201d6c678c009376` (sequence 29).
+Collapsed Sidebar tabs are `44px × 44px`, with their icon wrappers receiving
+the full 44px allocation; the `8px` list gap remains between actions. Runtime
+type-check and 27/27 tests passed; release/pointer integrity passed, and
+[Pages run 114](https://github.com/CodeByNath/WEXdesigns/actions/runs/39134190800)
 succeeded. Owner live validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
