@@ -191,7 +191,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationRuntimeBehaviour, /createLogoRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /materializeRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /brand\.dataset\.headerCompartment = 'brand'/);
-  assert.match(adminStationRuntimeBehaviour, /title\.textContent = 'Studio'/);
+  assert.match(adminStationRuntimeBehaviour, /title\.textContent = 'VRAX Admin'/);
   assert.match(adminStationRuntimeBehaviour, /label: 'Logo'/);
   assert.doesNotMatch(adminStationRuntimeBehaviour, /typeSystem|componentManager|postMessage|viewport|catalogue/i);
   assert.doesNotMatch(adminStationRuntimeBehaviour, /route:|callback|identitySpace|WEXAMH|fetch\(/);

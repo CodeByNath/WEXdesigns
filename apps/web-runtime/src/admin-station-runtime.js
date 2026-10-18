@@ -35,7 +35,7 @@ export function initialiseAdminStation(shell, options = {}) {
     brand.append(materializeRenderDescription(createLogoRenderDescription(logoFixture, options.logoProperties)));
     const title = shell.ownerDocument.createElement('span');
     title.className = 'wex-admin-shell__brand-title wex-type-navigation-default-semibold';
-    title.textContent = 'Studio';
+    title.textContent = 'VRAX Admin';
     brand.append(title);
     header.prepend(brand);
   }
