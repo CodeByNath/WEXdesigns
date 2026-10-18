@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — remove outer Admin Shell grid gap
+Status: OWNER LIVE VALIDATION REQUIRED — outer Admin Shell gap correction published
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -37,7 +37,7 @@ WEX spacing tokens.
   Navigation-shell edge padding.
 - [x] Apply `--wex-space-8` as the default gap only to Phase-A layout
   containers with direct siblings.
-- [ ] Owner visual correction: remove the outer Admin Shell grid gap while
+- [x] Owner visual correction: remove the outer Admin Shell grid gap while
   preserving internal shell/component gaps and padding.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
@@ -50,6 +50,16 @@ and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
 `pnpm --filter @weerax/wex test` passed 15/15, release/pointer integrity
 checks passed, Pages run 75 succeeded, and live pointer/manifest verification
 passed. The remaining checkbox is intentionally Owner-owned.
+
+Correction evidence: source `f486eb3143ad7dcd4a3d201fa38691dd786d8cde`,
+immutable release `wex-studio-v1-f486eb3143ad7dcd4a3d201fa38691dd786d8cde`,
+and `main` pointer commit `264c2390a57541abf200010a66c00b3f03869ecc`
+(sequence 9). The root Admin Shell grid no longer owns a `gap`; internal
+shell/component gaps and padding are retained. `pnpm --filter @weerax/web-runtime
+test` passed 27/27, `pnpm --filter @weerax/wex test` passed 15/15,
+release/pointer integrity checks and live pointer/manifest verification passed,
+and [Pages run 76](https://github.com/CodeByNath/WEXdesigns/actions/runs/39114011483)
+succeeded. Owner live validation remains open.
 
 ## Intended composition
 
