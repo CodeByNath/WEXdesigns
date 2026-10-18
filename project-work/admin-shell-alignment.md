@@ -1,7 +1,7 @@
 # Admin Shell alignment and composition
 
-Status: DEFERRED — Owner-approved plan ready; start only on “start aligning shell”
-Phase: A — shell alignment before navigation components
+Status: BUILDER ACTION REQUIRED — Phase A spacing and gap alignment
+Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
 
@@ -28,6 +28,18 @@ shell has `--wex-space-16` at inline start and `--wex-space-4` on both block
 edges. Its right Navigation shell mirrors that rule: `--wex-space-16` at inline
 end and `--wex-space-4` on both block edges. All named values already exist as
 WEX spacing tokens.
+
+## Phase A checklist
+
+- [ ] Confirm the current shell wrappers and registered spacing tokens.
+- [ ] Give Main and its first inner wrapper `--wex-space-8` padding.
+- [ ] Set Header wrapper padding to zero; apply the specified Brand and
+  Navigation-shell edge padding.
+- [ ] Apply `--wex-space-8` as the default gap only to Phase-A layout
+  containers with direct siblings.
+- [ ] Run WEX/runtime checks, publish the immutable Studio release and advance
+  the staging pointer.
+- [ ] Owner live validation: confirm the published shell alignment.
 
 ## Intended composition
 
@@ -90,5 +102,6 @@ composition only; it does not authorise values outside WEX authority.
 
 ## Ready state
 
-Phase A is ready. The next explicit Owner instruction, “start aligning shell,”
-authorises only step A; steps B–E remain gated as listed above.
+Phase A is in progress under the Owner’s explicit padding/gap instruction.
+Steps B–E remain gated. Once the Builder checklist is complete, live validation
+is owned by the Owner and its checkbox remains open until confirmed.
