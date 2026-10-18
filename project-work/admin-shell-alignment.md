@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION REQUIRED — Logo left-padding restoration published
+Status: BUILDER ACTION REQUIRED — left-align the default Logo shell
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -29,6 +29,9 @@ block edges. Its right Navigation shell has `--wex-space-16` at inline end and
 `--wex-space-4` on both block edges. All named values already exist as WEX
 spacing tokens.
 
+The Brand/Logo shell aligns its contents to inline start in both default and
+expanded states.
+
 ## Phase A checklist
 
 - [x] Confirm the current shell wrappers and registered spacing tokens.
@@ -45,6 +48,7 @@ spacing tokens.
   while retaining its inline-end and block padding.
 - [x] Owner visual correction: restore the Logo shell’s `--wex-space-16`
   inline-start padding while retaining the other current padding.
+- [ ] Owner visual correction: left-align the Logo shell in its default state.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
