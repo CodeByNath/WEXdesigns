@@ -155,8 +155,7 @@ blockquote {
   border-color: var(--wex-color-border-interactive);
 }
 
-.wex-admin-shell__sidebar-toggle,
-.wex-admin-shell__sidebar-toggle:hover {
+.wex-admin-shell__sidebar-toggle {
   border-color: transparent;
 }
 

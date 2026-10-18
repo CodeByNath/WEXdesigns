@@ -290,7 +290,8 @@ test('provides the Admin Station Sidebar rail, compact drawer, and rounded split
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-label\s*\{[\s\S]*color: var\(--wex-color-text-secondary\);[\s\S]*text-transform: uppercase;/);
   assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*color: var\(--wex-color-text-secondary\);/);
   assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*inline-size: var\(--wex-space-32\);[\s\S]*block-size: var\(--wex-space-32\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-toggle,\s*\.wex-admin-shell__sidebar-toggle:hover\s*\{\s*border-color: transparent;/);
+  assert.match(wexLayout, /\.wex-admin-shell__control:hover\s*\{\s*border-color: var\(--wex-color-border-interactive\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-toggle\s*\{\s*border-color: transparent;/);
   assert.match(adminStation, /<main[^>]*><div class="wex-admin-shell__page"><\/div><\/main>/);
   assert.match(adminStation, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions"><\/div>/);
   assert.match(adminStation, /<footer[^>]*><\/footer>/);
