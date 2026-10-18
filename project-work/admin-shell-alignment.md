@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION REQUIRED — outer Admin Shell gap correction published
+Status: BUILDER ACTION REQUIRED — add Logo shell inline-end padding
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -24,10 +24,10 @@ real boundary. Layout containers with sibling children default to
 component-internal spacing.
 
 The Header main wrapper has zero padding on every viewport. Its left Brand
-shell has `--wex-space-16` at inline start and `--wex-space-4` on both block
-edges. Its right Navigation shell mirrors that rule: `--wex-space-16` at inline
-end and `--wex-space-4` on both block edges. All named values already exist as
-WEX spacing tokens.
+shell has `--wex-space-16` on both inline edges and `--wex-space-4` on both
+block edges. Its right Navigation shell has `--wex-space-16` at inline end and
+`--wex-space-4` on both block edges. All named values already exist as WEX
+spacing tokens.
 
 ## Phase A checklist
 
@@ -39,6 +39,8 @@ WEX spacing tokens.
   containers with direct siblings.
 - [x] Owner visual correction: remove the outer Admin Shell grid gap while
   preserving internal shell/component gaps and padding.
+- [ ] Owner visual correction: add `--wex-space-16` padding to the Logo shell
+  inline end while retaining its existing padding and allocation.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
