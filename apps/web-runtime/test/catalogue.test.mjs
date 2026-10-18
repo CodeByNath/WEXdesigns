@@ -322,11 +322,12 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationSidebar, /\.inert = true/);
   assert.match(adminStationSidebar, /aria-expanded/);
   assert.doesNotMatch(adminStationSidebar, /localStorage|fetch\(|route|callback|viewport|innerHTML/i);
-  assert.match(wexLayout, /--wex-admin-shell-sidebar-collapsed: var\(--wex-space-64\);/);
+  assert.match(wexLayout, /--wex-admin-shell-collapsed-size: calc\(var\(--wex-space-64\) \+ var\(--wex-space-8\) \+ var\(--wex-space-4\)\);/);
+  assert.match(wexLayout, /--wex-admin-shell-sidebar-collapsed: var\(--wex-admin-shell-collapsed-size\);/);
   assert.match(wexLayout, /--wex-admin-shell-sidebar-expanded: calc\(var\(--wex-space-64\) \* 5 \+ var\(--wex-space-8\)\);/);
   assert.match(wexLayout, /--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-collapsed\);/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar="expanded"\] \{[\s\S]*--wex-admin-shell-sidebar-header: var\(--wex-admin-shell-sidebar-expanded\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar\s*\{[\s\S]*padding: var\(--wex-space-8\);[\s\S]*background: var\(--wex-color-layer-01\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar\s*\{[\s\S]*padding: var\(--wex-space-8\);[\s\S]*box-shadow: inset calc\(-1 \* var\(--wex-border-width-default\)\) 0 0 var\(--wex-color-border-subtle\);[\s\S]*background: var\(--wex-color-layer-01\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-controls\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-navigation\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*gap: var\(--wex-space-8\);[\s\S]*min-block-size: var\(--wex-space-48\);/);
@@ -340,7 +341,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   const compact = wexLayout.slice(wexLayout.indexOf('@media (max-width: 767px)'));
   assert.match(compact, /grid-template-areas:\s*"header"\s*"main"\s*"footer";/);
   assert.match(compact, /\.wex-admin-shell__drawer-trigger\s*\{[\s\S]*display: grid;[\s\S]*inset-inline-start: calc\(var\(--wex-admin-shell-sidebar-collapsed\) \+ var\(--wex-space-16\)\);/);
-  assert.match(compact, /\.wex-admin-shell__sidebar\s*\{[\s\S]*display: none;[\s\S]*inline-size: min\(var\(--wex-admin-shell-sidebar-expanded\), calc\(100% - var\(--wex-space-64\)\)\);/);
+  assert.match(compact, /\.wex-admin-shell__sidebar\s*\{[\s\S]*display: none;[\s\S]*inset-block: var\(--wex-admin-shell-collapsed-size\) 0;[\s\S]*inline-size: min\(var\(--wex-admin-shell-sidebar-expanded\), calc\(100% - var\(--wex-admin-shell-collapsed-size\)\)\);/);
   assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__sidebar\s*\{\s*display: flex;/);
   assert.match(compact, /\.wex-admin-shell__sidebar-controls\s*\{\s*display: none;/);
   assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__drawer-trigger\s*\{[\s\S]*color: var\(--wex-color-on-accent\);/);

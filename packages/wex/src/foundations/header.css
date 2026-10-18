@@ -6,8 +6,8 @@
   grid-template-columns: var(--wex-admin-shell-sidebar-header) minmax(0, 1fr);
   gap: var(--wex-space-8);
   min-inline-size: 0;
-  block-size: var(--wex-space-64);
-  min-block-size: var(--wex-space-64);
+  block-size: var(--wex-admin-shell-collapsed-size);
+  min-block-size: var(--wex-admin-shell-collapsed-size);
   padding: 0;
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-layer-02);
@@ -24,7 +24,7 @@
   min-inline-size: 0;
   box-sizing: border-box;
   inline-size: var(--wex-admin-shell-sidebar-header);
-  block-size: var(--wex-space-64);
+  block-size: var(--wex-admin-shell-collapsed-size);
   padding-block: var(--wex-space-4);
   padding-inline-start: var(--wex-space-16);
   padding-inline-end: var(--wex-space-16);
@@ -35,10 +35,10 @@
 }
 
 .wex-admin-shell__brand .wex-logo {
-  inline-size: calc(var(--wex-space-64) - var(--wex-space-16) - var(--wex-space-16));
-  block-size: calc(var(--wex-space-64) - var(--wex-space-4) - var(--wex-space-4));
-  min-block-size: calc(var(--wex-space-64) - var(--wex-space-4) - var(--wex-space-4));
-  max-block-size: calc(var(--wex-space-64) - var(--wex-space-4) - var(--wex-space-4));
+  inline-size: calc(var(--wex-admin-shell-collapsed-size) - var(--wex-space-16) - var(--wex-space-16));
+  block-size: calc(var(--wex-admin-shell-collapsed-size) - var(--wex-space-4) - var(--wex-space-4));
+  min-block-size: calc(var(--wex-admin-shell-collapsed-size) - var(--wex-space-4) - var(--wex-space-4));
+  max-block-size: calc(var(--wex-admin-shell-collapsed-size) - var(--wex-space-4) - var(--wex-space-4));
   color: var(--wex-color-on-accent);
 }
 
@@ -77,6 +77,6 @@
 
 @media (max-width: 767px) {
   .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
-    inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-space-64)));
+    inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-collapsed-size)));
   }
 }
