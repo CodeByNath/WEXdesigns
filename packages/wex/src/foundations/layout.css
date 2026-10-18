@@ -228,6 +228,8 @@ blockquote {
     display: grid;
     inset-block-start: var(--wex-space-12);
     inset-inline-start: calc(var(--wex-admin-shell-sidebar-collapsed) + var(--wex-space-16));
+    background: var(--wex-color-background-error);
+    color: var(--wex-color-on-error);
   }
 
   /* Compact navigation is an overlay, opened only from the Header control. */
