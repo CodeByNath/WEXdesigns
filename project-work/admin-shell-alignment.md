@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — align Header, Logo and collapsed Sidebar to 64px
+Status: OWNER LIVE VALIDATION REQUIRED — fixed 64px shell geometry published
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -55,7 +55,7 @@ same `64px` inline size.
 - [x] Owner visual correction: restore the Logo shell’s `--wex-space-16`
   inline-start padding while retaining the other current padding.
 - [x] Owner visual correction: left-align the Logo shell in its default state.
-- [ ] Owner visual correction: fix Header/Logo shell and collapsed Sidebar
+- [x] Owner visual correction: fix Header/Logo shell and collapsed Sidebar
   geometry at 64px, with the Logo contained by the specified shell padding.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
@@ -68,6 +68,17 @@ and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
 `pnpm --filter @weerax/wex test` passed 15/15, release/pointer integrity
 checks passed, Pages run 75 succeeded, and live pointer/manifest verification
 passed. The remaining checkbox is intentionally Owner-owned.
+
+Fixed-geometry evidence: source `194a119c25023c19c05ba25ed903b94406136357`,
+immutable release `wex-studio-v1-194a119c25023c19c05ba25ed903b94406136357`,
+and `main` pointer commit `6d0e9ff0133fc66d2a8d6a9c5b94de94758d9903`
+(sequence 14). The Header and collapsed Sidebar track are `64px`; the Brand
+shell is `64px × 64px`, and its Logo allocation is `32px × 56px` inside the
+specified `16/16/4/4` shell padding. `pnpm --filter @weerax/wex test` passed
+15/15, `pnpm --filter @weerax/web-runtime test` passed 27/27,
+release/pointer integrity checks and live pointer/manifest verification passed,
+and [Pages run 81](https://github.com/CodeByNath/WEXdesigns/actions/runs/39115577350)
+succeeded. Owner live validation remains open.
 
 Logo alignment evidence: source `d6dd9905be41541e38b5ccc7cad0de4876ede4fe`,
 immutable release `wex-studio-v1-d6dd9905be41541e38b5ccc7cad0de4876ede4fe`,
