@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — Sidebar split-control border transparency
+Status: OWNER LIVE VALIDATION REQUIRED — transparent Sidebar split-control border published
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -68,7 +68,7 @@ Brand shell's `4px` block padding within the 64px Header.
   `VRAX Admin`.
 - [x] Owner visual correction: round the outer corners and divider endpoints
   of the Sidebar split-control SVG.
-- [ ] Owner visual correction: make the Sidebar split-control border
+- [x] Owner visual correction: make the Sidebar split-control border
   transparent while preserving the keyboard focus indicator.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
@@ -100,6 +100,15 @@ passed (runtime 27/27, WEX 15/15); release/pointer integrity and live pointer
 verification passed, and
 [Pages deployment](https://github.com/CodeByNath/WEXdesigns/actions/runs/39120931348)
 succeeded. Owner live validation remains open.
+
+Transparent-border evidence: source `eba24a92ce160a00745b56f6c6f8e453f4c9d1e3`,
+immutable release `wex-studio-v1-eba24a92ce160a00745b56f6c6f8e453f4c9d1e3`,
+and `main` pointer commit `ebebe2a2b3a6872598fd42c03e8db4b0703aeb21`
+(sequence 18). The Sidebar toggle's default and hover borders are transparent;
+the existing keyboard-focus outline remains intact. Both test suites passed
+(runtime 27/27, WEX 15/15), and release/pointer integrity plus live pointer
+verification passed. Pages deployment is still in progress; Owner live
+validation remains open.
 
 Sidebar/Logo evidence: source `92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
 immutable release `wex-studio-v1-92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
