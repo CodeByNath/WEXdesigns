@@ -25,7 +25,7 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(brandRule[1], /padding-inline-start:\s*var\(--wex-space-16\);/);
   assert.match(header, /\.wex-admin-shell__navigation\s*\{[\s\S]*grid-column: 2;[\s\S]*gap: var\(--wex-space-8\);[\s\S]*padding-block: var\(--wex-space-4\);[\s\S]*padding-inline-end: var\(--wex-space-16\);/);
   assert.match(header, /\.wex-admin-shell__nav-actions\s*\{[\s\S]*display: flex;[\s\S]*gap: var\(--wex-space-8\);/);
-  assert.match(header, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*color: var\(--wex-color-on-accent\);/);
+  assert.match(header, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*inline-size: calc\(var\(--wex-space-64\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-space-64\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*color: var\(--wex-color-on-accent\);/);
   assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*justify-content: flex-start;/);
   assert.doesNotMatch(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__header/);
   assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand-title\s*\{[\s\S]*display: inline;/);
