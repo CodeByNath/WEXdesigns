@@ -45,6 +45,8 @@ inactive tab's hover state is an interactive outline, distinct from selection.
   label column using only the existing spacing tokens.
 - [x] Owner visual correction: apply 16px inline padding to expanded Sidebar
   tabs without altering the nested-label alignment rule.
+- [x] Owner visual correction: cap expanded Sidebar tab height at 44px using
+  the existing spacing tokens.
 - [x] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
   states; publish the immutable Studio release and staging pointer.
 - [ ] Owner live validation: confirm the published Sidebar navigation tabs.
@@ -251,6 +253,16 @@ Expanded Sidebar tabs use the existing `--wex-space-16` inline padding token;
 the nested-label alignment calculation is unchanged. Runtime type-check and
 27/27 tests passed; release/pointer integrity passed, and
 [Pages run 135](https://github.com/CodeByNath/WEXdesigns/actions/runs/39141448609)
+succeeded. Owner live validation remains open.
+
+Sidebar-tab height evidence: source
+`c14c0b3c4c010e3b837d304702b4cb209d8141eb`, immutable release
+`wex-studio-v1-c14c0b3c4c010e3b837d304702b4cb209d8141eb`, and `main`
+pointer commit `acacaff9c2faed6fd7f614e9e284dfd46526f2a2` (sequence 37).
+Expanded Sidebar tabs use the existing token-composed 44px minimum and maximum
+block size; padding and nested-label alignment are unchanged. Runtime
+type-check and 27/27 tests passed; release/pointer integrity passed, and
+[Pages run 138](https://github.com/CodeByNath/WEXdesigns/actions/runs/39141849881)
 succeeded. Owner live validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
