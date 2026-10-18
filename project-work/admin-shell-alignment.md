@@ -121,6 +121,16 @@ release/pointer integrity passed, and
 [Pages run 99](https://github.com/CodeByNath/WEXdesigns/actions/runs/39127330134)
 succeeded. Owner live validation remains open.
 
+Collapsed shell-sizing evidence: source
+`673779afad4c51307d0898b01812024153567c98`, immutable release
+`wex-studio-v1-673779afad4c51307d0898b01812024153567c98`, and `main`
+pointer commit `357cf1365a6586b90f6113cdea004db49d400199` (sequence 25).
+The Header/Brand and collapsed Sidebar rail are 76px, producing a verified
+44px × 44px Sidebar icon allocation with 20px SVG glyphs. Runtime type-check
+and 27/27 tests passed; release/pointer integrity passed, and
+[Pages run 102](https://github.com/CodeByNath/WEXdesigns/actions/runs/39128096302)
+succeeded. Owner live validation remains open.
+
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
 immutable release `wex-studio-v1-2979d8759380ccbf54a72d21d0fa032da9157cba`,
 and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
