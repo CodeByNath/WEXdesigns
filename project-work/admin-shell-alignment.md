@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION REQUIRED — Brand title correction published
+Status: BUILDER ACTION REQUIRED — round Sidebar split-control SVG
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -66,6 +66,8 @@ Brand shell's `4px` block padding within the 64px Header.
   lock the Logo allocation to 56px block height inside the 64px Header.
 - [x] Owner visual correction: change the Brand title text from `Studio` to
   `VRAX Admin`.
+- [ ] Owner visual correction: round the outer corners and divider endpoints
+  of the Sidebar split-control SVG.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
