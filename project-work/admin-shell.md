@@ -1,8 +1,8 @@
 # Admin Shell — Studio delivery correction
 
-Status: AWAITING REVIEWER REVIEW — Delivery D1 Studio release packaged, published and live-verified
-Phase: Delivery D1 — build, retain, publish and verify one current WEX Studio release
-Actor: BUILDER:CODER (WEX only)
+Status: ACCEPTED — Owner-directed direct refinement published; no Reviewer requested
+Phase: Direct Owner UI refinement — remove the temporary compact drawer trigger marker
+Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
 
 ## Reviewer verified defect — 18 October 2026
@@ -33,3 +33,9 @@ Built from WEX `main` `583474a1fb8a5cb7f0719db48ae5ccb03eb47149` (clean tracked 
 WEX `main` is now at `f066614`, live sequence 6. No sequence 7 advance was made. No QSD repo/runtime was accessed from this Builder role; this is WEX producer-side evidence only, not a QSD adoption claim. No Header redesign, no UI change beyond the two already-committed/reviewed fixes, no existing release directory modified, no anti-replay bypass.
 
 **Reviewer**: independently verify the pushed commits/live state and separately check QSD's actual adoption of sequence 6.
+
+## Direct Owner refinement closure — 18 October 2026, BUILDER:DESIGNER
+
+The Owner explicitly directed removal of the temporary red compact drawer-trigger background and colour, assignment to Builder, direct push to `main`, and no Reviewer in this session. The two temporary declarations were removed from `packages/wex/src/foundations/layout.css` in source commit `0856bad02461079ae649ff3ed0d9438f35d804f2`. The required immutable WEX Studio release `wex-studio-v1-0856bad02461079ae649ff3ed0d9438f35d804f2` was published in `95b544bac4fd681d1a2ccce649013c159dd87a73`; the staging pointer then advanced to sequence 7 in `a1eaeeb45ac900df8eaa5981db7ed60c2e4a21fa`.
+
+Evidence: `pnpm --filter @weerax/web-runtime test` passed 27/27; release integrity and sequence-7 pointer validation passed; `origin/main` resolves to `a1eaeeb45ac900df8eaa5981db7ed60c2e4a21fa`; Deploy WEX index run `39110995383` succeeded; and live pointer/manifest verification succeeded. No QSD repository or runtime was accessed, so QSD adoption remains unverified.
