@@ -105,7 +105,7 @@ blockquote {
   overflow: auto;
   overscroll-behavior: contain;
   border-inline-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  background: var(--wex-color-layer-02);
+  background: var(--wex-color-layer-01);
 }
 
 .wex-admin-shell__sidebar-controls {
@@ -179,7 +179,7 @@ blockquote {
   grid-area: main;
   padding: var(--wex-space-8);
   overflow: auto;
-  background: var(--wex-color-layer-01);
+  background: var(--wex-color-layer-02);
 }
 
 .wex-admin-shell__page {
