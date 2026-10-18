@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — restore Sidebar toggle hover border
+Status: OWNER LIVE VALIDATION REQUIRED — Sidebar toggle hover restored
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -70,7 +70,7 @@ Brand shell's `4px` block padding within the 64px Header.
   of the Sidebar split-control SVG.
 - [x] Owner visual correction: make the Sidebar split-control border
   transparent while preserving the keyboard focus indicator.
-- [ ] Owner visual correction: restore the interactive border on Sidebar-toggle
+- [x] Owner visual correction: restore the interactive border on Sidebar-toggle
   hover while keeping its resting border transparent.
 - [x] Owner visual correction: use white for the Admin Header/Main surfaces
   and grey for the Sidebar, retaining the blue Brand block.
@@ -123,6 +123,15 @@ passed (runtime 27/27, WEX 15/15), release/pointer integrity and live pointer
 verification passed, and
 [Pages deployment](https://github.com/CodeByNath/WEXdesigns/actions/runs/39122290912)
 succeeded. Owner live validation remains open.
+
+Toggle-hover evidence: source `4f6e138768bec8fccca00d92cbb3911c18b93743`,
+immutable release `wex-studio-v1-4f6e138768bec8fccca00d92cbb3911c18b93743`,
+and `main` pointer commit `9bde7c3c844055f00e35c1ec46d570d21d33158b`
+(sequence 20). The Sidebar toggle now has a transparent resting border and
+the interactive border on hover; its existing keyboard-focus outline remains
+intact. Both test suites passed (runtime 27/27, WEX 15/15), and
+release/pointer integrity plus live pointer verification passed. Pages
+deployment is still in progress; Owner live validation remains open.
 
 Sidebar/Logo evidence: source `92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
 immutable release `wex-studio-v1-92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
