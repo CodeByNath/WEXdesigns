@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — restore Sidebar padding and lock Logo height
+Status: OWNER LIVE VALIDATION REQUIRED — Sidebar padding and Logo height published
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -62,7 +62,7 @@ Brand shell's `4px` block padding within the 64px Header.
 - [x] Owner visual correction: left-align the Logo shell in its default state.
 - [x] Owner visual correction: fix Header/Logo shell and collapsed Sidebar
   geometry at 64px, with the Logo contained by the specified shell padding.
-- [ ] Owner visual correction: restore 16px Sidebar padding in every state and
+- [x] Owner visual correction: restore 16px Sidebar padding in every state and
   lock the Logo allocation to 56px block height inside the 64px Header.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
@@ -75,6 +75,18 @@ and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
 `pnpm --filter @weerax/wex test` passed 15/15, release/pointer integrity
 checks passed, Pages run 75 succeeded, and live pointer/manifest verification
 passed. The remaining checkbox is intentionally Owner-owned.
+
+Sidebar/Logo evidence: source `92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
+immutable release `wex-studio-v1-92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
+and `main` pointer commit `8e81a01d10d60a565f376233498b06d7453478e6`
+(sequence 15). Sidebar padding is `16px` in every state; the collapsed
+control is `32px` to fit the 64px rail. The Logo allocation's min/max block
+size is 56px inside the Header's 4px block padding. `pnpm --filter
+@weerax/wex test` passed 15/15, `pnpm --filter @weerax/web-runtime test`
+passed 27/27, release/pointer integrity checks and live pointer/manifest
+verification passed, and
+[Pages run 82](https://github.com/CodeByNath/WEXdesigns/actions/runs/39116579570)
+succeeded. Owner live validation remains open.
 
 Fixed-geometry evidence: source `194a119c25023c19c05ba25ed903b94406136357`,
 immutable release `wex-studio-v1-194a119c25023c19c05ba25ed903b94406136357`,
