@@ -37,6 +37,8 @@ inactive tab's hover state is an interactive outline, distinct from selection.
   introducing routes or persistence.
 - [x] Owner visual correction: separate the single selected leaf state from
   the inactive-tab hover state; groups mirror their selected-child context.
+- [x] Owner visual correction: align Sidebar tab labels to the Menu typography
+  token without raw values or inline CSS.
 - [x] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
   states; publish the immutable Studio release and staging pointer.
 - [ ] Owner live validation: confirm the published Sidebar navigation tabs.
@@ -200,6 +202,17 @@ selected leaf remains the only navigational selection, and hover remains
 distinct. Runtime type-check and 27/27 tests passed; release/pointer integrity
 passed, and
 [Pages run 120](https://github.com/CodeByNath/WEXdesigns/actions/runs/39135335568)
+succeeded. Owner live validation remains open.
+
+Sidebar-tab typography evidence: source
+`244d522abdf4bb689d1c1b35232bc33b584df86b`, immutable release
+`wex-studio-v1-244d522abdf4bb689d1c1b35232bc33b584df86b`, and `main`
+pointer commit `5717d4d4cf8f4ddb37caae1f3924f24f68d9a192` (sequence 32).
+Sidebar tab labels now use the exact `wex-type-navigation-small-semibold`
+typography class used by the Menu label; no raw typography values or inline
+CSS were introduced. Runtime type-check and 27/27 tests passed;
+release/pointer integrity passed, and
+[Pages run 123](https://github.com/CodeByNath/WEXdesigns/actions/runs/39135683448)
 succeeded. Owner live validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
