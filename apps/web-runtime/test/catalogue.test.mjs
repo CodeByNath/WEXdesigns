@@ -270,16 +270,18 @@ test('keeps the catalogue package and shared Button and Logo presentations platf
   assert.doesNotMatch(logoPresentation, /document\.|callback|route|#[0-9a-f]{3,8}/i);
 });
 
-test('provides the Admin Station Sidebar rail, compact drawer, and split-window Heroicons shell controls without content', () => {
+test('provides the Admin Station Sidebar rail, compact drawer, and rounded split-window shell controls without content', () => {
   ['toggle', 'open', 'close', 'backdrop'].forEach((control) => assert.match(adminStation, new RegExp(`data-sidebar-control="${control}"`)));
   assert.match(adminStation, /data-sidebar="collapsed" data-sidebar-hovered="false" data-sidebar-drawer="closed"/);
   assert.match(adminStation, /aria-controls="admin-station-sidebar"/);
   assert.equal((adminStation.match(/<svg /g) ?? []).length, 3);
   assert.equal((adminStation.match(/<svg [^>]*aria-hidden="true"/g) ?? []).length, 3);
-  assert.equal((adminStation.match(/M3\.75 4\.5h16\.5v15H3\.75v-15ZM9\.75 4\.5v15/g) ?? []).length, 3);
-  assert.match(adminStation, /Heroicons 24\/outline \(view-columns\)[\s\S]*MIT License/);
-  assert.equal((adminStationShell.match(/M3\.75 4\.5h16\.5v15H3\.75v-15ZM9\.75 4\.5v15/g) ?? []).length, 3);
-  assert.match(adminStationShell, /Heroicons 24\/outline \(view-columns\)[\s\S]*MIT License/);
+  assert.equal((adminStation.match(/<rect x="3\.75" y="4\.5" width="16\.5" height="15" rx="2"/g) ?? []).length, 3);
+  assert.equal((adminStation.match(/stroke-linecap="round" d="M9\.75 5\.5v13"/g) ?? []).length, 3);
+  assert.match(adminStation, /adapted from Heroicons 24\/outline \(view-columns\)[\s\S]*MIT License/);
+  assert.equal((adminStationShell.match(/<rect x="3\.75" y="4\.5" width="16\.5" height="15" rx="2"/g) ?? []).length, 3);
+  assert.equal((adminStationShell.match(/stroke-linecap="round" d="M9\.75 5\.5v13"/g) ?? []).length, 3);
+  assert.match(adminStationShell, /adapted from Heroicons 24\/outline \(view-columns\)[\s\S]*MIT License/);
   assert.match(adminStation, /wex-admin-shell__sidebar-label wex-type-navigation-small-semibold[^>]*>Menu<\/span>/);
   assert.match(adminStationShell, /wex-admin-shell__sidebar-label wex-type-navigation-small-semibold[^>]*>Menu<\/span>/);
   assert.match(wexLayout, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__sidebar-label\s*\{\s*display: inline;/);
