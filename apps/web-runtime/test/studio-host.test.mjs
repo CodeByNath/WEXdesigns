@@ -51,7 +51,8 @@ test('mounts the existing empty Admin Station shell with the approved host Logo 
   assert.match(source, /mount-error/);
   assert.match(shell, /data-admin-station-layout/);
   ['header', 'sidebar', 'main', 'footer'].forEach((region) => assert.match(shell, new RegExp(`data-admin-station-region="${region}"`)));
-  assert.match(shell, /<main[^>]*><\/main>/);
+  assert.match(shell, /<main[^>]*><div class="wex-admin-shell__page"><\/div><\/main>/);
+  assert.match(shell, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions"><\/div>/);
   assert.match(shell, /<footer[^>]*><\/footer>/);
   assert.doesNotMatch(shell, /<nav|<form|Data Card|Collection|record|permission|persist|adapter|schema/i);
   assert.match(fixture, /globalThis\.wexStudioHostOptions/);

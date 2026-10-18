@@ -285,7 +285,8 @@ test('provides the Admin Station Sidebar rail, compact drawer, and split-window 
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-label\s*\{[\s\S]*color: var\(--wex-color-text-secondary\);[\s\S]*text-transform: uppercase;/);
   assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*color: var\(--wex-color-text-secondary\);/);
   assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*inline-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\)\);[\s\S]*block-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\)\);/);
-  assert.match(adminStation, /<main[^>]*><\/main>/);
+  assert.match(adminStation, /<main[^>]*><div class="wex-admin-shell__page"><\/div><\/main>/);
+  assert.match(adminStation, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions"><\/div>/);
   assert.match(adminStation, /<footer[^>]*><\/footer>/);
   assert.doesNotMatch(adminStation, /<a [^>]*href="(?!#admin-station-main)/);
   assert.match(adminStationRuntimeBehaviour, /initSidebar\(shell\)/);

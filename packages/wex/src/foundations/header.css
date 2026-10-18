@@ -2,10 +2,13 @@
 
 .wex-admin-shell__header {
   position: relative;
+  display: grid;
+  grid-template-columns: var(--wex-admin-shell-sidebar-header) minmax(0, 1fr);
+  gap: var(--wex-space-8);
   min-inline-size: 0;
   block-size: var(--wex-space-64);
   min-block-size: var(--wex-space-64);
-  padding: var(--wex-space-8);
+  padding: 0;
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-layer-01);
   color: var(--wex-color-text-primary);
@@ -22,6 +25,8 @@
   box-sizing: border-box;
   inline-size: var(--wex-admin-shell-sidebar-header);
   block-size: var(--wex-space-64);
+  padding-block: var(--wex-space-4);
+  padding-inline-start: var(--wex-space-16);
   inset-block-start: 0;
   inset-inline-start: 0;
   background: var(--wex-color-background-accent);
@@ -36,6 +41,27 @@
   display: none;
 }
 
+.wex-admin-shell__navigation {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
+  min-inline-size: 0;
+  padding-block: var(--wex-space-4);
+  padding-inline-end: var(--wex-space-16);
+}
+
+.wex-admin-shell__location,
+.wex-admin-shell__nav-actions {
+  min-inline-size: 0;
+}
+
+.wex-admin-shell__nav-actions {
+  display: flex;
+  gap: var(--wex-space-8);
+}
+
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
   justify-content: flex-start;
 }
@@ -45,10 +71,6 @@
 }
 
 @media (max-width: 767px) {
-  .wex-admin-shell__header {
-    padding: var(--wex-space-4);
-  }
-
   .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
     inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-space-64)));
   }
