@@ -161,7 +161,7 @@ blockquote {
   gap: var(--wex-space-8);
   inline-size: 100%;
   min-block-size: var(--wex-space-48);
-  padding: var(--wex-space-4) var(--wex-space-8);
+  padding: var(--wex-space-4) var(--wex-space-16);
   border: 0;
   border-radius: var(--wex-radius-large);
   background: transparent;
