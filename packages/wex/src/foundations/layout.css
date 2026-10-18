@@ -166,7 +166,7 @@ button.wex-admin-shell__sidebar-tab {
   cursor: pointer;
 }
 
-.wex-admin-shell__sidebar-tab:hover {
+.wex-admin-shell__sidebar-tab:not([data-sidebar-tab-active="true"]):hover {
   outline: var(--wex-border-width-default) solid var(--wex-color-border-interactive);
   outline-offset: 0;
 }

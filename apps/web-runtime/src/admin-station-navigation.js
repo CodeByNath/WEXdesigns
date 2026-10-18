@@ -2,7 +2,7 @@ const ICON_STROKE_WIDTH = '1.75';
 
 /** @typedef {'dashboard' | 'products' | 'tools' | 'chevron'} SidebarIconName */
 /** @typedef {{ id: string, label: string, active?: boolean }} SidebarLeafInput */
-/** @typedef {{ id: string, label: string, icon: SidebarIconName, active?: boolean, expanded?: boolean, children?: readonly SidebarLeafInput[] }} SidebarTabInput */
+/** @typedef {{ id: string, label: string, icon: SidebarIconName, expanded?: boolean, children?: readonly SidebarLeafInput[] }} SidebarTabInput */
 
 /**
  * Local presentation inputs for the first Sidebar navigation component.
@@ -16,7 +16,6 @@ const sidebarTabInputs = Object.freeze([
     label: 'Product Manager',
     icon: 'products',
     expanded: true,
-    active: true,
     children: Object.freeze([
       Object.freeze({ id: 'new-product', label: 'New Product', active: true }),
       Object.freeze({ id: 'all-products', label: 'All Products' }),
@@ -129,7 +128,9 @@ export function mountSidebarNavigation(shell) {
     group.type = 'button';
     group.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__sidebar-tab--group';
     group.dataset.sidebarTab = item.id;
-    group.dataset.sidebarTabActive = item.active ? 'true' : 'false';
+    // A group is a disclosure control, not a selectable page. Only a leaf may
+    // be active, preventing a parent and its current child being selected at once.
+    group.dataset.sidebarTabActive = 'false';
     group.setAttribute('aria-controls', groupId);
     group.append(createIcon(document, item.icon), createLabel(document, item.label), createIcon(document, 'chevron'));
 
