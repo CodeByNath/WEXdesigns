@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — round Sidebar split-control SVG
+Status: OWNER LIVE VALIDATION REQUIRED — rounded Sidebar split-control published
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -66,7 +66,7 @@ Brand shell's `4px` block padding within the 64px Header.
   lock the Logo allocation to 56px block height inside the 64px Header.
 - [x] Owner visual correction: change the Brand title text from `Studio` to
   `VRAX Admin`.
-- [ ] Owner visual correction: round the outer corners and divider endpoints
+- [x] Owner visual correction: round the outer corners and divider endpoints
   of the Sidebar split-control SVG.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
@@ -88,6 +88,16 @@ and `main` pointer commit `c776f2ee25b1efbb922060f9f06759d90257c281`
 `pnpm --filter @weerax/wex test` passed 15/15; release/pointer integrity and
 live pointer verification passed. Pages run 83 is still in progress; Owner
 live validation remains open.
+
+Rounded split-control evidence: source `29c3ead09a2fd85946e4e1d5cadb50ced8de1fe6`,
+immutable release `wex-studio-v1-29c3ead09a2fd85946e4e1d5cadb50ced8de1fe6`,
+and `main` pointer commit `1a1bce422573923bd094d424ee23d757253b30dd`
+(sequence 17). The Sidebar split-control icon has a rounded outer rectangle
+and round-ended divider without changing the button shell. Both test suites
+passed (runtime 27/27, WEX 15/15); release/pointer integrity and live pointer
+verification passed, and
+[Pages deployment](https://github.com/CodeByNath/WEXdesigns/actions/runs/39120931348)
+succeeded. Owner live validation remains open.
 
 Sidebar/Logo evidence: source `92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
 immutable release `wex-studio-v1-92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
