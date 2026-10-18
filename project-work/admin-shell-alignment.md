@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION REQUIRED — default Logo alignment published
+Status: BUILDER ACTION REQUIRED — align Header, Logo and collapsed Sidebar to 64px
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -32,6 +32,12 @@ spacing tokens.
 The Brand/Logo shell aligns its contents to inline start in both default and
 expanded states.
 
+The Header is fixed at `--wex-space-64` on every viewport. Its collapsed
+Brand/Logo shell is a `64px × 64px` square; its Logo allocation uses the
+remaining space after `--wex-space-16` on both inline edges and
+`--wex-space-4` on both block edges. The collapsed Sidebar rail matches the
+same `64px` inline size.
+
 ## Phase A checklist
 
 - [x] Confirm the current shell wrappers and registered spacing tokens.
@@ -49,6 +55,8 @@ expanded states.
 - [x] Owner visual correction: restore the Logo shell’s `--wex-space-16`
   inline-start padding while retaining the other current padding.
 - [x] Owner visual correction: left-align the Logo shell in its default state.
+- [ ] Owner visual correction: fix Header/Logo shell and collapsed Sidebar
+  geometry at 64px, with the Logo contained by the specified shell padding.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
