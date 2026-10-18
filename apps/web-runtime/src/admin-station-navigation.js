@@ -76,7 +76,7 @@ function createIcon(document, name) {
 /** @param {Document} document @param {string} label */
 function createLabel(document, label) {
   const text = document.createElement('span');
-  text.className = 'wex-admin-shell__sidebar-tab-label wex-type-navigation-default-semibold';
+  text.className = 'wex-admin-shell__sidebar-tab-label wex-type-navigation-small-semibold';
   text.textContent = label;
   return text;
 }

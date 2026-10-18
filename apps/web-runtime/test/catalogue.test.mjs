@@ -305,6 +305,8 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationRuntimeBehaviour, /header\.prepend\(brand\)/);
   assert.match(adminStationNavigation, /sidebarTabInputs/);
   ['Dashboard', 'Product Manager', 'New Product', 'All Products', 'Product Keywords', 'Tools'].forEach((label) => assert.match(adminStationNavigation, new RegExp(`label: '${label}'`)));
+  assert.match(adminStationNavigation, /wex-admin-shell__sidebar-tab-label wex-type-navigation-small-semibold/);
+  assert.doesNotMatch(adminStationNavigation, /wex-admin-shell__sidebar-tab-label wex-type-navigation-default-semibold/);
   assert.match(adminStationNavigation, /dataset\.sidebarTabActive/);
   assert.match(adminStationNavigation, /aria-pressed/);
   assert.match(adminStationNavigation, /aria-expanded/);
