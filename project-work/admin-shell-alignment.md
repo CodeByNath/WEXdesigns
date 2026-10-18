@@ -25,6 +25,9 @@ hover-expanded Sidebar states may reveal labels. Do not add routes, API/QSD
 bindings, persistence, data loading, or Body/Location selection behaviour.
 
 Reference-specific active/expanded states are initial visual state only.
+Only one leaf tab may be selected at a time; parent groups are disclosure
+controls, not pages. An inactive tab's hover state is an interactive outline,
+while the selected leaf retains the filled active treatment.
 
 ## Phase D checklist
 
@@ -32,6 +35,8 @@ Reference-specific active/expanded states are initial visual state only.
 - [x] Build the expanded/hover-expanded tab presentation and icon-only rail.
 - [x] Support accessible Product Manager and Tools group toggles without
   introducing routes or persistence.
+- [x] Owner visual correction: separate the single selected leaf state from
+  the inactive-tab hover state; groups remain disclosure-only.
 - [x] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
   states; publish the immutable Studio release and staging pointer.
 - [ ] Owner live validation: confirm the published Sidebar navigation tabs.
@@ -172,6 +177,17 @@ Collapsed Sidebar tabs are `44px × 44px`, with their icon wrappers receiving
 the full 44px allocation; the `8px` list gap remains between actions. Runtime
 type-check and 27/27 tests passed; release/pointer integrity passed, and
 [Pages run 114](https://github.com/CodeByNath/WEXdesigns/actions/runs/39134190800)
+succeeded. Owner live validation remains open.
+
+Sidebar selected/hover-state evidence: source
+`be0376ef69e8cc179e117cb84acf72b54c861b3a`, immutable release
+`wex-studio-v1-be0376ef69e8cc179e117cb84acf72b54c861b3a`, and `main`
+pointer commit `f98288a93e9ddb4e04b2ea25ce54c26a71037bcb` (sequence 30).
+Groups are disclosure-only and cannot be active alongside a selected child;
+the single selected leaf has the filled state, while inactive tabs use the
+interactive hover outline. Runtime type-check and 27/27 tests passed;
+release/pointer integrity passed, and
+[Pages run 117](https://github.com/CodeByNath/WEXdesigns/actions/runs/39135067401)
 succeeded. Owner live validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
