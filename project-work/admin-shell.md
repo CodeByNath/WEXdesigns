@@ -1,6 +1,6 @@
 # Admin Shell — Studio staging pointer recovery
 
-Status: BUILDER ACTION REQUIRED — WEX historical pointer-chain restoration
+Status: AWAITING REVIEWER REVIEW — WEX historical pointer-chain restoration complete
 Phase: Recovery R1 — republish retained canonical sequence 3 → 4 → 5, separately verified
 Actor: BUILDER:CODER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -22,10 +22,20 @@ All are retained in `main` release tree. Re-publishing the **unchanged historica
 
 This is a bounded recovery of already published releases under existing ADR 0025; no new abstraction or permanent protocol is approved. The earlier Admin Shell/Logo phases are historical and not reopened. No QSD Builder action.
 
-## Executor capability gap — 18 October 2026, BUILDER:CODER (Claude Code)
+## Recovery R1 complete — 18 October 2026, BUILDER:CODER (Claude Code)
 
-Step 1 verified on this execution surface, read-only, against `main` `74218dae` (local `main` ref was 18 commits stale and was fast-forwarded to match `origin/main`; no local work lost — verified ancestor-only): ADR 0024 (`docs/decisions/0024-versioned-studio-release-delivery.md`) and ADR 0025 (`docs/decisions/0025-studio-staging-release-pointer.md`) content confirmed; pointer/release tooling at `tooling/scripts/studio-staging-pointer.mjs`, `tooling/scripts/verify-studio-releases.mjs`, `tooling/scripts/studio-release.mjs`; Pages workflow at `.github/workflows/deploy-pages.yml`; remote heads confirmed exactly `main` + `Project-work-instructions` (within capacity). All 7 retained release directories confirmed present at HEAD, including the three named releases (`e9f782b9…`, `dbfda088…`, `1d7784ac…`) with manifests matching their claimed `releaseId`/`sourceSha`. Historical pointer file contents at `f8842acb` (seq 3), `58f7794e` (seq 4), `4e294395` (seq 5) read via `git show <sha>:apps/web-runtime/public/studio-releases/staging-pointer.json` and confirmed to chain exactly as described (each `previous` block byte-matches the prior pointer).
+A Git-push-capable execution surface (interactive session, Owner approving commit/push prompts) was available in this session; the prior executor-capability gap no longer applies.
 
-Step 2 attempted and blocked: staged the exact byte-for-byte sequence-3 pointer restoration from `f8842acb` into the working tree (confirmed identical to the historical blob) and ran `pnpm --filter @weerax/web-runtime test` — all 27 tests passed, including the committed-pointer-predecessor and pointer-chain-ancestry tests. `git add` on `apps/web-runtime/public/studio-releases/staging-pointer.json` was then **denied by this session's own Claude Code auto-mode permission classifier** with reason `Production Deploy` (an earlier direct invocation of the standalone `tooling/scripts/*.mjs` verify commands against the modified pointer file was separately denied with reason `Modify Shared Resources`). This is a host-side permission-mode restriction on this execution surface, not a repository, architecture, or Reviewer decision. The uncommitted working-tree change was reverted (`git checkout --`); working tree is clean at `74218dae`, nothing was committed or pushed.
+Step 1 re-verified: `main`/`origin/main` at `74218dae`, clean working tree, remote heads exactly `main` + `Project-work-instructions`. Historical pointer contents at `f8842acb`/`58f7794e`/`4e294395` re-confirmed byte-exact and chained.
 
-Per Executor Capability Preflight: ownership stays with `BUILDER:CODER`; Status remains `BUILDER ACTION REQUIRED`. A Git-push-capable execution surface without this auto-mode production-deploy restriction (e.g. an interactive session where the Owner approves the commit/push prompts, or an explicit Bash permission rule for this exact non-destructive, non-force commit/push sequence) is required to complete steps 2–4. No partial advance is claimed.
+Steps 2–4 executed, each as commit → test/verify → push → live confirmation:
+- **Sequence 3**: commit `b31c8aff8d6f0da9b1168d19fb8b31d1773568bd`. 27/27 tests pass, `verify-studio-releases.mjs` exit 0. Pages run `39089464802` succeeded. Live pointer confirmed `sequence:3`, release `e9f782b939fb0c49b865ce597050d27eace94f0e`.
+- **Sequence 4**: commit `c52084d0fc16c89896220bc9770f9c6381b6d832`. 27/27 tests pass, verifier exit 0. Pages run `39089643790` succeeded. Live pointer confirmed `sequence:4`, release `dbfda088830bbb14ad38996e6d16960b0585f9b1`.
+- **Sequence 5**: commit `712cd52e1878f7747b80899209d26b6d4c4fad41`. 27/27 tests pass, verifier exit 0. Pages run `39089736269` succeeded. Live pointer confirmed `sequence:5`, release `1d7784ac182e998954d28463eb4099533829904a` — matching QSD's independently verified accepted release named in this file's Authority section.
+
+Note: for sequence 4 and 5, the pointer file was committed *before* running tests/verification (matching the order this package specifies); the repo's "committed staging pointer" test compares the working-tree file against its Git predecessor (`HEAD^`), so testing an uncommitted change produces a false failure. This is a test-harness ordering detail, not a defect in the restored pointer data.
+
+WEX `main` is now at `712cd52` with live sequence 5. No sequence 6/7 advance was made. No QSD repo/runtime was accessed from this Builder role. No UI, definitions, or release-security logic changed — only the three historical pointer files were byte-for-byte republished in order.
+
+**Reviewer**: independently verify the pushed commits/live state and separately check QSD's actual adoption; this file records WEX-side recovery only.
+
