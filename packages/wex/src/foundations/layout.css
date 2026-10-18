@@ -151,7 +151,7 @@ blockquote {
 
 .wex-admin-shell__sidebar-tab-children {
   /* Align child labels with the label column after a parent's icon and gap. */
-  padding-inline-start: calc(var(--wex-space-48) - var(--wex-space-4));
+  padding-inline-start: calc(var(--wex-space-48) - var(--wex-space-12));
 }
 
 .wex-admin-shell__sidebar-tab {
@@ -172,7 +172,7 @@ blockquote {
 }
 
 .wex-admin-shell__sidebar-tab-list > .wex-admin-shell__sidebar-tab-item > .wex-admin-shell__sidebar-tab {
-  padding-inline-start: var(--wex-space-8);
+  padding-inline-start: 0;
 }
 
 button.wex-admin-shell__sidebar-tab {
