@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — change Brand title to VRAX Admin
+Status: OWNER LIVE VALIDATION REQUIRED — Brand title correction published
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -64,7 +64,7 @@ Brand shell's `4px` block padding within the 64px Header.
   geometry at 64px, with the Logo contained by the specified shell padding.
 - [x] Owner visual correction: restore 16px Sidebar padding in every state and
   lock the Logo allocation to 56px block height inside the 64px Header.
-- [ ] Owner visual correction: change the Brand title text from `Studio` to
+- [x] Owner visual correction: change the Brand title text from `Studio` to
   `VRAX Admin`.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
@@ -77,6 +77,15 @@ and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
 `pnpm --filter @weerax/wex test` passed 15/15, release/pointer integrity
 checks passed, Pages run 75 succeeded, and live pointer/manifest verification
 passed. The remaining checkbox is intentionally Owner-owned.
+
+Brand-title evidence: source `42740f373c6b550fc8416de52dff7e784853bb0b`,
+immutable release `wex-studio-v1-42740f373c6b550fc8416de52dff7e784853bb0b`,
+and `main` pointer commit `c776f2ee25b1efbb922060f9f06759d90257c281`
+(sequence 16). The Brand title now reads `VRAX Admin`.
+`pnpm --filter @weerax/web-runtime test` passed 27/27 and
+`pnpm --filter @weerax/wex test` passed 15/15; release/pointer integrity and
+live pointer verification passed. Pages run 83 is still in progress; Owner
+live validation remains open.
 
 Sidebar/Logo evidence: source `92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
 immutable release `wex-studio-v1-92333c82d86e65705f19b22b9ff0768f85c2a9a7`,
