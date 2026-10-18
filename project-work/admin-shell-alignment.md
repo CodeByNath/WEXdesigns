@@ -25,9 +25,9 @@ hover-expanded Sidebar states may reveal labels. Do not add routes, API/QSD
 bindings, persistence, data loading, or Body/Location selection behaviour.
 
 Reference-specific active/expanded states are initial visual state only.
-Only one leaf tab may be selected at a time; parent groups are disclosure
-controls, not pages. An inactive tab's hover state is an interactive outline,
-while the selected leaf retains the filled active treatment.
+Only one leaf tab may be selected at a time. Parent groups remain disclosure
+controls, but mirror their selected child's filled contextual treatment. An
+inactive tab's hover state is an interactive outline, distinct from selection.
 
 ## Phase D checklist
 
@@ -36,7 +36,7 @@ while the selected leaf retains the filled active treatment.
 - [x] Support accessible Product Manager and Tools group toggles without
   introducing routes or persistence.
 - [x] Owner visual correction: separate the single selected leaf state from
-  the inactive-tab hover state; groups remain disclosure-only.
+  the inactive-tab hover state; groups mirror their selected-child context.
 - [x] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
   states; publish the immutable Studio release and staging pointer.
 - [ ] Owner live validation: confirm the published Sidebar navigation tabs.
@@ -188,6 +188,18 @@ the single selected leaf has the filled state, while inactive tabs use the
 interactive hover outline. Runtime type-check and 27/27 tests passed;
 release/pointer integrity passed, and
 [Pages run 117](https://github.com/CodeByNath/WEXdesigns/actions/runs/39135067401)
+succeeded. Owner live validation remains open.
+
+Linked parent/child-state evidence: source
+`2ad32e25c918b182c5d483f15adacd24cc1c8009`, immutable release
+`wex-studio-v1-2ad32e25c918b182c5d483f15adacd24cc1c8009`, and `main`
+pointer commit `fd62ad0ffa7944f219f7084c5965dc67db92b304` (sequence 31).
+A selected child applies the existing filled context treatment to its parent
+group; selecting a leaf outside that group clears the parent context. The
+selected leaf remains the only navigational selection, and hover remains
+distinct. Runtime type-check and 27/27 tests passed; release/pointer integrity
+passed, and
+[Pages run 120](https://github.com/CodeByNath/WEXdesigns/actions/runs/39135335568)
 succeeded. Owner live validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
