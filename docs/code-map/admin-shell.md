@@ -2,8 +2,8 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-13
-- Last updated: 2026-10-13
+- Last visited: 2026-10-19
+- Last updated: 2026-10-19
 - Verified source candidate on `codex/logo-property-binding` at
   `dea09ca35a6c709f987924034cae432f6b81699f`: the Logo-fitted, empty Dashboard
   shell remains standalone, and the portable Studio entry consumes only the
@@ -14,6 +14,17 @@
 
 ### Recent work (newest first)
 
+- The owner-approved Sidebar navigation now has local, repeated tab
+  presentation: Menu controls, root navigation and each internal wrapper use
+  the registered 8px spacing; expanded tabs cap at 44px; and the Sidebar
+  expands to a maximum 288px width.
+- Icon-bearing top-level tabs have no extra leading tab padding. Their 44px
+  icon allocation owns the leading position, the label follows at the
+  tokenized 8px gap, and nested child labels align with that label column.
+  Tabs without a leading icon retain their 16px inline tab padding.
+- Active child state is reflected on its group. An inactive hover state is an
+  interactive outline and remains distinct from the selected fill and accent
+  text treatment.
 - Phase 2E adds the WEX-owned staging-only release pointer
   (`studio-releases/staging-pointer.json`, ADR 0025). Only the pointer moves;
   `tooling/scripts/studio-staging-pointer.mjs` proposes and verifies it, the
@@ -89,6 +100,22 @@ Admin Station runtime layout
 
 Component Manager independently develops and validates reusable Lego pieces
 before an accepted piece is fitted here.
+
+## Current Sidebar navigation rules
+
+- Sidebar shell, controls, and navigation are independent internal wrappers.
+  The shell, controls, and navigation each consume the established 8px
+  padding/gap rule; they do not use margin for layout spacing.
+- Expanded navigation tabs use 4px block and 16px inline token padding with a
+  44px maximum block size. A root tab carrying a leading icon overrides only
+  its leading padding to zero because its 44px icon allocation already owns
+  that space.
+- Tab SVGs are 20px inside their token-composed 44px icon allocation.
+  Nested lists start at the parent label column, preserving alignment between
+  a leading-icon parent and its children.
+- Compact navigation hides labels while retaining 44px tab/icon targets.
+  Expanded or hover-expanded navigation shows the labels and disclosure
+  controls without changing the underlying navigation model.
 
 ## Safe change routing
 

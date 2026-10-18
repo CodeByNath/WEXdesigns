@@ -3,8 +3,8 @@
 ## Current operating status
 
 - Created: 2026-10-05
-- Last visited: 2026-10-13
-- Last updated: 2026-10-13
+- Last visited: 2026-10-19
+- Last updated: 2026-10-19
 - Verified source candidate on `codex/logo-property-binding` at
   `dea09ca35a6c709f987924034cae432f6b81699f`. ADRs 0021–0023 define Header's
   Brand compartment, Logo's shared render description, and the narrow
@@ -13,6 +13,14 @@
 
 ### Recent work (newest first)
 
+- The Admin Station Header is a fixed 64px-high shell at every viewport. Its
+  outer wrapper has no padding; the Brand compartment uses the established
+  4px block and 16px inline token padding. The compact Header/Sidebar column
+  is 76px, while the fitted Logo allocation is constrained to the resulting
+  56px inner height.
+- The Header Brand renders the owner-approved `VRAX Admin` title when the
+  Sidebar is expanded. The Header remains a two-compartment shell: Brand on
+  the left, with the independent navigation compartment on the right.
 - ADR 0023 preserves Logo's label-only definition while allowing an
   application-resolved, typed HTTPS image property through a closed,
   serializable binding descriptor.
@@ -93,6 +101,19 @@ Component Manager/Admin Station -> shared Logo description
 Header owns direct compartments only. Logo retains its internal presentation
 boundary. `WEXAMH` is an Admin Header allocation, not a reusable capability,
 and is never created through a local application ID.
+
+## Current layout rules
+
+- The Header wrapper is border-box and fixed to the WEX Admin Header token;
+  the current token resolves to 64px on every device.
+- Header owns no outer padding. The Brand compartment consumes 4px block and
+  16px inline spacing tokens, including its right-side padding.
+- The compact Brand/Header column and compact Sidebar share the 76px shell
+  allocation. The Logo consumes the resulting inner allocation without
+  stretching beyond its 56px block-size cap.
+- The Header grid keeps the tokenized 8px compartment gap. A future
+  navigation or action child belongs to its own right-side compartment and
+  must not be folded into Logo or Brand ownership.
 
 ## Safe change routing
 
