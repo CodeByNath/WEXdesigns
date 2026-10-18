@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION REQUIRED — transparent Sidebar split-control border published
+Status: BUILDER ACTION REQUIRED — Admin surface colour swap
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -70,6 +70,8 @@ Brand shell's `4px` block padding within the 64px Header.
   of the Sidebar split-control SVG.
 - [x] Owner visual correction: make the Sidebar split-control border
   transparent while preserving the keyboard focus indicator.
+- [ ] Owner visual correction: use white for the Admin Header/Main surfaces
+  and grey for the Sidebar, retaining the blue Brand block.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
