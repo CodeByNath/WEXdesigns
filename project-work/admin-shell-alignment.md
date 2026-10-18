@@ -1,7 +1,7 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION REQUIRED — Sidebar toggle hover restored
-Phase: A — padding and gap alignment before navigation components
+Status: BUILDER ACTION REQUIRED — build Sidebar navigation tabs
+Phase: D — Sidebar tabs
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
 
@@ -12,6 +12,29 @@ inventing data, routes, actions, or a second visual system. The current WEX
 shell remains the baseline: Header, Sidebar, Main/Body and Footer, existing
 Logo allocation, existing responsive drawer behaviour, and registered WEX
 tokens only.
+
+## Owner-approved Sidebar-tab package
+
+The Owner has closed the alignment batch and authorised the next Admin Sidebar
+component from the supplied visual reference. Build local, non-routing tab
+presentation for Dashboard; an initially expanded Product Manager group with
+New Product visually active, All Products, and Product Keywords; and an
+initially collapsed Tools group. Use repeated component inputs and accessible
+button controls. The compact rail must retain icons only; expanded and
+hover-expanded Sidebar states may reveal labels. Do not add routes, API/QSD
+bindings, persistence, data loading, or Body/Location selection behaviour.
+
+Reference-specific active/expanded states are initial visual state only.
+
+## Phase D checklist
+
+- [ ] Define repeated local inputs for the approved Sidebar tabs and groups.
+- [ ] Build the expanded/hover-expanded tab presentation and icon-only rail.
+- [ ] Support accessible Product Manager and Tools group toggles without
+  introducing routes or persistence.
+- [ ] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
+  states; publish the immutable Studio release and staging pointer.
+- [ ] Owner live validation: confirm the published Sidebar navigation tabs.
 
 ## Owner spacing contract
 
