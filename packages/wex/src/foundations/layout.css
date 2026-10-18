@@ -55,7 +55,7 @@ blockquote {
   --wex-admin-shell-header-size: var(--wex-space-64);
   --wex-admin-shell-collapsed-size: calc(var(--wex-space-64) + var(--wex-space-8) + var(--wex-space-4));
   --wex-admin-shell-sidebar-collapsed: var(--wex-admin-shell-collapsed-size);
-  --wex-admin-shell-sidebar-expanded: calc(var(--wex-space-64) * 5 + var(--wex-space-8));
+  --wex-admin-shell-sidebar-expanded: calc(var(--wex-space-64) * 5 + var(--wex-space-16) + var(--wex-space-8) + var(--wex-space-4));
   --wex-admin-shell-sidebar-current: var(--wex-admin-shell-sidebar-collapsed);
   --wex-admin-shell-sidebar-header: var(--wex-admin-shell-sidebar-collapsed);
 
@@ -102,6 +102,8 @@ blockquote {
   grid-area: sidebar;
   display: flex;
   flex-direction: column;
+  inline-size: 100%;
+  max-inline-size: var(--wex-admin-shell-sidebar-expanded);
   gap: var(--wex-space-8);
   padding: var(--wex-space-8);
   overflow: auto;
@@ -140,6 +142,11 @@ blockquote {
 .wex-admin-shell__sidebar-tab-children {
   padding: 0;
   list-style: none;
+}
+
+.wex-admin-shell__sidebar-tab-item {
+  display: grid;
+  gap: var(--wex-space-8);
 }
 
 .wex-admin-shell__sidebar-tab-children {
@@ -349,7 +356,8 @@ button.wex-admin-shell__sidebar-tab {
     z-index: 2;
     inset-block: var(--wex-admin-shell-header-size) 0;
     inset-inline-start: 0;
-    inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-sidebar-collapsed)));
+    inline-size: 100%;
+    max-inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-sidebar-collapsed)));
   }
 
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__sidebar {
