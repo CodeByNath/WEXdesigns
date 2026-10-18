@@ -111,6 +111,16 @@ toggle and navigation compartments. Runtime type-check and 27/27 tests passed;
 release/pointer integrity passed. The Pages deployment is pending. Owner live
 validation remains open.
 
+Sidebar icon-sizing evidence: source
+`3757430327da22bc728f0d0819867553a79cec59`, immutable release
+`wex-studio-v1-3757430327da22bc728f0d0819867553a79cec59`, and `main`
+pointer commit `055e81d0baafe6a2f811813120a8ec72d6227c3b` (sequence 24).
+Sidebar icon wrappers fill their available control space, capped at 44px, and
+their SVG glyphs are 20px. Runtime type-check and 27/27 tests passed;
+release/pointer integrity passed, and
+[Pages run 99](https://github.com/CodeByNath/WEXdesigns/actions/runs/39127330134)
+succeeded. Owner live validation remains open.
+
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
 immutable release `wex-studio-v1-2979d8759380ccbf54a72d21d0fa032da9157cba`,
 and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
