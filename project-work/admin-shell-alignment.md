@@ -1,8 +1,8 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — build Sidebar navigation tabs
+Status: OWNER LIVE VALIDATION — Sidebar navigation and padding hierarchy
 Phase: D — Sidebar tabs
-Actor: BUILDER:DESIGNER (WEX only)
+Actor: OWNER (live QSD validation)
 Repository: `CodeByNath/WEXdesigns`
 
 ## Outcome
@@ -28,11 +28,11 @@ Reference-specific active/expanded states are initial visual state only.
 
 ## Phase D checklist
 
-- [ ] Define repeated local inputs for the approved Sidebar tabs and groups.
-- [ ] Build the expanded/hover-expanded tab presentation and icon-only rail.
-- [ ] Support accessible Product Manager and Tools group toggles without
+- [x] Define repeated local inputs for the approved Sidebar tabs and groups.
+- [x] Build the expanded/hover-expanded tab presentation and icon-only rail.
+- [x] Support accessible Product Manager and Tools group toggles without
   introducing routes or persistence.
-- [ ] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
+- [x] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
   states; publish the immutable Studio release and staging pointer.
 - [ ] Owner live validation: confirm the published Sidebar navigation tabs.
 
@@ -61,10 +61,11 @@ remaining space after `--wex-space-16` on both inline edges and
 `--wex-space-4` on both block edges. The collapsed Sidebar rail matches the
 same `64px` inline size.
 
-The Sidebar owns `--wex-space-16` padding in every state. Its collapsed
-control fits the remaining `32px` content width. The Logo block allocation is
-fixed with both minimum and maximum block size at `56px`, preserving the
-Brand shell's `4px` block padding within the 64px Header.
+The Sidebar follows the normal nested-shell rule: the Sidebar wrapper owns
+`--wex-space-8`, and each first-level compartment—the Menu/toggle controls
+and the navigation action container—also owns `--wex-space-8`. The Logo block
+allocation is fixed with both minimum and maximum block size at `56px`,
+preserving the Brand shell's `4px` block padding within the 64px Header.
 
 ## Phase A checklist
 
@@ -100,6 +101,15 @@ Brand shell's `4px` block padding within the 64px Header.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
+
+Sidebar navigation/padding evidence: source
+`5a9172ff0e2ee7a2e22c4697bc48efe3eca2dbb2`, immutable release
+`wex-studio-v1-5a9172ff0e2ee7a2e22c4697bc48efe3eca2dbb2`, and `main`
+pointer commit `e0a927a87ffb6d81b048e12df6d5a61d4803765c` (sequence 23).
+The Sidebar now uses `8px` outer padding plus `8px` on its first-level Menu/
+toggle and navigation compartments. Runtime type-check and 27/27 tests passed;
+release/pointer integrity passed. The Pages deployment is pending. Owner live
+validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
 immutable release `wex-studio-v1-2979d8759380ccbf54a72d21d0fa032da9157cba`,
