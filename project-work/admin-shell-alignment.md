@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — left-align the default Logo shell
+Status: OWNER LIVE VALIDATION REQUIRED — default Logo alignment published
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -48,7 +48,7 @@ expanded states.
   while retaining its inline-end and block padding.
 - [x] Owner visual correction: restore the Logo shell’s `--wex-space-16`
   inline-start padding while retaining the other current padding.
-- [ ] Owner visual correction: left-align the Logo shell in its default state.
+- [x] Owner visual correction: left-align the Logo shell in its default state.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
@@ -60,6 +60,16 @@ and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
 `pnpm --filter @weerax/wex test` passed 15/15, release/pointer integrity
 checks passed, Pages run 75 succeeded, and live pointer/manifest verification
 passed. The remaining checkbox is intentionally Owner-owned.
+
+Logo alignment evidence: source `d6dd9905be41541e38b5ccc7cad0de4876ede4fe`,
+immutable release `wex-studio-v1-d6dd9905be41541e38b5ccc7cad0de4876ede4fe`,
+and `main` pointer commit `efaeaddc37433f592959fdad77ac1e7ad166cf92`
+(sequence 13). The default Brand/Logo shell now aligns its contents to inline
+start, matching its expanded state. `pnpm --filter @weerax/wex test` passed
+15/15, `pnpm --filter @weerax/web-runtime test` passed 27/27,
+release/pointer integrity checks and live pointer/manifest verification passed,
+and [Pages run 80](https://github.com/CodeByNath/WEXdesigns/actions/runs/39115153331)
+succeeded. Owner live validation remains open.
 
 Correction evidence: source `f486eb3143ad7dcd4a3d201fa38691dd786d8cde`,
 immutable release `wex-studio-v1-f486eb3143ad7dcd4a3d201fa38691dd786d8cde`,
