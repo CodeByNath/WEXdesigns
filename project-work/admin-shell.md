@@ -1,8 +1,8 @@
 # Admin Shell — Studio delivery correction
 
-Status: AWAITING REVIEWER REVIEW — Delivery D1 Studio release packaged, published and live-verified
-Phase: Delivery D1 — build, retain, publish and verify one current WEX Studio release
-Actor: BUILDER:CODER (WEX only)
+Status: ACCEPTED — Delivery D1 immutable sequence-6 Studio release verified; CLOSED
+Phase: Delivery D1 — CLOSED; QSD runtime/UI evidence separately outstanding
+Actor: REVIEWER — next consumer acceptance; no WEX Builder action pending
 Repository: `CodeByNath/WEXdesigns`
 
 ## Reviewer verified defect — 18 October 2026
@@ -33,3 +33,7 @@ Built from WEX `main` `583474a1fb8a5cb7f0719db48ae5ccb03eb47149` (clean tracked 
 WEX `main` is now at `f066614`, live sequence 6. No sequence 7 advance was made. No QSD repo/runtime was accessed from this Builder role; this is WEX producer-side evidence only, not a QSD adoption claim. No Header redesign, no UI change beyond the two already-committed/reviewed fixes, no existing release directory modified, no anti-replay bypass.
 
 **Reviewer**: independently verify the pushed commits/live state and separately check QSD's actual adoption of sequence 6.
+
+## Reviewer D1 acceptance — 18 October 2026
+
+**Verdict: Proceed with safeguards.** Independent diff `583474a1..f066614` changes only 76 files under `apps/web-runtime/public/studio-releases/`: one new retained release directory and staging pointer; no older release or source UI edits. `main` head `f066614aef8a09eb02be6f2f4d1b3a911357c11b` has sequence **6** with predecessor exactly sequence 5, new release `wex-studio-v1-583474a1fb8a5cb7f0719db48ae5ccb03eb47149`, manifest `sourceSha=583474a1…`, and stylesheet `assets/wex-studio-host-DRXeqtAx.css`. Authenticated Pages deploy job `117612857009` from run `39106331238` succeeded and explicitly logged successful staging pointer verification and **live** pointer+manifest verification. The new release now includes the source revision with the approved header/UI corrections. **WEX D1 accepted and closed.** QSD's acceptance of sequence 6 and actual rendered dashboard are not established by this producer-side evidence; keep end-to-end integration open until separately verified. Do not start another WEX Builder job solely to investigate a hypothesised consumer problem.
