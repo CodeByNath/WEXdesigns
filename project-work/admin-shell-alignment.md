@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION REQUIRED — rounded Sidebar split-control published
+Status: BUILDER ACTION REQUIRED — Sidebar split-control border transparency
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -68,6 +68,8 @@ Brand shell's `4px` block padding within the 64px Header.
   `VRAX Admin`.
 - [x] Owner visual correction: round the outer corners and divider endpoints
   of the Sidebar split-control SVG.
+- [ ] Owner visual correction: make the Sidebar split-control border
+  transparent while preserving the keyboard focus indicator.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
