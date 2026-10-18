@@ -37,7 +37,6 @@
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
-  padding-inline-start: var(--wex-space-16);
   justify-content: flex-start;
 }
 
