@@ -142,6 +142,16 @@ allocation. Runtime type-check and 27/27 tests passed; release/pointer
 integrity passed, and [Pages run 105](https://github.com/CodeByNath/WEXdesigns/actions/runs/39128432536)
 succeeded. Owner live validation remains open.
 
+Brand-logo allocation evidence: source
+`c1fa1d02f19317ed89aed5507145281648e60970`, immutable release
+`wex-studio-v1-c1fa1d02f19317ed89aed5507145281648e60970`, and `main`
+pointer commit `7025e8e56afdd22626f55142145057e824364b8e` (sequence 27).
+The Logo now fills the full padded Brand content width (44px) within the fixed
+64px Header, while its image keeps its aspect ratio. Runtime type-check and
+27/27 tests passed; release/pointer integrity passed, and
+[Pages run 108](https://github.com/CodeByNath/WEXdesigns/actions/runs/39128721613)
+succeeded. Owner live validation remains open.
+
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
 immutable release `wex-studio-v1-2979d8759380ccbf54a72d21d0fa032da9157cba`,
 and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
