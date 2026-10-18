@@ -1,8 +1,8 @@
 # Admin Shell — Studio staging pointer recovery
 
-Status: ACCEPTED — Recovery R1 producer pointer restoration complete
+Status: ACCEPTED — WEX R1 complete; external QSD adoption and visible UI NOT VERIFIED
 Phase: Recovery R1 — CLOSED; QSD consumer adoption/UI validation pending separate review
-Actor: REVIEWER — consumer-runtime/UI verification; no Builder action pending
+Actor: REVIEWER — remaining runtime acceptance only; no Builder action pending
 Repository: `CodeByNath/WEXdesigns`
 
 ## Authority and verified recovery baseline
@@ -33,3 +33,7 @@ Per Executor Capability Preflight: ownership stays with `BUILDER:CODER`; Status 
 ## Reviewer R1 closeout — 18 October 2026
 
 **Verdict: Proceed with safeguards.** Independently verified WEX `main` SHA `712cd52e1878f7747b80899209d26b6d4c4fad41` from baseline `74218dae`; pushed sequence-3 `b31c8aff`, sequence-4 `c52084d0`, sequence-5 `712cd52e` were separately committed. Full diff to baseline modifies **only** `apps/web-runtime/public/studio-releases/staging-pointer.json`; no WEX UI or QSD source changed. All three Deploy WEX index workflow runs (`39089464802`, `39089643790`, `39089736269`) succeeded. Authenticated final deployment log confirms producer pointer verifier, Pages upload and deploy, and `verify-live` result **'verified live staging pointer and manifest'** for sequence 5. Final pointer is canonical historical sequence 5 / release `wex-studio-v1-1d7784ac182e998954d28463eb4099533829904a` / previous=QSD's confirmed sequence 4. **R1 accepted and closed**; permission blocker is moot because changes reached main. Reviewer next independently checks QSD's current read-only stored release and actual `/studio/` visible result, without claiming consumer adoption from WEX Pages evidence. No new Builder work assigned until that verification.
+
+## Reviewer runtime audit attempt — 18 October 2026
+
+WEX sequence-5 producer is accepted based on CI `39089736269` and authenticated GitHub Pages `verify-live` success. QSD's most recent available staging deployment/diagnostic remains `39064307694` (executed before the WEX recovery), reporting durable sequence 4. No later QSD diagnostic proves consumer adoption of 5. Reviewer attempted direct public requests to the WEX Pages pointer and QSD `/studio/`, but this session's web reader cannot access either URL; the connected Browser reader is unavailable outside its originating browser context. **No UI or QSD-adoption claim is justified.** Do not reopen completed WEX R1, silently redeploy QSD, or treat successful producer CI as customer-visible UI proof. Remaining acceptance requires an authenticated staging browser observation or current non-mutating QSD runtime state showing sequence 5, plus actual visible dashboard inspection. Neither Builder has executable work assigned by this finding.
