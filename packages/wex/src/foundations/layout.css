@@ -101,7 +101,7 @@ blockquote {
   display: flex;
   flex-direction: column;
   gap: var(--wex-space-8);
-  padding: var(--wex-space-16);
+  padding: var(--wex-space-8);
   overflow: auto;
   overscroll-behavior: contain;
   border-inline-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
@@ -113,6 +113,7 @@ blockquote {
   align-items: center;
   justify-content: center;
   gap: var(--wex-space-8);
+  padding: var(--wex-space-8);
 }
 
 .wex-admin-shell__sidebar-label {
@@ -130,6 +131,7 @@ blockquote {
 
 .wex-admin-shell__sidebar-navigation {
   min-width: 0;
+  padding: var(--wex-space-8);
 }
 
 .wex-admin-shell__sidebar-tab-list,
