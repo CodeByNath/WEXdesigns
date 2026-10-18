@@ -1,8 +1,8 @@
 # Admin Shell — Studio staging pointer recovery
 
-Status: BUILDER ACTION REQUIRED — WEX historical pointer-chain restoration
-Phase: Recovery R1 — republish retained canonical sequence 3 → 4 → 5, separately verified
-Actor: BUILDER:CODER (WEX only)
+Status: ACCEPTED — Recovery R1 producer pointer restoration complete
+Phase: Recovery R1 — CLOSED; QSD consumer adoption/UI validation pending separate review
+Actor: REVIEWER — consumer-runtime/UI verification; no Builder action pending
 Repository: `CodeByNath/WEXdesigns`
 
 ## Authority and verified recovery baseline
@@ -29,3 +29,7 @@ Step 1 verified on this execution surface, read-only, against `main` `74218dae` 
 Step 2 attempted and blocked: staged the exact byte-for-byte sequence-3 pointer restoration from `f8842acb` into the working tree (confirmed identical to the historical blob) and ran `pnpm --filter @weerax/web-runtime test` — all 27 tests passed, including the committed-pointer-predecessor and pointer-chain-ancestry tests. `git add` on `apps/web-runtime/public/studio-releases/staging-pointer.json` was then **denied by this session's own Claude Code auto-mode permission classifier** with reason `Production Deploy` (an earlier direct invocation of the standalone `tooling/scripts/*.mjs` verify commands against the modified pointer file was separately denied with reason `Modify Shared Resources`). This is a host-side permission-mode restriction on this execution surface, not a repository, architecture, or Reviewer decision. The uncommitted working-tree change was reverted (`git checkout --`); working tree is clean at `74218dae`, nothing was committed or pushed.
 
 Per Executor Capability Preflight: ownership stays with `BUILDER:CODER`; Status remains `BUILDER ACTION REQUIRED`. A Git-push-capable execution surface without this auto-mode production-deploy restriction (e.g. an interactive session where the Owner approves the commit/push prompts, or an explicit Bash permission rule for this exact non-destructive, non-force commit/push sequence) is required to complete steps 2–4. No partial advance is claimed.
+
+## Reviewer R1 closeout — 18 October 2026
+
+**Verdict: Proceed with safeguards.** Independently verified WEX `main` SHA `712cd52e1878f7747b80899209d26b6d4c4fad41` from baseline `74218dae`; pushed sequence-3 `b31c8aff`, sequence-4 `c52084d0`, sequence-5 `712cd52e` were separately committed. Full diff to baseline modifies **only** `apps/web-runtime/public/studio-releases/staging-pointer.json`; no WEX UI or QSD source changed. All three Deploy WEX index workflow runs (`39089464802`, `39089643790`, `39089736269`) succeeded. Authenticated final deployment log confirms producer pointer verifier, Pages upload and deploy, and `verify-live` result **'verified live staging pointer and manifest'** for sequence 5. Final pointer is canonical historical sequence 5 / release `wex-studio-v1-1d7784ac182e998954d28463eb4099533829904a` / previous=QSD's confirmed sequence 4. **R1 accepted and closed**; permission blocker is moot because changes reached main. Reviewer next independently checks QSD's current read-only stored release and actual `/studio/` visible result, without claiming consumer adoption from WEX Pages evidence. No new Builder work assigned until that verification.
