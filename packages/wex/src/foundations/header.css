@@ -35,7 +35,7 @@
 }
 
 .wex-admin-shell__brand .wex-logo {
-  inline-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-16) - var(--wex-space-16));
+  inline-size: 100%;
   block-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
   min-block-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
   max-block-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
