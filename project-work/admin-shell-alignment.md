@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION REQUIRED — Sidebar padding and Logo height published
+Status: BUILDER ACTION REQUIRED — change Brand title to VRAX Admin
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -64,6 +64,8 @@ Brand shell's `4px` block padding within the 64px Header.
   geometry at 64px, with the Logo contained by the specified shell padding.
 - [x] Owner visual correction: restore 16px Sidebar padding in every state and
   lock the Logo allocation to 56px block height inside the 64px Header.
+- [ ] Owner visual correction: change the Brand title text from `Studio` to
+  `VRAX Admin`.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
 - [ ] Owner live validation: confirm the published shell alignment.
