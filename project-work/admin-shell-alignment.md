@@ -39,6 +39,8 @@ inactive tab's hover state is an interactive outline, distinct from selection.
   the inactive-tab hover state; groups mirror their selected-child context.
 - [x] Owner visual correction: align Sidebar tab labels to the Menu typography
   token without raw values or inline CSS.
+- [x] Owner visual correction: make the Sidebar fluid with a 288px maximum and
+  restore the nested group gap using the standard spacing token.
 - [x] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
   states; publish the immutable Studio release and staging pointer.
 - [ ] Owner live validation: confirm the published Sidebar navigation tabs.
@@ -213,6 +215,17 @@ typography class used by the Menu label; no raw typography values or inline
 CSS were introduced. Runtime type-check and 27/27 tests passed;
 release/pointer integrity passed, and
 [Pages run 123](https://github.com/CodeByNath/WEXdesigns/actions/runs/39135683448)
+succeeded. Owner live validation remains open.
+
+Sidebar width and gap evidence: source
+`eae42b344dc9b2bbe287596f577e935f50a67117`, immutable release
+`wex-studio-v1-eae42b344dc9b2bbe287596f577e935f50a67117`, and `main`
+pointer commit `14bb6e846436f7b8e8ff1bb1a9efdbb5e00da4ee` (sequence 34).
+The Sidebar is `100%` fluid within a token-composed 288px maximum; each group
+wrapper owns the standard `--wex-space-8` gap between its control and children.
+No raw layout values or inline styles were introduced. Runtime type-check and
+27/27 tests passed; release/pointer integrity passed, and
+[Pages run 129](https://github.com/CodeByNath/WEXdesigns/actions/runs/39138538771)
 succeeded. Owner live validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
