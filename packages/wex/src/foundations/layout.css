@@ -52,6 +52,7 @@ blockquote {
 
 .wex-admin-shell {
   /* Sidebar reference targets, composed only from WEX spacing tokens. */
+  --wex-admin-shell-header-size: var(--wex-space-64);
   --wex-admin-shell-collapsed-size: calc(var(--wex-space-64) + var(--wex-space-8) + var(--wex-space-4));
   --wex-admin-shell-sidebar-collapsed: var(--wex-admin-shell-collapsed-size);
   --wex-admin-shell-sidebar-expanded: calc(var(--wex-space-64) * 5 + var(--wex-space-8));
@@ -333,7 +334,7 @@ button.wex-admin-shell__sidebar-tab {
     position: absolute;
     z-index: 2;
     display: grid;
-    inset-block-start: calc((var(--wex-admin-shell-collapsed-size) - var(--wex-space-32)) / 2);
+    inset-block-start: calc((var(--wex-admin-shell-header-size) - var(--wex-space-32)) / 2);
     inset-inline-start: calc(var(--wex-admin-shell-sidebar-collapsed) + var(--wex-space-16));
   }
 
@@ -342,9 +343,9 @@ button.wex-admin-shell__sidebar-tab {
     display: none;
     position: absolute;
     z-index: 2;
-    inset-block: var(--wex-admin-shell-collapsed-size) 0;
+    inset-block: var(--wex-admin-shell-header-size) 0;
     inset-inline-start: 0;
-    inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-collapsed-size)));
+    inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-sidebar-collapsed)));
   }
 
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__sidebar {
@@ -358,7 +359,7 @@ button.wex-admin-shell__sidebar-tab {
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__drawer-trigger {
     inset-inline-start: min(
       calc(var(--wex-admin-shell-sidebar-expanded) - var(--wex-space-32) - var(--wex-space-4) - var(--wex-space-16)),
-      calc(100% - var(--wex-admin-shell-collapsed-size) - var(--wex-space-32) - var(--wex-space-4) - var(--wex-space-16))
+      calc(100% - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-32) - var(--wex-space-4) - var(--wex-space-16))
     );
     border-color: transparent;
     background: transparent;
@@ -368,7 +369,7 @@ button.wex-admin-shell__sidebar-tab {
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__backdrop {
     position: absolute;
     z-index: 1;
-    inset: var(--wex-admin-shell-collapsed-size) 0 0;
+    inset: var(--wex-admin-shell-header-size) 0 0;
     display: block;
     inline-size: 100%;
   }
