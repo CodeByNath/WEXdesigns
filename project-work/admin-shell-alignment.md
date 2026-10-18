@@ -43,6 +43,8 @@ inactive tab's hover state is an interactive outline, distinct from selection.
   restore the nested group gap using the standard spacing token.
 - [x] Owner visual correction: align nested Sidebar tab labels to the parent
   label column using only the existing spacing tokens.
+- [x] Owner visual correction: apply 16px inline padding to expanded Sidebar
+  tabs without altering the nested-label alignment rule.
 - [x] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
   states; publish the immutable Studio release and staging pointer.
 - [ ] Owner live validation: confirm the published Sidebar navigation tabs.
@@ -239,6 +241,16 @@ Nested child labels align to the parent tab-label column using only
 navigation retain their 8px outer/inner padding hierarchy. Runtime type-check
 and 27/27 tests passed; release/pointer integrity passed, and
 [Pages run 132](https://github.com/CodeByNath/WEXdesigns/actions/runs/39139194583)
+succeeded. Owner live validation remains open.
+
+Sidebar-tab padding evidence: source
+`3da1c9ed3e3cc6f900e0a460fdf443fbb9003c76`, immutable release
+`wex-studio-v1-3da1c9ed3e3cc6f900e0a460fdf443fbb9003c76`, and `main`
+pointer commit `fa6b2a1a6520230840a4f4fdb9c6edc5cafc204c` (sequence 36).
+Expanded Sidebar tabs use the existing `--wex-space-16` inline padding token;
+the nested-label alignment calculation is unchanged. Runtime type-check and
+27/27 tests passed; release/pointer integrity passed, and
+[Pages run 135](https://github.com/CodeByNath/WEXdesigns/actions/runs/39141448609)
 succeeded. Owner live validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
