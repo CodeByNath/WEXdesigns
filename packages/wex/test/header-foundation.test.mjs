@@ -21,6 +21,7 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(header, /\.wex-admin-shell__brand\s*\{[\s\S]*position: absolute;[\s\S]*z-index: 1;[\s\S]*box-sizing: border-box;[\s\S]*inline-size: var\(--wex-admin-shell-sidebar-header\);[\s\S]*block-size: var\(--wex-space-64\);[\s\S]*padding-block: var\(--wex-space-4\);[\s\S]*padding-inline-start: var\(--wex-space-16\);[\s\S]*padding-inline-end: var\(--wex-space-16\);[\s\S]*inset-block-start: 0;[\s\S]*inset-inline-start: 0;[\s\S]*background: var\(--wex-color-background-accent\);[\s\S]*color: var\(--wex-color-on-accent\);/);
   const brandRule = header.match(/\.wex-admin-shell__brand\s*\{([\s\S]*?)\n\}/);
   assert.ok(brandRule, 'missing Brand shell base rule');
+  assert.match(brandRule[1], /justify-content:\s*flex-start;/);
   assert.match(brandRule[1], /padding-inline-start:\s*var\(--wex-space-16\);/);
   assert.match(header, /\.wex-admin-shell__navigation\s*\{[\s\S]*grid-column: 2;[\s\S]*gap: var\(--wex-space-8\);[\s\S]*padding-block: var\(--wex-space-4\);[\s\S]*padding-inline-end: var\(--wex-space-16\);/);
   assert.match(header, /\.wex-admin-shell__nav-actions\s*\{[\s\S]*display: flex;[\s\S]*gap: var\(--wex-space-8\);/);
