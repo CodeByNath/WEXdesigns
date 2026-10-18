@@ -214,7 +214,11 @@ button.wex-admin-shell__sidebar-tab {
 
 .wex-admin-shell:not([data-sidebar="expanded"]):not([data-sidebar-hovered="true"]) .wex-admin-shell__sidebar-tab {
   justify-content: center;
+  inline-size: calc(var(--wex-space-48) - var(--wex-space-4));
+  min-block-size: calc(var(--wex-space-48) - var(--wex-space-4));
+  block-size: calc(var(--wex-space-48) - var(--wex-space-4));
   padding-inline: 0;
+  padding-block: 0;
 }
 
 .wex-admin-shell:not([data-sidebar="expanded"]):not([data-sidebar-hovered="true"]) .wex-admin-shell__sidebar-tab-label,
