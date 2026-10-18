@@ -152,6 +152,16 @@ The Logo now fills the full padded Brand content width (44px) within the fixed
 [Pages run 108](https://github.com/CodeByNath/WEXdesigns/actions/runs/39128721613)
 succeeded. Owner live validation remains open.
 
+Bounded Brand-logo evidence: source
+`62e016bcfe9351aef7f6ba51a29dcd260dd8e6d8`, immutable release
+`wex-studio-v1-62e016bcfe9351aef7f6ba51a29dcd260dd8e6d8`, and `main`
+pointer commit `98e100d83b1f36fda2b37e8b2041f185606ab495` (sequence 28).
+The Logo width is fixed to the collapsed Sidebar rail's padded 44px allocation
+in both collapsed and expanded Brand states; it no longer consumes the expanded
+Brand title space. Runtime type-check and 27/27 tests passed; release/pointer
+integrity passed, and [Pages run 111](https://github.com/CodeByNath/WEXdesigns/actions/runs/39128942885)
+succeeded. Owner live validation remains open.
+
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
 immutable release `wex-studio-v1-2979d8759380ccbf54a72d21d0fa032da9157cba`,
 and `main` pointer commit `1cf0705f4168f3bd0a3774a863d868ba1fb57c4e`
