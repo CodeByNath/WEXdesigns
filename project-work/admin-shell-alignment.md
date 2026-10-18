@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: BUILDER ACTION REQUIRED — restore Logo shell inline-start padding
+Status: OWNER LIVE VALIDATION REQUIRED — Logo left-padding restoration published
 Phase: A — padding and gap alignment before navigation components
 Actor: BUILDER:DESIGNER (WEX only)
 Repository: `CodeByNath/WEXdesigns`
@@ -43,7 +43,7 @@ spacing tokens.
   inline end while retaining its existing padding and allocation.
 - [x] Owner visual correction: remove the Logo shell’s inline-start padding
   while retaining its inline-end and block padding.
-- [ ] Owner visual correction: restore the Logo shell’s `--wex-space-16`
+- [x] Owner visual correction: restore the Logo shell’s `--wex-space-16`
   inline-start padding while retaining the other current padding.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
@@ -65,6 +65,17 @@ shell/component gaps and padding are retained. `pnpm --filter @weerax/web-runtim
 test` passed 27/27, `pnpm --filter @weerax/wex test` passed 15/15,
 release/pointer integrity checks and live pointer/manifest verification passed,
 and [Pages run 76](https://github.com/CodeByNath/WEXdesigns/actions/runs/39114011483)
+succeeded. Owner live validation remains open.
+
+Logo left-padding restoration evidence: source
+`283172b6821b82801bb79808291bda44c10625ed`, immutable release
+`wex-studio-v1-283172b6821b82801bb79808291bda44c10625ed`, and `main` pointer
+commit `ecd44390f17e2d7b235de9911b5c33dcf9143446` (sequence 12). The
+Brand/Logo shell again owns `--wex-space-16` at inline start, preserving its
+existing inline-end and block padding. `pnpm --filter @weerax/wex test` passed
+15/15, `pnpm --filter @weerax/web-runtime test` passed 27/27, release/pointer
+integrity checks and live pointer/manifest verification passed, and
+[Pages run 79](https://github.com/CodeByNath/WEXdesigns/actions/runs/39114963291)
 succeeded. Owner live validation remains open.
 
 Logo left-padding evidence: source `f6215864da2027782cd0daf34eaae0cee63b8880`,
