@@ -65,7 +65,6 @@ blockquote {
     "footer footer";
   grid-template-columns: var(--wex-admin-shell-sidebar-current) minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: var(--wex-space-8);
   width: 100%;
   min-width: 0;
   block-size: 100vh;

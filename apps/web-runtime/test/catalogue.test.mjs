@@ -205,6 +205,9 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.doesNotMatch(headerFoundation, /wex-admin-header/);
   assert.match(wexLayout, /block-size: 100dvh;/);
   assert.match(wexLayout, /grid-template-rows: auto minmax\(0, 1fr\) auto;/);
+  const adminShellRule = wexLayout.match(/\.wex-admin-shell\s*\{([\s\S]*?)\n\}/);
+  assert.ok(adminShellRule, 'missing Admin Shell base rule');
+  assert.doesNotMatch(adminShellRule[1], /\bgap\s*:/);
   assert.match(wexLayout, /var\(--wex-space-16\)/);
   assert.match(wexLayout, /var\(--wex-color-layer-0[12]\)/);
   assert.match(wexLayout, /var\(--wex-radius-default\)/);
