@@ -41,6 +41,8 @@ inactive tab's hover state is an interactive outline, distinct from selection.
   token without raw values or inline CSS.
 - [x] Owner visual correction: make the Sidebar fluid with a 288px maximum and
   restore the nested group gap using the standard spacing token.
+- [x] Owner visual correction: align nested Sidebar tab labels to the parent
+  label column using only the existing spacing tokens.
 - [x] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
   states; publish the immutable Studio release and staging pointer.
 - [ ] Owner live validation: confirm the published Sidebar navigation tabs.
@@ -226,6 +228,17 @@ wrapper owns the standard `--wex-space-8` gap between its control and children.
 No raw layout values or inline styles were introduced. Runtime type-check and
 27/27 tests passed; release/pointer integrity passed, and
 [Pages run 129](https://github.com/CodeByNath/WEXdesigns/actions/runs/39138538771)
+succeeded. Owner live validation remains open.
+
+Sidebar-tab alignment evidence: source
+`9d4fe171fd0d4b25acce667e891bf52020b61c0d`, immutable release
+`wex-studio-v1-9d4fe171fd0d4b25acce667e891bf52020b61c0d`, and `main`
+pointer commit `7d480cf7a8084f3bd340d94352ed8a327fd4e7d3` (sequence 35).
+Nested child labels align to the parent tab-label column using only
+`--wex-space-48`, `--wex-space-8`, and `--wex-space-4`; the Sidebar and
+navigation retain their 8px outer/inner padding hierarchy. Runtime type-check
+and 27/27 tests passed; release/pointer integrity passed, and
+[Pages run 132](https://github.com/CodeByNath/WEXdesigns/actions/runs/39139194583)
 succeeded. Owner live validation remains open.
 
 Builder evidence: source `2979d8759380ccbf54a72d21d0fa032da9157cba`,
