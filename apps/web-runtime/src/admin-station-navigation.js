@@ -13,13 +13,13 @@ const sidebarTabInputs = Object.freeze([
   Object.freeze({ id: 'dashboard', label: 'Dashboard', icon: 'dashboard' }),
   Object.freeze({
     id: 'product-manager',
-    label: 'Product Manager',
+    label: 'Products',
     icon: 'products',
     expanded: true,
     children: Object.freeze([
       Object.freeze({ id: 'all-products', label: 'All Products' }),
-      Object.freeze({ id: 'new-product', label: 'New Product', active: true }),
-      Object.freeze({ id: 'product-keywords', label: 'Product Keywords' }),
+      Object.freeze({ id: 'new-product', label: 'Add New', active: true }),
+      Object.freeze({ id: 'product-keywords', label: 'Keywords' }),
     ]),
   }),
   Object.freeze({ id: 'tools', label: 'Tools', icon: 'tools', expanded: false, children: Object.freeze([]) }),
