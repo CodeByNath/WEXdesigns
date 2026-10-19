@@ -158,6 +158,7 @@ blockquote {
 }
 
 .wex-admin-shell__sidebar-tab {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -166,11 +167,12 @@ blockquote {
   min-block-size: calc(var(--wex-space-48) - var(--wex-space-4));
   max-block-size: calc(var(--wex-space-48) - var(--wex-space-4));
   padding: var(--wex-space-4) var(--wex-space-16);
-  border: 0;
+  border: var(--wex-border-width-default) solid transparent;
   border-radius: var(--wex-radius-default);
   background: transparent;
   color: var(--wex-color-text-primary);
   font: inherit;
+  outline: none;
   text-align: start;
 }
 
@@ -190,6 +192,33 @@ button.wex-admin-shell__sidebar-tab {
 .wex-admin-shell__sidebar-tab[data-sidebar-tab-active="true"] {
   background: var(--wex-color-surface-selected);
   color: var(--wex-color-text-primary);
+}
+
+.wex-admin-shell__sidebar-tab:not(:disabled):active,
+.wex-admin-shell__sidebar-tab:focus {
+  border-color: var(--wex-outer-ring-color);
+}
+
+.wex-admin-shell__sidebar-tab:not(:disabled):active::after,
+.wex-admin-shell__sidebar-tab:focus::after {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-outer-ring-inner-width) solid var(--wex-outer-ring-color);
+  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
+  content: '';
+}
+
+.wex-admin-shell__sidebar-tab:not(:disabled):active::before,
+.wex-admin-shell__sidebar-tab:focus::before {
+  position: absolute;
+  inset: var(--wex-outer-ring-inner-width);
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color);
+  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-width));
+  content: '';
 }
 
 [data-wex-theme="dark"] .wex-admin-shell__sidebar-tab:not([data-sidebar-tab-active="true"]):hover {

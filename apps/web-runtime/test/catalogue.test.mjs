@@ -349,6 +349,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-navigation\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-item\s*\{\s*display: grid;\s*gap: var\(--wex-space-8\);\s*\}/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border-radius: var\(--wex-radius-default\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border: var\(--wex-border-width-default\) solid transparent;[\s\S]*outline: none;/);
   assert.match(
     wexLayout,
     /\.wex-admin-shell__sidebar-tab-children\s*\{[\s\S]*padding-inline-start: calc\(var\(--wex-space-48\) - var\(--wex-space-12\)\);/,
@@ -358,6 +359,9 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon\s*\{[\s\S]*inline-size: 100%;[\s\S]*block-size: 100%;[\s\S]*max-inline-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*max-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon-svg\s*\{[\s\S]*inline-size: var\(--wex-icon-size-20\);[\s\S]*block-size: var\(--wex-icon-size-20\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\[data-sidebar-tab-active="true"\]\s*\{[\s\S]*background: var\(--wex-color-surface-selected\);[\s\S]*color: var\(--wex-color-text-primary\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active,\s*\.wex-admin-shell__sidebar-tab:focus\s*\{[\s\S]*border-color: var\(--wex-outer-ring-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/);
   assert.match(wexLayout, /\[data-wex-theme="dark"\] \.wex-admin-shell__sidebar-tab:not\(\[data-sidebar-tab-active="true"\]\):hover\s*\{\s*background: var\(--wex-color-dark-grey\);/);
   assert.match(
     wexLayout,
