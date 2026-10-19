@@ -1,6 +1,6 @@
 const ICON_STROKE_WIDTH = '1.75';
 
-/** @typedef {'dashboard' | 'products' | 'tools' | 'chevron'} SidebarIconName */
+/** @typedef {'dashboard' | 'site' | 'products' | 'tools' | 'chevron'} SidebarIconName */
 /** @typedef {{ id: string, label: string, active?: boolean }} SidebarLeafInput */
 /** @typedef {{ id: string, label: string, icon: SidebarIconName, expanded?: boolean, children?: readonly SidebarLeafInput[] }} SidebarTabInput */
 
@@ -11,6 +11,15 @@ const ICON_STROKE_WIDTH = '1.75';
  */
 const sidebarTabInputs = Object.freeze([
   Object.freeze({ id: 'dashboard', label: 'Dashboard', icon: 'dashboard' }),
+  Object.freeze({
+    id: 'site',
+    label: 'Site',
+    icon: 'site',
+    expanded: true,
+    children: Object.freeze([
+      Object.freeze({ id: 'pages', label: 'Pages' }),
+    ]),
+  }),
   Object.freeze({
     id: 'product-manager',
     label: 'Products',
@@ -32,6 +41,11 @@ const iconShapes = {
     ['rect', { x: '13.75', y: '3.75', width: '6.5', height: '6.5', rx: '1.25' }],
     ['rect', { x: '3.75', y: '13.75', width: '6.5', height: '6.5', rx: '1.25' }],
     ['rect', { x: '13.75', y: '13.75', width: '6.5', height: '6.5', rx: '1.25' }],
+  ],
+  site: [
+    ['rect', { x: '3.25', y: '4.25', width: '17.5', height: '15.5', rx: '1.75' }],
+    ['path', { d: 'M3.25 8.75h17.5' }],
+    ['circle', { cx: '6', cy: '6.5', r: '0.75' }],
   ],
   products: [
     ['path', { d: 'm12 3.75 8.25 4.5L12 12.75 3.75 8.25 12 3.75Z' }],
