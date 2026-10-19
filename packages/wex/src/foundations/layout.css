@@ -278,6 +278,11 @@ button.wex-admin-shell__sidebar-tab {
   border-color: transparent;
 }
 
+.wex-admin-shell__sidebar-toggle:hover {
+  border-color: transparent;
+  background: var(--wex-color-light-grey);
+}
+
 .wex-admin-shell__control svg {
   inline-size: var(--wex-icon-size-20);
   block-size: var(--wex-icon-size-20);
