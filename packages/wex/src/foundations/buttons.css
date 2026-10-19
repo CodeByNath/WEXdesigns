@@ -180,12 +180,12 @@
 }
 
 .wex-button:not(:disabled):active,
-.wex-button:focus-visible {
+.wex-button:focus {
   border-color: var(--wex-outer-ring-color);
 }
 
 .wex-button:not(:disabled):active::after,
-.wex-button:focus-visible::after {
+.wex-button:focus::after {
   position: absolute;
   inset: 0;
   box-sizing: border-box;
@@ -196,7 +196,7 @@
 }
 
 .wex-button:not(:disabled):active::before,
-.wex-button:focus-visible::before {
+.wex-button:focus::before {
   position: absolute;
   inset: var(--wex-outer-ring-inner-width);
   box-sizing: border-box;

@@ -19,7 +19,8 @@ test('defines accepted Button variants through component-semantic tokens', () =>
 test('keeps ordinary Button state transient and accessible', () => {
   assert.match(buttons, /:hover/);
   assert.match(buttons, /:active/);
-  assert.match(buttons, /:focus-visible/);
+  assert.match(buttons, /:focus/);
+  assert.doesNotMatch(buttons, /:focus-visible/);
   assert.match(buttons, /:disabled/);
   assert.match(buttons, /--wex-button-disabled-opacity/);
   assert.doesNotMatch(buttons, /--wex-button-focus-outline/);
@@ -67,12 +68,12 @@ test('implements the accepted shared Button geometry for every tier', () => {
   const pressed = buttons.match(/\.wex-button:not\(:disabled\):active\s*\{([\s\S]*?)\}/);
   assert.ok(pressed, 'missing transient pressed state');
   const stateBoundary = buttons.match(
-    /\.wex-button:not\(:disabled\):active,\s*\.wex-button:focus-visible\s*\{([\s\S]*?)\}/,
+    /\.wex-button:not\(:disabled\):active,\s*\.wex-button:focus\s*\{([\s\S]*?)\}/,
   );
   assert.ok(stateBoundary, 'missing shared perimeter state boundary');
   assert.match(stateBoundary[1], /border-color: var\(--wex-outer-ring-color\);/);
   const insetState = buttons.match(
-    /\.wex-button:not\(:disabled\):active::after,\s*\.wex-button:focus-visible::after\s*\{([\s\S]*?)\}/,
+    /\.wex-button:not\(:disabled\):active::after,\s*\.wex-button:focus::after\s*\{([\s\S]*?)\}/,
   );
   assert.ok(insetState, 'missing shared inset pressed/focus treatment');
   assert.match(insetState[1], /inset: 0;/);
@@ -82,7 +83,7 @@ test('implements the accepted shared Button geometry for every tier', () => {
     /border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-border-width-default\)\);/,
   );
   const insetGap = buttons.match(
-    /\.wex-button:not\(:disabled\):active::before,\s*\.wex-button:focus-visible::before\s*\{([\s\S]*?)\}/,
+    /\.wex-button:not\(:disabled\):active::before,\s*\.wex-button:focus::before\s*\{([\s\S]*?)\}/,
   );
   assert.ok(insetGap, 'missing shared internal state gap');
   assert.match(insetGap[1], /inset: var\(--wex-outer-ring-inner-width\);/);
