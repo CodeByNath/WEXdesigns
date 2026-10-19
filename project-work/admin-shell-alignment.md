@@ -62,6 +62,15 @@ by `7d8d8aa5a6309eafafccfe82b57d6aec129673f7`; staging pointer sequence 50 and
 its manifest were live-verified. QSD staging loaded that release and its
 expanded Sidebar measured from `top: 64px`, equal to the Header's lower edge.
 
+Dark-navigation direct-refinement evidence (19 October 2026): source
+`0b85291009231b03957b13f1a8969e9be8cc8bfb` preserves the light-mode selected
+and hover fill while mapping those Sidebar states to the registered
+`--wex-color-dark-grey` token in dark mode. Immutable release
+`wex-studio-v1-0b85291009231b03957b13f1a8969e9be8cc8bfb` was published by
+`7a91624ad37f531003ffaab26063709364d0d819`; staging pointer sequence 51 and
+its manifest were live-verified. QSD staging loaded that release and rendered
+the active dark-mode tab as `#393939` with its existing light accent text.
+
 ## Owner spacing contract
 
 Use padding and parent-owned `gap`, never margins, for shell layout. The Admin
