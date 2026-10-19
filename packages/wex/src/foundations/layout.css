@@ -179,11 +179,6 @@ button.wex-admin-shell__sidebar-tab {
   cursor: pointer;
 }
 
-.wex-admin-shell__sidebar-tab:not([data-sidebar-tab-active="true"]):hover {
-  outline: var(--wex-border-width-default) solid var(--wex-color-border-interactive);
-  outline-offset: 0;
-}
-
 .wex-admin-shell__sidebar-tab[data-sidebar-tab-active="true"] {
   background: var(--wex-color-light-grey);
   color: var(--wex-color-text-accent);

@@ -347,7 +347,10 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon\s*\{[\s\S]*inline-size: 100%;[\s\S]*block-size: 100%;[\s\S]*max-inline-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*max-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon-svg\s*\{[\s\S]*inline-size: var\(--wex-icon-size-20\);[\s\S]*block-size: var\(--wex-icon-size-20\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\[data-sidebar-tab-active="true"\]\s*\{[\s\S]*background: var\(--wex-color-light-grey\);[\s\S]*color: var\(--wex-color-text-accent\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(\[data-sidebar-tab-active="true"\]\):hover\s*\{[\s\S]*outline: var\(--wex-border-width-default\) solid var\(--wex-color-border-interactive\);/);
+  assert.doesNotMatch(
+    wexLayout,
+    /\.wex-admin-shell__sidebar-tab:not\(\[data-sidebar-tab-active="true"\]\):hover/,
+  );
   assert.match(wexLayout, /\.wex-admin-shell:not\(\[data-sidebar="expanded"\]\):not\(\[data-sidebar-hovered="true"\]\) \.wex-admin-shell__sidebar-tab\s*\{[\s\S]*inline-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*min-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*padding-block: 0;/);
   assert.match(wexLayout, /\.wex-admin-shell:not\(\[data-sidebar="expanded"\]\):not\(\[data-sidebar-hovered="true"\]\) \.wex-admin-shell__sidebar-tab-label/);
   assert.match(wexLayout, /\.wex-admin-shell__main\s*\{[\s\S]*background: var\(--wex-color-layer-02\);/);
