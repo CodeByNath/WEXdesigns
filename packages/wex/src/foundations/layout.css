@@ -188,12 +188,11 @@ button.wex-admin-shell__sidebar-tab {
 }
 
 .wex-admin-shell__sidebar-tab[data-sidebar-tab-active="true"] {
-  background: var(--wex-color-light-grey);
-  color: var(--wex-color-text-accent);
+  background: var(--wex-color-surface-selected);
+  color: var(--wex-color-text-primary);
 }
 
-[data-wex-theme="dark"] .wex-admin-shell__sidebar-tab:not([data-sidebar-tab-active="true"]):hover,
-[data-wex-theme="dark"] .wex-admin-shell__sidebar-tab[data-sidebar-tab-active="true"] {
+[data-wex-theme="dark"] .wex-admin-shell__sidebar-tab:not([data-sidebar-tab-active="true"]):hover {
   background: var(--wex-color-dark-grey);
 }
 

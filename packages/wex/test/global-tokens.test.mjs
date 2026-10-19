@@ -29,7 +29,7 @@ test('keeps Global Tokens bound to the complete existing Typography vocabulary',
     '--wex-type-style-normal:',
     '--wex-type-style-italic:',
   ]) assert.match(core, new RegExp(token));
-  for (const token of ['--wex-color-text-primary:', '--wex-color-white:', '--wex-color-text-accent:']) {
+  for (const token of ['--wex-color-text-primary:', '--wex-color-white:', '--wex-color-text-accent:', '--wex-color-surface-selected:']) {
     assert.match(colour, new RegExp(token));
   }
 

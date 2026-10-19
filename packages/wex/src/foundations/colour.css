@@ -75,6 +75,7 @@
   --wex-color-text-warning: var(--wex-color-black);
   --wex-color-text-error: var(--wex-color-red);
   --wex-color-text-inverse: var(--wex-color-white);
+  --wex-color-surface-selected: var(--wex-color-light-grey);
 
   --wex-color-link-primary: var(--wex-color-accent);
   --wex-color-link-secondary: var(--wex-color-accent-dark);
@@ -109,6 +110,7 @@
   --wex-color-text-warning: var(--wex-color-yellow);
   --wex-color-text-error: var(--wex-color-red-light);
   --wex-color-text-inverse: var(--wex-color-black);
+  --wex-color-surface-selected: var(--wex-color-dark-grey);
 
   --wex-color-link-primary: var(--wex-color-accent-light);
   --wex-color-link-secondary: var(--wex-color-accent-light);
