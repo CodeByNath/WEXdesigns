@@ -63,6 +63,8 @@
 }
 
 .wex-admin-shell__nav-actions {
+  position: relative;
+  z-index: 2;
   display: flex;
   gap: var(--wex-space-8);
 }
