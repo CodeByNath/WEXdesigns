@@ -316,6 +316,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationNavigation, /aria-expanded/);
   assert.match(adminStationNavigation, /data-sidebar-navigation/);
   assert.match(adminStationNavigation, /id: 'product-manager',[\s\S]*expanded: true,\s*children:/);
+  assert.match(adminStationNavigation, /children: Object\.freeze\(\[\s*Object\.freeze\(\{ id: 'all-products', label: 'All Products' \}\),\s*Object\.freeze\(\{ id: 'new-product', label: 'New Product', active: true \}\),\s*Object\.freeze\(\{ id: 'product-keywords', label: 'Product Keywords' \}\)/);
   assert.match(adminStationNavigation, /function syncGroupActive\(control, items\)[\s\S]*data-sidebar-tab-active/);
   assert.match(adminStationNavigation, /syncGroupActive\(group, children\);/);
   assert.doesNotMatch(adminStationNavigation, /localStorage|fetch\(|location|route|callback|innerHTML/i);

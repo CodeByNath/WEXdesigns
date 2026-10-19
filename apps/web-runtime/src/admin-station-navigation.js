@@ -17,8 +17,8 @@ const sidebarTabInputs = Object.freeze([
     icon: 'products',
     expanded: true,
     children: Object.freeze([
-      Object.freeze({ id: 'new-product', label: 'New Product', active: true }),
       Object.freeze({ id: 'all-products', label: 'All Products' }),
+      Object.freeze({ id: 'new-product', label: 'New Product', active: true }),
       Object.freeze({ id: 'product-keywords', label: 'Product Keywords' }),
     ]),
   }),
