@@ -76,15 +76,6 @@ blockquote {
   color: var(--wex-color-text-primary);
 }
 
-.wex-admin-shell[data-sidebar="expanded"] {
-  --wex-admin-shell-sidebar-current: var(--wex-admin-shell-sidebar-expanded);
-  --wex-admin-shell-sidebar-header: var(--wex-admin-shell-sidebar-expanded);
-}
-
-.wex-admin-shell[data-sidebar-hovered="true"] {
-  --wex-admin-shell-sidebar-current: var(--wex-admin-shell-sidebar-expanded);
-}
-
 .wex-admin-shell__header,
 .wex-admin-shell__footer,
 .wex-admin-shell__sidebar,
@@ -110,6 +101,17 @@ blockquote {
   overscroll-behavior: contain;
   box-shadow: inset calc(-1 * var(--wex-border-width-default)) 0 0 var(--wex-color-border-subtle);
   background: var(--wex-color-layer-01);
+}
+
+@media (min-width: 768px) {
+  .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar,
+  .wex-admin-shell[data-sidebar-hovered="true"] .wex-admin-shell__sidebar {
+    position: absolute;
+    z-index: 2;
+    inset-block: var(--wex-admin-shell-header-size) 0;
+    inset-inline-start: 0;
+    inline-size: var(--wex-admin-shell-sidebar-expanded);
+  }
 }
 
 .wex-admin-shell__sidebar-controls {

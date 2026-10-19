@@ -69,6 +69,7 @@
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
   justify-content: flex-start;
+  inline-size: var(--wex-admin-shell-sidebar-expanded);
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand-title {
