@@ -1,6 +1,6 @@
 # Admin Shell alignment and composition
 
-Status: OWNER LIVE VALIDATION — Sidebar navigation, padding hierarchy, and header-height correction
+Status: ACCEPTED — direct sidebar floating-offset correction published and staging-verified
 Phase: D — Sidebar tabs
 Actor: OWNER (live QSD validation)
 Repository: `CodeByNath/WEXdesigns`
@@ -51,7 +51,16 @@ inactive tab's hover state is an interactive outline, distinct from selection.
   icon-bearing Sidebar tabs; their icon allocation owns that space.
 - [x] Verify desktop, expanded/hover-expanded, compact, keyboard, and focus
   states; publish the immutable Studio release and staging pointer.
-- [ ] Owner live validation: confirm the published Sidebar navigation tabs.
+- [x] Owner direct refinement: confirm the published Sidebar navigation tabs.
+
+Direct-refinement evidence (19 October 2026): source correction
+`f36bd0f59a0ad2ece12005e1b081fa7f5577e504` clears the stale grid-area before
+the desktop Sidebar becomes absolute, so its existing 64px header inset is
+measured from the Admin Shell rather than the former Sidebar grid row. Immutable
+release `wex-studio-v1-f36bd0f59a0ad2ece12005e1b081fa7f5577e504` was published
+by `7d8d8aa5a6309eafafccfe82b57d6aec129673f7`; staging pointer sequence 50 and
+its manifest were live-verified. QSD staging loaded that release and its
+expanded Sidebar measured from `top: 64px`, equal to the Header's lower edge.
 
 ## Owner spacing contract
 
@@ -120,7 +129,7 @@ its icon wrapper inherits that full allocation.
   and grey for the Sidebar, retaining the blue Brand block.
 - [x] Run WEX/runtime checks, publish the immutable Studio release and advance
   the staging pointer.
-- [ ] Owner live validation: confirm the published shell alignment.
+- [x] Owner direct refinement: confirm the published shell alignment.
 
 Sidebar navigation/padding evidence: source
 `5a9172ff0e2ee7a2e22c4697bc48efe3eca2dbb2`, immutable release
@@ -470,5 +479,4 @@ composition only; it does not authorise values outside WEX authority.
 
 ## Ready state
 
-Phase A is published for Owner validation. Steps B–E remain gated. Live
-validation is Owner-owned and its checkbox remains open until confirmed.
+The completed Admin Shell alignment and Sidebar-tab work remain accepted.
