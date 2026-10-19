@@ -164,7 +164,7 @@ blockquote {
   max-block-size: calc(var(--wex-space-48) - var(--wex-space-4));
   padding: var(--wex-space-4) var(--wex-space-16);
   border: 0;
-  border-radius: var(--wex-radius-large);
+  border-radius: var(--wex-radius-default);
   background: transparent;
   color: var(--wex-color-text-primary);
   font: inherit;

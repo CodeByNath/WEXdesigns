@@ -342,6 +342,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-controls\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-navigation\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-item\s*\{\s*display: grid;\s*gap: var\(--wex-space-8\);\s*\}/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border-radius: var\(--wex-radius-default\);/);
   assert.match(
     wexLayout,
     /\.wex-admin-shell__sidebar-tab-children\s*\{[\s\S]*padding-inline-start: calc\(var\(--wex-space-48\) - var\(--wex-space-12\)\);/,
