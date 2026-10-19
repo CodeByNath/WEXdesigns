@@ -7,7 +7,9 @@ const shellMarkup = `
     <header class="wex-admin-shell__header" data-admin-station-region="header">
       <div class="wex-admin-shell__navigation">
         <div class="wex-admin-shell__location"></div>
-        <div class="wex-admin-shell__nav-actions"></div>
+        <div class="wex-admin-shell__nav-actions">
+          <button type="button" class="wex-button wex-button--neutral wex-button--small" data-theme-toggle aria-pressed="false">Dark mode</button>
+        </div>
       </div>
       <button type="button" class="wex-admin-shell__control wex-admin-shell__drawer-trigger" data-sidebar-control="open" aria-label="Open sidebar" aria-controls="admin-station-sidebar" aria-expanded="false">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" focusable="false"><rect x="3.75" y="4.5" width="16.5" height="15" rx="2" /><path stroke-linecap="round" d="M9.75 5.5v13" /></svg>

@@ -17,15 +17,35 @@ const logoFixture = { label: 'Logo' };
 export function initialiseAdminStation(shell, options = {}) {
   const documentRoot = shell.ownerDocument.documentElement;
   const view = shell.ownerDocument.defaultView;
+  const themeToggle = shell.querySelector('[data-theme-toggle]');
+
+  /** @param {'dark' | 'light'} theme */
+  function applyTheme(theme) {
+    const dark = theme === 'dark';
+    documentRoot.dataset.wexTheme = theme;
+    if (themeToggle instanceof HTMLButtonElement) {
+      themeToggle.setAttribute('aria-pressed', String(dark));
+      themeToggle.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
+      themeToggle.textContent = dark ? 'Light mode' : 'Dark mode';
+    }
+    view?.localStorage.setItem('wex-theme', theme);
+  }
+
   if (view) {
     const requestedTheme = new URL(view.location.href).searchParams.get('theme');
     const savedTheme = view.localStorage.getItem('wex-theme');
     const prefersDark = view.matchMedia('(prefers-color-scheme: dark)').matches;
-    documentRoot.dataset.wexTheme = requestedTheme === 'dark' || requestedTheme === 'light'
+    applyTheme(requestedTheme === 'dark' || requestedTheme === 'light'
       ? requestedTheme
       : savedTheme
         ? (savedTheme === 'dark' ? 'dark' : 'light')
-        : (prefersDark ? 'dark' : 'light');
+        : (prefersDark ? 'dark' : 'light'));
+  }
+
+  if (themeToggle instanceof HTMLButtonElement) {
+    themeToggle.addEventListener('click', () => {
+      applyTheme(documentRoot.dataset.wexTheme === 'dark' ? 'light' : 'dark');
+    });
   }
 
   const header = shell.querySelector('[data-admin-station-region="header"]');
