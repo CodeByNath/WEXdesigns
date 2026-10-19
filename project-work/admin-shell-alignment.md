@@ -71,6 +71,15 @@ and hover fill while mapping those Sidebar states to the registered
 its manifest were live-verified. QSD staging loaded that release and rendered
 the active dark-mode tab as `#393939` with its existing light accent text.
 
+Dark-control-hover direct-refinement evidence (19 October 2026): source
+`acd5932f971c3f4f7e74fada055ff72e231d2590` applies the same registered
+`--wex-color-dark-grey` hover surface to the compact drawer trigger and the
+expanded Sidebar-collapse control in dark mode, while preserving light-mode
+behaviour. Immutable release
+`wex-studio-v1-acd5932f971c3f4f7e74fada055ff72e231d2590` was published by
+`147a6431d55cd9a0e718646138ad0fe17fe49bda`; staging pointer sequence 52 and
+its manifest were live-verified. QSD staging loaded that release.
+
 ## Owner spacing contract
 
 Use padding and parent-owned `gap`, never margins, for shell layout. The Admin
