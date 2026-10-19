@@ -106,6 +106,7 @@ blockquote {
 @media (min-width: 768px) {
   .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__sidebar,
   .wex-admin-shell[data-sidebar-hovered="true"] .wex-admin-shell__sidebar {
+    grid-area: unset;
     position: absolute;
     z-index: 2;
     inset-block: var(--wex-admin-shell-header-size) 0;
