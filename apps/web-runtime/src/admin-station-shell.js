@@ -8,7 +8,7 @@ const shellMarkup = `
       <div class="wex-admin-shell__navigation">
         <div class="wex-admin-shell__location"></div>
         <div class="wex-admin-shell__nav-actions">
-          <button type="button" class="wex-button wex-button--neutral wex-button--small" data-theme-toggle aria-pressed="false">Dark mode</button>
+          <button type="button" class="wex-button wex-button--neutral wex-button--small" data-theme-toggle aria-pressed="false"><span data-theme-toggle-label>Dark mode</span><span class="wex-admin-shell__theme-toggle-compact" data-theme-toggle-compact-label aria-hidden="true">Dark</span></button>
         </div>
       </div>
       <button type="button" class="wex-admin-shell__control wex-admin-shell__drawer-trigger" data-sidebar-control="open" aria-label="Open sidebar" aria-controls="admin-station-sidebar" aria-expanded="false">

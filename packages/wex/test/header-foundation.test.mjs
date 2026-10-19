@@ -38,6 +38,9 @@ test('uses the existing compact boundary for the Header Logo allocation', () => 
   const compact = header.match(/@media \(max-width: 767px\)\s*\{([\s\S]*)\}/);
   assert.ok(compact, 'missing compact Header rule');
   assert.doesNotMatch(compact[1], /\.wex-admin-shell__header\s*\{/);
+  assert.match(compact[1], /data-sidebar-drawer="open"\] \[data-theme-toggle\]\s*\{[\s\S]*min-inline-size: var\(--wex-space-48\);[\s\S]*padding-inline: var\(--wex-space-4\);/);
+  assert.match(compact[1], /data-sidebar-drawer="open"\] \[data-theme-toggle-label\]\s*\{\s*display: none;/);
+  assert.match(compact[1], /data-sidebar-drawer="open"\] \.wex-admin-shell__theme-toggle-compact\s*\{\s*display: inline;/);
   assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*inline-size: min\(var\(--wex-admin-shell-sidebar-expanded\), calc\(100% - var\(--wex-admin-shell-sidebar-collapsed\)\)\);/);
   assert.doesNotMatch(header, /(?:768px|1024px|1440px)/);
 });

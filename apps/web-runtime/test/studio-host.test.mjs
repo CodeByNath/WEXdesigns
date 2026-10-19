@@ -52,7 +52,7 @@ test('mounts the Admin Station shell with local Sidebar navigation presentation 
   assert.match(shell, /data-admin-station-layout/);
   ['header', 'sidebar', 'main', 'footer'].forEach((region) => assert.match(shell, new RegExp(`data-admin-station-region="${region}"`)));
   assert.match(shell, /<main[^>]*><div class="wex-admin-shell__page"><\/div><\/main>/);
-  assert.match(shell, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions">[\s\S]*data-theme-toggle[\s\S]*Dark mode/);
+  assert.match(shell, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions">[\s\S]*data-theme-toggle[\s\S]*data-theme-toggle-label>Dark mode<\/span>[\s\S]*data-theme-toggle-compact-label[^>]*>Dark<\/span>/);
   assert.match(shell, /<footer[^>]*><\/footer>/);
   assert.match(shell, /<nav class="wex-admin-shell__sidebar-navigation" aria-label="Admin navigation" data-sidebar-navigation><\/nav>/);
   assert.doesNotMatch(shell, /<form|Data Card|Collection|record|permission|persist|adapter|schema/i);

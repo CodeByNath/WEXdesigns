@@ -69,6 +69,10 @@
   gap: var(--wex-space-8);
 }
 
+.wex-admin-shell__theme-toggle-compact {
+  display: none;
+}
+
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
   justify-content: flex-start;
   inline-size: var(--wex-admin-shell-sidebar-expanded);
@@ -79,6 +83,19 @@
 }
 
 @media (max-width: 767px) {
+  .wex-admin-shell[data-sidebar-drawer="open"] [data-theme-toggle] {
+    min-inline-size: var(--wex-space-48);
+    padding-inline: var(--wex-space-4);
+  }
+
+  .wex-admin-shell[data-sidebar-drawer="open"] [data-theme-toggle-label] {
+    display: none;
+  }
+
+  .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__theme-toggle-compact {
+    display: inline;
+  }
+
   .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
     inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-sidebar-collapsed)));
   }

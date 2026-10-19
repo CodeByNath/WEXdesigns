@@ -192,6 +192,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationRuntimeBehaviour, /documentRoot\.dataset\.wexTheme/);
   assert.match(adminStationRuntimeBehaviour, /function applyTheme\(theme\)/);
   assert.match(adminStationRuntimeBehaviour, /data-theme-toggle/);
+  assert.match(adminStationRuntimeBehaviour, /data-theme-toggle-label/);
+  assert.match(adminStationRuntimeBehaviour, /data-theme-toggle-compact-label/);
   assert.match(adminStationRuntimeBehaviour, /Switch to \$\{dark \? 'light' : 'dark'\} theme/);
   assert.match(adminStationRuntimeBehaviour, /createLogoRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /materializeRenderDescription/);
@@ -302,7 +304,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__drawer-trigger\s*\{\s*border-color: transparent;/);
   assert.match(wexLayout, /\.wex-admin-shell__drawer-trigger:hover\s*\{\s*border-color: transparent;\s*background: var\(--wex-color-light-grey\);/);
   assert.match(adminStation, /<main[^>]*><div class="wex-admin-shell__page"><\/div><\/main>/);
-  assert.match(adminStation, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions">[\s\S]*data-theme-toggle[\s\S]*Dark mode/);
+  assert.match(adminStation, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions">[\s\S]*data-theme-toggle[\s\S]*data-theme-toggle-label>Dark mode<\/span>[\s\S]*data-theme-toggle-compact-label[^>]*>Dark<\/span>/);
   assert.match(adminStation, /<footer[^>]*><\/footer>/);
   assert.doesNotMatch(adminStation, /<a [^>]*href="(?!#admin-station-main)/);
   assert.match(adminStationRuntimeBehaviour, /initSidebar\(shell\)/);
