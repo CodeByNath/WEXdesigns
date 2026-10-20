@@ -2,18 +2,20 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-19
-- Last updated: 2026-10-19
-- Verified source candidate on `codex/logo-property-binding` at
-  `dea09ca35a6c709f987924034cae432f6b81699f`: the Logo-fitted, empty Dashboard
-  shell remains standalone, and the portable Studio entry consumes only the
-  narrow Logo image-property adapter seam through a one-time serializable
-  host input.
+- Last visited: 2026-10-20
+- Last updated: 2026-10-20
+- Verified source candidate on `main`: the Logo-fitted, empty Dashboard shell
+  remains standalone; the portable Studio entry consumes only the narrow Logo
+  image-property adapter seam through a one-time serializable host input; and
+  the Header-owned location label prints the selected local Sidebar path.
 - Registration status: application/runtime layout; not a Shared UI component
   or Component Manager specimen.
 
 ### Recent work (newest first)
 
+- The Header-owned location label derives its text from the selected local
+  Sidebar tab and refreshes when that selection changes. It is hidden at the
+  compact breakpoint, where the Header split control is visible.
 - The owner-approved Sidebar navigation now has local, repeated tab
   presentation: Menu controls, root navigation and each internal wrapper use
   the registered 8px spacing; expanded tabs cap at 44px; and the Sidebar
@@ -82,6 +84,8 @@ adapters, schemas, or pluggable components.
 - Sidebar rail and compact drawer interaction: [`apps/web-runtime/src/admin-station-sidebar.js`](../../apps/web-runtime/src/admin-station-sidebar.js)
 - Sidebar-tab presentation and disclosure controls:
   [`apps/web-runtime/src/admin-station-navigation.js`](../../apps/web-runtime/src/admin-station-navigation.js)
+- Header location-label presentation and local selection bridge:
+  [`apps/web-runtime/src/admin-station-location.js`](../../apps/web-runtime/src/admin-station-location.js)
 - Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css),
   [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css)
@@ -95,6 +99,7 @@ Admin Station runtime layout
   -> WEX layout, spacing, colour, typography, geometry, responsive authority
   -> accepted Shared UI Logo render description via generic materializer
   -> local Sidebar-tab presentation with no product command bindings
+  -> Header-owned location label derived only from the local Sidebar selection
   -> future authorised domain adapters
 ```
 

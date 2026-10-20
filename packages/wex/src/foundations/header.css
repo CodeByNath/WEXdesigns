@@ -62,6 +62,13 @@
   min-inline-size: 0;
 }
 
+.wex-admin-shell__location {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .wex-admin-shell__nav-actions {
   position: relative;
   z-index: 2;
@@ -83,6 +90,11 @@
 }
 
 @media (max-width: 767px) {
+  /* The Header's compact split control owns this location while it is visible. */
+  .wex-admin-shell__location {
+    display: none;
+  }
+
   .wex-admin-shell[data-sidebar-drawer="open"] [data-theme-toggle] {
     min-inline-size: var(--wex-space-48);
     padding-inline: var(--wex-space-4);

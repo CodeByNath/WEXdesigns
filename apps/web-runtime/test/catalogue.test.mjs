@@ -15,6 +15,7 @@ const adminStationCss = await readFile(new URL('../src/admin-station.css', impor
 const adminStationRuntime = await readFile(new URL('../src/admin-station.js', import.meta.url), 'utf8');
 const adminStationShell = await readFile(new URL('../src/admin-station-shell.js', import.meta.url), 'utf8');
 const adminStationRuntimeBehaviour = await readFile(new URL('../src/admin-station-runtime.js', import.meta.url), 'utf8');
+const adminStationLocation = await readFile(new URL('../src/admin-station-location.js', import.meta.url), 'utf8');
 const adminStationSidebar = await readFile(new URL('../src/admin-station-sidebar.js', import.meta.url), 'utf8');
 const adminStationNavigation = await readFile(new URL('../src/admin-station-navigation.js', import.meta.url), 'utf8');
 const renderDescriptionMaterializer = await readFile(new URL('../src/render-description.js', import.meta.url), 'utf8');
@@ -305,11 +306,12 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__drawer-trigger:hover\s*\{\s*border-color: transparent;\s*background: var\(--wex-color-light-grey\);/);
   assert.match(wexLayout, /\[data-wex-theme="dark"\] \.wex-admin-shell__sidebar-toggle:hover,[\s\S]*\[data-wex-theme="dark"\] \.wex-admin-shell__drawer-trigger:hover\s*\{\s*background: var\(--wex-color-dark-grey\);/);
   assert.match(adminStation, /<main[^>]*><div class="wex-admin-shell__page"><\/div><\/main>/);
-  assert.match(adminStation, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location"><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions">[\s\S]*data-theme-toggle[\s\S]*data-theme-toggle-label>Dark mode<\/span>[\s\S]*data-theme-toggle-compact-label[^>]*>Dark<\/span>/);
+  assert.match(adminStation, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location wex-type-navigation-default-semibold" data-admin-station-location><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions">[\s\S]*data-theme-toggle[\s\S]*data-theme-toggle-label>Dark mode<\/span>[\s\S]*data-theme-toggle-compact-label[^>]*>Dark<\/span>/);
   assert.match(adminStation, /<footer[^>]*><\/footer>/);
   assert.doesNotMatch(adminStation, /<a [^>]*href="(?!#admin-station-main)/);
   assert.match(adminStationRuntimeBehaviour, /initSidebar\(shell\)/);
   assert.match(adminStationRuntimeBehaviour, /mountSidebarNavigation\(shell\)/);
+  assert.match(adminStationRuntimeBehaviour, /mountHeaderLocation\(shell\)/);
   assert.match(adminStationRuntimeBehaviour, /header\.prepend\(brand\)/);
   assert.match(adminStationNavigation, /sidebarTabInputs/);
   ['Dashboard', 'Site', 'Pages', 'Services', 'Add New', 'All Services', 'Keywords', 'Tools'].forEach((label) => assert.match(adminStationNavigation, new RegExp(`label: '${label}'`)));
@@ -326,7 +328,14 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationNavigation, /syncGroupActive\(group, children\);/);
   assert.match(adminStationNavigation, /setGroupExpanded\(group, children, Boolean\(\(item\.children \?\? \[\]\)\.some\(\(child\) => child\.active\)\)\);/);
   assert.match(adminStationNavigation, /setGroupExpanded\(group, children, children\.contains\(selected\)\);/);
-  assert.doesNotMatch(adminStationNavigation, /localStorage|fetch\(|location|route|callback|innerHTML/i);
+  assert.match(adminStationNavigation, /announceLocationChange\(shell\)/);
+  assert.match(adminStationLocation, /selectedLocationLabels/);
+  assert.match(adminStationLocation, /join\(' \/ '\)/);
+  assert.match(adminStationLocation, /addEventListener\(LOCATION_CHANGE_EVENT, printLocation\)/);
+  assert.doesNotMatch(adminStationNavigation, /localStorage|fetch\(|route|callback|innerHTML/i);
+  assert.match(adminStationShell, /data-admin-station-location/);
+  assert.match(headerFoundation, /\.wex-admin-shell__location\s*\{[\s\S]*text-transform: uppercase;/);
+  assert.match(headerFoundation, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-shell__location\s*\{\s*display: none;/);
   assert.match(adminStationSidebar, /COMPACT_QUERY = '\(max-width: 767px\)'/);
   assert.match(adminStationSidebar, /matchMedia\(COMPACT_QUERY\)/);
   assert.match(adminStationSidebar, /function openCompactDrawer\(\) \{[\s\S]*shell\.dataset\.sidebar = 'expanded';[\s\S]*openDrawer\(\{ focus: false \}\);/);

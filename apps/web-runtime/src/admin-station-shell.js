@@ -6,7 +6,7 @@ const shellMarkup = `
   <div class="wex-admin-shell" data-admin-station-layout data-sidebar="collapsed" data-sidebar-hovered="false" data-sidebar-drawer="closed">
     <header class="wex-admin-shell__header" data-admin-station-region="header">
       <div class="wex-admin-shell__navigation">
-        <div class="wex-admin-shell__location"></div>
+        <div class="wex-admin-shell__location wex-type-navigation-default-semibold" data-admin-station-location></div>
         <div class="wex-admin-shell__nav-actions">
           <button type="button" class="wex-button wex-button--neutral wex-button--small" data-theme-toggle aria-pressed="false"><span data-theme-toggle-label>Dark mode</span><span class="wex-admin-shell__theme-toggle-compact" data-theme-toggle-compact-label aria-hidden="true">Dark</span></button>
         </div>
