@@ -306,7 +306,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__drawer-trigger:hover\s*\{\s*border-color: transparent;\s*background: var\(--wex-color-light-grey\);/);
   assert.match(wexLayout, /\[data-wex-theme="dark"\] \.wex-admin-shell__sidebar-toggle:hover,[\s\S]*\[data-wex-theme="dark"\] \.wex-admin-shell__drawer-trigger:hover\s*\{\s*background: var\(--wex-color-dark-grey\);/);
   assert.match(adminStation, /<main[^>]*><div class="wex-admin-shell__page"><\/div><\/main>/);
-  assert.match(adminStation, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location wex-type-title-default-semibold" data-admin-station-location><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions">[\s\S]*data-theme-toggle[\s\S]*data-theme-toggle-label>Dark mode<\/span>[\s\S]*data-theme-toggle-compact-label[^>]*>Dark<\/span>/);
+  assert.match(adminStation, /<div class="wex-admin-shell__navigation">[\s\S]*<div class="wex-admin-shell__location wex-type-navigation-large-semibold" data-admin-station-location><\/div>[\s\S]*<div class="wex-admin-shell__nav-actions">[\s\S]*data-theme-toggle[\s\S]*data-theme-toggle-label>Dark mode<\/span>[\s\S]*data-theme-toggle-compact-label[^>]*>Dark<\/span>/);
   assert.match(adminStation, /<footer[^>]*><\/footer>/);
   assert.doesNotMatch(adminStation, /<a [^>]*href="(?!#admin-station-main)/);
   assert.match(adminStationRuntimeBehaviour, /initSidebar\(shell\)/);
