@@ -157,6 +157,10 @@ blockquote {
   padding-inline-start: calc(var(--wex-space-48) - var(--wex-space-12));
 }
 
+.wex-admin-shell__sidebar-tab-children[hidden] {
+  display: none;
+}
+
 .wex-admin-shell__sidebar-tab {
   position: relative;
   display: flex;

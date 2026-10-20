@@ -355,6 +355,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
     wexLayout,
     /\.wex-admin-shell__sidebar-tab-children\s*\{[\s\S]*padding-inline-start: calc\(var\(--wex-space-48\) - var\(--wex-space-12\)\);/,
   );
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-children\[hidden\]\s*\{\s*display: none;\s*\}/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*gap: var\(--wex-space-8\);[\s\S]*min-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*max-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*padding: var\(--wex-space-4\) var\(--wex-space-16\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-list > \.wex-admin-shell__sidebar-tab-item > \.wex-admin-shell__sidebar-tab\s*\{\s*padding-inline-start: 0;\s*\}/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon\s*\{[\s\S]*inline-size: 100%;[\s\S]*block-size: 100%;[\s\S]*max-inline-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*max-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);/);
