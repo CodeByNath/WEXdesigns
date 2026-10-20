@@ -312,7 +312,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationRuntimeBehaviour, /mountSidebarNavigation\(shell\)/);
   assert.match(adminStationRuntimeBehaviour, /header\.prepend\(brand\)/);
   assert.match(adminStationNavigation, /sidebarTabInputs/);
-  ['Dashboard', 'Site', 'Pages', 'Products', 'Add New', 'All Products', 'Keywords', 'Tools'].forEach((label) => assert.match(adminStationNavigation, new RegExp(`label: '${label}'`)));
+  ['Dashboard', 'Site', 'Pages', 'Services', 'Add New', 'All Services', 'Keywords', 'Tools'].forEach((label) => assert.match(adminStationNavigation, new RegExp(`label: '${label}'`)));
   assert.match(adminStationNavigation, /wex-admin-shell__sidebar-tab-label wex-type-navigation-small-semibold/);
   assert.doesNotMatch(adminStationNavigation, /wex-admin-shell__sidebar-tab-label wex-type-navigation-default-semibold/);
   assert.match(adminStationNavigation, /dataset\.sidebarTabActive/);
@@ -321,7 +321,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationNavigation, /data-sidebar-navigation/);
   assert.match(adminStationNavigation, /id: 'product-manager',[\s\S]*children:/);
   assert.match(adminStationNavigation, /id: 'site',[\s\S]*children:[\s\S]*id: 'pages', label: 'Pages'/);
-  assert.match(adminStationNavigation, /children: Object\.freeze\(\[\s*Object\.freeze\(\{ id: 'all-products', label: 'All Products' \}\),\s*Object\.freeze\(\{ id: 'new-product', label: 'Add New', active: true \}\),\s*Object\.freeze\(\{ id: 'product-keywords', label: 'Keywords' \}\)/);
+  assert.match(adminStationNavigation, /children: Object\.freeze\(\[\s*Object\.freeze\(\{ id: 'all-products', label: 'All Services' \}\),\s*Object\.freeze\(\{ id: 'new-product', label: 'Add New', active: true \}\),\s*Object\.freeze\(\{ id: 'product-keywords', label: 'Keywords' \}\)/);
   assert.match(adminStationNavigation, /function syncGroupActive\(control, items\)[\s\S]*data-sidebar-tab-active/);
   assert.match(adminStationNavigation, /syncGroupActive\(group, children\);/);
   assert.match(adminStationNavigation, /setGroupExpanded\(group, children, Boolean\(\(item\.children \?\? \[\]\)\.some\(\(child\) => child\.active\)\)\);/);
