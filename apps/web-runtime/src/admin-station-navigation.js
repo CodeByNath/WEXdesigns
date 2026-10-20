@@ -179,7 +179,9 @@ export function mountSidebarNavigation(shell) {
       if (!(group instanceof HTMLElement)) return;
       const groupId = group.getAttribute('aria-controls');
       const children = groupId ? document.getElementById(groupId) : null;
-      if (children instanceof HTMLElement) syncGroupActive(group, children);
+      if (!(children instanceof HTMLElement)) return;
+      syncGroupActive(group, children);
+      setGroupExpanded(group, children, children.contains(selected));
     });
   });
 
