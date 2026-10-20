@@ -167,7 +167,7 @@
   letter-spacing: var(--wex-type-navigation-large-letter-spacing);
 }
 
-.wex-button:not(:disabled):hover {
+.wex-button:not(:disabled):hover:not(:focus) {
   background-color: var(--wex-button-background-hover);
   border-color: var(--wex-button-border-hover);
   color: var(--wex-button-foreground-hover);

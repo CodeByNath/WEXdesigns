@@ -17,7 +17,7 @@ test('defines accepted Button variants through component-semantic tokens', () =>
 });
 
 test('keeps ordinary Button state transient and accessible', () => {
-  assert.match(buttons, /:hover/);
+  assert.match(buttons, /\.wex-button:not\(:disabled\):hover:not\(:focus\)/);
   assert.match(buttons, /:active/);
   assert.match(buttons, /:focus/);
   assert.doesNotMatch(buttons, /:focus-visible/);
