@@ -334,7 +334,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationLocation, /addEventListener\(LOCATION_CHANGE_EVENT, printLocation\)/);
   assert.doesNotMatch(adminStationNavigation, /localStorage|fetch\(|route|callback|innerHTML/i);
   assert.match(adminStationShell, /data-admin-station-location/);
-  assert.match(headerFoundation, /\.wex-admin-shell__location\s*\{[\s\S]*text-transform: uppercase;/);
+  assert.match(headerFoundation, /\.wex-admin-shell__location\s*\{[\s\S]*color: var\(--wex-color-text-secondary\);[\s\S]*text-transform: uppercase;/);
   assert.match(headerFoundation, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-shell__location\s*\{\s*display: none;/);
   assert.match(adminStationSidebar, /COMPACT_QUERY = '\(max-width: 767px\)'/);
   assert.match(adminStationSidebar, /matchMedia\(COMPACT_QUERY\)/);

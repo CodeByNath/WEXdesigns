@@ -30,6 +30,7 @@ export function mountHeaderLocation(shell) {
   shell.addEventListener(LOCATION_CHANGE_EVENT, printLocation);
 }
 
+/** @param {HTMLElement} shell */
 export function announceLocationChange(shell) {
   shell.dispatchEvent(new CustomEvent(LOCATION_CHANGE_EVENT));
 }
