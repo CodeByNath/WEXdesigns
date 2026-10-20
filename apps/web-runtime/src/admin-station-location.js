@@ -5,10 +5,6 @@ function selectedLocationLabel(shell) {
   const selected = shell.querySelector('.wex-admin-shell__sidebar-tab--leaf[data-sidebar-tab-active="true"]');
   if (!(selected instanceof HTMLElement)) return '';
 
-  const item = selected.closest('.wex-admin-shell__sidebar-tab-item');
-  const group = item?.querySelector(':scope > .wex-admin-shell__sidebar-tab--group .wex-admin-shell__sidebar-tab-label');
-  if (group instanceof HTMLElement) return group.textContent?.trim() ?? '';
-
   const leaf = selected.querySelector('.wex-admin-shell__sidebar-tab-label');
   return leaf instanceof HTMLElement ? leaf.textContent?.trim() ?? '' : '';
 }
