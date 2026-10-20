@@ -2,7 +2,7 @@ const ICON_STROKE_WIDTH = '1.75';
 
 /** @typedef {'dashboard' | 'site' | 'products' | 'tools' | 'chevron'} SidebarIconName */
 /** @typedef {{ id: string, label: string, active?: boolean }} SidebarLeafInput */
-/** @typedef {{ id: string, label: string, icon: SidebarIconName, expanded?: boolean, children?: readonly SidebarLeafInput[] }} SidebarTabInput */
+/** @typedef {{ id: string, label: string, icon: SidebarIconName, children?: readonly SidebarLeafInput[] }} SidebarTabInput */
 
 /**
  * Local presentation inputs for the first Sidebar navigation component.
@@ -15,7 +15,6 @@ const sidebarTabInputs = Object.freeze([
     id: 'site',
     label: 'Site',
     icon: 'site',
-    expanded: true,
     children: Object.freeze([
       Object.freeze({ id: 'pages', label: 'Pages' }),
     ]),
@@ -24,14 +23,13 @@ const sidebarTabInputs = Object.freeze([
     id: 'product-manager',
     label: 'Products',
     icon: 'products',
-    expanded: true,
     children: Object.freeze([
       Object.freeze({ id: 'all-products', label: 'All Products' }),
       Object.freeze({ id: 'new-product', label: 'Add New', active: true }),
       Object.freeze({ id: 'product-keywords', label: 'Keywords' }),
     ]),
   }),
-  Object.freeze({ id: 'tools', label: 'Tools', icon: 'tools', expanded: false, children: Object.freeze([]) }),
+  Object.freeze({ id: 'tools', label: 'Tools', icon: 'tools', children: Object.freeze([]) }),
 ]);
 
 /** @type {Record<SidebarIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
@@ -162,7 +160,7 @@ export function mountSidebarNavigation(shell) {
     });
     // Groups are disclosure controls, but reflect the selected child context.
     syncGroupActive(group, children);
-    setGroupExpanded(group, children, Boolean(item.expanded));
+    setGroupExpanded(group, children, Boolean((item.children ?? []).some((child) => child.active)));
     group.addEventListener('click', () => setGroupExpanded(group, children, group.getAttribute('aria-expanded') !== 'true'));
     listItem.append(group, children);
     list.append(listItem);

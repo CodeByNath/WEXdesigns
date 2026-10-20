@@ -319,11 +319,12 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationNavigation, /aria-pressed/);
   assert.match(adminStationNavigation, /aria-expanded/);
   assert.match(adminStationNavigation, /data-sidebar-navigation/);
-  assert.match(adminStationNavigation, /id: 'product-manager',[\s\S]*expanded: true,\s*children:/);
-  assert.match(adminStationNavigation, /id: 'site',[\s\S]*expanded: true,\s*children:[\s\S]*id: 'pages', label: 'Pages'/);
+  assert.match(adminStationNavigation, /id: 'product-manager',[\s\S]*children:/);
+  assert.match(adminStationNavigation, /id: 'site',[\s\S]*children:[\s\S]*id: 'pages', label: 'Pages'/);
   assert.match(adminStationNavigation, /children: Object\.freeze\(\[\s*Object\.freeze\(\{ id: 'all-products', label: 'All Products' \}\),\s*Object\.freeze\(\{ id: 'new-product', label: 'Add New', active: true \}\),\s*Object\.freeze\(\{ id: 'product-keywords', label: 'Keywords' \}\)/);
   assert.match(adminStationNavigation, /function syncGroupActive\(control, items\)[\s\S]*data-sidebar-tab-active/);
   assert.match(adminStationNavigation, /syncGroupActive\(group, children\);/);
+  assert.match(adminStationNavigation, /setGroupExpanded\(group, children, Boolean\(\(item\.children \?\? \[\]\)\.some\(\(child\) => child\.active\)\)\);/);
   assert.doesNotMatch(adminStationNavigation, /localStorage|fetch\(|location|route|callback|innerHTML/i);
   assert.match(adminStationSidebar, /COMPACT_QUERY = '\(max-width: 767px\)'/);
   assert.match(adminStationSidebar, /matchMedia\(COMPACT_QUERY\)/);
