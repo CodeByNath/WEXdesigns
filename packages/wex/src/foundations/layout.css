@@ -448,6 +448,11 @@ button.wex-admin-shell__sidebar-tab {
     display: none;
   }
 
+  /* Keep sub-actions beneath the open drawer Header rather than overlapping its control. */
+  .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__nav-actions {
+    z-index: 0;
+  }
+
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__backdrop {
     position: absolute;
     z-index: 1;
