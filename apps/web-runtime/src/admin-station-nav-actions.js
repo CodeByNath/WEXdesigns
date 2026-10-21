@@ -85,15 +85,17 @@ function createSearch(document) {
  * retains its own horizontal overflow so the primary action never leaves the Header.
  * @param {HTMLElement} navigation
  * @param {HTMLElement} actions
+ * @param {HTMLElement} location
  * @param {HTMLElement} search
  */
-function observeSearchAvailability(navigation, actions, search) {
+function observeSearchAvailability(navigation, actions, location, search) {
   const sync = () => {
     search.hidden = false;
     const navigationBounds = navigation.getBoundingClientRect();
     const searchBounds = search.getBoundingClientRect();
     search.hidden = actions.scrollWidth > actions.clientWidth
-      || searchBounds.right > navigationBounds.right;
+      || searchBounds.right > navigationBounds.right
+      || location.scrollWidth > location.clientWidth;
   };
 
   sync();
@@ -102,6 +104,12 @@ function observeSearchAvailability(navigation, actions, search) {
     const observer = new ResizeObserverConstructor(sync);
     observer.observe(navigation);
     observer.observe(actions);
+    observer.observe(location);
+  }
+  const MutationObserverConstructor = navigation.ownerDocument.defaultView?.MutationObserver;
+  if (MutationObserverConstructor) {
+    const observer = new MutationObserverConstructor(sync);
+    observer.observe(location, { childList: true, characterData: true, subtree: true });
   }
 }
 
@@ -113,12 +121,13 @@ function observeSearchAvailability(navigation, actions, search) {
 export function mountHeaderNavActions(shell) {
   const actions = shell.querySelector('[data-header-nav-actions]');
   const navigation = shell.querySelector('.wex-admin-shell__navigation');
-  if (!(actions instanceof HTMLElement) || !(navigation instanceof HTMLElement)) return;
+  const location = shell.querySelector('[data-admin-station-location]');
+  if (!(actions instanceof HTMLElement) || !(navigation instanceof HTMLElement) || !(location instanceof HTMLElement)) return;
 
   const document = shell.ownerDocument;
   const primary = createPrimaryAction(document);
   const subActions = createSubActions(document);
   const search = createSearch(document);
   actions.replaceChildren(search, subActions, primary);
-  observeSearchAvailability(navigation, actions, search);
+  observeSearchAvailability(navigation, actions, location, search);
 }

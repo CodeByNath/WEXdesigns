@@ -163,17 +163,16 @@
 }
 
 @media (max-width: 767px) {
-  /* The Header's compact split control owns this location while it is visible. */
-  .wex-admin-shell__location {
-    display: none;
-  }
-
-  /* Keep the existing compact drawer trigger clear of the persistent primary action. */
-  .wex-admin-shell__nav-actions {
-    margin-inline-start: calc(var(--wex-space-32) + var(--wex-space-16));
+  /* Keep the existing compact drawer trigger clear of both navigation shells. */
+  .wex-admin-shell__navigation {
+    padding-inline-start: calc(var(--wex-space-32) + var(--wex-space-16));
   }
 
   .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
-    inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-sidebar-collapsed)));
+    inline-size: var(--wex-admin-shell-sidebar-header);
+  }
+
+  .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand-title {
+    display: none;
   }
 }

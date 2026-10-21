@@ -198,7 +198,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationRuntimeBehaviour, /mountHeaderNavActions\(shell\)/);
   assert.match(adminStationNavActions, /Mounts the Header's right-side navigation actions as one three-region component/);
   assert.match(adminStationNavActions, /theme\.dataset\.themeToggle/);
-  assert.match(adminStationNavActions, /searchBounds\.right > navigationBounds\.right/);
+  assert.match(adminStationNavActions, /searchBounds\.right > navigationBounds\.right[\s\S]*location\.scrollWidth > location\.clientWidth/);
   assert.match(adminStationNavActions, /actions\.replaceChildren\(search, subActions, primary\)/);
   assert.match(adminStationRuntimeBehaviour, /createLogoRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /materializeRenderDescription/);
@@ -341,7 +341,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationShell, /data-admin-station-location/);
   assert.match(headerFoundation, /\.wex-admin-shell__location\s*\{[\s\S]*color: var\(--wex-color-text-secondary\);/);
   assert.doesNotMatch(headerFoundation, /\.wex-admin-shell__location\s*\{[^}]*text-transform:/);
-  assert.match(headerFoundation, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-shell__location\s*\{\s*display: none;/);
+  assert.doesNotMatch(headerFoundation, /\.wex-admin-shell__location\s*\{\s*display: none;/);
   assert.match(adminStationSidebar, /COMPACT_QUERY = '\(max-width: 767px\)'/);
   assert.match(adminStationSidebar, /matchMedia\(COMPACT_QUERY\)/);
   assert.match(adminStationSidebar, /function openCompactDrawer\(\) \{[\s\S]*shell\.dataset\.sidebar = 'expanded';[\s\S]*openDrawer\(\{ focus: false \}\);/);
@@ -397,7 +397,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(compact, /\.wex-admin-shell__sidebar\s*\{[\s\S]*display: none;[\s\S]*inset-block: var\(--wex-admin-shell-header-size\) 0;[\s\S]*inline-size: 100%;[\s\S]*max-inline-size: min\(var\(--wex-admin-shell-sidebar-expanded\), calc\(100% - var\(--wex-admin-shell-sidebar-collapsed\)\)\);/);
   assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__sidebar\s*\{\s*display: flex;/);
   assert.match(compact, /\.wex-admin-shell__sidebar-controls\s*\{\s*display: none;/);
-  assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__drawer-trigger\s*\{[\s\S]*color: var\(--wex-color-on-accent\);/);
+  assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__drawer-trigger\s*\{[\s\S]*color: var\(--wex-color-text-secondary\);/);
   assert.match(wexLayout, /\.wex-admin-shell__footer:not\(:empty\)/);
   const shellRules = wexLayout.slice(wexLayout.indexOf('.wex-admin-shell')).replace(/@media \([^)]*\)/g, '');
   assert.doesNotMatch(shellRules, /\d+px|transition|animation|rgba?\(|color-mix/);
