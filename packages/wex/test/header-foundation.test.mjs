@@ -44,7 +44,6 @@ test('uses the existing compact boundary for the Header Logo allocation', () => 
   assert.doesNotMatch(compact[1], /\.wex-admin-shell__header\s*\{/);
   assert.match(compact[1], /\.wex-admin-shell__location\s*\{\s*display: none;/);
   assert.match(compact[1], /\.wex-admin-shell__navigation\s*\{\s*padding-inline-start: calc\(var\(--wex-space-32\) \+ var\(--wex-space-16\)\);/);
-  assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{\s*inline-size: var\(--wex-admin-shell-sidebar-header\);/);
-  assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand-title\s*\{\s*display: none;/);
+  assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{\s*inline-size: min\(var\(--wex-admin-shell-sidebar-expanded\), calc\(100% - var\(--wex-admin-shell-sidebar-collapsed\)\)\);/);
   assert.doesNotMatch(header, /(?:768px|1024px|1440px)/);
 });

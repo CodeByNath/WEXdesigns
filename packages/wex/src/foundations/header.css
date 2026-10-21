@@ -175,10 +175,6 @@
   }
 
   .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
-    inline-size: var(--wex-admin-shell-sidebar-header);
-  }
-
-  .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand-title {
-    display: none;
+    inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-sidebar-collapsed)));
   }
 }
