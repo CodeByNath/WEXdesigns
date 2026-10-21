@@ -16,9 +16,13 @@ const iconShapes = {
   ],
 };
 
-/** @param {Document} document @param {HeaderActionIconName} name */
-function createIcon(document, name) {
+/** @param {Document} document @param {HeaderActionIconName} name @param {{ sidebarTab?: boolean }} [options] */
+function createIcon(document, name, options = {}) {
+  const icon = options.sidebarTab ? document.createElement('span') : null;
+  if (icon) icon.className = 'wex-admin-shell__sidebar-tab-icon';
+
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  if (icon) svg.classList.add('wex-admin-shell__sidebar-tab-icon-svg');
   svg.setAttribute('viewBox', '0 0 24 24');
   svg.setAttribute('fill', 'none');
   svg.setAttribute('stroke', 'currentColor');
@@ -32,6 +36,11 @@ function createIcon(document, name) {
     Object.entries(attributes).forEach(([attribute, value]) => node.setAttribute(attribute, value));
     svg.append(node);
   });
+  if (icon) {
+    icon.append(svg);
+    return icon;
+  }
+
   return svg;
 }
 
@@ -54,11 +63,11 @@ function createSubActions(document) {
 
   const theme = document.createElement('button');
   theme.type = 'button';
-  theme.className = 'wex-admin-shell__control wex-admin-shell__nav-sub-action';
+  theme.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action';
   theme.dataset.themeToggle = '';
   theme.setAttribute('aria-pressed', 'false');
   theme.setAttribute('aria-label', 'Switch to dark theme');
-  theme.append(createIcon(document, 'theme'));
+  theme.append(createIcon(document, 'theme', { sidebarTab: true }));
   navigation.append(theme);
   return navigation;
 }
