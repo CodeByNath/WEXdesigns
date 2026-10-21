@@ -163,6 +163,13 @@
   display: inline;
 }
 
+@media (min-width: 768px) {
+  /* Pinned desktop Brand space is reserved before Header navigation. */
+  .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__header {
+    grid-template-columns: var(--wex-admin-shell-sidebar-expanded) minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 767px) {
   /* The compact Header split control occupies the location's navigation lane. */
   .wex-admin-shell__location {
