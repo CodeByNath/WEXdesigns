@@ -1,6 +1,7 @@
 import { createLogoRenderDescription } from '@weerax/ui';
 
 import { mountHeaderLocation } from './admin-station-location.js';
+import { mountHeaderNavActions } from './admin-station-nav-actions.js';
 import { mountSidebarNavigation } from './admin-station-navigation.js';
 import { initSidebar } from './admin-station-sidebar.js';
 import { materializeRenderDescription } from './render-description.js';
@@ -18,9 +19,8 @@ const logoFixture = { label: 'Logo' };
 export function initialiseAdminStation(shell, options = {}) {
   const documentRoot = shell.ownerDocument.documentElement;
   const view = shell.ownerDocument.defaultView;
+  mountHeaderNavActions(shell);
   const themeToggle = shell.querySelector('[data-theme-toggle]');
-  const themeToggleLabel = shell.querySelector('[data-theme-toggle-label]');
-  const themeToggleCompactLabel = shell.querySelector('[data-theme-toggle-compact-label]');
 
   /** @param {'dark' | 'light'} theme */
   function applyTheme(theme) {
@@ -29,8 +29,6 @@ export function initialiseAdminStation(shell, options = {}) {
     if (themeToggle instanceof HTMLButtonElement) {
       themeToggle.setAttribute('aria-pressed', String(dark));
       themeToggle.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
-      if (themeToggleLabel instanceof HTMLElement) themeToggleLabel.textContent = dark ? 'Light mode' : 'Dark mode';
-      if (themeToggleCompactLabel instanceof HTMLElement) themeToggleCompactLabel.textContent = dark ? 'Light' : 'Dark';
     }
     view?.localStorage.setItem('wex-theme', theme);
   }

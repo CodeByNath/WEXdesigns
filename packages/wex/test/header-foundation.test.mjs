@@ -25,7 +25,11 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(brandRule[1], /justify-content:\s*flex-start;/);
   assert.match(brandRule[1], /padding-inline-start:\s*var\(--wex-space-16\);/);
   assert.match(header, /\.wex-admin-shell__navigation\s*\{[\s\S]*grid-column: 2;[\s\S]*gap: var\(--wex-space-8\);[\s\S]*padding-block: var\(--wex-space-4\);[\s\S]*padding-inline-end: var\(--wex-space-16\);/);
-  assert.match(header, /\.wex-admin-shell__nav-actions\s*\{[\s\S]*position: relative;[\s\S]*z-index: 2;[\s\S]*display: flex;[\s\S]*gap: var\(--wex-space-8\);/);
+  assert.match(header, /\.wex-admin-shell__nav-actions\s*\{[\s\S]*position: relative;[\s\S]*z-index: 2;[\s\S]*display: flex;[\s\S]*flex: 0 1 auto;[\s\S]*gap: var\(--wex-space-8\);/);
+  assert.match(header, /\.wex-admin-shell__nav-primary-action\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*border-radius: 50%;/);
+  assert.match(header, /\.wex-admin-shell__nav-sub-actions\s*\{[\s\S]*overflow-x: auto;/);
+  assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*flex: 0 0 calc\(var\(--wex-space-64\) \* 3\);/);
+  assert.match(header, /\.wex-admin-shell__nav-search\[hidden\]\s*\{\s*display: none;/);
   assert.match(header, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*min-block-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*max-block-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*color: var\(--wex-color-on-accent\);/);
   assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*justify-content: flex-start;[\s\S]*inline-size: var\(--wex-admin-shell-sidebar-expanded\);/);
   assert.doesNotMatch(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__header/);
@@ -38,9 +42,7 @@ test('uses the existing compact boundary for the Header Logo allocation', () => 
   const compact = header.match(/@media \(max-width: 767px\)\s*\{([\s\S]*)\}/);
   assert.ok(compact, 'missing compact Header rule');
   assert.doesNotMatch(compact[1], /\.wex-admin-shell__header\s*\{/);
-  assert.match(compact[1], /data-sidebar-drawer="open"\] \[data-theme-toggle\]\s*\{[\s\S]*min-inline-size: var\(--wex-space-48\);[\s\S]*padding-inline: var\(--wex-space-4\);/);
-  assert.match(compact[1], /data-sidebar-drawer="open"\] \[data-theme-toggle-label\]\s*\{\s*display: none;/);
-  assert.match(compact[1], /data-sidebar-drawer="open"\] \.wex-admin-shell__theme-toggle-compact\s*\{\s*display: inline;/);
+  assert.match(compact[1], /\.wex-admin-shell__nav-actions\s*\{\s*margin-inline-start: calc\(var\(--wex-space-32\) \+ var\(--wex-space-16\)\);/);
   assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*inline-size: min\(var\(--wex-admin-shell-sidebar-expanded\), calc\(100% - var\(--wex-admin-shell-sidebar-collapsed\)\)\);/);
   assert.doesNotMatch(header, /(?:768px|1024px|1440px)/);
 });

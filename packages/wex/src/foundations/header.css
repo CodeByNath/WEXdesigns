@@ -50,7 +50,6 @@
   grid-column: 2;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--wex-space-8);
   min-inline-size: 0;
   padding-block: var(--wex-space-4);
@@ -63,6 +62,7 @@
 }
 
 .wex-admin-shell__location {
+  flex: 1 1 auto;
   color: var(--wex-color-text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -73,11 +73,84 @@
   position: relative;
   z-index: 2;
   display: flex;
+  flex: 0 1 auto;
+  align-items: center;
   gap: var(--wex-space-8);
+  min-inline-size: 0;
+  max-inline-size: 100%;
 }
 
-.wex-admin-shell__theme-toggle-compact {
+.wex-admin-shell__nav-primary-action {
+  flex: 0 0 auto;
+  inline-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
+  min-block-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
+  block-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
+  padding: 0;
+  border-radius: 50%;
+}
+
+.wex-admin-shell__nav-primary-action svg,
+.wex-admin-shell__nav-search svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
+}
+
+.wex-admin-shell__nav-sub-actions {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--wex-space-8);
+  min-inline-size: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.wex-admin-shell__nav-sub-actions::-webkit-scrollbar {
   display: none;
+}
+
+.wex-admin-shell__nav-sub-action {
+  flex: 0 0 auto;
+}
+
+.wex-admin-shell__nav-search {
+  display: flex;
+  flex: 0 0 calc(var(--wex-space-64) * 3);
+  align-items: center;
+  gap: var(--wex-space-8);
+  box-sizing: border-box;
+  min-block-size: var(--wex-space-40);
+  padding-inline: var(--wex-space-12);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-default);
+  background: var(--wex-color-layer-01);
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-shell__nav-search[hidden] {
+  display: none;
+}
+
+.wex-admin-shell__nav-search input {
+  min-inline-size: 0;
+  inline-size: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--wex-color-text-primary);
+  font: inherit;
+}
+
+.wex-admin-shell__nav-search input::placeholder {
+  color: var(--wex-color-text-secondary);
+  opacity: 1;
+}
+
+.wex-admin-shell__nav-search:focus-within {
+  outline: var(--wex-focus-width) solid var(--wex-color-focus);
+  outline-offset: var(--wex-outer-ring-gap);
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
@@ -95,17 +168,9 @@
     display: none;
   }
 
-  .wex-admin-shell[data-sidebar-drawer="open"] [data-theme-toggle] {
-    min-inline-size: var(--wex-space-48);
-    padding-inline: var(--wex-space-4);
-  }
-
-  .wex-admin-shell[data-sidebar-drawer="open"] [data-theme-toggle-label] {
-    display: none;
-  }
-
-  .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__theme-toggle-compact {
-    display: inline;
+  /* Keep the existing compact drawer trigger clear of the persistent primary action. */
+  .wex-admin-shell__nav-actions {
+    margin-inline-start: calc(var(--wex-space-32) + var(--wex-space-16));
   }
 
   .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
