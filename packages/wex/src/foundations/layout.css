@@ -434,9 +434,13 @@ button.wex-admin-shell__sidebar-tab {
   }
 
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__drawer-trigger {
+    inset-inline-start: min(
+      calc(var(--wex-admin-shell-sidebar-expanded) - var(--wex-space-32) - var(--wex-space-4) - var(--wex-space-16)),
+      calc(100% - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-32) - var(--wex-space-4) - var(--wex-space-16))
+    );
     border-color: transparent;
     background: transparent;
-    color: var(--wex-color-text-secondary);
+    color: var(--wex-color-on-accent);
   }
 
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__backdrop {
