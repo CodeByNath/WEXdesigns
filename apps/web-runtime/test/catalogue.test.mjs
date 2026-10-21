@@ -199,6 +199,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNavActions, /Mounts the Header's right-side navigation actions as one three-region component/);
   assert.match(adminStationNavActions, /theme\.dataset\.themeToggle/);
   assert.match(adminStationNavActions, /searchBounds\.right > navigationBounds\.right/);
+  assert.match(adminStationNavActions, /actions\.replaceChildren\(search, subActions, primary\)/);
   assert.match(adminStationRuntimeBehaviour, /createLogoRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /materializeRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /brand\.dataset\.headerCompartment = 'brand'/);

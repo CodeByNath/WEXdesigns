@@ -107,7 +107,7 @@ function observeSearchAvailability(navigation, actions, search) {
 
 /**
  * Mounts the Header's right-side navigation actions as one three-region component:
- * a logo-scale primary action, scrollable sidebar-scale sub-actions, and Search.
+ * Search, scrollable sidebar-scale sub-actions, and a logo-scale primary action.
  * @param {HTMLElement} shell
  */
 export function mountHeaderNavActions(shell) {
@@ -119,6 +119,6 @@ export function mountHeaderNavActions(shell) {
   const primary = createPrimaryAction(document);
   const subActions = createSubActions(document);
   const search = createSearch(document);
-  actions.replaceChildren(primary, subActions, search);
+  actions.replaceChildren(search, subActions, primary);
   observeSearchAvailability(navigation, actions, search);
 }
