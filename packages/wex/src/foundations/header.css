@@ -162,13 +162,6 @@
   display: inline;
 }
 
-@media (min-width: 768px) {
-  /* The navigation begins after the persistent expanded Brand allocation. */
-  .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__header {
-    grid-template-columns: var(--wex-admin-shell-sidebar-expanded) minmax(0, 1fr);
-  }
-}
-
 @media (max-width: 767px) {
   /* Keep the existing compact drawer trigger clear of both navigation shells. */
   .wex-admin-shell__navigation {
