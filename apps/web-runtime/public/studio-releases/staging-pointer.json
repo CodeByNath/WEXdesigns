@@ -2,13 +2,13 @@
   "schema": "wex-studio-staging-pointer@1",
   "contract": "wex-studio-host@1",
   "change": "advance",
-  "sequence": 78,
-  "releaseId": "wex-studio-v1-8f78cf8670d676c75365f9be1ccaf82590c1493d",
-  "manifestPath": "wex-studio-v1-8f78cf8670d676c75365f9be1ccaf82590c1493d/manifest.json",
-  "manifestDigest": "sha384-LB6fQHskQnEMFpy/5uYP8C6MB20xkvNAgXkx+Hqv9fOeJSOTrrUr6Kq7W7e31f4j",
+  "sequence": 79,
+  "releaseId": "wex-studio-v1-54f81ccd498f08e7520217b2a0e9c8b4974a4574",
+  "manifestPath": "wex-studio-v1-54f81ccd498f08e7520217b2a0e9c8b4974a4574/manifest.json",
+  "manifestDigest": "sha384-MSGHVLehyuSeb9JjvDli2Syrh8VYJXfCNV7vGDdU6RjpQm0O7uzBWiWbqH9m5BuE",
   "previous": {
-    "sequence": 77,
-    "releaseId": "wex-studio-v1-f8bb0771cdf6a6197722af12d08b9165ecb8dd80",
-    "manifestDigest": "sha384-n3GtYCMpkixfd1NReZhMy7LBQV2hHxA1fGYpdwwa2HGsMNTi8nk/blRPdrLHDb+x"
+    "sequence": 78,
+    "releaseId": "wex-studio-v1-8f78cf8670d676c75365f9be1ccaf82590c1493d",
+    "manifestDigest": "sha384-LB6fQHskQnEMFpy/5uYP8C6MB20xkvNAgXkx+Hqv9fOeJSOTrrUr6Kq7W7e31f4j"
   }
 }
