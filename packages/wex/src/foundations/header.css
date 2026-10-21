@@ -90,6 +90,14 @@
   border-radius: 50%;
 }
 
+/* The shared Button focus ring preserves this action's circular geometry. */
+.wex-admin-shell__nav-primary-action:not(:disabled):active::after,
+.wex-admin-shell__nav-primary-action:focus::after,
+.wex-admin-shell__nav-primary-action:not(:disabled):active::before,
+.wex-admin-shell__nav-primary-action:focus::before {
+  border-radius: 50%;
+}
+
 .wex-admin-shell__nav-primary-action svg,
 .wex-admin-shell__nav-search svg {
   flex: 0 0 auto;

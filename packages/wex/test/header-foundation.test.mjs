@@ -27,6 +27,7 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(header, /\.wex-admin-shell__navigation\s*\{[\s\S]*grid-column: 2;[\s\S]*gap: var\(--wex-space-8\);[\s\S]*padding-block: var\(--wex-space-4\);[\s\S]*padding-inline-end: var\(--wex-space-16\);/);
   assert.match(header, /\.wex-admin-shell__nav-actions\s*\{[\s\S]*position: relative;[\s\S]*z-index: 2;[\s\S]*display: flex;[\s\S]*flex: 0 1 auto;[\s\S]*gap: var\(--wex-space-8\);[\s\S]*margin-inline-start: auto;/);
   assert.match(header, /\.wex-admin-shell__nav-primary-action\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*border-radius: 50%;/);
+  assert.match(header, /\.wex-admin-shell__nav-primary-action:not\(:disabled\):active::after,[\s\S]*\.wex-admin-shell__nav-primary-action:focus::before\s*\{\s*border-radius: 50%;/);
   assert.match(header, /\.wex-admin-shell__nav-sub-actions\s*\{[\s\S]*overflow-x: auto;/);
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*flex: 0 0 calc\(var\(--wex-space-64\) \* 3\);/);
   assert.match(header, /\.wex-admin-shell__nav-search\[hidden\]\s*\{\s*display: none;/);
