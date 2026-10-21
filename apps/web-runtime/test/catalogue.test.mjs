@@ -398,6 +398,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__sidebar\s*\{\s*display: flex;/);
   assert.match(compact, /\.wex-admin-shell__sidebar-controls\s*\{\s*display: none;/);
   assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__drawer-trigger\s*\{[\s\S]*inset-inline-start: min\([\s\S]*color: var\(--wex-color-on-accent\);/);
+  assert.match(compact, /data-sidebar-drawer="open"\] \.wex-admin-shell__nav-search\s*\{\s*display: none;/);
   assert.match(wexLayout, /\.wex-admin-shell__footer:not\(:empty\)/);
   const shellRules = wexLayout.slice(wexLayout.indexOf('.wex-admin-shell')).replace(/@media \([^)]*\)/g, '');
   assert.doesNotMatch(shellRules, /\d+px|transition|animation|rgba?\(|color-mix/);

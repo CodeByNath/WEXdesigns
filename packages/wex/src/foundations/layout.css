@@ -443,6 +443,11 @@ button.wex-admin-shell__sidebar-tab {
     color: var(--wex-color-on-accent);
   }
 
+  /* Search yields while the expanded drawer owns the compact Header space. */
+  .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__nav-search {
+    display: none;
+  }
+
   .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__backdrop {
     position: absolute;
     z-index: 1;
