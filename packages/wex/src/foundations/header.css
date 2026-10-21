@@ -83,9 +83,9 @@
 
 .wex-admin-shell__nav-primary-action {
   flex: 0 0 auto;
-  inline-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
-  min-block-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
-  block-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
+  inline-size: calc(var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-space-16));
+  min-block-size: calc(var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-space-16));
+  block-size: calc(var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-space-16));
   padding: 0;
   border-radius: 50%;
 }

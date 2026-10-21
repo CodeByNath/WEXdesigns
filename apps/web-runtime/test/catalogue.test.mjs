@@ -215,6 +215,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(headerFoundation, /\.wex-admin-shell__header\s*\{/);
   assert.match(headerFoundation, /\.wex-admin-shell__brand\s*\{/);
   assert.match(headerFoundation, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);/);
+  assert.match(headerFoundation, /\.wex-admin-shell__nav-primary-action\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);/);
   assert.doesNotMatch(headerFoundation, /wex-admin-header/);
   assert.match(wexLayout, /block-size: 100dvh;/);
   assert.match(wexLayout, /grid-template-rows: auto minmax\(0, 1fr\) auto;/);
