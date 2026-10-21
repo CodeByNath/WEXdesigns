@@ -32,8 +32,8 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(header, /\.wex-admin-shell__nav-search\[hidden\]\s*\{\s*display: none;/);
   assert.match(header, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*min-block-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*max-block-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*color: var\(--wex-color-on-accent\);/);
   assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*justify-content: flex-start;[\s\S]*inline-size: var\(--wex-admin-shell-sidebar-expanded\);/);
-  assert.doesNotMatch(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__header/);
   assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand-title\s*\{[\s\S]*display: inline;/);
+  assert.match(header, /@media \(min-width: 768px\)\s*\{[\s\S]*\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__header\s*\{\s*grid-template-columns: var\(--wex-admin-shell-sidebar-expanded\) minmax\(0, 1fr\);/);
   assert.doesNotMatch(header, /wex-admin-header|wex-header__|location-label|sidebar-trigger|primary-navigation|main-action/);
   assert.doesNotMatch(header, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
@@ -46,5 +46,5 @@ test('uses the existing compact boundary for the Header Logo allocation', () => 
   assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{\s*inline-size: var\(--wex-admin-shell-sidebar-header\);/);
   assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand-title\s*\{\s*display: none;/);
   assert.doesNotMatch(compact[1], /\.wex-admin-shell__location\s*\{\s*display: none;/);
-  assert.doesNotMatch(header, /(?:768px|1024px|1440px)/);
+  assert.doesNotMatch(header, /(?:1024px|1440px)/);
 });
