@@ -158,6 +158,11 @@
   font: inherit;
 }
 
+/* The search region owns the shared focus ring; its native input must not add a second one. */
+.wex-admin-shell__nav-search input:focus-visible {
+  outline: none;
+}
+
 .wex-admin-shell__nav-search input::placeholder {
   color: var(--wex-color-text-secondary);
   opacity: 1;
