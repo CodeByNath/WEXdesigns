@@ -163,6 +163,11 @@
 }
 
 @media (max-width: 767px) {
+  /* The compact Header split control occupies the location's navigation lane. */
+  .wex-admin-shell__location {
+    display: none;
+  }
+
   /* Keep the existing compact drawer trigger clear of both navigation shells. */
   .wex-admin-shell__navigation {
     padding-inline-start: calc(var(--wex-space-32) + var(--wex-space-16));
