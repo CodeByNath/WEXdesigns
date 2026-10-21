@@ -6,8 +6,8 @@
   grid-template-columns: var(--wex-admin-shell-sidebar-header) minmax(0, 1fr);
   gap: var(--wex-space-8);
   min-inline-size: 0;
-  block-size: var(--wex-admin-shell-header-size);
-  min-block-size: var(--wex-admin-shell-header-size);
+  block-size: var(--wex-space-64);
+  min-block-size: var(--wex-space-64);
   padding: 0;
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-layer-02);
@@ -50,34 +50,123 @@
   grid-column: 2;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--wex-space-8);
   min-inline-size: 0;
   padding-block: var(--wex-space-4);
   padding-inline-end: var(--wex-space-16);
+  container-type: inline-size;
 }
 
-.wex-admin-shell__location,
-.wex-admin-shell__nav-actions {
-  min-inline-size: 0;
-}
-
-.wex-admin-shell__location {
+.wex-admin-shell__primary-navigation-action {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
+  block-size: calc(var(--wex-admin-shell-header-size) - var(--wex-space-4) - var(--wex-space-4));
+  padding: 0;
+  border: var(--wex-border-width-default) solid transparent;
+  border-radius: var(--wex-radius-default);
+  background: transparent;
   color: var(--wex-color-text-secondary);
+  cursor: pointer;
+}
+
+.wex-admin-shell__primary-navigation-action:hover,
+.wex-admin-shell__sub-navigation-action:hover {
+  background: var(--wex-color-background-secondary);
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-shell__primary-navigation-action svg,
+.wex-admin-shell__sub-navigation-action svg,
+.wex-admin-shell__navigation-search > svg {
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
+}
+
+.wex-admin-shell__navigation-search {
+  display: flex;
+  flex: 1 1 calc(var(--wex-space-64) * 4);
+  align-items: center;
+  gap: var(--wex-space-8);
+  min-inline-size: calc(var(--wex-space-64) * 2 + var(--wex-space-32));
+  block-size: calc(var(--wex-space-48) - var(--wex-space-4));
+  padding-inline: var(--wex-space-12);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-default);
+  background: var(--wex-color-background-primary);
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-shell__navigation-search:focus-within {
+  border-color: var(--wex-color-focus);
+}
+
+.wex-admin-shell__navigation-search input {
+  min-inline-size: 0;
+  inline-size: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--wex-color-text-primary);
+  font: inherit;
+}
+
+.wex-admin-shell__navigation-search input::placeholder {
+  color: var(--wex-color-text-placeholder);
+}
+
+.wex-admin-shell__sub-navigation {
+  display: flex;
+  flex: 0 1 auto;
+  gap: var(--wex-space-8);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.wex-admin-shell__sub-navigation-action {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: calc(var(--wex-space-48) - var(--wex-space-4));
+  block-size: calc(var(--wex-space-48) - var(--wex-space-4));
+  padding: 0;
+  border: var(--wex-border-width-default) solid transparent;
+  border-radius: var(--wex-radius-default);
+  background: transparent;
+  color: var(--wex-color-text-secondary);
+  cursor: pointer;
+}
+
+[data-theme-toggle-icon="light"] {
+  display: none;
+}
+
+[data-wex-theme="dark"] [data-theme-toggle-icon="dark"] {
+  display: none;
+}
+
+[data-wex-theme="dark"] [data-theme-toggle-icon="light"] {
+  display: block;
+}
+
+.wex-admin-shell__visually-hidden {
+  position: absolute;
+  inline-size: var(--wex-border-width-default);
+  block-size: var(--wex-border-width-default);
   overflow: hidden;
-  text-overflow: ellipsis;
+  clip-path: inset(50%);
   white-space: nowrap;
 }
 
-.wex-admin-shell__nav-actions {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  gap: var(--wex-space-8);
-}
-
-.wex-admin-shell__theme-toggle-compact {
-  display: none;
+/* CSS container conditions cannot resolve custom-property calculations: 8 × WEX 64px. */
+@container (max-width: 512px) {
+  .wex-admin-shell__navigation-search {
+    display: none;
+  }
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
@@ -90,24 +179,6 @@
 }
 
 @media (max-width: 767px) {
-  /* The Header's compact split control owns this location while it is visible. */
-  .wex-admin-shell__location {
-    display: none;
-  }
-
-  .wex-admin-shell[data-sidebar-drawer="open"] [data-theme-toggle] {
-    min-inline-size: var(--wex-space-48);
-    padding-inline: var(--wex-space-4);
-  }
-
-  .wex-admin-shell[data-sidebar-drawer="open"] [data-theme-toggle-label] {
-    display: none;
-  }
-
-  .wex-admin-shell[data-sidebar-drawer="open"] .wex-admin-shell__theme-toggle-compact {
-    display: inline;
-  }
-
   .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {
     inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-sidebar-collapsed)));
   }

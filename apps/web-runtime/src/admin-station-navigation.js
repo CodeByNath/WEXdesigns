@@ -1,5 +1,3 @@
-import { announceLocationChange } from './admin-station-location.js';
-
 const ICON_STROKE_WIDTH = '1.75';
 
 /** @typedef {'dashboard' | 'site' | 'products' | 'tools' | 'chevron'} SidebarIconName */
@@ -185,7 +183,6 @@ export function mountSidebarNavigation(shell) {
       syncGroupActive(group, children);
       setGroupExpanded(group, children, children.contains(selected));
     });
-    announceLocationChange(shell);
   });
 
   navigation.replaceChildren(list);
