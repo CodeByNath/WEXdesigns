@@ -119,7 +119,7 @@
   display: none;
 }
 
-.wex-admin-shell__nav-sub-action {
+.wex-admin-shell__header .wex-admin-shell__nav-sub-action {
   flex: 0 0 auto;
   inline-size: calc(var(--wex-space-48) - var(--wex-space-4));
   min-block-size: calc(var(--wex-space-48) - var(--wex-space-4));
@@ -128,13 +128,13 @@
   color: var(--wex-color-text-primary);
 }
 
-.wex-admin-shell__nav-sub-action:hover {
+.wex-admin-shell__header .wex-admin-shell__nav-sub-action:hover {
   border-color: transparent;
   background: var(--wex-color-light-grey);
   color: var(--wex-color-text-secondary);
 }
 
-[data-wex-theme="dark"] .wex-admin-shell__nav-sub-action:hover {
+[data-wex-theme="dark"] .wex-admin-shell__header .wex-admin-shell__nav-sub-action:hover {
   background: var(--wex-color-dark-grey);
 }
 
