@@ -40,8 +40,6 @@ export function initSidebar(shell) {
     shell.dataset.sidebarHovered = 'false';
     ui.toggle.setAttribute('aria-expanded', String(next === 'expanded'));
     ui.toggle.setAttribute('aria-label', next === 'expanded' ? 'Collapse sidebar' : 'Expand sidebar');
-    ui.openTrigger.setAttribute('aria-expanded', String(next === 'expanded'));
-    ui.openTrigger.setAttribute('aria-label', next === 'expanded' ? 'Collapse navigation' : 'Expand navigation');
   }
 
   /**
@@ -117,7 +115,7 @@ export function initSidebar(shell) {
   ui.panel.addEventListener('pointerleave', () => setHoverRail(false));
   ui.openTrigger.addEventListener('click', () => {
     if (!compact.matches) {
-      toggleRail();
+      openDrawer();
       return;
     }
     if (isDrawerOpen()) {
