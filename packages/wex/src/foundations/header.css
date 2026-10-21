@@ -78,6 +78,7 @@
   gap: var(--wex-space-8);
   min-inline-size: 0;
   max-inline-size: 100%;
+  margin-inline-start: auto;
 }
 
 .wex-admin-shell__nav-primary-action {
