@@ -130,6 +130,7 @@
 }
 
 .wex-admin-shell__nav-search {
+  position: relative;
   display: flex;
   flex: 0 0 calc(var(--wex-space-64) * 3);
   align-items: center;
@@ -169,8 +170,27 @@
 }
 
 .wex-admin-shell__nav-search:focus-within {
-  outline: var(--wex-focus-width) solid var(--wex-color-focus);
-  outline-offset: var(--wex-outer-ring-gap);
+  border-color: var(--wex-outer-ring-color);
+}
+
+.wex-admin-shell__nav-search:focus-within::after {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-outer-ring-inner-width) solid var(--wex-outer-ring-color);
+  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
+  content: '';
+}
+
+.wex-admin-shell__nav-search:focus-within::before {
+  position: absolute;
+  inset: var(--wex-outer-ring-inner-width);
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color);
+  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-width));
+  content: '';
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {

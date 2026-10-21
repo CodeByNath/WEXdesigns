@@ -33,7 +33,10 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*flex: 0 0 calc\(var\(--wex-space-64\) \* 3\);/);
   assert.match(header, /\.wex-admin-shell__nav-search\[hidden\]\s*\{\s*display: none;/);
   assert.match(header, /\.wex-admin-shell__nav-search input:focus-visible\s*\{\s*outline: none;/);
-  assert.match(header, /\.wex-admin-shell__nav-search:focus-within\s*\{[\s\S]*outline: var\(--wex-focus-width\) solid var\(--wex-color-focus\);[\s\S]*outline-offset: var\(--wex-outer-ring-gap\);/);
+  assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*position: relative;/);
+  assert.match(header, /\.wex-admin-shell__nav-search:focus-within\s*\{\s*border-color: var\(--wex-outer-ring-color\);/);
+  assert.match(header, /\.wex-admin-shell__nav-search:focus-within::after\s*\{[\s\S]*border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
+  assert.match(header, /\.wex-admin-shell__nav-search:focus-within::before\s*\{[\s\S]*border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/);
   assert.match(header, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*min-block-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*max-block-size: calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\) - var\(--wex-space-4\)\);[\s\S]*color: var\(--wex-color-on-accent\);/);
   assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{[\s\S]*justify-content: flex-start;[\s\S]*inline-size: var\(--wex-admin-shell-sidebar-expanded\);/);
   assert.match(header, /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand-title\s*\{[\s\S]*display: inline;/);
