@@ -119,24 +119,25 @@
   display: none;
 }
 
-.wex-admin-shell__nav-sub-action {
-  flex: 0 0 auto;
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action {
+  flex: 0 0 38px;
   justify-content: center;
   inline-size: 38px;
   min-block-size: 38px;
+  max-block-size: 38px;
   block-size: 38px;
   padding-inline: 0;
   padding-block: 0;
   border-radius: var(--wex-radius-large);
 }
 
-.wex-admin-shell__nav-sub-action:not(:disabled):active::after,
-.wex-admin-shell__nav-sub-action:focus::after {
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:not(:disabled):active::after,
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:focus::after {
   border-radius: calc(var(--wex-radius-large) - var(--wex-border-width-default));
 }
 
-.wex-admin-shell__nav-sub-action:not(:disabled):active::before,
-.wex-admin-shell__nav-sub-action:focus::before {
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:not(:disabled):active::before,
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:focus::before {
   border-radius: calc(var(--wex-radius-large) - var(--wex-outer-ring-width));
 }
 
