@@ -208,6 +208,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNavActions, /actions\.replaceChildren\(search, subActions, primary\)/);
   assert.match(adminStationNavActions, /HeaderPrimaryActionPresentationPropertiesSchema\.safeParse\(properties\)/);
   assert.match(adminStationNavActions, /wex-admin-shell__nav-primary-action-image/);
+  assert.match(adminStationNavActions, /primary:\s*\[\s*\['circle', \{ cx: '12', cy: '8\.25', r: '3\.25' \}\],\s*\['path', \{ d: 'M5\.25 20\.25a6\.75 6\.75 0 0 1 13\.5 0' \}\]/);
   assert.match(adminStationRuntimeBehaviour, /createLogoRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /materializeRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /brand\.dataset\.headerCompartment = 'brand'/);

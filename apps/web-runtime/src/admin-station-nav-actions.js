@@ -7,7 +7,8 @@ const ICON_STROKE_WIDTH = '1.75';
 /** @type {Record<HeaderActionIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const iconShapes = {
   primary: [
-    ['path', { d: 'M12 5.25v13.5M5.25 12h13.5' }],
+    ['circle', { cx: '12', cy: '8.25', r: '3.25' }],
+    ['path', { d: 'M5.25 20.25a6.75 6.75 0 0 1 13.5 0' }],
   ],
   notification: [
     ['path', { d: 'M18 8.25a6 6 0 0 0-12 0c0 7-3 7-3 9.75h18C21 15.25 18 15.25 18 8.25Z' }],
