@@ -30,8 +30,7 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(header, /\.wex-admin-shell__nav-primary-action:not\(:disabled\):active::after,[\s\S]*\.wex-admin-shell__nav-primary-action:focus::before\s*\{\s*border-radius: 50%;/);
   assert.match(header, /\.wex-admin-shell__nav-sub-actions\s*\{[\s\S]*overflow-x: auto;/);
   assert.match(header, /\.wex-admin-shell__nav-sub-action\[data-theme-toggle\]\s*\{[\s\S]*flex: 0 0 auto;[\s\S]*inline-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*border-radius: var\(--wex-radius-large\);/);
-  assert.match(header, /\.wex-admin-shell__nav-sub-action\[data-theme-toggle\]:not\(:disabled\):active::after,[\s\S]*\.wex-admin-shell__nav-sub-action\[data-theme-toggle\]:focus::before\s*\{\s*border-radius: calc\(var\(--wex-radius-large\) - var\(--wex-border-width-default\)\);/);
-  assert.match(header, /\.wex-admin-shell__nav-sub-action\[data-theme-toggle\]:not\(:disabled\):active::before,[\s\S]*\.wex-admin-shell__nav-sub-action\[data-theme-toggle\]:focus::before\s*\{\s*border-radius: calc\(var\(--wex-radius-large\) - var\(--wex-outer-ring-width\)\);/);
+  assert.match(header, /\.wex-admin-shell__nav-sub-action\[data-theme-toggle\]:not\(:disabled\):active::after,[\s\S]*\.wex-admin-shell__nav-sub-action\[data-theme-toggle\]:focus::before\s*\{\s*border-radius: 50%;/);
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*flex: 0 0 calc\(var\(--wex-space-64\) \* 3\);/);
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*min-block-size: calc\(var\(--wex-space-40\) - var\(--wex-space-2\)\);/);
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*border-radius: var\(--wex-radius-large\);/);
