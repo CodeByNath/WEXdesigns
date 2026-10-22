@@ -131,10 +131,13 @@
 }
 
 .wex-admin-shell__nav-sub-action[data-theme-toggle]:not(:disabled):active::after,
-.wex-admin-shell__nav-sub-action[data-theme-toggle]:focus::after,
+.wex-admin-shell__nav-sub-action[data-theme-toggle]:focus::after {
+  border-radius: calc(var(--wex-radius-large) - var(--wex-border-width-default));
+}
+
 .wex-admin-shell__nav-sub-action[data-theme-toggle]:not(:disabled):active::before,
 .wex-admin-shell__nav-sub-action[data-theme-toggle]:focus::before {
-  border-radius: 50%;
+  border-radius: calc(var(--wex-radius-large) - var(--wex-outer-ring-width));
 }
 
 .wex-admin-shell__nav-search {
