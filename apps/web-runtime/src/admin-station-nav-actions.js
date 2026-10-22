@@ -1,3 +1,5 @@
+import { HeaderPrimaryActionPresentationPropertiesSchema } from '@weerax/schemas';
+
 const ICON_STROKE_WIDTH = '1.75';
 
 /** @typedef {'primary' | 'notification' | 'email' | 'moon' | 'search' | 'sun'} HeaderActionIconName */
@@ -59,14 +61,25 @@ function createIcon(document, name, options = {}) {
   return svg;
 }
 
-/** @param {Document} document */
-function createPrimaryAction(document) {
+/** @param {Document} document @param {unknown} [properties] */
+function createPrimaryAction(document, properties = {}) {
   const action = document.createElement('button');
   action.type = 'button';
   action.className = 'wex-button wex-button--primary wex-admin-shell__nav-primary-action';
   action.dataset.headerPrimaryAction = '';
   action.setAttribute('aria-label', 'Primary action');
-  action.append(createIcon(document, 'primary'));
+  const presentation = HeaderPrimaryActionPresentationPropertiesSchema.safeParse(properties);
+  const imageUrl = presentation.success ? presentation.data.imageUrl : undefined;
+  const icon = presentation.success ? presentation.data.icon ?? 'primary' : 'primary';
+  if (imageUrl) {
+    const image = document.createElement('img');
+    image.className = 'wex-admin-shell__nav-primary-action-image';
+    image.src = imageUrl;
+    image.alt = 'Primary action';
+    action.append(image);
+  } else {
+    action.append(createIcon(document, icon));
+  }
   return action;
 }
 
@@ -159,15 +172,16 @@ function observeSearchAvailability(navigation, actions, location, search) {
  * Mounts the Header's right-side navigation actions as one three-region component:
  * Search, scrollable sidebar-scale sub-actions, and a logo-scale primary action.
  * @param {HTMLElement} shell
+ * @param {{ primaryActionProperties?: import('@weerax/schemas').HeaderPrimaryActionPresentationPropertiesInput }} [options]
  */
-export function mountHeaderNavActions(shell) {
+export function mountHeaderNavActions(shell, options = {}) {
   const actions = shell.querySelector('[data-header-nav-actions]');
   const navigation = shell.querySelector('.wex-admin-shell__navigation');
   const location = shell.querySelector('[data-admin-station-location]');
   if (!(actions instanceof HTMLElement) || !(navigation instanceof HTMLElement) || !(location instanceof HTMLElement)) return;
 
   const document = shell.ownerDocument;
-  const primary = createPrimaryAction(document);
+  const primary = createPrimaryAction(document, options.primaryActionProperties);
   const subActions = createSubActions(document);
   const search = createSearch(document);
   actions.replaceChildren(search, subActions, primary);

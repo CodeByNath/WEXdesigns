@@ -195,7 +195,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationRuntimeBehaviour, /function applyTheme\(theme\)/);
   assert.match(adminStationRuntimeBehaviour, /data-theme-toggle/);
   assert.match(adminStationRuntimeBehaviour, /Switch to \$\{dark \? 'light' : 'dark'\} theme/);
-  assert.match(adminStationRuntimeBehaviour, /mountHeaderNavActions\(shell\)/);
+  assert.match(adminStationRuntimeBehaviour, /mountHeaderNavActions\(shell, \{ primaryActionProperties: options\.primaryActionProperties \}\)/);
   assert.match(adminStationNavActions, /Mounts the Header's right-side navigation actions as one three-region component/);
   assert.match(adminStationNavActions, /theme\.dataset\.themeToggle/);
   assert.match(adminStationNavActions, /theme\.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action';/);
@@ -206,6 +206,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNavActions, /createIcon\(document, 'sun'/);
   assert.match(adminStationNavActions, /searchBounds\.right > navigationBounds\.right[\s\S]*location\.scrollWidth > location\.clientWidth/);
   assert.match(adminStationNavActions, /actions\.replaceChildren\(search, subActions, primary\)/);
+  assert.match(adminStationNavActions, /HeaderPrimaryActionPresentationPropertiesSchema\.safeParse\(properties\)/);
+  assert.match(adminStationNavActions, /wex-admin-shell__nav-primary-action-image/);
   assert.match(adminStationRuntimeBehaviour, /createLogoRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /materializeRenderDescription/);
   assert.match(adminStationRuntimeBehaviour, /brand\.dataset\.headerCompartment = 'brand'/);
@@ -222,6 +224,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(headerFoundation, /\.wex-admin-shell__brand\s*\{/);
   assert.match(headerFoundation, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);/);
   assert.match(headerFoundation, /\.wex-admin-shell__nav-primary-action\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);/);
+  assert.match(headerFoundation, /\.wex-admin-shell__nav-primary-action-image\s*\{\s*object-fit: contain;/);
   assert.doesNotMatch(headerFoundation, /wex-admin-header/);
   assert.match(wexLayout, /block-size: 100dvh;/);
   assert.match(wexLayout, /grid-template-rows: auto minmax\(0, 1fr\) auto;/);

@@ -14,12 +14,15 @@ const logoFixture = { label: 'Logo' };
  * shell. It owns presentation mechanics only; it has no host, identity, or
  * persistence behaviour.
  * @param {HTMLElement} shell
- * @param {{ logoProperties?: import('@weerax/schemas').LogoPresentationPropertiesInput }} [options]
+ * @param {{
+ *   logoProperties?: import('@weerax/schemas').LogoPresentationPropertiesInput,
+ *   primaryActionProperties?: import('@weerax/schemas').HeaderPrimaryActionPresentationPropertiesInput,
+ * }} [options]
  */
 export function initialiseAdminStation(shell, options = {}) {
   const documentRoot = shell.ownerDocument.documentElement;
   const view = shell.ownerDocument.defaultView;
-  mountHeaderNavActions(shell);
+  mountHeaderNavActions(shell, { primaryActionProperties: options.primaryActionProperties });
   const themeToggle = shell.querySelector('[data-theme-toggle]');
 
   /** @param {'dark' | 'light'} theme */

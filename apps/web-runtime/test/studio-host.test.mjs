@@ -46,7 +46,9 @@ test('mounts the Admin Station shell with local Sidebar navigation presentation 
   assert.match(source, /wexStudioHostOptions/);
   assert.match(source, /mountStudioHost\(readStudioHostOptions\(\)\)/);
   assert.match(source, /resolveLogoImagePropertyBinding/);
-  assert.match(source, /mountAdminStation\(mount, \{ logoProperties \}\)/);
+  assert.match(source, /resolveHeaderPrimaryActionProperties/);
+  assert.match(source, /primaryActionImageBinding/);
+  assert.match(source, /mountAdminStation\(mount, \{ logoProperties, primaryActionProperties \}\)/);
   assert.match(source, /mount-unavailable/);
   assert.match(source, /mount-error/);
   assert.match(shell, /data-admin-station-layout/);
@@ -59,6 +61,8 @@ test('mounts the Admin Station shell with local Sidebar navigation presentation 
   assert.match(fixture, /globalThis\.wexStudioHostOptions/);
   assert.match(fixture, /new URLSearchParams\(window\.location\.search\)\.get\('logoUrl'\)/);
   assert.match(fixture, /https:\/\/example\.test\/qsd-profile-logo\.svg/);
+  assert.match(fixture, /primaryActionIcon/);
+  assert.match(fixture, /primaryActionImageBinding/);
 });
 
 test('keeps the Studio bundle relative-path based and excludes the deferred host protocol', () => {

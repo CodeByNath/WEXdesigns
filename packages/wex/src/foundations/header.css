@@ -99,10 +99,15 @@
 }
 
 .wex-admin-shell__nav-primary-action svg,
+.wex-admin-shell__nav-primary-action-image,
 .wex-admin-shell__nav-search svg {
   flex: 0 0 auto;
   inline-size: var(--wex-icon-size-20);
   block-size: var(--wex-icon-size-20);
+}
+
+.wex-admin-shell__nav-primary-action-image {
+  object-fit: contain;
 }
 
 .wex-admin-shell__nav-sub-actions {

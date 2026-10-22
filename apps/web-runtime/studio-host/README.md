@@ -36,23 +36,30 @@ The manifest has QSD's required shape:
 and enqueues them on QSD's authorised `/studio/` route. The bundle does not
 depend on a GitHub Pages base path.
 
-## Logo input boundary
+## Logo and primary-action input boundary
 
 Before loading the WEX entry, the host may assign one serializable object to
-`globalThis.wexStudioHostOptions`. Its only currently approved shape is the
-closed Logo property binding and its already-resolved source values:
+`globalThis.wexStudioHostOptions`. Its approved shape is the closed Logo and
+Header primary-action property bindings and their already-resolved source
+values:
 
 ```js
 globalThis.wexStudioHostOptions = {
   logoImageBinding: { source: 'profile.logo', target: 'imageUrl' },
-  sourceValues: { 'profile.logo': 'https://media.example/logo.svg' },
+  primaryActionIcon: 'primary',
+  primaryActionImageBinding: { source: 'profile.primary-action-image', target: 'imageUrl' },
+  sourceValues: {
+    'profile.logo': 'https://media.example/logo.svg',
+    'profile.primary-action-image': 'https://media.example/action.svg',
+  },
 };
 ```
 
 This is a one-time bundle-initialisation value, not a connector, event bus,
 host API, identity protocol, or data-loading mechanism. The host retains all
-record lookup and authorisation. The bundle accepts only a safe HTTPS URL; an
-absent, invalid, or unsafe value keeps the label-only Logo fallback.
+record lookup and authorisation. The bundle accepts only safe HTTPS image URLs.
+An absent, invalid, or unsafe Logo value keeps the label-only Logo fallback;
+an absent, invalid, or unsafe primary-action image keeps its built-in plus icon.
 
 The `version` defaults to `0.0.0`, the current package release label. A
 release process may supply a different label with
@@ -85,6 +92,6 @@ required atomic lifecycle operations. Do not add client-side read/modify/write
 behaviour, call QSD storage endpoints, or trigger QSD storage initialization
 from this bundle.
 
-`fixture.html` configures the approved Logo input and demonstrates the
-successful image mount; `error-fixture.html` covers the missing-host-mount
+`fixture.html` configures the approved Logo and primary-action inputs and
+demonstrates the image paths; `error-fixture.html` covers the missing-host-mount
 state. They are local browser fixtures, not QSD deployment files.

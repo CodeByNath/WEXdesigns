@@ -1,6 +1,7 @@
 import './admin-station.css';
 
 import { mountAdminStation } from './admin-station-shell.js';
+import { resolveHeaderPrimaryActionProperties } from './header-primary-action-property-binding.js';
 import { resolveLogoImagePropertyBinding } from './logo-property-binding.js';
 
 const MOUNT_SELECTOR = '#qsd-studio-host';
@@ -16,9 +17,14 @@ function readStudioHostOptions() {
 /**
  * Mounts the WEX-owned Dashboard only when the host has supplied its approved
  * mount point. Its caller owns external record resolution and may supply the
- * one approved Logo image property binding; this module has no QSD API,
- * storage, or identity integration.
- * @param {{ logoImageBinding?: unknown, sourceValues?: unknown }} [options]
+ * approved Logo and Header primary-action presentation values; this module has
+ * no QSD API, storage, or identity integration.
+ * @param {{
+ *   logoImageBinding?: unknown,
+ *   primaryActionIcon?: unknown,
+ *   primaryActionImageBinding?: unknown,
+ *   sourceValues?: unknown,
+ * }} [options]
  */
 export function mountStudioHost(options = {}) {
   const mount = document.querySelector(MOUNT_SELECTOR);
@@ -32,7 +38,12 @@ export function mountStudioHost(options = {}) {
       options.logoImageBinding,
       options.sourceValues,
     );
-    mountAdminStation(mount, { logoProperties });
+    const primaryActionProperties = resolveHeaderPrimaryActionProperties(
+      options.primaryActionIcon,
+      options.primaryActionImageBinding,
+      options.sourceValues,
+    );
+    mountAdminStation(mount, { logoProperties, primaryActionProperties });
     mount.dataset.wexStudioHost = 'mounted';
     return { state: 'mounted' };
   } catch {

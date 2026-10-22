@@ -5,6 +5,10 @@ import {
   ButtonDefinitionSchema,
   ButtonVariantSchema,
   EntityIdentifierSchema,
+  HeaderPrimaryActionIconSchema,
+  HeaderPrimaryActionImagePropertyBindingSchema,
+  HeaderPrimaryActionImageUrlSchema,
+  HeaderPrimaryActionPresentationPropertiesSchema,
   LogoDefinitionSchema,
   LogoImagePropertyBindingSchema,
   LogoImageUrlSchema,
@@ -288,6 +292,22 @@ test('defines a closed, serializable Logo image property binding', () => {
   assert.equal(LogoPresentationPropertiesSchema.safeParse({}).success, true);
   assert.equal(
     LogoPresentationPropertiesSchema.safeParse({ imageUrl: 'https://cdn.example.test/logo.svg' }).success,
+    true,
+  );
+});
+
+test('defines a closed Header primary-action icon and image presentation boundary', () => {
+  const binding = { source: 'host.primary-action-image', target: 'imageUrl' };
+  assert.equal(HeaderPrimaryActionIconSchema.parse('primary'), 'primary');
+  assert.equal(HeaderPrimaryActionIconSchema.safeParse('notification').success, false);
+  assert.deepEqual(HeaderPrimaryActionImagePropertyBindingSchema.parse(binding), binding);
+  assert.equal(HeaderPrimaryActionImagePropertyBindingSchema.safeParse({ ...binding, target: 'icon' }).success, false);
+  assert.equal(HeaderPrimaryActionImagePropertyBindingSchema.safeParse({ ...binding, callback: () => {} }).success, false);
+  assert.equal(HeaderPrimaryActionImageUrlSchema.safeParse('https://cdn.example.test/action.svg').success, true);
+  assert.equal(HeaderPrimaryActionImageUrlSchema.safeParse('http://cdn.example.test/action.svg').success, false);
+  assert.equal(HeaderPrimaryActionPresentationPropertiesSchema.safeParse({ icon: 'primary' }).success, true);
+  assert.equal(
+    HeaderPrimaryActionPresentationPropertiesSchema.safeParse({ imageUrl: 'https://cdn.example.test/action.svg' }).success,
     true,
   );
 });

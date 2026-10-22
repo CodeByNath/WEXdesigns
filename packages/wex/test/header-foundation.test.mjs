@@ -29,6 +29,8 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(header, /\.wex-admin-shell__nav-actions\s*\{[\s\S]*position: relative;[\s\S]*z-index: 2;[\s\S]*display: flex;[\s\S]*flex: 0 1 auto;[\s\S]*gap: var\(--wex-space-8\);[\s\S]*margin-inline-start: auto;/);
   assert.match(header, /\.wex-admin-shell__nav-primary-action\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*border-radius: 50%;/);
   assert.match(header, /\.wex-admin-shell__nav-primary-action:not\(:disabled\):active::after,[\s\S]*\.wex-admin-shell__nav-primary-action:focus::before\s*\{\s*border-radius: 50%;/);
+  assert.match(header, /\.wex-admin-shell__nav-primary-action svg,[\s\S]*\.wex-admin-shell__nav-primary-action-image,[\s\S]*inline-size: var\(--wex-icon-size-20\);[\s\S]*block-size: var\(--wex-icon-size-20\);/);
+  assert.match(header, /\.wex-admin-shell__nav-primary-action-image\s*\{\s*object-fit: contain;/);
   assert.match(header, /\.wex-admin-shell__nav-sub-actions\s*\{[\s\S]*overflow-x: auto;/);
   assert.match(header, /\.wex-admin-shell__sidebar-tab\.wex-admin-shell__nav-sub-action\s*\{[\s\S]*flex: 0 0 var\(--wex-space-40\);[\s\S]*inline-size: var\(--wex-space-40\);[\s\S]*min-block-size: var\(--wex-space-40\);[\s\S]*max-block-size: var\(--wex-space-40\);[\s\S]*block-size: var\(--wex-space-40\);[\s\S]*border-radius: var\(--wex-radius-large\);/);
   assert.match(header, /\.wex-admin-shell__nav-sub-action \.wex-admin-shell__sidebar-tab-icon-svg\s*\{[\s\S]*inline-size: var\(--wex-icon-size-20\);[\s\S]*block-size: var\(--wex-icon-size-20\);/);

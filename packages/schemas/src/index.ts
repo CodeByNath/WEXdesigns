@@ -63,3 +63,14 @@ export {
   type LogoPresentationProperties,
   type LogoPresentationPropertiesInput,
 } from './components/logo.schema.js';
+export {
+  HeaderPrimaryActionIconSchema,
+  HeaderPrimaryActionImagePropertyBindingSchema,
+  HeaderPrimaryActionImageUrlSchema,
+  HeaderPrimaryActionPresentationPropertiesSchema,
+  type HeaderPrimaryActionIcon,
+  type HeaderPrimaryActionImagePropertyBinding,
+  type HeaderPrimaryActionImagePropertyBindingInput,
+  type HeaderPrimaryActionPresentationProperties,
+  type HeaderPrimaryActionPresentationPropertiesInput,
+} from './components/header-primary-action.schema.js';
