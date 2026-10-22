@@ -87,11 +87,6 @@ function createSubActions(document) {
     return action;
   };
 
-  navigation.append(
-    createSubAction('notification', 'Notifications', 'notificationsAction'),
-    createSubAction('email', 'Email', 'emailAction'),
-  );
-
   const theme = document.createElement('button');
   theme.type = 'button';
   theme.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action';
@@ -102,7 +97,11 @@ function createSubActions(document) {
     createIcon(document, 'moon', { sidebarTab: true, className: 'wex-admin-shell__theme-icon--moon' }),
     createIcon(document, 'sun', { sidebarTab: true, className: 'wex-admin-shell__theme-icon--sun' }),
   );
-  navigation.append(theme);
+  navigation.append(
+    theme,
+    createSubAction('email', 'Email', 'emailAction'),
+    createSubAction('notification', 'Notifications', 'notificationsAction'),
+  );
   return navigation;
 }
 

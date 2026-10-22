@@ -201,6 +201,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNavActions, /theme\.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action';/);
   assert.match(adminStationNavActions, /createSubAction\('notification', 'Notifications', 'notificationsAction'\)/);
   assert.match(adminStationNavActions, /createSubAction\('email', 'Email', 'emailAction'\)/);
+  assert.match(adminStationNavActions, /navigation\.append\(\s*theme,\s*createSubAction\('email', 'Email', 'emailAction'\),\s*createSubAction\('notification', 'Notifications', 'notificationsAction'\),\s*\);/);
   assert.match(adminStationNavActions, /createIcon\(document, 'moon'/);
   assert.match(adminStationNavActions, /createIcon\(document, 'sun'/);
   assert.match(adminStationNavActions, /searchBounds\.right > navigationBounds\.right[\s\S]*location\.scrollWidth > location\.clientWidth/);

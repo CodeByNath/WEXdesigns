@@ -140,15 +140,15 @@
   border-radius: calc(var(--wex-radius-large) - var(--wex-outer-ring-width));
 }
 
-.wex-admin-shell__theme-icon--sun {
+.wex-admin-shell__sidebar-tab-icon.wex-admin-shell__theme-icon--sun {
   display: none;
 }
 
-[data-wex-theme="dark"] .wex-admin-shell__theme-icon--moon {
+[data-wex-theme="dark"] .wex-admin-shell__sidebar-tab-icon.wex-admin-shell__theme-icon--moon {
   display: none;
 }
 
-[data-wex-theme="dark"] .wex-admin-shell__theme-icon--sun {
+[data-wex-theme="dark"] .wex-admin-shell__sidebar-tab-icon.wex-admin-shell__theme-icon--sun {
   display: grid;
 }
 

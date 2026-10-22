@@ -32,8 +32,9 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(header, /\.wex-admin-shell__nav-sub-action\s*\{[\s\S]*flex: 0 0 auto;[\s\S]*inline-size: 38px;[\s\S]*min-block-size: 38px;[\s\S]*block-size: 38px;[\s\S]*border-radius: var\(--wex-radius-large\);/);
   assert.match(header, /\.wex-admin-shell__nav-sub-action:not\(:disabled\):active::after,[\s\S]*\.wex-admin-shell__nav-sub-action:focus::after\s*\{\s*border-radius: calc\(var\(--wex-radius-large\) - var\(--wex-border-width-default\)\);/);
   assert.match(header, /\.wex-admin-shell__nav-sub-action:not\(:disabled\):active::before,[\s\S]*\.wex-admin-shell__nav-sub-action:focus::before\s*\{\s*border-radius: calc\(var\(--wex-radius-large\) - var\(--wex-outer-ring-width\)\);/);
-  assert.match(header, /\[data-wex-theme="dark"\] \.wex-admin-shell__theme-icon--moon\s*\{\s*display: none;/);
-  assert.match(header, /\[data-wex-theme="dark"\] \.wex-admin-shell__theme-icon--sun\s*\{\s*display: grid;/);
+  assert.match(header, /\.wex-admin-shell__sidebar-tab-icon\.wex-admin-shell__theme-icon--sun\s*\{\s*display: none;/);
+  assert.match(header, /\[data-wex-theme="dark"\] \.wex-admin-shell__sidebar-tab-icon\.wex-admin-shell__theme-icon--moon\s*\{\s*display: none;/);
+  assert.match(header, /\[data-wex-theme="dark"\] \.wex-admin-shell__sidebar-tab-icon\.wex-admin-shell__theme-icon--sun\s*\{\s*display: grid;/);
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*flex: 0 0 calc\(var\(--wex-space-64\) \* 3\);/);
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*min-block-size: calc\(var\(--wex-space-40\) - var\(--wex-space-2\)\);/);
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*border-radius: var\(--wex-radius-large\);/);
