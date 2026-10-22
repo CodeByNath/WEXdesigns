@@ -76,6 +76,7 @@ function createSubActions(document) {
   navigation.className = 'wex-admin-shell__nav-sub-actions';
   navigation.setAttribute('aria-label', 'Header actions');
 
+  /** @param {HeaderActionIconName} name @param {string} label @param {string} dataset */
   const createSubAction = (name, label, dataset) => {
     const action = document.createElement('button');
     action.type = 'button';
