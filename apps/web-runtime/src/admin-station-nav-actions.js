@@ -1,14 +1,26 @@
 const ICON_STROKE_WIDTH = '1.75';
 
-/** @typedef {'primary' | 'theme' | 'search'} HeaderActionIconName */
+/** @typedef {'primary' | 'notification' | 'email' | 'moon' | 'search' | 'sun'} HeaderActionIconName */
 
 /** @type {Record<HeaderActionIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const iconShapes = {
   primary: [
     ['path', { d: 'M12 5.25v13.5M5.25 12h13.5' }],
   ],
-  theme: [
+  notification: [
+    ['path', { d: 'M18 8.25a6 6 0 0 0-12 0c0 7-3 7-3 9.75h18C21 15.25 18 15.25 18 8.25Z' }],
+    ['path', { d: 'M14.25 21a2.5 2.5 0 0 1-4.5 0' }],
+  ],
+  email: [
+    ['path', { d: 'M3.75 6.75h16.5v10.5H3.75z' }],
+    ['path', { d: 'm3.75 7.5 8.25 5.25 8.25-5.25' }],
+  ],
+  moon: [
     ['path', { d: 'M20.25 14.25A8.25 8.25 0 0 1 9.75 3.75 8.25 8.25 0 1 0 20.25 14.25Z' }],
+  ],
+  sun: [
+    ['circle', { cx: '12', cy: '12', r: '4' }],
+    ['path', { d: 'M12 2.25v1.5M12 20.25v1.5M21.75 12h-1.5M3.75 12h-1.5M18.894 5.106l-1.06 1.06M6.166 17.834l-1.06 1.06M18.894 18.894l-1.06-1.06M6.166 6.166l-1.06-1.06' }],
   ],
   search: [
     ['circle', { cx: '10.75', cy: '10.75', r: '5.5' }],
@@ -16,10 +28,13 @@ const iconShapes = {
   ],
 };
 
-/** @param {Document} document @param {HeaderActionIconName} name @param {{ sidebarTab?: boolean }} [options] */
+/** @param {Document} document @param {HeaderActionIconName} name @param {{ sidebarTab?: boolean, className?: string }} [options] */
 function createIcon(document, name, options = {}) {
   const icon = options.sidebarTab ? document.createElement('span') : null;
-  if (icon) icon.className = 'wex-admin-shell__sidebar-tab-icon';
+  if (icon) {
+    icon.className = 'wex-admin-shell__sidebar-tab-icon';
+    if (options.className) icon.classList.add(options.className);
+  }
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   if (icon) svg.classList.add('wex-admin-shell__sidebar-tab-icon-svg');
@@ -61,13 +76,31 @@ function createSubActions(document) {
   navigation.className = 'wex-admin-shell__nav-sub-actions';
   navigation.setAttribute('aria-label', 'Header actions');
 
+  const createSubAction = (name, label, dataset) => {
+    const action = document.createElement('button');
+    action.type = 'button';
+    action.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action';
+    action.dataset[dataset] = '';
+    action.setAttribute('aria-label', label);
+    action.append(createIcon(document, name, { sidebarTab: true }));
+    return action;
+  };
+
+  navigation.append(
+    createSubAction('notification', 'Notifications', 'notificationsAction'),
+    createSubAction('email', 'Email', 'emailAction'),
+  );
+
   const theme = document.createElement('button');
   theme.type = 'button';
   theme.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action';
   theme.dataset.themeToggle = '';
   theme.setAttribute('aria-pressed', 'false');
   theme.setAttribute('aria-label', 'Switch to dark theme');
-  theme.append(createIcon(document, 'theme', { sidebarTab: true }));
+  theme.append(
+    createIcon(document, 'moon', { sidebarTab: true, className: 'wex-admin-shell__theme-icon--moon' }),
+    createIcon(document, 'sun', { sidebarTab: true, className: 'wex-admin-shell__theme-icon--sun' }),
+  );
   navigation.append(theme);
   return navigation;
 }
