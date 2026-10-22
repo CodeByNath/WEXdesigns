@@ -39,7 +39,7 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(header, /\[data-wex-theme="dark"\] \.wex-admin-shell__sidebar-tab-icon\.wex-admin-shell__theme-icon--moon\s*\{\s*display: none;/);
   assert.match(header, /\[data-wex-theme="dark"\] \.wex-admin-shell__sidebar-tab-icon\.wex-admin-shell__theme-icon--sun\s*\{\s*display: grid;/);
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*flex: 0 0 calc\(var\(--wex-space-64\) \* 3\);/);
-  assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*min-block-size: calc\(var\(--wex-space-40\) - var\(--wex-space-2\)\);/);
+  assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*min-block-size: var\(--wex-space-40\);[\s\S]*max-block-size: var\(--wex-space-40\);[\s\S]*block-size: var\(--wex-space-40\);/);
   assert.match(header, /\.wex-admin-shell__nav-search\s*\{[\s\S]*border-radius: var\(--wex-radius-large\);/);
   assert.match(header, /\.wex-admin-shell__nav-search\[hidden\]\s*\{\s*display: none;/);
   assert.match(header, /\.wex-admin-shell__nav-search input:focus-visible\s*\{\s*outline: none;/);
