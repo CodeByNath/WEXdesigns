@@ -4,7 +4,7 @@ import {
   HeaderPrimaryActionImageUrlSchema,
 } from '@weerax/schemas';
 
-/** @param {unknown} value */
+/** @param {unknown} value @returns {value is Record<string, unknown>} */
 function isValueMap(value) {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
