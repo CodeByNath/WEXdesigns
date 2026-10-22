@@ -122,9 +122,9 @@
 .wex-admin-shell__nav-sub-action[data-theme-toggle] {
   flex: 0 0 auto;
   justify-content: center;
-  inline-size: calc(var(--wex-space-48) - var(--wex-space-4));
-  min-block-size: calc(var(--wex-space-48) - var(--wex-space-4));
-  block-size: calc(var(--wex-space-48) - var(--wex-space-4));
+  inline-size: 38px;
+  min-block-size: 38px;
+  block-size: 38px;
   padding-inline: 0;
   padding-block: 0;
   border-radius: var(--wex-radius-large);
