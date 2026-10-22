@@ -144,7 +144,7 @@
   align-items: center;
   gap: var(--wex-space-8);
   box-sizing: border-box;
-  min-block-size: var(--wex-space-40);
+  min-block-size: calc(var(--wex-space-40) - var(--wex-space-2));
   padding-inline: var(--wex-space-12);
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   border-radius: var(--wex-radius-large);
