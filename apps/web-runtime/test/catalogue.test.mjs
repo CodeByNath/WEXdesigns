@@ -368,7 +368,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-controls\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-navigation\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-item\s*\{\s*display: grid;\s*gap: var\(--wex-space-8\);\s*\}/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border-radius: var\(--wex-radius-default\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border-radius: var\(--wex-radius-large\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border: var\(--wex-border-width-default\) solid transparent;[\s\S]*outline: none;/);
   assert.match(
     wexLayout,
@@ -382,7 +382,9 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\[data-sidebar-tab-active="true"\]\s*\{[\s\S]*background: var\(--wex-color-surface-selected\);[\s\S]*color: var\(--wex-color-text-primary\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active,\s*\.wex-admin-shell__sidebar-tab:focus\s*\{[\s\S]*border-color: var\(--wex-outer-ring-color\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border-radius: calc\(var\(--wex-radius-large\) - var\(--wex-border-width-default\)\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border-radius: calc\(var\(--wex-radius-large\) - var\(--wex-outer-ring-width\)\);/);
   assert.match(wexLayout, /\[data-wex-theme="dark"\] \.wex-admin-shell__sidebar-tab:not\(\[data-sidebar-tab-active="true"\]\):hover\s*\{\s*background: var\(--wex-color-dark-grey\);/);
   assert.match(
     wexLayout,
