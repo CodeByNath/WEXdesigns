@@ -132,8 +132,8 @@
 }
 
 .wex-admin-shell__nav-sub-action .wex-admin-shell__sidebar-tab-icon-svg {
-  inline-size: var(--wex-icon-size-16);
-  block-size: var(--wex-icon-size-16);
+  inline-size: 18px;
+  block-size: 18px;
 }
 
 .wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:not(:disabled):active::after,
