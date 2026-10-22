@@ -120,12 +120,12 @@
 }
 
 .wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action {
-  flex: 0 0 38px;
+  flex: 0 0 var(--wex-space-40);
   justify-content: center;
-  inline-size: 38px;
-  min-block-size: 38px;
-  max-block-size: 38px;
-  block-size: 38px;
+  inline-size: var(--wex-space-40);
+  min-block-size: var(--wex-space-40);
+  max-block-size: var(--wex-space-40);
+  block-size: var(--wex-space-40);
   padding-inline: 0;
   padding-block: 0;
   border-radius: var(--wex-radius-large);
