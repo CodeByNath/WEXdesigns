@@ -265,7 +265,7 @@ button.wex-admin-shell__sidebar-tab {
   transform: rotate(180deg);
 }
 
-.wex-admin-shell:not([data-sidebar="expanded"]):not([data-sidebar-hovered="true"]) .wex-admin-shell__sidebar-tab {
+.wex-admin-shell:not([data-sidebar="expanded"]):not([data-sidebar-hovered="true"]) .wex-admin-shell__sidebar-tab:not(.wex-admin-shell__nav-sub-action) {
   justify-content: center;
   inline-size: calc(var(--wex-space-48) - var(--wex-space-4));
   min-block-size: calc(var(--wex-space-48) - var(--wex-space-4));
