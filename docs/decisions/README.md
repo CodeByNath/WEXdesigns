@@ -16,6 +16,7 @@ presentation authority and explicit domain ownership.
 - [0021: Header Shell and Logo Component Authority](0021-header-shell-and-logo-component-authority.md)
 - [0022: Logo Render Description Boundary](0022-logo-render-description-boundary.md)
 - [0023: Logo Image Property Binding](0023-logo-image-property-binding.md)
+- [0026: Header Results Shell Authority](0026-header-results-shell-authority.md)
 
 ## Proposed
 

@@ -15,6 +15,7 @@ const adminStationCss = await readFile(new URL('../src/admin-station.css', impor
 const adminStationRuntime = await readFile(new URL('../src/admin-station.js', import.meta.url), 'utf8');
 const adminStationShell = await readFile(new URL('../src/admin-station-shell.js', import.meta.url), 'utf8');
 const adminStationRuntimeBehaviour = await readFile(new URL('../src/admin-station-runtime.js', import.meta.url), 'utf8');
+const adminStationHeaderResults = await readFile(new URL('../src/admin-station-header-results.js', import.meta.url), 'utf8');
 const adminStationLocation = await readFile(new URL('../src/admin-station-location.js', import.meta.url), 'utf8');
 const adminStationNavActions = await readFile(new URL('../src/admin-station-nav-actions.js', import.meta.url), 'utf8');
 const adminStationSidebar = await readFile(new URL('../src/admin-station-sidebar.js', import.meta.url), 'utf8');
@@ -196,6 +197,15 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationRuntimeBehaviour, /data-theme-toggle/);
   assert.match(adminStationRuntimeBehaviour, /Switch to \$\{dark \? 'light' : 'dark'\} theme/);
   assert.match(adminStationRuntimeBehaviour, /mountHeaderNavActions\(shell, \{ primaryActionProperties: options\.primaryActionProperties \}\)/);
+  assert.match(adminStationRuntimeBehaviour, /mountHeaderResultsShell\(shell\)/);
+  assert.match(adminStation, /<section class="wex-admin-shell__header-results" data-header-compartment="results" data-header-results-shell data-header-results-mode="popover" aria-label="Header results" hidden><\/section>/);
+  assert.match(adminStationShell, /<section class="wex-admin-shell__header-results" data-header-compartment="results" data-header-results-shell data-header-results-mode="popover" aria-label="Header results" hidden><\/section>/);
+  assert.match(adminStationHeaderResults, /HEADER_RESULTS_MODES = Object\.freeze\(\[\s*'popover',\s*'full-span',\s*'end-rail',\s*\]\)/);
+  assert.match(adminStationHeaderResults, /results\.dataset\.headerResultsMode = mode;/);
+  assert.match(adminStationHeaderResults, /results\.hidden = false;/);
+  assert.match(adminStationHeaderResults, /results\.hidden = true;/);
+  assert.match(adminStationHeaderResults, /wex:header-results-request/);
+  assert.doesNotMatch(adminStationHeaderResults, /createElement|append\(|replaceChildren|innerHTML/);
   assert.match(adminStationNavActions, /Mounts the Header's right-side navigation actions as one three-region component/);
   assert.match(adminStationNavActions, /theme\.dataset\.themeToggle/);
   assert.match(adminStationNavActions, /theme\.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action';/);
@@ -206,6 +216,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNavActions, /createIcon\(document, 'sun'/);
   assert.match(adminStationNavActions, /searchBounds\.right > navigationBounds\.right[\s\S]*location\.scrollWidth > location\.clientWidth/);
   assert.match(adminStationNavActions, /actions\.replaceChildren\(search, subActions, primary\)/);
+  assert.match(adminStationNavActions, /emailAction\.addEventListener\('click', \(\) => requestHeaderResultsShell\(shell, 'end-rail'\)\)/);
   assert.match(adminStationNavActions, /HeaderPrimaryActionPresentationPropertiesSchema\.safeParse\(properties\)/);
   assert.match(adminStationNavActions, /wex-admin-shell__nav-primary-action-image/);
   assert.match(adminStationNavActions, /primary:\s*\[\s*\['circle', \{ cx: '12', cy: '8\.25', r: '3\.25' \}\],\s*\['path', \{ d: 'M5\.25 20\.25a6\.75 6\.75 0 0 1 13\.5 0' \}\]/);

@@ -3,16 +3,19 @@
 ## Current operating status
 
 - Created: 2026-10-05
-- Last visited: 2026-10-19
-- Last updated: 2026-10-19
-- Verified source candidate on `codex/logo-property-binding` at
-  `dea09ca35a6c709f987924034cae432f6b81699f`. ADRs 0021–0023 define Header's
-  Brand compartment, Logo's shared render description, and the narrow
-  external-image property-binding boundary, including the Studio entry's
-  one-time serializable host input.
+- Last visited: 2026-10-23
+- Last updated: 2026-10-23
+- Verified against: Owner-authorised Header Results shell candidate on `main`.
+  ADRs 0021–0023 define Header's Brand compartment, Logo's shared render
+  description, and the narrow external-image property-binding boundary. ADR
+  0026 adds the Header-owned, content-empty Results shell and its structural
+  mode boundary.
 
 ### Recent work (newest first)
 
+- ADR 0026 adds a direct Header Results shell with `popover`, `full-span`, and
+  `end-rail` structural modes. It owns allocation only; mounted result
+  components own Skeleton Shimmer and all content states.
 - The Admin Station Header is a fixed 64px-high shell at every viewport. Its
   outer wrapper has no padding; the Brand compartment uses the established
   4px block and 16px inline token padding. The compact Header/Sidebar column
@@ -41,6 +44,7 @@ surface. It is navigation evidence; it does not restate their contracts.
 - [ADR 0021: Header Shell and Logo Component Authority](../decisions/0021-header-shell-and-logo-component-authority.md)
 - [ADR 0022: Logo Render Description Boundary](../decisions/0022-logo-render-description-boundary.md)
 - [ADR 0023: Logo Image Property Binding](../decisions/0023-logo-image-property-binding.md)
+- [ADR 0026: Header Results Shell Authority](../decisions/0026-header-results-shell-authority.md)
 - [Atomic Composition](../architecture/atomic-composition.md)
 - [Authority Model](../architecture/authority-model.md)
 - [Dependency Rules](../architecture/dependency-rules.md)
@@ -62,6 +66,10 @@ The Header shell and Logo boundaries and focused verification are:
 - Header WEX presentation foundation and focused proof:
   [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css),
   [`packages/wex/test/header-foundation.test.mjs`](../../packages/wex/test/header-foundation.test.mjs)
+- Header Results shell mode controller and navigation request mapping:
+  [`apps/web-runtime/src/admin-station-header-results.js`](../../apps/web-runtime/src/admin-station-header-results.js),
+  [`admin-station-nav-actions.js`](../../apps/web-runtime/src/admin-station-nav-actions.js), and
+  [`catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
 - Framework-neutral Logo contract and proof:
   [`packages/schemas/src/components/logo.schema.ts`](../../packages/schemas/src/components/logo.schema.ts),
   [`packages/schemas/test/foundation.test.mjs`](../../packages/schemas/test/foundation.test.mjs)
@@ -91,6 +99,8 @@ The Header shell and Logo boundaries and focused verification are:
 
 ```text
 Header shell              -> Admin Station + WEX
+Header Results allocation  -> Admin Station + WEX
+Result content/states      -> requesting result component
 Logo definition           -> @weerax/schemas
 Logo image binding        -> application/domain adapter
 Logo render description   -> @weerax/ui + @weerax/wex
@@ -98,9 +108,12 @@ Web materializer          -> platform DOM only
 Component Manager/Admin Station -> shared Logo description
 ```
 
-Header owns direct compartments only. Logo retains its internal presentation
-boundary. `WEXAMH` is an Admin Header allocation, not a reusable capability,
-and is never created through a local application ID.
+Header owns direct compartments only. Its main grid remains Brand on the left
+and Navigation on the right; Results is a direct overlay allocation whose
+approved modes are Header-owned. Logo and every mounted results component
+retain their internal presentation boundaries. `WEXAMH` is an Admin Header
+allocation, not a reusable capability, and is never created through a local
+application ID.
 
 ## Current layout rules
 
@@ -114,12 +127,18 @@ and is never created through a local application ID.
 - The Header grid keeps the tokenized 8px compartment gap. A future
   navigation or action child belongs to its own right-side compartment and
   must not be folded into Logo or Brand ownership.
+- Header Results may use only its accepted `popover`, `full-span`, or
+  `end-rail` structural allocation. It supplies no result content or loading
+  presentation.
 
 ## Safe change routing
 
-- Change Header shell ownership or Logo scope through ADR 0021.
+- Change Header shell ownership or Logo scope through ADR 0021; change Header
+  Results modes or boundaries through ADR 0026.
 - Change WEX values through WEX authority, not a Logo definition.
 - Add Header children only through separate authority; do not infer them.
+- Keep Skeleton Shimmer, empty, error, and interactive result elements in the
+  mounted component; do not reintroduce them into the Header shell.
 - Change Logo's structural render boundary through ADRs 0022 and 0023; do not
   extend the materializer beyond their narrow contract without separate
   authority.

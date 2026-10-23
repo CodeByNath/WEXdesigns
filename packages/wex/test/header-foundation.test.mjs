@@ -27,6 +27,10 @@ test('loads the Admin Header shell foundation and consumes accepted WEX allocati
   assert.match(brandRule[1], /padding-inline-start:\s*var\(--wex-space-16\);/);
   assert.match(header, /\.wex-admin-shell__navigation\s*\{[\s\S]*grid-column: 2;[\s\S]*gap: var\(--wex-space-8\);[\s\S]*padding-block: var\(--wex-space-4\);[\s\S]*padding-inline-end: var\(--wex-space-16\);/);
   assert.match(header, /\.wex-admin-shell__nav-actions\s*\{[\s\S]*position: relative;[\s\S]*z-index: 2;[\s\S]*display: flex;[\s\S]*flex: 0 1 auto;[\s\S]*gap: var\(--wex-space-8\);[\s\S]*margin-inline-start: auto;/);
+  assert.match(header, /\.wex-admin-shell__header-results\s*\{[\s\S]*position: absolute;[\s\S]*z-index: 3;[\s\S]*inset-block-start: 100%;[\s\S]*inset-inline-end: var\(--wex-space-16\);[\s\S]*max-block-size: calc\(100dvh - var\(--wex-admin-shell-header-size\)\);[\s\S]*overflow: auto;[\s\S]*border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);[\s\S]*background: var\(--wex-color-background-primary\);/);
+  assert.match(header, /\.wex-admin-shell__header-results\[data-header-results-mode="full-span"\]\s*\{[\s\S]*inset-inline: 0;[\s\S]*inline-size: auto;[\s\S]*border-radius: 0;/);
+  assert.match(header, /\.wex-admin-shell__header-results\[data-header-results-mode="end-rail"\]\s*\{[\s\S]*inset-block-start: 0;[\s\S]*inset-inline-end: 0;[\s\S]*inline-size: var\(--wex-admin-shell-sidebar-expanded\);[\s\S]*block-size: 100dvh;[\s\S]*max-block-size: 100dvh;[\s\S]*border-radius: 0;/);
+  assert.doesNotMatch(header, /skeleton|shimmer|loading|empty|error/i);
   assert.match(header, /\.wex-admin-shell__nav-primary-action\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*border-radius: 50%;/);
   assert.match(header, /\.wex-admin-shell__nav-primary-action:not\(:disabled\):active::after,[\s\S]*\.wex-admin-shell__nav-primary-action:focus::before\s*\{\s*border-radius: 50%;/);
   assert.match(header, /\.wex-admin-shell__nav-primary-action svg,[\s\S]*\.wex-admin-shell__nav-primary-action-image,[\s\S]*inline-size: var\(--wex-icon-size-20\);[\s\S]*block-size: var\(--wex-icon-size-20\);/);
@@ -66,5 +70,6 @@ test('uses the existing compact boundary for the Header Logo allocation', () => 
   assert.match(compact[1], /\.wex-admin-shell__location\s*\{\s*display: none;/);
   assert.match(compact[1], /\.wex-admin-shell__navigation\s*\{\s*padding-inline-start: calc\(var\(--wex-space-32\) \+ var\(--wex-space-16\)\);/);
   assert.match(compact[1], /\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__brand\s*\{\s*inline-size: min\(var\(--wex-admin-shell-sidebar-expanded\), calc\(100% - var\(--wex-admin-shell-sidebar-collapsed\)\)\);/);
+  assert.match(compact[1], /\.wex-admin-shell__header-results\[data-header-results-mode="end-rail"\]\s*\{\s*inline-size: 100%;/);
   assert.doesNotMatch(header, /(?:1024px|1440px)/);
 });

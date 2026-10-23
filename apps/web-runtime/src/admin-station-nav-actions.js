@@ -1,5 +1,7 @@
 import { HeaderPrimaryActionPresentationPropertiesSchema } from '@weerax/schemas';
 
+import { requestHeaderResultsShell } from './admin-station-header-results.js';
+
 const ICON_STROKE_WIDTH = '1.75';
 
 /** @typedef {'primary' | 'notification' | 'email' | 'moon' | 'search' | 'sun'} HeaderActionIconName */
@@ -186,5 +188,9 @@ export function mountHeaderNavActions(shell, options = {}) {
   const subActions = createSubActions(document);
   const search = createSearch(document);
   actions.replaceChildren(search, subActions, primary);
+  const emailAction = subActions.querySelector('[data-email-action]');
+  if (emailAction instanceof HTMLButtonElement) {
+    emailAction.addEventListener('click', () => requestHeaderResultsShell(shell, 'end-rail'));
+  }
   observeSearchAvailability(navigation, actions, location, search);
 }
