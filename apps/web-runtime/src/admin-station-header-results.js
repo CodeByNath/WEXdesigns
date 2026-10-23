@@ -11,7 +11,7 @@ const HEADER_RESULTS_REQUEST_EVENT = 'wex:header-results-request';
 
 /** @param {unknown} mode @returns {mode is HeaderResultsMode} */
 function isHeaderResultsMode(mode) {
-  return typeof mode === 'string' && HEADER_RESULTS_MODES.includes(mode);
+  return typeof mode === 'string' && HEADER_RESULTS_MODES.includes(/** @type {HeaderResultsMode} */ (mode));
 }
 
 /** @param {HTMLElement} shell */
