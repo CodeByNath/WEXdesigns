@@ -1,8 +1,15 @@
+.wex-admin-notifications__wrapper {
+  block-size: 100%;
+  padding: var(--wex-space-8);
+}
+
 .wex-admin-notifications {
+  box-sizing: border-box;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   block-size: 100%;
   overflow: hidden;
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   border-radius: var(--wex-radius-large);
   background: var(--wex-color-background-primary);
   color: var(--wex-color-text-primary);

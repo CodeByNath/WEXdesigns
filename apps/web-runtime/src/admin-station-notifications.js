@@ -243,7 +243,10 @@ export function mountHeaderNotifications(shell, trigger) {
   footer.append(viewAll);
 
   panel.append(header, list, footer);
-  results.replaceChildren(panel);
+  const wrapper = document.createElement('div');
+  wrapper.className = 'wex-admin-notifications__wrapper';
+  wrapper.append(panel);
+  results.replaceChildren(wrapper);
 
   /** @param {Notification} notification */
   const matchesFilter = (notification) => filter === 'all'
