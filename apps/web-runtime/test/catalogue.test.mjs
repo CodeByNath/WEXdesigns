@@ -237,6 +237,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /inlineSize: 'min\(calc\(var\(--wex-space-64\) \* 7\), 100%\)',/);
   assert.match(adminStationNotifications, /blockSize: 'min\(calc\(var\(--wex-space-64\) \* 8\), calc\(100dvh - var\(--wex-admin-shell-header-size\)\)\)',/);
   assert.match(adminStationNotifications, /Mark all read/);
+  assert.match(adminStationNotifications, /const closeOptions = \(\) => \{[\s\S]*options\.hidden = true;[\s\S]*more\.setAttribute\('aria-expanded', 'false'\);/);
+  assert.match(adminStationNotifications, /document\.addEventListener\('click', \(event\) => \{[\s\S]*headerActions\.contains\(event\.target\)[\s\S]*closeOptions\(\);/);
   assert.match(adminStationNotifications, /createNotificationIcon\(document, notification\.icon\)/);
   assert.match(adminStationNotifications, /createMoreIcon\(document\)/);
   assert.match(adminStationNotifications, /title\.className = 'wex-type-navigation-large-semibold';/);

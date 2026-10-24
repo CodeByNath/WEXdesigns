@@ -248,6 +248,11 @@ export function mountHeaderNotifications(shell, trigger) {
   wrapper.append(panel);
   results.replaceChildren(wrapper);
 
+  const closeOptions = () => {
+    options.hidden = true;
+    more.setAttribute('aria-expanded', 'false');
+  };
+
   /** @param {Notification} notification */
   const matchesFilter = (notification) => filter === 'all'
     || (filter === 'unread' && notification.unread)
@@ -318,13 +323,16 @@ export function mountHeaderNotifications(shell, trigger) {
 
   markAllRead.addEventListener('click', () => {
     notifications.forEach((notification) => { notification.unread = false; });
-    options.hidden = true;
-    more.setAttribute('aria-expanded', 'false');
+    closeOptions();
     render();
   });
   more.addEventListener('click', () => {
     options.hidden = !options.hidden;
     more.setAttribute('aria-expanded', String(!options.hidden));
+  });
+  document.addEventListener('click', (event) => {
+    if (options.hidden || !(event.target instanceof Node) || headerActions.contains(event.target)) return;
+    closeOptions();
   });
   filters.addEventListener('click', (event) => {
     const button = event.target instanceof Element
