@@ -64,9 +64,9 @@ export function closeHeaderResultsShell(shell) {
 }
 
 /**
- * Mounts the Header Results shell boundary. A requesting component selects an
- * approved structural mode; this shell never supplies result content or its
- * loading, empty, error, or element-level states.
+ * Mounts the Header Results shell boundary. A requesting component supplies
+ * its identity and optional dimensions; this shell never supplies result
+ * content, content state, or element-level behaviour.
  * @param {HTMLElement} shell
  */
 export function mountHeaderResultsShell(shell) {

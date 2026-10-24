@@ -1,8 +1,10 @@
 import { HeaderPrimaryActionPresentationPropertiesSchema } from '@weerax/schemas';
 
+import { mountHeaderNotifications } from './admin-station-notifications.js';
+
 const ICON_STROKE_WIDTH = '1.75';
 
-/** @typedef {'primary' | 'notification' | 'email' | 'moon' | 'search' | 'sun'} HeaderActionIconName */
+/** @typedef {'primary' | 'notification' | 'moon' | 'search' | 'sun'} HeaderActionIconName */
 
 /** @type {Record<HeaderActionIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const iconShapes = {
@@ -13,10 +15,6 @@ const iconShapes = {
   notification: [
     ['path', { d: 'M18 8.25a6 6 0 0 0-12 0c0 7-3 7-3 9.75h18C21 15.25 18 15.25 18 8.25Z' }],
     ['path', { d: 'M14.25 21a2.5 2.5 0 0 1-4.5 0' }],
-  ],
-  email: [
-    ['path', { d: 'M3.75 6.75h16.5v10.5H3.75z' }],
-    ['path', { d: 'm3.75 7.5 8.25 5.25 8.25-5.25' }],
   ],
   moon: [
     ['path', { d: 'M20.25 14.25A8.25 8.25 0 0 1 9.75 3.75 8.25 8.25 0 1 0 20.25 14.25Z' }],
@@ -113,7 +111,6 @@ function createSubActions(document) {
   );
   navigation.append(
     theme,
-    createSubAction('email', 'Email', 'emailAction'),
     createSubAction('notification', 'Notifications', 'notificationsAction'),
   );
   return navigation;
@@ -186,5 +183,7 @@ export function mountHeaderNavActions(shell, options = {}) {
   const subActions = createSubActions(document);
   const search = createSearch(document);
   actions.replaceChildren(search, subActions, primary);
+  const notificationsAction = subActions.querySelector('[data-notifications-action]');
+  if (notificationsAction instanceof HTMLButtonElement) mountHeaderNotifications(shell, notificationsAction);
   observeSearchAvailability(navigation, actions, location, search);
 }
