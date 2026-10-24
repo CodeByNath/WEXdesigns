@@ -111,9 +111,11 @@
 
 /* End rail is fitted to the Header's right edge and owns the available window height. */
 .wex-admin-shell__header-results[data-header-results-mode="end-rail"] {
-  inset-block: var(--wex-admin-shell-header-size) 0;
+  inset-block-start: var(--wex-admin-shell-header-size);
   inset-inline-end: 0;
   inline-size: var(--wex-admin-shell-sidebar-expanded);
+  block-size: calc(100dvh - var(--wex-admin-shell-header-size));
+  max-block-size: calc(100dvh - var(--wex-admin-shell-header-size));
   border-radius: 0;
 }
 
