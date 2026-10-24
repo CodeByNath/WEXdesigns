@@ -40,9 +40,9 @@
   flex: 0 0 auto;
   padding-block: var(--wex-space-4);
   padding-inline: var(--wex-space-12);
-  border-radius: var(--wex-radius-large);
-  background: var(--wex-color-surface-selected);
-  color: var(--wex-color-text-accent);
+  border-radius: 50%;
+  background: var(--wex-color-background-accent);
+  color: var(--wex-color-on-accent);
 }
 
 .wex-admin-notifications__header-actions {

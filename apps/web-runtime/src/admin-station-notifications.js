@@ -188,7 +188,7 @@ export function mountHeaderNotifications(shell, trigger) {
   title.id = 'wex-admin-notifications-title';
   title.className = 'wex-type-navigation-large-semibold';
   title.textContent = 'Notifications';
-  const count = element(document, '', 'wex-admin-notifications__count wex-type-navigation-default-semibold');
+  const count = element(document, '', 'wex-admin-notifications__count wex-type-navigation-small-semibold');
   heading.append(title, count);
 
   const headerActions = document.createElement('div');
