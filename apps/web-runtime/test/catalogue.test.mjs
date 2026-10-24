@@ -237,6 +237,9 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /inlineSize: 'min\(calc\(var\(--wex-space-64\) \* 7\), 100%\)',/);
   assert.match(adminStationNotifications, /blockSize: 'min\(calc\(var\(--wex-space-64\) \* 8\), calc\(100dvh - var\(--wex-admin-shell-header-size\)\)\)',/);
   assert.match(adminStationNotifications, /Mark all read/);
+  assert.match(adminStationNotifications, /createNotificationIcon\(document, notification\.icon\)/);
+  assert.match(adminStationNotifications, /createMoreIcon\(document\)/);
+  assert.match(adminStationNotifications, /header\.append\(heading, headerActions, filters\);/);
   assert.match(adminStationNotifications, /Action required/);
   assert.match(adminStationNotifications, /View all notifications/);
   assert.match(adminStationNotifications, /requestHeaderResultsShell\(shell,/);
@@ -244,6 +247,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /var\(--wex-color-background-primary\)/);
   assert.match(adminStationNotificationsCss, /var\(--wex-color-surface-selected\)/);
   assert.match(adminStationNotificationsCss, /var\(--wex-space-16\)/);
+  assert.match(adminStationNotificationsCss, /grid-template-columns: var\(--wex-space-48\) minmax\(0, 1fr\) auto;/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__filter\[aria-pressed="true"\]/);
   assert.doesNotMatch(adminStationNotificationsCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNavActions, /HeaderPrimaryActionPresentationPropertiesSchema\.safeParse\(properties\)/);
   assert.match(adminStationNavActions, /wex-admin-shell__nav-primary-action-image/);
