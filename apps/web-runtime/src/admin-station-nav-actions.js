@@ -190,6 +190,7 @@ export function mountHeaderNavActions(shell, options = {}) {
   actions.replaceChildren(search, subActions, primary);
   const emailAction = subActions.querySelector('[data-email-action]');
   if (emailAction instanceof HTMLButtonElement) {
+    emailAction.dataset.headerResultsTrigger = '';
     emailAction.addEventListener('click', () => requestHeaderResultsShell(shell, 'end-rail'));
   }
   observeSearchAvailability(navigation, actions, location, search);

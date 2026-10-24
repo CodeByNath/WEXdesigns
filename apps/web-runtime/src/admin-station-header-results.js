@@ -58,6 +58,15 @@ export function mountHeaderResultsShell(shell) {
     if (!(event instanceof CustomEvent)) return;
     openHeaderResultsShell(shell, event.detail?.mode);
   });
+
+  shell.ownerDocument.addEventListener('click', (event) => {
+    if (results.hidden || !(event.target instanceof Node) || results.contains(event.target)) return;
+    const trigger = event.target instanceof Element
+      ? event.target.closest('[data-header-results-trigger]')
+      : null;
+    if (trigger instanceof HTMLElement && shell.contains(trigger)) return;
+    closeHeaderResultsShell(shell);
+  });
 }
 
 /**
@@ -67,5 +76,11 @@ export function mountHeaderResultsShell(shell) {
  * @param {HeaderResultsMode} mode
  */
 export function requestHeaderResultsShell(shell, mode) {
+  const results = resultsShell(shell);
+  if (!results || !isHeaderResultsMode(mode)) return false;
+  if (!results.hidden && results.dataset.headerResultsMode === mode) {
+    return closeHeaderResultsShell(shell);
+  }
   shell.dispatchEvent(new CustomEvent(HEADER_RESULTS_REQUEST_EVENT, { detail: { mode } }));
+  return true;
 }

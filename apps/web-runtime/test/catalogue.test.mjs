@@ -205,6 +205,9 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationHeaderResults, /results\.hidden = false;/);
   assert.match(adminStationHeaderResults, /results\.hidden = true;/);
   assert.match(adminStationHeaderResults, /wex:header-results-request/);
+  assert.match(adminStationHeaderResults, /shell\.ownerDocument\.addEventListener\('click', \(event\) => \{/);
+  assert.match(adminStationHeaderResults, /event\.target\.closest\('\[data-header-results-trigger\]'\)/);
+  assert.match(adminStationHeaderResults, /if \(!results\.hidden && results\.dataset\.headerResultsMode === mode\) \{[\s\S]*return closeHeaderResultsShell\(shell\);/);
   assert.doesNotMatch(adminStationHeaderResults, /createElement|append\(|replaceChildren|innerHTML/);
   assert.match(adminStationNavActions, /Mounts the Header's right-side navigation actions as one three-region component/);
   assert.match(adminStationNavActions, /theme\.dataset\.themeToggle/);
@@ -216,6 +219,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNavActions, /createIcon\(document, 'sun'/);
   assert.match(adminStationNavActions, /searchBounds\.right > navigationBounds\.right[\s\S]*location\.scrollWidth > location\.clientWidth/);
   assert.match(adminStationNavActions, /actions\.replaceChildren\(search, subActions, primary\)/);
+  assert.match(adminStationNavActions, /emailAction\.dataset\.headerResultsTrigger = '';/);
   assert.match(adminStationNavActions, /emailAction\.addEventListener\('click', \(\) => requestHeaderResultsShell\(shell, 'end-rail'\)\)/);
   assert.match(adminStationNavActions, /HeaderPrimaryActionPresentationPropertiesSchema\.safeParse\(properties\)/);
   assert.match(adminStationNavActions, /wex-admin-shell__nav-primary-action-image/);
