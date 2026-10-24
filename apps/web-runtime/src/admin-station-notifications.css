@@ -104,6 +104,16 @@
   color: var(--wex-color-text-primary);
 }
 
+.wex-button.wex-admin-notifications__filter:not(:disabled):active {
+  background-color: transparent;
+  color: var(--wex-color-text-primary);
+}
+
+.wex-button.wex-admin-notifications__filter[aria-pressed="true"]:not(:disabled):active {
+  background-color: var(--wex-color-surface-selected);
+  color: var(--wex-color-text-primary);
+}
+
 .wex-admin-notifications__filter:not(:disabled):active::after,
 .wex-admin-notifications__filter:focus::after {
   border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
