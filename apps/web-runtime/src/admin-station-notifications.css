@@ -99,6 +99,11 @@
   color: var(--wex-color-text-primary);
 }
 
+.wex-button.wex-admin-notifications__filter[aria-pressed="true"]:hover:not(:focus) {
+  background-color: var(--wex-color-surface-selected);
+  color: var(--wex-color-text-primary);
+}
+
 .wex-admin-notifications__filter:not(:disabled):active::after,
 .wex-admin-notifications__filter:focus::after {
   border-radius: calc(var(--wex-radius-large) - var(--wex-border-width-default));
