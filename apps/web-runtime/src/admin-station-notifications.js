@@ -195,7 +195,7 @@ export function mountHeaderNotifications(shell, trigger) {
   headerActions.className = 'wex-admin-notifications__header-actions';
   const more = document.createElement('button');
   more.type = 'button';
-  more.className = 'wex-button wex-button--small wex-button--neutral wex-admin-notifications__more';
+  more.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action wex-admin-notifications__more';
   more.setAttribute('aria-label', 'Notification options');
   more.setAttribute('aria-expanded', 'false');
   more.append(createMoreIcon(document));
@@ -238,7 +238,7 @@ export function mountHeaderNotifications(shell, trigger) {
   footer.className = 'wex-admin-notifications__footer';
   const viewAll = document.createElement('button');
   viewAll.type = 'button';
-  viewAll.className = 'wex-button wex-button--default wex-button--subtle';
+  viewAll.className = 'wex-button wex-button--small wex-button--subtle';
   viewAll.textContent = 'View all notifications';
   footer.append(viewAll);
 

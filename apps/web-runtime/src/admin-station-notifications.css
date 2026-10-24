@@ -58,8 +58,8 @@
 }
 
 .wex-admin-notifications__more svg {
-  inline-size: var(--wex-space-24);
-  block-size: var(--wex-space-24);
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
 }
 
 .wex-admin-notifications__options {
@@ -85,8 +85,18 @@
 }
 
 .wex-admin-notifications__filter[aria-pressed="true"] {
-  background-color: var(--wex-color-background-primary);
-  color: var(--wex-color-text-accent);
+  background-color: var(--wex-color-surface-selected);
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-notifications__filter:not(:disabled):active::after,
+.wex-admin-notifications__filter:focus::after {
+  border-radius: calc(var(--wex-radius-large) - var(--wex-border-width-default));
+}
+
+.wex-admin-notifications__filter:not(:disabled):active::before,
+.wex-admin-notifications__filter:focus::before {
+  border-radius: calc(var(--wex-radius-large) - var(--wex-outer-ring-width));
 }
 
 .wex-admin-notifications__list {
@@ -168,9 +178,4 @@
   padding: var(--wex-space-12) var(--wex-space-16);
   border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-background-primary);
-}
-
-.wex-admin-notifications :focus-visible {
-  outline: var(--wex-focus-width) solid var(--wex-color-focus);
-  outline-offset: var(--wex-outer-ring-gap);
 }
