@@ -81,42 +81,27 @@
   margin-inline-start: auto;
 }
 
-/* Header owns only this result-window allocation; a mounted component owns its content and states. */
+/*
+ * The Header supplies only a stable anchor directly beneath itself. A requesting
+ * component owns the result surface, including whether it needs one at all and
+ * its requested inline/block dimensions.
+ */
 .wex-admin-shell__header-results {
   position: absolute;
   z-index: 3;
   inset-block-start: 100%;
-  inset-inline-end: var(--wex-space-16);
+  inset-inline-end: 0;
   box-sizing: border-box;
-  inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-space-16) - var(--wex-space-16)));
+  inline-size: var(--wex-admin-shell-header-results-inline-size, auto);
+  block-size: var(--wex-admin-shell-header-results-block-size, auto);
   min-inline-size: 0;
+  max-inline-size: 100%;
   max-block-size: calc(100dvh - var(--wex-admin-shell-header-size));
   overflow: auto;
-  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  border-radius: var(--wex-radius-large);
-  background: var(--wex-color-background-primary);
-  color: var(--wex-color-text-primary);
 }
 
 .wex-admin-shell__header-results[hidden] {
   display: none;
-}
-
-/* Full span is a Header structural mode, not a component scale or density value. */
-.wex-admin-shell__header-results[data-header-results-mode="full-span"] {
-  inset-inline: 0;
-  inline-size: auto;
-  border-radius: 0;
-}
-
-/* End rail is fitted to the Header's right edge and owns the available window height. */
-.wex-admin-shell__header-results[data-header-results-mode="end-rail"] {
-  inset-block-start: var(--wex-admin-shell-header-size);
-  inset-inline-end: 0;
-  inline-size: var(--wex-admin-shell-sidebar-expanded);
-  block-size: calc(100dvh - var(--wex-admin-shell-header-size));
-  max-block-size: calc(100dvh - var(--wex-admin-shell-header-size));
-  border-radius: 0;
 }
 
 .wex-admin-shell__nav-primary-action {
@@ -298,7 +283,4 @@
     inline-size: min(var(--wex-admin-shell-sidebar-expanded), calc(100% - var(--wex-admin-shell-sidebar-collapsed)));
   }
 
-  .wex-admin-shell__header-results[data-header-results-mode="end-rail"] {
-    inline-size: 100%;
-  }
 }

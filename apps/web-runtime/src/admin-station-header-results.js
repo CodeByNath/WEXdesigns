@@ -1,17 +1,23 @@
-/** @typedef {'popover' | 'full-span' | 'end-rail'} HeaderResultsMode */
-
-/** @type {ReadonlyArray<HeaderResultsMode>} */
-export const HEADER_RESULTS_MODES = Object.freeze([
-  'popover',
-  'full-span',
-  'end-rail',
-]);
+/**
+ * @typedef {{
+ *   owner: string,
+ *   inlineSize?: string,
+ *   blockSize?: string,
+ * }} HeaderResultsRequest
+ */
 
 const HEADER_RESULTS_REQUEST_EVENT = 'wex:header-results-request';
+const HEADER_RESULTS_INLINE_SIZE_PROPERTY = '--wex-admin-shell-header-results-inline-size';
+const HEADER_RESULTS_BLOCK_SIZE_PROPERTY = '--wex-admin-shell-header-results-block-size';
 
-/** @param {unknown} mode @returns {mode is HeaderResultsMode} */
-function isHeaderResultsMode(mode) {
-  return typeof mode === 'string' && HEADER_RESULTS_MODES.includes(/** @type {HeaderResultsMode} */ (mode));
+/** @param {unknown} request @returns {request is HeaderResultsRequest} */
+function isHeaderResultsRequest(request) {
+  if (typeof request !== 'object' || request === null) return false;
+  const candidate = /** @type {Record<string, unknown>} */ (request);
+  return typeof candidate.owner === 'string'
+    && candidate.owner.length > 0
+    && (candidate.inlineSize === undefined || typeof candidate.inlineSize === 'string')
+    && (candidate.blockSize === undefined || typeof candidate.blockSize === 'string');
 }
 
 /** @param {HTMLElement} shell */
@@ -21,16 +27,26 @@ function resultsShell(shell) {
 }
 
 /**
- * Opens the Header-owned results compartment in one approved structural mode.
- * Content mounting and every content state belong to the requesting component.
+ * Opens the Header-owned anchor requested by one component. Content mounting,
+ * content state, and requested dimensions belong to that component.
  * @param {HTMLElement} shell
- * @param {unknown} mode
+ * @param {unknown} request
  */
-export function openHeaderResultsShell(shell, mode) {
+export function openHeaderResultsShell(shell, request) {
   const results = resultsShell(shell);
-  if (!results || !isHeaderResultsMode(mode)) return false;
+  if (!results || !isHeaderResultsRequest(request)) return false;
 
-  results.dataset.headerResultsMode = mode;
+  results.dataset.headerResultsOwner = request.owner;
+  if (request.inlineSize) {
+    results.style.setProperty(HEADER_RESULTS_INLINE_SIZE_PROPERTY, request.inlineSize);
+  } else {
+    results.style.removeProperty(HEADER_RESULTS_INLINE_SIZE_PROPERTY);
+  }
+  if (request.blockSize) {
+    results.style.setProperty(HEADER_RESULTS_BLOCK_SIZE_PROPERTY, request.blockSize);
+  } else {
+    results.style.removeProperty(HEADER_RESULTS_BLOCK_SIZE_PROPERTY);
+  }
   results.hidden = false;
   return true;
 }
@@ -40,6 +56,9 @@ export function closeHeaderResultsShell(shell) {
   const results = resultsShell(shell);
   if (!results) return false;
 
+  delete results.dataset.headerResultsOwner;
+  results.style.removeProperty(HEADER_RESULTS_INLINE_SIZE_PROPERTY);
+  results.style.removeProperty(HEADER_RESULTS_BLOCK_SIZE_PROPERTY);
   results.hidden = true;
   return true;
 }
@@ -56,7 +75,7 @@ export function mountHeaderResultsShell(shell) {
 
   shell.addEventListener(HEADER_RESULTS_REQUEST_EVENT, (event) => {
     if (!(event instanceof CustomEvent)) return;
-    openHeaderResultsShell(shell, event.detail?.mode);
+    openHeaderResultsShell(shell, event.detail);
   });
 
   shell.ownerDocument.addEventListener('click', (event) => {
@@ -70,17 +89,21 @@ export function mountHeaderResultsShell(shell) {
 }
 
 /**
- * Requests a Header Results mode without coupling the requesting component to
- * the shell's DOM or presentation details.
+ * Requests the Header Results anchor without coupling a component to its DOM.
+ * The optional trigger identifies the action as inside the shell boundary for
+ * the click that opened it. An action without a results surface simply does
+ * not call this function.
  * @param {HTMLElement} shell
- * @param {HeaderResultsMode} mode
+ * @param {HeaderResultsRequest} request
+ * @param {HTMLElement} [trigger]
  */
-export function requestHeaderResultsShell(shell, mode) {
+export function requestHeaderResultsShell(shell, request, trigger) {
   const results = resultsShell(shell);
-  if (!results || !isHeaderResultsMode(mode)) return false;
-  if (!results.hidden && results.dataset.headerResultsMode === mode) {
+  if (!results || !isHeaderResultsRequest(request)) return false;
+  if (trigger && shell.contains(trigger)) trigger.dataset.headerResultsTrigger = '';
+  if (!results.hidden && results.dataset.headerResultsOwner === request.owner) {
     return closeHeaderResultsShell(shell);
   }
-  shell.dispatchEvent(new CustomEvent(HEADER_RESULTS_REQUEST_EVENT, { detail: { mode } }));
+  shell.dispatchEvent(new CustomEvent(HEADER_RESULTS_REQUEST_EVENT, { detail: request }));
   return true;
 }
