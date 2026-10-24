@@ -84,7 +84,7 @@
 .wex-admin-notifications__filter {
   flex: 0 0 auto;
   border-color: transparent;
-  border-radius: var(--wex-radius-large);
+  border-radius: var(--wex-radius-default);
   background-color: transparent;
   color: var(--wex-color-text-primary);
 }
@@ -106,12 +106,12 @@
 
 .wex-admin-notifications__filter:not(:disabled):active::after,
 .wex-admin-notifications__filter:focus::after {
-  border-radius: calc(var(--wex-radius-large) - var(--wex-border-width-default));
+  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
 }
 
 .wex-admin-notifications__filter:not(:disabled):active::before,
 .wex-admin-notifications__filter:focus::before {
-  border-radius: calc(var(--wex-radius-large) - var(--wex-outer-ring-width));
+  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-width));
 }
 
 .wex-admin-notifications__list {
