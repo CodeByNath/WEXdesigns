@@ -239,7 +239,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /Mark all read/);
   assert.match(adminStationNotifications, /createNotificationIcon\(document, notification\.icon\)/);
   assert.match(adminStationNotifications, /createMoreIcon\(document\)/);
-  assert.match(adminStationNotifications, /title\.className = 'wex-type-title-small-semibold';/);
+  assert.match(adminStationNotifications, /title\.className = 'wex-type-navigation-large-semibold';/);
   assert.match(adminStationNotifications, /header\.append\(heading, headerActions, filters\);/);
   assert.match(adminStationNotifications, /wrapper\.className = 'wex-admin-notifications__wrapper';/);
   assert.match(adminStationNotifications, /Action required/);
