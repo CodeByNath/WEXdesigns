@@ -214,10 +214,7 @@
 }
 
 .wex-admin-notifications__content h3 {
-  display: flex;
-  align-items: center;
   flex-basis: 100%;
-  gap: var(--wex-space-8);
 }
 
 .wex-admin-notifications__description,
@@ -281,11 +278,11 @@
 }
 
 .wex-admin-notifications__unread-indicator {
-  align-self: flex-start;
-  flex: 0 0 auto;
+  float: inline-start;
   inline-size: var(--wex-space-8);
   block-size: var(--wex-space-8);
   margin-block-start: calc(var(--wex-space-4) + var(--wex-space-2));
+  margin-inline-end: var(--wex-space-8);
   border-radius: 50%;
   background: var(--wex-color-background-accent);
 }
