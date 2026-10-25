@@ -189,12 +189,6 @@
   block-size: var(--wex-icon-size-20);
 }
 
-.wex-admin-notifications__action-icon {
-  inline-size: var(--wex-icon-size-component-default);
-  block-size: var(--wex-icon-size-component-default);
-  color: var(--wex-color-icon-primary);
-}
-
 .wex-admin-notifications__content {
   display: grid;
   justify-items: start;
@@ -205,6 +199,14 @@
 .wex-admin-notifications__description,
 .wex-admin-notifications__time {
   color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-notifications__item-action {
+  --wex-button-neutral-background-default: var(--wex-color-background-secondary);
+}
+
+.wex-admin-notifications__item[data-unread="true"] .wex-admin-notifications__item-action {
+  --wex-button-neutral-background-default: var(--wex-color-background-primary);
 }
 
 .wex-admin-notifications__meta {

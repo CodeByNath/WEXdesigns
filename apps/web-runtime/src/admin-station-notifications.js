@@ -154,24 +154,6 @@ function createNotificationIcon(document, name) {
   return visual;
 }
 
-// Heroicons 24/outline arrow-right, MIT License, Copyright (c) Tailwind Labs, Inc.
-/** @param {Document} document */
-function createArrowRightIcon(document) {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.classList.add('wex-admin-notifications__action-icon');
-  svg.setAttribute('aria-hidden', 'true');
-  svg.setAttribute('viewBox', '0 0 24 24');
-  svg.setAttribute('fill', 'none');
-  svg.setAttribute('stroke', 'currentColor');
-  svg.setAttribute('stroke-width', '1.5');
-  svg.setAttribute('stroke-linecap', 'round');
-  svg.setAttribute('stroke-linejoin', 'round');
-  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  path.setAttribute('d', 'M19.5 12h-15m15 0-6.75 6.75M19.5 12l-6.75-6.75');
-  svg.append(path);
-  return svg;
-}
-
 /** @param {Document} document */
 function createMoreIcon(document) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -352,9 +334,9 @@ export function mountHeaderNotifications(shell, trigger) {
       if (notification.actionLabel) {
         const action = document.createElement('button');
         action.type = 'button';
-        action.className = 'wex-button wex-button--small wex-button--subtle';
+        action.className = 'wex-button wex-button--small wex-button--neutral wex-admin-notifications__item-action';
         action.dataset.notificationAction = notification.id;
-        action.append(notification.actionLabel, createArrowRightIcon(document));
+        action.textContent = notification.actionLabel;
         content.append(action);
       }
 
