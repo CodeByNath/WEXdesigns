@@ -14,7 +14,6 @@ const NOTIFICATIONS_OWNER = 'notifications';
  *   sortIndex: number,
  *   unread: boolean,
  *   actionRequired: boolean,
- *   actionLabel?: string,
  * }} Notification
  */
 
@@ -39,7 +38,6 @@ const notificationFixture = Object.freeze([
     sortIndex: 6,
     unread: true,
     actionRequired: true,
-    actionLabel: 'Review booking',
   },
   {
     id: 'booking-confirmed',
@@ -70,7 +68,6 @@ const notificationFixture = Object.freeze([
     sortIndex: 4,
     unread: true,
     actionRequired: true,
-    actionLabel: 'Resolve now',
   },
   {
     id: 'enquiry',
@@ -81,7 +78,6 @@ const notificationFixture = Object.freeze([
     sortIndex: 3,
     unread: false,
     actionRequired: true,
-    actionLabel: 'View enquiry',
   },
   {
     id: 'proposal',
@@ -92,7 +88,6 @@ const notificationFixture = Object.freeze([
     sortIndex: 1,
     unread: false,
     actionRequired: true,
-    actionLabel: 'View task',
   },
 ]);
 
@@ -194,6 +189,8 @@ export function mountHeaderNotifications(shell, trigger) {
   const notifications = notificationFixture.map((notification) => ({ ...notification }));
   let filter = 'all';
   let sort = 'newest';
+  /** @type {string | null} */
+  let openItemMenuId = null;
 
   const panel = document.createElement('section');
   panel.className = 'wex-admin-notifications';
@@ -331,24 +328,39 @@ export function mountHeaderNotifications(shell, trigger) {
       description.textContent = notification.description;
       content.append(notificationTitle, description);
 
-      if (notification.actionLabel) {
-        const action = document.createElement('button');
-        action.type = 'button';
-        action.className = 'wex-button wex-button--small wex-button--neutral wex-admin-notifications__item-action';
-        action.dataset.notificationAction = notification.id;
-        action.textContent = notification.actionLabel;
-        content.append(action);
-      }
-
       const meta = document.createElement('div');
       meta.className = 'wex-admin-notifications__meta';
-      meta.append(element(document, notification.time, 'wex-admin-notifications__time wex-type-body-small-regular'));
+      const timeRow = document.createElement('div');
+      timeRow.className = 'wex-admin-notifications__time-row';
+      timeRow.append(element(document, notification.time, 'wex-admin-notifications__time wex-type-body-small-regular'));
       if (notification.unread) {
         const indicator = document.createElement('span');
         indicator.className = 'wex-admin-notifications__unread-indicator';
         indicator.setAttribute('aria-label', 'Unread');
-        meta.append(indicator);
+        timeRow.append(indicator);
       }
+      const itemMenu = document.createElement('div');
+      itemMenu.className = 'wex-admin-notifications__item-menu';
+      const itemMenuToggle = document.createElement('button');
+      itemMenuToggle.type = 'button';
+      itemMenuToggle.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__item-menu-toggle';
+      itemMenuToggle.dataset.notificationItemMenuToggle = notification.id;
+      itemMenuToggle.setAttribute('aria-label', `Notification actions for ${notification.title}`);
+      itemMenuToggle.setAttribute('aria-expanded', String(openItemMenuId === notification.id));
+      itemMenuToggle.append(createMoreIcon(document));
+      const itemMenuOptions = document.createElement('div');
+      itemMenuOptions.className = 'wex-admin-notifications__item-menu-options';
+      itemMenuOptions.dataset.notificationItemMenu = notification.id;
+      itemMenuOptions.hidden = openItemMenuId !== notification.id;
+      const view = createNotificationOption(document, 'View');
+      view.dataset.notificationItemAction = 'view';
+      view.dataset.notificationId = notification.id;
+      const readState = createNotificationOption(document, notification.unread ? 'Read' : 'Unread');
+      readState.dataset.notificationItemAction = notification.unread ? 'read' : 'unread';
+      readState.dataset.notificationId = notification.id;
+      itemMenuOptions.append(view, readState);
+      itemMenu.append(itemMenuToggle, itemMenuOptions);
+      meta.append(timeRow, itemMenu);
 
       item.append(content, meta);
       list.append(item);
@@ -374,8 +386,12 @@ export function mountHeaderNotifications(shell, trigger) {
     render();
   });
   document.addEventListener('click', (event) => {
-    if (options.hidden || !(event.target instanceof Node) || headerActions.contains(event.target)) return;
-    closeOptions();
+    if (event.target instanceof Node && !headerActions.contains(event.target)) closeOptions();
+    const target = event.target instanceof Element ? event.target : null;
+    if (openItemMenuId !== null && !target?.closest('[data-notification-item-menu]')) {
+      openItemMenuId = null;
+      render();
+    }
   });
   filters.addEventListener('click', (event) => {
     const button = event.target instanceof Element
@@ -387,12 +403,21 @@ export function mountHeaderNotifications(shell, trigger) {
   });
   list.addEventListener('click', (event) => {
     const button = event.target instanceof Element
-      ? event.target.closest('[data-notification-action]')
+      ? event.target.closest('button')
       : null;
     if (!(button instanceof HTMLButtonElement)) return;
-    const notification = notifications.find((entry) => entry.id === button.dataset.notificationAction);
+    const menuId = button.dataset.notificationItemMenuToggle;
+    if (menuId) {
+      openItemMenuId = openItemMenuId === menuId ? null : menuId;
+      render();
+      return;
+    }
+    const action = button.dataset.notificationItemAction;
+    if (!action) return;
+    const notification = notifications.find((entry) => entry.id === button.dataset.notificationId);
     if (!notification) return;
-    notification.unread = false;
+    notification.unread = action === 'unread';
+    openItemMenuId = null;
     render();
   });
   close.addEventListener('click', () => { closeHeaderResultsShell(shell); });

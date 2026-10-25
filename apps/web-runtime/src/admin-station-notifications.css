@@ -25,7 +25,7 @@
 
 .wex-admin-notifications__heading,
 .wex-admin-notifications__header-actions,
-.wex-admin-notifications__meta {
+.wex-admin-notifications__time-row {
   display: flex;
   align-items: center;
 }
@@ -197,9 +197,48 @@
 }
 
 .wex-admin-notifications__meta {
+  display: grid;
+  justify-items: end;
   align-self: start;
   gap: var(--wex-space-8);
   padding-block-start: var(--wex-space-4);
+}
+
+.wex-admin-notifications__time-row {
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-notifications__item-menu {
+  position: relative;
+}
+
+.wex-admin-notifications__item-menu-toggle {
+  inline-size: var(--wex-space-24);
+  min-block-size: var(--wex-space-24);
+  padding: var(--wex-space-4);
+}
+
+.wex-admin-notifications__item-menu-toggle svg {
+  inline-size: var(--wex-icon-size-16);
+  block-size: var(--wex-icon-size-16);
+}
+
+.wex-admin-notifications__item-menu-options {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  gap: var(--wex-space-4);
+  inset-block-start: calc(100% + var(--wex-space-4));
+  inset-inline-end: 0;
+  inline-size: max-content;
+  padding: var(--wex-space-4);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-default);
+  background: var(--wex-color-background-primary);
+}
+
+.wex-admin-notifications__item-menu-options[hidden] {
+  display: none;
 }
 
 .wex-admin-notifications__unread-indicator {
