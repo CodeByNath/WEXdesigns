@@ -402,6 +402,7 @@ export function mountHeaderNotifications(shell, trigger) {
     render();
   });
   list.addEventListener('click', (event) => {
+    event.stopPropagation();
     const button = event.target instanceof Element
       ? event.target.closest('button')
       : null;

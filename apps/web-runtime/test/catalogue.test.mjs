@@ -262,6 +262,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /const view = createNotificationOption\(document, 'View'\);/);
   assert.match(adminStationNotifications, /const readState = createNotificationOption\(document, notification\.unread \? 'Read' : 'Unread'\);/);
   assert.match(adminStationNotifications, /notification\.unread = action === 'unread';/);
+  assert.match(adminStationNotifications, /list\.addEventListener\('click', \(event\) => \{\s*event\.stopPropagation\(\);/);
   assert.doesNotMatch(adminStationNotifications, /viewAll/);
   assert.match(adminStationNotifications, /header\.append\(heading, headerActions, filters\);/);
   assert.match(adminStationNotifications, /wrapper\.className = 'wex-admin-notifications__wrapper';/);
