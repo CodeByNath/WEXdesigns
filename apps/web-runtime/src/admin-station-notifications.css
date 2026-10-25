@@ -185,13 +185,14 @@
 }
 
 .wex-admin-notifications__icon-svg {
-  inline-size: var(--wex-icon-size-component-default);
-  block-size: var(--wex-icon-size-component-default);
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
 }
 
 .wex-admin-notifications__action-icon {
   inline-size: var(--wex-icon-size-component-default);
   block-size: var(--wex-icon-size-component-default);
+  color: var(--wex-color-icon-primary);
 }
 
 .wex-admin-notifications__content {
@@ -232,10 +233,4 @@
   padding: var(--wex-space-12) var(--wex-space-16);
   border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-background-primary);
-}
-
-.wex-admin-notifications__footer-action {
-  --wex-button-foreground-default: var(--wex-color-text-primary);
-  --wex-button-foreground-hover: var(--wex-color-text-primary);
-  --wex-button-foreground-pressed: var(--wex-color-text-primary);
 }

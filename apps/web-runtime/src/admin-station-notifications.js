@@ -277,11 +277,11 @@ export function mountHeaderNotifications(shell, trigger) {
   footer.className = 'wex-admin-notifications__footer';
   const close = document.createElement('button');
   close.type = 'button';
-  close.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__footer-action';
+  close.className = 'wex-button wex-button--small wex-button--neutral';
   close.textContent = 'Close';
   const markAllRead = document.createElement('button');
   markAllRead.type = 'button';
-  markAllRead.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__footer-action';
+  markAllRead.className = 'wex-button wex-button--small wex-button--primary';
   markAllRead.textContent = 'Mark all as read';
   footer.append(close, markAllRead);
 
