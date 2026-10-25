@@ -168,7 +168,7 @@
 .wex-admin-notifications__item {
   position: relative;
   display: grid;
-  grid-template-columns: var(--wex-space-48) minmax(0, 1fr) var(--wex-space-24);
+  grid-template-columns: var(--wex-space-48) minmax(0, 1fr) auto;
   align-items: start;
   gap: var(--wex-space-12);
   padding: var(--wex-space-16) var(--wex-space-12);
@@ -218,9 +218,11 @@
 }
 
 .wex-admin-notifications__meta {
-  display: grid;
-  justify-items: end;
+  display: flex;
+  align-items: center;
+  justify-content: end;
   align-self: start;
+  gap: var(--wex-space-4);
 }
 
 .wex-admin-notifications__time-row {

@@ -338,11 +338,13 @@ export function mountHeaderNotifications(shell, trigger) {
       const timeRow = document.createElement('div');
       timeRow.className = 'wex-admin-notifications__time-row';
       timeRow.append(element(document, notification.time, 'wex-admin-notifications__time wex-type-body-small-regular'));
+      /** @type {HTMLSpanElement | null} */
+      let unreadIndicator = null;
       if (notification.unread) {
         const indicator = document.createElement('span');
         indicator.className = 'wex-admin-notifications__unread-indicator';
         indicator.setAttribute('aria-label', 'Unread');
-        timeRow.prepend(indicator);
+        unreadIndicator = indicator;
       }
       content.append(timeRow);
       const itemMenu = document.createElement('div');
@@ -369,6 +371,7 @@ export function mountHeaderNotifications(shell, trigger) {
       readState.dataset.notificationId = notification.id;
       itemMenuOptions.append(view, readState);
       itemMenu.append(itemMenuToggle, itemMenuOptions);
+      if (unreadIndicator) meta.append(unreadIndicator);
       meta.append(itemMenu);
 
       item.append(content, meta);
