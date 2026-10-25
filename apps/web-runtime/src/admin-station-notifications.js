@@ -169,37 +169,12 @@ function createMoreIcon(document) {
   return svg;
 }
 
-/** @param {Document} document @param {'mark-read' | 'newest' | 'oldest' | 'priority'} name */
-function createNotificationOptionIcon(document, name) {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 24 24');
-  svg.setAttribute('fill', 'none');
-  svg.setAttribute('stroke', 'currentColor');
-  svg.setAttribute('stroke-width', '1.75');
-  svg.setAttribute('stroke-linecap', 'round');
-  svg.setAttribute('stroke-linejoin', 'round');
-  svg.setAttribute('aria-hidden', 'true');
-  /** @type {Record<'mark-read' | 'newest' | 'oldest' | 'priority', ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
-  const shapes = {
-    'mark-read': [['path', { d: 'm5 12.5 4.25 4.25L19 7.25' }]],
-    newest: [['path', { d: 'M12 4.5v15M6.75 14.25 12 19.5l5.25-5.25' }]],
-    oldest: [['path', { d: 'M12 19.5v-15M6.75 9.75 12 4.5l5.25 5.25' }]],
-    priority: [['path', { d: 'M6.75 20.25V4.5M7.5 5.25h9l-2.25 3 2.25 3h-9' }]],
-  };
-  shapes[name].forEach(([shape, attributes]) => {
-    const node = document.createElementNS('http://www.w3.org/2000/svg', shape);
-    Object.entries(attributes).forEach(([attribute, value]) => node.setAttribute(attribute, value));
-    svg.append(node);
-  });
-  return svg;
-}
-
-/** @param {Document} document @param {string} label @param {'mark-read' | 'newest' | 'oldest' | 'priority'} icon */
-function createNotificationOption(document, label, icon) {
+/** @param {Document} document @param {string} label */
+function createNotificationOption(document, label) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__option';
-  button.append(createNotificationOptionIcon(document, icon), document.createTextNode(label));
+  button.textContent = label;
   return button;
 }
 
@@ -245,12 +220,12 @@ export function mountHeaderNotifications(shell, trigger) {
   const options = document.createElement('div');
   options.className = 'wex-admin-notifications__options';
   options.hidden = true;
-  const markAllRead = createNotificationOption(document, 'Mark all as read', 'mark-read');
-  const newestFirst = createNotificationOption(document, 'Newest first', 'newest');
+  const markAllRead = createNotificationOption(document, 'Mark all as read');
+  const newestFirst = createNotificationOption(document, 'Newest first');
   newestFirst.dataset.notificationSort = 'newest';
-  const oldestFirst = createNotificationOption(document, 'Oldest first', 'oldest');
+  const oldestFirst = createNotificationOption(document, 'Oldest first');
   oldestFirst.dataset.notificationSort = 'oldest';
-  const priorityFirst = createNotificationOption(document, 'Priority first', 'priority');
+  const priorityFirst = createNotificationOption(document, 'Priority first');
   priorityFirst.dataset.notificationSort = 'priority';
   options.append(markAllRead, newestFirst, oldestFirst, priorityFirst);
   headerActions.append(more, options);

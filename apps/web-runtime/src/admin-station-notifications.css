@@ -77,17 +77,15 @@
   white-space: nowrap;
 }
 
+.wex-admin-notifications__options[hidden] {
+  display: none;
+}
+
 .wex-admin-notifications__option {
   justify-content: flex-start;
   inline-size: 100%;
   border-color: transparent;
   color: var(--wex-color-text-primary);
-}
-
-.wex-admin-notifications__option svg {
-  flex: 0 0 auto;
-  inline-size: var(--wex-icon-size-20);
-  block-size: var(--wex-icon-size-20);
 }
 
 .wex-button.wex-admin-notifications__option:hover:not(:focus) {

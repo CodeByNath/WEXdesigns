@@ -241,6 +241,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /Oldest first/);
   assert.match(adminStationNotifications, /Priority first/);
   assert.doesNotMatch(adminStationNotifications, /Restore sample data/);
+  assert.doesNotMatch(adminStationNotifications, /createNotificationOptionIcon/);
   assert.match(adminStationNotifications, /notifications\.filter\(matchesFilter\)\.sort\(compareNotifications\)/);
   assert.match(adminStationNotifications, /sort = button\.dataset\.notificationSort \?\? 'newest';/);
   assert.match(adminStationNotifications, /const closeOptions = \(\) => \{[\s\S]*options\.hidden = true;[\s\S]*more\.setAttribute\('aria-expanded', 'false'\);/);
@@ -272,6 +273,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-button\.wex-admin-notifications__filter:not\(:disabled\):active\s*\{[\s\S]*background-color: transparent;[\s\S]*color: var\(--wex-color-text-primary\);/);
   assert.match(adminStationNotificationsCss, /\.wex-button\.wex-admin-notifications__filter\[aria-pressed="true"\]:not\(:disabled\):active\s*\{[\s\S]*background-color: var\(--wex-color-surface-selected\);[\s\S]*color: var\(--wex-color-text-primary\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\s*\{[\s\S]*display: grid;[\s\S]*inset-inline-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*inline-size: max-content;[\s\S]*white-space: nowrap;/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\[hidden\]\s*\{\s*display: none;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__option\s*\{[\s\S]*border-color: transparent;[\s\S]*color: var\(--wex-color-text-primary\);/);
   assert.doesNotMatch(adminStationNotificationsCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNavActions, /HeaderPrimaryActionPresentationPropertiesSchema\.safeParse\(properties\)/);
