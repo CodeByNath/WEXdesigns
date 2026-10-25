@@ -166,9 +166,10 @@
 }
 
 .wex-admin-notifications__item {
+  position: relative;
   display: grid;
-  grid-template-columns: var(--wex-space-48) minmax(0, 1fr) auto;
-  align-items: center;
+  grid-template-columns: var(--wex-space-48) minmax(0, 1fr) var(--wex-space-24);
+  align-items: start;
   gap: var(--wex-space-12);
   padding: var(--wex-space-16) var(--wex-space-12);
   padding-inline: var(--wex-space-16);
@@ -196,10 +197,15 @@
 }
 
 .wex-admin-notifications__content {
-  display: grid;
-  justify-items: start;
-  gap: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--wex-space-8);
   min-inline-size: 0;
+}
+
+.wex-admin-notifications__content h3 {
+  flex-basis: 100%;
 }
 
 .wex-admin-notifications__description,
@@ -210,12 +216,16 @@
 .wex-admin-notifications__meta {
   display: grid;
   justify-items: end;
-  align-self: center;
-  gap: var(--wex-space-8);
+  align-self: start;
 }
 
 .wex-admin-notifications__time-row {
   gap: var(--wex-space-8);
+}
+
+.wex-admin-notifications__time-row::before {
+  content: '·';
+  color: var(--wex-color-text-secondary);
 }
 
 .wex-admin-notifications__item-menu {
@@ -253,7 +263,9 @@
 }
 
 .wex-admin-notifications__unread-indicator {
-  flex: 0 0 auto;
+  position: absolute;
+  inset-block-start: calc(var(--wex-space-16) - var(--wex-space-4));
+  inset-inline-start: calc(var(--wex-space-16) + var(--wex-space-48) - var(--wex-space-4));
   inline-size: var(--wex-space-8);
   block-size: var(--wex-space-8);
   border-radius: 50%;

@@ -341,6 +341,7 @@ export function mountHeaderNotifications(shell, trigger) {
         indicator.setAttribute('aria-label', 'Unread');
         timeRow.append(indicator);
       }
+      content.append(timeRow);
       const itemMenu = document.createElement('div');
       itemMenu.className = 'wex-admin-notifications__item-menu';
       const itemMenuToggle = document.createElement('button');
@@ -362,7 +363,7 @@ export function mountHeaderNotifications(shell, trigger) {
       readState.dataset.notificationId = notification.id;
       itemMenuOptions.append(view, readState);
       itemMenu.append(itemMenuToggle, itemMenuOptions);
-      meta.append(timeRow, itemMenu);
+      meta.append(itemMenu);
 
       item.append(content, meta);
       list.append(item);
