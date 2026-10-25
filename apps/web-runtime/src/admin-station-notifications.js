@@ -1,4 +1,4 @@
-import { requestHeaderResultsShell } from './admin-station-header-results.js';
+import { closeHeaderResultsShell, requestHeaderResultsShell } from './admin-station-header-results.js';
 
 const NOTIFICATIONS_OWNER = 'notifications';
 
@@ -154,6 +154,24 @@ function createNotificationIcon(document, name) {
   return visual;
 }
 
+// Heroicons 24/outline arrow-right, MIT License, Copyright (c) Tailwind Labs, Inc.
+/** @param {Document} document */
+function createArrowRightIcon(document) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.classList.add('wex-admin-notifications__action-icon');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '1.5');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', 'M19.5 12h-15m15 0-6.75 6.75M19.5 12l-6.75-6.75');
+  svg.append(path);
+  return svg;
+}
+
 /** @param {Document} document */
 function createMoreIcon(document) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -221,14 +239,13 @@ export function mountHeaderNotifications(shell, trigger) {
   const options = document.createElement('div');
   options.className = 'wex-admin-notifications__options';
   options.hidden = true;
-  const markAllRead = createNotificationOption(document, 'Mark all as read');
   const newestFirst = createNotificationOption(document, 'Newest first');
   newestFirst.dataset.notificationSort = 'newest';
   const oldestFirst = createNotificationOption(document, 'Oldest first');
   oldestFirst.dataset.notificationSort = 'oldest';
   const priorityFirst = createNotificationOption(document, 'Priority first');
   priorityFirst.dataset.notificationSort = 'priority';
-  options.append(markAllRead, newestFirst, oldestFirst, priorityFirst);
+  options.append(newestFirst, oldestFirst, priorityFirst);
   headerActions.append(more, options);
 
   const filters = document.createElement('nav');
@@ -258,11 +275,15 @@ export function mountHeaderNotifications(shell, trigger) {
 
   const footer = document.createElement('footer');
   footer.className = 'wex-admin-notifications__footer';
-  const viewAll = document.createElement('button');
-  viewAll.type = 'button';
-  viewAll.className = 'wex-button wex-button--small wex-button--subtle';
-  viewAll.textContent = 'View all notifications';
-  footer.append(viewAll);
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__footer-action';
+  close.textContent = 'Close';
+  const markAllRead = document.createElement('button');
+  markAllRead.type = 'button';
+  markAllRead.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__footer-action';
+  markAllRead.textContent = 'Mark all as read';
+  footer.append(close, markAllRead);
 
   panel.append(header, list, footer);
   const wrapper = document.createElement('div');
@@ -331,9 +352,9 @@ export function mountHeaderNotifications(shell, trigger) {
       if (notification.actionLabel) {
         const action = document.createElement('button');
         action.type = 'button';
-        action.className = 'wex-button wex-button--small wex-button--neutral';
+        action.className = 'wex-button wex-button--small wex-button--subtle';
         action.dataset.notificationAction = notification.id;
-        action.textContent = `${notification.actionLabel} →`;
+        action.append(notification.actionLabel, createArrowRightIcon(document));
         content.append(action);
       }
 
@@ -392,11 +413,7 @@ export function mountHeaderNotifications(shell, trigger) {
     notification.unread = false;
     render();
   });
-  viewAll.addEventListener('click', () => {
-    filter = 'all';
-    list.scrollTop = 0;
-    render();
-  });
+  close.addEventListener('click', () => { closeHeaderResultsShell(shell); });
   trigger.addEventListener('click', () => {
     requestHeaderResultsShell(shell, {
       owner: NOTIFICATIONS_OWNER,
