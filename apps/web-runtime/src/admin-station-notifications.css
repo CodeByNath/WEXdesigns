@@ -65,6 +65,8 @@
 .wex-admin-notifications__options {
   position: absolute;
   z-index: 1;
+  display: grid;
+  gap: var(--wex-space-4);
   inset-block-start: 0;
   inset-inline-end: calc(100% + var(--wex-space-4));
   inline-size: max-content;
@@ -73,6 +75,25 @@
   border-radius: var(--wex-radius-default);
   background: var(--wex-color-background-primary);
   white-space: nowrap;
+}
+
+.wex-admin-notifications__option {
+  justify-content: flex-start;
+  inline-size: 100%;
+  border-color: transparent;
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-notifications__option svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
+}
+
+.wex-button.wex-admin-notifications__option:hover:not(:focus) {
+  border-color: transparent;
+  background-color: var(--wex-color-light-grey);
+  color: var(--wex-color-text-secondary);
 }
 
 .wex-admin-notifications__filters {

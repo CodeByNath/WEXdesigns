@@ -11,6 +11,7 @@ const NOTIFICATIONS_OWNER = 'notifications';
  *   title: string,
  *   description: string,
  *   time: string,
+ *   sortIndex: number,
  *   unread: boolean,
  *   actionRequired: boolean,
  *   actionLabel?: string,
@@ -25,6 +26,7 @@ const notificationFixture = Object.freeze([
     title: 'New order received',
     description: '#ORD-2048 · Olivia Bennett',
     time: '2m',
+    sortIndex: 7,
     unread: true,
     actionRequired: false,
   },
@@ -34,6 +36,7 @@ const notificationFixture = Object.freeze([
     title: 'Booking requires confirmation',
     description: 'Consultation · Liam Parker',
     time: '12m',
+    sortIndex: 6,
     unread: true,
     actionRequired: true,
     actionLabel: 'Review booking',
@@ -44,6 +47,7 @@ const notificationFixture = Object.freeze([
     title: 'Booking confirmed',
     description: 'Discovery call · Ethan Roberts',
     time: 'Yesterday',
+    sortIndex: 2,
     unread: false,
     actionRequired: false,
   },
@@ -53,6 +57,7 @@ const notificationFixture = Object.freeze([
     title: 'Payment received · $550.00',
     description: 'Invoice #INV-1082 · Stripe',
     time: '38m',
+    sortIndex: 5,
     unread: true,
     actionRequired: false,
   },
@@ -62,6 +67,7 @@ const notificationFixture = Object.freeze([
     title: 'Domain renewal approaching',
     description: 'Your domain renews in 7 days',
     time: '1h',
+    sortIndex: 4,
     unread: true,
     actionRequired: true,
     actionLabel: 'Resolve now',
@@ -72,6 +78,7 @@ const notificationFixture = Object.freeze([
     title: 'New customer enquiry',
     description: 'Sophia Williams · Website support',
     time: '2h',
+    sortIndex: 3,
     unread: false,
     actionRequired: true,
     actionLabel: 'View enquiry',
@@ -82,6 +89,7 @@ const notificationFixture = Object.freeze([
     title: 'Proposal review due tomorrow',
     description: 'Gym Website project',
     time: 'Yesterday',
+    sortIndex: 1,
     unread: false,
     actionRequired: true,
     actionLabel: 'View task',
@@ -161,6 +169,40 @@ function createMoreIcon(document) {
   return svg;
 }
 
+/** @param {Document} document @param {'mark-read' | 'newest' | 'oldest' | 'priority'} name */
+function createNotificationOptionIcon(document, name) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '1.75');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
+  svg.setAttribute('aria-hidden', 'true');
+  /** @type {Record<'mark-read' | 'newest' | 'oldest' | 'priority', ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
+  const shapes = {
+    'mark-read': [['path', { d: 'm5 12.5 4.25 4.25L19 7.25' }]],
+    newest: [['path', { d: 'M12 4.5v15M6.75 14.25 12 19.5l5.25-5.25' }]],
+    oldest: [['path', { d: 'M12 19.5v-15M6.75 9.75 12 4.5l5.25 5.25' }]],
+    priority: [['path', { d: 'M6.75 20.25V4.5M7.5 5.25h9l-2.25 3 2.25 3h-9' }]],
+  };
+  shapes[name].forEach(([shape, attributes]) => {
+    const node = document.createElementNS('http://www.w3.org/2000/svg', shape);
+    Object.entries(attributes).forEach(([attribute, value]) => node.setAttribute(attribute, value));
+    svg.append(node);
+  });
+  return svg;
+}
+
+/** @param {Document} document @param {string} label @param {'mark-read' | 'newest' | 'oldest' | 'priority'} icon */
+function createNotificationOption(document, label, icon) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__option';
+  button.append(createNotificationOptionIcon(document, icon), document.createTextNode(label));
+  return button;
+}
+
 /**
  * Mounts the local Notifications Results component. Its fixture and transient
  * read/filter state stay within this component; Header Results owns only its
@@ -175,6 +217,7 @@ export function mountHeaderNotifications(shell, trigger) {
   const document = shell.ownerDocument;
   const notifications = notificationFixture.map((notification) => ({ ...notification }));
   let filter = 'all';
+  let sort = 'newest';
 
   const panel = document.createElement('section');
   panel.className = 'wex-admin-notifications';
@@ -202,11 +245,14 @@ export function mountHeaderNotifications(shell, trigger) {
   const options = document.createElement('div');
   options.className = 'wex-admin-notifications__options';
   options.hidden = true;
-  const markAllRead = document.createElement('button');
-  markAllRead.type = 'button';
-  markAllRead.className = 'wex-button wex-button--small wex-button--subtle';
-  markAllRead.textContent = 'Mark all read';
-  options.append(markAllRead);
+  const markAllRead = createNotificationOption(document, 'Mark all as read', 'mark-read');
+  const newestFirst = createNotificationOption(document, 'Newest first', 'newest');
+  newestFirst.dataset.notificationSort = 'newest';
+  const oldestFirst = createNotificationOption(document, 'Oldest first', 'oldest');
+  oldestFirst.dataset.notificationSort = 'oldest';
+  const priorityFirst = createNotificationOption(document, 'Priority first', 'priority');
+  priorityFirst.dataset.notificationSort = 'priority';
+  options.append(markAllRead, newestFirst, oldestFirst, priorityFirst);
   headerActions.append(more, options);
 
   const filters = document.createElement('nav');
@@ -258,6 +304,15 @@ export function mountHeaderNotifications(shell, trigger) {
     || (filter === 'unread' && notification.unread)
     || (filter === 'action-required' && notification.actionRequired);
 
+  /** @param {Notification} left @param {Notification} right */
+  const compareNotifications = (left, right) => {
+    if (sort === 'oldest') return left.sortIndex - right.sortIndex;
+    if (sort === 'priority' && left.actionRequired !== right.actionRequired) {
+      return Number(right.actionRequired) - Number(left.actionRequired);
+    }
+    return right.sortIndex - left.sortIndex;
+  };
+
   const render = () => {
     const unreadCount = notifications.filter((notification) => notification.unread).length;
     count.textContent = `${unreadCount} new`;
@@ -266,7 +321,7 @@ export function mountHeaderNotifications(shell, trigger) {
       button.setAttribute('aria-pressed', String(button.dataset.notificationFilter === filter));
     });
 
-    const filtered = notifications.filter(matchesFilter);
+    const filtered = notifications.filter(matchesFilter).sort(compareNotifications);
     list.replaceChildren();
     if (filtered.length === 0) {
       const empty = document.createElement('p');
@@ -329,6 +384,15 @@ export function mountHeaderNotifications(shell, trigger) {
   more.addEventListener('click', () => {
     options.hidden = !options.hidden;
     more.setAttribute('aria-expanded', String(!options.hidden));
+  });
+  options.addEventListener('click', (event) => {
+    const button = event.target instanceof Element
+      ? event.target.closest('[data-notification-sort]')
+      : null;
+    if (!(button instanceof HTMLButtonElement)) return;
+    sort = button.dataset.notificationSort ?? 'newest';
+    closeOptions();
+    render();
   });
   document.addEventListener('click', (event) => {
     if (options.hidden || !(event.target instanceof Node) || headerActions.contains(event.target)) return;
