@@ -1,0 +1,93 @@
+.wex-admin-profile__wrapper {
+  padding: var(--wex-space-8);
+}
+
+.wex-admin-profile {
+  overflow: hidden;
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-large);
+  background: var(--wex-color-background-primary);
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-profile__content {
+  display: grid;
+  gap: var(--wex-space-16);
+  padding: var(--wex-space-24) var(--wex-space-16) var(--wex-space-16);
+}
+
+.wex-admin-profile__identity {
+  display: flex;
+  align-items: center;
+  gap: var(--wex-space-12);
+}
+
+.wex-admin-profile__identity-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  inline-size: calc(var(--wex-space-48) - var(--wex-space-4));
+  block-size: calc(var(--wex-space-48) - var(--wex-space-4));
+  border-radius: 50%;
+  background: var(--wex-color-light-grey);
+  color: var(--wex-color-icon-primary);
+}
+
+.wex-admin-profile__identity-icon svg {
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
+}
+
+.wex-admin-profile__identity-copy {
+  display: grid;
+  gap: var(--wex-space-4);
+}
+
+.wex-admin-profile__identity-copy p:last-child {
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-profile__actions {
+  display: grid;
+  gap: var(--wex-space-4);
+}
+
+.wex-admin-profile__actions--separated {
+  padding-block-start: var(--wex-space-8);
+  border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
+.wex-admin-profile__sign-out {
+  justify-content: center;
+  inline-size: 100%;
+}
+
+.wex-admin-profile__action {
+  justify-content: flex-start;
+  inline-size: 100%;
+  border-color: transparent;
+  color: var(--wex-color-text-primary);
+  text-align: start;
+}
+
+.wex-admin-profile__action-icon {
+  display: grid;
+  flex: 0 0 var(--wex-space-24);
+  place-items: center;
+}
+
+.wex-admin-profile__action-icon svg {
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
+}
+
+.wex-admin-profile__action-copy {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--wex-space-2);
+}
+
+.wex-admin-profile__action-detail {
+  color: var(--wex-color-text-secondary);
+}
+

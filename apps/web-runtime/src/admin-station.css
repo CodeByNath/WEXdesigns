@@ -1,5 +1,6 @@
 @import "../../../packages/wex/src/index.css";
 @import "./admin-station-notifications.css";
+@import "./admin-station-profile.css";
 
 :root {
   color-scheme: light;

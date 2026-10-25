@@ -1,6 +1,7 @@
 import { HeaderPrimaryActionPresentationPropertiesSchema } from '@weerax/schemas';
 
 import { mountHeaderNotifications } from './admin-station-notifications.js';
+import { mountHeaderProfile } from './admin-station-profile.js';
 
 const ICON_STROKE_WIDTH = '1.75';
 
@@ -185,5 +186,6 @@ export function mountHeaderNavActions(shell, options = {}) {
   actions.replaceChildren(search, subActions, primary);
   const notificationsAction = subActions.querySelector('[data-notifications-action]');
   if (notificationsAction instanceof HTMLButtonElement) mountHeaderNotifications(shell, notificationsAction);
+  mountHeaderProfile(shell, primary);
   observeSearchAvailability(navigation, actions, location, search);
 }
