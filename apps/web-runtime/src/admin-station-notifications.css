@@ -201,14 +201,6 @@
   color: var(--wex-color-text-secondary);
 }
 
-.wex-admin-notifications__item-action {
-  --wex-button-neutral-background-default: var(--wex-color-background-secondary);
-}
-
-.wex-admin-notifications__item[data-unread="true"] .wex-admin-notifications__item-action {
-  --wex-button-neutral-background-default: var(--wex-color-background-primary);
-}
-
 .wex-admin-notifications__meta {
   align-self: start;
   gap: var(--wex-space-8);
