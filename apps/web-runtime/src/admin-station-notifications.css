@@ -152,7 +152,6 @@
   padding: var(--wex-space-12) var(--wex-space-16);
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   color: var(--wex-color-text-secondary);
-  text-transform: uppercase;
 }
 
 .wex-admin-notifications__item {
