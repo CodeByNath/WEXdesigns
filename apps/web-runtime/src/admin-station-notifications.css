@@ -180,8 +180,8 @@
 }
 
 .wex-admin-notifications__icon svg {
-  inline-size: var(--wex-space-24);
-  block-size: var(--wex-space-24);
+  inline-size: var(--wex-icon-size-component-default);
+  block-size: var(--wex-icon-size-component-default);
 }
 
 .wex-admin-notifications__content {
