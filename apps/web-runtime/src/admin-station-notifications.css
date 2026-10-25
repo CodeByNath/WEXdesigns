@@ -53,8 +53,7 @@
 }
 
 .wex-admin-notifications__count--empty {
-  background: var(--wex-color-background-primary);
-  color: var(--wex-color-text-secondary);
+  opacity: 0.5;
 }
 
 .wex-admin-notifications__header-actions {
