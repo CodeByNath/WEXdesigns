@@ -281,6 +281,7 @@
 }
 
 .wex-admin-notifications__unread-indicator {
+  align-self: first baseline;
   flex: 0 0 auto;
   inline-size: var(--wex-space-8);
   block-size: var(--wex-space-8);
