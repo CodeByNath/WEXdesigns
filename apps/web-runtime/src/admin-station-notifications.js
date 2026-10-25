@@ -135,10 +135,10 @@ function element(document, text, className) {
 /** @param {Document} document @param {NotificationIconName} name */
 function createNotificationIcon(document, name) {
   const visual = document.createElement('span');
-  visual.className = 'wex-admin-notifications__icon wex-admin-shell__sidebar-tab-icon';
+  visual.className = 'wex-admin-notifications__icon';
   visual.setAttribute('aria-hidden', 'true');
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.classList.add('wex-admin-shell__sidebar-tab-icon-svg');
+  svg.classList.add('wex-admin-notifications__icon-svg');
   svg.setAttribute('viewBox', '0 0 24 24');
   svg.setAttribute('fill', 'none');
   svg.setAttribute('stroke', 'currentColor');
