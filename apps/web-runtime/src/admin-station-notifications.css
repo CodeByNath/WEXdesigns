@@ -227,12 +227,8 @@
 }
 
 .wex-admin-notifications__time-row {
+  flex-basis: 100%;
   gap: var(--wex-space-8);
-}
-
-.wex-admin-notifications__time-row::before {
-  content: '·';
-  color: var(--wex-color-text-secondary);
 }
 
 .wex-admin-notifications__item-menu {
