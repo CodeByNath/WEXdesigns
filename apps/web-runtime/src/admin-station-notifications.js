@@ -457,6 +457,7 @@ export function mountHeaderNotifications(shell, trigger) {
   });
   close.addEventListener('click', () => { closeHeaderResultsShell(shell); });
   trigger.addEventListener('click', () => {
+    if (results.dataset.headerResultsOwner !== NOTIFICATIONS_OWNER) results.replaceChildren(wrapper);
     requestHeaderResultsShell(shell, {
       owner: NOTIFICATIONS_OWNER,
       inlineSize: 'min(calc(var(--wex-space-64) * 7), 100%)',

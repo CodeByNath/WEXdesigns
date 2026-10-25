@@ -299,6 +299,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /Action required/);
   assert.doesNotMatch(adminStationNotifications, /View all notifications/);
   assert.match(adminStationNotifications, /requestHeaderResultsShell\(shell,/);
+  assert.match(adminStationNotifications, /if \(results\.dataset\.headerResultsOwner !== NOTIFICATIONS_OWNER\) results\.replaceChildren\(wrapper\);/);
   assert.doesNotMatch(adminStationNotifications, /fetch\(|localStorage|style=|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNotificationsCss, /var\(--wex-color-background-primary\)/);
   assert.match(adminStationNotificationsCss, /var\(--wex-color-surface-selected\)/);
