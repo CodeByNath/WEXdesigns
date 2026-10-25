@@ -342,7 +342,7 @@ export function mountHeaderNotifications(shell, trigger) {
         const indicator = document.createElement('span');
         indicator.className = 'wex-admin-notifications__unread-indicator';
         indicator.setAttribute('aria-label', 'Unread');
-        notificationTitle.prepend(indicator);
+        timeRow.prepend(indicator);
       }
       content.append(timeRow);
       const itemMenu = document.createElement('div');

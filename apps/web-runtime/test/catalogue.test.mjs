@@ -261,7 +261,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /itemMenuToggle\.dataset\.notificationItemMenuToggle = notification\.id;/);
   assert.match(adminStationNotifications, /const view = createNotificationOption\(document, 'View'\);/);
   assert.match(adminStationNotifications, /const readState = createNotificationOption\(document, notification\.unread \? 'Read' : 'Unread'\);/);
-  assert.match(adminStationNotifications, /notificationTitle\.prepend\(indicator\);/);
+  assert.match(adminStationNotifications, /timeRow\.prepend\(indicator\);/);
   assert.match(adminStationNotifications, /openItemMenuDirection = itemBounds && listBounds\.bottom - itemBounds\.bottom >= itemBounds\.height/);
   assert.match(adminStationNotifications, /content\.append\(timeRow\);/);
   assert.match(adminStationNotifications, /meta\.append\(itemMenu\);/);
@@ -302,7 +302,6 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__content h3\s*\{[\s\S]*flex-basis: 100%;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__time-row\s*\{\s*flex-basis: 100%;/);
   assert.doesNotMatch(adminStationNotificationsCss, /\.wex-admin-notifications__time-row::before/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__content h3\s*\{[\s\S]*display: flex;[\s\S]*align-items: center;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__item-menu\[data-notification-item-menu-direction="down"\] \.wex-admin-notifications__item-menu-options\s*\{[\s\S]*inset-block-start: calc\(100% \+ var\(--wex-space-4\)\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__unread-indicator\s*\{\s*flex: 0 0 auto;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__header\s*\{[\s\S]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);[\s\S]*background: var\(--wex-color-background-primary\);/);
