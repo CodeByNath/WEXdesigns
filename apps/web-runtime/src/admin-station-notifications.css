@@ -109,6 +109,11 @@
   display: flex;
   gap: var(--wex-space-8);
   overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.wex-admin-notifications__filters::-webkit-scrollbar {
+  display: none;
 }
 
 .wex-admin-notifications__filter {

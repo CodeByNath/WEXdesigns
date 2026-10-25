@@ -301,6 +301,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__content\s*\{[\s\S]*display: flex;[\s\S]*flex-wrap: wrap;[\s\S]*align-items: baseline;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__content h3\s*\{[\s\S]*display: flex;[\s\S]*align-items: center;[\s\S]*flex-basis: 100%;[\s\S]*gap: var\(--wex-space-8\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__time-row\s*\{\s*flex-basis: 100%;/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__filters\s*\{[\s\S]*overflow-x: auto;[\s\S]*scrollbar-width: none;/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__filters::\-webkit-scrollbar\s*\{\s*display: none;/);
   assert.doesNotMatch(adminStationNotificationsCss, /\.wex-admin-notifications__time-row::before/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__item-menu\[data-notification-item-menu-direction="down"\] \.wex-admin-notifications__item-menu-options\s*\{[\s\S]*inset-block-start: calc\(100% \+ var\(--wex-space-4\)\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__unread-indicator\s*\{\s*flex: 0 0 auto;/);
