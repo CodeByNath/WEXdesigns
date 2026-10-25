@@ -293,6 +293,7 @@ export function mountHeaderNotifications(shell, trigger) {
   const render = () => {
     const unreadCount = notifications.filter((notification) => notification.unread).length;
     count.textContent = `${unreadCount} new`;
+    count.classList.toggle('wex-admin-notifications__count--empty', unreadCount === 0);
     markAllRead.disabled = unreadCount === 0;
     filterButtons.forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.notificationFilter === filter));
@@ -394,6 +395,9 @@ export function mountHeaderNotifications(shell, trigger) {
       render();
     }
   });
+  list.addEventListener('scroll', () => {
+    header.classList.toggle('wex-admin-notifications__header--scrolled', list.scrollTop > 0);
+  });
   filters.addEventListener('click', (event) => {
     const button = event.target instanceof Element
       ? event.target.closest('[data-notification-filter]')
@@ -404,8 +408,14 @@ export function mountHeaderNotifications(shell, trigger) {
   });
   list.addEventListener('click', (event) => {
     event.stopPropagation();
-    const button = event.target instanceof Element
-      ? event.target.closest('button')
+    const target = event.target instanceof Element ? event.target : null;
+    if (openItemMenuId !== null && !target?.closest('[data-notification-item-menu]')) {
+      openItemMenuId = null;
+      render();
+      return;
+    }
+    const button = target
+      ? target.closest('button')
       : null;
     if (!(button instanceof HTMLButtonElement)) return;
     const menuId = button.dataset.notificationItemMenuToggle;

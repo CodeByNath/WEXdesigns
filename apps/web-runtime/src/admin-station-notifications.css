@@ -17,10 +17,17 @@
 
 .wex-admin-notifications__header {
   position: relative;
+  z-index: 1;
   display: grid;
   gap: var(--wex-space-16);
   padding: var(--wex-space-24) var(--wex-space-16) var(--wex-space-16);
-  background: var(--wex-color-background-secondary);
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  background: var(--wex-color-light-grey);
+  transition: box-shadow 150ms ease;
+}
+
+.wex-admin-notifications__header--scrolled {
+  box-shadow: 0 var(--wex-border-width-default) var(--wex-space-4) var(--wex-color-border-subtle);
 }
 
 .wex-admin-notifications__heading,
@@ -43,6 +50,11 @@
   border-radius: var(--wex-space-16);
   background: var(--wex-color-background-accent);
   color: var(--wex-color-on-accent);
+}
+
+.wex-admin-notifications__count--empty {
+  background: var(--wex-color-background-primary);
+  color: var(--wex-color-text-secondary);
 }
 
 .wex-admin-notifications__header-actions {
@@ -157,7 +169,7 @@
 .wex-admin-notifications__item {
   display: grid;
   grid-template-columns: var(--wex-space-48) minmax(0, 1fr) auto;
-  align-items: start;
+  align-items: center;
   gap: var(--wex-space-12);
   padding: var(--wex-space-16) var(--wex-space-12);
   padding-inline: var(--wex-space-16);
@@ -187,7 +199,7 @@
 .wex-admin-notifications__content {
   display: grid;
   justify-items: start;
-  gap: var(--wex-space-4);
+  gap: 0;
   min-inline-size: 0;
 }
 
@@ -199,9 +211,8 @@
 .wex-admin-notifications__meta {
   display: grid;
   justify-items: end;
-  align-self: start;
+  align-self: center;
   gap: var(--wex-space-8);
-  padding-block-start: var(--wex-space-4);
 }
 
 .wex-admin-notifications__time-row {
