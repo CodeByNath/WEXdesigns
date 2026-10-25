@@ -191,6 +191,8 @@ export function mountHeaderNotifications(shell, trigger) {
   let sort = 'newest';
   /** @type {string | null} */
   let openItemMenuId = null;
+  /** @type {'up' | 'down' | null} */
+  let openItemMenuDirection = null;
 
   const panel = document.createElement('section');
   panel.className = 'wex-admin-notifications';
@@ -318,6 +320,7 @@ export function mountHeaderNotifications(shell, trigger) {
       const item = document.createElement('article');
       item.className = 'wex-admin-notifications__item';
       item.dataset.unread = String(notification.unread);
+      item.dataset.notificationItemMenuOpen = String(openItemMenuId === notification.id);
       item.append(createNotificationIcon(document, notification.icon));
 
       const content = document.createElement('div');
@@ -339,11 +342,14 @@ export function mountHeaderNotifications(shell, trigger) {
         const indicator = document.createElement('span');
         indicator.className = 'wex-admin-notifications__unread-indicator';
         indicator.setAttribute('aria-label', 'Unread');
-        timeRow.append(indicator);
+        notificationTitle.prepend(indicator);
       }
       content.append(timeRow);
       const itemMenu = document.createElement('div');
       itemMenu.className = 'wex-admin-notifications__item-menu';
+      itemMenu.dataset.notificationItemMenuDirection = openItemMenuId === notification.id
+        ? openItemMenuDirection ?? 'down'
+        : '';
       const itemMenuToggle = document.createElement('button');
       itemMenuToggle.type = 'button';
       itemMenuToggle.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__item-menu-toggle';
@@ -393,6 +399,7 @@ export function mountHeaderNotifications(shell, trigger) {
     const target = event.target instanceof Element ? event.target : null;
     if (openItemMenuId !== null && !target?.closest('[data-notification-item-menu]')) {
       openItemMenuId = null;
+      openItemMenuDirection = null;
       render();
     }
   });
@@ -421,7 +428,18 @@ export function mountHeaderNotifications(shell, trigger) {
     if (!(button instanceof HTMLButtonElement)) return;
     const menuId = button.dataset.notificationItemMenuToggle;
     if (menuId) {
-      openItemMenuId = openItemMenuId === menuId ? null : menuId;
+      if (openItemMenuId === menuId) {
+        openItemMenuId = null;
+        openItemMenuDirection = null;
+      } else {
+        const item = button.closest('.wex-admin-notifications__item');
+        const itemBounds = item?.getBoundingClientRect();
+        const listBounds = list.getBoundingClientRect();
+        openItemMenuId = menuId;
+        openItemMenuDirection = itemBounds && listBounds.bottom - itemBounds.bottom >= itemBounds.height
+          ? 'down'
+          : 'up';
+      }
       render();
       return;
     }
@@ -431,6 +449,7 @@ export function mountHeaderNotifications(shell, trigger) {
     if (!notification) return;
     notification.unread = action === 'unread';
     openItemMenuId = null;
+    openItemMenuDirection = null;
     render();
   });
   close.addEventListener('click', () => { closeHeaderResultsShell(shell); });
