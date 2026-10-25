@@ -146,11 +146,11 @@
 .wex-admin-notifications__list {
   min-block-size: 0;
   overflow: auto;
-  padding: var(--wex-space-8);
 }
 
 .wex-admin-notifications__group {
-  padding: var(--wex-space-12) var(--wex-space-8);
+  padding: var(--wex-space-12) var(--wex-space-16);
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   color: var(--wex-color-text-secondary);
   text-transform: uppercase;
 }
@@ -161,7 +161,8 @@
   align-items: start;
   gap: var(--wex-space-12);
   padding: var(--wex-space-16) var(--wex-space-12);
-  border-radius: var(--wex-radius-default);
+  padding-inline: var(--wex-space-16);
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-background-primary);
 }
 
