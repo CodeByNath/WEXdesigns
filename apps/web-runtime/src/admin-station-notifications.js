@@ -282,6 +282,7 @@ export function mountHeaderNotifications(shell, trigger) {
 
   /** @param {Notification} left @param {Notification} right */
   const compareNotifications = (left, right) => {
+    if (left.unread !== right.unread) return Number(right.unread) - Number(left.unread);
     if (sort === 'oldest') return left.sortIndex - right.sortIndex;
     if (sort === 'priority' && left.actionRequired !== right.actionRequired) {
       return Number(right.actionRequired) - Number(left.actionRequired);
