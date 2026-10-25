@@ -22,7 +22,7 @@
   gap: var(--wex-space-16);
   padding: var(--wex-space-24) var(--wex-space-16) var(--wex-space-16);
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  background: var(--wex-color-light-grey);
+  background: var(--wex-color-background-primary);
   transition: box-shadow 150ms ease;
 }
 
@@ -239,7 +239,8 @@
   z-index: 1;
   display: grid;
   gap: var(--wex-space-4);
-  inset-block-start: calc(100% + var(--wex-space-4));
+  inset-block-start: auto;
+  inset-block-end: calc(100% + var(--wex-space-4));
   inset-inline-end: 0;
   inline-size: max-content;
   padding: var(--wex-space-4);

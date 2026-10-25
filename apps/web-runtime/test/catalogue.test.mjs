@@ -288,7 +288,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__icon-svg\s*\{[\s\S]*inline-size: var\(--wex-icon-size-20\);[\s\S]*block-size: var\(--wex-icon-size-20\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__meta\s*\{[\s\S]*display: grid;[\s\S]*justify-items: end;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__item-menu\s*\{[\s\S]*position: relative;/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__item-menu-options\s*\{[\s\S]*inset-block-start: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*inset-inline-end: 0;/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__item-menu-options\s*\{[\s\S]*inset-block-start: auto;[\s\S]*inset-block-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*inset-inline-end: 0;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__list\s*\{[\s\S]*min-block-size: 0;[\s\S]*overflow: auto;[\s\S]*\}/);
   assert.doesNotMatch(adminStationNotificationsCss.match(/\.wex-admin-notifications__list\s*\{[\s\S]*?\n\}/)?.[0] ?? '', /padding:/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__group\s*\{[\s\S]*padding: var\(--wex-space-12\) var\(--wex-space-16\);[\s\S]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
@@ -296,7 +296,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__item\s*\{[\s\S]*align-items: center;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__content\s*\{[\s\S]*gap: 0;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__meta\s*\{[\s\S]*align-self: center;/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__header\s*\{[\s\S]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);[\s\S]*background: var\(--wex-color-light-grey\);/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__header\s*\{[\s\S]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);[\s\S]*background: var\(--wex-color-background-primary\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__header--scrolled\s*\{[\s\S]*box-shadow:/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__filter:not\(:disabled\):active::after,[\s\S]*border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-border-width-default\)\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__filter:not\(:disabled\):active::before,[\s\S]*border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-outer-ring-width\)\);/);
