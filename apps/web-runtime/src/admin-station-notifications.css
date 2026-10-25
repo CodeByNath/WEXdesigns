@@ -209,7 +209,10 @@
 }
 
 .wex-admin-notifications__content h3 {
+  display: flex;
+  align-items: center;
   flex-basis: 100%;
+  gap: var(--wex-space-8);
 }
 
 .wex-admin-notifications__description,
