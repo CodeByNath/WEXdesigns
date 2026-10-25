@@ -371,8 +371,8 @@ export function mountHeaderNotifications(shell, trigger) {
       readState.dataset.notificationId = notification.id;
       itemMenuOptions.append(view, readState);
       itemMenu.append(itemMenuToggle, itemMenuOptions);
-      if (unreadIndicator) meta.append(unreadIndicator);
       meta.append(itemMenu);
+      if (unreadIndicator) meta.append(unreadIndicator);
 
       item.append(content, meta);
       list.append(item);

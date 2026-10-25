@@ -261,7 +261,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /itemMenuToggle\.dataset\.notificationItemMenuToggle = notification\.id;/);
   assert.match(adminStationNotifications, /const view = createNotificationOption\(document, 'View'\);/);
   assert.match(adminStationNotifications, /const readState = createNotificationOption\(document, notification\.unread \? 'Read' : 'Unread'\);/);
-  assert.match(adminStationNotifications, /if \(unreadIndicator\) meta\.append\(unreadIndicator\);/);
+  assert.match(adminStationNotifications, /meta\.append\(itemMenu\);[\s\S]*if \(unreadIndicator\) meta\.append\(unreadIndicator\);/);
   assert.match(adminStationNotifications, /openItemMenuDirection = itemBounds && listBounds\.bottom - itemBounds\.bottom >= itemBounds\.height/);
   assert.match(adminStationNotifications, /content\.append\(timeRow\);/);
   assert.match(adminStationNotifications, /meta\.append\(itemMenu\);/);
