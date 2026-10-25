@@ -175,12 +175,8 @@
   inline-size: calc(var(--wex-space-48) - var(--wex-space-4));
   block-size: calc(var(--wex-space-48) - var(--wex-space-4));
   border-radius: var(--wex-radius-large);
-  background: var(--wex-color-background-secondary);
+  background: var(--wex-color-light-grey);
   color: var(--wex-color-icon-primary);
-}
-
-.wex-admin-notifications__item[data-unread="true"] .wex-admin-notifications__icon {
-  background: var(--wex-color-background-primary);
 }
 
 .wex-admin-notifications__icon-svg {
