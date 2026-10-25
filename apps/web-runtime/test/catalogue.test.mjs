@@ -247,6 +247,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /const closeOptions = \(\) => \{[\s\S]*options\.hidden = true;[\s\S]*more\.setAttribute\('aria-expanded', 'false'\);/);
   assert.match(adminStationNotifications, /document\.addEventListener\('click', \(event\) => \{[\s\S]*headerActions\.contains\(event\.target\)[\s\S]*closeOptions\(\);/);
   assert.match(adminStationNotifications, /createNotificationIcon\(document, notification\.icon\)/);
+  assert.match(adminStationNotifications, /wex-admin-notifications__icon wex-admin-shell__sidebar-tab-icon/);
+  assert.match(adminStationNotifications, /svg\.classList\.add\('wex-admin-shell__sidebar-tab-icon-svg'\);/);
   assert.match(adminStationNotifications, /createMoreIcon\(document\)/);
   assert.match(adminStationNotifications, /title\.className = 'wex-type-navigation-large-semibold';/);
   assert.match(adminStationNotifications, /wex-admin-notifications__count wex-type-navigation-small-semibold/);
@@ -267,7 +269,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__wrapper\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__count\s*\{[\s\S]*border-radius: var\(--wex-space-16\);[\s\S]*background: var\(--wex-color-background-accent\);[\s\S]*color: var\(--wex-color-on-accent\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__filter\s*\{[\s\S]*border-radius: var\(--wex-radius-default\);/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__icon svg\s*\{[\s\S]*inline-size: var\(--wex-icon-size-component-default\);[\s\S]*block-size: var\(--wex-icon-size-component-default\);/);
+  assert.doesNotMatch(adminStationNotificationsCss, /\.wex-admin-notifications__icon\s*\{/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__list\s*\{[\s\S]*min-block-size: 0;[\s\S]*overflow: auto;[\s\S]*\}/);
   assert.doesNotMatch(adminStationNotificationsCss.match(/\.wex-admin-notifications__list\s*\{[\s\S]*?\n\}/)?.[0] ?? '', /padding:/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__group\s*\{[\s\S]*padding: var\(--wex-space-12\) var\(--wex-space-16\);[\s\S]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);

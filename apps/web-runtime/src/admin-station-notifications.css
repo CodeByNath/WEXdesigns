@@ -170,21 +170,6 @@
   background: var(--wex-color-background-secondary);
 }
 
-.wex-admin-notifications__icon {
-  display: grid;
-  place-items: center;
-  inline-size: var(--wex-space-48);
-  block-size: var(--wex-space-48);
-  border-radius: var(--wex-radius-large);
-  background: var(--wex-color-surface-selected);
-  color: var(--wex-color-icon-accent);
-}
-
-.wex-admin-notifications__icon svg {
-  inline-size: var(--wex-icon-size-component-default);
-  block-size: var(--wex-icon-size-component-default);
-}
-
 .wex-admin-notifications__content {
   display: grid;
   justify-items: start;
