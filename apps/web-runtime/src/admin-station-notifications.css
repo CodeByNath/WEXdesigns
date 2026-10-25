@@ -281,10 +281,11 @@
 }
 
 .wex-admin-notifications__unread-indicator {
-  align-self: first baseline;
+  align-self: flex-start;
   flex: 0 0 auto;
   inline-size: var(--wex-space-8);
   block-size: var(--wex-space-8);
+  margin-block-start: calc(var(--wex-space-4) + var(--wex-space-2));
   border-radius: 50%;
   background: var(--wex-color-background-accent);
 }
