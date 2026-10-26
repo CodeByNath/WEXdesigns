@@ -88,5 +88,7 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Small/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Large/);
   assert.match(tabNavigationDecision, /Default, Hover, Selected, Focus, and Pressed state/);
+  assert.match(tabNavigationDecision, /square icon\s+allocation/);
+  assert.match(tabNavigationDecision, /equal padding on every\s+side/);
   assert.doesNotMatch(tabNavigation, /#[0-9a-f]{3,8}\b/i);
 });

@@ -18,8 +18,10 @@ Each tier references existing WEX Navigation typography and icon foundations:
 | Default | Navigation Default | `--wex-icon-size-20` |
 | Large | Navigation Large | `--wex-icon-size-24` |
 
-Each tier owns token references for target allocation, icon allocation,
-icon/label gap, padding, border, radius, child indent, and chevron allocation.
+Each tier owns token references for target allocation and a square icon
+allocation. The square allocation centres its glyph with equal padding on every
+side, regardless of glyph size. Each tier also owns icon/label gap, padding,
+border, radius, child indent, and chevron allocation.
 Each tier also exposes Default, Hover, Selected, Focus, and Pressed state
 tokens. Shared state values are inherited through token aliases, so a change
 to the Default state remains system-wide until a tier requires an authorised
