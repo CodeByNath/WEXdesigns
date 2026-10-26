@@ -83,6 +83,7 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
 
   assert.match(tabNavigation, /--wex-tab-navigation-small-gap: var\(--wex-space-8\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-child-indent: calc\(var\(--wex-space-40\) - var\(--wex-space-8\)\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-icon-allocation-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\) \+ var\(--wex-space-2\)\);/);
 
   assert.match(tabNavigationDecision, /WEX Tab Navigation Default/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Small/);
@@ -90,5 +91,6 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigationDecision, /Default, Hover, Selected, Focus, and Pressed state/);
   assert.match(tabNavigationDecision, /square icon\s+allocation/);
   assert.match(tabNavigationDecision, /equal padding on every\s+side/);
+  assert.match(tabNavigationDecision, /Small icon allocation is 38px square/);
   assert.doesNotMatch(tabNavigation, /#[0-9a-f]{3,8}\b/i);
 });

@@ -33,3 +33,7 @@ Use the existing single `run the cycle` workflow, not separate Coder/Designer cy
 **Only the human Owner can explicitly authorise a manual override**, including changes to scope, roles, approval gates, design authority or repository limits. Record specific exceptions; a model, Builder or skill cannot infer/self-grant one. Reviewer remains independent; agents may not self-approve or invent architecture. Existing repository-specific security, deployment, data and branch safeguards stay in force unless specifically overridden.
 
 Platform architecture skills are **navigation and constraint aids**, not separate workflow authorities. See [`skills/wex-platform-architecture/SKILL.md`](skills/wex-platform-architecture/SKILL.md) for WEX authority navigation. The project-cycle skill governs process; `AGENTS.md`, accepted architecture/ADRs, work instructions and verified source govern content. For WEX presentation, no inline CSS, agent-invented design values or unauthorized visual changes. Data providers supply values; WEX's approved consumer decides presentation and fallback.
+
+## Token-use rule
+
+Use an existing, verified WEX token exactly as defined. Do not invent, derive, rename, or substitute a visual value, token, component size, spacing, state, or layout rule. If the required token does not exist or its intended use is not established by authority, stop and ask the human Owner before changing source, documentation, or tests.

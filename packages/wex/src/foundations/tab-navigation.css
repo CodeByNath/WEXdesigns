@@ -50,7 +50,7 @@
   --wex-tab-navigation-small-icon-size: var(--wex-icon-size-16);
   --wex-tab-navigation-small-chevron-size: var(--wex-tab-navigation-small-icon-size);
   --wex-tab-navigation-small-target-size: calc(var(--wex-space-40) - var(--wex-space-4));
-  --wex-tab-navigation-small-icon-allocation-size: var(--wex-tab-navigation-small-target-size);
+  --wex-tab-navigation-small-icon-allocation-size: calc(var(--wex-space-32) + var(--wex-space-4) + var(--wex-space-2));
   --wex-tab-navigation-small-gap: var(--wex-space-8);
   --wex-tab-navigation-small-padding-block: var(--wex-space-4);
   --wex-tab-navigation-small-padding-inline: var(--wex-space-12);
