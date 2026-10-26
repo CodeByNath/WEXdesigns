@@ -84,6 +84,8 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   for (const property of ['target-size', 'gap', 'padding-block', 'padding-inline', 'child-indent', 'radius', 'border-width']) {
     assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${property}: var\\(--wex-tab-navigation-default-`));
   }
+  assert.match(tabNavigation, /--wex-tab-navigation-default-root-padding-inline-start: 0;/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-root-padding-inline-start: var\(--wex-tab-navigation-default-root-padding-inline-start\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-icon-allocation-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\) \+ var\(--wex-space-2\)\);/);
 
   assert.match(tabNavigationDecision, /WEX Tab Navigation Default/);
@@ -93,5 +95,6 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigationDecision, /square icon\s+allocation/);
   assert.match(tabNavigationDecision, /padding\s+on every side/);
   assert.match(tabNavigationDecision, /Owner-authorised 38px square\s+icon allocation/);
+  assert.match(tabNavigationDecision, /root-tab start rule/);
   assert.doesNotMatch(tabNavigation, /#[0-9a-f]{3,8}\b/i);
 });

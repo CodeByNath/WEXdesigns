@@ -21,9 +21,10 @@ Each tier references existing WEX Navigation typography and icon foundations:
 Default defines the verified sidebar-navigation geometry: target allocation,
 gap, padding, border, radius, child indent, and chevron allocation. Small
 inherits that geometry unchanged, except for its Owner-authorised 38px square
-icon allocation. A square icon allocation centres its glyph with equal padding
-on every side, regardless of glyph size; Small's SVG glyph token remains
-independent.
+icon allocation. The root-tab start rule is part of that geometry: a root tab
+begins on its wrapper's layout line and does not add a second leading inset. A
+square icon allocation centres its glyph with equal padding on every side,
+regardless of glyph size; Small's SVG glyph token remains independent.
 Each tier also exposes Default, Hover, Selected, Focus, and Pressed state
 tokens. Shared state values are inherited through token aliases, so a change
 to the Default state remains system-wide until a tier requires an authorised

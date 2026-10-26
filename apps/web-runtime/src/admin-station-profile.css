@@ -76,6 +76,7 @@
   gap: var(--wex-tab-navigation-small-gap);
   padding-block: var(--wex-tab-navigation-small-padding-block);
   padding-inline: var(--wex-tab-navigation-small-padding-inline);
+  padding-inline-start: var(--wex-tab-navigation-small-root-padding-inline-start);
   border: var(--wex-tab-navigation-small-border-width) solid var(--wex-tab-navigation-small-border-color);
   border-radius: var(--wex-tab-navigation-small-radius);
   background-color: var(--wex-tab-navigation-small-background);

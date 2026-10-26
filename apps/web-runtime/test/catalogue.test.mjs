@@ -276,6 +276,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /\.wex-admin-profile__footer\s*\{[\s\S]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*min-block-size: var\(--wex-tab-navigation-small-target-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*gap: var\(--wex-tab-navigation-small-gap\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*padding-inline-start: var\(--wex-tab-navigation-small-root-padding-inline-start\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*font-family: var\(--wex-tab-navigation-small-font-family\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-small-icon-allocation-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon\s*\{[\s\S]*block-size: var\(--wex-tab-navigation-small-icon-allocation-size\);/);
@@ -552,7 +553,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   );
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-children\[hidden\]\s*\{\s*display: none;\s*\}/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*gap: var\(--wex-tab-navigation-default-gap\);[\s\S]*min-block-size: var\(--wex-tab-navigation-default-target-size\);[\s\S]*max-block-size: var\(--wex-tab-navigation-default-target-size\);[\s\S]*padding: var\(--wex-tab-navigation-default-padding-block\) var\(--wex-tab-navigation-default-padding-inline\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-list > \.wex-admin-shell__sidebar-tab-item > \.wex-admin-shell__sidebar-tab\s*\{\s*padding-inline-start: 0;\s*\}/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-list > \.wex-admin-shell__sidebar-tab-item > \.wex-admin-shell__sidebar-tab\s*\{\s*padding-inline-start: var\(--wex-tab-navigation-default-root-padding-inline-start\);\s*\}/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon\s*\{[\s\S]*inline-size: 100%;[\s\S]*block-size: 100%;[\s\S]*max-inline-size: var\(--wex-tab-navigation-default-icon-allocation-size\);[\s\S]*max-block-size: var\(--wex-tab-navigation-default-icon-allocation-size\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon-svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-default-icon-size\);[\s\S]*block-size: var\(--wex-tab-navigation-default-icon-size\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\[data-sidebar-tab-active="true"\]\s*\{[\s\S]*background: var\(--wex-tab-navigation-default-selected-background\);[\s\S]*color: var\(--wex-tab-navigation-default-selected-foreground\);/);

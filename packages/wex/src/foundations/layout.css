@@ -181,7 +181,7 @@ blockquote {
 }
 
 .wex-admin-shell__sidebar-tab-list > .wex-admin-shell__sidebar-tab-item > .wex-admin-shell__sidebar-tab {
-  padding-inline-start: 0;
+  padding-inline-start: var(--wex-tab-navigation-default-root-padding-inline-start);
 }
 
 button.wex-admin-shell__sidebar-tab {
