@@ -8,4 +8,5 @@
 @import "./foundations/header.css";
 @import "./foundations/logo.css";
 @import "./foundations/sizing.css";
+@import "./foundations/tab-navigation.css";
 @import "./foundations/layout.css";

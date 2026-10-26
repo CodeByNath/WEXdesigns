@@ -2,16 +2,20 @@
 
 ## Current operating status
 
-- Last visited: 2026-09-27
-- Last updated: 2026-09-27
-- Verified against: Phase 4 Builder candidate on
-  `feat/global-tokens-remaining`, based on `origin/main` at
-  `21983ed56c442f41c4496e1677bdf6fa8c46189f`
-- Registration status: Global Tokens augment the canonical WEX Typography
-  vocabulary; no page-specific role is registered.
+- Last visited: 2026-10-26
+- Last updated: 2026-10-26
+- Verified against: Owner-directed WEX Tab Navigation Global Tokens candidate
+  on `main`.
+- Registration status: Typography roles remain registered as before. WEX Tab
+  Navigation is the registered component-token family; no Shared UI component
+  is registered.
 
 ### Recent work (newest first)
 
+- WEX Tab Navigation Default, Small, and Large register reusable navigation
+  presentation references for icon allocation, typography, state treatment,
+  child alignment, and chevrons. The Admin Station Sidebar consumes these
+  tokens but remains an application/runtime layout.
 - Phase 4 presents every existing Typography role with its Default base atom
   first, followed only by its sparse role-valid attributes.
 - Phase 3C makes registered Heading Default attributes the primary Global
@@ -22,8 +26,8 @@
 ## Purpose and scope
 
 This map routes the demonstrated Global Tokens subject to its accepted authority,
-existing Typography evidence, and focused verification. It does not define HTML
-semantics, component behaviour, or layout composition.
+existing Typography and component-token evidence, and focused verification. It
+does not define HTML semantics, component behaviour, or layout composition.
 
 ## Governing authority and evidence routes
 
@@ -31,6 +35,7 @@ semantics, component behaviour, or layout composition.
 - [Repository map](../architecture/repository-map.md)
 - [Historical WEX source](../../packages/wex/src/source/WEX-SOURCE.md)
 - [Global Tokens / Typography DNA](../decisions/0012-global-tokens-typography-dna.md)
+- [WEX Tab Navigation Global Tokens](../decisions/0027-tab-navigation-global-tokens.md)
 - [Typography and font delivery map](typography-font-delivery.md)
 - [Colour map](colour.md)
 - [Spacing map](spacing.md)
@@ -49,6 +54,8 @@ They do not supply or approve Global Tokens values.
   [`spacing.css`](../../packages/wex/src/foundations/spacing.css),
   [`layout.css`](../../packages/wex/src/foundations/layout.css), and
   [`interaction.css`](../../packages/wex/src/foundations/interaction.css)
+- WEX Tab Navigation component tokens:
+  [`tab-navigation.css`](../../packages/wex/src/foundations/tab-navigation.css)
 - Current focused checks: [`global-tokens.test.mjs`](../../packages/wex/test/global-tokens.test.mjs),
   [`typography-modules.test.mjs`](../../packages/wex/test/typography-modules.test.mjs),
   [`colour-tokens.test.mjs`](../../packages/wex/test/colour-tokens.test.mjs), and
@@ -60,17 +67,18 @@ They do not supply or approve Global Tokens values.
 ## Dependency boundary
 
 ```text
-existing WEX Typography and Colour foundations
-  -> accepted Global Tokens / Typography DNA authority decision
-  -> existing Typography selection + optional registered attributes
+existing WEX foundations
+  -> accepted Global Tokens authority decisions
+  -> Typography selection + optional registered attributes
+  -> WEX Tab Navigation Default, Small, and Large component tokens
   -> components and consuming applications
 ```
 
 Components collect registered Global Tokens; they do not establish a competing
-Typography role. AI may use registered WEX Design Tokens only. If no existing
-Typography selection or registered attribute matches a request, it must request
-an Owner decision; it must not invent, approximate, substitute, or create a
-value, token, or attribute.
+Typography role or component-token family. AI may use registered WEX Design
+Tokens only. If no existing selection or registered attribute matches a
+request, it must request an Owner decision; it must not invent, approximate,
+substitute, or create a value, token, or attribute.
 
 The accepted decision binds every concern to existing WEX foundation token
 references. It records approved relationships, never resolved raw values or
@@ -80,12 +88,11 @@ an architecture decision rather than hardcoding it.
 
 ## Registration boundary
 
-The accepted decision covers the existing `Heading`, `Title`, `Navigation`, and
-`Body` roles at their existing tiers. Every role's Default selection is its
-Design Token base; role-valid Size / Large and Size / Small relationships refer
-only to the same role's existing classes/tokens. Typography retains every
-resolved tier value and class. The decision creates no new roles, versioning,
-loading/shimmer behaviour, or unproved presentation input.
+ADR 0012 covers the existing `Heading`, `Title`, `Navigation`, and `Body` roles
+at their existing tiers. ADR 0027 covers WEX Tab Navigation Default, Small,
+and Large. Typography retains every resolved tier value and class; WEX Tab
+Navigation retains only references to existing foundations. Neither decision
+creates component mechanics, domain input, or product navigation behaviour.
 
 ## Safe change routing
 

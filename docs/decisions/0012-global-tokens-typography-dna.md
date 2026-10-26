@@ -45,9 +45,11 @@ line heights, spacing, borders, motion, or aliases. A changed foundation token
 therefore flows to every consumer through its existing reference.
 
 No new token storage, naming convention, selector, schema, or final component
-API is authorised here. If an existing Typography role/tier or registered
-attribute does not fit a need, it is an architecture gap requiring an Owner
-decision; it must not be invented or approximated.
+API is authorised for Typography here. If an existing Typography role/tier or
+registered attribute does not fit a need, it is an architecture gap requiring
+an Owner decision; it must not be invented or approximated. The separately
+accepted WEX Tab Navigation component-token family is governed only by
+[ADR 0027](0027-tab-navigation-global-tokens.md).
 
 ### Base presentations and registered attributes
 

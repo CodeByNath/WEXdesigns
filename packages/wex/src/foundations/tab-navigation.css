@@ -1,0 +1,58 @@
+/**
+ * WEX Tab Navigation component tokens
+ *
+ * Each token points to an existing WEX foundation. Consumers select one tier
+ * (Small, Default, or Large) and never recreate the component state values.
+ */
+
+:root {
+  /* WEX Tab Navigation Default */
+  --wex-tab-navigation-default-font-family: var(--wex-type-navigation-default-font-family);
+  --wex-tab-navigation-default-font-size: var(--wex-type-navigation-default-font-size);
+  --wex-tab-navigation-default-line-height: var(--wex-type-navigation-default-line-height);
+  --wex-tab-navigation-default-letter-spacing: var(--wex-type-navigation-default-letter-spacing);
+  --wex-tab-navigation-default-font-weight: var(--wex-type-navigation-default-primary-weight);
+  --wex-tab-navigation-default-icon-size: var(--wex-icon-size-20);
+  --wex-tab-navigation-default-target-size: calc(var(--wex-space-48) - var(--wex-space-4));
+  --wex-tab-navigation-default-icon-allocation-size: var(--wex-tab-navigation-default-target-size);
+  --wex-tab-navigation-default-gap: var(--wex-space-8);
+  --wex-tab-navigation-default-padding-block: var(--wex-space-4);
+  --wex-tab-navigation-default-padding-inline: var(--wex-space-16);
+  --wex-tab-navigation-default-child-indent: calc(var(--wex-space-48) - var(--wex-space-12));
+  --wex-tab-navigation-default-radius: var(--wex-radius-large);
+  --wex-tab-navigation-default-border-width: var(--wex-border-width-default);
+  --wex-tab-navigation-default-background: transparent;
+  --wex-tab-navigation-default-foreground: var(--wex-color-text-primary);
+  --wex-tab-navigation-default-border-color: transparent;
+
+  /* WEX Tab Navigation state tokens */
+  --wex-tab-navigation-default-hover-background: var(--wex-color-surface-selected);
+  --wex-tab-navigation-default-hover-foreground: var(--wex-color-text-secondary);
+  --wex-tab-navigation-default-hover-border-color: transparent;
+  --wex-tab-navigation-default-selected-background: var(--wex-color-surface-selected);
+  --wex-tab-navigation-default-selected-foreground: var(--wex-color-text-primary);
+  --wex-tab-navigation-default-selected-border-color: transparent;
+  --wex-tab-navigation-default-focus-color: var(--wex-outer-ring-color);
+  --wex-tab-navigation-default-focus-width: var(--wex-focus-width);
+  --wex-tab-navigation-default-focus-outer-width: var(--wex-outer-ring-width);
+  --wex-tab-navigation-default-focus-inner-width: var(--wex-outer-ring-inner-width);
+  --wex-tab-navigation-default-focus-gap: var(--wex-outer-ring-gap);
+  --wex-tab-navigation-default-focus-gap-color: var(--wex-outer-ring-gap-color);
+  --wex-tab-navigation-default-pressed-border-color: var(--wex-outer-ring-color);
+
+  /* WEX Tab Navigation Small */
+  --wex-tab-navigation-small-font-family: var(--wex-type-navigation-small-font-family);
+  --wex-tab-navigation-small-font-size: var(--wex-type-navigation-small-font-size);
+  --wex-tab-navigation-small-line-height: var(--wex-type-navigation-small-line-height);
+  --wex-tab-navigation-small-letter-spacing: var(--wex-type-navigation-small-letter-spacing);
+  --wex-tab-navigation-small-font-weight: var(--wex-type-navigation-small-primary-weight);
+  --wex-tab-navigation-small-icon-size: var(--wex-icon-size-16);
+
+  /* WEX Tab Navigation Large */
+  --wex-tab-navigation-large-font-family: var(--wex-type-navigation-large-font-family);
+  --wex-tab-navigation-large-font-size: var(--wex-type-navigation-large-font-size);
+  --wex-tab-navigation-large-line-height: var(--wex-type-navigation-large-line-height);
+  --wex-tab-navigation-large-letter-spacing: var(--wex-type-navigation-large-letter-spacing);
+  --wex-tab-navigation-large-font-weight: var(--wex-type-navigation-large-primary-weight);
+  --wex-tab-navigation-large-icon-size: var(--wex-icon-size-24);
+}

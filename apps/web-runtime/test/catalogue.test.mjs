@@ -30,6 +30,7 @@ const buttonPresentation = await readFile(new URL('../../../packages/ui/src/comp
 const logoPresentation = await readFile(new URL('../../../packages/ui/src/components/logo.ts', import.meta.url), 'utf8');
 const headerFoundation = await readFile(new URL('../../../packages/wex/src/foundations/header.css', import.meta.url), 'utf8');
 const wexLayout = await readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8');
+const wexTabNavigation = await readFile(new URL('../../../packages/wex/src/foundations/tab-navigation.css', import.meta.url), 'utf8');
 const elementDirectories = await readdir(new URL('../../../packages/catalogue/content/elements', import.meta.url));
 
 test('builds a neutral root catalogue entry surface and seven catalogue routes plus Admin Station access in order', () => {
@@ -105,7 +106,7 @@ test('keeps all registered typography specimens and computed facts on Typography
   assert.match(runtime, /'line-height': computedStyle\.lineHeight/);
   assert.match(runtime, /weight: computedStyle\.fontWeight/);
   assert.match(runtime, /style: computedStyle\.fontStyle/);
-  assert.doesNotMatch(css, /font-(?:family|size|weight|style)|line-height|letter-spacing/);
+  assert.doesNotMatch(css, /\.typography-[^{]*\{[^}]*\b(?:font-(?:family|size|weight|style)|line-height|letter-spacing)/);
 });
 
 test('limits Actions to existing Button presentation', () => {
@@ -120,6 +121,15 @@ test('keeps the Global Components catalogue entrypoint empty', () => {
   assert.match(components, /<h1 id="global-components-title"[^>]*>Global Components<\/h1>/);
   assert.match(components, /Registered components/);
   assert.doesNotMatch(components, /Button|wex-button|<button|aria-pressed|onclick=|addEventListener\(['"]click/);
+});
+
+test('shows the registered WEX Tab Navigation tokens in Global Tokens', () => {
+  const tokens = pageByPath['global-tokens/index.html'];
+  assert.match(tokens, /data-global-token-role="wex-tab-navigation"/);
+  ['WEX Tab Navigation Default', 'WEX Tab Navigation Small', 'WEX Tab Navigation Large'].forEach((name) => assert.match(tokens, new RegExp(name)));
+  ['State \/ Hover', 'State \/ Selected', 'State \/ Focus', 'State \/ Pressed', 'Child and chevron'].forEach((name) => assert.match(tokens, new RegExp(name)));
+  assert.match(css, /\.global-tokens__tab-navigation-sample/);
+  assert.match(css, /--wex-tab-navigation-default-focus-color/);
 });
 
 test('provides an isolated Component Manager sandbox with the approved Logo candidate only', () => {
@@ -524,30 +534,30 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /@media \(min-width: 768px\) \{[\s\S]*\.wex-admin-shell\[data-sidebar="expanded"\] \.wex-admin-shell__sidebar,[\s\S]*\.wex-admin-shell\[data-sidebar-hovered="true"\] \.wex-admin-shell__sidebar\s*\{[\s\S]*grid-area: unset;[\s\S]*position: absolute;[\s\S]*inset-block: var\(--wex-admin-shell-header-size\) 0;[\s\S]*inline-size: var\(--wex-admin-shell-sidebar-expanded\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-controls\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-navigation\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-item\s*\{\s*display: grid;\s*gap: var\(--wex-space-8\);\s*\}/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border-radius: var\(--wex-radius-large\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border: var\(--wex-border-width-default\) solid transparent;[\s\S]*outline: none;/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-item\s*\{\s*display: grid;\s*gap: var\(--wex-tab-navigation-default-gap\);\s*\}/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border-radius: var\(--wex-tab-navigation-default-radius\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*border: var\(--wex-tab-navigation-default-border-width\) solid var\(--wex-tab-navigation-default-border-color\);[\s\S]*outline: none;/);
   assert.match(
     wexLayout,
-    /\.wex-admin-shell__sidebar-tab-children\s*\{[\s\S]*padding-inline-start: calc\(var\(--wex-space-48\) - var\(--wex-space-12\)\);/,
+    /\.wex-admin-shell__sidebar-tab-children\s*\{[\s\S]*padding-inline-start: var\(--wex-tab-navigation-default-child-indent\);/,
   );
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-children\[hidden\]\s*\{\s*display: none;\s*\}/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*gap: var\(--wex-space-8\);[\s\S]*min-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*max-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*padding: var\(--wex-space-4\) var\(--wex-space-16\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\s*\{[\s\S]*gap: var\(--wex-tab-navigation-default-gap\);[\s\S]*min-block-size: var\(--wex-tab-navigation-default-target-size\);[\s\S]*max-block-size: var\(--wex-tab-navigation-default-target-size\);[\s\S]*padding: var\(--wex-tab-navigation-default-padding-block\) var\(--wex-tab-navigation-default-padding-inline\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-list > \.wex-admin-shell__sidebar-tab-item > \.wex-admin-shell__sidebar-tab\s*\{\s*padding-inline-start: 0;\s*\}/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon\s*\{[\s\S]*inline-size: 100%;[\s\S]*block-size: 100%;[\s\S]*max-inline-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*max-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon-svg\s*\{[\s\S]*inline-size: var\(--wex-icon-size-20\);[\s\S]*block-size: var\(--wex-icon-size-20\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\[data-sidebar-tab-active="true"\]\s*\{[\s\S]*background: var\(--wex-color-surface-selected\);[\s\S]*color: var\(--wex-color-text-primary\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active,\s*\.wex-admin-shell__sidebar-tab:focus\s*\{[\s\S]*border-color: var\(--wex-outer-ring-color\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border-radius: calc\(var\(--wex-radius-large\) - var\(--wex-border-width-default\)\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border-radius: calc\(var\(--wex-radius-large\) - var\(--wex-outer-ring-width\)\);/);
-  assert.match(wexLayout, /\[data-wex-theme="dark"\] \.wex-admin-shell__sidebar-tab:not\(\[data-sidebar-tab-active="true"\]\):hover\s*\{\s*background: var\(--wex-color-dark-grey\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon\s*\{[\s\S]*inline-size: 100%;[\s\S]*block-size: 100%;[\s\S]*max-inline-size: var\(--wex-tab-navigation-default-icon-allocation-size\);[\s\S]*max-block-size: var\(--wex-tab-navigation-default-icon-allocation-size\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon-svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-default-icon-size\);[\s\S]*block-size: var\(--wex-tab-navigation-default-icon-size\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\[data-sidebar-tab-active="true"\]\s*\{[\s\S]*background: var\(--wex-tab-navigation-default-selected-background\);[\s\S]*color: var\(--wex-tab-navigation-default-selected-foreground\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active,\s*\.wex-admin-shell__sidebar-tab:focus\s*\{[\s\S]*border-color: var\(--wex-tab-navigation-default-pressed-border-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-default-focus-inner-width\) solid var\(--wex-tab-navigation-default-focus-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border-radius: calc\(var\(--wex-tab-navigation-default-radius\) - var\(--wex-tab-navigation-default-border-width\)\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border: var\(--wex-tab-navigation-default-focus-gap\) solid var\(--wex-tab-navigation-default-focus-gap-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border-radius: calc\(var\(--wex-tab-navigation-default-radius\) - var\(--wex-tab-navigation-default-focus-outer-width\)\);/);
   assert.match(
     wexLayout,
-    /\.wex-admin-shell__sidebar-tab:not\(\[data-sidebar-tab-active="true"\]\):hover\s*\{[\s\S]*background: var\(--wex-color-light-grey\);[\s\S]*color: var\(--wex-color-text-secondary\);/,
+    /\.wex-admin-shell__sidebar-tab:not\(\[data-sidebar-tab-active="true"\]\):hover\s*\{[\s\S]*background: var\(--wex-tab-navigation-default-hover-background\);[\s\S]*color: var\(--wex-tab-navigation-default-hover-foreground\);/,
   );
-  assert.match(wexLayout, /\.wex-admin-shell:not\(\[data-sidebar="expanded"\]\):not\(\[data-sidebar-hovered="true"\]\) \.wex-admin-shell__sidebar-tab:not\(\.wex-admin-shell__nav-sub-action\)\s*\{[\s\S]*inline-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*min-block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*block-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);[\s\S]*padding-block: 0;/);
+  assert.match(wexLayout, /\.wex-admin-shell:not\(\[data-sidebar="expanded"\]\):not\(\[data-sidebar-hovered="true"\]\) \.wex-admin-shell__sidebar-tab:not\(\.wex-admin-shell__nav-sub-action\)\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-default-target-size\);[\s\S]*min-block-size: var\(--wex-tab-navigation-default-target-size\);[\s\S]*block-size: var\(--wex-tab-navigation-default-target-size\);[\s\S]*padding-block: 0;/);
+  assert.match(wexTabNavigation, /--wex-tab-navigation-default-icon-size: var\(--wex-icon-size-20\);/);
   assert.match(wexLayout, /\.wex-admin-shell:not\(\[data-sidebar="expanded"\]\):not\(\[data-sidebar-hovered="true"\]\) \.wex-admin-shell__sidebar-tab-label/);
   assert.match(wexLayout, /\.wex-admin-shell__main\s*\{[\s\S]*background: var\(--wex-color-layer-02\);/);
   assert.match(wexLayout, /\.wex-admin-shell__control\s*\{[\s\S]*inline-size: var\(--wex-space-32\);[\s\S]*block-size: var\(--wex-space-32\);/);
