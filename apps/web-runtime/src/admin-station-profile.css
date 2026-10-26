@@ -94,6 +94,10 @@ button.wex-admin-profile__action:not(:disabled) {
   cursor: pointer;
 }
 
+.wex-admin-profile__action:disabled {
+  opacity: var(--wex-opacity-disabled);
+}
+
 .wex-admin-profile__action:not(:disabled):hover:not(:focus) {
   border-color: var(--wex-tab-navigation-small-hover-border-color);
   background-color: var(--wex-tab-navigation-small-hover-background);
