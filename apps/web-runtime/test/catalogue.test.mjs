@@ -283,7 +283,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon\s*\{[\s\S]*aspect-ratio: 1;/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-small-icon-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:disabled\s*\{[\s\S]*opacity: var\(--wex-opacity-disabled\);/);
-  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):hover:not\(:focus\)\s*\{[\s\S]*background-color: var\(--wex-tab-navigation-small-hover-background\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):hover\s*\{[\s\S]*background-color: var\(--wex-tab-navigation-small-hover-background\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active,\s*\.wex-admin-profile__action:focus\s*\{[\s\S]*border-color: var\(--wex-tab-navigation-small-pressed-border-color\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active::after,\s*\.wex-admin-profile__action:focus::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-small-focus-inner-width\) solid var\(--wex-tab-navigation-small-focus-color\);/);
   assert.doesNotMatch(adminStationProfileCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);

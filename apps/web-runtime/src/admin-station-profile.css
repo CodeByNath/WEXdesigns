@@ -99,7 +99,7 @@ button.wex-admin-profile__action:not(:disabled) {
   opacity: var(--wex-opacity-disabled);
 }
 
-.wex-admin-profile__action:not(:disabled):hover:not(:focus) {
+.wex-admin-profile__action:not(:disabled):hover {
   border-color: var(--wex-tab-navigation-small-hover-border-color);
   background-color: var(--wex-tab-navigation-small-hover-background);
   color: var(--wex-tab-navigation-small-hover-foreground);
