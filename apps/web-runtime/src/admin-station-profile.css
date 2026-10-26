@@ -54,7 +54,7 @@
 
 .wex-admin-profile__actions {
   display: grid;
-  gap: var(--wex-space-4);
+  gap: var(--wex-tab-navigation-default-gap);
 }
 
 .wex-admin-profile__footer {
@@ -68,26 +68,37 @@
 .wex-admin-profile__action {
   justify-content: flex-start;
   inline-size: 100%;
-  border-color: transparent;
-  color: var(--wex-color-text-primary);
+  min-block-size: var(--wex-tab-navigation-default-target-size);
+  gap: var(--wex-tab-navigation-default-gap);
+  padding-block: var(--wex-tab-navigation-default-padding-block);
+  padding-inline: var(--wex-tab-navigation-default-padding-inline);
+  border-color: var(--wex-tab-navigation-default-border-color);
+  border-radius: var(--wex-tab-navigation-default-radius);
+  background-color: var(--wex-tab-navigation-default-background);
+  color: var(--wex-tab-navigation-default-foreground);
+  font-family: var(--wex-tab-navigation-small-font-family);
+  font-size: var(--wex-tab-navigation-small-font-size);
+  font-weight: var(--wex-tab-navigation-small-font-weight);
+  line-height: var(--wex-tab-navigation-small-line-height);
+  letter-spacing: var(--wex-tab-navigation-small-letter-spacing);
   text-align: start;
 }
 
-.wex-button.wex-admin-profile__exit-link:hover:not(:focus) {
-  border-color: transparent;
-  background-color: transparent;
-  color: var(--wex-color-text-primary);
+.wex-button.wex-admin-profile__action:hover:not(:focus) {
+  border-color: var(--wex-tab-navigation-default-border-color);
+  background-color: var(--wex-tab-navigation-default-background);
+  color: var(--wex-tab-navigation-default-foreground);
 }
 
 .wex-admin-profile__action-icon {
   display: grid;
-  flex: 0 0 var(--wex-space-24);
+  flex: 0 0 var(--wex-tab-navigation-default-icon-allocation-size);
   place-items: center;
 }
 
 .wex-admin-profile__action-icon svg {
-  inline-size: var(--wex-icon-size-20);
-  block-size: var(--wex-icon-size-20);
+  inline-size: var(--wex-tab-navigation-small-icon-size);
+  block-size: var(--wex-tab-navigation-small-icon-size);
 }
 
 .wex-admin-profile__action-copy {

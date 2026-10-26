@@ -274,8 +274,10 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /background: var\(--wex-color-light-grey\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__header\s*\{[\s\S]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__footer\s*\{[\s\S]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
-  assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*border-color: transparent;/);
-  assert.match(adminStationProfileCss, /\.wex-button\.wex-admin-profile__exit-link:hover:not\(:focus\)\s*\{[\s\S]*background-color: transparent;/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*min-block-size: var\(--wex-tab-navigation-default-target-size\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*font-family: var\(--wex-tab-navigation-small-font-family\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-small-icon-size\);/);
+  assert.match(adminStationProfileCss, /\.wex-button\.wex-admin-profile__action:hover:not\(:focus\)\s*\{[\s\S]*background-color: var\(--wex-tab-navigation-default-background\);/);
   assert.doesNotMatch(adminStationProfileCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNotifications, /owner: NOTIFICATIONS_OWNER,/);
   assert.match(adminStationNotifications, /inlineSize: 'min\(calc\(var\(--wex-space-64\) \* 7\), 100%\)',/);
