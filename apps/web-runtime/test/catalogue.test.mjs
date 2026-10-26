@@ -248,6 +248,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfile, /createUnavailableAction\(document, 'support', 'Support'\)/);
   assert.match(adminStationProfile, /function createExitToWordPressLink\(document\)/);
   assert.match(adminStationProfile, /link\.href = '\/wp-admin\/'/);
+  assert.match(adminStationProfile, /wex-admin-profile__exit-link/);
   assert.match(adminStationProfile, /label\.textContent = 'Exit to WordPress';/);
   assert.match(adminStationProfile, /createExitToWordPressLink\(document\)/);
   assert.match(adminStationProfile, /header\.className = 'wex-admin-profile__header';/);
@@ -264,6 +265,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /\.wex-admin-profile__header\s*\{[\s\S]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__footer\s*\{[\s\S]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*border-color: transparent;/);
+  assert.match(adminStationProfileCss, /\.wex-button\.wex-admin-profile__exit-link:hover:not\(:focus\)\s*\{[\s\S]*background-color: transparent;/);
   assert.doesNotMatch(adminStationProfileCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNotifications, /owner: NOTIFICATIONS_OWNER,/);
   assert.match(adminStationNotifications, /inlineSize: 'min\(calc\(var\(--wex-space-64\) \* 7\), 100%\)',/);

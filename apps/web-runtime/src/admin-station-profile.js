@@ -77,7 +77,7 @@ function createUnavailableAction(document, icon, label, detail = '', includeIcon
 function createExitToWordPressLink(document) {
   const link = document.createElement('a');
   link.href = '/wp-admin/';
-  link.className = 'wex-button wex-button--small wex-button--subtle wex-admin-profile__action';
+  link.className = 'wex-button wex-button--small wex-button--subtle wex-admin-profile__action wex-admin-profile__exit-link';
   const visual = document.createElement('span');
   visual.className = 'wex-admin-profile__action-icon';
   visual.setAttribute('aria-hidden', 'true');
