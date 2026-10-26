@@ -81,6 +81,9 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
     }
   }
 
+  assert.match(tabNavigation, /--wex-tab-navigation-small-gap: var\(--wex-space-8\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-child-indent: calc\(var\(--wex-space-40\) - var\(--wex-space-8\)\);/);
+
   assert.match(tabNavigationDecision, /WEX Tab Navigation Default/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Small/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Large/);
