@@ -2,7 +2,7 @@ import { closeHeaderResultsShell, requestHeaderResultsShell } from './admin-stat
 
 const PROFILE_OWNER = 'profile';
 
-/** @typedef {'account' | 'language' | 'settings' | 'sign-out' | 'support'} ProfileActionIconName */
+/** @typedef {'account' | 'language' | 'settings' | 'support'} ProfileActionIconName */
 
 /** @type {Record<ProfileActionIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const profileActionIconShapes = {
@@ -21,10 +21,6 @@ const profileActionIconShapes = {
   language: [
     ['circle', { cx: '12', cy: '12', r: '8.25' }],
     ['path', { d: 'M3.75 12h16.5M12 3.75c2.1 2.25 3.15 5 3.15 8.25S14.1 18 12 20.25C9.9 18 8.85 15.25 8.85 12S9.9 6 12 3.75Z' }],
-  ],
-  'sign-out': [
-    ['path', { d: 'M9.75 4.5h-4.5a1.5 1.5 0 0 0-1.5 1.5v12a1.5 1.5 0 0 0 1.5 1.5h4.5' }],
-    ['path', { d: 'm14.25 8.25 3.75 3.75-3.75 3.75m3.75-3.75H8.25' }],
   ],
 };
 
@@ -97,8 +93,8 @@ export function mountHeaderProfile(shell, trigger) {
   panel.className = 'wex-admin-profile';
   panel.setAttribute('aria-label', 'Profile menu');
 
-  const content = document.createElement('div');
-  content.className = 'wex-admin-profile__content';
+  const header = document.createElement('header');
+  header.className = 'wex-admin-profile__header';
   const identity = document.createElement('div');
   identity.className = 'wex-admin-profile__identity';
   const visual = document.createElement('span');
@@ -115,8 +111,10 @@ export function mountHeaderProfile(shell, trigger) {
   description.textContent = 'This host has not supplied profile information or account actions.';
   copy.append(heading, description);
   identity.append(visual, copy);
-  content.append(identity);
+  header.append(identity);
 
+  const content = document.createElement('div');
+  content.className = 'wex-admin-profile__content';
   const actions = document.createElement('div');
   actions.className = 'wex-admin-profile__actions';
   actions.setAttribute('aria-label', 'Profile actions unavailable');
@@ -126,14 +124,22 @@ export function mountHeaderProfile(shell, trigger) {
     createUnavailableAction(document, 'support', 'Support'),
     createUnavailableAction(document, 'language', 'Language', 'Unavailable'),
   );
-  const signOutActions = document.createElement('div');
-  signOutActions.className = 'wex-admin-profile__actions wex-admin-profile__actions--separated';
-  const signOut = createUnavailableAction(document, 'sign-out', 'Sign out', '', false);
-  signOut.className = 'wex-button wex-button--small wex-button--neutral wex-admin-profile__sign-out';
-  signOutActions.append(signOut);
-  content.append(actions, signOutActions);
+  content.append(actions);
 
-  panel.append(content);
+  const footer = document.createElement('footer');
+  footer.className = 'wex-admin-profile__footer';
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'wex-button wex-button--small wex-button--neutral';
+  close.textContent = 'Close';
+  const signOut = document.createElement('button');
+  signOut.type = 'button';
+  signOut.disabled = true;
+  signOut.className = 'wex-button wex-button--small wex-button--primary';
+  signOut.textContent = 'Sign out';
+  footer.append(close, signOut);
+
+  panel.append(header, content, footer);
   wrapper.append(panel);
 
   trigger.dataset.profileAction = '';
@@ -148,6 +154,8 @@ export function mountHeaderProfile(shell, trigger) {
     syncTrigger();
     if (restoreFocus) trigger.focus();
   };
+
+  close.addEventListener('click', () => { closeProfile(); });
 
   trigger.addEventListener('click', () => {
     if (!isOpen()) results.replaceChildren(wrapper);

@@ -3,6 +3,7 @@
 }
 
 .wex-admin-profile {
+  display: grid;
   overflow: hidden;
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   border-radius: var(--wex-radius-large);
@@ -10,10 +11,14 @@
   color: var(--wex-color-text-primary);
 }
 
-.wex-admin-profile__content {
-  display: grid;
-  gap: var(--wex-space-16);
+.wex-admin-profile__header {
   padding: var(--wex-space-24) var(--wex-space-16) var(--wex-space-16);
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  background: var(--wex-color-background-primary);
+}
+
+.wex-admin-profile__content {
+  padding: var(--wex-space-16);
 }
 
 .wex-admin-profile__identity {
@@ -52,14 +57,12 @@
   gap: var(--wex-space-4);
 }
 
-.wex-admin-profile__actions--separated {
-  padding-block-start: var(--wex-space-8);
+.wex-admin-profile__footer {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--wex-space-12) var(--wex-space-16);
   border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-}
-
-.wex-admin-profile__sign-out {
-  justify-content: center;
-  inline-size: 100%;
+  background: var(--wex-color-background-primary);
 }
 
 .wex-admin-profile__action {
