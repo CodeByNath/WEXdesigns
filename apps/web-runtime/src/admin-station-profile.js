@@ -2,7 +2,7 @@ import { closeHeaderResultsShell, requestHeaderResultsShell } from './admin-stat
 
 const PROFILE_OWNER = 'profile';
 
-/** @typedef {'account' | 'language' | 'settings' | 'support'} ProfileActionIconName */
+/** @typedef {'account' | 'settings' | 'sign-out' | 'support'} ProfileActionIconName */
 
 /** @type {Record<ProfileActionIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const profileActionIconShapes = {
@@ -18,9 +18,9 @@ const profileActionIconShapes = {
     ['circle', { cx: '12', cy: '12', r: '8.25' }],
     ['path', { d: 'M12 10.5v5.25m0-8.25h.01' }],
   ],
-  language: [
-    ['circle', { cx: '12', cy: '12', r: '8.25' }],
-    ['path', { d: 'M3.75 12h16.5M12 3.75c2.1 2.25 3.15 5 3.15 8.25S14.1 18 12 20.25C9.9 18 8.85 15.25 8.85 12S9.9 6 12 3.75Z' }],
+  'sign-out': [
+    ['path', { d: 'M9.75 4.5h-4.5a1.5 1.5 0 0 0-1.5 1.5v12a1.5 1.5 0 0 0 1.5 1.5h4.5' }],
+    ['path', { d: 'm14.25 8.25 3.75 3.75-3.75 3.75m3.75-3.75H8.25' }],
   ],
 };
 
@@ -73,6 +73,22 @@ function createUnavailableAction(document, icon, label, detail = '', includeIcon
   return action;
 }
 
+/** @param {Document} document */
+function createExitToWordPressLink(document) {
+  const link = document.createElement('a');
+  link.href = '/wp-admin/';
+  link.className = 'wex-button wex-button--small wex-button--subtle wex-admin-profile__action';
+  const visual = document.createElement('span');
+  visual.className = 'wex-admin-profile__action-icon';
+  visual.setAttribute('aria-hidden', 'true');
+  visual.append(createProfileIcon(document, 'sign-out'));
+  const label = document.createElement('span');
+  label.className = 'wex-type-navigation-small-semibold';
+  label.textContent = 'Exit to WordPress';
+  link.append(visual, label);
+  return link;
+}
+
 /**
  * Mounts the Profile Results component. The Admin Station currently has no
  * authorised profile-data or account-action binding, so its honest missing
@@ -117,12 +133,12 @@ export function mountHeaderProfile(shell, trigger) {
   content.className = 'wex-admin-profile__content';
   const actions = document.createElement('div');
   actions.className = 'wex-admin-profile__actions';
-  actions.setAttribute('aria-label', 'Profile actions unavailable');
+  actions.setAttribute('aria-label', 'Profile actions');
   actions.append(
     createUnavailableAction(document, 'account', 'Edit profile'),
     createUnavailableAction(document, 'settings', 'Account settings'),
     createUnavailableAction(document, 'support', 'Support'),
-    createUnavailableAction(document, 'language', 'Language', 'Unavailable'),
+    createExitToWordPressLink(document),
   );
   content.append(actions);
 

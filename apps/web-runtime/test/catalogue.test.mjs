@@ -246,7 +246,10 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfile, /createUnavailableAction\(document, 'account', 'Edit profile'\)/);
   assert.match(adminStationProfile, /createUnavailableAction\(document, 'settings', 'Account settings'\)/);
   assert.match(adminStationProfile, /createUnavailableAction\(document, 'support', 'Support'\)/);
-  assert.match(adminStationProfile, /createUnavailableAction\(document, 'language', 'Language', 'Unavailable'\)/);
+  assert.match(adminStationProfile, /function createExitToWordPressLink\(document\)/);
+  assert.match(adminStationProfile, /link\.href = '\/wp-admin\/'/);
+  assert.match(adminStationProfile, /label\.textContent = 'Exit to WordPress';/);
+  assert.match(adminStationProfile, /createExitToWordPressLink\(document\)/);
   assert.match(adminStationProfile, /header\.className = 'wex-admin-profile__header';/);
   assert.match(adminStationProfile, /footer\.className = 'wex-admin-profile__footer';/);
   assert.match(adminStationProfile, /close\.textContent = 'Close';/);
