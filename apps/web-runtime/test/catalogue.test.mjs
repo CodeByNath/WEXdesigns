@@ -277,7 +277,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*min-block-size: var\(--wex-tab-navigation-small-target-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*gap: var\(--wex-tab-navigation-small-gap\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*font-family: var\(--wex-tab-navigation-small-font-family\);/);
-  assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon\s*\{[\s\S]*max-inline-size: var\(--wex-tab-navigation-small-icon-allocation-size\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-small-icon-allocation-size\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon\s*\{[\s\S]*block-size: var\(--wex-tab-navigation-small-icon-allocation-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon\s*\{[\s\S]*aspect-ratio: 1;/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-small-icon-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:disabled\s*\{[\s\S]*opacity: var\(--wex-opacity-disabled\);/);

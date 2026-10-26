@@ -133,13 +133,10 @@ button.wex-admin-profile__action:not(:disabled) {
 
 .wex-admin-profile__action-icon {
   display: grid;
-  flex: 0 1 auto;
+  flex: 0 0 var(--wex-tab-navigation-small-icon-allocation-size);
   place-items: center;
-  align-self: stretch;
-  inline-size: 100%;
-  block-size: 100%;
-  max-inline-size: var(--wex-tab-navigation-small-icon-allocation-size);
-  max-block-size: var(--wex-tab-navigation-small-icon-allocation-size);
+  inline-size: var(--wex-tab-navigation-small-icon-allocation-size);
+  block-size: var(--wex-tab-navigation-small-icon-allocation-size);
   aspect-ratio: 1;
 }
 
