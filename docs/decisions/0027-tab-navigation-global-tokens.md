@@ -18,12 +18,13 @@ Each tier references existing WEX Navigation typography and icon foundations:
 | Default | Navigation Default | `--wex-icon-size-20` |
 | Large | Navigation Large | `--wex-icon-size-24` |
 
-The Default family also owns token references for target allocation, icon
-allocation, icon/label gap, padding, border, radius, child indent, and
-chevron allocation. It owns five presentation states: Default, Hover,
-Selected, Focus, and Pressed. Every value references an existing WEX
-foundation; this decision introduces no resolved colour, spacing, geometry,
-typography, or motion value.
+Each tier owns token references for target allocation, icon allocation,
+icon/label gap, padding, border, radius, child indent, and chevron allocation.
+Each tier also exposes Default, Hover, Selected, Focus, and Pressed state
+tokens. Shared state values are inherited through token aliases, so a change
+to the Default state remains system-wide until a tier requires an authorised
+override. Every value references an existing WEX foundation; this decision
+introduces no resolved colour, spacing, geometry, typography, or motion value.
 
 ## Boundaries
 

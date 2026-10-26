@@ -1,8 +1,8 @@
 /**
  * WEX Tab Navigation component tokens
  *
- * Each token points to an existing WEX foundation. Consumers select one tier
- * (Small, Default, or Large) and never recreate the component state values.
+ * Each token points to an existing WEX foundation. Consumers select one complete
+ * tier (Small, Default, or Large) and never recreate navigation values locally.
  */
 
 :root {
@@ -13,6 +13,7 @@
   --wex-tab-navigation-default-letter-spacing: var(--wex-type-navigation-default-letter-spacing);
   --wex-tab-navigation-default-font-weight: var(--wex-type-navigation-default-primary-weight);
   --wex-tab-navigation-default-icon-size: var(--wex-icon-size-20);
+  --wex-tab-navigation-default-chevron-size: var(--wex-tab-navigation-default-icon-size);
   --wex-tab-navigation-default-target-size: calc(var(--wex-space-48) - var(--wex-space-4));
   --wex-tab-navigation-default-icon-allocation-size: var(--wex-tab-navigation-default-target-size);
   --wex-tab-navigation-default-gap: var(--wex-space-8);
@@ -25,7 +26,7 @@
   --wex-tab-navigation-default-foreground: var(--wex-color-text-primary);
   --wex-tab-navigation-default-border-color: transparent;
 
-  /* WEX Tab Navigation state tokens */
+  /* WEX Tab Navigation Default states */
   --wex-tab-navigation-default-hover-background: var(--wex-color-surface-selected);
   --wex-tab-navigation-default-hover-foreground: var(--wex-color-text-secondary);
   --wex-tab-navigation-default-hover-border-color: transparent;
@@ -47,6 +48,31 @@
   --wex-tab-navigation-small-letter-spacing: var(--wex-type-navigation-small-letter-spacing);
   --wex-tab-navigation-small-font-weight: var(--wex-type-navigation-small-primary-weight);
   --wex-tab-navigation-small-icon-size: var(--wex-icon-size-16);
+  --wex-tab-navigation-small-chevron-size: var(--wex-tab-navigation-small-icon-size);
+  --wex-tab-navigation-small-target-size: calc(var(--wex-space-40) - var(--wex-space-4));
+  --wex-tab-navigation-small-icon-allocation-size: var(--wex-tab-navigation-small-target-size);
+  --wex-tab-navigation-small-gap: var(--wex-space-4);
+  --wex-tab-navigation-small-padding-block: var(--wex-space-4);
+  --wex-tab-navigation-small-padding-inline: var(--wex-space-12);
+  --wex-tab-navigation-small-child-indent: calc(var(--wex-space-40) - var(--wex-space-12));
+  --wex-tab-navigation-small-radius: var(--wex-radius-default);
+  --wex-tab-navigation-small-border-width: var(--wex-border-width-default);
+  --wex-tab-navigation-small-background: var(--wex-tab-navigation-default-background);
+  --wex-tab-navigation-small-foreground: var(--wex-tab-navigation-default-foreground);
+  --wex-tab-navigation-small-border-color: var(--wex-tab-navigation-default-border-color);
+  --wex-tab-navigation-small-hover-background: var(--wex-tab-navigation-default-hover-background);
+  --wex-tab-navigation-small-hover-foreground: var(--wex-tab-navigation-default-hover-foreground);
+  --wex-tab-navigation-small-hover-border-color: var(--wex-tab-navigation-default-hover-border-color);
+  --wex-tab-navigation-small-selected-background: var(--wex-tab-navigation-default-selected-background);
+  --wex-tab-navigation-small-selected-foreground: var(--wex-tab-navigation-default-selected-foreground);
+  --wex-tab-navigation-small-selected-border-color: var(--wex-tab-navigation-default-selected-border-color);
+  --wex-tab-navigation-small-focus-color: var(--wex-tab-navigation-default-focus-color);
+  --wex-tab-navigation-small-focus-width: var(--wex-tab-navigation-default-focus-width);
+  --wex-tab-navigation-small-focus-outer-width: var(--wex-tab-navigation-default-focus-outer-width);
+  --wex-tab-navigation-small-focus-inner-width: var(--wex-tab-navigation-default-focus-inner-width);
+  --wex-tab-navigation-small-focus-gap: var(--wex-tab-navigation-default-focus-gap);
+  --wex-tab-navigation-small-focus-gap-color: var(--wex-tab-navigation-default-focus-gap-color);
+  --wex-tab-navigation-small-pressed-border-color: var(--wex-tab-navigation-default-pressed-border-color);
 
   /* WEX Tab Navigation Large */
   --wex-tab-navigation-large-font-family: var(--wex-type-navigation-large-font-family);
@@ -55,4 +81,29 @@
   --wex-tab-navigation-large-letter-spacing: var(--wex-type-navigation-large-letter-spacing);
   --wex-tab-navigation-large-font-weight: var(--wex-type-navigation-large-primary-weight);
   --wex-tab-navigation-large-icon-size: var(--wex-icon-size-24);
+  --wex-tab-navigation-large-chevron-size: var(--wex-tab-navigation-large-icon-size);
+  --wex-tab-navigation-large-target-size: var(--wex-space-48);
+  --wex-tab-navigation-large-icon-allocation-size: var(--wex-tab-navigation-large-target-size);
+  --wex-tab-navigation-large-gap: var(--wex-space-8);
+  --wex-tab-navigation-large-padding-block: var(--wex-space-8);
+  --wex-tab-navigation-large-padding-inline: var(--wex-space-16);
+  --wex-tab-navigation-large-child-indent: calc(var(--wex-space-48) - var(--wex-space-8));
+  --wex-tab-navigation-large-radius: var(--wex-radius-large);
+  --wex-tab-navigation-large-border-width: var(--wex-border-width-default);
+  --wex-tab-navigation-large-background: var(--wex-tab-navigation-default-background);
+  --wex-tab-navigation-large-foreground: var(--wex-tab-navigation-default-foreground);
+  --wex-tab-navigation-large-border-color: var(--wex-tab-navigation-default-border-color);
+  --wex-tab-navigation-large-hover-background: var(--wex-tab-navigation-default-hover-background);
+  --wex-tab-navigation-large-hover-foreground: var(--wex-tab-navigation-default-hover-foreground);
+  --wex-tab-navigation-large-hover-border-color: var(--wex-tab-navigation-default-hover-border-color);
+  --wex-tab-navigation-large-selected-background: var(--wex-tab-navigation-default-selected-background);
+  --wex-tab-navigation-large-selected-foreground: var(--wex-tab-navigation-default-selected-foreground);
+  --wex-tab-navigation-large-selected-border-color: var(--wex-tab-navigation-default-selected-border-color);
+  --wex-tab-navigation-large-focus-color: var(--wex-tab-navigation-default-focus-color);
+  --wex-tab-navigation-large-focus-width: var(--wex-tab-navigation-default-focus-width);
+  --wex-tab-navigation-large-focus-outer-width: var(--wex-tab-navigation-default-focus-outer-width);
+  --wex-tab-navigation-large-focus-inner-width: var(--wex-tab-navigation-default-focus-inner-width);
+  --wex-tab-navigation-large-focus-gap: var(--wex-tab-navigation-default-focus-gap);
+  --wex-tab-navigation-large-focus-gap-color: var(--wex-tab-navigation-default-focus-gap-color);
+  --wex-tab-navigation-large-pressed-border-color: var(--wex-tab-navigation-default-pressed-border-color);
 }

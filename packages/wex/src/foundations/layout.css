@@ -260,8 +260,8 @@ button.wex-admin-shell__sidebar-tab {
 .wex-admin-shell__sidebar-tab-icon--disclosure {
   margin-inline-start: auto;
   align-self: center;
-  inline-size: var(--wex-tab-navigation-default-icon-size);
-  block-size: var(--wex-tab-navigation-default-icon-size);
+  inline-size: var(--wex-tab-navigation-default-chevron-size);
+  block-size: var(--wex-tab-navigation-default-chevron-size);
 }
 
 .wex-admin-shell__sidebar-tab--group[aria-expanded="true"] .wex-admin-shell__sidebar-tab-icon--disclosure {

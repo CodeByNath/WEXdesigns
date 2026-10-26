@@ -62,26 +62,28 @@ test('keeps Global Tokens bound to the complete existing Typography vocabulary',
 
 test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   for (const tier of ['small', 'default', 'large']) {
-    for (const property of ['font-family', 'font-size', 'line-height', 'letter-spacing', 'font-weight', 'icon-size']) {
+    for (const property of ['font-family', 'font-size', 'line-height', 'letter-spacing', 'font-weight', 'icon-size', 'chevron-size']) {
       assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${property}: var\\(--wex-`));
     }
   }
 
-  for (const property of ['target-size', 'icon-allocation-size', 'gap', 'padding-block', 'padding-inline', 'child-indent', 'radius', 'border-width']) {
-    assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-default-${property}: (?:var|calc)\\(`));
-  }
-  for (const state of ['hover', 'selected']) {
-    for (const property of ['background', 'foreground', 'border-color']) {
-      assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-default-${state}-${property}: (?:var|transparent)`));
+  for (const tier of ['small', 'default', 'large']) {
+    for (const property of ['target-size', 'icon-allocation-size', 'gap', 'padding-block', 'padding-inline', 'child-indent', 'radius', 'border-width']) {
+      assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${property}: (?:var|calc)\\(`));
     }
-  }
-  for (const property of ['focus-color', 'focus-width', 'focus-outer-width', 'focus-inner-width', 'focus-gap', 'focus-gap-color', 'pressed-border-color']) {
-    assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-default-${property}: var\\(--wex-`));
+    for (const state of ['hover', 'selected']) {
+      for (const property of ['background', 'foreground', 'border-color']) {
+        assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${state}-${property}: (?:var|transparent)`));
+      }
+    }
+    for (const property of ['focus-color', 'focus-width', 'focus-outer-width', 'focus-inner-width', 'focus-gap', 'focus-gap-color', 'pressed-border-color']) {
+      assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${property}: var\\(--wex-`));
+    }
   }
 
   assert.match(tabNavigationDecision, /WEX Tab Navigation Default/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Small/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Large/);
-  assert.match(tabNavigationDecision, /Default, Hover,\nSelected, Focus, and Pressed/);
+  assert.match(tabNavigationDecision, /Default, Hover, Selected, Focus, and Pressed state/);
   assert.doesNotMatch(tabNavigation, /#[0-9a-f]{3,8}\b/i);
 });

@@ -12,10 +12,11 @@
 
 ### Recent work (newest first)
 
-- WEX Tab Navigation Default, Small, and Large register reusable navigation
-  presentation references for icon allocation, typography, state treatment,
-  child alignment, and chevrons. The Admin Station Sidebar consumes these
-  tokens but remains an application/runtime layout.
+- WEX Tab Navigation Default, Small, and Large each register complete
+  navigation presentation references for target allocation, icons, typography,
+  state treatment, child alignment, and chevrons. The Admin Station Sidebar and
+  Profile action list consume those tokens but remain application/runtime
+  layouts.
 - Phase 4 presents every existing Typography role with its Default base atom
   first, followed only by its sparse role-valid attributes.
 - Phase 3C makes registered Heading Default attributes the primary Global

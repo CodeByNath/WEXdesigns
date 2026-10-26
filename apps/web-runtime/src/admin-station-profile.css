@@ -54,7 +54,7 @@
 
 .wex-admin-profile__actions {
   display: grid;
-  gap: var(--wex-tab-navigation-default-gap);
+  gap: var(--wex-tab-navigation-small-gap);
 }
 
 .wex-admin-profile__footer {
@@ -68,14 +68,14 @@
 .wex-admin-profile__action {
   justify-content: flex-start;
   inline-size: 100%;
-  min-block-size: var(--wex-tab-navigation-default-target-size);
-  gap: var(--wex-tab-navigation-default-gap);
-  padding-block: var(--wex-tab-navigation-default-padding-block);
-  padding-inline: var(--wex-tab-navigation-default-padding-inline);
-  border-color: var(--wex-tab-navigation-default-border-color);
-  border-radius: var(--wex-tab-navigation-default-radius);
-  background-color: var(--wex-tab-navigation-default-background);
-  color: var(--wex-tab-navigation-default-foreground);
+  min-block-size: var(--wex-tab-navigation-small-target-size);
+  gap: var(--wex-tab-navigation-small-gap);
+  padding-block: var(--wex-tab-navigation-small-padding-block);
+  padding-inline: var(--wex-tab-navigation-small-padding-inline);
+  border: var(--wex-tab-navigation-small-border-width) solid var(--wex-tab-navigation-small-border-color);
+  border-radius: var(--wex-tab-navigation-small-radius);
+  background-color: var(--wex-tab-navigation-small-background);
+  color: var(--wex-tab-navigation-small-foreground);
   font-family: var(--wex-tab-navigation-small-font-family);
   font-size: var(--wex-tab-navigation-small-font-size);
   font-weight: var(--wex-tab-navigation-small-font-weight);
@@ -85,14 +85,14 @@
 }
 
 .wex-button.wex-admin-profile__action:hover:not(:focus) {
-  border-color: var(--wex-tab-navigation-default-border-color);
-  background-color: var(--wex-tab-navigation-default-background);
-  color: var(--wex-tab-navigation-default-foreground);
+  border-color: var(--wex-tab-navigation-small-border-color);
+  background-color: var(--wex-tab-navigation-small-background);
+  color: var(--wex-tab-navigation-small-foreground);
 }
 
 .wex-admin-profile__action-icon {
   display: grid;
-  flex: 0 0 var(--wex-tab-navigation-default-icon-allocation-size);
+  flex: 0 0 var(--wex-tab-navigation-small-icon-allocation-size);
   place-items: center;
 }
 
