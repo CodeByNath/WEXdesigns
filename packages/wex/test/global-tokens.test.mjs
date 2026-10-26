@@ -81,8 +81,9 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
     }
   }
 
-  assert.match(tabNavigation, /--wex-tab-navigation-small-gap: var\(--wex-space-8\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-small-child-indent: calc\(var\(--wex-space-40\) - var\(--wex-space-8\)\);/);
+  for (const property of ['target-size', 'gap', 'padding-block', 'padding-inline', 'child-indent', 'radius', 'border-width']) {
+    assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${property}: var\\(--wex-tab-navigation-default-`));
+  }
   assert.match(tabNavigation, /--wex-tab-navigation-small-icon-allocation-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\) \+ var\(--wex-space-2\)\);/);
 
   assert.match(tabNavigationDecision, /WEX Tab Navigation Default/);
@@ -90,7 +91,7 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Large/);
   assert.match(tabNavigationDecision, /Default, Hover, Selected, Focus, and Pressed state/);
   assert.match(tabNavigationDecision, /square icon\s+allocation/);
-  assert.match(tabNavigationDecision, /equal padding on every\s+side/);
-  assert.match(tabNavigationDecision, /Small icon allocation is 38px square/);
+  assert.match(tabNavigationDecision, /padding\s+on every side/);
+  assert.match(tabNavigationDecision, /Owner-authorised 38px square\s+icon allocation/);
   assert.doesNotMatch(tabNavigation, /#[0-9a-f]{3,8}\b/i);
 });

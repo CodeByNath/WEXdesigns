@@ -18,12 +18,12 @@ Each tier references existing WEX Navigation typography and icon foundations:
 | Default | Navigation Default | `--wex-icon-size-20` |
 | Large | Navigation Large | `--wex-icon-size-24` |
 
-Each tier owns token references for target allocation and a square icon
-allocation. The square allocation centres its glyph with equal padding on every
-side, regardless of glyph size. Each tier also owns icon/label gap, padding,
-border, radius, child indent, and chevron allocation.
-The Owner-authorised Small icon allocation is 38px square; its SVG glyph token
-remains independent.
+Default defines the verified sidebar-navigation geometry: target allocation,
+gap, padding, border, radius, child indent, and chevron allocation. Small
+inherits that geometry unchanged, except for its Owner-authorised 38px square
+icon allocation. A square icon allocation centres its glyph with equal padding
+on every side, regardless of glyph size; Small's SVG glyph token remains
+independent.
 Each tier also exposes Default, Hover, Selected, Focus, and Pressed state
 tokens. Shared state values are inherited through token aliases, so a change
 to the Default state remains system-wide until a tier requires an authorised
