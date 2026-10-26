@@ -283,9 +283,9 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon\s*\{[\s\S]*aspect-ratio: 1;/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-small-icon-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:disabled\s*\{[\s\S]*opacity: var\(--wex-opacity-disabled\);/);
-  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):hover\s*\{[\s\S]*background-color: var\(--wex-tab-navigation-small-hover-background\);/);
-  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active\s*\{[\s\S]*border-color: var\(--wex-tab-navigation-small-pressed-border-color\);/);
-  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:focus-visible::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-small-focus-inner-width\) solid var\(--wex-tab-navigation-small-focus-color\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):hover:not\(:focus\)\s*\{[\s\S]*background-color: var\(--wex-tab-navigation-small-hover-background\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active,\s*\.wex-admin-profile__action:focus\s*\{[\s\S]*border-color: var\(--wex-tab-navigation-small-pressed-border-color\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active::after,\s*\.wex-admin-profile__action:focus::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-small-focus-inner-width\) solid var\(--wex-tab-navigation-small-focus-color\);/);
   assert.doesNotMatch(adminStationProfileCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNotifications, /owner: NOTIFICATIONS_OWNER,/);
   assert.match(adminStationNotifications, /inlineSize: 'min\(calc\(var\(--wex-space-64\) \* 7\), 100%\)',/);
@@ -557,11 +557,11 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon\s*\{[\s\S]*inline-size: 100%;[\s\S]*block-size: 100%;[\s\S]*max-inline-size: var\(--wex-tab-navigation-default-icon-allocation-size\);[\s\S]*max-block-size: var\(--wex-tab-navigation-default-icon-allocation-size\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon-svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-default-icon-size\);[\s\S]*block-size: var\(--wex-tab-navigation-default-icon-size\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\[data-sidebar-tab-active="true"\]\s*\{[\s\S]*background: var\(--wex-tab-navigation-default-selected-background\);[\s\S]*color: var\(--wex-tab-navigation-default-selected-foreground\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active\s*\{[\s\S]*border-color: var\(--wex-tab-navigation-default-pressed-border-color\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:focus-visible::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-default-focus-inner-width\) solid var\(--wex-tab-navigation-default-focus-color\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:focus-visible::after\s*\{[\s\S]*border-radius: calc\(var\(--wex-tab-navigation-default-radius\) - var\(--wex-tab-navigation-default-border-width\)\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:focus-visible::before\s*\{[\s\S]*border: var\(--wex-tab-navigation-default-focus-gap\) solid var\(--wex-tab-navigation-default-focus-gap-color\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:focus-visible::before\s*\{[\s\S]*border-radius: calc\(var\(--wex-tab-navigation-default-radius\) - var\(--wex-tab-navigation-default-focus-outer-width\)\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active,\s*\.wex-admin-shell__sidebar-tab:focus\s*\{[\s\S]*border-color: var\(--wex-tab-navigation-default-pressed-border-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-default-focus-inner-width\) solid var\(--wex-tab-navigation-default-focus-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border-radius: calc\(var\(--wex-tab-navigation-default-radius\) - var\(--wex-tab-navigation-default-border-width\)\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border: var\(--wex-tab-navigation-default-focus-gap\) solid var\(--wex-tab-navigation-default-focus-gap-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border-radius: calc\(var\(--wex-tab-navigation-default-radius\) - var\(--wex-tab-navigation-default-focus-outer-width\)\);/);
   assert.match(
     wexLayout,
     /\.wex-admin-shell__sidebar-tab:not\(\[data-sidebar-tab-active="true"\]\):hover\s*\{[\s\S]*background: var\(--wex-tab-navigation-default-hover-background\);[\s\S]*color: var\(--wex-tab-navigation-default-hover-foreground\);/,

@@ -31,10 +31,6 @@ to the Default state remains system-wide until a tier requires an authorised
 override. Every value references an existing WEX foundation; this decision
 introduces no resolved colour, spacing, geometry, typography, or motion value.
 
-State application remains distinct: Hover applies on hover, Selected is an
-explicit navigation selection, Focus applies on `:focus-visible`, and Pressed
-applies only while `:active`. Focus is not a selected or pressed state.
-
 ## Boundaries
 
 This registers a presentation token family only. It does not register a Global

@@ -115,9 +115,9 @@
 
 /* The shared Button focus ring preserves this action's circular geometry. */
 .wex-admin-shell__nav-primary-action:not(:disabled):active::after,
-.wex-admin-shell__nav-primary-action:focus-visible::after,
+.wex-admin-shell__nav-primary-action:focus::after,
 .wex-admin-shell__nav-primary-action:not(:disabled):active::before,
-.wex-admin-shell__nav-primary-action:focus-visible::before {
+.wex-admin-shell__nav-primary-action:focus::before {
   border-radius: 50%;
 }
 
@@ -165,12 +165,12 @@
 }
 
 .wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:not(:disabled):active::after,
-.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:focus-visible::after {
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:focus::after {
   border-radius: calc(var(--wex-radius-large) - var(--wex-border-width-default));
 }
 
 .wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:not(:disabled):active::before,
-.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:focus-visible::before {
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:focus::before {
   border-radius: calc(var(--wex-radius-large) - var(--wex-outer-ring-width));
 }
 

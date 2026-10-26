@@ -200,11 +200,13 @@ button.wex-admin-shell__sidebar-tab {
   color: var(--wex-tab-navigation-default-selected-foreground);
 }
 
-.wex-admin-shell__sidebar-tab:not(:disabled):active {
+.wex-admin-shell__sidebar-tab:not(:disabled):active,
+.wex-admin-shell__sidebar-tab:focus {
   border-color: var(--wex-tab-navigation-default-pressed-border-color);
 }
 
-.wex-admin-shell__sidebar-tab:focus-visible::after {
+.wex-admin-shell__sidebar-tab:not(:disabled):active::after,
+.wex-admin-shell__sidebar-tab:focus::after {
   position: absolute;
   inset: 0;
   box-sizing: border-box;
@@ -214,7 +216,8 @@ button.wex-admin-shell__sidebar-tab {
   content: '';
 }
 
-.wex-admin-shell__sidebar-tab:focus-visible::before {
+.wex-admin-shell__sidebar-tab:not(:disabled):active::before,
+.wex-admin-shell__sidebar-tab:focus::before {
   position: absolute;
   inset: var(--wex-tab-navigation-default-focus-inner-width);
   box-sizing: border-box;
