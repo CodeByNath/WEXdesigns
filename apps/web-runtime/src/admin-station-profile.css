@@ -99,19 +99,17 @@ button.wex-admin-profile__action:not(:disabled) {
   opacity: var(--wex-opacity-disabled);
 }
 
-.wex-admin-profile__action:not(:disabled):hover:not(:focus) {
+.wex-admin-profile__action:not(:disabled):hover {
   border-color: var(--wex-tab-navigation-small-hover-border-color);
   background-color: var(--wex-tab-navigation-small-hover-background);
   color: var(--wex-tab-navigation-small-hover-foreground);
 }
 
-.wex-admin-profile__action:not(:disabled):active,
-.wex-admin-profile__action:focus {
+.wex-admin-profile__action:not(:disabled):active {
   border-color: var(--wex-tab-navigation-small-pressed-border-color);
 }
 
-.wex-admin-profile__action:not(:disabled):active::after,
-.wex-admin-profile__action:focus::after {
+.wex-admin-profile__action:focus-visible::after {
   position: absolute;
   inset: 0;
   box-sizing: border-box;
@@ -121,8 +119,7 @@ button.wex-admin-profile__action:not(:disabled) {
   content: '';
 }
 
-.wex-admin-profile__action:not(:disabled):active::before,
-.wex-admin-profile__action:focus::before {
+.wex-admin-profile__action:focus-visible::before {
   position: absolute;
   inset: var(--wex-tab-navigation-small-focus-inner-width);
   box-sizing: border-box;
