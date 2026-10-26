@@ -429,7 +429,7 @@ test('moves verified layout presentation values to Layout and presents Typograph
   });
   assert.doesNotMatch(tokens.slice(roleOffsets[2], roleOffsets[3]), /Weight \/ (?:Bold|Thin)|wex-type-navigation-default-(?:light|regular)/);
   assert.doesNotMatch(tokens.slice(roleOffsets[3]), /Weight \/ Bold|wex-type-body-default-semibold/);
-  assert.match(tokens, /Use each role’s Default Design Token as the base/);
+  assert.match(tokens, /Use registered WEX foundations as the base for typography and component token families/);
   assert.match(tokens, /global-tokens__card--light-demo[\s\S]*global-tokens__specimen--light/);
   assert.match(css, /global-tokens__card--light-demo[^\n]*var\(--wex-color-white\)/);
   assert.match(css, /global-tokens__card--light-demo[^\n]*border-color: var\(--wex-color-border-subtle\)/);
