@@ -277,7 +277,9 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*min-block-size: var\(--wex-tab-navigation-small-target-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*font-family: var\(--wex-tab-navigation-small-font-family\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-small-icon-size\);/);
-  assert.match(adminStationProfileCss, /\.wex-button\.wex-admin-profile__action:hover:not\(:focus\)\s*\{[\s\S]*background-color: var\(--wex-tab-navigation-small-background\);/);
+  assert.match(adminStationProfileCss, /\.wex-button\.wex-admin-profile__action:not\(:disabled\):hover:not\(:focus\)\s*\{[\s\S]*background-color: var\(--wex-tab-navigation-small-hover-background\);/);
+  assert.match(adminStationProfileCss, /\.wex-button\.wex-admin-profile__action:not\(:disabled\):active,\s*\.wex-button\.wex-admin-profile__action:focus\s*\{[\s\S]*border-color: var\(--wex-tab-navigation-small-pressed-border-color\);/);
+  assert.match(adminStationProfileCss, /\.wex-button\.wex-admin-profile__action:not\(:disabled\):active::after,\s*\.wex-button\.wex-admin-profile__action:focus::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-small-focus-inner-width\) solid var\(--wex-tab-navigation-small-focus-color\);/);
   assert.doesNotMatch(adminStationProfileCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNotifications, /owner: NOTIFICATIONS_OWNER,/);
   assert.match(adminStationNotifications, /inlineSize: 'min\(calc\(var\(--wex-space-64\) \* 7\), 100%\)',/);
