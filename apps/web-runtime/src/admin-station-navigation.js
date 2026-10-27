@@ -1,5 +1,6 @@
 import { announceLocationChange } from './admin-station-location.js';
 import { requestAdminBodyShell } from './admin-station-body.js';
+import { mountDashboardBody } from './admin-station-dashboard.js';
 
 const ICON_STROKE_WIDTH = '1.75';
 const DASHBOARD_BODY_OWNER = 'dashboard';
@@ -188,6 +189,7 @@ export function mountSidebarNavigation(shell) {
       setGroupExpanded(group, children, children.contains(selected));
     });
     if (selected.dataset.sidebarTab === DASHBOARD_BODY_OWNER) {
+      mountDashboardBody(shell);
       requestAdminBodyShell(shell, { owner: DASHBOARD_BODY_OWNER }, selected);
     }
     announceLocationChange(shell);

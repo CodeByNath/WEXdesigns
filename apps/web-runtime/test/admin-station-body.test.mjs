@@ -2,9 +2,10 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-const [shell, body, navigation, runtime, layout] = await Promise.all([
+const [shell, body, dashboard, navigation, runtime, layout] = await Promise.all([
   readFile(new URL('../src/admin-station-shell.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-body.js', import.meta.url), 'utf8'),
+  readFile(new URL('../src/admin-station-dashboard.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-navigation.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-runtime.js', import.meta.url), 'utf8'),
   readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8'),
@@ -26,8 +27,13 @@ test('provides a content-empty full-workspace Admin Body request boundary', () =
 
 test('wires only Dashboard navigation to request the Admin Body shell', () => {
   assert.match(navigation, /import \{ requestAdminBodyShell \} from '\.\/admin-station-body\.js';/);
+  assert.match(navigation, /import \{ mountDashboardBody \} from '\.\/admin-station-dashboard\.js';/);
   assert.match(navigation, /const DASHBOARD_BODY_OWNER = 'dashboard';/);
-  assert.match(navigation, /if \(selected\.dataset\.sidebarTab === DASHBOARD_BODY_OWNER\) \{[\s\S]*requestAdminBodyShell\(shell, \{ owner: DASHBOARD_BODY_OWNER \}, selected\);/);
+  assert.match(navigation, /if \(selected\.dataset\.sidebarTab === DASHBOARD_BODY_OWNER\) \{[\s\S]*mountDashboardBody\(shell\);[\s\S]*requestAdminBodyShell\(shell, \{ owner: DASHBOARD_BODY_OWNER \}, selected\);/);
+  assert.match(dashboard, /view\.className = 'wex-button wex-button--small wex-button--neutral';/);
+  assert.match(dashboard, /view\.textContent = 'View';/);
+  assert.match(dashboard, /body\.replaceChildren\(view\);/);
+  assert.doesNotMatch(dashboard, /fetch\(|localStorage|style\.|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
 test('keeps the Admin Body full-width within Sidebar-priority workspace bounds', () => {
