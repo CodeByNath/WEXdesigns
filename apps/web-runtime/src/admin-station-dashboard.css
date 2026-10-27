@@ -1,0 +1,6 @@
+.wex-admin-dashboard {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  block-size: 100%;
+}

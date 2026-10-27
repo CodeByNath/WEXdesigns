@@ -25,14 +25,19 @@ test('provides a content-empty full-workspace Admin Body request boundary', () =
   assert.doesNotMatch(body, /fetch\(|localStorage|innerHTML|style\./);
 });
 
-test('wires only Dashboard navigation to request the Admin Body shell', () => {
-  assert.match(navigation, /import \{ requestAdminBodyShell \} from '\.\/admin-station-body\.js';/);
+test('wires Dashboard View action to request the Admin Body and Drawer shells', () => {
   assert.match(navigation, /import \{ mountDashboardBody \} from '\.\/admin-station-dashboard\.js';/);
   assert.match(navigation, /const DASHBOARD_BODY_OWNER = 'dashboard';/);
-  assert.match(navigation, /if \(selected\.dataset\.sidebarTab === DASHBOARD_BODY_OWNER\) \{[\s\S]*mountDashboardBody\(shell\);[\s\S]*requestAdminBodyShell\(shell, \{ owner: DASHBOARD_BODY_OWNER \}, selected\);/);
+  assert.match(navigation, /if \(selected\.dataset\.sidebarTab === DASHBOARD_BODY_OWNER\) \{[\s\S]*mountDashboardBody\(shell\);/);
+  assert.doesNotMatch(navigation, /requestAdminBodyShell/);
+  assert.match(dashboard, /import \{ requestAdminBodyShell \} from '\.\/admin-station-body\.js';/);
+  assert.match(dashboard, /import \{ requestAdminDrawer \} from '\.\/admin-station-drawer\.js';/);
   assert.match(dashboard, /view\.className = 'wex-button wex-button--small wex-button--neutral';/);
   assert.match(dashboard, /view\.textContent = 'View';/);
-  assert.match(dashboard, /body\.replaceChildren\(view\);/);
+  assert.match(dashboard, /requestAdminBodyShell\(shell, \{ owner: DASHBOARD_OWNER \}, view\);/);
+  assert.match(dashboard, /requestAdminDrawer\(shell, \{ owner: DASHBOARD_OWNER \}, view\);/);
+  assert.match(dashboard, /dashboard\.className = 'wex-admin-dashboard';/);
+  assert.match(dashboard, /main\.replaceChildren\(dashboard\);/);
   assert.doesNotMatch(dashboard, /fetch\(|localStorage|style\.|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
