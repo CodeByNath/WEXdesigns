@@ -74,6 +74,10 @@
   color: var(--wex-color-text-secondary);
 }
 
+[data-wex-theme="dark"] .wex-button.wex-admin-search__filter:not([aria-pressed="true"]):hover:not(:focus) {
+  background-color: var(--wex-color-dark-grey);
+}
+
 .wex-admin-search__filter[aria-pressed="true"],
 .wex-button.wex-admin-search__filter[aria-pressed="true"]:hover:not(:focus) {
   background-color: var(--wex-color-surface-selected);

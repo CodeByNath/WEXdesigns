@@ -275,6 +275,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /border-radius: var\(--wex-radius-large\);/);
   assert.match(adminStationProfileCss, /background: var\(--wex-color-background-primary\);/);
   assert.match(adminStationProfileCss, /background: var\(--wex-color-light-grey\);/);
+  assert.match(adminStationProfileCss, /\[data-wex-theme="dark"\] \.wex-admin-profile__identity-icon\s*\{\s*background: var\(--wex-color-dark-grey\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__header\s*\{[\s\S]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(adminStationNavActions, /import \{ mountHeaderSearch \} from '\.\/admin-station-search\.js';/);
   assert.match(adminStationNavActions, /if \(searchInput instanceof HTMLInputElement\) mountHeaderSearch\(shell, searchInput\);/);
@@ -296,6 +297,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationSearchCss, /border-radius: var\(--wex-radius-large\);/);
   assert.match(adminStationSearchCss, /background: var\(--wex-color-background-primary\);/);
   assert.match(adminStationSearchCss, /\[data-wex-theme="dark"\] \.wex-admin-search__result-icon\s*\{\s*background: var\(--wex-color-dark-grey\);/);
+  assert.match(adminStationSearchCss, /\[data-wex-theme="dark"\] \.wex-button\.wex-admin-search__filter:not\(\[aria-pressed="true"\]\):hover:not\(:focus\)\s*\{\s*background-color: var\(--wex-color-dark-grey\);/);
   assert.match(adminStationSearchCss, /\.wex-admin-search__footer\s*\{[\s\S]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.doesNotMatch(adminStationSearchCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__footer\s*\{[\s\S]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
@@ -393,12 +395,14 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__filter:not\(:disabled\):active::after,[\s\S]*border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-border-width-default\)\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__filter:not\(:disabled\):active::before,[\s\S]*border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-outer-ring-width\)\);/);
   assert.match(adminStationNotificationsCss, /\.wex-button\.wex-admin-notifications__filter:not\(\[aria-pressed="true"\]\):hover:not\(:focus\)\s*\{[\s\S]*background-color: var\(--wex-color-light-grey\);[\s\S]*color: var\(--wex-color-text-secondary\);/);
+  assert.match(adminStationNotificationsCss, /\[data-wex-theme="dark"\] \.wex-button\.wex-admin-notifications__filter:not\(\[aria-pressed="true"\]\):hover:not\(:focus\)\s*\{\s*background-color: var\(--wex-color-dark-grey\);/);
   assert.match(adminStationNotificationsCss, /\.wex-button\.wex-admin-notifications__filter\[aria-pressed="true"\]:hover:not\(:focus\)\s*\{[\s\S]*background-color: var\(--wex-color-surface-selected\);[\s\S]*color: var\(--wex-color-text-primary\);/);
   assert.match(adminStationNotificationsCss, /\.wex-button\.wex-admin-notifications__filter:not\(:disabled\):active\s*\{[\s\S]*background-color: transparent;[\s\S]*color: var\(--wex-color-text-primary\);/);
   assert.match(adminStationNotificationsCss, /\.wex-button\.wex-admin-notifications__filter\[aria-pressed="true"\]:not\(:disabled\):active\s*\{[\s\S]*background-color: var\(--wex-color-surface-selected\);[\s\S]*color: var\(--wex-color-text-primary\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\s*\{[\s\S]*display: grid;[\s\S]*inset-inline-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*inline-size: max-content;[\s\S]*white-space: nowrap;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\[hidden\]\s*\{\s*display: none;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__option\s*\{[\s\S]*border-color: transparent;[\s\S]*color: var\(--wex-color-text-primary\);/);
+  assert.match(adminStationNotificationsCss, /\[data-wex-theme="dark"\] \.wex-button\.wex-admin-notifications__option:hover:not\(:focus\)\s*\{\s*background-color: var\(--wex-color-dark-grey\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__footer\s*\{[\s\S]*justify-content: space-between;/);
   assert.doesNotMatch(adminStationNotificationsCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNavActions, /HeaderPrimaryActionPresentationPropertiesSchema\.safeParse\(properties\)/);

@@ -38,6 +38,10 @@
   color: var(--wex-color-icon-primary);
 }
 
+[data-wex-theme="dark"] .wex-admin-profile__identity-icon {
+  background: var(--wex-color-dark-grey);
+}
+
 .wex-admin-profile__identity-icon svg {
   inline-size: var(--wex-icon-size-20);
   block-size: var(--wex-icon-size-20);

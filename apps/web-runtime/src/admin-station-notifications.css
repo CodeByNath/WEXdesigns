@@ -105,6 +105,10 @@
   color: var(--wex-color-text-secondary);
 }
 
+[data-wex-theme="dark"] .wex-button.wex-admin-notifications__option:hover:not(:focus) {
+  background-color: var(--wex-color-dark-grey);
+}
+
 .wex-admin-notifications__filters {
   display: flex;
   gap: var(--wex-space-8);
@@ -127,6 +131,10 @@
 .wex-button.wex-admin-notifications__filter:not([aria-pressed="true"]):hover:not(:focus) {
   background-color: var(--wex-color-light-grey);
   color: var(--wex-color-text-secondary);
+}
+
+[data-wex-theme="dark"] .wex-button.wex-admin-notifications__filter:not([aria-pressed="true"]):hover:not(:focus) {
+  background-color: var(--wex-color-dark-grey);
 }
 
 .wex-admin-notifications__filter[aria-pressed="true"] {
