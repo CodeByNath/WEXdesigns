@@ -2,9 +2,9 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-27
-- Last updated: 2026-10-27
-- Verified against `main` at `abdc2f3bacf73bd651e21dc3e260cb23dad6f3fb`:
+- Last visited: 2026-10-28
+- Last updated: 2026-10-28
+- Verified against `main` at `263873ed1476d8d20317646c43e86d0f571e3e1e`:
   the Logo-fitted Dashboard shell remains standalone; the portable Studio
   entry consumes only the narrow Logo image-property adapter seam through a
   one-time serializable host input; the Header-owned location label prints the
@@ -15,6 +15,16 @@
 
 ### Recent work (newest first)
 
+- The Admin Body and Drawer are sibling Admin Station shell allocations with
+  the same closed owner/request boundary shape as Header Results. Each shell
+  exposes one current owner at a time; the requesting feature owns the
+  content it mounts and replaces. The Dashboard View action is the current
+  demonstration: it requests both allocations and supplies its own small
+  Drawer label. Other navigation features neither inherit that action nor its
+  content.
+- Body occupies the full workspace remaining after Sidebar allocation. Drawer
+  uses the same Sidebar-priority grid relationship in Default, Half, and Full
+  modes; it never duplicates or overlays Sidebar sizing.
 - The Header Results allocation now hosts three local application components:
   the honest Profile unavailable state, fixture-backed Notifications, and live
   navigation Search. Each component owns its content, transient state, and
@@ -84,6 +94,7 @@ adapters, schemas, or pluggable components.
 - [Layout](layout.md)
 - [Component Manager](component-manager.md)
 - [Header Component](header-component.md)
+- [ADR 0028: Admin Body and Drawer Shell Authority](../decisions/0028-admin-body-and-drawer-shell-authority.md)
 
 ## Current source and focused verification
 
@@ -116,6 +127,9 @@ adapters, schemas, or pluggable components.
 - Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css),
   [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css)
+- Body and Drawer boundary checks:
+  [`apps/web-runtime/test/admin-station-body.test.mjs`](../../apps/web-runtime/test/admin-station-body.test.mjs),
+  [`apps/web-runtime/test/admin-station-drawer.test.mjs`](../../apps/web-runtime/test/admin-station-drawer.test.mjs)
 - Generic web materializer: [`apps/web-runtime/src/render-description.js`](../../apps/web-runtime/src/render-description.js)
 - Focused checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs), [`apps/web-runtime/test/studio-host.test.mjs`](../../apps/web-runtime/test/studio-host.test.mjs), [`packages/wex/test/header-foundation.test.mjs`](../../packages/wex/test/header-foundation.test.mjs), and [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
@@ -127,8 +141,8 @@ Admin Station runtime layout
   -> accepted Shared UI Logo render description via generic materializer
   -> local Sidebar-tab presentation with no product command bindings
   -> Header-owned location label derived only from the local Sidebar selection
-  -> Admin-owned full-workspace Body request frame
-  -> Admin-owned empty Drawer frame with Sidebar-priority workspace allocation
+  -> Admin-owned Body and Drawer request frames, each with one current owner
+  -> requesting feature-owned mounted content and actions
   -> future authorised domain adapters
 ```
 
@@ -161,12 +175,12 @@ before an accepted piece is fitted here.
   product behaviour only through separately authorised runtime work.
 - Keep the Admin Drawer empty: it owns only the direct-body placement, approved
   allocation mode, and its scroll boundary. It uses the same owner/request
-  boundary as Header Results. Mounted content owns all interior structure,
-  presentation, and behaviour.
+  boundary shape as Header Results. One requester owns the open allocation;
+  mounted content owns all interior structure, presentation, and behaviour.
 - Keep the Admin Body shell content-empty: it owns only the full available
-  workspace allocation and scroll boundary. An action requests it through its
-  closed event boundary; the mounted component owns all interior structure,
-  presentation, and behaviour.
+  workspace allocation and scroll boundary. One requester owns the open
+  allocation; an action requests it through its closed event boundary, and the
+  mounted component owns all interior structure, presentation, and behaviour.
 
 ## Related documents
 

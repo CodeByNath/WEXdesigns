@@ -3,12 +3,17 @@
 ## Current operating status
 
 - Created: 2026-09-19
-- Last visited: 2026-09-25
-- Last updated: 2026-09-25
-- Verified against: `origin/main` at `daf45d1d2138115db766d1011013817647ff24c7`
+- Last visited: 2026-10-28
+- Last updated: 2026-10-28
+- Verified against `main` at `263873ed1476d8d20317646c43e86d0f571e3e1e`
 
 ### Recent work (newest first)
 
+- The Admin Station uses the existing layout foundation for sibling Body and
+  Drawer allocations: Sidebar remains the priority allocation, while Drawer
+  derives its Default, Half, and Full widths only from the remaining
+  workspace. See the [Admin Shell map](admin-shell.md) for the application
+  request boundary and its focused proof.
 - `3d8bc52` (2026-09-25) added the independent Layout route and moved the
   verified spacing, layout, geometry, border, and interaction presentation
   groups from Design Tokens.
@@ -32,8 +37,10 @@ This map navigates the demonstrated WEX page-frame, grid, recursive allocation, 
 - Interaction presentation foundation: [`packages/wex/src/foundations/interaction.css`](../../packages/wex/src/foundations/interaction.css)
 - Related interaction colour authority: [`packages/wex/src/foundations/colour.css`](../../packages/wex/src/foundations/colour.css)
 - WEX bundle entrypoint: [`packages/wex/src/index.css`](../../packages/wex/src/index.css)
-- Demonstrated application consumption: [`apps/web-runtime/layout/index.html`](../../apps/web-runtime/layout/index.html), [`apps/web-runtime/src/catalogue.css`](../../apps/web-runtime/src/catalogue.css)
-- Shell/bundle checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
+- Demonstrated application consumption: [`apps/web-runtime/layout/index.html`](../../apps/web-runtime/layout/index.html), [`apps/web-runtime/src/catalogue.css`](../../apps/web-runtime/src/catalogue.css), [Admin Station allocation](admin-shell.md)
+- Shell/bundle checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs),
+  [`apps/web-runtime/test/admin-station-body.test.mjs`](../../apps/web-runtime/test/admin-station-body.test.mjs),
+  [`apps/web-runtime/test/admin-station-drawer.test.mjs`](../../apps/web-runtime/test/admin-station-drawer.test.mjs)
 - Authority and CSS-structure audit: [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
 ## Deferred authority
