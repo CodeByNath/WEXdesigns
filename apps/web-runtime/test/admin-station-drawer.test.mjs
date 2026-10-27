@@ -24,13 +24,17 @@ test('provides an empty Admin Drawer shell with only approved allocation modes',
   assert.doesNotMatch(drawer, /fetch\(|localStorage|innerHTML|style\./);
 });
 
-test('allocates the Admin Drawer beside, never over, the Sidebar', () => {
-  assert.match(layout, /\.wex-admin-shell\[data-admin-drawer="open"\]\s*\{[\s\S]*grid-template-areas:[\s\S]*"sidebar main drawer"[\s\S]*grid-template-columns: var\(--wex-admin-shell-drawer-sidebar-size\) minmax\(0, 1fr\) var\(--wex-admin-shell-drawer-inline-size\);/);
-  assert.match(layout, /\.wex-admin-shell\[data-admin-drawer="open"\]\[data-sidebar="expanded"\],[\s\S]*--wex-admin-shell-drawer-sidebar-size: var\(--wex-admin-shell-sidebar-expanded\);/);
-  assert.match(layout, /\.wex-admin-shell__drawer\s*\{[\s\S]*grid-area: drawer;[\s\S]*overflow: auto;/);
-  assert.match(layout, /\.wex-admin-shell\[data-admin-drawer-mode="default"\][\s\S]*min\([\s\S]*var\(--wex-admin-shell-drawer-default-inline-size\),[\s\S]*calc\(100% - var\(--wex-admin-shell-drawer-sidebar-size\)\)/);
-  assert.match(layout, /\.wex-admin-shell\[data-admin-drawer-mode="half"\][\s\S]*calc\(\(100% - var\(--wex-admin-shell-drawer-sidebar-size\)\) \/ 2\)/);
-  assert.match(layout, /\.wex-admin-shell\[data-admin-drawer-mode="full"\][\s\S]*calc\(100% - var\(--wex-admin-shell-drawer-sidebar-size\)\)/);
+test('allocates the Admin Drawer in the Sidebar-priority workspace above the Admin Body', () => {
+  assert.match(layout, /\.wex-admin-shell\[data-sidebar="expanded"\]\s*\{[\s\S]*--wex-admin-shell-sidebar-current: var\(--wex-admin-shell-sidebar-expanded\);/);
+  const hoverRule = layout.match(/\.wex-admin-shell\[data-sidebar-hovered="true"\] \.wex-admin-shell__sidebar \{[\s\S]*?\n  \}/);
+  assert.ok(hoverRule, 'missing desktop hover-sidebar overlay rule');
+  assert.match(hoverRule[0], /position: absolute;/);
+  assert.doesNotMatch(hoverRule[0], /--wex-admin-shell-sidebar-current/);
+  assert.match(layout, /\.wex-admin-shell__drawer\s*\{[\s\S]*z-index: 2;[\s\S]*grid-area: drawer;[\s\S]*overflow: auto;[\s\S]*background: var\(--wex-color-layer-01\);/);
+  assert.match(layout, /\.wex-admin-shell\[data-admin-drawer="open"\] \.wex-admin-shell__drawer\s*\{[\s\S]*grid-area: main;[\s\S]*justify-self: end;/);
+  assert.match(layout, /data-admin-drawer-mode="default"\] \.wex-admin-shell__drawer\s*\{[\s\S]*inline-size: min\(var\(--wex-admin-shell-drawer-default-inline-size\), 100%\);/);
+  assert.match(layout, /data-admin-drawer-mode="half"\] \.wex-admin-shell__drawer\s*\{[\s\S]*inline-size: 50%;/);
+  assert.match(layout, /data-admin-drawer-mode="full"\] \.wex-admin-shell__drawer\s*\{[\s\S]*inline-size: 100%;/);
 });
 
 test('keeps compact Sidebar priority over an open Admin Drawer', () => {

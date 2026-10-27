@@ -15,6 +15,10 @@
 
 ### Recent work (newest first)
 
+- Drawer now occupies the Sidebar-priority workspace above Body rather than
+  creating a third grid track that compresses Body. A pinned Sidebar alone
+  widens the shared reserved column; hover expansion stays an overlay. Drawer
+  consumes the existing Sidebar surface token.
 - The Admin Body and Drawer are sibling Admin Station shell allocations with
   the same closed owner/request boundary shape as Header Results. Each shell
   exposes one current owner at a time; the requesting feature owns the
@@ -23,8 +27,8 @@
   Drawer label. Other navigation features neither inherit that action nor its
   content.
 - Body occupies the full workspace remaining after Sidebar allocation. Drawer
-  uses the same Sidebar-priority grid relationship in Default, Half, and Full
-  modes; it never duplicates or overlays Sidebar sizing.
+  uses that same Sidebar-priority workspace in Default, Half, and Full modes,
+  above Body; it never duplicates or covers Sidebar sizing.
 - The Header Results allocation now hosts three local application components:
   the honest Profile unavailable state, fixture-backed Notifications, and live
   navigation Search. Each component owns its content, transient state, and

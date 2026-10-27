@@ -44,9 +44,10 @@ test('wires Dashboard View action to request the Admin Body and Drawer shells', 
   assert.doesNotMatch(dashboard, /fetch\(|localStorage|style\.|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
-test('keeps the Admin Body full-width within Sidebar-priority workspace bounds', () => {
+test('keeps the Admin Body below Drawer within the Sidebar-priority workspace bounds', () => {
   assert.match(layout, /\.wex-admin-shell__body\s*\{[\s\S]*z-index: 1;[\s\S]*grid-area: main;[\s\S]*overflow: auto;/);
-  assert.match(layout, /@media \(min-width: 768px\) \{[\s\S]*data-admin-body="open"\]\[data-sidebar="expanded"\]:not\(\[data-admin-drawer="open"\]\)[\s\S]*grid-template-columns: var\(--wex-admin-shell-sidebar-expanded\) minmax\(0, 1fr\);/);
+  assert.match(layout, /\.wex-admin-shell\[data-sidebar="expanded"\]\s*\{[\s\S]*--wex-admin-shell-sidebar-current: var\(--wex-admin-shell-sidebar-expanded\);/);
+  assert.match(layout, /\.wex-admin-shell\[data-admin-drawer="open"\] \.wex-admin-shell__drawer\s*\{[\s\S]*grid-area: main;/);
   const compact = layout.match(/@media \(max-width: 767px\) \{([\s\S]*)$/);
   assert.ok(compact, 'missing compact Admin Shell rules');
   assert.match(compact[1], /data-admin-body="open"\]\[data-sidebar-drawer="open"\] \.wex-admin-shell__body\s*\{\s*display: none;/);
