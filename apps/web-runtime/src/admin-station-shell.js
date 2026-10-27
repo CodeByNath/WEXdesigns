@@ -3,7 +3,7 @@ import { initialiseAdminStation } from './admin-station-runtime.js';
 const shellMarkup = `
   <a class="skip-link wex-type-navigation-default-semibold" href="#admin-station-main">Skip to main content</a>
   <!-- Shell-control icons: adapted from Heroicons 24/outline (view-columns), MIT License, Copyright (c) Tailwind Labs, Inc. -->
-  <div class="wex-admin-shell" data-admin-station-layout data-sidebar="collapsed" data-sidebar-hovered="false" data-sidebar-drawer="closed">
+  <div class="wex-admin-shell" data-admin-station-layout data-sidebar="collapsed" data-sidebar-hovered="false" data-sidebar-drawer="closed" data-admin-drawer="closed" data-admin-drawer-mode="default">
     <header class="wex-admin-shell__header" data-admin-station-region="header">
       <div class="wex-admin-shell__navigation">
         <div class="wex-admin-shell__location wex-type-navigation-large-semibold" data-admin-station-location></div>
@@ -27,6 +27,7 @@ const shellMarkup = `
       <nav class="wex-admin-shell__sidebar-navigation" aria-label="Admin navigation" data-sidebar-navigation></nav>
     </aside>
     <main id="admin-station-main" class="wex-admin-shell__main" tabindex="-1" data-admin-station-region="main"><div class="wex-admin-shell__page"></div></main>
+    <aside class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden></aside>
     <footer class="wex-admin-shell__footer" data-admin-station-region="footer"></footer>
     <div class="wex-admin-shell__backdrop" data-sidebar-control="backdrop" aria-hidden="true"></div>
   </div>`;

@@ -89,6 +89,8 @@ adapters, schemas, or pluggable components.
 
 - Runtime route: [`apps/web-runtime/admin-station/index.html`](../../apps/web-runtime/admin-station/index.html)
 - Runtime entry resources: [`apps/web-runtime/src/admin-station.css`](../../apps/web-runtime/src/admin-station.css), [`apps/web-runtime/src/admin-station.js`](../../apps/web-runtime/src/admin-station.js), [`apps/web-runtime/src/admin-station-runtime.js`](../../apps/web-runtime/src/admin-station-runtime.js), [`apps/web-runtime/src/admin-station-shell.js`](../../apps/web-runtime/src/admin-station-shell.js)
+- Admin Drawer placement and allocation boundary:
+  [`apps/web-runtime/src/admin-station-drawer.js`](../../apps/web-runtime/src/admin-station-drawer.js), with its shell styles in [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css)
 - Portable Studio host: [`apps/web-runtime/src/studio-host.js`](../../apps/web-runtime/src/studio-host.js), [`apps/web-runtime/vite.studio-host.config.ts`](../../apps/web-runtime/vite.studio-host.config.ts), [`apps/web-runtime/studio-host/README.md`](../../apps/web-runtime/studio-host/README.md)
 - Staging pointer: [`ADR 0025`](../decisions/0025-studio-staging-release-pointer.md), [`tooling/scripts/studio-staging-pointer.mjs`](../../tooling/scripts/studio-staging-pointer.mjs), [`apps/web-runtime/test/studio-staging-pointer.test.mjs`](../../apps/web-runtime/test/studio-staging-pointer.test.mjs)
 - Release producer and proof: [`tooling/scripts/studio-release.mjs`](../../tooling/scripts/studio-release.mjs), [`tooling/scripts/verify-studio-releases.mjs`](../../tooling/scripts/verify-studio-releases.mjs), [`apps/web-runtime/test/studio-release.test.mjs`](../../apps/web-runtime/test/studio-release.test.mjs)
@@ -120,6 +122,7 @@ Admin Station runtime layout
   -> accepted Shared UI Logo render description via generic materializer
   -> local Sidebar-tab presentation with no product command bindings
   -> Header-owned location label derived only from the local Sidebar selection
+  -> Admin-owned empty Drawer frame with Sidebar-priority workspace allocation
   -> future authorised domain adapters
 ```
 
@@ -150,6 +153,9 @@ before an accepted piece is fitted here.
   never a Component Manager specimen.
 - Add product navigation, records, permissions, adapters, persistence, or
   product behaviour only through separately authorised runtime work.
+- Keep the Admin Drawer empty: it owns only the direct-body placement, approved
+  allocation mode, and its scroll boundary. Mounted content owns all interior
+  structure, presentation, and behaviour.
 
 ## Related documents
 
