@@ -323,17 +323,12 @@ button.wex-admin-shell__sidebar-tab {
 
 .wex-admin-shell__sidebar-toggle:hover {
   border-color: transparent;
-  background: var(--wex-color-light-grey);
+  background: var(--wex-color-surface-selected);
 }
 
 .wex-admin-shell__drawer-trigger:hover {
   border-color: transparent;
-  background: var(--wex-color-light-grey);
-}
-
-[data-wex-theme="dark"] .wex-admin-shell__sidebar-toggle:hover,
-[data-wex-theme="dark"] .wex-admin-shell__drawer-trigger:hover {
-  background: var(--wex-color-dark-grey);
+  background: var(--wex-color-surface-selected);
 }
 
 .wex-admin-shell__drawer-trigger {

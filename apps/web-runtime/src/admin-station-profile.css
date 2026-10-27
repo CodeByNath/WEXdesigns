@@ -34,12 +34,8 @@
   inline-size: calc(var(--wex-space-48) - var(--wex-space-4));
   block-size: calc(var(--wex-space-48) - var(--wex-space-4));
   border-radius: 50%;
-  background: var(--wex-color-light-grey);
+  background: var(--wex-color-surface-selected);
   color: var(--wex-color-icon-primary);
-}
-
-[data-wex-theme="dark"] .wex-admin-profile__identity-icon {
-  background: var(--wex-color-dark-grey);
 }
 
 .wex-admin-profile__identity-icon svg {

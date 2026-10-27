@@ -27,6 +27,14 @@ test('keeps ordinary Button state transient and accessible', () => {
   assert.doesNotMatch(buttons, /aria-pressed|data-wex-button-state/);
 });
 
+test('keeps neutral and subtle Action backgrounds theme-semantic', () => {
+  assert.match(buttons, /--wex-button-neutral-background-hover: var\(--wex-color-background-secondary\);/);
+  assert.match(buttons, /--wex-button-subtle-background-hover: var\(--wex-color-background-secondary\);/);
+  assert.match(buttons, /--wex-button-neutral-background-pressed: var\(--wex-color-light-grey\);/);
+  assert.match(buttons, /--wex-button-subtle-background-pressed: var\(--wex-color-light-grey\);/);
+  assert.match(buttons, /\[data-wex-theme='dark'\]\s*\{[\s\S]*--wex-button-neutral-background-pressed: var\(--wex-color-dark-grey\);[\s\S]*--wex-button-subtle-background-pressed: var\(--wex-color-dark-grey\);/);
+});
+
 test('implements the accepted shared Button geometry for every tier', () => {
   const tiers = [
     ['small', /min-block-size: 2\.25rem;/, 'small'],

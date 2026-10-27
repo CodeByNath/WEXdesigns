@@ -101,12 +101,8 @@
 
 .wex-button.wex-admin-notifications__option:hover:not(:focus) {
   border-color: transparent;
-  background-color: var(--wex-color-light-grey);
+  background-color: var(--wex-color-surface-selected);
   color: var(--wex-color-text-secondary);
-}
-
-[data-wex-theme="dark"] .wex-button.wex-admin-notifications__option:hover:not(:focus) {
-  background-color: var(--wex-color-dark-grey);
 }
 
 .wex-admin-notifications__filters {
@@ -129,12 +125,8 @@
 }
 
 .wex-button.wex-admin-notifications__filter:not([aria-pressed="true"]):hover:not(:focus) {
-  background-color: var(--wex-color-light-grey);
+  background-color: var(--wex-color-surface-selected);
   color: var(--wex-color-text-secondary);
-}
-
-[data-wex-theme="dark"] .wex-button.wex-admin-notifications__filter:not([aria-pressed="true"]):hover:not(:focus) {
-  background-color: var(--wex-color-dark-grey);
 }
 
 .wex-admin-notifications__filter[aria-pressed="true"] {
@@ -204,12 +196,8 @@
   inline-size: calc(var(--wex-space-48) - var(--wex-space-4));
   block-size: calc(var(--wex-space-48) - var(--wex-space-4));
   border-radius: var(--wex-radius-large);
-  background: var(--wex-color-light-grey);
+  background: var(--wex-color-surface-selected);
   color: var(--wex-color-icon-primary);
-}
-
-[data-wex-theme="dark"] .wex-admin-notifications__icon {
-  background: var(--wex-color-dark-grey);
 }
 
 .wex-admin-notifications__icon-svg {
