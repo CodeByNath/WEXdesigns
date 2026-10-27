@@ -69,7 +69,8 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
 
   for (const tier of ['small', 'default', 'large']) {
     for (const property of ['target-size', 'icon-allocation-size', 'gap', 'padding-block', 'padding-inline', 'child-indent', 'radius', 'border-width']) {
-      assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${property}: (?:var|calc)\\(`));
+      const value = tier === 'small' && property === 'padding-block' ? '0' : '(?:var|calc)\\(';
+      assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${property}: ${value}`));
     }
     for (const state of ['hover', 'selected']) {
       for (const property of ['background', 'foreground', 'border-color']) {
@@ -81,9 +82,11 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
     }
   }
 
-  for (const property of ['target-size', 'gap', 'padding-block', 'padding-inline', 'child-indent', 'radius', 'border-width']) {
+  for (const property of ['gap', 'padding-inline', 'child-indent', 'radius', 'border-width']) {
     assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${property}: var\\(--wex-tab-navigation-default-`));
   }
+  assert.match(tabNavigation, /--wex-tab-navigation-small-target-size: var\(--wex-space-40\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-padding-block: 0;/);
   assert.match(tabNavigation, /--wex-tab-navigation-default-root-padding-inline-start: 0;/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-root-padding-inline-start: var\(--wex-tab-navigation-default-root-padding-inline-start\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-icon-allocation-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\) \+ var\(--wex-space-2\)\);/);

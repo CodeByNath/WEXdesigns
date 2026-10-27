@@ -274,6 +274,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /background: var\(--wex-color-light-grey\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__header\s*\{[\s\S]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__footer\s*\{[\s\S]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*box-sizing: border-box;[\s\S]*block-size: var\(--wex-tab-navigation-small-target-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*min-block-size: var\(--wex-tab-navigation-small-target-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*gap: var\(--wex-tab-navigation-small-gap\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action\s*\{[\s\S]*padding-inline-start: var\(--wex-tab-navigation-small-root-padding-inline-start\);/);

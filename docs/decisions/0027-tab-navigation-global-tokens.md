@@ -20,8 +20,9 @@ Each tier references existing WEX Navigation typography and icon foundations:
 
 Default defines the verified sidebar-navigation geometry: target allocation,
 gap, padding, border, radius, child indent, and chevron allocation. Small
-inherits that geometry unchanged, except for its Owner-authorised 38px square
-icon allocation. The root-tab start rule is part of that geometry: a root tab
+uses a 40px target with no block padding so its Owner-authorised 38px square
+icon allocation fits inside the border box. Its remaining geometry inherits
+from Default. The root-tab start rule is part of that geometry: a root tab
 begins on its wrapper's layout line and does not add a second leading inset. A
 square icon allocation centres its glyph with equal padding on every side,
 regardless of glyph size; Small's SVG glyph token remains independent.
