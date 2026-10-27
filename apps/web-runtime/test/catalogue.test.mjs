@@ -292,6 +292,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.doesNotMatch(adminStationSearch, /fetch\(|localStorage|style=|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationSearchCss, /border-radius: var\(--wex-radius-large\);/);
   assert.match(adminStationSearchCss, /background: var\(--wex-color-background-primary\);/);
+  assert.match(adminStationSearchCss, /\[data-wex-theme="dark"\] \.wex-admin-search__result-icon\s*\{\s*background: var\(--wex-color-dark-grey\);/);
   assert.match(adminStationSearchCss, /\.wex-admin-search__footer\s*\{[\s\S]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.doesNotMatch(adminStationSearchCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__footer\s*\{[\s\S]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
@@ -365,6 +366,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__count--empty\s*\{\s*opacity: 0\.5;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__filter\s*\{[\s\S]*border-radius: var\(--wex-radius-default\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__icon\s*\{[\s\S]*background: var\(--wex-color-light-grey\);[\s\S]*color: var\(--wex-color-icon-primary\);/);
+  assert.match(adminStationNotificationsCss, /\[data-wex-theme="dark"\] \.wex-admin-notifications__icon\s*\{\s*background: var\(--wex-color-dark-grey\);/);
   assert.doesNotMatch(adminStationNotificationsCss, /\.wex-admin-notifications__item\[data-unread="true"\] \.wex-admin-notifications__icon/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__icon-svg\s*\{[\s\S]*inline-size: var\(--wex-icon-size-20\);[\s\S]*block-size: var\(--wex-icon-size-20\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__meta\s*\{[\s\S]*display: flex;[\s\S]*align-items: center;[\s\S]*justify-content: end;/);

@@ -150,6 +150,10 @@
   color: var(--wex-color-icon-primary);
 }
 
+[data-wex-theme="dark"] .wex-admin-search__result-icon {
+  background: var(--wex-color-dark-grey);
+}
+
 .wex-admin-search__result-icon svg,
 .wex-admin-search__recent-query svg {
   inline-size: var(--wex-icon-size-20);
