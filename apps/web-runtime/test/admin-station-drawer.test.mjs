@@ -12,10 +12,15 @@ test('provides an empty Admin Drawer shell with only approved allocation modes',
   assert.match(shell, /data-admin-drawer="closed" data-admin-drawer-mode="default"/);
   assert.match(shell, /<aside class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden><\/aside>/);
   assert.match(drawer, /@typedef \{'default' \| 'half' \| 'full'\} AdminDrawerMode/);
+  assert.match(drawer, /@typedef \{\{ owner: string, mode\?: AdminDrawerMode \}\} AdminDrawerRequest/);
+  assert.match(drawer, /const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';/);
   assert.match(drawer, /const drawerModes = new Set\(\['default', 'half', 'full'\]\);/);
-  assert.match(drawer, /shell\.dataset\.adminDrawerMode = mode;/);
+  assert.match(drawer, /drawer\.dataset\.adminDrawerOwner = request\.owner;/);
+  assert.match(drawer, /shell\.dataset\.adminDrawerMode = request\.mode \?\? 'default';/);
   assert.match(drawer, /drawer\.hidden = false;/);
   assert.match(drawer, /drawer\.hidden = true;/);
+  assert.match(drawer, /shell\.dispatchEvent\(new CustomEvent\(ADMIN_DRAWER_REQUEST_EVENT, \{ detail: request \}\)\);/);
+  assert.match(drawer, /event\.target\.closest\('\[data-admin-drawer-trigger\]'\)/);
   assert.doesNotMatch(drawer, /fetch\(|localStorage|innerHTML|style\./);
 });
 
