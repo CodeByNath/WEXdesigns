@@ -2,12 +2,16 @@
 
 ## Current operating status
 
-- Last visited: 2026-09-25
-- Last updated: 2026-09-25
-- Verified against: `origin/main` at `daf45d1d2138115db766d1011013817647ff24c7`
+- Last visited: 2026-10-27
+- Last updated: 2026-10-27
+- Verified against: `main` at `103188063d41aff738a5c0eb6e9f9a91be91e061`
 
 ### Recent work (newest first)
 
+- Theme-dependent neutral state work routes through the semantic colour
+  foundation and the governing component decision. A consuming application
+  must not infer a general state mapping by repeating Light Grey/Dark Grey
+  primitives locally.
 - `a2e81e0` (2026-09-22) refreshed this Colour Code Map after chromatic work.
 - `04ae6d8` (2026-09-21) added deterministic chromatic tone derivation.
 
@@ -66,6 +70,11 @@ application code.
 Use this map before opening the historical Colour section or colour foundation.
 For chromatic families, only Base is authored; generated tone tokens and the
 registered contrast checks are part of the change boundary.
+
+For a neutral interactive state, first establish whether it is a composition
+surface or a component state. Follow the relevant component map and accepted
+decision for the latter; the core colour foundation does not create a general
+consumer-level hover mapping.
 
 ## Related documents
 

@@ -2,12 +2,15 @@
 
 ## Current operating status
 
-- Last visited: 2026-09-25
-- Last updated: 2026-09-25
-- Verified against: `origin/main` at `daf45d1d2138115db766d1011013817647ff24c7`
+- Last visited: 2026-10-27
+- Last updated: 2026-10-27
+- Verified against: `main` at `103188063d41aff738a5c0eb6e9f9a91be91e061`
 
 ### Recent work (newest first)
 
+- Theme-dependent Action backgrounds are routed to the Button system and ADR
+  0005. Application appearances are evidence only; they do not establish a
+  reusable hover, pressed, or selected mapping.
 - `5e13a35` (2026-09-20) placed Button states on the registered perimeter.
 - `ccafd4f` (2026-09-20) retained fixed Button state bounds.
 - `6be2adc` (2026-09-18) accepted the separate Button runtime invocation boundary.
@@ -56,6 +59,10 @@ Use this map first to separate presentation interaction from a semantic action's
 execution. WEX owns focus and visual state presentation; shared UI owns reusable
 mechanics; the consuming application and domain owner retain execution and
 authorisation. The runtime boundary is governed by ADR 0008, not this map.
+
+For ordinary Actions, use the Button system map before choosing a state
+treatment. Toggle selection and application-specific surfaces are not ordinary
+Button state authority and require their own demonstrated route.
 
 ## Related documents
 
