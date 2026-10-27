@@ -379,6 +379,21 @@ button.wex-admin-shell__sidebar-tab {
   overflow: auto;
 }
 
+.wex-admin-shell__body {
+  z-index: 1;
+  grid-area: main;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+@media (min-width: 768px) {
+  .wex-admin-shell[data-admin-body="open"][data-sidebar="expanded"]:not([data-admin-drawer="open"]),
+  .wex-admin-shell[data-admin-body="open"][data-sidebar-hovered="true"]:not([data-admin-drawer="open"]) {
+    grid-template-columns: var(--wex-admin-shell-sidebar-expanded) minmax(0, 1fr);
+  }
+}
+
 .wex-admin-shell[data-admin-drawer-mode="default"] {
   --wex-admin-shell-drawer-inline-size: min(
     var(--wex-admin-shell-drawer-default-inline-size),
@@ -519,6 +534,10 @@ button.wex-admin-shell__sidebar-tab {
   }
 
   .wex-admin-shell[data-admin-drawer="open"][data-sidebar-drawer="open"] .wex-admin-shell__drawer {
+    display: none;
+  }
+
+  .wex-admin-shell[data-admin-body="open"][data-sidebar-drawer="open"] .wex-admin-shell__body {
     display: none;
   }
 }

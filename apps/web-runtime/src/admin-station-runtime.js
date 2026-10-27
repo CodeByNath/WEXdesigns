@@ -1,5 +1,6 @@
 import { createLogoRenderDescription } from '@weerax/ui';
 
+import { mountAdminBodyShell } from './admin-station-body.js';
 import { mountHeaderResultsShell } from './admin-station-header-results.js';
 import { mountHeaderLocation } from './admin-station-location.js';
 import { mountHeaderNavActions } from './admin-station-nav-actions.js';
@@ -23,6 +24,7 @@ const logoFixture = { label: 'Logo' };
 export function initialiseAdminStation(shell, options = {}) {
   const documentRoot = shell.ownerDocument.documentElement;
   const view = shell.ownerDocument.defaultView;
+  mountAdminBodyShell(shell);
   mountHeaderResultsShell(shell);
   mountHeaderNavActions(shell, { primaryActionProperties: options.primaryActionProperties });
   const themeToggle = shell.querySelector('[data-theme-toggle]');

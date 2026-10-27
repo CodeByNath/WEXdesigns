@@ -27,6 +27,7 @@ const shellMarkup = `
       <nav class="wex-admin-shell__sidebar-navigation" aria-label="Admin navigation" data-sidebar-navigation></nav>
     </aside>
     <main id="admin-station-main" class="wex-admin-shell__main" tabindex="-1" data-admin-station-region="main"><div class="wex-admin-shell__page"></div></main>
+    <section class="wex-admin-shell__body" data-admin-body-shell aria-label="Admin body" hidden></section>
     <aside class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden></aside>
     <footer class="wex-admin-shell__footer" data-admin-station-region="footer"></footer>
     <div class="wex-admin-shell__backdrop" data-sidebar-control="backdrop" aria-hidden="true"></div>
