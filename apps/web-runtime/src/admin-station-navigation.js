@@ -11,7 +11,7 @@ const ICON_STROKE_WIDTH = '1.75';
  * Commands for these items are deliberately supplied by a future host layer.
  * @type {readonly SidebarTabInput[]}
  */
-const sidebarTabInputs = Object.freeze([
+export const sidebarTabInputs = Object.freeze([
   Object.freeze({ id: 'dashboard', label: 'Dashboard', icon: 'dashboard' }),
   Object.freeze({
     id: 'site',

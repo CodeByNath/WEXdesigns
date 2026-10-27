@@ -2,6 +2,7 @@ import { HeaderPrimaryActionPresentationPropertiesSchema } from '@weerax/schemas
 
 import { mountHeaderNotifications } from './admin-station-notifications.js';
 import { mountHeaderProfile } from './admin-station-profile.js';
+import { mountHeaderSearch } from './admin-station-search.js';
 
 const ICON_STROKE_WIDTH = '1.75';
 
@@ -59,6 +60,11 @@ function createIcon(document, name, options = {}) {
   }
 
   return svg;
+}
+
+/** @param {Document} document @param {HeaderActionIconName} name */
+export function createHeaderActionIcon(document, name) {
+  return createIcon(document, name);
 }
 
 /** @param {Document} document @param {unknown} [properties] */
@@ -186,6 +192,8 @@ export function mountHeaderNavActions(shell, options = {}) {
   actions.replaceChildren(search, subActions, primary);
   const notificationsAction = subActions.querySelector('[data-notifications-action]');
   if (notificationsAction instanceof HTMLButtonElement) mountHeaderNotifications(shell, notificationsAction);
+  const searchInput = search.querySelector('input');
+  if (searchInput instanceof HTMLInputElement) mountHeaderSearch(shell, searchInput);
   mountHeaderProfile(shell, primary);
   observeSearchAvailability(navigation, actions, location, search);
 }
