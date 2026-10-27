@@ -2,17 +2,30 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-20
-- Last updated: 2026-10-20
-- Verified source candidate on `main`: the Logo-fitted, empty Dashboard shell
-  remains standalone; the portable Studio entry consumes only the narrow Logo
-  image-property adapter seam through a one-time serializable host input; and
-  the Header-owned location label prints the selected local Sidebar path.
+- Last visited: 2026-10-27
+- Last updated: 2026-10-27
+- Verified against `main` at `abdc2f3bacf73bd651e21dc3e260cb23dad6f3fb`:
+  the Logo-fitted Dashboard shell remains standalone; the portable Studio
+  entry consumes only the narrow Logo image-property adapter seam through a
+  one-time serializable host input; the Header-owned location label prints the
+  selected local Sidebar path; and the Header Results allocation mounts the
+  local Profile, Notifications, and Search result components.
 - Registration status: application/runtime layout; not a Shared UI component
   or Component Manager specimen.
 
 ### Recent work (newest first)
 
+- The Header Results allocation now hosts three local application components:
+  the honest Profile unavailable state, fixture-backed Notifications, and live
+  navigation Search. Each component owns its content, transient state, and
+  controls; the Header Results shell still owns only its anchored allocation.
+  Search derives result categories from matching local navigation entries,
+  suppressing filters for empty states and retaining only categories that have
+  current query results. Notification and Search icon surfaces consume the
+  existing dark-theme semantic colour treatment through their component styles.
+- Profile's external WordPress exit action follows the registered small tab
+  sizing path. Its presentation remains local to the Profile result component;
+  it does not add a Header action or account integration contract.
 - The Header-owned location label derives its text from the selected local
   Sidebar tab and refreshes when that selection changes. It is hidden at the
   compact breakpoint, where the Header split control is visible.
@@ -86,11 +99,18 @@ adapters, schemas, or pluggable components.
   [`apps/web-runtime/src/admin-station-navigation.js`](../../apps/web-runtime/src/admin-station-navigation.js)
 - Header location-label presentation and local selection bridge:
   [`apps/web-runtime/src/admin-station-location.js`](../../apps/web-runtime/src/admin-station-location.js)
+- Header Results mounted components and their presentation:
+  [`apps/web-runtime/src/admin-station-profile.js`](../../apps/web-runtime/src/admin-station-profile.js),
+  [`admin-station-profile.css`](../../apps/web-runtime/src/admin-station-profile.css),
+  [`admin-station-notifications.js`](../../apps/web-runtime/src/admin-station-notifications.js),
+  [`admin-station-notifications.css`](../../apps/web-runtime/src/admin-station-notifications.css),
+  [`admin-station-search.js`](../../apps/web-runtime/src/admin-station-search.js), and
+  [`admin-station-search.css`](../../apps/web-runtime/src/admin-station-search.css)
 - Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css),
   [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css)
 - Generic web materializer: [`apps/web-runtime/src/render-description.js`](../../apps/web-runtime/src/render-description.js)
-- Focused checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs), [`apps/web-runtime/test/studio-host.test.mjs`](../../apps/web-runtime/test/studio-host.test.mjs), [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
+- Focused checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs), [`apps/web-runtime/test/studio-host.test.mjs`](../../apps/web-runtime/test/studio-host.test.mjs), [`packages/wex/test/header-foundation.test.mjs`](../../packages/wex/test/header-foundation.test.mjs), and [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
 ## Dependency boundary
 

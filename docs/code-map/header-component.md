@@ -3,16 +3,26 @@
 ## Current operating status
 
 - Created: 2026-10-05
-- Last visited: 2026-10-23
-- Last updated: 2026-10-23
-- Verified against: Owner-authorised Header Results shell candidate on `main`.
+- Last visited: 2026-10-27
+- Last updated: 2026-10-27
+- Verified against `main` at `abdc2f3bacf73bd651e21dc3e260cb23dad6f3fb`:
   ADRs 0021–0023 define Header's Brand compartment, Logo's shared render
   description, and the narrow external-image property-binding boundary. ADR
-  0026 adds the Header-owned, content-empty Results shell and its structural
-  mode boundary.
+  0026 retains the Header-owned, content-empty Results allocation and its
+  structural mode boundary; local Profile, Notifications, and Search result
+  components mount their own interiors within that allocation.
 
 ### Recent work (newest first)
 
+- Profile, Notifications, and Search now request the existing Header Results
+  allocation as independent mounted application components. Their local
+  content, states, filters, and actions do not widen the Header Results shell
+  boundary. Search's filter controls are data-derived from the current result
+  set, while empty and recent-search states omit those controls.
+- The Profile exit action follows the registered small-tab sizing path. The
+  notification and search result-icon treatments use their established
+  theme-aware component styles, including the existing dark-theme surface
+  treatment.
 - ADR 0026 adds a direct Header Results shell with `popover`, `full-span`, and
   `end-rail` structural modes. It owns allocation only; mounted result
   components own Skeleton Shimmer and all content states.
@@ -70,6 +80,13 @@ The Header shell and Logo boundaries and focused verification are:
   [`apps/web-runtime/src/admin-station-header-results.js`](../../apps/web-runtime/src/admin-station-header-results.js),
   [`admin-station-nav-actions.js`](../../apps/web-runtime/src/admin-station-nav-actions.js), and
   [`catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs)
+- Mounted Header Results application components:
+  [`apps/web-runtime/src/admin-station-profile.js`](../../apps/web-runtime/src/admin-station-profile.js),
+  [`admin-station-profile.css`](../../apps/web-runtime/src/admin-station-profile.css),
+  [`admin-station-notifications.js`](../../apps/web-runtime/src/admin-station-notifications.js),
+  [`admin-station-notifications.css`](../../apps/web-runtime/src/admin-station-notifications.css),
+  [`admin-station-search.js`](../../apps/web-runtime/src/admin-station-search.js), and
+  [`admin-station-search.css`](../../apps/web-runtime/src/admin-station-search.css)
 - Framework-neutral Logo contract and proof:
   [`packages/schemas/src/components/logo.schema.ts`](../../packages/schemas/src/components/logo.schema.ts),
   [`packages/schemas/test/foundation.test.mjs`](../../packages/schemas/test/foundation.test.mjs)
