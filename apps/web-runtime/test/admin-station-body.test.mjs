@@ -34,6 +34,9 @@ test('wires Dashboard View action to request the Admin Body and Drawer shells', 
   assert.match(dashboard, /import \{ requestAdminDrawer \} from '\.\/admin-station-drawer\.js';/);
   assert.match(dashboard, /view\.className = 'wex-button wex-button--small wex-button--neutral';/);
   assert.match(dashboard, /view\.textContent = 'View';/);
+  assert.match(dashboard, /drawerLabel\.className = 'wex-type-body-small-regular';/);
+  assert.match(dashboard, /drawerLabel\.textContent = "I'm the Drawer";/);
+  assert.match(dashboard, /drawer\.replaceChildren\(drawerLabel\);/);
   assert.match(dashboard, /requestAdminBodyShell\(shell, \{ owner: DASHBOARD_OWNER \}, view\);/);
   assert.match(dashboard, /requestAdminDrawer\(shell, \{ owner: DASHBOARD_OWNER \}, view\);/);
   assert.match(dashboard, /dashboard\.className = 'wex-admin-dashboard';/);
