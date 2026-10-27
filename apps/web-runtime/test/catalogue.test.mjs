@@ -287,6 +287,9 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationSearch, /Best matches/);
   assert.match(adminStationSearch, /Other results/);
   assert.match(adminStationSearch, /Recent searches/);
+  assert.match(adminStationSearch, /const availableFilters = filterInputs\.filter\(\(\[value\]\) => value === 'all'/);
+  assert.match(adminStationSearch, /filters\.hidden = queryMatches\.length === 0;/);
+  assert.match(adminStationSearch, /filters\.replaceChildren\(\.\.\.filterButtons\.filter/);
   assert.match(adminStationSearch, /count\.classList\.toggle\('wex-admin-search__count--empty', matched\.length === 0\);/);
   assert.match(adminStationSearch, /clear\.textContent = 'Clear search';/);
   assert.doesNotMatch(adminStationSearch, /fetch\(|localStorage|style=|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);

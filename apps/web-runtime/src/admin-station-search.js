@@ -169,13 +169,18 @@ export function mountHeaderSearch(shell, input) {
   };
   const render = () => {
     const query = input.value.trim().toLocaleLowerCase();
-    const matched = query
-      ? searchEntries.filter((entry) => (filter === 'all' || entry.filter === filter)
-        && `${entry.label} ${entry.detail}`.toLocaleLowerCase().includes(query))
+    const queryMatches = query
+      ? searchEntries.filter((entry) => `${entry.label} ${entry.detail}`.toLocaleLowerCase().includes(query))
       : [];
+    const availableFilters = filterInputs.filter(([value]) => value === 'all'
+      || queryMatches.some((entry) => entry.filter === value));
+    if (!availableFilters.some(([value]) => value === filter)) filter = 'all';
+    const matched = queryMatches.filter((entry) => filter === 'all' || entry.filter === filter);
     count.textContent = `${matched.length} result${matched.length === 1 ? '' : 's'}`;
     count.classList.toggle('wex-admin-search__count--empty', matched.length === 0);
     clear.disabled = input.value.length === 0;
+    filters.hidden = queryMatches.length === 0;
+    filters.replaceChildren(...filterButtons.filter((button) => availableFilters.some(([value]) => value === button.dataset.searchFilter)));
     filterButtons.forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.searchFilter === filter));
     });
