@@ -1,6 +1,8 @@
 import { announceLocationChange } from './admin-station-location.js';
+import { requestAdminBodyShell } from './admin-station-body.js';
 
 const ICON_STROKE_WIDTH = '1.75';
+const DASHBOARD_BODY_OWNER = 'dashboard';
 
 /** @typedef {'dashboard' | 'site' | 'products' | 'tools' | 'chevron'} SidebarIconName */
 /** @typedef {{ id: string, label: string, active?: boolean }} SidebarLeafInput */
@@ -185,6 +187,9 @@ export function mountSidebarNavigation(shell) {
       syncGroupActive(group, children);
       setGroupExpanded(group, children, children.contains(selected));
     });
+    if (selected.dataset.sidebarTab === DASHBOARD_BODY_OWNER) {
+      requestAdminBodyShell(shell, { owner: DASHBOARD_BODY_OWNER }, selected);
+    }
     announceLocationChange(shell);
   });
 
