@@ -40,5 +40,6 @@ test('allocates the Admin Drawer in the Sidebar-priority workspace above the Adm
 test('keeps compact Sidebar priority over an open Admin Drawer', () => {
   const compact = layout.match(/@media \(max-width: 767px\) \{([\s\S]*)$/);
   assert.ok(compact, 'missing compact Admin Shell rules');
+  assert.match(compact[1], /\.wex-admin-shell\[data-admin-drawer="open"\]\s*\{[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);
   assert.match(compact[1], /data-admin-drawer="open"\]\[data-sidebar-drawer="open"\] \.wex-admin-shell__drawer\s*\{\s*display: none;/);
 });

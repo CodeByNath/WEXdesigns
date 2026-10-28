@@ -18,7 +18,8 @@
 - Drawer now occupies the Sidebar-priority workspace above Body rather than
   creating a third grid track that compresses Body. A pinned Sidebar alone
   widens the shared reserved column; hover expansion stays an overlay. Drawer
-  consumes the existing Sidebar surface token.
+  consumes the existing Sidebar surface token. At the compact breakpoint, an
+  open Drawer resets the shell to its one-column viewport allocation.
 - The Admin Body and Drawer are sibling Admin Station shell allocations with
   the same closed owner/request boundary shape as Header Results. Each shell
   exposes one current owner at a time; the requesting feature owns the

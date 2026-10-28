@@ -438,7 +438,8 @@ button.wex-admin-shell__sidebar-tab {
   }
 
   .wex-admin-shell,
-  .wex-admin-shell[data-sidebar="expanded"] {
+  .wex-admin-shell[data-sidebar="expanded"],
+  .wex-admin-shell[data-admin-drawer="open"] {
     grid-template-areas:
       "header"
       "main"
