@@ -1,5 +1,6 @@
 import { announceLocationChange } from './admin-station-location.js';
 import { mountDashboardBody } from './admin-station-dashboard.js';
+import { ALL_SERVICES_OWNER, mountAllServicesBody } from './admin-station-services.js';
 
 const ICON_STROKE_WIDTH = '1.75';
 const DASHBOARD_BODY_OWNER = 'dashboard';
@@ -28,8 +29,8 @@ export const sidebarTabInputs = Object.freeze([
     label: 'Services',
     icon: 'products',
     children: Object.freeze([
-      Object.freeze({ id: 'all-products', label: 'All Services' }),
-      Object.freeze({ id: 'new-product', label: 'Add New', active: true }),
+      Object.freeze({ id: ALL_SERVICES_OWNER, label: 'All Services', active: true }),
+      Object.freeze({ id: 'new-product', label: 'Add New' }),
       Object.freeze({ id: 'product-keywords', label: 'Keywords' }),
     ]),
   }),
@@ -190,8 +191,12 @@ export function mountSidebarNavigation(shell) {
     if (selected.dataset.sidebarTab === DASHBOARD_BODY_OWNER) {
       mountDashboardBody(shell);
     }
+    if (selected.dataset.sidebarTab === ALL_SERVICES_OWNER) {
+      mountAllServicesBody(shell);
+    }
     announceLocationChange(shell);
   });
 
   navigation.replaceChildren(list);
+  mountAllServicesBody(shell);
 }

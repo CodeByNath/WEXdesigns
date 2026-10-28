@@ -533,7 +533,7 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(adminStationNavigation, /data-sidebar-navigation/);
   assert.match(adminStationNavigation, /id: 'product-manager',[\s\S]*children:/);
   assert.match(adminStationNavigation, /id: 'site',[\s\S]*children:[\s\S]*id: 'pages', label: 'Pages'/);
-  assert.match(adminStationNavigation, /children: Object\.freeze\(\[\s*Object\.freeze\(\{ id: 'all-products', label: 'All Services' \}\),\s*Object\.freeze\(\{ id: 'new-product', label: 'Add New', active: true \}\),\s*Object\.freeze\(\{ id: 'product-keywords', label: 'Keywords' \}\)/);
+  assert.match(adminStationNavigation, /children: Object\.freeze\(\[\s*Object\.freeze\(\{ id: ALL_SERVICES_OWNER, label: 'All Services', active: true \}\),\s*Object\.freeze\(\{ id: 'new-product', label: 'Add New' \}\),\s*Object\.freeze\(\{ id: 'product-keywords', label: 'Keywords' \}\)/);
   assert.match(adminStationNavigation, /function syncGroupActive\(control, items\)[\s\S]*data-sidebar-tab-active/);
   assert.match(adminStationNavigation, /syncGroupActive\(group, children\);/);
   assert.match(adminStationNavigation, /setGroupExpanded\(group, children, Boolean\(\(item\.children \?\? \[\]\)\.some\(\(child\) => child\.active\)\)\);/);

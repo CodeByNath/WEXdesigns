@@ -4,7 +4,8 @@
 
 - Last visited: 2026-10-28
 - Last updated: 2026-10-28
-- Verified against `main` at `263873ed1476d8d20317646c43e86d0f571e3e1e`:
+- Verified against `main` at `bae8a663b80113e626e9c3e0783316f45aae58b0`,
+  with the owner-authorised Services refinement in the working tree:
   the Logo-fitted Dashboard shell remains standalone; the portable Studio
   entry consumes only the narrow Logo image-property adapter seam through a
   one-time serializable host input; the Header-owned location label prints the
@@ -15,6 +16,11 @@
 
 ### Recent work (newest first)
 
+- The local All Services view is a single station-scoped collection mounted by
+  the selected Services leaf. Grid and list controls only change the
+  presentation of the same rendered service item; compact layout reflows to
+  one column rather than introducing a horizontally scrolling table. It is
+  presentation-only and awaits an authorised station-data adapter.
 - Drawer now occupies the Sidebar-priority workspace above Body rather than
   creating a third grid track that compresses Body. A pinned Sidebar alone
   widens the shared reserved column; hover expansion stays an overlay. Drawer
@@ -118,6 +124,9 @@ adapters, schemas, or pluggable components.
 - Dashboard action and its shell requests:
   [`apps/web-runtime/src/admin-station-dashboard.js`](../../apps/web-runtime/src/admin-station-dashboard.js),
   [`admin-station-dashboard.css`](../../apps/web-runtime/src/admin-station-dashboard.css)
+- All Services station-scoped list presentation:
+  [`apps/web-runtime/src/admin-station-services.js`](../../apps/web-runtime/src/admin-station-services.js),
+  [`admin-station-services.css`](../../apps/web-runtime/src/admin-station-services.css)
 - Portable Studio host: [`apps/web-runtime/src/studio-host.js`](../../apps/web-runtime/src/studio-host.js), [`apps/web-runtime/vite.studio-host.config.ts`](../../apps/web-runtime/vite.studio-host.config.ts), [`apps/web-runtime/studio-host/README.md`](../../apps/web-runtime/studio-host/README.md)
 - Staging pointer: [`ADR 0025`](../decisions/0025-studio-staging-release-pointer.md), [`tooling/scripts/studio-staging-pointer.mjs`](../../tooling/scripts/studio-staging-pointer.mjs), [`apps/web-runtime/test/studio-staging-pointer.test.mjs`](../../apps/web-runtime/test/studio-staging-pointer.test.mjs)
 - Release producer and proof: [`tooling/scripts/studio-release.mjs`](../../tooling/scripts/studio-release.mjs), [`tooling/scripts/verify-studio-releases.mjs`](../../tooling/scripts/verify-studio-releases.mjs), [`apps/web-runtime/test/studio-release.test.mjs`](../../apps/web-runtime/test/studio-release.test.mjs)
@@ -141,6 +150,8 @@ adapters, schemas, or pluggable components.
 - Body and Drawer boundary checks:
   [`apps/web-runtime/test/admin-station-body.test.mjs`](../../apps/web-runtime/test/admin-station-body.test.mjs),
   [`apps/web-runtime/test/admin-station-drawer.test.mjs`](../../apps/web-runtime/test/admin-station-drawer.test.mjs)
+- All Services focused checks:
+  [`apps/web-runtime/test/admin-station-services.test.mjs`](../../apps/web-runtime/test/admin-station-services.test.mjs)
 - Generic web materializer: [`apps/web-runtime/src/render-description.js`](../../apps/web-runtime/src/render-description.js)
 - Focused checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs), [`apps/web-runtime/test/studio-host.test.mjs`](../../apps/web-runtime/test/studio-host.test.mjs), [`packages/wex/test/header-foundation.test.mjs`](../../packages/wex/test/header-foundation.test.mjs), and [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
@@ -154,6 +165,7 @@ Admin Station runtime layout
   -> Header-owned location label derived only from the local Sidebar selection
   -> Admin-owned Body and Drawer request frames, each with one current owner
   -> requesting feature-owned mounted content and actions
+  -> Services-owned single-station list presentation
   -> future authorised domain adapters
 ```
 
@@ -183,7 +195,9 @@ before an accepted piece is fitted here.
   authorised component work. Header is already the Admin Station shell and is
   never a Component Manager specimen.
 - Add product navigation, records, permissions, adapters, persistence, or
-  product behaviour only through separately authorised runtime work.
+  product behaviour only through separately authorised runtime work. The
+  Services collection is owner-authorised presentation-only work; keep its
+  one-station snapshot boundary until an adapter contract is accepted.
 - Keep the Admin Drawer empty: it owns only the direct-body placement, approved
   allocation mode, and its scroll boundary. It uses the same owner/request
   boundary shape as Header Results. One requester owns the open allocation;
