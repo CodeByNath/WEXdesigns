@@ -24,6 +24,8 @@
   current Drawer allocation. Selecting a Sidebar leaf remains a different
   navigation action and closes that allocation before its Body/content action
   can take over.
+- When the desktop Sidebar expands on hover, it stays above Drawer; Drawer
+  remains above Body inside the shared remaining workspace.
 - The Admin Body and Drawer are sibling Admin Station shell allocations with
   the same closed owner/request boundary shape as Header Results. Each shell
   exposes one current owner at a time; the requesting feature owns the

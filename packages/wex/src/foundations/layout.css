@@ -366,7 +366,7 @@ button.wex-admin-shell__sidebar-tab {
 }
 
 .wex-admin-shell__drawer {
-  z-index: 2;
+  z-index: 1;
   grid-area: drawer;
   min-width: 0;
   min-height: 0;

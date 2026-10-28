@@ -33,8 +33,9 @@ test('allocates the Admin Drawer in the Sidebar-priority workspace above the Adm
   const hoverRule = layout.match(/\.wex-admin-shell\[data-sidebar-hovered="true"\] \.wex-admin-shell__sidebar \{[\s\S]*?\n  \}/);
   assert.ok(hoverRule, 'missing desktop hover-sidebar overlay rule');
   assert.match(hoverRule[0], /position: absolute;/);
+  assert.match(hoverRule[0], /z-index: 2;/);
   assert.doesNotMatch(hoverRule[0], /--wex-admin-shell-sidebar-current/);
-  assert.match(layout, /\.wex-admin-shell__drawer\s*\{[\s\S]*z-index: 2;[\s\S]*grid-area: drawer;[\s\S]*overflow: auto;[\s\S]*background: var\(--wex-color-layer-01\);/);
+  assert.match(layout, /\.wex-admin-shell__drawer\s*\{[\s\S]*z-index: 1;[\s\S]*grid-area: drawer;[\s\S]*overflow: auto;[\s\S]*background: var\(--wex-color-layer-01\);/);
   assert.match(layout, /\.wex-admin-shell\[data-admin-drawer="open"\] \.wex-admin-shell__drawer\s*\{[\s\S]*grid-area: main;[\s\S]*justify-self: end;/);
   assert.match(layout, /data-admin-drawer-mode="default"\] \.wex-admin-shell__drawer\s*\{[\s\S]*inline-size: min\(var\(--wex-admin-shell-drawer-default-inline-size\), 100%\);/);
   assert.match(layout, /data-admin-drawer-mode="half"\] \.wex-admin-shell__drawer\s*\{[\s\S]*inline-size: 50%;/);
