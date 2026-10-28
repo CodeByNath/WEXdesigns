@@ -20,6 +20,10 @@
   widens the shared reserved column; hover expansion stays an overlay. Drawer
   consumes the existing Sidebar surface token. At the compact breakpoint, an
   open Drawer resets the shell to its one-column viewport allocation.
+- Sidebar pin, compact open/close, and disclosure controls preserve the
+  current Drawer allocation. Selecting a Sidebar leaf remains a different
+  navigation action and closes that allocation before its Body/content action
+  can take over.
 - The Admin Body and Drawer are sibling Admin Station shell allocations with
   the same closed owner/request boundary shape as Header Results. Each shell
   exposes one current owner at a time; the requesting feature owns the

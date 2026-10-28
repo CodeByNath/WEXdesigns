@@ -63,10 +63,15 @@ export function mountAdminDrawerShell(shell) {
 
   shell.ownerDocument.addEventListener('click', (event) => {
     if (drawer.hidden || !(event.target instanceof Node) || drawer.contains(event.target)) return;
-    const trigger = event.target instanceof Element
-      ? event.target.closest('[data-admin-drawer-trigger]')
-      : null;
-    if (trigger instanceof HTMLElement && shell.contains(trigger)) return;
+    const target = event.target instanceof Element ? event.target : null;
+    const trigger = target?.closest('[data-admin-drawer-trigger]');
+    const sidebarControl = target?.closest('[data-sidebar-control]');
+    const sidebarDisclosure = target?.closest('.wex-admin-shell__sidebar-tab--group');
+    if (
+      (trigger instanceof HTMLElement && shell.contains(trigger))
+      || (sidebarControl instanceof HTMLElement && shell.contains(sidebarControl))
+      || (sidebarDisclosure instanceof HTMLElement && shell.contains(sidebarDisclosure))
+    ) return;
     closeAdminDrawer(shell);
   });
 }

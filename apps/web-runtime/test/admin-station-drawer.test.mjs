@@ -20,7 +20,11 @@ test('provides an empty Admin Drawer shell with only approved allocation modes',
   assert.match(drawer, /drawer\.hidden = false;/);
   assert.match(drawer, /drawer\.hidden = true;/);
   assert.match(drawer, /shell\.dispatchEvent\(new CustomEvent\(ADMIN_DRAWER_REQUEST_EVENT, \{ detail: request \}\)\);/);
-  assert.match(drawer, /event\.target\.closest\('\[data-admin-drawer-trigger\]'\)/);
+  assert.match(drawer, /target\?\.closest\('\[data-admin-drawer-trigger\]'\)/);
+  assert.match(drawer, /target\?\.closest\('\[data-sidebar-control\]'\)/);
+  assert.match(drawer, /target\?\.closest\('\.wex-admin-shell__sidebar-tab--group'\)/);
+  assert.match(drawer, /sidebarControl instanceof HTMLElement && shell\.contains\(sidebarControl\)/);
+  assert.match(drawer, /sidebarDisclosure instanceof HTMLElement && shell\.contains\(sidebarDisclosure\)/);
   assert.doesNotMatch(drawer, /fetch\(|localStorage|innerHTML|style\./);
 });
 
