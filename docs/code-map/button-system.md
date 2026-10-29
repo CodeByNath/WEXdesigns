@@ -8,7 +8,7 @@
 
 ### Recent work (newest first)
 
-- 2026-10-29 Owner-authorized the Neutral Button foreground mapping to the existing Text Secondary token; see [ADR 0005](../decisions/0005-button-authority.md).
+- 2026-10-29 Owner-authorized the Neutral Button foreground and border mappings to the existing Text Secondary token; see [ADR 0005](../decisions/0005-button-authority.md).
 
 - `5e13a35` (2026-09-20) placed Button states on the registered perimeter.
 - `ccafd4f` (2026-09-20) retained fixed Button state bounds.

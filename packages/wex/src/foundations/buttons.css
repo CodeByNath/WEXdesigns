@@ -18,9 +18,9 @@
   --wex-button-neutral-foreground-default: var(--wex-color-text-secondary);
   --wex-button-neutral-foreground-hover: var(--wex-color-text-secondary);
   --wex-button-neutral-foreground-pressed: var(--wex-color-text-secondary);
-  --wex-button-neutral-border-default: var(--wex-color-border-primary);
-  --wex-button-neutral-border-hover: var(--wex-color-border-primary);
-  --wex-button-neutral-border-pressed: var(--wex-color-border-primary);
+  --wex-button-neutral-border-default: var(--wex-color-text-secondary);
+  --wex-button-neutral-border-hover: var(--wex-color-text-secondary);
+  --wex-button-neutral-border-pressed: var(--wex-color-text-secondary);
 
   --wex-button-subtle-background-default: transparent;
   --wex-button-subtle-background-hover: var(--wex-color-background-secondary);
