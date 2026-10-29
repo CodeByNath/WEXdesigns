@@ -66,6 +66,9 @@
   inline-size: var(--wex-space-40);
   min-block-size: var(--wex-space-40);
   padding: var(--wex-space-8);
+  --wex-button-foreground-default: var(--wex-color-text-primary);
+  --wex-button-foreground-hover: var(--wex-color-text-primary);
+  --wex-button-foreground-pressed: var(--wex-color-text-primary);
 }
 
 .wex-admin-notifications__options {

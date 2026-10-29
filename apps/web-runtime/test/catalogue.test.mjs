@@ -336,7 +336,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /createMoreActionIcon\(document\)/);
   assert.match(adminStationNotifications, /title\.className = 'wex-type-navigation-large-semibold';/);
   assert.match(adminStationNotifications, /wex-admin-notifications__count wex-type-navigation-small-semibold/);
-  assert.match(adminStationNotifications, /wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action wex-admin-notifications__more/);
+  assert.match(adminStationNotifications, /wex-button wex-button--default wex-button--subtle wex-admin-notifications__more/);
+  assert.match(adminStationNotifications, /wex-button wex-button--small wex-button--subtle wex-admin-notifications__item-menu-toggle/);
   assert.match(adminStationNotifications, /close\.textContent = 'Close';/);
   assert.match(adminStationNotifications, /markAllRead\.textContent = 'Mark all as read';/);
   assert.match(adminStationNotifications, /close\.className = 'wex-button wex-button--small wex-button--neutral';/);
