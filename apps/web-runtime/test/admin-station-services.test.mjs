@@ -70,6 +70,7 @@ test('uses a Small Dropdown status filter after the Services Search Input', () =
   assert.match(services, /const menuControl = \(trigger, menu, name\)/);
   assert.match(servicesCss, /\.wex-admin-services__menu-control \{ position: relative;/);
   assert.match(servicesCss, /\.wex-admin-services__menu \{ position: absolute;[\s\S]*inset-inline-start: 0;/);
+  assert.match(servicesCss, /\[data-service-menu-control="filter"\] \.wex-admin-services__menu \{ inset-inline-start: auto; inset-inline-end: 0;/);
 });
 
 test('keeps every Services popover inside its trigger anchor and preserves the approved heading pair', () => {
