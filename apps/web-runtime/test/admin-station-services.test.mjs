@@ -59,12 +59,13 @@ test('uses the current WEX small Dropdown Navigation contract for every Services
   assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-focus-color/);
 });
 
-test('uses WEX Tab Navigation Small Horizontal for the Services status filter', () => {
-  assert.match(services, /function statusTab\(document, label, command\)/);
-  assert.match(services, /node\.className = 'wex-admin-services__tab wex-admin-services__tab--small-horizontal'/);
-  assert.match(services, /tabs\.append\(statusTab\(document, label, `state:\$\{value\}`\)\);/);
-  assert.match(servicesCss, /\.wex-admin-services__tabs\s*\{\s*display: flex;\s*gap: var\(--wex-space-8\);\s*\}/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-horizontal-selected-background/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-horizontal-hover-background/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-horizontal-focus-color/);
+test('uses a Small Dropdown status filter after the Services Search Input', () => {
+  assert.match(services, /const statusControl = control\(document, 'All', 'status'\);/);
+  assert.match(services, /statusControl\.classList\.add\('wex-admin-services__status-control'\)/);
+  assert.match(services, /statusMenu\.dataset\.servicePopover = 'status'/);
+  assert.match(services, /tabs\.append\(search, statusControl, statusMenu\);/);
+  assert.match(services, /statusControl\.textContent = state === 'all' \? 'All' : state === 'active' \? 'Active' : 'Non Active';/);
+  assert.match(services, /\['all', 'active', 'inactive'\]\.forEach\(\(value\) => statusMenu\.append\(menuOption/);
+  assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input\s*\{\s*inline-size: calc\(var\(--wex-space-64\) \* 4\);/);
+  assert.match(servicesCss, /\[data-service-popover="status"\]\s*\{\s*inset-inline-start: auto;\s*inset-inline-end: 0;/);
 });
