@@ -92,6 +92,10 @@ test('keeps the small-viewport Services toolbar inline with responsive search an
   assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input \{ flex: 1 1 220px;[\s\S]*min-inline-size: var\(--wex-search-input-small-target-size\);/);
   assert.match(servicesCss, /\.wex-admin-services__search\[data-compact="true"\] input \{ display: none;/);
   assert.match(servicesCss, /\[data-search-expanded="true"\] \.wex-admin-services__search \{ position: absolute;[\s\S]*inline-size: 220px;/);
+  assert.match(servicesCss, /@media \(max-width: 479px\) \{[\s\S]*\.wex-admin-services__tabs \{ display: contents;/);
+  assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input,[\s\S]*grid-column: 1 \/ -1;[\s\S]*inline-size: 100%;/);
+  assert.match(servicesCss, /\[data-service-menu-control="status"\] \{ grid-column: 1;/);
+  assert.match(servicesCss, /\.wex-admin-services__tools \{ grid-column: 2; justify-self: end;/);
   assert.match(services, /const statusControlMeasure = text\(document, 'Non Active', 'wex-admin-services__status-control-measure'\);/);
   assert.match(servicesCss, /\.wex-admin-services__status-control-label, \.wex-admin-services__status-control-measure \{ grid-area: 1 \/ 1;/);
 });
