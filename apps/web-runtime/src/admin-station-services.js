@@ -28,13 +28,11 @@ export const allServicesPreviewSnapshot = Object.freeze({
 function text(document, text, className = '') { const node = document.createElement('span'); node.className = className; node.textContent = text; return node; }
 /** @param {Document} document @param {string} label @param {string} command */
 function control(document, label, command) { const node = document.createElement('button'); node.type = 'button'; node.className = 'wex-button wex-button--small wex-button--neutral'; node.dataset.serviceControl = command; node.textContent = label; return node; }
-/** @param {Document} document @param {string} label @param {string} command */
-function statusControl(document, label, command) { const node = document.createElement('button'); node.type = 'button'; node.className = 'wex-admin-shell__sidebar-tab wex-admin-services__status-tab'; node.dataset.serviceControl = command; node.setAttribute('role', 'tab'); node.setAttribute('aria-selected', 'false'); node.dataset.sidebarTabActive = 'false'; node.textContent = label; return node; }
 /** @param {number} value */
 function money(value) { return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(value); }
 
-/** @param {Document} document @param {ServiceListItem} service @param {string | null} openActionMenuId */
-function serviceItem(document, service, openActionMenuId) {
+/** @param {Document} document @param {ServiceListItem} service */
+function serviceItem(document, service) {
   const item = document.createElement('article'); item.className = 'wex-admin-services__item'; item.dataset.serviceId = service.id;
   const picture = document.createElement('div'); picture.className = 'wex-admin-services__image';
   const image = document.createElement('img'); image.src = service.imageUrl; image.alt = ''; image.loading = 'lazy'; picture.append(image);
@@ -47,13 +45,8 @@ function serviceItem(document, service, openActionMenuId) {
   const footer = document.createElement('div'); footer.className = 'wex-admin-services__item-footer';
   const value = text(document, money(service.value), 'wex-type-navigation-default-semibold wex-admin-services__value');
   const status = text(document, service.status === 'active' ? 'Active' : 'Inactive', `wex-type-navigation-small-semibold wex-admin-services__status wex-admin-services__status--${service.status}`);
-  const actionMenu = document.createElement('div'); actionMenu.className = 'wex-admin-services__item-menu'; actionMenu.dataset.serviceActionMenu = service.id;
-  const action = control(document, '•••', `menu:${service.id}`); action.classList.replace('wex-button--neutral', 'wex-button--subtle'); action.classList.add('wex-admin-services__item-action-toggle'); action.setAttribute('aria-label', `Actions for ${service.name}`); action.setAttribute('aria-haspopup', 'menu'); action.setAttribute('aria-controls', `wex-admin-services-action-${service.id}`); action.setAttribute('aria-expanded', String(openActionMenuId === service.id));
-  const actionOptions = document.createElement('div'); actionOptions.id = `wex-admin-services-action-${service.id}`; actionOptions.className = 'wex-admin-services__item-menu-options'; actionOptions.setAttribute('role', 'menu'); actionOptions.setAttribute('aria-label', `Actions for ${service.name}`); actionOptions.hidden = openActionMenuId !== service.id;
-  const view = control(document, 'View', `action:view:${service.id}`); view.setAttribute('role', 'menuitem');
-  const edit = control(document, 'Edit', `action:edit:${service.id}`); edit.setAttribute('role', 'menuitem');
-  actionOptions.append(view, edit); actionMenu.append(action, actionOptions); footer.append(value, status);
-  item.append(picture, identity, fields, footer, actionMenu); return item;
+  const action = control(document, '•••', `menu:${service.id}`); action.classList.add('wex-admin-services__item-action'); action.setAttribute('aria-label', `Actions for ${service.name}`); footer.append(value, status);
+  item.append(picture, identity, fields, footer, action); return item;
 }
 
 /**
@@ -68,40 +61,35 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   let view = 'grid'; let state = 'all'; let group = 'all'; let query = ''; let columns = 4; let page = 1;
   /** @type {'columns'|'filter'|null} */
   let popover = null;
-  /** @type {string|null} */
-  let openActionMenuId = null;
   const section = document.createElement('section'); section.className = 'wex-admin-services'; section.dataset.stationId = snapshot.stationId; section.setAttribute('aria-labelledby', 'wex-admin-services-title');
   const header = document.createElement('header'); header.className = 'wex-admin-services__header';
   const copy = document.createElement('div'); const heading = document.createElement('h1'); heading.id = 'wex-admin-services-title'; heading.className = 'wex-type-heading-default-semibold'; heading.textContent = 'Management Items'; copy.append(heading, text(document, 'Manage your items and groups', 'wex-type-body-default-regular wex-admin-services__summary'));
   const add = document.createElement('button'); add.type = 'button'; add.className = 'wex-button wex-button--default wex-button--primary'; add.textContent = 'Add New'; header.append(copy, add);
-  const tabs = document.createElement('nav'); tabs.className = 'wex-admin-services__tabs'; tabs.setAttribute('aria-label', 'Filter services by status'); tabs.setAttribute('role', 'tablist'); ['all', 'active', 'inactive'].forEach((value) => { const label = value === 'all' ? 'All' : value === 'active' ? 'Active' : 'Non Active'; tabs.append(statusControl(document, label, `state:${value}`)); });
+  const tabs = document.createElement('div'); tabs.className = 'wex-admin-services__tabs'; tabs.setAttribute('aria-label', 'Filter services by status'); ['all', 'active', 'inactive'].forEach((value) => { const label = value === 'all' ? 'All' : value === 'active' ? 'Active' : 'Non Active'; const node = control(document, label, `state:${value}`); node.classList.replace('wex-button--neutral', 'wex-button--subtle'); tabs.append(node); });
   const tools = document.createElement('div'); tools.className = 'wex-admin-services__tools';
-  const viewControl = control(document, '▤  Table', 'view'); const columnsControl = control(document, '▦  Columns', 'columns'); const filterControl = control(document, '☰  Filter', 'filter'); columnsControl.setAttribute('aria-haspopup', 'menu'); columnsControl.setAttribute('aria-controls', 'wex-admin-services-columns-menu'); filterControl.setAttribute('aria-haspopup', 'menu'); filterControl.setAttribute('aria-controls', 'wex-admin-services-filter-menu');
+  const viewControl = control(document, '▤  Table', 'view'); const columnsControl = control(document, '▦  Columns', 'columns'); const filterControl = control(document, '☰  Filter', 'filter');
   const search = document.createElement('label'); search.className = 'wex-admin-services__search'; search.append(text(document, '⌕', 'wex-type-navigation-default-semibold')); const input = document.createElement('input'); input.type = 'search'; input.placeholder = 'Search Product'; input.setAttribute('aria-label', 'Search products'); search.append(input);
-  const columnsMenu = document.createElement('div'); columnsMenu.id = 'wex-admin-services-columns-menu'; columnsMenu.className = 'wex-admin-services__menu'; columnsMenu.dataset.servicePopover = 'columns'; columnsMenu.setAttribute('role', 'menu');
-  const filterMenu = document.createElement('div'); filterMenu.id = 'wex-admin-services-filter-menu'; filterMenu.className = 'wex-admin-services__menu'; filterMenu.dataset.servicePopover = 'filter'; filterMenu.setAttribute('role', 'menu'); tools.append(viewControl, columnsControl, filterControl, search, columnsMenu, filterMenu);
+  const columnsMenu = document.createElement('div'); columnsMenu.className = 'wex-admin-services__menu'; columnsMenu.dataset.servicePopover = 'columns';
+  const filterMenu = document.createElement('div'); filterMenu.className = 'wex-admin-services__menu'; filterMenu.dataset.servicePopover = 'filter'; tools.append(viewControl, columnsControl, filterControl, search, columnsMenu, filterMenu);
   const toolbar = document.createElement('div'); toolbar.className = 'wex-admin-services__toolbar'; toolbar.append(tabs, tools);
   const results = document.createElement('div'); results.className = 'wex-admin-services__results'; results.setAttribute('aria-live', 'polite');
   const footer = document.createElement('footer'); footer.className = 'wex-admin-services__footer'; const total = text(document, '', 'wex-type-body-small-regular wex-admin-services__total'); const pager = document.createElement('div'); pager.className = 'wex-admin-services__pager'; footer.append(total, pager);
   const renderMenus = () => {
-    columnsMenu.hidden = popover !== 'columns'; filterMenu.hidden = popover !== 'filter'; columnsControl.setAttribute('aria-expanded', String(popover === 'columns')); filterControl.setAttribute('aria-expanded', String(popover === 'filter')); columnsMenu.replaceChildren(text(document, 'Grid columns', 'wex-type-body-small-regular wex-admin-services__menu-caption'));
-    [1, 2, 3, 4].forEach((count) => { const option = control(document, `${columns === count ? '✓  ' : ''}${count} column${count === 1 ? '' : 's'}`, `columns:${count}`); option.setAttribute('role', 'menuitemradio'); option.setAttribute('aria-checked', String(columns === count)); columnsMenu.append(option); });
+    columnsMenu.hidden = popover !== 'columns'; filterMenu.hidden = popover !== 'filter'; columnsMenu.replaceChildren(text(document, 'Grid columns', 'wex-type-body-small-regular wex-admin-services__menu-caption'));
+    [1, 2, 3, 4].forEach((count) => columnsMenu.append(control(document, `${columns === count ? '✓  ' : ''}${count} column${count === 1 ? '' : 's'}`, `columns:${count}`)));
     filterMenu.replaceChildren(text(document, 'Group', 'wex-type-body-small-regular wex-admin-services__menu-caption'));
-    ['all', ...new Set(services.map((service) => service.category))].forEach((value) => { const option = control(document, `${group === value ? '✓  ' : ''}${value === 'all' ? 'All' : value}`, `group:${value}`); option.setAttribute('role', 'menuitemradio'); option.setAttribute('aria-checked', String(group === value)); filterMenu.append(option); });
+    ['all', ...new Set(services.map((service) => service.category))].forEach((value) => filterMenu.append(control(document, `${group === value ? '✓  ' : ''}${value === 'all' ? 'All' : value}`, `group:${value}`)));
   };
   const render = () => {
     const filtered = services.filter((service) => (state === 'all' || service.status === state) && (group === 'all' || service.category === group) && [service.name, service.category, service.id, String(service.value)].join(' ').toLocaleLowerCase().includes(query));
     const maxPage = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE)); page = Math.min(page, maxPage); const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
-    section.dataset.view = view; section.dataset.columns = String(columns); viewControl.textContent = view === 'grid' ? '▤  Table' : '▦  Grid'; tabs.querySelectorAll('button').forEach((node) => { const selected = node.dataset.serviceControl === `state:${state}`; node.setAttribute('aria-selected', String(selected)); node.dataset.sidebarTabActive = String(selected); }); renderMenus(); results.replaceChildren();
+    section.dataset.view = view; section.dataset.columns = String(columns); viewControl.textContent = view === 'grid' ? '▤  Table' : '▦  Grid'; tabs.querySelectorAll('button').forEach((node) => node.setAttribute('aria-pressed', String(node.dataset.serviceControl === `state:${state}`))); renderMenus(); results.replaceChildren();
     if (view === 'list') { const labels = document.createElement('div'); labels.className = 'wex-admin-services__list-head wex-type-body-small-regular'; ['Item / Group', 'ID', 'Value', 'Status', 'Actions'].forEach((label) => labels.append(text(document, label))); results.append(labels); }
-    const collection = document.createElement('div'); collection.className = 'wex-admin-services__collection'; visible.forEach((service) => collection.append(serviceItem(document, service, openActionMenuId))); if (!visible.length) collection.append(text(document, 'No matching items', 'wex-type-body-default-regular wex-admin-services__empty')); results.append(collection);
+    const collection = document.createElement('div'); collection.className = 'wex-admin-services__collection'; visible.forEach((service) => collection.append(serviceItem(document, service))); if (!visible.length) collection.append(text(document, 'No matching items', 'wex-type-body-default-regular wex-admin-services__empty')); results.append(collection);
     total.textContent = `${filtered.length} items`; pager.replaceChildren(); [page - 1, ...Array.from({ length: maxPage }, (_, index) => index + 1), page + 1].forEach((number, index) => { const node = control(document, index === 0 ? '‹' : index === maxPage + 1 ? '›' : String(number), `page:${number}`); node.disabled = (index === 0 && page === 1) || (index === maxPage + 1 && page === maxPage); node.setAttribute('aria-current', String(index > 0 && index <= maxPage && number === page)); pager.append(node); });
   };
-  const closePopovers = () => { if (popover === null && openActionMenuId === null) return; popover = null; openActionMenuId = null; render(); };
-  section.addEventListener('click', (event) => { const node = event.target instanceof Element ? event.target.closest('[data-service-control]') : null; if (!(node instanceof HTMLButtonElement)) { if (popover !== null || openActionMenuId !== null) closePopovers(); return; } const command = node.dataset.serviceControl ?? ''; if (command === 'view') { view = view === 'grid' ? 'list' : 'grid'; closePopovers(); return; } if (command === 'columns' || command === 'filter') { popover = popover === command ? null : command; openActionMenuId = null; render(); return; } if (command.startsWith('menu:')) { const id = command.slice(5); openActionMenuId = openActionMenuId === id ? null : id; popover = null; render(); return; } if (command.startsWith('action:')) { closePopovers(); return; } if (command.startsWith('state:')) { state = command.slice(6); page = 1; } else if (command.startsWith('group:')) { group = command.slice(6); page = 1; } else if (command.startsWith('columns:')) { columns = Number(command.slice(8)); } else if (command.startsWith('page:')) { page = Number(command.slice(5)); } popover = null; openActionMenuId = null; render(); });
+  section.addEventListener('click', (event) => { const node = event.target instanceof Element ? event.target.closest('[data-service-control]') : null; if (!(node instanceof HTMLButtonElement)) return; const command = node.dataset.serviceControl ?? ''; if (command === 'view') view = view === 'grid' ? 'list' : 'grid'; else if (command === 'columns' || command === 'filter') popover = popover === command ? null : command; else if (command.startsWith('state:')) { state = command.slice(6); page = 1; popover = null; } else if (command.startsWith('group:')) { group = command.slice(6); page = 1; popover = null; } else if (command.startsWith('columns:')) { columns = Number(command.slice(8)); popover = null; } else if (command.startsWith('page:')) { page = Number(command.slice(5)); popover = null; } render(); });
   input.addEventListener('input', () => { query = input.value.trim().toLocaleLowerCase(); page = 1; render(); }); add.addEventListener('click', () => input.focus());
-  document.addEventListener('click', (event) => { if (!section.isConnected || !(event.target instanceof Element) || event.target.closest('[data-service-popover], [data-service-action-menu], [data-service-control="columns"], [data-service-control="filter"]')) return; closePopovers(); });
-  document.addEventListener('keydown', (event) => { if (!section.isConnected || event.key !== 'Escape' || (popover === null && openActionMenuId === null)) return; event.preventDefault(); closePopovers(); });
   section.append(header, toolbar, results, footer); main.replaceChildren(section); render();
 }
 
