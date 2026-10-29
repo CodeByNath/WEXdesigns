@@ -49,8 +49,12 @@ test('uses WEX Tab Navigation states for every Services popover row', () => {
   assert.match(services, /function menuTab\(document, label, command, selected\)/);
   assert.match(services, /node\.dataset\.serviceMenuSelected = String\(selected\)/);
   assert.match(services, /node\.setAttribute\('aria-pressed', String\(selected\)\)/);
+  assert.match(services, /node\.className = 'wex-admin-services__menu-tab'/);
   assert.doesNotMatch(services, /createSystemIcon\(document, 'check'\)/);
+  assert.match(servicesCss, /border-radius: var\(--wex-radius-default\)/);
   assert.match(servicesCss, /--wex-tab-navigation-small-selected-background/);
   assert.match(servicesCss, /--wex-tab-navigation-small-hover-background/);
   assert.match(servicesCss, /--wex-tab-navigation-small-focus-color/);
+  assert.match(servicesCss, /--wex-tab-navigation-small-focus-inner-width/);
+  assert.match(servicesCss, /calc\(var\(--wex-radius-default\) - var\(--wex-outer-ring-width\)\)/);
 });
