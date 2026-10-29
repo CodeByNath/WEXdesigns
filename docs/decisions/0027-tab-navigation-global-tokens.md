@@ -26,17 +26,22 @@ from Default. The root-tab start rule is part of that geometry: a root tab
 begins on its wrapper's layout line and does not add a second leading inset. A
 square icon allocation centres its glyph with equal padding on every side,
 regardless of glyph size; Small's SVG glyph token remains independent.
-Each tier also exposes Default, Hover, Selected, Focus, and Pressed state
-tokens. Shared state values are inherited through token aliases, so a change
-to the Default state remains system-wide until a tier requires an authorised
-override. Every value references an existing WEX foundation; this decision
-introduces no resolved colour, spacing, geometry, typography, or motion value.
+Each tier exposes Default, Hover, Selected, and Focus state tokens. Unreleased
+Pressed interaction is supplied by the existing WEX Button Neutral pressed
+foundation: background and foreground use its established pressed values while
+the shared outer-ring foundation supplies focus treatment. Tab Navigation does
+not define a parallel pressed visual token. Shared state values are inherited
+through token aliases, so a change to the Default state remains system-wide
+until a tier requires an authorised override. Every value references an
+existing WEX foundation; this decision introduces no resolved colour, spacing,
+geometry, typography, or motion value.
 
 Small has two registered presentation modes. **Small Horizontal** retains the
 complete Small tier for horizontally arranged filters. **Small Dropdown**
 retains Small state, type, target and spacing references while using the
 existing WEX default radius reference established by dropdown option surfaces.
-Both modes expose the same complete state contract and do not create a Button
+Both modes expose the same complete Tab Navigation state contract and inherit
+the WEX Button Neutral pressed interaction; they do not create a Button
 variant, interaction mechanic, or raw visual value.
 
 ## Boundaries

@@ -127,13 +127,13 @@
   line-height: var(--wex-tab-navigation-small-dropdown-line-height);
 }
 
-.wex-admin-notifications__tab--small-horizontal:not([aria-pressed="true"]):hover:not(:focus) {
+.wex-admin-notifications__tab--small-horizontal:not([aria-pressed="true"]):hover {
   background: var(--wex-tab-navigation-small-horizontal-hover-background);
   border-color: var(--wex-tab-navigation-small-horizontal-hover-border-color);
   color: var(--wex-tab-navigation-small-horizontal-hover-foreground);
 }
 
-.wex-admin-notifications__tab--small-dropdown:not([aria-pressed="true"]):hover:not(:focus) {
+.wex-admin-notifications__tab--small-dropdown:not([aria-pressed="true"]):hover {
   background: var(--wex-tab-navigation-small-dropdown-hover-background);
   border-color: var(--wex-tab-navigation-small-dropdown-hover-border-color);
   color: var(--wex-tab-navigation-small-dropdown-hover-foreground);
@@ -153,12 +153,22 @@
 
 .wex-admin-notifications__tab--small-horizontal:not(:disabled):active,
 .wex-admin-notifications__tab--small-horizontal:focus {
-  border-color: var(--wex-tab-navigation-small-horizontal-pressed-border-color);
+  border-color: var(--wex-outer-ring-color);
 }
 
 .wex-admin-notifications__tab--small-dropdown:not(:disabled):active,
 .wex-admin-notifications__tab--small-dropdown:focus {
-  border-color: var(--wex-tab-navigation-small-dropdown-pressed-border-color);
+  border-color: var(--wex-outer-ring-color);
+}
+
+.wex-admin-notifications__tab--small-horizontal:not(:disabled):active {
+  background: var(--wex-button-neutral-background-pressed);
+  color: var(--wex-button-neutral-foreground-pressed);
+}
+
+.wex-admin-notifications__tab--small-dropdown:not(:disabled):active {
+  background: var(--wex-button-neutral-background-pressed);
+  color: var(--wex-button-neutral-foreground-pressed);
 }
 
 .wex-admin-notifications__tab--small-horizontal:not(:disabled):active::after,

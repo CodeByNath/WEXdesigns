@@ -77,7 +77,7 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
         assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${state}-${property}: (?:var|transparent)`));
       }
     }
-    for (const property of ['focus-color', 'focus-width', 'focus-outer-width', 'focus-inner-width', 'focus-gap', 'focus-gap-color', 'pressed-border-color']) {
+    for (const property of ['focus-color', 'focus-width', 'focus-outer-width', 'focus-inner-width', 'focus-gap', 'focus-gap-color']) {
       assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${property}: var\\(--wex-`));
     }
   }
@@ -100,7 +100,7 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
         assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${mode}-${state}-${property}: var\\(--wex-`));
       }
     }
-    for (const property of ['focus-color', 'focus-width', 'focus-outer-width', 'focus-inner-width', 'focus-gap', 'focus-gap-color', 'pressed-border-color']) {
+    for (const property of ['focus-color', 'focus-width', 'focus-outer-width', 'focus-inner-width', 'focus-gap', 'focus-gap-color']) {
       assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${mode}-${property}: var\\(--wex-`));
     }
   }
@@ -110,12 +110,14 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigationDecision, /WEX Tab Navigation Default/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Small/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Large/);
-  assert.match(tabNavigationDecision, /Default, Hover, Selected, Focus, and Pressed state/);
+  assert.match(tabNavigationDecision, /Default, Hover, Selected, and Focus state/);
+  assert.match(tabNavigationDecision, /WEX Button Neutral pressed/);
   assert.match(tabNavigationDecision, /square icon\s+allocation/);
   assert.match(tabNavigationDecision, /padding\s+on every side/);
   assert.match(tabNavigationDecision, /Owner-authorised 38px square\s+icon allocation/);
   assert.match(tabNavigationDecision, /root-tab start rule/);
   assert.match(tabNavigationDecision, /Small Horizontal/);
   assert.match(tabNavigationDecision, /Small Dropdown/);
+  assert.doesNotMatch(tabNavigation, /pressed-border-color/);
   assert.doesNotMatch(tabNavigation, /#[0-9a-f]{3,8}\b/i);
 });

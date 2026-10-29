@@ -204,9 +204,14 @@ button.wex-admin-shell__sidebar-tab {
   color: var(--wex-tab-navigation-default-selected-foreground);
 }
 
+.wex-admin-shell__sidebar-tab:not(:disabled):active {
+  background: var(--wex-button-neutral-background-pressed);
+  color: var(--wex-button-neutral-foreground-pressed);
+}
+
 .wex-admin-shell__sidebar-tab:not(:disabled):active,
 .wex-admin-shell__sidebar-tab:focus {
-  border-color: var(--wex-tab-navigation-default-pressed-border-color);
+  border-color: var(--wex-outer-ring-color);
 }
 
 .wex-admin-shell__sidebar-tab:not(:disabled):active::after,

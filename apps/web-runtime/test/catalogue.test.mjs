@@ -311,7 +311,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action-icon svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-small-icon-size\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:disabled\s*\{[\s\S]*opacity: var\(--wex-opacity-disabled\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):hover\s*\{[\s\S]*background-color: var\(--wex-tab-navigation-small-hover-background\);/);
-  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active,\s*\.wex-admin-profile__action:focus\s*\{[\s\S]*border-color: var\(--wex-tab-navigation-small-pressed-border-color\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active\s*\{[\s\S]*background-color: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active,\s*\.wex-admin-profile__action:focus\s*\{[\s\S]*border-color: var\(--wex-outer-ring-color\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active::after,\s*\.wex-admin-profile__action:focus::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-small-focus-inner-width\) solid var\(--wex-tab-navigation-small-focus-color\);/);
   assert.doesNotMatch(adminStationProfileCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNotifications, /owner: NOTIFICATIONS_OWNER,/);
@@ -394,8 +395,10 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__header--scrolled\s*\{[\s\S]*box-shadow:/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-horizontal:not\(:disabled\):active::after,[\s\S]*--wex-tab-navigation-small-horizontal-focus-inner-width/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-dropdown:not\(:disabled\):active::after,[\s\S]*--wex-tab-navigation-small-dropdown-focus-inner-width/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-horizontal:not\(\[aria-pressed="true"\]\):hover:not\(:focus\)\s*\{[\s\S]*--wex-tab-navigation-small-horizontal-hover-background/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-horizontal:not\(\[aria-pressed="true"\]\):hover\s*\{[\s\S]*--wex-tab-navigation-small-horizontal-hover-background/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-dropdown\[aria-pressed="true"\]\s*\{[\s\S]*--wex-tab-navigation-small-dropdown-selected-background/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-horizontal:not\(:disabled\):active\s*\{[\s\S]*background: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-dropdown:not\(:disabled\):active\s*\{[\s\S]*background: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\s*\{[\s\S]*display: grid;[\s\S]*inset-inline-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*inline-size: max-content;[\s\S]*white-space: nowrap;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\[hidden\]\s*\{\s*display: none;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__option\s*\{[\s\S]*border-color: transparent;[\s\S]*color: var\(--wex-color-text-primary\);/);
@@ -585,7 +588,8 @@ test('provides the Admin Station Sidebar rail, compact drawer, rounded split-win
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon\s*\{[\s\S]*inline-size: 100%;[\s\S]*block-size: 100%;[\s\S]*max-inline-size: var\(--wex-tab-navigation-default-icon-allocation-size\);[\s\S]*max-block-size: var\(--wex-tab-navigation-default-icon-allocation-size\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab-icon-svg\s*\{[\s\S]*inline-size: var\(--wex-tab-navigation-default-icon-size\);[\s\S]*block-size: var\(--wex-tab-navigation-default-icon-size\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab\[data-sidebar-tab-active="true"\]\s*\{[\s\S]*background: var\(--wex-tab-navigation-default-selected-background\);[\s\S]*color: var\(--wex-tab-navigation-default-selected-foreground\);/);
-  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active,\s*\.wex-admin-shell__sidebar-tab:focus\s*\{[\s\S]*border-color: var\(--wex-tab-navigation-default-pressed-border-color\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active\s*\{[\s\S]*background: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
+  assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active,\s*\.wex-admin-shell__sidebar-tab:focus\s*\{[\s\S]*border-color: var\(--wex-outer-ring-color\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-default-focus-inner-width\) solid var\(--wex-tab-navigation-default-focus-color\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::after,\s*\.wex-admin-shell__sidebar-tab:focus::after\s*\{[\s\S]*border-radius: calc\(var\(--wex-tab-navigation-default-radius\) - var\(--wex-tab-navigation-default-border-width\)\);/);
   assert.match(wexLayout, /\.wex-admin-shell__sidebar-tab:not\(:disabled\):active::before,\s*\.wex-admin-shell__sidebar-tab:focus::before\s*\{[\s\S]*border: var\(--wex-tab-navigation-default-focus-gap\) solid var\(--wex-tab-navigation-default-focus-gap-color\);/);

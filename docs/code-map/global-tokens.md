@@ -14,7 +14,9 @@
 
 - WEX Tab Navigation Small Horizontal and Small Dropdown register complete
   Small-tier presentation-mode references. Notification filters consume Small
-  Horizontal; notification sort selection consumes Small Dropdown.
+  Horizontal; notification sort selection consumes Small Dropdown. All Tab
+  Navigation consumers inherit the existing WEX Button Neutral pressed
+  interaction rather than defining a second pressed token.
 
 - WEX More Action Default and Small retain the existing horizontal three-dot
   system mark at the registered 20px and 16px icon allocations. Notifications

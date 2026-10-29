@@ -106,9 +106,14 @@ button.wex-admin-profile__action:not(:disabled) {
   color: var(--wex-tab-navigation-small-hover-foreground);
 }
 
+.wex-admin-profile__action:not(:disabled):active {
+  background-color: var(--wex-button-neutral-background-pressed);
+  color: var(--wex-button-neutral-foreground-pressed);
+}
+
 .wex-admin-profile__action:not(:disabled):active,
 .wex-admin-profile__action:focus {
-  border-color: var(--wex-tab-navigation-small-pressed-border-color);
+  border-color: var(--wex-outer-ring-color);
 }
 
 .wex-admin-profile__action:not(:disabled):active::after,

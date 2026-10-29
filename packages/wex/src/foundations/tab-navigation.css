@@ -40,7 +40,6 @@
   --wex-tab-navigation-default-focus-inner-width: var(--wex-outer-ring-inner-width);
   --wex-tab-navigation-default-focus-gap: var(--wex-outer-ring-gap);
   --wex-tab-navigation-default-focus-gap-color: var(--wex-outer-ring-gap-color);
-  --wex-tab-navigation-default-pressed-border-color: var(--wex-outer-ring-color);
 
   /* WEX Tab Navigation Small */
   --wex-tab-navigation-small-font-family: var(--wex-type-navigation-small-font-family);
@@ -74,7 +73,6 @@
   --wex-tab-navigation-small-focus-inner-width: var(--wex-tab-navigation-default-focus-inner-width);
   --wex-tab-navigation-small-focus-gap: var(--wex-tab-navigation-default-focus-gap);
   --wex-tab-navigation-small-focus-gap-color: var(--wex-tab-navigation-default-focus-gap-color);
-  --wex-tab-navigation-small-pressed-border-color: var(--wex-tab-navigation-default-pressed-border-color);
 
   /* WEX Tab Navigation Small / Horizontal mode */
   --wex-tab-navigation-small-horizontal-font-family: var(--wex-tab-navigation-small-font-family);
@@ -103,7 +101,6 @@
   --wex-tab-navigation-small-horizontal-focus-inner-width: var(--wex-tab-navigation-small-focus-inner-width);
   --wex-tab-navigation-small-horizontal-focus-gap: var(--wex-tab-navigation-small-focus-gap);
   --wex-tab-navigation-small-horizontal-focus-gap-color: var(--wex-tab-navigation-small-focus-gap-color);
-  --wex-tab-navigation-small-horizontal-pressed-border-color: var(--wex-tab-navigation-small-pressed-border-color);
 
   /* WEX Tab Navigation Small / Dropdown mode */
   --wex-tab-navigation-small-dropdown-font-family: var(--wex-tab-navigation-small-font-family);
@@ -132,7 +129,6 @@
   --wex-tab-navigation-small-dropdown-focus-inner-width: var(--wex-tab-navigation-small-focus-inner-width);
   --wex-tab-navigation-small-dropdown-focus-gap: var(--wex-tab-navigation-small-focus-gap);
   --wex-tab-navigation-small-dropdown-focus-gap-color: var(--wex-tab-navigation-small-focus-gap-color);
-  --wex-tab-navigation-small-dropdown-pressed-border-color: var(--wex-tab-navigation-small-pressed-border-color);
 
   /* WEX Tab Navigation Large */
   --wex-tab-navigation-large-font-family: var(--wex-type-navigation-large-font-family);
@@ -165,5 +161,4 @@
   --wex-tab-navigation-large-focus-inner-width: var(--wex-tab-navigation-default-focus-inner-width);
   --wex-tab-navigation-large-focus-gap: var(--wex-tab-navigation-default-focus-gap);
   --wex-tab-navigation-large-focus-gap-color: var(--wex-tab-navigation-default-focus-gap-color);
-  --wex-tab-navigation-large-pressed-border-color: var(--wex-tab-navigation-default-pressed-border-color);
 }
