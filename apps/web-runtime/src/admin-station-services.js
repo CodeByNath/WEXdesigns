@@ -36,7 +36,7 @@ function iconControl(document, label, command, icon) { const node = control(docu
 /** @param {HTMLButtonElement} node @param {Document} document @param {string} label @param {'table'|'columns'|'filter'} icon */
 function setIconControlLabel(node, document, label, icon) { const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.replaceChildren(visual, document.createTextNode(label)); }
 /** @param {Document} document @param {string} label @param {string} command @param {boolean} selected */
-function menuOption(document, label, command, selected) { const node = control(document, label, command); node.className = 'wex-button wex-button--small wex-button--subtle'; node.setAttribute('aria-pressed', String(selected)); return node; }
+function menuOption(document, label, command, selected) { const node = document.createElement('button'); node.type = 'button'; node.className = 'wex-admin-services__menu-tab'; node.dataset.serviceControl = command; node.setAttribute('aria-pressed', String(selected)); node.textContent = label; return node; }
 /** @param {Document} document @param {string} label @param {string} command @param {'chevron-left'|'chevron-right'} icon */
 function pagerIconControl(document, label, command, icon) { const node = control(document, '', command); node.setAttribute('aria-label', label); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.append(visual); return node; }
 /** @param {number} value */

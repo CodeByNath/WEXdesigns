@@ -45,16 +45,16 @@ test('uses named system SVGs for Service controls and dismisses a popover from o
   assert.match(services, /activeMenu\.contains\(event\.target\) \|\| activeControl\.contains\(event\.target\)/);
 });
 
-test('uses the established WEX small Button contract for every Services popover row', () => {
+test('uses the current WEX small Dropdown Navigation contract for every Services popover row', () => {
   assert.match(services, /function menuOption\(document, label, command, selected\)/);
   assert.match(services, /node\.setAttribute\('aria-pressed', String\(selected\)\)/);
-  assert.match(services, /node\.className = 'wex-button wex-button--small wex-button--subtle'/);
-  assert.doesNotMatch(services, /wex-admin-services__menu-tab/);
+  assert.match(services, /node\.className = 'wex-admin-services__menu-tab'/);
   assert.doesNotMatch(services, /createSystemIcon\(document, 'check'\)/);
   assert.match(services, /columnsMenu\.replaceChildren\(\);/);
   assert.match(services, /filterMenu\.replaceChildren\(\);/);
-  assert.match(servicesCss, /\.wex-admin-services__menu > \.wex-button/);
+  assert.match(servicesCss, /\.wex-admin-services__menu-tab/);
   assert.match(servicesCss, /\[aria-pressed="true"\]/);
-  assert.match(servicesCss, /\.wex-admin-services__menu > \.wex-button:not\(:disabled\):active \{ background-color: transparent; color: var\(--wex-color-text-primary\); \}/);
-  assert.doesNotMatch(servicesCss, /wex-admin-services__menu-tab|wex-tab-navigation-small/);
+  assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-selected-background/);
+  assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-hover-background/);
+  assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-focus-color/);
 });
