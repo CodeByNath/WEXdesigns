@@ -63,9 +63,19 @@ test('uses a Small Dropdown status filter after the Services Search Input', () =
   assert.match(services, /const statusControl = control\(document, 'All', 'status'\);/);
   assert.match(services, /statusControl\.classList\.add\('wex-admin-services__status-control'\)/);
   assert.match(services, /statusMenu\.dataset\.servicePopover = 'status'/);
-  assert.match(services, /tabs\.append\(search, statusControl, statusMenu\);/);
+  assert.match(services, /tabs\.append\(search, menuControl\(statusControl, statusMenu, 'status'\)\);/);
   assert.match(services, /statusControl\.textContent = state === 'all' \? 'All' : state === 'active' \? 'Active' : 'Non Active';/);
   assert.match(services, /\['all', 'active', 'inactive'\]\.forEach\(\(value\) => statusMenu\.append\(menuOption/);
   assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input\s*\{\s*inline-size: calc\(var\(--wex-space-64\) \* 4\);/);
-  assert.match(servicesCss, /\[data-service-popover="status"\]\s*\{\s*inset-inline-start: auto;\s*inset-inline-end: 0;/);
+  assert.match(services, /const menuControl = \(trigger, menu, name\)/);
+  assert.match(servicesCss, /\.wex-admin-services__menu-control \{ position: relative;/);
+  assert.match(servicesCss, /\.wex-admin-services__menu \{ position: absolute;[\s\S]*inset-inline-start: 0;/);
+});
+
+test('keeps every Services popover inside its trigger anchor and preserves the approved heading pair', () => {
+  assert.match(services, /menuControl\(columnsControl, columnsMenu, 'columns'\)/);
+  assert.match(services, /menuControl\(filterControl, filterMenu, 'filter'\)/);
+  assert.match(services, /wex-type-heading-default-semibold/);
+  assert.match(services, /wex-type-body-default-regular wex-admin-services__summary/);
+  assert.match(servicesCss, /\.wex-admin-services \{ display: grid;[\s\S]*overflow: hidden;/);
 });
