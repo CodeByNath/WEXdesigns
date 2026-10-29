@@ -63,6 +63,6 @@ test('uses WEX Small Neutral Buttons for the Services status filter', () => {
   assert.match(services, /const node = control\(document, label, `state:\$\{value\}`\); tabs\.append\(node\);/);
   assert.doesNotMatch(services, /node\.classList\.replace\('wex-button--neutral', 'wex-button--subtle'\)/);
   assert.match(servicesCss, /\.wex-admin-services__tabs\s*\{[\s\S]*border-radius: var\(--wex-button-radius\);/);
-  assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-button\s*\{\s*justify-content: center;\s*\}/);
+  assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-button\s*\{\s*justify-content: center;\s*white-space: nowrap;\s*\}/);
   assert.doesNotMatch(servicesCss, /\.wex-admin-services__tabs \.wex-button\[aria-pressed="true"\]/);
 });
