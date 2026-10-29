@@ -34,10 +34,17 @@ The accepted core layer has Default, Hover, and Selected swatches for chromatic/
 
 ## Exact theme mappings
 
+### Owner-authorized exception — 2026-10-29
+
+The Owner explicitly authorizes Neutral Button foregrounds to use the existing
+Text Secondary token in default, hover, and pressed states. This replaces the
+prior Text Primary mapping for Neutral only; all other Button variant mappings
+and state requirements remain unchanged.
+
 | Variant | Light mapping: default / hover / pressed | Dark mapping: default / hover / pressed | Foreground |
 | --- | --- | --- | --- |
 | Primary | Accent / Accent Dark / Accent Light | Accent / Accent Dark / Accent Light | On Accent / On Accent Hover / On Accent Selected |
-| Neutral | White / Light / Light Grey | Black / Dark / Dark Grey | Text Primary; Border Primary at every state |
+| Neutral | White / Light / Light Grey | Black / Dark / Dark Grey | Text Secondary at every state |
 | Subtle | Transparent / Light / Light Grey | Transparent / Dark / Dark Grey | Text Accent at every state |
 | Warning | Yellow / Yellow Dark / Yellow Light | Yellow / Yellow Dark / Yellow Light | On Warning at every state |
 | Danger | Red / Red Dark / Red Light | Red / Red Dark / Red Light | On Error / On Error Hover / On Error Selected |

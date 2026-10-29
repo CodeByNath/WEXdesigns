@@ -35,6 +35,12 @@ test('keeps neutral and subtle Action backgrounds theme-semantic', () => {
   assert.match(buttons, /\[data-wex-theme='dark'\]\s*\{[\s\S]*--wex-button-neutral-background-pressed: var\(--wex-color-dark-grey\);[\s\S]*--wex-button-subtle-background-pressed: var\(--wex-color-dark-grey\);/);
 });
 
+test('uses the approved secondary-text foreground for every neutral Button state', () => {
+  assert.match(buttons, /--wex-button-neutral-foreground-default: var\(--wex-color-text-secondary\);/);
+  assert.match(buttons, /--wex-button-neutral-foreground-hover: var\(--wex-color-text-secondary\);/);
+  assert.match(buttons, /--wex-button-neutral-foreground-pressed: var\(--wex-color-text-secondary\);/);
+});
+
 test('implements the accepted shared Button geometry for every tier', () => {
   const tiers = [
     ['small', /min-block-size: var\(--wex-button-small-target-size\);/, 'small'],
