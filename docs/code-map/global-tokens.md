@@ -12,12 +12,13 @@
 
 ### Recent work (newest first)
 
-- WEX Tab Navigation Default, Small, Large, Small Horizontal, and Small
-  Dropdown source target, padding, gap, border, and radius from the matching
-  WEX Button tier. Modes add only navigation arrangement. Notification filters
-  consume Small Horizontal; notification sort selection consumes Small
-  Dropdown. All Tab Navigation consumers inherit the existing WEX Button
-  Neutral pressed interaction rather than defining a second pressed token.
+- WEX Tab Navigation Default retains established Sidebar geometry. Small,
+  Large, Small Horizontal, and Small Dropdown source target, padding, gap,
+  border, and radius from the matching WEX Button tier. Modes add only
+  navigation arrangement. Notification filters consume Small Horizontal;
+  notification sort selection consumes Small Dropdown. All Tab Navigation
+  consumers inherit the existing WEX Button Neutral pressed interaction rather
+  than defining a second pressed token.
 
 - WEX More Action Default and Small retain the existing horizontal three-dot
   system mark at the registered 20px and 16px icon allocations. Notifications

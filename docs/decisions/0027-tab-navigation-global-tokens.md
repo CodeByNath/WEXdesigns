@@ -18,10 +18,11 @@ Each tier references existing WEX Navigation typography and icon foundations:
 | Default | Navigation Default | `--wex-icon-size-20` |
 | Large | Navigation Large | `--wex-icon-size-24` |
 
-Each Tab Navigation tier sources its target, content gap, padding, border, and
-radius from the matching existing WEX Button tier. Navigation retains only its
-navigation-specific typography, icon allocation, child indent, chevron, and
-state semantics. The root-tab start rule is part of that navigation geometry: a root tab
+Default retains the established sidebar-navigation geometry: target allocation,
+gap, padding, border, radius, child indent, and chevron allocation. Small and
+Large source their complete geometry from the matching existing WEX Button tier.
+Navigation retains only its navigation-specific typography, icon allocation,
+child indent, chevron, and state semantics. The root-tab start rule is part of that navigation geometry: a root tab
 begins on its wrapper's layout line and does not add a second leading inset. A
 square icon allocation centres its glyph with equal padding on every side,
 regardless of glyph size; Small's SVG glyph token remains independent.
@@ -36,7 +37,7 @@ existing WEX foundation; this decision introduces no resolved colour, spacing,
 geometry, typography, or motion value.
 
 Small has two registered presentation modes. **Small Horizontal** and **Small
-Dropdown** retain the complete Small Button-derived geometry and add only their
+Dropdown** retain the complete Button-derived Small geometry and add only their
 arrangement-specific navigation presentation.
 Both modes expose the same complete Tab Navigation state contract and inherit
 the WEX Button Neutral pressed interaction; they do not create a Button

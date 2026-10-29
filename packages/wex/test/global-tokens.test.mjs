@@ -107,10 +107,11 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigation, /--wex-tab-navigation-small-horizontal-radius: var\(--wex-tab-navigation-small-radius\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-horizontal-target-size: var\(--wex-tab-navigation-small-target-size\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-dropdown-radius: var\(--wex-tab-navigation-small-radius\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-default-target-size: var\(--wex-button-default-target-size\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-default-padding-block: var\(--wex-button-padding-block\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-default-padding-inline: var\(--wex-button-padding-inline\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-default-radius: var\(--wex-button-radius\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-default-target-size: calc\(var\(--wex-space-48\) - var\(--wex-space-4\)\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-default-gap: var\(--wex-space-8\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-default-padding-block: var\(--wex-space-4\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-default-padding-inline: var\(--wex-space-16\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-default-radius: var\(--wex-radius-large\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-large-target-size: var\(--wex-button-large-target-size\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-large-radius: var\(--wex-button-radius\);/);
 
@@ -119,8 +120,8 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Large/);
   assert.match(tabNavigationDecision, /Default, Hover, Selected, and Focus state/);
   assert.match(tabNavigationDecision, /WEX Button Neutral pressed/);
-  assert.match(tabNavigationDecision, /matching existing WEX Button tier/);
-  assert.match(tabNavigationDecision, /navigation-specific typography, icon allocation, child indent, chevron, and\s+state semantics/);
+  assert.match(tabNavigationDecision, /Default retains the established sidebar-navigation geometry/);
+  assert.match(tabNavigationDecision, /Small and\s+Large source their complete geometry from the matching existing WEX Button tier/);
   assert.match(tabNavigationDecision, /root-tab start rule/);
   assert.match(tabNavigationDecision, /Small Horizontal/);
   assert.match(tabNavigationDecision, /Small Dropdown/);
