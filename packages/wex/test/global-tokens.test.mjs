@@ -105,7 +105,7 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
       assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${mode}-${property}: var\\(--wex-`));
     }
   }
-  assert.match(tabNavigation, /--wex-tab-navigation-small-horizontal-radius: var\(--wex-tab-navigation-small-radius\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-horizontal-radius: var\(--wex-radius-default\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-dropdown-radius: var\(--wex-radius-default\);/);
 
   assert.match(tabNavigationDecision, /WEX Tab Navigation Default/);
