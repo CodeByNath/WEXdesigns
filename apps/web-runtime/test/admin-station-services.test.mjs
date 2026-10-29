@@ -38,6 +38,10 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
   assert.doesNotMatch(servicesCss, /overflow-x|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
+test('uses the secondary text token for every Services toolbar-button foreground state', () => {
+  assert.match(servicesCss, /\.wex-admin-services__tools > \.wex-button \{ --wex-button-neutral-foreground-default: var\(--wex-color-text-secondary\); --wex-button-neutral-foreground-hover: var\(--wex-color-text-secondary\); --wex-button-neutral-foreground-pressed: var\(--wex-color-text-secondary\);/);
+});
+
 test('uses named system SVGs for Service controls and dismisses a popover from outside', () => {
   assert.match(services, /createSystemIcon\(document, icon\)/);
   assert.doesNotMatch(services, /✓|‹|›/);
