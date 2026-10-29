@@ -80,3 +80,13 @@ test('keeps every Services popover inside its trigger anchor and preserves the a
   assert.match(services, /wex-type-body-default-regular wex-admin-services__summary/);
   assert.match(servicesCss, /\.wex-admin-services \{ display: grid;[\s\S]*overflow: hidden;/);
 });
+
+test('keeps the small-viewport Services toolbar inline with compact actions and expandable search', () => {
+  assert.match(services, /node\.setAttribute\('aria-label', label\)/);
+  assert.match(services, /let searchExpanded = false;/);
+  assert.match(services, /section\.dataset\.searchExpanded = String\(searchExpanded\)/);
+  assert.match(services, /search\.addEventListener\('click', \(\) => \{ if \(searchExpanded\) return; searchExpanded = true;/);
+  assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__toolbar \{ display: flex;/);
+  assert.match(servicesCss, /\.wex-admin-services__tools > \.wex-button \{ inline-size: var\(--wex-button-small-target-size\);[\s\S]*font-size: 0;/);
+  assert.match(servicesCss, /\[data-search-expanded="true"\] \.wex-admin-services__tabs \{ flex: 1 1 auto;/);
+});
