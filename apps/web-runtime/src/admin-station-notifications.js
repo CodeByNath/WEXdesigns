@@ -159,6 +159,16 @@ function createNotificationOption(document, label) {
   return button;
 }
 
+/** @param {Document} document @param {string} label */
+function createNotificationTab(document, label) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'wex-admin-notifications__tab';
+  button.setAttribute('aria-pressed', 'false');
+  button.textContent = label;
+  return button;
+}
+
 /**
  * Mounts the local Notifications Results component. Its fixture and transient
  * read/filter state stay within this component; Header Results owns only its
@@ -205,12 +215,14 @@ export function mountHeaderNotifications(shell, trigger) {
   const options = document.createElement('div');
   options.className = 'wex-admin-notifications__options';
   options.hidden = true;
-  const newestFirst = createNotificationOption(document, 'Newest first');
+  const newestFirst = createNotificationTab(document, 'Newest first');
   newestFirst.dataset.notificationSort = 'newest';
-  const oldestFirst = createNotificationOption(document, 'Oldest first');
+  const oldestFirst = createNotificationTab(document, 'Oldest first');
   oldestFirst.dataset.notificationSort = 'oldest';
-  const priorityFirst = createNotificationOption(document, 'Priority first');
+  const priorityFirst = createNotificationTab(document, 'Priority first');
   priorityFirst.dataset.notificationSort = 'priority';
+  [newestFirst, oldestFirst, priorityFirst].forEach((button) => button.classList.add('wex-admin-notifications__tab--small-dropdown'));
+  const sortButtons = [newestFirst, oldestFirst, priorityFirst];
   options.append(newestFirst, oldestFirst, priorityFirst);
   headerActions.append(more, options);
 
@@ -226,7 +238,7 @@ export function mountHeaderNotifications(shell, trigger) {
   const filterButtons = filterInputs.map(([value, label]) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__filter';
+    button.className = 'wex-admin-notifications__tab wex-admin-notifications__tab--small-horizontal';
     button.dataset.notificationFilter = value;
     button.setAttribute('aria-pressed', 'false');
     button.textContent = label;
@@ -284,6 +296,9 @@ export function mountHeaderNotifications(shell, trigger) {
     markAllRead.disabled = unreadCount === 0;
     filterButtons.forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.notificationFilter === filter));
+    });
+    sortButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.notificationSort === sort));
     });
 
     const filtered = notifications.filter(matchesFilter).sort(compareNotifications);

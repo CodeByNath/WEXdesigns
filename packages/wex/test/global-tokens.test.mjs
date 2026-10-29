@@ -91,6 +91,22 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigation, /--wex-tab-navigation-small-root-padding-inline-start: var\(--wex-tab-navigation-default-root-padding-inline-start\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-icon-allocation-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\) \+ var\(--wex-space-2\)\);/);
 
+  for (const mode of ['horizontal', 'dropdown']) {
+    for (const property of ['font-family', 'font-size', 'line-height', 'letter-spacing', 'font-weight', 'target-size', 'gap', 'padding-block', 'padding-inline', 'radius', 'border-width', 'background', 'foreground', 'border-color']) {
+      assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${mode}-${property}: var\\(--wex-`));
+    }
+    for (const state of ['hover', 'selected']) {
+      for (const property of ['background', 'foreground', 'border-color']) {
+        assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${mode}-${state}-${property}: var\\(--wex-`));
+      }
+    }
+    for (const property of ['focus-color', 'focus-width', 'focus-outer-width', 'focus-inner-width', 'focus-gap', 'focus-gap-color', 'pressed-border-color']) {
+      assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${mode}-${property}: var\\(--wex-`));
+    }
+  }
+  assert.match(tabNavigation, /--wex-tab-navigation-small-horizontal-radius: var\(--wex-tab-navigation-small-radius\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-dropdown-radius: var\(--wex-radius-default\);/);
+
   assert.match(tabNavigationDecision, /WEX Tab Navigation Default/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Small/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Large/);
@@ -99,5 +115,7 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigationDecision, /padding\s+on every side/);
   assert.match(tabNavigationDecision, /Owner-authorised 38px square\s+icon allocation/);
   assert.match(tabNavigationDecision, /root-tab start rule/);
+  assert.match(tabNavigationDecision, /Small Horizontal/);
+  assert.match(tabNavigationDecision, /Small Dropdown/);
   assert.doesNotMatch(tabNavigation, /#[0-9a-f]{3,8}\b/i);
 });

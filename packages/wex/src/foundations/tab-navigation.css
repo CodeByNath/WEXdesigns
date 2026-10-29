@@ -76,6 +76,64 @@
   --wex-tab-navigation-small-focus-gap-color: var(--wex-tab-navigation-default-focus-gap-color);
   --wex-tab-navigation-small-pressed-border-color: var(--wex-tab-navigation-default-pressed-border-color);
 
+  /* WEX Tab Navigation Small / Horizontal mode */
+  --wex-tab-navigation-small-horizontal-font-family: var(--wex-tab-navigation-small-font-family);
+  --wex-tab-navigation-small-horizontal-font-size: var(--wex-tab-navigation-small-font-size);
+  --wex-tab-navigation-small-horizontal-line-height: var(--wex-tab-navigation-small-line-height);
+  --wex-tab-navigation-small-horizontal-letter-spacing: var(--wex-tab-navigation-small-letter-spacing);
+  --wex-tab-navigation-small-horizontal-font-weight: var(--wex-tab-navigation-small-font-weight);
+  --wex-tab-navigation-small-horizontal-target-size: var(--wex-tab-navigation-small-target-size);
+  --wex-tab-navigation-small-horizontal-gap: var(--wex-tab-navigation-small-gap);
+  --wex-tab-navigation-small-horizontal-padding-block: var(--wex-tab-navigation-small-padding-block);
+  --wex-tab-navigation-small-horizontal-padding-inline: var(--wex-tab-navigation-small-padding-inline);
+  --wex-tab-navigation-small-horizontal-radius: var(--wex-tab-navigation-small-radius);
+  --wex-tab-navigation-small-horizontal-border-width: var(--wex-tab-navigation-small-border-width);
+  --wex-tab-navigation-small-horizontal-background: var(--wex-tab-navigation-small-background);
+  --wex-tab-navigation-small-horizontal-foreground: var(--wex-tab-navigation-small-foreground);
+  --wex-tab-navigation-small-horizontal-border-color: var(--wex-tab-navigation-small-border-color);
+  --wex-tab-navigation-small-horizontal-hover-background: var(--wex-tab-navigation-small-hover-background);
+  --wex-tab-navigation-small-horizontal-hover-foreground: var(--wex-tab-navigation-small-hover-foreground);
+  --wex-tab-navigation-small-horizontal-hover-border-color: var(--wex-tab-navigation-small-hover-border-color);
+  --wex-tab-navigation-small-horizontal-selected-background: var(--wex-tab-navigation-small-selected-background);
+  --wex-tab-navigation-small-horizontal-selected-foreground: var(--wex-tab-navigation-small-selected-foreground);
+  --wex-tab-navigation-small-horizontal-selected-border-color: var(--wex-tab-navigation-small-selected-border-color);
+  --wex-tab-navigation-small-horizontal-focus-color: var(--wex-tab-navigation-small-focus-color);
+  --wex-tab-navigation-small-horizontal-focus-width: var(--wex-tab-navigation-small-focus-width);
+  --wex-tab-navigation-small-horizontal-focus-outer-width: var(--wex-tab-navigation-small-focus-outer-width);
+  --wex-tab-navigation-small-horizontal-focus-inner-width: var(--wex-tab-navigation-small-focus-inner-width);
+  --wex-tab-navigation-small-horizontal-focus-gap: var(--wex-tab-navigation-small-focus-gap);
+  --wex-tab-navigation-small-horizontal-focus-gap-color: var(--wex-tab-navigation-small-focus-gap-color);
+  --wex-tab-navigation-small-horizontal-pressed-border-color: var(--wex-tab-navigation-small-pressed-border-color);
+
+  /* WEX Tab Navigation Small / Dropdown mode */
+  --wex-tab-navigation-small-dropdown-font-family: var(--wex-tab-navigation-small-font-family);
+  --wex-tab-navigation-small-dropdown-font-size: var(--wex-tab-navigation-small-font-size);
+  --wex-tab-navigation-small-dropdown-line-height: var(--wex-tab-navigation-small-line-height);
+  --wex-tab-navigation-small-dropdown-letter-spacing: var(--wex-tab-navigation-small-letter-spacing);
+  --wex-tab-navigation-small-dropdown-font-weight: var(--wex-tab-navigation-small-font-weight);
+  --wex-tab-navigation-small-dropdown-target-size: var(--wex-tab-navigation-small-target-size);
+  --wex-tab-navigation-small-dropdown-gap: var(--wex-tab-navigation-small-gap);
+  --wex-tab-navigation-small-dropdown-padding-block: var(--wex-tab-navigation-small-padding-block);
+  --wex-tab-navigation-small-dropdown-padding-inline: var(--wex-tab-navigation-small-padding-inline);
+  --wex-tab-navigation-small-dropdown-radius: var(--wex-radius-default);
+  --wex-tab-navigation-small-dropdown-border-width: var(--wex-tab-navigation-small-border-width);
+  --wex-tab-navigation-small-dropdown-background: var(--wex-tab-navigation-small-background);
+  --wex-tab-navigation-small-dropdown-foreground: var(--wex-tab-navigation-small-foreground);
+  --wex-tab-navigation-small-dropdown-border-color: var(--wex-tab-navigation-small-border-color);
+  --wex-tab-navigation-small-dropdown-hover-background: var(--wex-tab-navigation-small-hover-background);
+  --wex-tab-navigation-small-dropdown-hover-foreground: var(--wex-tab-navigation-small-hover-foreground);
+  --wex-tab-navigation-small-dropdown-hover-border-color: var(--wex-tab-navigation-small-hover-border-color);
+  --wex-tab-navigation-small-dropdown-selected-background: var(--wex-tab-navigation-small-selected-background);
+  --wex-tab-navigation-small-dropdown-selected-foreground: var(--wex-tab-navigation-small-selected-foreground);
+  --wex-tab-navigation-small-dropdown-selected-border-color: var(--wex-tab-navigation-small-selected-border-color);
+  --wex-tab-navigation-small-dropdown-focus-color: var(--wex-tab-navigation-small-focus-color);
+  --wex-tab-navigation-small-dropdown-focus-width: var(--wex-tab-navigation-small-focus-width);
+  --wex-tab-navigation-small-dropdown-focus-outer-width: var(--wex-tab-navigation-small-focus-outer-width);
+  --wex-tab-navigation-small-dropdown-focus-inner-width: var(--wex-tab-navigation-small-focus-inner-width);
+  --wex-tab-navigation-small-dropdown-focus-gap: var(--wex-tab-navigation-small-focus-gap);
+  --wex-tab-navigation-small-dropdown-focus-gap-color: var(--wex-tab-navigation-small-focus-gap-color);
+  --wex-tab-navigation-small-dropdown-pressed-border-color: var(--wex-tab-navigation-small-pressed-border-color);
+
   /* WEX Tab Navigation Large */
   --wex-tab-navigation-large-font-family: var(--wex-type-navigation-large-font-family);
   --wex-tab-navigation-large-font-size: var(--wex-type-navigation-large-font-size);

@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — Owner-directed on 2026-10-26.
+Accepted — Owner-directed on 2026-10-26; Small Horizontal and Small Dropdown modes approved by the Owner on 2026-10-29.
 
 ## Decision
 
@@ -31,6 +31,13 @@ tokens. Shared state values are inherited through token aliases, so a change
 to the Default state remains system-wide until a tier requires an authorised
 override. Every value references an existing WEX foundation; this decision
 introduces no resolved colour, spacing, geometry, typography, or motion value.
+
+Small has two registered presentation modes. **Small Horizontal** retains the
+complete Small tier for horizontally arranged filters. **Small Dropdown**
+retains Small state, type, target and spacing references while using the
+existing WEX default radius reference established by dropdown option surfaces.
+Both modes expose the same complete state contract and do not create a Button
+variant, interaction mechanic, or raw visual value.
 
 ## Boundaries
 

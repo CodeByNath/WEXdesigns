@@ -2,15 +2,19 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-26
-- Last updated: 2026-10-26
-- Verified against: Owner-directed WEX Search Input Global Tokens direct release
-  worktree on main.
+- Last visited: 2026-10-29
+- Last updated: 2026-10-29
+- Verified against: Owner-approved WEX Tab Navigation Small Horizontal and
+  Small Dropdown modes on main.
 - Registration status: Typography roles remain registered as before. WEX Tab
   Navigation, WEX Search Input Default, and WEX More Action are registered
   component-token families; no Shared UI component is registered.
 
 ### Recent work (newest first)
+
+- WEX Tab Navigation Small Horizontal and Small Dropdown register complete
+  Small-tier presentation-mode references. Notification filters consume Small
+  Horizontal; notification sort selection consumes Small Dropdown.
 
 - WEX More Action Default and Small retain the existing horizontal three-dot
   system mark at the registered 20px and 16px icon allocations. Notifications
