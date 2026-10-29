@@ -37,3 +37,11 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
   assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__collection,[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);
   assert.doesNotMatch(servicesCss, /overflow-x|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
+
+test('uses named system SVGs for Service controls and dismisses a popover from outside', () => {
+  assert.match(services, /createSystemIcon\(document, 'check'\)/);
+  assert.match(services, /createSystemIcon\(document, icon\)/);
+  assert.doesNotMatch(services, /✓|‹|›/);
+  assert.match(services, /document\.addEventListener\('click', \(event\) => \{ if \(!popover/);
+  assert.match(services, /activeMenu\.contains\(event\.target\) \|\| activeControl\.contains\(event\.target\)/);
+});

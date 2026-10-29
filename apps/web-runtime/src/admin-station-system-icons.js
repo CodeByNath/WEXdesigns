@@ -1,11 +1,11 @@
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const OUTLINE_STROKE_WIDTH = '1.5';
 
-/** @typedef {'table' | 'columns' | 'filter'} ServiceActionIconName */
+/** @typedef {'table' | 'columns' | 'filter' | 'check' | 'chevron-left' | 'chevron-right'} SystemIconName */
 
-/* Heroicons 24/outline action glyphs, MIT License, Copyright Tailwind Labs. */
-/** @type {Record<ServiceActionIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
-const serviceActionShapes = {
+/* Heroicons 24/outline system glyphs, MIT License, Copyright Tailwind Labs. */
+/** @type {Record<SystemIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
+const systemIconShapes = {
   table: [
     ['path', { d: 'M3.75 3v18h16.5V3H3.75ZM3.75 9h16.5M3.75 15h16.5M9.75 3v18M15.75 3v18' }],
   ],
@@ -15,10 +15,19 @@ const serviceActionShapes = {
   filter: [
     ['path', { d: 'M3.75 4.5h16.5L14.25 12v5.25l-4.5 2.25V12L3.75 4.5Z' }],
   ],
+  check: [
+    ['path', { d: 'm4.5 12.75 5.25 5.25L19.5 6' }],
+  ],
+  'chevron-left': [
+    ['path', { d: 'm14.25 18-6-6 6-6' }],
+  ],
+  'chevron-right': [
+    ['path', { d: 'm9.75 18 6-6-6-6' }],
+  ],
 };
 
-/** @param {Document} document @param {ServiceActionIconName} name */
-export function createServiceActionIcon(document, name) {
+/** @param {Document} document @param {SystemIconName} name */
+export function createSystemIcon(document, name) {
   const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
   svg.setAttribute('viewBox', '0 0 24 24');
   svg.setAttribute('fill', 'none');
@@ -28,7 +37,7 @@ export function createServiceActionIcon(document, name) {
   svg.setAttribute('stroke-linejoin', 'round');
   svg.setAttribute('aria-hidden', 'true');
   svg.setAttribute('focusable', 'false');
-  serviceActionShapes[name].forEach(([shape, attributes]) => {
+  systemIconShapes[name].forEach(([shape, attributes]) => {
     const node = document.createElementNS(SVG_NAMESPACE, shape);
     Object.entries(attributes).forEach(([attribute, value]) => node.setAttribute(attribute, value));
     svg.append(node);

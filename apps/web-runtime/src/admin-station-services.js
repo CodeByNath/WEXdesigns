@@ -1,5 +1,5 @@
 import { createHeaderActionIcon } from './admin-station-nav-actions.js';
-import { createMoreActionIcon, createServiceActionIcon } from './admin-station-system-icons.js';
+import { createMoreActionIcon, createSystemIcon } from './admin-station-system-icons.js';
 
 const ALL_SERVICES_OWNER = 'all-products';
 const PAGE_SIZE = 8;
@@ -32,9 +32,13 @@ function text(document, text, className = '') { const node = document.createElem
 /** @param {Document} document @param {string} label @param {string} command */
 function control(document, label, command) { const node = document.createElement('button'); node.type = 'button'; node.className = 'wex-button wex-button--small wex-button--neutral'; node.dataset.serviceControl = command; node.textContent = label; return node; }
 /** @param {Document} document @param {string} label @param {string} command @param {'table'|'columns'|'filter'} icon */
-function iconControl(document, label, command, icon) { const node = control(document, '', command); const visual = createServiceActionIcon(document, icon); visual.classList.add('wex-admin-services__tool-icon'); node.append(visual, document.createTextNode(label)); return node; }
+function iconControl(document, label, command, icon) { const node = control(document, '', command); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.append(visual, document.createTextNode(label)); return node; }
 /** @param {HTMLButtonElement} node @param {Document} document @param {string} label @param {'table'|'columns'|'filter'} icon */
-function setIconControlLabel(node, document, label, icon) { const visual = createServiceActionIcon(document, icon); visual.classList.add('wex-admin-services__tool-icon'); node.replaceChildren(visual, document.createTextNode(label)); }
+function setIconControlLabel(node, document, label, icon) { const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.replaceChildren(visual, document.createTextNode(label)); }
+/** @param {Document} document @param {string} label @param {string} command @param {boolean} selected */
+function selectedControl(document, label, command, selected) { const node = control(document, '', command); if (selected) { const visual = createSystemIcon(document, 'check'); visual.classList.add('wex-admin-services__system-icon'); node.append(visual); } node.append(document.createTextNode(label)); return node; }
+/** @param {Document} document @param {string} label @param {string} command @param {'chevron-left'|'chevron-right'} icon */
+function pagerIconControl(document, label, command, icon) { const node = control(document, '', command); node.setAttribute('aria-label', label); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.append(visual); return node; }
 /** @param {number} value */
 function money(value) { return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(value); }
 
@@ -76,16 +80,16 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   const tools = document.createElement('div'); tools.className = 'wex-admin-services__tools';
   const viewControl = iconControl(document, 'Table', 'view', 'table'); const columnsControl = iconControl(document, 'Columns', 'columns', 'columns'); const filterControl = iconControl(document, 'Filter', 'filter', 'filter');
   const search = document.createElement('label'); search.className = 'wex-search-input wex-admin-services__search'; search.append(createHeaderActionIcon(document, 'search')); const input = document.createElement('input'); input.type = 'search'; input.placeholder = 'Search Product'; input.setAttribute('aria-label', 'Search products'); search.append(input);
-  const columnsMenu = document.createElement('div'); columnsMenu.className = 'wex-admin-services__menu'; columnsMenu.dataset.servicePopover = 'columns';
-  const filterMenu = document.createElement('div'); filterMenu.className = 'wex-admin-services__menu'; filterMenu.dataset.servicePopover = 'filter'; tools.append(viewControl, columnsControl, filterControl, search, columnsMenu, filterMenu);
+  const columnsMenu = document.createElement('div'); columnsMenu.id = 'wex-admin-services-columns-menu'; columnsMenu.className = 'wex-admin-services__menu'; columnsMenu.dataset.servicePopover = 'columns'; columnsControl.setAttribute('aria-controls', columnsMenu.id);
+  const filterMenu = document.createElement('div'); filterMenu.id = 'wex-admin-services-filter-menu'; filterMenu.className = 'wex-admin-services__menu'; filterMenu.dataset.servicePopover = 'filter'; filterControl.setAttribute('aria-controls', filterMenu.id); tools.append(viewControl, columnsControl, filterControl, search, columnsMenu, filterMenu);
   const toolbar = document.createElement('div'); toolbar.className = 'wex-admin-services__toolbar'; toolbar.append(tabs, tools);
   const results = document.createElement('div'); results.className = 'wex-admin-services__results'; results.setAttribute('aria-live', 'polite');
   const footer = document.createElement('footer'); footer.className = 'wex-admin-services__footer'; const total = text(document, '', 'wex-type-body-small-regular wex-admin-services__total'); const pager = document.createElement('div'); pager.className = 'wex-admin-services__pager'; footer.append(total, pager);
   const renderMenus = () => {
-    columnsMenu.hidden = popover !== 'columns'; filterMenu.hidden = popover !== 'filter'; columnsMenu.replaceChildren(text(document, 'Grid columns', 'wex-type-body-small-regular wex-admin-services__menu-caption'));
-    [1, 2, 3, 4].forEach((count) => columnsMenu.append(control(document, `${columns === count ? '✓  ' : ''}${count} column${count === 1 ? '' : 's'}`, `columns:${count}`)));
+    columnsMenu.hidden = popover !== 'columns'; filterMenu.hidden = popover !== 'filter'; columnsControl.setAttribute('aria-expanded', String(popover === 'columns')); filterControl.setAttribute('aria-expanded', String(popover === 'filter')); columnsMenu.replaceChildren(text(document, 'Grid columns', 'wex-type-body-small-regular wex-admin-services__menu-caption'));
+    [1, 2, 3, 4].forEach((count) => columnsMenu.append(selectedControl(document, `${count} column${count === 1 ? '' : 's'}`, `columns:${count}`, columns === count)));
     filterMenu.replaceChildren(text(document, 'Group', 'wex-type-body-small-regular wex-admin-services__menu-caption'));
-    ['all', ...new Set(services.map((service) => service.category))].forEach((value) => filterMenu.append(control(document, `${group === value ? '✓  ' : ''}${value === 'all' ? 'All' : value}`, `group:${value}`)));
+    ['all', ...new Set(services.map((service) => service.category))].forEach((value) => filterMenu.append(selectedControl(document, value === 'all' ? 'All' : value, `group:${value}`, group === value)));
   };
   const render = () => {
     const filtered = services.filter((service) => (state === 'all' || service.status === state) && (group === 'all' || service.category === group) && [service.name, service.category, service.id, String(service.value)].join(' ').toLocaleLowerCase().includes(query));
@@ -93,9 +97,10 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
     section.dataset.view = view; section.dataset.columns = String(columns); setIconControlLabel(viewControl, document, view === 'grid' ? 'Table' : 'Grid', view === 'grid' ? 'table' : 'columns'); tabs.querySelectorAll('button').forEach((node) => node.setAttribute('aria-pressed', String(node.dataset.serviceControl === `state:${state}`))); renderMenus(); results.replaceChildren();
     if (view === 'list') { const labels = document.createElement('div'); labels.className = 'wex-admin-services__list-head wex-type-body-small-regular'; ['Item / Group', 'ID', 'Value', 'Status', 'Actions'].forEach((label) => labels.append(text(document, label))); results.append(labels); }
     const collection = document.createElement('div'); collection.className = 'wex-admin-services__collection'; visible.forEach((service) => collection.append(serviceItem(document, service))); if (!visible.length) collection.append(text(document, 'No matching items', 'wex-type-body-default-regular wex-admin-services__empty')); results.append(collection);
-    total.textContent = `${filtered.length} items`; pager.replaceChildren(); [page - 1, ...Array.from({ length: maxPage }, (_, index) => index + 1), page + 1].forEach((number, index) => { const node = control(document, index === 0 ? '‹' : index === maxPage + 1 ? '›' : String(number), `page:${number}`); node.disabled = (index === 0 && page === 1) || (index === maxPage + 1 && page === maxPage); node.setAttribute('aria-current', String(index > 0 && index <= maxPage && number === page)); pager.append(node); });
+    total.textContent = `${filtered.length} items`; pager.replaceChildren(); [page - 1, ...Array.from({ length: maxPage }, (_, index) => index + 1), page + 1].forEach((number, index) => { const previous = index === 0; const next = index === maxPage + 1; const node = previous ? pagerIconControl(document, 'Previous page', `page:${number}`, 'chevron-left') : next ? pagerIconControl(document, 'Next page', `page:${number}`, 'chevron-right') : control(document, String(number), `page:${number}`); node.disabled = (previous && page === 1) || (next && page === maxPage); node.setAttribute('aria-current', String(!previous && !next && number === page)); pager.append(node); });
   };
   section.addEventListener('click', (event) => { const node = event.target instanceof Element ? event.target.closest('[data-service-control]') : null; if (!(node instanceof HTMLButtonElement)) return; const command = node.dataset.serviceControl ?? ''; if (command === 'view') view = view === 'grid' ? 'list' : 'grid'; else if (command === 'columns' || command === 'filter') popover = popover === command ? null : command; else if (command.startsWith('state:')) { state = command.slice(6); page = 1; popover = null; } else if (command.startsWith('group:')) { group = command.slice(6); page = 1; popover = null; } else if (command.startsWith('columns:')) { columns = Number(command.slice(8)); popover = null; } else if (command.startsWith('page:')) { page = Number(command.slice(5)); popover = null; } render(); });
+  document.addEventListener('click', (event) => { if (!popover || !(event.target instanceof Node)) return; const activeMenu = popover === 'columns' ? columnsMenu : filterMenu; const activeControl = popover === 'columns' ? columnsControl : filterControl; if (activeMenu.contains(event.target) || activeControl.contains(event.target)) return; popover = null; render(); });
   input.addEventListener('input', () => { query = input.value.trim().toLocaleLowerCase(); page = 1; render(); }); add.addEventListener('click', () => input.focus());
   section.append(header, toolbar, results, footer); main.replaceChildren(section); render();
 }
