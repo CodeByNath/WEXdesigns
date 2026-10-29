@@ -55,5 +55,6 @@ test('uses the established WEX small Button contract for every Services popover 
   assert.match(services, /filterMenu\.replaceChildren\(\);/);
   assert.match(servicesCss, /\.wex-admin-services__menu > \.wex-button/);
   assert.match(servicesCss, /\[aria-pressed="true"\]/);
+  assert.match(servicesCss, /\.wex-admin-services__menu > \.wex-button:not\(:disabled\):active \{ background-color: transparent; color: var\(--wex-color-text-primary\); \}/);
   assert.doesNotMatch(servicesCss, /wex-admin-services__menu-tab|wex-tab-navigation-small/);
 });
