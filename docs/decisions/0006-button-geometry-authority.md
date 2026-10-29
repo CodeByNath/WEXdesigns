@@ -38,6 +38,10 @@ The Owner authorizes the shared Button radius to use the existing
 supersedes the earlier zero-radius proposal for the shared Button foundation;
 all Button variants and tiers retain the same radius.
 
+The Owner also authorizes `--wex-icon-size-14` as the shared Small Button icon
+allocation. Any SVG child of a Small Button consumes that token, allowing
+WEX Search Input Small to use the same allocation.
+
 The Button has a `1px` solid border in every variant and state, including visually borderless treatments where the colour token resolves to transparent. This keeps the box stable across variants and states. The shared radius is the existing Large radius token, `--wex-radius-large`.
 
 ## Focus and interaction geometry

@@ -20,7 +20,7 @@
   --wex-search-input-default-line-height: var(--wex-type-body-default-line-height);
   --wex-search-input-default-letter-spacing: var(--wex-type-body-default-letter-spacing);
 
-  --wex-search-input-small-icon-size: var(--wex-icon-size-16);
+  --wex-search-input-small-icon-size: var(--wex-button-small-icon-size);
   --wex-search-input-small-gap: var(--wex-space-8);
   --wex-search-input-small-target-size: var(--wex-button-small-target-size);
   --wex-search-input-small-padding-inline: var(--wex-space-12);

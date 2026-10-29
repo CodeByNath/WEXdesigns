@@ -64,6 +64,8 @@ test('implements the accepted shared Button geometry for every tier', () => {
 
   assert.match(buttons, /display: inline-flex/);
   assert.match(buttons, /--wex-button-small-target-size: 2\.25rem;/);
+  assert.match(buttons, /--wex-button-small-icon-size: var\(--wex-icon-size-14\);/);
+  assert.match(buttons, /\.wex-button--small > svg\s*\{[\s\S]*inline-size: var\(--wex-button-small-icon-size\);[\s\S]*block-size: var\(--wex-button-small-icon-size\);/);
   assert.match(buttons, /--wex-button-default-target-size: var\(--wex-space-40\);/);
   assert.match(buttons, /--wex-button-large-target-size: 2\.75rem;/);
   assert.match(buttons, /--wex-button-content-gap: var\(--wex-space-4\);/);

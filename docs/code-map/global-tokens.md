@@ -12,6 +12,9 @@
 
 ### Recent work (newest first)
 
+- The shared 14px Small icon token is consumed by both Small Button and WEX
+  Search Input Small; Services inherits the two component contracts.
+
 - WEX Search Input Small pairs the existing small Button target allocation with
   existing Body Small Regular typography. Services consumes Small; the Header
   retains Default.

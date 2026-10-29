@@ -17,7 +17,7 @@ padding, border, layer, foreground, and focus treatment. It creates no new
 resolved visual value, tier, state, data contract, or runtime behaviour.
 
 The Header retains its Default inline allocation and visibility rule. Services
-uses Small, pairing its existing small Button target and icon allocations with
+uses Small, pairing its existing small Button target and shared 14px icon allocation with
 Body Small Regular typography. A consuming surface chooses its own layout allocation and
 must use the appropriate WEX Search Input tier rather than recreating the field
 presentation.

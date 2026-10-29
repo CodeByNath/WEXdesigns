@@ -21,7 +21,7 @@ test('registers WEX Search Input Default and Small entirely through existing fou
   assert.match(searchInput, /\.wex-search-input\s*\{[\s\S]*display: flex;[\s\S]*min-block-size: var\(--wex-search-input-target-size\);[\s\S]*border-radius: var\(--wex-search-input-radius\);/);
   assert.match(searchInput, /\.wex-search-input--small\s*\{[\s\S]*--wex-search-input-target-size: var\(--wex-search-input-small-target-size\);[\s\S]*--wex-search-input-font-size: var\(--wex-search-input-small-font-size\);[\s\S]*--wex-search-input-font-weight: var\(--wex-search-input-small-font-weight\);/);
   assert.match(searchInput, /--wex-search-input-small-target-size: var\(--wex-button-small-target-size\);/);
-  assert.match(searchInput, /--wex-search-input-small-icon-size: var\(--wex-icon-size-16\);/);
+  assert.match(searchInput, /--wex-search-input-small-icon-size: var\(--wex-button-small-icon-size\);/);
   assert.match(searchInput, /\.wex-search-input svg\s*\{[\s\S]*inline-size: var\(--wex-search-input-icon-size\);/);
   assert.match(searchInput, /\.wex-search-input:focus-within::after\s*\{[\s\S]*border: var\(--wex-search-input-focus-inner-width\) solid var\(--wex-search-input-focus-color\);/);
   assert.match(searchInput, /\.wex-search-input:focus-within::before\s*\{[\s\S]*border: var\(--wex-search-input-focus-gap\) solid var\(--wex-search-input-focus-gap-color\);/);

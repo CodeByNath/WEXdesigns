@@ -329,7 +329,8 @@ interactivity and draw attention to important information.
 
 Typography pairing guidance:
 
-16px icons are optimised to pair with 14px IBM Plex text.
+14px icons are optimised for compact controls paired with 14px IBM Plex text.
+16px icons are optimised to pair with 14px IBM Plex text where more visual emphasis is needed.
 20px icons are optimised to pair with 16px IBM Plex text.
 24px and 32px icons are available when larger icons are needed.
 
@@ -341,6 +342,7 @@ consistent within the same design context.
 
 :root {
 
+--wex-icon-size-14: 0.875rem;
 --wex-icon-size-16: 1rem;
 --wex-icon-size-20: 1.25rem;
 --wex-icon-size-24: 1.5rem;

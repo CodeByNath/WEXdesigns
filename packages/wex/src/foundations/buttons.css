@@ -54,6 +54,7 @@
 
   --wex-button-disabled-opacity: var(--wex-opacity-disabled);
   --wex-button-small-target-size: 2.25rem;
+  --wex-button-small-icon-size: var(--wex-icon-size-14);
   --wex-button-default-target-size: var(--wex-space-40);
   --wex-button-large-target-size: 2.75rem;
   --wex-button-content-gap: var(--wex-space-4);
@@ -151,6 +152,11 @@
   font-weight: var(--wex-type-weight-semibold);
   line-height: var(--wex-type-navigation-small-line-height);
   letter-spacing: var(--wex-type-navigation-small-letter-spacing);
+}
+
+.wex-button--small > svg {
+  inline-size: var(--wex-button-small-icon-size);
+  block-size: var(--wex-button-small-icon-size);
 }
 
 .wex-button--default {
