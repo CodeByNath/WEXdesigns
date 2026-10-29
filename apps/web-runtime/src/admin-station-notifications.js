@@ -1,4 +1,5 @@
 import { closeHeaderResultsShell, requestHeaderResultsShell } from './admin-station-header-results.js';
+import { createMoreActionIcon } from './admin-station-system-icons.js';
 
 const NOTIFICATIONS_OWNER = 'notifications';
 
@@ -149,22 +150,6 @@ function createNotificationIcon(document, name) {
   return visual;
 }
 
-/** @param {Document} document */
-function createMoreIcon(document) {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 24 24');
-  svg.setAttribute('fill', 'currentColor');
-  svg.setAttribute('aria-hidden', 'true');
-  ['6', '12', '18'].forEach((cx) => {
-    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    dot.setAttribute('cx', cx);
-    dot.setAttribute('cy', '12');
-    dot.setAttribute('r', '1.5');
-    svg.append(dot);
-  });
-  return svg;
-}
-
 /** @param {Document} document @param {string} label */
 function createNotificationOption(document, label) {
   const button = document.createElement('button');
@@ -216,7 +201,7 @@ export function mountHeaderNotifications(shell, trigger) {
   more.className = 'wex-admin-shell__sidebar-tab wex-admin-shell__nav-sub-action wex-admin-notifications__more';
   more.setAttribute('aria-label', 'Notification options');
   more.setAttribute('aria-expanded', 'false');
-  more.append(createMoreIcon(document));
+  more.append(createMoreActionIcon(document));
   const options = document.createElement('div');
   options.className = 'wex-admin-notifications__options';
   options.hidden = true;
@@ -359,7 +344,7 @@ export function mountHeaderNotifications(shell, trigger) {
       itemMenuToggle.dataset.notificationItemMenuToggle = notification.id;
       itemMenuToggle.setAttribute('aria-label', `Notification actions for ${notification.title}`);
       itemMenuToggle.setAttribute('aria-expanded', String(openItemMenuId === notification.id));
-      itemMenuToggle.append(createMoreIcon(document));
+      itemMenuToggle.append(createMoreActionIcon(document, 'small'));
       const itemMenuOptions = document.createElement('div');
       itemMenuOptions.className = 'wex-admin-notifications__item-menu-options';
       itemMenuOptions.dataset.notificationItemMenu = notification.id;

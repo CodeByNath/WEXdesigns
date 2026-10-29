@@ -68,11 +68,6 @@
   padding: var(--wex-space-8);
 }
 
-.wex-admin-notifications__more svg {
-  inline-size: var(--wex-icon-size-20);
-  block-size: var(--wex-icon-size-20);
-}
-
 .wex-admin-notifications__options {
   position: absolute;
   z-index: 1;
@@ -246,11 +241,6 @@
   --wex-button-foreground-default: var(--wex-color-text-primary);
   --wex-button-foreground-hover: var(--wex-color-text-primary);
   --wex-button-foreground-pressed: var(--wex-color-text-primary);
-}
-
-.wex-admin-notifications__item-menu-toggle svg {
-  inline-size: var(--wex-icon-size-16);
-  block-size: var(--wex-icon-size-16);
 }
 
 .wex-admin-notifications__item-menu-options {

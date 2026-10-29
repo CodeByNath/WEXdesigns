@@ -126,7 +126,9 @@ adapters, schemas, or pluggable components.
   [`admin-station-dashboard.css`](../../apps/web-runtime/src/admin-station-dashboard.css)
 - All Services station-scoped list presentation:
   [`apps/web-runtime/src/admin-station-services.js`](../../apps/web-runtime/src/admin-station-services.js),
-  [`admin-station-services.css`](../../apps/web-runtime/src/admin-station-services.css)
+  [`admin-station-services.css`](../../apps/web-runtime/src/admin-station-services.css),
+  and the shared system SVG factory
+  [`admin-station-system-icons.js`](../../apps/web-runtime/src/admin-station-system-icons.js)
 - Portable Studio host: [`apps/web-runtime/src/studio-host.js`](../../apps/web-runtime/src/studio-host.js), [`apps/web-runtime/vite.studio-host.config.ts`](../../apps/web-runtime/vite.studio-host.config.ts), [`apps/web-runtime/studio-host/README.md`](../../apps/web-runtime/studio-host/README.md)
 - Staging pointer: [`ADR 0025`](../decisions/0025-studio-staging-release-pointer.md), [`tooling/scripts/studio-staging-pointer.mjs`](../../tooling/scripts/studio-staging-pointer.mjs), [`apps/web-runtime/test/studio-staging-pointer.test.mjs`](../../apps/web-runtime/test/studio-staging-pointer.test.mjs)
 - Release producer and proof: [`tooling/scripts/studio-release.mjs`](../../tooling/scripts/studio-release.mjs), [`tooling/scripts/verify-studio-releases.mjs`](../../tooling/scripts/verify-studio-releases.mjs), [`apps/web-runtime/test/studio-release.test.mjs`](../../apps/web-runtime/test/studio-release.test.mjs)
@@ -146,7 +148,8 @@ adapters, schemas, or pluggable components.
   [`admin-station-search.css`](../../apps/web-runtime/src/admin-station-search.css)
 - Runtime registration: [`apps/web-runtime/vite.config.ts`](../../apps/web-runtime/vite.config.ts)
 - WEX shell presentation: [`packages/wex/src/foundations/layout.css`](../../packages/wex/src/foundations/layout.css),
-  [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css)
+  [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css),
+  and [`more-action.css`](../../packages/wex/src/foundations/more-action.css)
 - Body and Drawer boundary checks:
   [`apps/web-runtime/test/admin-station-body.test.mjs`](../../apps/web-runtime/test/admin-station-body.test.mjs),
   [`apps/web-runtime/test/admin-station-drawer.test.mjs`](../../apps/web-runtime/test/admin-station-drawer.test.mjs)

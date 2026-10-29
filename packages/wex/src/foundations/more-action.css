@@ -1,0 +1,15 @@
+:root {
+  --wex-more-action-default-icon-size: var(--wex-icon-size-20);
+  --wex-more-action-small-icon-size: var(--wex-icon-size-16);
+}
+
+.wex-more-action-icon {
+  flex: 0 0 auto;
+  inline-size: var(--wex-more-action-default-icon-size);
+  block-size: var(--wex-more-action-default-icon-size);
+}
+
+.wex-more-action-icon--small {
+  inline-size: var(--wex-more-action-small-icon-size);
+  block-size: var(--wex-more-action-small-icon-size);
+}

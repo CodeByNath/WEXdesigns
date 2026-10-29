@@ -7,11 +7,14 @@
 - Verified against: Owner-directed WEX Search Input Global Tokens direct release
   worktree on main.
 - Registration status: Typography roles remain registered as before. WEX Tab
-  Navigation and WEX Search Input Default are registered component-token
-  families; no Shared UI component is registered.
+  Navigation, WEX Search Input Default, and WEX More Action are registered
+  component-token families; no Shared UI component is registered.
 
 ### Recent work (newest first)
 
+- WEX More Action Default and Small retain the existing horizontal three-dot
+  system mark at the registered 20px and 16px icon allocations. Notifications
+  and Services consume the same SVG; their buttons remain local.
 - WEX Search Input Default promotes the existing Header search-field
   presentation into a reusable token-only class. Header keeps its own
   allocation; Services is its first additional consumer.
@@ -41,6 +44,7 @@ does not define HTML semantics, component behaviour, or layout composition.
 - [Global Tokens / Typography DNA](../decisions/0012-global-tokens-typography-dna.md)
 - [WEX Tab Navigation Global Tokens](../decisions/0027-tab-navigation-global-tokens.md)
 - [WEX Search Input Global Tokens](../decisions/0029-wex-search-input-global-tokens.md)
+- [WEX More Action Global Tokens](../decisions/0030-wex-more-action-global-tokens.md)
 - [Typography and font delivery map](typography-font-delivery.md)
 - [Colour map](colour.md)
 - [Spacing map](spacing.md)
@@ -63,8 +67,11 @@ They do not supply or approve Global Tokens values.
   [`tab-navigation.css`](../../packages/wex/src/foundations/tab-navigation.css)
 - WEX Search Input component tokens:
   [`search-input.css`](../../packages/wex/src/foundations/search-input.css)
+- WEX More Action component tokens:
+  [`more-action.css`](../../packages/wex/src/foundations/more-action.css)
 - Current focused checks: [`global-tokens.test.mjs`](../../packages/wex/test/global-tokens.test.mjs),
   [`search-input-foundation.test.mjs`](../../packages/wex/test/search-input-foundation.test.mjs),
+  [`more-action-foundation.test.mjs`](../../packages/wex/test/more-action-foundation.test.mjs),
   [`typography-modules.test.mjs`](../../packages/wex/test/typography-modules.test.mjs),
   [`colour-tokens.test.mjs`](../../packages/wex/test/colour-tokens.test.mjs), and
   [`validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
@@ -78,7 +85,7 @@ They do not supply or approve Global Tokens values.
 existing WEX foundations
   -> accepted Global Tokens authority decisions
   -> Typography selection + optional registered attributes
-  -> WEX Tab Navigation and WEX Search Input component tokens
+  -> WEX Tab Navigation, WEX Search Input, and WEX More Action component tokens
   -> components and consuming applications
 ```
 
@@ -99,7 +106,8 @@ an architecture decision rather than hardcoding it.
 ADR 0012 covers the existing Heading, Title, Navigation, and Body roles
 at their existing tiers. ADR 0027 covers WEX Tab Navigation Default, Small,
 and Large; ADR 0029 covers WEX Search Input Default. Each retains only
-references to existing foundations. Neither decision creates component
+references to existing foundations. ADR 0030 covers WEX More Action Default
+and Small. None creates component
 mechanics, domain input, or product navigation behaviour.
 
 ## Safe change routing

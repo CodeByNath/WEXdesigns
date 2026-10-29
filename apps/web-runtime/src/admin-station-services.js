@@ -1,4 +1,5 @@
 import { createHeaderActionIcon } from './admin-station-nav-actions.js';
+import { createMoreActionIcon, createServiceActionIcon } from './admin-station-system-icons.js';
 
 const ALL_SERVICES_OWNER = 'all-products';
 const PAGE_SIZE = 8;
@@ -30,6 +31,10 @@ export const allServicesPreviewSnapshot = Object.freeze({
 function text(document, text, className = '') { const node = document.createElement('span'); node.className = className; node.textContent = text; return node; }
 /** @param {Document} document @param {string} label @param {string} command */
 function control(document, label, command) { const node = document.createElement('button'); node.type = 'button'; node.className = 'wex-button wex-button--small wex-button--neutral'; node.dataset.serviceControl = command; node.textContent = label; return node; }
+/** @param {Document} document @param {string} label @param {string} command @param {'table'|'columns'|'filter'} icon */
+function iconControl(document, label, command, icon) { const node = control(document, '', command); const visual = createServiceActionIcon(document, icon); visual.classList.add('wex-admin-services__tool-icon'); node.append(visual, document.createTextNode(label)); return node; }
+/** @param {HTMLButtonElement} node @param {Document} document @param {string} label @param {'table'|'columns'|'filter'} icon */
+function setIconControlLabel(node, document, label, icon) { const visual = createServiceActionIcon(document, icon); visual.classList.add('wex-admin-services__tool-icon'); node.replaceChildren(visual, document.createTextNode(label)); }
 /** @param {number} value */
 function money(value) { return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(value); }
 
@@ -47,7 +52,7 @@ function serviceItem(document, service) {
   const footer = document.createElement('div'); footer.className = 'wex-admin-services__item-footer';
   const value = text(document, money(service.value), 'wex-type-navigation-default-semibold wex-admin-services__value');
   const status = text(document, service.status === 'active' ? 'Active' : 'Inactive', `wex-type-navigation-small-semibold wex-admin-services__status wex-admin-services__status--${service.status}`);
-  const action = control(document, '•••', `menu:${service.id}`); action.classList.add('wex-admin-services__item-action'); action.setAttribute('aria-label', `Actions for ${service.name}`); footer.append(value, status);
+  const action = control(document, '', `menu:${service.id}`); action.classList.add('wex-admin-services__item-action'); action.setAttribute('aria-label', `Actions for ${service.name}`); action.append(createMoreActionIcon(document, 'small')); footer.append(value, status);
   item.append(picture, identity, fields, footer, action); return item;
 }
 
@@ -69,7 +74,7 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   const add = document.createElement('button'); add.type = 'button'; add.className = 'wex-button wex-button--default wex-button--primary'; add.textContent = 'Add New'; header.append(copy, add);
   const tabs = document.createElement('div'); tabs.className = 'wex-admin-services__tabs'; tabs.setAttribute('aria-label', 'Filter services by status'); ['all', 'active', 'inactive'].forEach((value) => { const label = value === 'all' ? 'All' : value === 'active' ? 'Active' : 'Non Active'; const node = control(document, label, `state:${value}`); node.classList.replace('wex-button--neutral', 'wex-button--subtle'); tabs.append(node); });
   const tools = document.createElement('div'); tools.className = 'wex-admin-services__tools';
-  const viewControl = control(document, '▤  Table', 'view'); const columnsControl = control(document, '▦  Columns', 'columns'); const filterControl = control(document, '☰  Filter', 'filter');
+  const viewControl = iconControl(document, 'Table', 'view', 'table'); const columnsControl = iconControl(document, 'Columns', 'columns', 'columns'); const filterControl = iconControl(document, 'Filter', 'filter', 'filter');
   const search = document.createElement('label'); search.className = 'wex-search-input wex-admin-services__search'; search.append(createHeaderActionIcon(document, 'search')); const input = document.createElement('input'); input.type = 'search'; input.placeholder = 'Search Product'; input.setAttribute('aria-label', 'Search products'); search.append(input);
   const columnsMenu = document.createElement('div'); columnsMenu.className = 'wex-admin-services__menu'; columnsMenu.dataset.servicePopover = 'columns';
   const filterMenu = document.createElement('div'); filterMenu.className = 'wex-admin-services__menu'; filterMenu.dataset.servicePopover = 'filter'; tools.append(viewControl, columnsControl, filterControl, search, columnsMenu, filterMenu);
@@ -85,7 +90,7 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   const render = () => {
     const filtered = services.filter((service) => (state === 'all' || service.status === state) && (group === 'all' || service.category === group) && [service.name, service.category, service.id, String(service.value)].join(' ').toLocaleLowerCase().includes(query));
     const maxPage = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE)); page = Math.min(page, maxPage); const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
-    section.dataset.view = view; section.dataset.columns = String(columns); viewControl.textContent = view === 'grid' ? '▤  Table' : '▦  Grid'; tabs.querySelectorAll('button').forEach((node) => node.setAttribute('aria-pressed', String(node.dataset.serviceControl === `state:${state}`))); renderMenus(); results.replaceChildren();
+    section.dataset.view = view; section.dataset.columns = String(columns); setIconControlLabel(viewControl, document, view === 'grid' ? 'Table' : 'Grid', view === 'grid' ? 'table' : 'columns'); tabs.querySelectorAll('button').forEach((node) => node.setAttribute('aria-pressed', String(node.dataset.serviceControl === `state:${state}`))); renderMenus(); results.replaceChildren();
     if (view === 'list') { const labels = document.createElement('div'); labels.className = 'wex-admin-services__list-head wex-type-body-small-regular'; ['Item / Group', 'ID', 'Value', 'Status', 'Actions'].forEach((label) => labels.append(text(document, label))); results.append(labels); }
     const collection = document.createElement('div'); collection.className = 'wex-admin-services__collection'; visible.forEach((service) => collection.append(serviceItem(document, service))); if (!visible.length) collection.append(text(document, 'No matching items', 'wex-type-body-default-regular wex-admin-services__empty')); results.append(collection);
     total.textContent = `${filtered.length} items`; pager.replaceChildren(); [page - 1, ...Array.from({ length: maxPage }, (_, index) => index + 1), page + 1].forEach((number, index) => { const node = control(document, index === 0 ? '‹' : index === maxPage + 1 ? '›' : String(number), `page:${number}`); node.disabled = (index === 0 && page === 1) || (index === maxPage + 1 && page === maxPage); node.setAttribute('aria-current', String(index > 0 && index <= maxPage && number === page)); pager.append(node); });

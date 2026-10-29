@@ -19,6 +19,7 @@ presentation authority and explicit domain ownership.
 - [0026: Header Results Shell Authority](0026-header-results-shell-authority.md)
 - [0028: Admin Body and Drawer Shell Authority](0028-admin-body-and-drawer-shell-authority.md)
 - [0029: WEX Search Input Global Tokens](0029-wex-search-input-global-tokens.md)
+- [0030: WEX More Action Global Tokens](0030-wex-more-action-global-tokens.md)
 
 ## Proposed
 
