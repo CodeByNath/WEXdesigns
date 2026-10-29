@@ -39,9 +39,18 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
 });
 
 test('uses named system SVGs for Service controls and dismisses a popover from outside', () => {
-  assert.match(services, /createSystemIcon\(document, 'check'\)/);
   assert.match(services, /createSystemIcon\(document, icon\)/);
   assert.doesNotMatch(services, /✓|‹|›/);
   assert.match(services, /document\.addEventListener\('click', \(event\) => \{ if \(!popover/);
   assert.match(services, /activeMenu\.contains\(event\.target\) \|\| activeControl\.contains\(event\.target\)/);
+});
+
+test('uses WEX Tab Navigation states for every Services popover row', () => {
+  assert.match(services, /function menuTab\(document, label, command, selected\)/);
+  assert.match(services, /node\.dataset\.serviceMenuSelected = String\(selected\)/);
+  assert.match(services, /node\.setAttribute\('aria-pressed', String\(selected\)\)/);
+  assert.doesNotMatch(services, /createSystemIcon\(document, 'check'\)/);
+  assert.match(servicesCss, /--wex-tab-navigation-small-selected-background/);
+  assert.match(servicesCss, /--wex-tab-navigation-small-hover-background/);
+  assert.match(servicesCss, /--wex-tab-navigation-small-focus-color/);
 });
