@@ -38,8 +38,8 @@ existing WEX foundation; this decision introduces no resolved colour, spacing,
 geometry, typography, or motion value.
 
 Small has two registered presentation modes. **Small Horizontal** retains the
-Small state, type, target and spacing references while using the existing WEX
-Default-radius filter surface. **Small Dropdown** retains Small state, type,
+Small state, type, and spacing references while using the existing WEX Button
+Small target and Default-radius filter surface. **Small Dropdown** retains Small state, type,
 target and spacing references while using the existing WEX Default-radius
 reference established by dropdown option surfaces.
 Both modes expose the same complete Tab Navigation state contract and inherit

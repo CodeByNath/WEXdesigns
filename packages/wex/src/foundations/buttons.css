@@ -53,6 +53,7 @@
   --wex-button-danger-border-pressed: transparent;
 
   --wex-button-disabled-opacity: var(--wex-opacity-disabled);
+  --wex-button-small-target-size: 2.25rem;
 }
 
 [data-wex-theme='dark'] {
@@ -135,7 +136,7 @@
 }
 
 .wex-button--small {
-  min-block-size: 2.25rem;
+  min-block-size: var(--wex-button-small-target-size);
   padding-block: var(--wex-space-4);
   padding-inline: var(--wex-space-12);
   font-family: var(--wex-type-navigation-small-font-family);

@@ -18,8 +18,8 @@
   Navigation consumers inherit the existing WEX Button Neutral pressed
   interaction rather than defining a second pressed token. The Small tier
   sources its radius from the existing Small geometry foundation; Horizontal
-  and Dropdown each retain their established Default-radius presentation
-  surfaces.
+  uses the existing Button Small target and both Horizontal and Dropdown retain
+  their established Default-radius presentation surfaces.
 
 - WEX More Action Default and Small retain the existing horizontal three-dot
   system mark at the registered 20px and 16px icon allocations. Notifications

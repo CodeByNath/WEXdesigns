@@ -37,7 +37,7 @@ test('keeps neutral and subtle Action backgrounds theme-semantic', () => {
 
 test('implements the accepted shared Button geometry for every tier', () => {
   const tiers = [
-    ['small', /min-block-size: 2\.25rem;/, 'small'],
+    ['small', /min-block-size: var\(--wex-button-small-target-size\);/, 'small'],
     ['default', /min-block-size: var\(--wex-space-40\);/, 'default'],
     ['large', /min-block-size: 2\.75rem;/, 'large'],
   ];
@@ -54,6 +54,7 @@ test('implements the accepted shared Button geometry for every tier', () => {
   }
 
   assert.match(buttons, /display: inline-flex/);
+  assert.match(buttons, /--wex-button-small-target-size: 2\.25rem;/);
   assert.match(buttons, /gap: var\(--wex-space-4\)/);
   assert.match(buttons, /border-radius: var\(--wex-radius-default\);/);
   assert.doesNotMatch(buttons, /border-radius: var\(--wex-radius-(?:small|large)\);/);

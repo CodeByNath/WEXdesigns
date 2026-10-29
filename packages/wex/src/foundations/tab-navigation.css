@@ -80,7 +80,7 @@
   --wex-tab-navigation-small-horizontal-line-height: var(--wex-tab-navigation-small-line-height);
   --wex-tab-navigation-small-horizontal-letter-spacing: var(--wex-tab-navigation-small-letter-spacing);
   --wex-tab-navigation-small-horizontal-font-weight: var(--wex-tab-navigation-small-font-weight);
-  --wex-tab-navigation-small-horizontal-target-size: var(--wex-tab-navigation-small-target-size);
+  --wex-tab-navigation-small-horizontal-target-size: var(--wex-button-small-target-size);
   --wex-tab-navigation-small-horizontal-gap: var(--wex-tab-navigation-small-gap);
   --wex-tab-navigation-small-horizontal-padding-block: var(--wex-tab-navigation-small-padding-block);
   --wex-tab-navigation-small-horizontal-padding-inline: var(--wex-tab-navigation-small-padding-inline);

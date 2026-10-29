@@ -79,7 +79,7 @@
   padding-inline: var(--wex-tab-navigation-small-padding-inline);
   padding-inline-start: var(--wex-tab-navigation-small-root-padding-inline-start);
   border: var(--wex-tab-navigation-small-border-width) solid var(--wex-tab-navigation-small-border-color);
-  border-radius: var(--wex-tab-navigation-small-radius);
+  border-radius: var(--wex-radius-large);
   background-color: var(--wex-tab-navigation-small-background);
   color: var(--wex-tab-navigation-small-foreground);
   font-family: var(--wex-tab-navigation-small-font-family);
@@ -98,10 +98,6 @@ button.wex-admin-profile__action:not(:disabled) {
 
 .wex-admin-profile__action:disabled {
   opacity: var(--wex-opacity-disabled);
-}
-
-.wex-admin-profile__action.wex-admin-profile__exit-link {
-  border-radius: var(--wex-radius-default);
 }
 
 .wex-admin-profile__action:not(:disabled):hover {
@@ -127,7 +123,7 @@ button.wex-admin-profile__action:not(:disabled) {
   box-sizing: border-box;
   pointer-events: none;
   border: var(--wex-tab-navigation-small-focus-inner-width) solid var(--wex-tab-navigation-small-focus-color);
-  border-radius: calc(var(--wex-tab-navigation-small-radius) - var(--wex-tab-navigation-small-border-width));
+  border-radius: calc(var(--wex-radius-large) - var(--wex-tab-navigation-small-border-width));
   content: '';
 }
 
@@ -138,18 +134,8 @@ button.wex-admin-profile__action:not(:disabled) {
   box-sizing: border-box;
   pointer-events: none;
   border: var(--wex-tab-navigation-small-focus-gap) solid var(--wex-tab-navigation-small-focus-gap-color);
-  border-radius: calc(var(--wex-tab-navigation-small-radius) - var(--wex-tab-navigation-small-focus-outer-width));
+  border-radius: calc(var(--wex-radius-large) - var(--wex-tab-navigation-small-focus-outer-width));
   content: '';
-}
-
-.wex-admin-profile__action.wex-admin-profile__exit-link:not(:disabled):active::after,
-.wex-admin-profile__action.wex-admin-profile__exit-link:focus::after {
-  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
-}
-
-.wex-admin-profile__action.wex-admin-profile__exit-link:not(:disabled):active::before,
-.wex-admin-profile__action.wex-admin-profile__exit-link:focus::before {
-  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-width));
 }
 
 .wex-admin-profile__action-icon {
