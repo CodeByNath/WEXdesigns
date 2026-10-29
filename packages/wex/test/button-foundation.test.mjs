@@ -38,16 +38,16 @@ test('keeps neutral and subtle Action backgrounds theme-semantic', () => {
 test('implements the accepted shared Button geometry for every tier', () => {
   const tiers = [
     ['small', /min-block-size: var\(--wex-button-small-target-size\);/, 'small'],
-    ['default', /min-block-size: var\(--wex-space-40\);/, 'default'],
-    ['large', /min-block-size: 2\.75rem;/, 'large'],
+    ['default', /min-block-size: var\(--wex-button-default-target-size\);/, 'default'],
+    ['large', /min-block-size: var\(--wex-button-large-target-size\);/, 'large'],
   ];
 
   for (const [tier, blockSize, typographyTier] of tiers) {
     const match = buttons.match(new RegExp(`\\.wex-button--${tier}\\s*\\{([\\s\\S]*?)\\}`));
     assert.ok(match, `missing ${tier} tier`);
     assert.match(match[1], blockSize);
-    assert.match(match[1], /padding-block: var\(--wex-space-4\);/);
-    assert.match(match[1], /padding-inline: var\(--wex-space-12\);/);
+    assert.match(match[1], /padding-block: var\(--wex-button-padding-block\);/);
+    assert.match(match[1], /padding-inline: var\(--wex-button-padding-inline\);/);
     assert.doesNotMatch(match[1], /border-radius:/);
     assert.match(match[1], new RegExp(`wex-type-navigation-${typographyTier}-font-size`));
     assert.match(match[1], new RegExp(`wex-type-navigation-${typographyTier}-line-height`));
@@ -55,11 +55,16 @@ test('implements the accepted shared Button geometry for every tier', () => {
 
   assert.match(buttons, /display: inline-flex/);
   assert.match(buttons, /--wex-button-small-target-size: 2\.25rem;/);
-  assert.match(buttons, /gap: var\(--wex-space-4\)/);
-  assert.match(buttons, /border-radius: var\(--wex-radius-default\);/);
-  assert.doesNotMatch(buttons, /border-radius: var\(--wex-radius-(?:small|large)\);/);
+  assert.match(buttons, /--wex-button-default-target-size: var\(--wex-space-40\);/);
+  assert.match(buttons, /--wex-button-large-target-size: 2\.75rem;/);
+  assert.match(buttons, /--wex-button-content-gap: var\(--wex-space-4\);/);
+  assert.match(buttons, /--wex-button-padding-block: var\(--wex-space-4\);/);
+  assert.match(buttons, /--wex-button-padding-inline: var\(--wex-space-12\);/);
+  assert.match(buttons, /--wex-button-radius: var\(--wex-radius-default\);/);
+  assert.match(buttons, /gap: var\(--wex-button-content-gap\)/);
+  assert.match(buttons, /border-radius: var\(--wex-button-radius\);/);
   assert.doesNotMatch(buttons, /--wex-button-boundary-width/);
-  assert.match(buttons, /border: var\(--wex-border-width-default\) solid var\(--wex-button-border-default\)/);
+  assert.match(buttons, /border: var\(--wex-button-border-width\) solid var\(--wex-button-border-default\)/);
   const baseButton = buttons.match(/\.wex-button\s*\{([\s\S]*?)\}/);
   assert.ok(baseButton, 'missing Button base rule');
   assert.doesNotMatch(baseButton[1], /border: var\(--wex-outer-ring-width\) solid/);
@@ -89,7 +94,7 @@ test('implements the accepted shared Button geometry for every tier', () => {
   assert.match(insetState[1], /border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
   assert.match(
     insetState[1],
-    /border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-border-width-default\)\);/,
+    /border-radius: calc\(var\(--wex-button-radius\) - var\(--wex-button-border-width\)\);/,
   );
   const insetGap = buttons.match(
     /\.wex-button:not\(:disabled\):active::before,\s*\.wex-button:focus::before\s*\{([\s\S]*?)\}/,
@@ -99,7 +104,7 @@ test('implements the accepted shared Button geometry for every tier', () => {
   assert.match(insetGap[1], /border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/);
   assert.match(
     insetGap[1],
-    /border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-outer-ring-width\)\);/,
+    /border-radius: calc\(var\(--wex-button-radius\) - var\(--wex-outer-ring-width\)\);/,
   );
   assert.doesNotMatch(insetGap[1], /(?:inline-size|block-size|width|height|min-size|min-width|min-height):/);
   assert.doesNotMatch(buttons, /outline-offset:/);

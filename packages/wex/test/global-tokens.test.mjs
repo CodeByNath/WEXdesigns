@@ -69,8 +69,7 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
 
   for (const tier of ['small', 'default', 'large']) {
     for (const property of ['target-size', 'icon-allocation-size', 'gap', 'padding-block', 'padding-inline', 'child-indent', 'radius', 'border-width']) {
-      const value = tier === 'small' && property === 'padding-block' ? '0' : '(?:var|calc)\\(';
-      assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${property}: ${value}`));
+      assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-${tier}-${property}: (?:var|calc)\\(`));
     }
     for (const state of ['hover', 'selected']) {
       for (const property of ['background', 'foreground', 'border-color']) {
@@ -82,15 +81,15 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
     }
   }
 
-  for (const property of ['gap', 'padding-inline', 'child-indent', 'border-width']) {
-    assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${property}: var\\(--wex-tab-navigation-default-`));
-  }
-  assert.match(tabNavigation, /--wex-tab-navigation-small-radius: var\(--wex-radius-small\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-small-target-size: var\(--wex-space-40\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-small-padding-block: 0;/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-child-indent: var\(--wex-tab-navigation-default-child-indent\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-gap: var\(--wex-button-content-gap\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-radius: var\(--wex-button-radius\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-target-size: var\(--wex-button-small-target-size\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-padding-block: var\(--wex-button-padding-block\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-padding-inline: var\(--wex-button-padding-inline\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-default-root-padding-inline-start: 0;/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-root-padding-inline-start: var\(--wex-tab-navigation-default-root-padding-inline-start\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-small-icon-allocation-size: calc\(var\(--wex-space-32\) \+ var\(--wex-space-4\) \+ var\(--wex-space-2\)\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-icon-allocation-size: var\(--wex-tab-navigation-small-target-size\);/);
 
   for (const mode of ['horizontal', 'dropdown']) {
     for (const property of ['font-family', 'font-size', 'line-height', 'letter-spacing', 'font-weight', 'target-size', 'gap', 'padding-block', 'padding-inline', 'radius', 'border-width', 'background', 'foreground', 'border-color']) {
@@ -105,18 +104,23 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
       assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${mode}-${property}: var\\(--wex-`));
     }
   }
-  assert.match(tabNavigation, /--wex-tab-navigation-small-horizontal-radius: var\(--wex-radius-default\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-small-horizontal-target-size: var\(--wex-button-small-target-size\);/);
-  assert.match(tabNavigation, /--wex-tab-navigation-small-dropdown-radius: var\(--wex-radius-default\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-horizontal-radius: var\(--wex-tab-navigation-small-radius\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-horizontal-target-size: var\(--wex-tab-navigation-small-target-size\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-small-dropdown-radius: var\(--wex-tab-navigation-small-radius\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-default-target-size: var\(--wex-button-default-target-size\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-default-padding-block: var\(--wex-button-padding-block\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-default-padding-inline: var\(--wex-button-padding-inline\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-default-radius: var\(--wex-button-radius\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-large-target-size: var\(--wex-button-large-target-size\);/);
+  assert.match(tabNavigation, /--wex-tab-navigation-large-radius: var\(--wex-button-radius\);/);
 
   assert.match(tabNavigationDecision, /WEX Tab Navigation Default/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Small/);
   assert.match(tabNavigationDecision, /WEX Tab\s+Navigation Large/);
   assert.match(tabNavigationDecision, /Default, Hover, Selected, and Focus state/);
   assert.match(tabNavigationDecision, /WEX Button Neutral pressed/);
-  assert.match(tabNavigationDecision, /square icon\s+allocation/);
-  assert.match(tabNavigationDecision, /padding\s+on every side/);
-  assert.match(tabNavigationDecision, /Owner-authorised 38px square\s+icon allocation/);
+  assert.match(tabNavigationDecision, /matching existing WEX Button tier/);
+  assert.match(tabNavigationDecision, /navigation-specific typography, icon allocation, child indent, chevron, and\s+state semantics/);
   assert.match(tabNavigationDecision, /root-tab start rule/);
   assert.match(tabNavigationDecision, /Small Horizontal/);
   assert.match(tabNavigationDecision, /Small Dropdown/);

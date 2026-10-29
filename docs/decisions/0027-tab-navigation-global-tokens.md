@@ -18,12 +18,10 @@ Each tier references existing WEX Navigation typography and icon foundations:
 | Default | Navigation Default | `--wex-icon-size-20` |
 | Large | Navigation Large | `--wex-icon-size-24` |
 
-Default defines the verified sidebar-navigation geometry: target allocation,
-gap, padding, border, radius, child indent, and chevron allocation. Small
-uses a 40px target with no block padding so its Owner-authorised 38px square
-icon allocation fits inside the border box. Its radius references the existing
-Small geometry foundation; its remaining shared geometry inherits from Default.
-The root-tab start rule is part of that geometry: a root tab
+Each Tab Navigation tier sources its target, content gap, padding, border, and
+radius from the matching existing WEX Button tier. Navigation retains only its
+navigation-specific typography, icon allocation, child indent, chevron, and
+state semantics. The root-tab start rule is part of that navigation geometry: a root tab
 begins on its wrapper's layout line and does not add a second leading inset. A
 square icon allocation centres its glyph with equal padding on every side,
 regardless of glyph size; Small's SVG glyph token remains independent.
@@ -37,11 +35,9 @@ until a tier requires an authorised override. Every value references an
 existing WEX foundation; this decision introduces no resolved colour, spacing,
 geometry, typography, or motion value.
 
-Small has two registered presentation modes. **Small Horizontal** retains the
-Small state, type, and spacing references while using the existing WEX Button
-Small target and Default-radius filter surface. **Small Dropdown** retains Small state, type,
-target and spacing references while using the existing WEX Default-radius
-reference established by dropdown option surfaces.
+Small has two registered presentation modes. **Small Horizontal** and **Small
+Dropdown** retain the complete Small Button-derived geometry and add only their
+arrangement-specific navigation presentation.
 Both modes expose the same complete Tab Navigation state contract and inherit
 the WEX Button Neutral pressed interaction; they do not create a Button
 variant, interaction mechanic, or raw visual value.

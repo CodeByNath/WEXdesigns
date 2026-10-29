@@ -54,6 +54,13 @@
 
   --wex-button-disabled-opacity: var(--wex-opacity-disabled);
   --wex-button-small-target-size: 2.25rem;
+  --wex-button-default-target-size: var(--wex-space-40);
+  --wex-button-large-target-size: 2.75rem;
+  --wex-button-content-gap: var(--wex-space-4);
+  --wex-button-padding-block: var(--wex-space-4);
+  --wex-button-padding-inline: var(--wex-space-12);
+  --wex-button-radius: var(--wex-radius-default);
+  --wex-button-border-width: var(--wex-border-width-default);
 }
 
 [data-wex-theme='dark'] {
@@ -127,9 +134,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--wex-space-4);
-  border: var(--wex-border-width-default) solid var(--wex-button-border-default);
-  border-radius: var(--wex-radius-default);
+  gap: var(--wex-button-content-gap);
+  border: var(--wex-button-border-width) solid var(--wex-button-border-default);
+  border-radius: var(--wex-button-radius);
   background-color: var(--wex-button-background-default);
   color: var(--wex-button-foreground-default);
   outline: none;
@@ -137,8 +144,8 @@
 
 .wex-button--small {
   min-block-size: var(--wex-button-small-target-size);
-  padding-block: var(--wex-space-4);
-  padding-inline: var(--wex-space-12);
+  padding-block: var(--wex-button-padding-block);
+  padding-inline: var(--wex-button-padding-inline);
   font-family: var(--wex-type-navigation-small-font-family);
   font-size: var(--wex-type-navigation-small-font-size);
   font-weight: var(--wex-type-weight-semibold);
@@ -147,9 +154,9 @@
 }
 
 .wex-button--default {
-  min-block-size: var(--wex-space-40);
-  padding-block: var(--wex-space-4);
-  padding-inline: var(--wex-space-12);
+  min-block-size: var(--wex-button-default-target-size);
+  padding-block: var(--wex-button-padding-block);
+  padding-inline: var(--wex-button-padding-inline);
   font-family: var(--wex-type-navigation-default-font-family);
   font-size: var(--wex-type-navigation-default-font-size);
   font-weight: var(--wex-type-weight-semibold);
@@ -158,9 +165,9 @@
 }
 
 .wex-button--large {
-  min-block-size: 2.75rem;
-  padding-block: var(--wex-space-4);
-  padding-inline: var(--wex-space-12);
+  min-block-size: var(--wex-button-large-target-size);
+  padding-block: var(--wex-button-padding-block);
+  padding-inline: var(--wex-button-padding-inline);
   font-family: var(--wex-type-navigation-large-font-family);
   font-size: var(--wex-type-navigation-large-font-size);
   font-weight: var(--wex-type-weight-semibold);
@@ -192,7 +199,7 @@
   box-sizing: border-box;
   pointer-events: none;
   border: var(--wex-outer-ring-inner-width) solid var(--wex-outer-ring-color);
-  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
+  border-radius: calc(var(--wex-button-radius) - var(--wex-button-border-width));
   content: '';
 }
 
@@ -203,7 +210,7 @@
   box-sizing: border-box;
   pointer-events: none;
   border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color);
-  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-width));
+  border-radius: calc(var(--wex-button-radius) - var(--wex-outer-ring-width));
   content: '';
 }
 

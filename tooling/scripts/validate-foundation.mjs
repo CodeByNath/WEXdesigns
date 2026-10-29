@@ -180,7 +180,7 @@ for (const tier of ['small', 'default', 'large']) {
 }
 assert(!buttonFoundation.includes('--wex-button-boundary-width'), 'Button defines a component-local boundary token');
 assert(
-  buttonFoundation.includes('border: var(--wex-border-width-default) solid'),
+  buttonFoundation.includes('border: var(--wex-button-border-width) solid'),
   'Button does not consume the default structural border',
 );
 const buttonBaseRule = buttonFoundation.match(/\.wex-button\s*\{([\s\S]*?)\}/);
@@ -198,9 +198,8 @@ assert(
   buttonFoundation.includes('.wex-button:not(:disabled):active'),
   'Button transient pressed state is missing',
 );
-assert(buttonFoundation.includes('border-radius: var(--wex-radius-default)'), 'Button radius contract is missing');
-assert(!buttonFoundation.includes('border-radius: var(--wex-radius-small)'), 'Button size tier selects radius');
-assert(!buttonFoundation.includes('border-radius: var(--wex-radius-large)'), 'Button size tier selects radius');
+assert(buttonFoundation.includes('--wex-button-radius: var(--wex-radius-default)'), 'Button radius token is missing');
+assert(buttonFoundation.includes('border-radius: var(--wex-button-radius)'), 'Button radius contract is missing');
 assert(!buttonFoundation.includes('outline-offset:'), 'Button state treatment extends outside its bounds');
 assert(!buttonFoundation.includes('box-shadow:'), 'Button state treatment may not use an outside shadow');
 assert(
@@ -212,7 +211,7 @@ assert(
   'Button state treatment does not preserve the shared internal gap',
 );
 assert(
-  buttonFoundation.includes('border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-width))'),
+  buttonFoundation.includes('border-radius: calc(var(--wex-button-radius) - var(--wex-outer-ring-width))'),
   'Button state treatment does not preserve the registered radius inside the existing box',
 );
 assert(!/--wex-button-(?:outer-ring|state-inset)/.test(buttonFoundation), 'Button duplicates shared state geometry');

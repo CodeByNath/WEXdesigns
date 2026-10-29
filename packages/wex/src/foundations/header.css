@@ -147,15 +147,15 @@
 }
 
 .wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action {
-  flex: 0 0 var(--wex-space-40);
+  flex: 0 0 var(--wex-button-default-target-size);
   justify-content: center;
-  inline-size: var(--wex-space-40);
-  min-block-size: var(--wex-space-40);
-  max-block-size: var(--wex-space-40);
-  block-size: var(--wex-space-40);
+  inline-size: var(--wex-button-default-target-size);
+  min-block-size: var(--wex-button-default-target-size);
+  max-block-size: var(--wex-button-default-target-size);
+  block-size: var(--wex-button-default-target-size);
   padding-inline: 0;
   padding-block: 0;
-  border-radius: var(--wex-radius-large);
+  border-radius: var(--wex-button-radius);
 }
 
 .wex-admin-shell__nav-sub-action .wex-admin-shell__sidebar-tab-icon-svg {
@@ -165,12 +165,12 @@
 
 .wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:not(:disabled):active::after,
 .wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:focus::after {
-  border-radius: calc(var(--wex-radius-large) - var(--wex-border-width-default));
+  border-radius: calc(var(--wex-button-radius) - var(--wex-button-border-width));
 }
 
 .wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:not(:disabled):active::before,
 .wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action:focus::before {
-  border-radius: calc(var(--wex-radius-large) - var(--wex-outer-ring-width));
+  border-radius: calc(var(--wex-button-radius) - var(--wex-outer-ring-width));
 }
 
 .wex-admin-shell__sidebar-tab-icon.wex-admin-shell__theme-icon--sun {
