@@ -6,18 +6,21 @@ Accepted — Owner-authorised direct UI release, 2026-10-29.
 
 ## Decision
 
-Global Tokens registers WEX Search Input Default. It preserves the existing
-Admin Header search-field presentation as a reusable WEX class:
-.wex-search-input.
+Global Tokens registers WEX Search Input Default and Small. Default preserves
+the existing Admin Header search-field presentation as a reusable WEX class:
+.wex-search-input. Small is the paired compact tier:
+.wex-search-input--small.
 
 The family references the existing WEX icon, spacing, border, radius, colour,
 and interaction foundations for its icon allocation, target size, gap,
 padding, border, layer, foreground, and focus treatment. It creates no new
 resolved visual value, tier, state, data contract, or runtime behaviour.
 
-The Header retains its local inline allocation and visibility rule. A consuming
-surface chooses its own layout allocation; it must use the WEX Search Input
-class rather than recreating the field presentation.
+The Header retains its Default inline allocation and visibility rule. Services
+uses Small, pairing its existing small Button target and icon allocations with
+Body Small Regular typography. A consuming surface chooses its own layout allocation and
+must use the appropriate WEX Search Input tier rather than recreating the field
+presentation.
 
 ## Boundaries
 

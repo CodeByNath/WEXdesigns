@@ -7,10 +7,14 @@
 - Verified against: Owner-approved WEX Tab Navigation Small Horizontal and
   Small Dropdown modes on main.
 - Registration status: Typography roles remain registered as before. WEX Tab
-  Navigation, WEX Search Input Default, and WEX More Action are registered
+  Navigation, WEX Search Input Default and Small, and WEX More Action are registered
   component-token families; no Shared UI component is registered.
 
 ### Recent work (newest first)
+
+- WEX Search Input Small pairs the existing small Button target allocation with
+  existing Body Small Regular typography. Services consumes Small; the Header
+  retains Default.
 
 - WEX Tab Navigation Default retains established Sidebar geometry. Small,
   Large, Small Horizontal, and Small Dropdown source target, padding, gap,
@@ -24,8 +28,8 @@
   system mark at the registered 20px and 16px icon allocations. Notifications
   and Services consume the same SVG; their buttons remain local.
 - WEX Search Input Default promotes the existing Header search-field
-  presentation into a reusable token-only class. Header keeps its own
-  allocation; Services is its first additional consumer.
+  presentation into a reusable token-only class. Header keeps its Default
+  allocation; Services consumes the registered Small tier.
 - WEX Tab Navigation Default, Small, and Large each register complete
   navigation presentation references for target allocation, icons, typography,
   state treatment, child alignment, and chevrons. The Admin Station Sidebar and
@@ -113,7 +117,7 @@ an architecture decision rather than hardcoding it.
 
 ADR 0012 covers the existing Heading, Title, Navigation, and Body roles
 at their existing tiers. ADR 0027 covers WEX Tab Navigation Default, Small,
-and Large; ADR 0029 covers WEX Search Input Default. Each retains only
+and Large; ADR 0029 covers WEX Search Input Default and Small. Each retains only
 references to existing foundations. ADR 0030 covers WEX More Action Default
 and Small. None creates component
 mechanics, domain input, or product navigation behaviour.
