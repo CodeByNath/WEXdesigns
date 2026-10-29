@@ -32,7 +32,7 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
   assert.match(services, /Management Items/);
   assert.match(services, /wex-search-input wex-search-input--small wex-admin-services__search/);
   assert.match(services, /createHeaderActionIcon\(document, 'search'\)/);
-  assert.doesNotMatch(servicesCss, /\.wex-admin-services__search input/);
+  assert.match(servicesCss, /\.wex-admin-services__search \{ min-inline-size: 0;/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__collection \{ grid-template-columns: minmax\(0, 1fr\);/);
   assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__collection,[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);
   assert.doesNotMatch(servicesCss, /overflow-x|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
@@ -81,12 +81,17 @@ test('keeps every Services popover inside its trigger anchor and preserves the a
   assert.match(servicesCss, /\.wex-admin-services \{ display: grid;[\s\S]*overflow: hidden;/);
 });
 
-test('keeps the small-viewport Services toolbar inline with compact actions and fixed search', () => {
+test('keeps the small-viewport Services toolbar inline with responsive search and compact actions', () => {
   assert.match(services, /node\.setAttribute\('aria-label', label\)/);
-  assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__toolbar \{ display: flex;/);
+  assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__toolbar \{ position: relative; display: flex;/);
   assert.match(servicesCss, /\.wex-admin-services__tools \.wex-button \{ inline-size: var\(--wex-button-small-target-size\);[\s\S]*font-size: 0;/);
   assert.match(servicesCss, /\.wex-admin-services__tools \{ display: flex;[\s\S]*margin-inline-start: auto;/);
-  assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input \{ inline-size: 220px; min-inline-size: 220px;/);
+  assert.match(services, /let searchExpanded = false;/);
+  assert.match(services, /search\.dataset\.compact = String\(targetSize > 0 && search\.getBoundingClientRect\(\)\.width <= targetSize\);/);
+  assert.match(services, /search\.addEventListener\('click', \(\) => \{ if \(search\.dataset\.compact !== 'true'/);
+  assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input \{ flex: 1 1 220px;[\s\S]*min-inline-size: var\(--wex-search-input-small-target-size\);/);
+  assert.match(servicesCss, /\.wex-admin-services__search\[data-compact="true"\] input \{ display: none;/);
+  assert.match(servicesCss, /\[data-search-expanded="true"\] \.wex-admin-services__search \{ position: absolute;[\s\S]*inline-size: 220px;/);
   assert.match(services, /const statusControlMeasure = text\(document, 'Non Active', 'wex-admin-services__status-control-measure'\);/);
   assert.match(servicesCss, /\.wex-admin-services__status-control-label, \.wex-admin-services__status-control-measure \{ grid-area: 1 \/ 1;/);
 });
