@@ -31,7 +31,14 @@ All five ordinary Button variants use identical geometry at a given tier. Varian
 
 Minimum block size applies to the total outer Button box, including the border. The line-height and padding provide the label rhythm; the minimum preserves the tiered control target when that intrinsic height is smaller. No tier has an independent width, and Button labels remain content-sized.
 
-The Button has a `1px` solid border in every variant and state, including visually borderless treatments where the colour token resolves to transparent. This keeps the box stable across variants and states. Radius is `0`; WEX has no accepted radius primitive, and a non-zero Button corner treatment would require a future authority decision rather than an invented local value.
+### Owner-authorized exception — 2026-10-29
+
+The Owner authorizes the shared Button radius to use the existing
+`--wex-radius-large` token (12px), matching the WEX Search Input. This
+supersedes the earlier zero-radius proposal for the shared Button foundation;
+all Button variants and tiers retain the same radius.
+
+The Button has a `1px` solid border in every variant and state, including visually borderless treatments where the colour token resolves to transparent. This keeps the box stable across variants and states. The shared radius is the existing Large radius token, `--wex-radius-large`.
 
 ## Focus and interaction geometry
 

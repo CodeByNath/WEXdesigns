@@ -8,6 +8,7 @@
 
 ### Recent work (newest first)
 
+- 2026-10-29 Owner-authorized the shared Button radius to use the existing Large radius token; see [ADR 0006](../decisions/0006-button-geometry-authority.md).
 - 2026-10-29 Owner-authorized the Neutral Button foreground and border mappings to the existing Text Secondary token; see [ADR 0005](../decisions/0005-button-authority.md).
 
 - `5e13a35` (2026-09-20) placed Button states on the registered perimeter.

@@ -59,7 +59,7 @@
   --wex-button-content-gap: var(--wex-space-4);
   --wex-button-padding-block: var(--wex-space-4);
   --wex-button-padding-inline: var(--wex-space-12);
-  --wex-button-radius: var(--wex-radius-default);
+  --wex-button-radius: var(--wex-radius-large);
   --wex-button-border-width: var(--wex-border-width-default);
 }
 

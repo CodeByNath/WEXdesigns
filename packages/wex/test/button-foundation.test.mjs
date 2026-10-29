@@ -69,7 +69,7 @@ test('implements the accepted shared Button geometry for every tier', () => {
   assert.match(buttons, /--wex-button-content-gap: var\(--wex-space-4\);/);
   assert.match(buttons, /--wex-button-padding-block: var\(--wex-space-4\);/);
   assert.match(buttons, /--wex-button-padding-inline: var\(--wex-space-12\);/);
-  assert.match(buttons, /--wex-button-radius: var\(--wex-radius-default\);/);
+  assert.match(buttons, /--wex-button-radius: var\(--wex-radius-large\);/);
   assert.match(buttons, /gap: var\(--wex-button-content-gap\)/);
   assert.match(buttons, /border-radius: var\(--wex-button-radius\);/);
   assert.doesNotMatch(buttons, /--wex-button-boundary-width/);
