@@ -30,6 +30,9 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
   assert.match(servicesCss, /var\(--wex-color-background-primary\)/);
   assert.match(servicesCss, /var\(--wex-space-24\)/);
   assert.match(services, /Management Items/);
+  assert.match(services, /wex-search-input wex-admin-services__search/);
+  assert.match(services, /createHeaderActionIcon\(document, 'search'\)/);
+  assert.doesNotMatch(servicesCss, /\.wex-admin-services__search input/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__collection \{ grid-template-columns: minmax\(0, 1fr\);/);
   assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__collection,[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);
   assert.doesNotMatch(servicesCss, /overflow-x|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);

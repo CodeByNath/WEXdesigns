@@ -126,7 +126,7 @@ function createSubActions(document) {
 /** @param {Document} document */
 function createSearch(document) {
   const search = document.createElement('label');
-  search.className = 'wex-admin-shell__nav-search';
+  search.className = 'wex-search-input wex-admin-shell__nav-search';
   search.dataset.headerSearch = '';
   search.setAttribute('aria-label', 'Search');
   search.append(createIcon(document, 'search'));

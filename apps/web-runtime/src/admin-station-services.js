@@ -1,3 +1,5 @@
+import { createHeaderActionIcon } from './admin-station-nav-actions.js';
+
 const ALL_SERVICES_OWNER = 'all-products';
 const PAGE_SIZE = 8;
 
@@ -68,7 +70,7 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   const tabs = document.createElement('div'); tabs.className = 'wex-admin-services__tabs'; tabs.setAttribute('aria-label', 'Filter services by status'); ['all', 'active', 'inactive'].forEach((value) => { const label = value === 'all' ? 'All' : value === 'active' ? 'Active' : 'Non Active'; const node = control(document, label, `state:${value}`); node.classList.replace('wex-button--neutral', 'wex-button--subtle'); tabs.append(node); });
   const tools = document.createElement('div'); tools.className = 'wex-admin-services__tools';
   const viewControl = control(document, '▤  Table', 'view'); const columnsControl = control(document, '▦  Columns', 'columns'); const filterControl = control(document, '☰  Filter', 'filter');
-  const search = document.createElement('label'); search.className = 'wex-admin-services__search'; search.append(text(document, '⌕', 'wex-type-navigation-default-semibold')); const input = document.createElement('input'); input.type = 'search'; input.placeholder = 'Search Product'; input.setAttribute('aria-label', 'Search products'); search.append(input);
+  const search = document.createElement('label'); search.className = 'wex-search-input wex-admin-services__search'; search.append(createHeaderActionIcon(document, 'search')); const input = document.createElement('input'); input.type = 'search'; input.placeholder = 'Search Product'; input.setAttribute('aria-label', 'Search products'); search.append(input);
   const columnsMenu = document.createElement('div'); columnsMenu.className = 'wex-admin-services__menu'; columnsMenu.dataset.servicePopover = 'columns';
   const filterMenu = document.createElement('div'); filterMenu.className = 'wex-admin-services__menu'; filterMenu.dataset.servicePopover = 'filter'; tools.append(viewControl, columnsControl, filterControl, search, columnsMenu, filterMenu);
   const toolbar = document.createElement('div'); toolbar.className = 'wex-admin-services__toolbar'; toolbar.append(tabs, tools);

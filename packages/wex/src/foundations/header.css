@@ -122,8 +122,7 @@
 }
 
 .wex-admin-shell__nav-primary-action svg,
-.wex-admin-shell__nav-primary-action-image,
-.wex-admin-shell__nav-search svg {
+.wex-admin-shell__nav-primary-action-image {
   flex: 0 0 auto;
   inline-size: var(--wex-icon-size-20);
   block-size: var(--wex-icon-size-20);
@@ -187,69 +186,11 @@
 }
 
 .wex-admin-shell__nav-search {
-  position: relative;
-  display: flex;
   flex: 0 0 calc(var(--wex-space-64) * 3);
-  align-items: center;
-  gap: var(--wex-space-8);
-  box-sizing: border-box;
-  min-block-size: var(--wex-space-40);
-  max-block-size: var(--wex-space-40);
-  block-size: var(--wex-space-40);
-  padding-inline: var(--wex-space-12);
-  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  border-radius: var(--wex-radius-large);
-  background: var(--wex-color-layer-01);
-  color: var(--wex-color-text-secondary);
 }
 
 .wex-admin-shell__nav-search[hidden] {
   display: none;
-}
-
-.wex-admin-shell__nav-search input {
-  min-inline-size: 0;
-  inline-size: 100%;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--wex-color-text-primary);
-  font: inherit;
-}
-
-/* The search region owns the shared focus ring; its native input must not add a second one. */
-.wex-admin-shell__nav-search input:focus-visible {
-  outline: none;
-}
-
-.wex-admin-shell__nav-search input::placeholder {
-  color: var(--wex-color-text-secondary);
-  opacity: 1;
-}
-
-.wex-admin-shell__nav-search:focus-within {
-  border-color: var(--wex-outer-ring-color);
-}
-
-.wex-admin-shell__nav-search:focus-within::after {
-  position: absolute;
-  inset: 0;
-  box-sizing: border-box;
-  pointer-events: none;
-  border: var(--wex-outer-ring-inner-width) solid var(--wex-outer-ring-color);
-  border-radius: calc(var(--wex-radius-large) - var(--wex-border-width-default));
-  content: '';
-}
-
-.wex-admin-shell__nav-search:focus-within::before {
-  position: absolute;
-  inset: var(--wex-outer-ring-inner-width);
-  box-sizing: border-box;
-  pointer-events: none;
-  border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color);
-  border-radius: calc(var(--wex-radius-large) - var(--wex-outer-ring-width));
-  content: '';
 }
 
 .wex-admin-shell[data-sidebar="expanded"] .wex-admin-shell__brand {

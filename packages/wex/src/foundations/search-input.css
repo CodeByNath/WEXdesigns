@@ -1,0 +1,83 @@
+:root {
+  --wex-search-input-default-icon-size: var(--wex-icon-size-20);
+  --wex-search-input-default-gap: var(--wex-space-8);
+  --wex-search-input-default-target-size: var(--wex-space-40);
+  --wex-search-input-default-padding-inline: var(--wex-space-12);
+  --wex-search-input-default-border-width: var(--wex-border-width-default);
+  --wex-search-input-default-border-color: var(--wex-color-border-subtle);
+  --wex-search-input-default-radius: var(--wex-radius-large);
+  --wex-search-input-default-background: var(--wex-color-layer-01);
+  --wex-search-input-default-foreground: var(--wex-color-text-secondary);
+  --wex-search-input-default-input-foreground: var(--wex-color-text-primary);
+  --wex-search-input-default-focus-color: var(--wex-outer-ring-color);
+  --wex-search-input-default-focus-inner-width: var(--wex-outer-ring-inner-width);
+  --wex-search-input-default-focus-outer-width: var(--wex-outer-ring-width);
+  --wex-search-input-default-focus-gap: var(--wex-outer-ring-gap);
+  --wex-search-input-default-focus-gap-color: var(--wex-outer-ring-gap-color);
+}
+
+.wex-search-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--wex-search-input-default-gap);
+  box-sizing: border-box;
+  min-block-size: var(--wex-search-input-default-target-size);
+  max-block-size: var(--wex-search-input-default-target-size);
+  block-size: var(--wex-search-input-default-target-size);
+  padding-inline: var(--wex-search-input-default-padding-inline);
+  border: var(--wex-search-input-default-border-width) solid var(--wex-search-input-default-border-color);
+  border-radius: var(--wex-search-input-default-radius);
+  background: var(--wex-search-input-default-background);
+  color: var(--wex-search-input-default-foreground);
+}
+
+.wex-search-input svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-search-input-default-icon-size);
+  block-size: var(--wex-search-input-default-icon-size);
+}
+
+.wex-search-input input {
+  min-inline-size: 0;
+  inline-size: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--wex-search-input-default-input-foreground);
+  font: inherit;
+}
+
+.wex-search-input input:focus-visible {
+  outline: none;
+}
+
+.wex-search-input input::placeholder {
+  color: var(--wex-search-input-default-foreground);
+  opacity: 1;
+}
+
+.wex-search-input:focus-within {
+  border-color: var(--wex-search-input-default-focus-color);
+}
+
+.wex-search-input:focus-within::after {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-search-input-default-focus-inner-width) solid var(--wex-search-input-default-focus-color);
+  border-radius: calc(var(--wex-search-input-default-radius) - var(--wex-search-input-default-border-width));
+  content: '';
+}
+
+.wex-search-input:focus-within::before {
+  position: absolute;
+  inset: var(--wex-search-input-default-focus-inner-width);
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-search-input-default-focus-gap) solid var(--wex-search-input-default-focus-gap-color);
+  border-radius: calc(var(--wex-search-input-default-radius) - var(--wex-search-input-default-focus-outer-width));
+  content: '';
+}

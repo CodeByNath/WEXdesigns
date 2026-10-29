@@ -75,7 +75,9 @@ The Header shell and Logo boundaries and focused verification are:
   [`packages/wex/src/foundations/spacing.css`](../../packages/wex/src/foundations/spacing.css)
 - Header WEX presentation foundation and focused proof:
   [`packages/wex/src/foundations/header.css`](../../packages/wex/src/foundations/header.css),
-  [`packages/wex/test/header-foundation.test.mjs`](../../packages/wex/test/header-foundation.test.mjs)
+  [`search-input.css`](../../packages/wex/src/foundations/search-input.css),
+  [`packages/wex/test/header-foundation.test.mjs`](../../packages/wex/test/header-foundation.test.mjs),
+  [`search-input-foundation.test.mjs`](../../packages/wex/test/search-input-foundation.test.mjs)
 - Header Results shell mode controller and navigation request mapping:
   [`apps/web-runtime/src/admin-station-header-results.js`](../../apps/web-runtime/src/admin-station-header-results.js),
   [`admin-station-nav-actions.js`](../../apps/web-runtime/src/admin-station-nav-actions.js), and

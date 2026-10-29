@@ -18,6 +18,7 @@ presentation authority and explicit domain ownership.
 - [0023: Logo Image Property Binding](0023-logo-image-property-binding.md)
 - [0026: Header Results Shell Authority](0026-header-results-shell-authority.md)
 - [0028: Admin Body and Drawer Shell Authority](0028-admin-body-and-drawer-shell-authority.md)
+- [0029: WEX Search Input Global Tokens](0029-wex-search-input-global-tokens.md)
 
 ## Proposed
 
