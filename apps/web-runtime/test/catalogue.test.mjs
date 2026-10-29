@@ -314,6 +314,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active\s*\{[\s\S]*background-color: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active,\s*\.wex-admin-profile__action:focus\s*\{[\s\S]*border-color: var\(--wex-outer-ring-color\);/);
   assert.match(adminStationProfileCss, /\.wex-admin-profile__action:not\(:disabled\):active::after,\s*\.wex-admin-profile__action:focus::after\s*\{[\s\S]*border: var\(--wex-tab-navigation-small-focus-inner-width\) solid var\(--wex-tab-navigation-small-focus-color\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action\.wex-admin-profile__exit-link\s*\{\s*border-radius: var\(--wex-radius-default\);/);
+  assert.match(adminStationProfileCss, /\.wex-admin-profile__action\.wex-admin-profile__exit-link:not\(:disabled\):active::after,[\s\S]*border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-border-width-default\)\);/);
   assert.doesNotMatch(adminStationProfileCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNotifications, /owner: NOTIFICATIONS_OWNER,/);
   assert.match(adminStationNotifications, /inlineSize: 'min\(calc\(var\(--wex-space-64\) \* 7\), 100%\)',/);
