@@ -56,7 +56,7 @@
   --wex-tab-navigation-small-padding-inline: var(--wex-tab-navigation-default-padding-inline);
   --wex-tab-navigation-small-root-padding-inline-start: var(--wex-tab-navigation-default-root-padding-inline-start);
   --wex-tab-navigation-small-child-indent: var(--wex-tab-navigation-default-child-indent);
-  --wex-tab-navigation-small-radius: var(--wex-tab-navigation-default-radius);
+  --wex-tab-navigation-small-radius: var(--wex-radius-small);
   --wex-tab-navigation-small-border-width: var(--wex-tab-navigation-default-border-width);
   --wex-tab-navigation-small-background: var(--wex-tab-navigation-default-background);
   --wex-tab-navigation-small-foreground: var(--wex-tab-navigation-default-foreground);

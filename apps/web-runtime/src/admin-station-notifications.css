@@ -222,7 +222,7 @@
   color: var(--wex-color-text-primary);
 }
 
-.wex-button.wex-admin-notifications__option:hover:not(:focus) {
+.wex-admin-notifications__option:hover {
   border-color: transparent;
   background-color: var(--wex-color-surface-selected);
   color: var(--wex-color-text-secondary);

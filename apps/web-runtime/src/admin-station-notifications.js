@@ -154,7 +154,7 @@ function createNotificationIcon(document, name) {
 function createNotificationOption(document, label) {
   const button = document.createElement('button');
   button.type = 'button';
-  button.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__option';
+  button.className = 'wex-admin-notifications__tab wex-admin-notifications__tab--small-dropdown wex-admin-notifications__option';
   button.textContent = label;
   return button;
 }

@@ -82,9 +82,10 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
     }
   }
 
-  for (const property of ['gap', 'padding-inline', 'child-indent', 'radius', 'border-width']) {
+  for (const property of ['gap', 'padding-inline', 'child-indent', 'border-width']) {
     assert.match(tabNavigation, new RegExp(`--wex-tab-navigation-small-${property}: var\\(--wex-tab-navigation-default-`));
   }
+  assert.match(tabNavigation, /--wex-tab-navigation-small-radius: var\(--wex-radius-small\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-target-size: var\(--wex-space-40\);/);
   assert.match(tabNavigation, /--wex-tab-navigation-small-padding-block: 0;/);
   assert.match(tabNavigation, /--wex-tab-navigation-default-root-padding-inline-start: 0;/);
