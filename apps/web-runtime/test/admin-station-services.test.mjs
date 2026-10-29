@@ -45,18 +45,15 @@ test('uses named system SVGs for Service controls and dismisses a popover from o
   assert.match(services, /activeMenu\.contains\(event\.target\) \|\| activeControl\.contains\(event\.target\)/);
 });
 
-test('uses WEX Tab Navigation states for every Services popover row', () => {
-  assert.match(services, /function menuTab\(document, label, command, selected\)/);
-  assert.match(services, /node\.dataset\.serviceMenuSelected = String\(selected\)/);
+test('uses the established WEX small Button contract for every Services popover row', () => {
+  assert.match(services, /function menuOption\(document, label, command, selected\)/);
   assert.match(services, /node\.setAttribute\('aria-pressed', String\(selected\)\)/);
-  assert.match(services, /node\.className = 'wex-button--small wex-admin-services__menu-tab'/);
+  assert.match(services, /node\.className = 'wex-button wex-button--small wex-button--subtle'/);
+  assert.doesNotMatch(services, /wex-admin-services__menu-tab/);
   assert.doesNotMatch(services, /createSystemIcon\(document, 'check'\)/);
   assert.match(services, /columnsMenu\.replaceChildren\(\);/);
   assert.match(services, /filterMenu\.replaceChildren\(\);/);
-  assert.match(servicesCss, /border-radius: var\(--wex-radius-default\)/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-selected-background/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-hover-background/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-focus-color/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-focus-inner-width/);
-  assert.match(servicesCss, /calc\(var\(--wex-radius-default\) - var\(--wex-outer-ring-width\)\)/);
+  assert.match(servicesCss, /\.wex-admin-services__menu > \.wex-button/);
+  assert.match(servicesCss, /\[aria-pressed="true"\]/);
+  assert.doesNotMatch(servicesCss, /wex-admin-services__menu-tab|wex-tab-navigation-small/);
 });

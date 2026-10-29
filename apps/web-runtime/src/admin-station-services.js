@@ -36,7 +36,7 @@ function iconControl(document, label, command, icon) { const node = control(docu
 /** @param {HTMLButtonElement} node @param {Document} document @param {string} label @param {'table'|'columns'|'filter'} icon */
 function setIconControlLabel(node, document, label, icon) { const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.replaceChildren(visual, document.createTextNode(label)); }
 /** @param {Document} document @param {string} label @param {string} command @param {boolean} selected */
-function menuTab(document, label, command, selected) { const node = control(document, label, command); node.className = 'wex-button--small wex-admin-services__menu-tab'; node.dataset.serviceMenuSelected = String(selected); node.setAttribute('aria-pressed', String(selected)); return node; }
+function menuOption(document, label, command, selected) { const node = control(document, label, command); node.className = 'wex-button wex-button--small wex-button--subtle'; node.setAttribute('aria-pressed', String(selected)); return node; }
 /** @param {Document} document @param {string} label @param {string} command @param {'chevron-left'|'chevron-right'} icon */
 function pagerIconControl(document, label, command, icon) { const node = control(document, '', command); node.setAttribute('aria-label', label); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.append(visual); return node; }
 /** @param {number} value */
@@ -87,9 +87,9 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   const footer = document.createElement('footer'); footer.className = 'wex-admin-services__footer'; const total = text(document, '', 'wex-type-body-small-regular wex-admin-services__total'); const pager = document.createElement('div'); pager.className = 'wex-admin-services__pager'; footer.append(total, pager);
   const renderMenus = () => {
     columnsMenu.hidden = popover !== 'columns'; filterMenu.hidden = popover !== 'filter'; columnsControl.setAttribute('aria-expanded', String(popover === 'columns')); filterControl.setAttribute('aria-expanded', String(popover === 'filter')); columnsMenu.replaceChildren();
-    [1, 2, 3, 4].forEach((count) => columnsMenu.append(menuTab(document, `${count} column${count === 1 ? '' : 's'}`, `columns:${count}`, columns === count)));
+    [1, 2, 3, 4].forEach((count) => columnsMenu.append(menuOption(document, `${count} column${count === 1 ? '' : 's'}`, `columns:${count}`, columns === count)));
     filterMenu.replaceChildren();
-    ['all', ...new Set(services.map((service) => service.category))].forEach((value) => filterMenu.append(menuTab(document, value === 'all' ? 'All' : value, `group:${value}`, group === value)));
+    ['all', ...new Set(services.map((service) => service.category))].forEach((value) => filterMenu.append(menuOption(document, value === 'all' ? 'All' : value, `group:${value}`, group === value)));
   };
   const render = () => {
     const filtered = services.filter((service) => (state === 'all' || service.status === state) && (group === 'all' || service.category === group) && [service.name, service.category, service.id, String(service.value)].join(' ').toLocaleLowerCase().includes(query));
