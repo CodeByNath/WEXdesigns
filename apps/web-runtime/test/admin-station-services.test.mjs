@@ -60,11 +60,11 @@ test('uses the current WEX small Dropdown Navigation contract for every Services
 });
 
 test('uses a Small Dropdown status filter after the Services Search Input', () => {
-  assert.match(services, /const statusControl = control\(document, 'All', 'status'\);/);
+  assert.match(services, /const statusControl = control\(document, '', 'status'\);/);
   assert.match(services, /statusControl\.classList\.add\('wex-admin-services__status-control'\)/);
   assert.match(services, /statusMenu\.dataset\.servicePopover = 'status'/);
   assert.match(services, /tabs\.append\(search, menuControl\(statusControl, statusMenu, 'status'\)\);/);
-  assert.match(services, /statusControl\.textContent = state === 'all' \? 'All' : state === 'active' \? 'Active' : 'Non Active';/);
+  assert.match(services, /statusControlLabel\.textContent = state === 'all' \? 'All' : state === 'active' \? 'Active' : 'Non Active';/);
   assert.match(services, /\['all', 'active', 'inactive'\]\.forEach\(\(value\) => statusMenu\.append\(menuOption/);
   assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input\s*\{\s*inline-size: calc\(var\(--wex-space-64\) \* 4\);/);
   assert.match(services, /const menuControl = \(trigger, menu, name\)/);
@@ -81,12 +81,12 @@ test('keeps every Services popover inside its trigger anchor and preserves the a
   assert.match(servicesCss, /\.wex-admin-services \{ display: grid;[\s\S]*overflow: hidden;/);
 });
 
-test('keeps the small-viewport Services toolbar inline with compact actions and expandable search', () => {
+test('keeps the small-viewport Services toolbar inline with compact actions and fixed search', () => {
   assert.match(services, /node\.setAttribute\('aria-label', label\)/);
-  assert.match(services, /let searchExpanded = false;/);
-  assert.match(services, /section\.dataset\.searchExpanded = String\(searchExpanded\)/);
-  assert.match(services, /search\.addEventListener\('click', \(\) => \{ if \(searchExpanded\) return; searchExpanded = true;/);
   assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__toolbar \{ display: flex;/);
-  assert.match(servicesCss, /\.wex-admin-services__tools > \.wex-button \{ inline-size: var\(--wex-button-small-target-size\);[\s\S]*font-size: 0;/);
-  assert.match(servicesCss, /\[data-search-expanded="true"\] \.wex-admin-services__tabs \{ flex: 1 1 auto;/);
+  assert.match(servicesCss, /\.wex-admin-services__tools \.wex-button \{ inline-size: var\(--wex-button-small-target-size\);[\s\S]*font-size: 0;/);
+  assert.match(servicesCss, /\.wex-admin-services__tools \{ display: flex;[\s\S]*margin-inline-start: auto;/);
+  assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input \{ inline-size: 220px; min-inline-size: 220px;/);
+  assert.match(services, /const statusControlMeasure = text\(document, 'Non Active', 'wex-admin-services__status-control-measure'\);/);
+  assert.match(servicesCss, /\.wex-admin-services__status-control-label, \.wex-admin-services__status-control-measure \{ grid-area: 1 \/ 1;/);
 });
