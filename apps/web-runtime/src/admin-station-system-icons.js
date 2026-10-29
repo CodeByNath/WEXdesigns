@@ -4,6 +4,7 @@ const OUTLINE_STROKE_WIDTH = '1.5';
 /** @typedef {'table' | 'columns' | 'filter'} ServiceActionIconName */
 
 /* Heroicons 24/outline action glyphs, MIT License, Copyright Tailwind Labs. */
+/** @type {Record<ServiceActionIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const serviceActionShapes = {
   table: [
     ['path', { d: 'M3.75 3v18h16.5V3H3.75ZM3.75 9h16.5M3.75 15h16.5M9.75 3v18M15.75 3v18' }],
@@ -38,7 +39,8 @@ export function createServiceActionIcon(document, name) {
 /** @param {Document} document @param {'default'|'small'} [size] */
 export function createMoreActionIcon(document, size = 'default') {
   const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
-  svg.className = size === 'small' ? 'wex-more-action-icon wex-more-action-icon--small' : 'wex-more-action-icon';
+  svg.classList.add('wex-more-action-icon');
+  if (size === 'small') svg.classList.add('wex-more-action-icon--small');
   svg.setAttribute('viewBox', '0 0 24 24');
   svg.setAttribute('fill', 'currentColor');
   svg.setAttribute('aria-hidden', 'true');
