@@ -328,6 +328,20 @@
   --wex-button-foreground-pressed: var(--wex-color-text-primary);
 }
 
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action.wex-admin-notifications__more {
+  border-radius: var(--wex-radius-default);
+}
+
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action.wex-admin-notifications__more:not(:disabled):active::after,
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action.wex-admin-notifications__more:focus::after {
+  border-radius: calc(var(--wex-radius-default) - var(--wex-border-width-default));
+}
+
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action.wex-admin-notifications__more:not(:disabled):active::before,
+.wex-admin-shell__sidebar-tab.wex-admin-shell__nav-sub-action.wex-admin-notifications__more:focus::before {
+  border-radius: calc(var(--wex-radius-default) - var(--wex-outer-ring-width));
+}
+
 .wex-admin-notifications__item-menu-options {
   position: absolute;
   z-index: 1;

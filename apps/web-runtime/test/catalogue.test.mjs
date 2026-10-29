@@ -378,6 +378,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__icon-svg\s*\{[\s\S]*inline-size: var\(--wex-icon-size-20\);[\s\S]*block-size: var\(--wex-icon-size-20\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__meta\s*\{[\s\S]*display: flex;[\s\S]*align-items: center;[\s\S]*justify-content: end;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__item-menu\s*\{[\s\S]*position: relative;/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-shell__sidebar-tab\.wex-admin-shell__nav-sub-action\.wex-admin-notifications__more\s*\{\s*border-radius: var\(--wex-radius-default\);/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-shell__sidebar-tab\.wex-admin-shell__nav-sub-action\.wex-admin-notifications__more:not\(:disabled\):active::after,[\s\S]*border-radius: calc\(var\(--wex-radius-default\) - var\(--wex-border-width-default\)\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__item-menu-options\s*\{[\s\S]*inset-block-start: auto;[\s\S]*inset-block-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*inset-inline-end: 0;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__list\s*\{[\s\S]*min-block-size: 0;[\s\S]*overflow: auto;[\s\S]*\}/);
   assert.doesNotMatch(adminStationNotificationsCss.match(/\.wex-admin-notifications__list\s*\{[\s\S]*?\n\}/)?.[0] ?? '', /padding:/);
