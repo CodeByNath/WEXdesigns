@@ -29,6 +29,7 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
   assert.match(appCss, /@import "\.\/admin-station-services\.css";/);
   assert.match(servicesCss, /var\(--wex-color-background-primary\)/);
   assert.match(servicesCss, /var\(--wex-space-24\)/);
+  assert.match(servicesCss, /\.wex-admin-services \{ display: grid; align-content: start;/);
   assert.match(services, /Management Items/);
   assert.match(services, /wex-search-input wex-search-input--small wex-admin-services__search/);
   assert.match(services, /createHeaderActionIcon\(document, 'search'\)/);
