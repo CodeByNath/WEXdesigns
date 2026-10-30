@@ -73,11 +73,11 @@ test('uses a Small Dropdown status filter after the Services Search Input', () =
   assert.match(servicesCss, /\[data-service-menu-control="filter"\] \.wex-admin-services__menu \{ inset-inline-start: auto; inset-inline-end: 0;/);
 });
 
-test('keeps every Services popover inside its trigger anchor and preserves the approved heading pair', () => {
+test('keeps every Services popover inside its trigger anchor and preserves the approved compact title pair', () => {
   assert.match(services, /menuControl\(columnsControl, columnsMenu, 'columns'\)/);
   assert.match(services, /menuControl\(filterControl, filterMenu, 'filter'\)/);
-  assert.match(services, /wex-type-heading-default-semibold/);
-  assert.match(services, /wex-type-body-default-regular wex-admin-services__summary/);
+  assert.match(services, /wex-type-title-small-semibold/);
+  assert.match(services, /wex-type-body-small-regular wex-admin-services__summary/);
   assert.match(servicesCss, /\.wex-admin-services \{ display: grid;[\s\S]*overflow: hidden;/);
 });
 

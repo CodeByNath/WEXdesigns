@@ -74,7 +74,7 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   let popover = null;
   const section = document.createElement('section'); section.className = 'wex-admin-services'; section.dataset.stationId = snapshot.stationId; section.setAttribute('aria-labelledby', 'wex-admin-services-title');
   const header = document.createElement('header'); header.className = 'wex-admin-services__header';
-  const copy = document.createElement('div'); const heading = document.createElement('h1'); heading.id = 'wex-admin-services-title'; heading.className = 'wex-type-heading-default-semibold'; heading.textContent = 'Management Items'; copy.append(heading, text(document, 'Manage your items and groups', 'wex-type-body-default-regular wex-admin-services__summary'));
+  const copy = document.createElement('div'); const heading = document.createElement('h1'); heading.id = 'wex-admin-services-title'; heading.className = 'wex-type-title-small-semibold'; heading.textContent = 'Management Items'; copy.append(heading, text(document, 'Manage your items and groups', 'wex-type-body-small-regular wex-admin-services__summary'));
   const add = document.createElement('button'); add.type = 'button'; add.className = 'wex-button wex-button--default wex-button--primary'; add.textContent = 'Add New'; header.append(copy, add);
   const tabs = document.createElement('div'); tabs.className = 'wex-admin-services__tabs'; tabs.setAttribute('aria-label', 'Service search and status filter');
   const tools = document.createElement('div'); tools.className = 'wex-admin-services__tools';
