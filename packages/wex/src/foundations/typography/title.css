@@ -51,7 +51,7 @@ Do not mix hierarchy tiers inside the same composition.
 
 Title Small
 
-Size: 24px / 1.5rem
+Size: 20px / 1.25rem
 Line height: 28px / 1.75rem
 Primary weight: 400 / Regular
 Letter spacing: 0
@@ -64,7 +64,7 @@ var(--wex-type-family-sans);
 
 --wex-type-title-small-font-size:
 
-var(--wex-type-size-24);
+var(--wex-type-size-20);
 
 --wex-type-title-small-line-height:
 
