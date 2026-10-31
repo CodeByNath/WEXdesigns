@@ -46,6 +46,11 @@ test('uses named system SVGs for Service controls and dismisses a popover from o
   assert.match(services, /activeMenu\.contains\(event\.target\) \|\| activeControl\.contains\(event\.target\)/);
 });
 
+test('keeps every Services view tool icon-only while retaining an accessible label', () => {
+  assert.match(services, /node\.setAttribute\('aria-label', label\)/);
+  assert.match(servicesCss, /\.wex-admin-services__tools \.wex-button \{ inline-size: var\(--wex-button-small-target-size\);[\s\S]*font-size: 0; justify-content: center;/);
+});
+
 test('uses the stateful subtle More Action button treatment from notification list items', () => {
   assert.match(services, /action\.classList\.replace\('wex-button--neutral', 'wex-button--subtle'\)/);
   assert.match(services, /action\.append\(createMoreActionIcon\(document, 'small'\)\)/);
