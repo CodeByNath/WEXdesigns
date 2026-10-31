@@ -74,7 +74,9 @@ function serviceItem(document, service, openServiceMenuId) {
 export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapshot) {
   const main = shell.querySelector('[data-admin-station-region="main"]'); if (!(main instanceof HTMLElement)) return;
   const document = shell.ownerDocument; const services = snapshot.services.map((service) => ({ ...service }));
-  let view = 'grid'; let state = 'all'; let group = 'all'; let query = ''; let columns = 4; let page = 1; let searchExpanded = false; let openServiceMenuId = null;
+  let view = 'grid'; let state = 'all'; let group = 'all'; let query = ''; let columns = 4; let page = 1; let searchExpanded = false;
+  /** @type {string|null} */
+  let openServiceMenuId = null;
   /** @type {'columns'|'filter'|'status'|null} */
   let popover = null;
   const section = document.createElement('section'); section.className = 'wex-admin-services'; section.dataset.stationId = snapshot.stationId; section.setAttribute('aria-labelledby', 'wex-admin-services-title');
