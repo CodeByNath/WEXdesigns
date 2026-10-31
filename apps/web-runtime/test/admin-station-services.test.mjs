@@ -59,6 +59,7 @@ test('uses a distinct list glyph for the grid-to-list action', () => {
 test('uses the stateful subtle More Action button treatment from notification list items', () => {
   assert.match(services, /action\.classList\.replace\('wex-button--neutral', 'wex-button--subtle'\)/);
   assert.match(services, /action\.append\(createMoreActionIcon\(document, 'small'\)\)/);
+  assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*inline-size: var\(--wex-space-24\);[^}]*min-block-size: var\(--wex-space-24\);[^}]*padding: var\(--wex-space-4\);/);
   assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*--wex-button-foreground-default: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-hover: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-pressed: var\(--wex-color-text-primary\);/);
 });
 

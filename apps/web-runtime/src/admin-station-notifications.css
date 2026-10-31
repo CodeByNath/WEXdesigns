@@ -63,9 +63,9 @@
 }
 
 .wex-admin-notifications__more {
-  inline-size: var(--wex-space-40);
-  min-block-size: var(--wex-space-40);
-  padding: var(--wex-space-8);
+  inline-size: var(--wex-space-24);
+  min-block-size: var(--wex-space-24);
+  padding: var(--wex-space-4);
   --wex-button-foreground-default: var(--wex-color-text-primary);
   --wex-button-foreground-hover: var(--wex-color-text-primary);
   --wex-button-foreground-pressed: var(--wex-color-text-primary);
