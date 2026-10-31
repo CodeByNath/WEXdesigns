@@ -76,7 +76,7 @@ test('uses only Pending, Disabled, and Active status pills with semantic WEX sta
   assert.match(services, /'Ocean Explorer'.*'pending'/);
   assert.match(services, /'Coastal Adventures'.*'disabled'/);
   assert.match(services, /status === 'active' \? 'Active' : service\.status === 'pending' \? 'Pending' : 'Disabled'/);
-  assert.match(servicesCss, /\.wex-admin-services__status \{ border-radius: 50%;/);
+  assert.match(servicesCss, /\.wex-admin-services__status \{ border-radius: var\(--wex-radius-large\);/);
   assert.match(servicesCss, /\.wex-admin-services__status--pending \{ background: var\(--wex-color-background-warning-selected\); color: var\(--wex-color-text-warning\);/);
   assert.match(servicesCss, /\.wex-admin-services__status--disabled \{ background: var\(--wex-color-background-error-selected\); color: var\(--wex-color-text-error\);/);
 });
