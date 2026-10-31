@@ -13,7 +13,7 @@ test('mounts one station-scoped All Services view with a shared item renderer', 
   assert.match(services, /@typedef \{\{stationId: string, services: readonly ServiceListItem\[\]\}\} ServiceStationSnapshot/);
   assert.match(services, /export function mountAllServicesBody\(shell, snapshot = allServicesPreviewSnapshot\)/);
   assert.match(services, /const services = snapshot\.services\.map/);
-  assert.match(services, /visible\.forEach\(\(service\) => collection\.append\(serviceItem\(document, service\)\)\);/);
+  assert.match(services, /visible\.forEach\(\(service\) => collection\.append\(serviceItem\(document, service, openServiceMenuId\)\)\);/);
   assert.match(services, /section\.dataset\.view = view; section\.dataset\.columns = String\(columns\);/);
   assert.doesNotMatch(services, /fetch\(|localStorage|innerHTML|style\./);
 });
@@ -42,8 +42,8 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
 test('uses named system SVGs for Service controls and dismisses a popover from outside', () => {
   assert.match(services, /createSystemIcon\(document, icon\)/);
   assert.doesNotMatch(services, /✓|‹|›/);
-  assert.match(services, /document\.addEventListener\('click', \(event\) => \{ if \(!popover/);
-  assert.match(services, /activeMenu\.contains\(event\.target\) \|\| activeControl\.contains\(event\.target\)/);
+  assert.match(services, /document\.addEventListener\('click', \(event\) => \{ if \(\(!popover && !openServiceMenuId\)/);
+  assert.match(services, /activeMenu\?\.contains\(event\.target\) \|\| activeControl\?\.contains\(event\.target\)/);
 });
 
 test('keeps every Services view tool icon-only while retaining an accessible label', () => {
@@ -60,6 +60,16 @@ test('uses the stateful subtle More Action button treatment from notification li
   assert.match(services, /action\.classList\.replace\('wex-button--neutral', 'wex-button--subtle'\)/);
   assert.match(services, /action\.append\(createMoreActionIcon\(document, 'small'\)\)/);
   assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*--wex-button-foreground-default: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-hover: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-pressed: var\(--wex-color-text-primary\);/);
+});
+
+test('makes each Service More Action control an expandable menu with a status action', () => {
+  assert.match(services, /let view = 'grid';[\s\S]*let openServiceMenuId = null;/);
+  assert.match(services, /action\.setAttribute\('aria-expanded', String\(openServiceMenuId === service\.id\)\)/);
+  assert.match(services, /actionMenu\.append\(menuOption\(document, 'View', `service-view:\$\{service\.id\}`, false\), menuOption\(document, service\.status === 'active' \? 'Deactivate' : 'Activate', `service-status:\$\{service\.id\}`, false\)\)/);
+  assert.match(services, /command\.startsWith\('menu:'\)/);
+  assert.match(services, /command\.startsWith\('service-status:'\)/);
+  assert.match(servicesCss, /\.wex-admin-services__item-menu \{ position: relative;/);
+  assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-inline-start: auto; inset-inline-end: 0;/);
 });
 
 test('uses the current WEX small Dropdown Navigation contract for every Services popover row', () => {
