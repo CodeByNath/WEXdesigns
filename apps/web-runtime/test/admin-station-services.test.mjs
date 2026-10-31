@@ -71,14 +71,17 @@ test('binds View and Edit actions to one open Service action dropdown', () => {
   assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-inline-start: auto; inset-inline-end: 0;/);
 });
 
-test('uses only Pending, Disabled, and Active status pills with semantic WEX status tokens', () => {
+test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes', () => {
   assert.match(services, /status: 'pending'\|'disabled'\|'active'/);
   assert.match(services, /'Ocean Explorer'.*'pending'/);
   assert.match(services, /'Coastal Adventures'.*'disabled'/);
   assert.match(services, /status === 'active' \? 'Active' : service\.status === 'pending' \? 'Pending' : 'Disabled'/);
-  assert.match(servicesCss, /\.wex-admin-services__status \{ border-radius: var\(--wex-space-16\);/);
-  assert.match(servicesCss, /\.wex-admin-services__status--pending \{ background: var\(--wex-color-background-warning-selected\); color: var\(--wex-color-text-warning\);/);
-  assert.match(servicesCss, /\.wex-admin-services__status--disabled \{ background: var\(--wex-color-background-error\); color: var\(--wex-color-on-error\);/);
+  assert.match(servicesCss, /\.wex-admin-services__item \{[^}]*gap: var\(--wex-space-16\);[^}]*padding: var\(--wex-space-16\);/);
+  assert.match(servicesCss, /\.wex-admin-services__status \{[^}]*padding-block: var\(--wex-pill-notification-status-padding-block\);[^}]*padding-inline: var\(--wex-pill-notification-status-padding-inline\);[^}]*border-radius: var\(--wex-pill-notification-status-radius\);/);
+  assert.match(servicesCss, /\.wex-admin-services__status--pending \{ background: var\(--wex-pill-notification-status-pending-background\); color: var\(--wex-pill-notification-status-pending-foreground\);/);
+  assert.match(servicesCss, /\.wex-admin-services__status--active \{ background: var\(--wex-pill-notification-status-active-background\); color: var\(--wex-pill-notification-status-active-foreground\);/);
+  assert.match(servicesCss, /\.wex-admin-services__status--disabled \{ background: var\(--wex-pill-notification-status-disabled-background\); color: var\(--wex-pill-notification-status-disabled-foreground\);/);
+  assert.doesNotMatch(servicesCss, /status--inactive/);
 });
 
 test('uses the current WEX small Dropdown Navigation contract for every Services popover row', () => {

@@ -376,7 +376,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /function createNotificationOption\(document, label\) \{[\s\S]*className = 'wex-admin-notifications__tab wex-admin-notifications__tab--small-dropdown wex-admin-notifications__option';/);
   assert.match(adminStationNotifications, /sortButtons\.forEach\(\(button\) => \{[\s\S]*notificationSort === sort/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__wrapper\s*\{[\s\S]*padding: var\(--wex-space-8\);/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__count\s*\{[\s\S]*border-radius: var\(--wex-space-16\);[\s\S]*background: var\(--wex-color-background-accent\);[\s\S]*color: var\(--wex-color-on-accent\);/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__count\s*\{[\s\S]*padding-block: var\(--wex-pill-notification-message-padding-block\);[\s\S]*padding-inline: var\(--wex-pill-notification-message-padding-inline\);[\s\S]*border-radius: var\(--wex-pill-notification-message-radius\);[\s\S]*background: var\(--wex-pill-notification-message-background\);[\s\S]*color: var\(--wex-pill-notification-message-foreground\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__count--empty\s*\{\s*opacity: 0\.5;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-horizontal\s*\{[\s\S]*border-radius: var\(--wex-tab-navigation-small-horizontal-radius\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__icon\s*\{[\s\S]*background: var\(--wex-color-surface-selected\);[\s\S]*color: var\(--wex-color-icon-primary\);/);

@@ -2,15 +2,19 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-29
-- Last updated: 2026-10-29
+- Last visited: 2026-10-31
+- Last updated: 2026-10-31
 - Verified against: Owner-approved WEX Tab Navigation Small Horizontal and
-  Small Dropdown modes on main.
+  Small Dropdown modes, and the existing Notifications count pill on main.
 - Registration status: Typography roles remain registered as before. WEX Tab
   Navigation, WEX Search Input Default and Small, and WEX More Action are registered
   component-token families; no Shared UI component is registered.
 
 ### Recent work (newest first)
+
+- WEX Pill Notification registers Message and Status modes from the existing
+  Notifications count pill. Message serves unread/message counts; Status
+  supplies the Pending, Active, and Disabled card/list state variants.
 
 - The shared 14px Small icon token is consumed by both Small Button and WEX
   Search Input Small; Services inherits the two component contracts.
@@ -84,6 +88,8 @@ They do not supply or approve Global Tokens values.
   [`search-input.css`](../../packages/wex/src/foundations/search-input.css)
 - WEX More Action component tokens:
   [`more-action.css`](../../packages/wex/src/foundations/more-action.css)
+- WEX Pill Notification component tokens:
+  [`notification-pill.css`](../../packages/wex/src/foundations/notification-pill.css)
 - Current focused checks: [`global-tokens.test.mjs`](../../packages/wex/test/global-tokens.test.mjs),
   [`search-input-foundation.test.mjs`](../../packages/wex/test/search-input-foundation.test.mjs),
   [`more-action-foundation.test.mjs`](../../packages/wex/test/more-action-foundation.test.mjs),
@@ -100,7 +106,7 @@ They do not supply or approve Global Tokens values.
 existing WEX foundations
   -> accepted Global Tokens authority decisions
   -> Typography selection + optional registered attributes
-  -> WEX Tab Navigation, WEX Search Input, and WEX More Action component tokens
+  -> WEX Tab Navigation, WEX Search Input, WEX More Action, and WEX Pill Notification component tokens
   -> components and consuming applications
 ```
 
@@ -122,7 +128,8 @@ ADR 0012 covers the existing Heading, Title, Navigation, and Body roles
 at their existing tiers. ADR 0027 covers WEX Tab Navigation Default, Small,
 and Large; ADR 0029 covers WEX Search Input Default and Small. Each retains only
 references to existing foundations. ADR 0030 covers WEX More Action Default
-and Small. None creates component
+and Small. WEX Pill Notification Message and Status modes reference the verified
+Notifications count pill foundations. None creates component
 mechanics, domain input, or product navigation behaviour.
 
 ## Safe change routing

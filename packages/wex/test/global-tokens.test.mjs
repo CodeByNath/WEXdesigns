@@ -12,6 +12,7 @@ const colour = read(resolve(root, 'src/foundations/colour.css'));
 const title = read(resolve(root, 'src/foundations/typography/title.css'));
 const navigationBody = read(resolve(root, 'src/foundations/typography/navigation-body.css'));
 const tabNavigation = read(resolve(root, 'src/foundations/tab-navigation.css'));
+const notificationPill = read(resolve(root, 'src/foundations/notification-pill.css'));
 const decision = read(resolve(root, '../../docs/decisions/0012-global-tokens-typography-dna.md'));
 const tabNavigationDecision = read(resolve(root, '../../docs/decisions/0027-tab-navigation-global-tokens.md'));
 
@@ -127,4 +128,22 @@ test('registers WEX Tab Navigation Default with Small and Large tiers', () => {
   assert.match(tabNavigationDecision, /Small Dropdown/);
   assert.doesNotMatch(tabNavigation, /pressed-border-color/);
   assert.doesNotMatch(tabNavigation, /#[0-9a-f]{3,8}\b/i);
+});
+
+test('registers WEX Pill Notification Message and Status modes from existing foundations', () => {
+  for (const mode of ['message', 'status']) {
+    for (const property of ['padding-block', 'padding-inline', 'radius', 'font-family', 'font-size', 'font-weight', 'line-height', 'letter-spacing']) {
+      assert.match(notificationPill, new RegExp(`--wex-pill-notification-${mode}-${property}: var\\(--wex-`));
+    }
+  }
+
+  assert.match(notificationPill, /--wex-pill-notification-message-background: var\(--wex-color-background-accent\);/);
+  assert.match(notificationPill, /--wex-pill-notification-message-foreground: var\(--wex-color-on-accent\);/);
+  assert.match(notificationPill, /--wex-pill-notification-status-pending-background: var\(--wex-color-background-warning-selected\);/);
+  assert.match(notificationPill, /--wex-pill-notification-status-pending-foreground: var\(--wex-color-on-warning-selected\);/);
+  assert.match(notificationPill, /--wex-pill-notification-status-active-background: var\(--wex-color-background-success-selected\);/);
+  assert.match(notificationPill, /--wex-pill-notification-status-active-foreground: var\(--wex-color-on-success-selected\);/);
+  assert.match(notificationPill, /--wex-pill-notification-status-disabled-background: var\(--wex-color-background-error\);/);
+  assert.match(notificationPill, /--wex-pill-notification-status-disabled-foreground: var\(--wex-color-on-error\);/);
+  assert.doesNotMatch(notificationPill, /#[0-9a-f]{3,8}\b/i);
 });

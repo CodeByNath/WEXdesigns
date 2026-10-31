@@ -45,11 +45,16 @@
 
 .wex-admin-notifications__count {
   flex: 0 0 auto;
-  padding-block: var(--wex-space-4);
-  padding-inline: var(--wex-space-12);
-  border-radius: var(--wex-space-16);
-  background: var(--wex-color-background-accent);
-  color: var(--wex-color-on-accent);
+  padding-block: var(--wex-pill-notification-message-padding-block);
+  padding-inline: var(--wex-pill-notification-message-padding-inline);
+  border-radius: var(--wex-pill-notification-message-radius);
+  background: var(--wex-pill-notification-message-background);
+  color: var(--wex-pill-notification-message-foreground);
+  font-family: var(--wex-pill-notification-message-font-family);
+  font-size: var(--wex-pill-notification-message-font-size);
+  font-weight: var(--wex-pill-notification-message-font-weight);
+  line-height: var(--wex-pill-notification-message-line-height);
+  letter-spacing: var(--wex-pill-notification-message-letter-spacing);
 }
 
 .wex-admin-notifications__count--empty {

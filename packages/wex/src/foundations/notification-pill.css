@@ -1,0 +1,29 @@
+:root {
+  /* WEX Pill Notification / Message: unread and message counts. */
+  --wex-pill-notification-message-padding-block: var(--wex-space-4);
+  --wex-pill-notification-message-padding-inline: var(--wex-space-12);
+  --wex-pill-notification-message-radius: var(--wex-space-16);
+  --wex-pill-notification-message-background: var(--wex-color-background-accent);
+  --wex-pill-notification-message-foreground: var(--wex-color-on-accent);
+  --wex-pill-notification-message-font-family: var(--wex-type-navigation-small-font-family);
+  --wex-pill-notification-message-font-size: var(--wex-type-navigation-small-font-size);
+  --wex-pill-notification-message-font-weight: var(--wex-type-weight-semibold);
+  --wex-pill-notification-message-line-height: var(--wex-type-navigation-small-line-height);
+  --wex-pill-notification-message-letter-spacing: var(--wex-type-navigation-small-letter-spacing);
+
+  /* WEX Pill Notification / Status: state labels inside cards and lists. */
+  --wex-pill-notification-status-padding-block: var(--wex-space-4);
+  --wex-pill-notification-status-padding-inline: var(--wex-space-12);
+  --wex-pill-notification-status-radius: var(--wex-space-16);
+  --wex-pill-notification-status-font-family: var(--wex-type-navigation-small-font-family);
+  --wex-pill-notification-status-font-size: var(--wex-type-navigation-small-font-size);
+  --wex-pill-notification-status-font-weight: var(--wex-type-weight-semibold);
+  --wex-pill-notification-status-line-height: var(--wex-type-navigation-small-line-height);
+  --wex-pill-notification-status-letter-spacing: var(--wex-type-navigation-small-letter-spacing);
+  --wex-pill-notification-status-pending-background: var(--wex-color-background-warning-selected);
+  --wex-pill-notification-status-pending-foreground: var(--wex-color-on-warning-selected);
+  --wex-pill-notification-status-active-background: var(--wex-color-background-success-selected);
+  --wex-pill-notification-status-active-foreground: var(--wex-color-on-success-selected);
+  --wex-pill-notification-status-disabled-background: var(--wex-color-background-error);
+  --wex-pill-notification-status-disabled-foreground: var(--wex-color-on-error);
+}
