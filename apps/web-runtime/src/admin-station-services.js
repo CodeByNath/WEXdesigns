@@ -56,7 +56,7 @@ function serviceItem(document, service) {
   const footer = document.createElement('div'); footer.className = 'wex-admin-services__item-footer';
   const value = text(document, money(service.value), 'wex-type-navigation-default-semibold wex-admin-services__value');
   const status = text(document, service.status === 'active' ? 'Active' : 'Inactive', `wex-type-navigation-small-semibold wex-admin-services__status wex-admin-services__status--${service.status}`);
-  const action = control(document, '', `menu:${service.id}`); action.classList.add('wex-admin-services__item-action'); action.setAttribute('aria-label', `Actions for ${service.name}`); action.append(createMoreActionIcon(document, 'small')); footer.append(value, status);
+  const action = control(document, '', `menu:${service.id}`); action.classList.replace('wex-button--neutral', 'wex-button--subtle'); action.classList.add('wex-admin-services__item-action'); action.setAttribute('aria-label', `Actions for ${service.name}`); action.append(createMoreActionIcon(document, 'small')); footer.append(value, status);
   item.append(picture, identity, fields, footer, action); return item;
 }
 

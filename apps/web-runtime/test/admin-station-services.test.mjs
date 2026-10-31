@@ -46,6 +46,12 @@ test('uses named system SVGs for Service controls and dismisses a popover from o
   assert.match(services, /activeMenu\.contains\(event\.target\) \|\| activeControl\.contains\(event\.target\)/);
 });
 
+test('uses the stateful subtle More Action button treatment from notification list items', () => {
+  assert.match(services, /action\.classList\.replace\('wex-button--neutral', 'wex-button--subtle'\)/);
+  assert.match(services, /action\.append\(createMoreActionIcon\(document, 'small'\)\)/);
+  assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*--wex-button-foreground-default: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-hover: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-pressed: var\(--wex-color-text-primary\);/);
+});
+
 test('uses the current WEX small Dropdown Navigation contract for every Services popover row', () => {
   assert.match(services, /function menuOption\(document, label, command, selected\)/);
   assert.match(services, /node\.setAttribute\('aria-pressed', String\(selected\)\)/);
