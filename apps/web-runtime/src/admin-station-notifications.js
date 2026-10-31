@@ -208,10 +208,10 @@ export function mountHeaderNotifications(shell, trigger) {
   headerActions.className = 'wex-admin-notifications__header-actions';
   const more = document.createElement('button');
   more.type = 'button';
-  more.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__more';
+  more.className = 'wex-button wex-button--default wex-button--subtle wex-admin-notifications__more';
   more.setAttribute('aria-label', 'Notification options');
   more.setAttribute('aria-expanded', 'false');
-  more.append(createMoreActionIcon(document, 'small'));
+  more.append(createMoreActionIcon(document));
   const options = document.createElement('div');
   options.className = 'wex-admin-notifications__options';
   options.hidden = true;
