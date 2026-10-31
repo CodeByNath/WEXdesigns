@@ -51,6 +51,11 @@ test('keeps every Services view tool icon-only while retaining an accessible lab
   assert.match(servicesCss, /\.wex-admin-services__tools \.wex-button \{ inline-size: var\(--wex-button-small-target-size\);[\s\S]*font-size: 0; justify-content: center;/);
 });
 
+test('uses a distinct list glyph for the grid-to-list action', () => {
+  assert.match(services, /iconControl\(document, 'List', 'view', 'list'\)/);
+  assert.match(services, /view === 'grid' \? 'List' : 'Grid', view === 'grid' \? 'list' : 'table'/);
+});
+
 test('uses the stateful subtle More Action button treatment from notification list items', () => {
   assert.match(services, /action\.classList\.replace\('wex-button--neutral', 'wex-button--subtle'\)/);
   assert.match(services, /action\.append\(createMoreActionIcon\(document, 'small'\)\)/);

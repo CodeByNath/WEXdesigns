@@ -1,11 +1,14 @@
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const OUTLINE_STROKE_WIDTH = '1.5';
 
-/** @typedef {'table' | 'columns' | 'filter' | 'chevron-left' | 'chevron-right'} SystemIconName */
+/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'chevron-left' | 'chevron-right'} SystemIconName */
 
 /* Heroicons 24/outline system glyphs, MIT License, Copyright Tailwind Labs. */
 /** @type {Record<SystemIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const systemIconShapes = {
+  list: [
+    ['path', { d: 'M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75ZM3.75 12h.007v.008H3.75V12Zm0 5.25h.007v.008H3.75V17.25Z' }],
+  ],
   table: [
     ['path', { d: 'M3.75 3v18h16.5V3H3.75ZM3.75 9h16.5M3.75 15h16.5M9.75 3v18M15.75 3v18' }],
   ],
