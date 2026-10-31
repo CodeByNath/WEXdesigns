@@ -13,7 +13,7 @@ test('mounts one station-scoped All Services view with a shared item renderer', 
   assert.match(services, /@typedef \{\{stationId: string, services: readonly ServiceListItem\[\]\}\} ServiceStationSnapshot/);
   assert.match(services, /export function mountAllServicesBody\(shell, snapshot = allServicesPreviewSnapshot\)/);
   assert.match(services, /const services = snapshot\.services\.map/);
-  assert.match(services, /visible\.forEach\(\(service\) => collection\.append\(serviceItem\(document, service\)\)\);/);
+  assert.match(services, /visible\.forEach\(\(service\) => collection\.append\(serviceItem\(document, service, openServiceMenuId\)\)\);/);
   assert.match(services, /section\.dataset\.view = view; section\.dataset\.columns = String\(columns\);/);
   assert.doesNotMatch(services, /fetch\(|localStorage|innerHTML|style\./);
 });
@@ -42,8 +42,8 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
 test('uses named system SVGs for Service controls and dismisses a popover from outside', () => {
   assert.match(services, /createSystemIcon\(document, icon\)/);
   assert.doesNotMatch(services, /✓|‹|›/);
-  assert.match(services, /document\.addEventListener\('click', \(event\) => \{ if \(!popover/);
-  assert.match(services, /activeMenu\.contains\(event\.target\) \|\| activeControl\.contains\(event\.target\)/);
+  assert.match(services, /document\.addEventListener\('click', \(event\) => \{ if \(\(!popover && !openServiceMenuId\)/);
+  assert.match(services, /activeMenu\?\.contains\(event\.target\) \|\| activeControl\?\.contains\(event\.target\)/);
 });
 
 test('keeps every Services view tool icon-only while retaining an accessible label', () => {
@@ -61,6 +61,24 @@ test('uses the stateful subtle More Action button treatment from notification li
   assert.match(services, /action\.append\(createMoreActionIcon\(document, 'small'\)\)/);
   assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*inline-size: var\(--wex-space-24\);[^}]*min-block-size: var\(--wex-space-24\);[^}]*padding: var\(--wex-space-4\);/);
   assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*--wex-button-foreground-default: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-hover: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-pressed: var\(--wex-color-text-primary\);/);
+});
+
+test('binds View and Edit actions to one open Service action dropdown', () => {
+  assert.match(services, /action\.setAttribute\('aria-expanded', String\(openServiceMenuId === service\.id\)\)/);
+  assert.match(services, /menuOption\(document, 'View', `service-view:\$\{service\.id\}`, false\), menuOption\(document, 'Edit', `service-edit:\$\{service\.id\}`, false\)/);
+  assert.match(services, /command\.startsWith\('menu:'\)/);
+  assert.match(services, /command\.startsWith\('service-view:'\) \|\| command\.startsWith\('service-edit:'\)/);
+  assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-inline-start: auto; inset-inline-end: 0;/);
+});
+
+test('uses only Pending, Disabled, and Active status pills with semantic WEX status tokens', () => {
+  assert.match(services, /status: 'pending'\|'disabled'\|'active'/);
+  assert.match(services, /'Ocean Explorer'.*'pending'/);
+  assert.match(services, /'Coastal Adventures'.*'disabled'/);
+  assert.match(services, /status === 'active' \? 'Active' : service\.status === 'pending' \? 'Pending' : 'Disabled'/);
+  assert.match(servicesCss, /\.wex-admin-services__status \{ border-radius: 50%;/);
+  assert.match(servicesCss, /\.wex-admin-services__status--pending \{ background: var\(--wex-color-background-warning-selected\); color: var\(--wex-color-text-warning\);/);
+  assert.match(servicesCss, /\.wex-admin-services__status--disabled \{ background: var\(--wex-color-background-error-selected\); color: var\(--wex-color-text-error\);/);
 });
 
 test('uses the current WEX small Dropdown Navigation contract for every Services popover row', () => {
@@ -82,8 +100,8 @@ test('uses a Small Dropdown status filter after the Services Search Input', () =
   assert.match(services, /statusControl\.classList\.add\('wex-admin-services__status-control'\)/);
   assert.match(services, /statusMenu\.dataset\.servicePopover = 'status'/);
   assert.match(services, /tabs\.append\(search, menuControl\(statusControl, statusMenu, 'status'\)\);/);
-  assert.match(services, /statusControlLabel\.textContent = state === 'all' \? 'All' : state === 'active' \? 'Active' : 'Non Active';/);
-  assert.match(services, /\['all', 'active', 'inactive'\]\.forEach\(\(value\) => statusMenu\.append\(menuOption/);
+  assert.match(services, /statusControlLabel\.textContent = state === 'all' \? 'All' : state === 'pending' \? 'Pending' : state === 'disabled' \? 'Disabled' : 'Active';/);
+  assert.match(services, /\['all', 'pending', 'disabled', 'active'\]\.forEach\(\(value\) => statusMenu\.append\(menuOption/);
   assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input\s*\{\s*inline-size: calc\(var\(--wex-space-64\) \* 4\);/);
   assert.match(services, /const menuControl = \(trigger, menu, name\)/);
   assert.match(servicesCss, /\.wex-admin-services__menu-control \{ position: relative;/);
