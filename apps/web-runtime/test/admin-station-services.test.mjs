@@ -18,6 +18,15 @@ test('mounts one station-scoped All Services view with a shared item renderer', 
   assert.doesNotMatch(services, /fetch\(|localStorage|innerHTML|style\./);
 });
 
+test('uses the compact Manager heading and Small typography throughout service cards', () => {
+  assert.match(services, /heading\.textContent = 'Manager';/);
+  assert.doesNotMatch(services, /Management Items|Manage your items and groups|Add New/);
+  assert.match(services, /title\.className = 'wex-type-navigation-small-semibold';/);
+  assert.match(services, /wex-type-body-small-regular wex-admin-services__category/);
+  assert.match(services, /text\(document, value, 'wex-type-body-small-regular'\)/);
+  assert.match(services, /wex-type-navigation-small-semibold wex-admin-services__value/);
+});
+
 test('wires All Services navigation to the station-scoped collection', () => {
   assert.match(navigation, /import \{ ALL_SERVICES_OWNER, mountAllServicesBody \} from '\.\/admin-station-services\.js';/);
   assert.match(navigation, /id: ALL_SERVICES_OWNER, label: 'All Services', active: true/);
@@ -30,7 +39,7 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
   assert.match(servicesCss, /var\(--wex-color-background-primary\)/);
   assert.match(servicesCss, /var\(--wex-space-24\)/);
   assert.match(servicesCss, /\.wex-admin-services \{ display: grid; align-content: start;/);
-  assert.match(services, /Management Items/);
+  assert.match(services, /heading\.textContent = 'Manager';/);
   assert.match(services, /wex-search-input wex-search-input--small wex-admin-services__search/);
   assert.match(services, /createHeaderActionIcon\(document, 'search'\)/);
   assert.match(servicesCss, /\.wex-admin-services__search \{ min-inline-size: 0;/);
@@ -68,7 +77,8 @@ test('binds View and Edit actions to one open Service action dropdown', () => {
   assert.match(services, /menuOption\(document, 'View', `service-view:\$\{service\.id\}`, false\), menuOption\(document, 'Edit', `service-edit:\$\{service\.id\}`, false\)/);
   assert.match(services, /command\.startsWith\('menu:'\)/);
   assert.match(services, /command\.startsWith\('service-view:'\) \|\| command\.startsWith\('service-edit:'\)/);
-  assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-inline-start: auto; inset-inline-end: 0;/);
+  assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-inline-start: auto; inset-inline-end: 0; min-inline-size: max-content; padding: var\(--wex-space-4\); gap: var\(--wex-space-4\);/);
+  assert.match(servicesCss, /\.wex-admin-services__menu-tab \{[^}]*min-block-size: var\(--wex-tab-navigation-small-dropdown-target-size\);[^}]*font-family: var\(--wex-tab-navigation-small-dropdown-font-family\);/);
 });
 
 test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes', () => {
@@ -112,12 +122,20 @@ test('uses a Small Dropdown status filter after the Services Search Input', () =
   assert.match(servicesCss, /\[data-service-menu-control="filter"\] \.wex-admin-services__menu \{ inset-inline-start: auto; inset-inline-end: 0;/);
 });
 
-test('keeps every Services popover inside its trigger anchor and preserves the approved compact title pair', () => {
+test('keeps every Services popover inside its trigger anchor with the compact Manager heading', () => {
   assert.match(services, /menuControl\(columnsControl, columnsMenu, 'columns'\)/);
   assert.match(services, /menuControl\(filterControl, filterMenu, 'filter'\)/);
   assert.match(services, /wex-type-title-small-semibold/);
-  assert.match(services, /wex-type-body-small-regular wex-admin-services__summary/);
+  assert.doesNotMatch(services, /wex-admin-services__summary/);
   assert.match(servicesCss, /\.wex-admin-services \{ display: grid;[\s\S]*overflow: hidden;/);
+});
+
+test('centres list rows and hides Columns while List is active', () => {
+  assert.match(services, /columnsMenuControl\.hidden = view === 'list';/);
+  assert.match(servicesCss, /\.wex-admin-services__menu\[hidden\], \.wex-admin-services__menu-control\[hidden\] \{ display: none; \}/);
+  assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item \{[^}]*align-items: center;/);
+  assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item-action \{[^}]*align-self: center;/);
+  assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item-menu \{[^}]*align-self: center;/);
 });
 
 test('keeps the small-viewport Services toolbar inline with responsive search and compact actions', () => {
