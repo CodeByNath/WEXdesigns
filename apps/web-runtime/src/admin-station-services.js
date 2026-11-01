@@ -49,7 +49,9 @@ function serviceItem(document, service, openServiceMenuId) {
   const image = document.createElement('img'); image.src = service.imageUrl; image.alt = ''; image.loading = 'lazy'; picture.append(image);
   const identity = document.createElement('div'); identity.className = 'wex-admin-services__identity';
   const title = document.createElement('h2'); title.className = 'wex-type-navigation-small-semibold'; title.textContent = service.name;
-  identity.append(title, text(document, service.category, 'wex-type-body-small-regular wex-admin-services__category'));
+  const category = text(document, service.category, 'wex-type-body-small-regular wex-admin-services__category'); identity.append(title, category);
+  const compactMetadata = document.createElement('div'); compactMetadata.className = 'wex-admin-services__compact-metadata'; compactMetadata.append(text(document, service.category, 'wex-type-body-small-regular'), text(document, '•', 'wex-type-body-small-regular'), text(document, money(service.value), 'wex-type-navigation-small-semibold'));
+  const content = document.createElement('div'); content.className = 'wex-admin-services__content'; content.append(identity, compactMetadata);
   /** @param {string} label @param {string} value @param {string} name */
   const field = (label, value, name) => { const node = document.createElement('div'); node.className = `wex-admin-services__${name}`; node.append(text(document, label, 'wex-type-body-small-regular wex-admin-services__detail-label'), text(document, value, 'wex-type-body-small-regular')); return node; };
   const fields = document.createElement('div'); fields.className = 'wex-admin-services__details'; fields.append(field('ID', service.id, 'identifier'));
@@ -62,7 +64,7 @@ function serviceItem(document, service, openServiceMenuId) {
   const actionMenu = document.createElement('div'); actionMenu.className = 'wex-admin-services__menu wex-admin-services__item-menu-options'; actionMenu.hidden = openServiceMenuId !== service.id;
   actionMenu.append(menuOption(document, 'View', `service-view:${service.id}`, false), menuOption(document, 'Edit', `service-edit:${service.id}`, false));
   itemMenu.append(action, actionMenu); footer.append(value, status);
-  item.append(picture, identity, fields, footer, itemMenu); return item;
+  item.append(picture, content, fields, footer, itemMenu); return item;
 }
 
 /**
