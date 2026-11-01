@@ -136,6 +136,8 @@ test('centres list rows and hides Columns while List is active', () => {
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item \{[^}]*align-items: center;/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item-action \{[^}]*align-self: center;/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item-menu \{[^}]*align-self: center;/);
+  assert.match(servicesCss, /\.wex-admin-services\[data-view="list"\] \.wex-admin-services__list-head > :nth-child\(4\), \.wex-admin-services\[data-view="list"\] \.wex-admin-services__list-head > :nth-child\(5\), \.wex-admin-services\[data-view="list"\] \.wex-admin-services__status \{ justify-self: center; \}/);
+  assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item-menu \{[^}]*justify-self: center;/);
 });
 
 test('keeps the small-viewport Services toolbar inline with responsive search and compact actions', () => {
