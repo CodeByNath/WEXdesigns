@@ -51,3 +51,15 @@
     border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   }
 }
+
+/* List avatars retain their existing allocation while gaining the requested framed circle treatment. */
+.wex-admin-services[data-view="list"] .wex-admin-services__image {
+  box-sizing: border-box;
+  padding: var(--wex-space-4);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: 50%;
+}
+
+.wex-admin-services[data-view="list"] .wex-admin-services__image img {
+  border-radius: 50%;
+}
