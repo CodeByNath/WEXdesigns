@@ -117,9 +117,7 @@ test('uses the current WEX small Dropdown Navigation contract for every Services
 test('limits grid columns by the measured results width and anchors its menu inside the wrapper', () => {
   assert.match(services, /const minCardSize = Number\.parseFloat\(window\?\.getComputedStyle\(results\)\.minInlineSize \?\? '0'\);/);
   assert.match(services, /availableWidth >= minCardSize \* count \+ gap \* \(count - 1\)/);
-  assert.match(services, /let columns = 4; let preferredColumns = 4;/);
-  assert.match(services, /columns = available\.includes\(preferredColumns\) \? preferredColumns : available\.at\(-1\) \?\? 1;/);
-  assert.match(services, /command\.startsWith\('columns:'\).*preferredColumns = Number\(command\.slice\(8\)\);/);
+  assert.match(services, /if \(!available\.includes\(columns\)\) columns = available\.at\(-1\) \?\? 1;/);
   assert.match(services, /observer\.observe\(results\);/);
   assert.match(servicesCss, /\.wex-admin-services__results \{ min-inline-size: calc\(var\(--wex-space-64\) \* 3\); \}/);
   assert.match(servicesCss, /\[data-service-menu-control="columns"\] \.wex-admin-services__menu, \.wex-admin-services__menu-control\[data-service-menu-control="filter"\] \.wex-admin-services__menu \{ inset-inline-start: auto; inset-inline-end: 0; \}/);
