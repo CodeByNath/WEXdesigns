@@ -114,12 +114,14 @@ test('uses the current WEX small Dropdown Navigation contract for every Services
   assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-focus-color/);
 });
 
-test('only offers grid column counts that the current responsive layout can render', () => {
-  assert.match(services, /const gridCompactMedia = document\.defaultView\?\.matchMedia\('\(max-width: 767px\)'\);/);
-  assert.match(services, /const availableColumns = \(\) => gridCompactMedia\?\.matches \? \[1\] : \[1, 2, 3, 4\];/);
+test('limits grid columns by the measured results width and anchors its menu inside the wrapper', () => {
+  assert.match(services, /const minCardSize = Number\.parseFloat\(window\?\.getComputedStyle\(results\)\.minInlineSize \?\? '0'\);/);
+  assert.match(services, /availableWidth >= minCardSize \* count \+ gap \* \(count - 1\)/);
   assert.match(services, /if \(!available\.includes\(columns\)\) columns = available\.at\(-1\) \?\? 1;/);
-  assert.match(services, /available\.forEach\(\(count\) => columnsMenu\.append\(menuOption/);
-  assert.match(services, /gridCompactMedia\?\.addEventListener\('change', render\);/);
+  assert.match(services, /observer\.observe\(results\);/);
+  assert.match(servicesCss, /\.wex-admin-services__results \{ min-inline-size: calc\(var\(--wex-space-64\) \* 3\); \}/);
+  assert.match(servicesCss, /\[data-service-menu-control="columns"\] \.wex-admin-services__menu, \.wex-admin-services__menu-control\[data-service-menu-control="filter"\] \.wex-admin-services__menu \{ inset-inline-start: auto; inset-inline-end: 0; \}/);
+  assert.match(servicesCss, /:not\(\[data-view="list"\]\) \.wex-admin-services__collection, \.wex-admin-services\[data-view="list"\] \.wex-admin-services__collection \{ gap: var\(--wex-space-12\); border: 0; \}/);
 });
 
 test('uses a Small Dropdown status filter after the Services Search Input', () => {
