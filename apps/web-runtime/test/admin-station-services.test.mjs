@@ -133,6 +133,7 @@ test('uses a Small Dropdown status filter after the Services Search Input', () =
   assert.match(services, /statusControlLabel\.textContent = state === 'all' \? 'All' : state === 'pending' \? 'Pending' : state === 'disabled' \? 'Disabled' : 'Active';/);
   assert.match(services, /\['all', 'pending', 'disabled', 'active'\]\.forEach\(\(value\) => statusMenu\.append\(menuOption/);
   assert.match(servicesCss, /\.wex-admin-services__tabs \.wex-search-input\s*\{\s*inline-size: calc\(var\(--wex-space-64\) \* 4\);/);
+  assert.match(servicesCss, /\.wex-admin-services__status-control\s*\{\s*display: grid; grid-template-columns: minmax\(0, 1fr\) auto; align-items: center; inline-size: calc\(var\(--wex-space-64\) \* 3\);/);
   assert.match(services, /const menuControl = \(trigger, menu, name\)/);
   assert.match(servicesCss, /\.wex-admin-services__menu-control \{ position: relative;/);
   assert.match(servicesCss, /\.wex-admin-services__menu \{ position: absolute;[\s\S]*inset-inline-start: 0;/);
