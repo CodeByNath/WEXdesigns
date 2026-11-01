@@ -45,4 +45,9 @@
   .wex-admin-services__pager {
     inline-size: fit-content;
   }
+
+  /* Compact list cards are individually bordered, including the final item. */
+  .wex-admin-services[data-view="list"] .wex-admin-services__item:last-child {
+    border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  }
 }
