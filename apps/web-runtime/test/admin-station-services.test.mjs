@@ -70,6 +70,7 @@ test('uses the stateful subtle More Action button treatment from notification li
   assert.match(services, /action\.append\(createMoreActionIcon\(document, 'small'\)\)/);
   assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*inline-size: var\(--wex-space-24\);[^}]*min-block-size: var\(--wex-space-24\);[^}]*padding: var\(--wex-space-4\);/);
   assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*--wex-button-foreground-default: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-hover: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-pressed: var\(--wex-color-text-primary\);/);
+  assert.match(servicesCss, /\.wex-admin-services \.wex-admin-services__item-action:focus-visible \{ outline: none; \}/);
 });
 
 test('binds View and Edit actions to one open Service action dropdown', () => {
