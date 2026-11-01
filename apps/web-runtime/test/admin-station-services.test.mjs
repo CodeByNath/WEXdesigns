@@ -114,6 +114,14 @@ test('uses the current WEX small Dropdown Navigation contract for every Services
   assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-focus-color/);
 });
 
+test('only offers grid column counts that the current responsive layout can render', () => {
+  assert.match(services, /const gridCompactMedia = document\.defaultView\?\.matchMedia\('\(max-width: 767px\)'\);/);
+  assert.match(services, /const availableColumns = \(\) => gridCompactMedia\?\.matches \? \[1\] : \[1, 2, 3, 4\];/);
+  assert.match(services, /if \(!available\.includes\(columns\)\) columns = available\.at\(-1\) \?\? 1;/);
+  assert.match(services, /available\.forEach\(\(count\) => columnsMenu\.append\(menuOption/);
+  assert.match(services, /gridCompactMedia\?\.addEventListener\('change', render\);/);
+});
+
 test('uses a Small Dropdown status filter after the Services Search Input', () => {
   assert.match(services, /const statusControl = control\(document, '', 'status'\);/);
   assert.match(services, /statusControl\.classList\.add\('wex-admin-services__status-control'\)/);

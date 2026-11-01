@@ -95,9 +95,12 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   const toolbar = document.createElement('div'); toolbar.className = 'wex-admin-services__toolbar'; toolbar.append(tabs, tools);
   const results = document.createElement('div'); results.className = 'wex-admin-services__results'; results.setAttribute('aria-live', 'polite');
   const footer = document.createElement('footer'); footer.className = 'wex-admin-services__footer'; const total = text(document, '', 'wex-type-body-small-regular wex-admin-services__total'); const pager = document.createElement('div'); pager.className = 'wex-admin-services__pager'; footer.append(total, pager);
+  const gridCompactMedia = document.defaultView?.matchMedia('(max-width: 767px)');
+  const availableColumns = () => gridCompactMedia?.matches ? [1] : [1, 2, 3, 4];
   const renderMenus = () => {
+    const available = availableColumns(); if (!available.includes(columns)) columns = available.at(-1) ?? 1;
     columnsMenuControl.hidden = view === 'list'; columnsMenu.hidden = view === 'list' || popover !== 'columns'; filterMenu.hidden = popover !== 'filter'; statusMenu.hidden = popover !== 'status'; columnsControl.setAttribute('aria-expanded', String(view !== 'list' && popover === 'columns')); filterControl.setAttribute('aria-expanded', String(popover === 'filter')); statusControl.setAttribute('aria-expanded', String(popover === 'status')); columnsMenu.replaceChildren();
-    [1, 2, 3, 4].forEach((count) => columnsMenu.append(menuOption(document, `${count} column${count === 1 ? '' : 's'}`, `columns:${count}`, columns === count)));
+    available.forEach((count) => columnsMenu.append(menuOption(document, `${count} column${count === 1 ? '' : 's'}`, `columns:${count}`, columns === count)));
     filterMenu.replaceChildren();
     ['all', ...new Set(services.map((service) => service.category))].forEach((value) => filterMenu.append(menuOption(document, value === 'all' ? 'All' : value, `group:${value}`, group === value)));
     statusMenu.replaceChildren();
@@ -115,7 +118,7 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   document.addEventListener('click', (event) => { if ((!popover && !openServiceMenuId) || !(event.target instanceof Node)) return; if (event.target instanceof Element && event.target.closest('[data-service-item-menu]')) return; const activeMenu = popover === 'columns' ? columnsMenu : popover === 'filter' ? filterMenu : popover === 'status' ? statusMenu : null; const activeControl = popover === 'columns' ? columnsControl : popover === 'filter' ? filterControl : popover === 'status' ? statusControl : null; if (activeMenu?.contains(event.target) || activeControl?.contains(event.target)) return; popover = null; openServiceMenuId = null; render(); });
   const syncSearchCompact = () => { const targetSize = Number.parseFloat(document.defaultView?.getComputedStyle(search).getPropertyValue('--wex-search-input-target-size') ?? '0'); search.dataset.compact = String(targetSize > 0 && search.getBoundingClientRect().width <= targetSize); };
   search.addEventListener('click', () => { if (search.dataset.compact !== 'true' || searchExpanded) return; searchExpanded = true; render(); input.focus(); }); input.addEventListener('blur', () => { if (!searchExpanded) return; searchExpanded = false; render(); }); input.addEventListener('input', () => { query = input.value.trim().toLocaleLowerCase(); page = 1; render(); });
-  section.append(header, toolbar, results, footer); main.replaceChildren(section); syncSearchCompact(); const SearchResizeObserver = document.defaultView?.ResizeObserver; if (SearchResizeObserver) new SearchResizeObserver(syncSearchCompact).observe(search); render();
+  section.append(header, toolbar, results, footer); main.replaceChildren(section); syncSearchCompact(); const SearchResizeObserver = document.defaultView?.ResizeObserver; if (SearchResizeObserver) new SearchResizeObserver(syncSearchCompact).observe(search); gridCompactMedia?.addEventListener('change', render); render();
 }
 
 export { ALL_SERVICES_OWNER };
