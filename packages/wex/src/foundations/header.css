@@ -63,6 +63,7 @@
 
 .wex-admin-shell__location {
   flex: 1 1 auto;
+  padding-inline-start: var(--wex-space-8);
   color: var(--wex-color-text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;

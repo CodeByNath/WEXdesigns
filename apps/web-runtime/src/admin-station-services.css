@@ -28,3 +28,21 @@
 .wex-admin-services__pager .wex-button[aria-current="true"], .wex-admin-services__pager .wex-button[aria-current="true"]:not(:disabled):hover:not(:focus), .wex-admin-services__pager .wex-button[aria-current="true"]:not(:disabled):active { inline-size: var(--wex-button-small-target-size); min-inline-size: var(--wex-button-small-target-size); padding-inline: 0; justify-content: center; background: var(--wex-color-black); border-color: var(--wex-color-black); color: var(--wex-color-white); }
 
 @media (min-width: 768px) { .wex-admin-services[data-view="list"] .wex-admin-services__item:last-child { border-radius: 0 0 var(--wex-radius-default) var(--wex-radius-default); } }
+
+/* The shell already supplies the outer eight-pixel gutter. */
+.wex-admin-services { padding-inline: var(--wex-space-8); }
+
+@media (max-width: 767px) {
+  /* Keep the total and compact pager together while there is room; wrap only when necessary. */
+  .wex-admin-services__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .wex-admin-services__total,
+  .wex-admin-services__pager {
+    inline-size: fit-content;
+  }
+}
