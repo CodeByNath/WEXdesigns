@@ -15,6 +15,7 @@ test('mounts one station-scoped All Services view with a shared item renderer', 
   assert.match(services, /const services = snapshot\.services\.map/);
   assert.match(services, /visible\.forEach\(\(service\) => collection\.append\(serviceItem\(document, service, openServiceMenuId\)\)\);/);
   assert.match(services, /section\.dataset\.view = view; section\.dataset\.columns = String\(columns\);/);
+  assert.match(services, /let view = 'list';/);
   assert.doesNotMatch(services, /fetch\(|localStorage|innerHTML|style\./);
 });
 
@@ -71,6 +72,9 @@ test('uses the stateful subtle More Action button treatment from notification li
   assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*inline-size: var\(--wex-space-24\);[^}]*min-block-size: var\(--wex-space-24\);[^}]*padding: var\(--wex-space-4\);/);
   assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*--wex-button-foreground-default: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-hover: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-pressed: var\(--wex-color-text-primary\);/);
   assert.match(servicesCss, /\.wex-admin-services \.wex-admin-services__item-action:focus-visible \{ outline: none; \}/);
+  assert.match(servicesCss, /\.wex-admin-services \.wex-admin-services__item-action:not\(:disabled\):active \{ border-color: var\(--wex-button-border-pressed\); \}/);
+  assert.match(servicesCss, /\.wex-admin-services \.wex-admin-services__item-action:focus:not\(:focus-visible\) \{ border-color: var\(--wex-button-border-default\); \}/);
+  assert.match(servicesCss, /\.wex-admin-services \.wex-admin-services__item-action:not\(:disabled\):active::before,[\s\S]*content: none;/);
 });
 
 test('binds View and Edit actions to one open Service action dropdown', () => {
