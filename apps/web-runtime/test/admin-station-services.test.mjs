@@ -127,7 +127,6 @@ test('limits grid columns by the measured results width and anchors its menu ins
 test('uses a Small Dropdown status filter after the Services Search Input', () => {
   assert.match(services, /const statusControl = control\(document, '', 'status'\);/);
   assert.match(services, /statusControl\.classList\.add\('wex-admin-services__status-control'\)/);
-  assert.match(services, /createSystemIcon\(document, 'filter'\)/);
   assert.match(services, /createSystemIcon\(document, 'chevron-down'\)/);
   assert.match(services, /statusMenu\.dataset\.servicePopover = 'status'/);
   assert.match(services, /tabs\.append\(search, menuControl\(statusControl, statusMenu, 'status'\)\);/);
@@ -175,7 +174,7 @@ test('keeps the small-viewport Services toolbar inline with responsive search an
   assert.match(servicesCss, /\[data-service-menu-control="status"\] \{ grid-column: 1;/);
   assert.match(servicesCss, /\.wex-admin-services__tools \{ grid-column: 2; justify-self: end;/);
   assert.match(services, /const statusControlMeasure = text\(document, 'Disabled', 'wex-admin-services__status-control-measure'\);/);
-  assert.match(servicesCss, /\.wex-admin-services__status-control-label, \.wex-admin-services__status-control-measure \{ grid-area: 1 \/ 2;/);
+  assert.match(servicesCss, /\.wex-admin-services__status-control-label, \.wex-admin-services__status-control-measure \{ grid-area: 1 \/ 1;/);
   assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\[data-view="list"\] \.wex-admin-services__item \{ grid-template-columns: var\(--wex-space-64\) minmax\(0, 1fr\) auto;/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__image \{ grid-column: 1; grid-row: 1 \/ span 2; inline-size: var\(--wex-space-64\); block-size: var\(--wex-space-64\); aspect-ratio: 1;/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item-menu \{ position: relative; align-self: start; grid-column: 3; grid-row: 1;/);
