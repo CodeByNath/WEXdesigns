@@ -64,7 +64,8 @@ function serviceItem(document, service, openServiceMenuId) {
   const actionMenu = document.createElement('div'); actionMenu.className = 'wex-admin-services__menu wex-admin-services__item-menu-options'; actionMenu.hidden = openServiceMenuId !== service.id;
   actionMenu.append(menuOption(document, 'View', `service-view:${service.id}`, false), menuOption(document, 'Edit', `service-edit:${service.id}`, false));
   itemMenu.append(action, actionMenu); footer.append(value, status);
-  item.append(picture, content, fields, footer, itemMenu); return item;
+  const compactFooter = document.createElement('div'); compactFooter.className = 'wex-admin-services__compact-footer'; compactFooter.append(fields, footer);
+  item.append(picture, content, compactFooter, itemMenu); return item;
 }
 
 /**
