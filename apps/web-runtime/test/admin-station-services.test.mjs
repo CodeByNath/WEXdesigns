@@ -77,7 +77,7 @@ test('binds View and Edit actions to one open Service action dropdown', () => {
   assert.match(services, /menuOption\(document, 'View', `service-view:\$\{service\.id\}`, false\), menuOption\(document, 'Edit', `service-edit:\$\{service\.id\}`, false\)/);
   assert.match(services, /command\.startsWith\('menu:'\)/);
   assert.match(services, /command\.startsWith\('service-view:'\) \|\| command\.startsWith\('service-edit:'\)/);
-  assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-inline-start: auto; inset-inline-end: 0; min-inline-size: max-content; padding: var\(--wex-space-4\); gap: var\(--wex-space-4\);/);
+  assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-block-start: auto; inset-block-end: calc\(100% \+ var\(--wex-space-4\)\); inset-inline-start: auto; inset-inline-end: 0; min-inline-size: max-content; padding: var\(--wex-space-4\); gap: var\(--wex-space-4\);/);
   assert.match(servicesCss, /\.wex-admin-services__menu-tab \{[^}]*min-block-size: var\(--wex-tab-navigation-small-dropdown-target-size\);[^}]*font-family: var\(--wex-tab-navigation-small-dropdown-font-family\);/);
 });
 
@@ -155,4 +155,7 @@ test('keeps the small-viewport Services toolbar inline with responsive search an
   assert.match(servicesCss, /\.wex-admin-services__tools \{ grid-column: 2; justify-self: end;/);
   assert.match(services, /const statusControlMeasure = text\(document, 'Non Active', 'wex-admin-services__status-control-measure'\);/);
   assert.match(servicesCss, /\.wex-admin-services__status-control-label, \.wex-admin-services__status-control-measure \{ grid-area: 1 \/ 1;/);
+  assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\[data-view="list"\] \.wex-admin-services__item \{ grid-template-columns: var\(--wex-space-64\) minmax\(0, 1fr\) auto;/);
+  assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__image \{ grid-column: 1; grid-row: 1 \/ span 2; inline-size: var\(--wex-space-64\); block-size: var\(--wex-space-64\); aspect-ratio: 1;/);
+  assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item-menu \{ position: relative; align-self: start; grid-column: 3; grid-row: 1;/);
 });
