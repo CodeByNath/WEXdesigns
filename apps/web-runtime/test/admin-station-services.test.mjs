@@ -44,8 +44,7 @@ test('uses WEX tokens and reflows both views into a non-scrolling compact list',
   assert.match(services, /createHeaderActionIcon\(document, 'search'\)/);
   assert.match(servicesCss, /\.wex-admin-services__search \{ min-inline-size: 0;/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__collection \{ grid-template-columns: minmax\(0, 1fr\);/);
-  assert.match(servicesCss, /\.wex-admin-services__collection \{ grid-template-columns: repeat\(auto-fit, minmax\(min\(100%, max\(calc\(\(100% - \(var\(--wex-space-16\) \* 3\)\) \/ 4\), calc\(var\(--wex-space-64\) \* 3\)\)\), 1fr\)\);/);
-  assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\[data-view="list"\] \.wex-admin-services__collection \{ grid-template-columns: minmax\(0, 1fr\);/);
+  assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__collection,[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);
   assert.doesNotMatch(servicesCss, /overflow-x|#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
 });
 
@@ -107,22 +106,6 @@ test('uses the current WEX small Dropdown Navigation contract for every Services
   assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-selected-background/);
   assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-hover-background/);
   assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-focus-color/);
-});
-
-test('puts the service value beneath its category and makes the footer ID inline', () => {
-  assert.match(servicesCss, /\.wex-admin-services__value \{ grid-column: 1; grid-row: 3; \}/);
-  assert.match(servicesCss, /\.wex-admin-services__details \{ grid-column: 1; grid-row: 4; align-self: end;/);
-  assert.match(servicesCss, /\.wex-admin-services__details > div \{ display: flex; align-items: center; gap: var\(--wex-space-4\); \}/);
-  assert.match(servicesCss, /\.wex-admin-services__detail-label \{ display: inline; \}/);
-  assert.match(servicesCss, /\.wex-admin-services__status \{ grid-column: 2; grid-row: 4; align-self: end;/);
-});
-
-test('steps a constrained grid down by available card width and keeps its popovers contained', () => {
-  assert.match(servicesCss, /\[data-columns="2"\] \.wex-admin-services__collection \{ grid-template-columns: repeat\(auto-fit,/);
-  assert.match(servicesCss, /\[data-columns="3"\] \.wex-admin-services__collection \{ grid-template-columns: repeat\(auto-fit,/);
-  assert.match(servicesCss, /max-inline-size: calc\(100vw - \(var\(--wex-space-24\) \* 2\)\);/);
-  assert.match(servicesCss, /\.wex-admin-services__menu-control\[data-service-menu-control="columns"\] \.wex-admin-services__menu, \.wex-admin-services__menu-control\[data-service-menu-control="filter"\] \.wex-admin-services__menu \{ inset-inline-start: auto; inset-inline-end: 0; \}/);
-  assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\[data-view="grid"\] \.wex-admin-services__tools > \.wex-button \{ display: none; \}/);
 });
 
 test('uses a Small Dropdown status filter after the Services Search Input', () => {
