@@ -1,0 +1,10 @@
+.wex-admin-products {
+  display: grid;
+  align-content: start;
+  min-block-size: 100%;
+  background: var(--wex-color-background-primary);
+}
+
+.wex-admin-products__overview {
+  padding-inline: var(--wex-space-8);
+}

@@ -1,0 +1,89 @@
+.wex-admin-overview {
+  display: grid;
+  gap: var(--wex-space-16);
+  padding: var(--wex-space-16);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-default);
+  background: var(--wex-color-background-primary);
+}
+
+.wex-admin-overview__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-16);
+}
+
+.wex-admin-overview__scope {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wex-space-8);
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-overview__scope svg {
+  inline-size: var(--wex-icon-size-14);
+  block-size: var(--wex-icon-size-14);
+}
+
+.wex-admin-overview__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-default);
+  overflow: hidden;
+}
+
+.wex-admin-overview__metric {
+  display: grid;
+  gap: var(--wex-space-4);
+  min-inline-size: 0;
+  padding: var(--wex-space-16);
+  border-inline-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
+.wex-admin-overview__metric:last-child {
+  border-inline-end: 0;
+}
+
+.wex-admin-overview__metric dt {
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-overview__metric dd {
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .wex-admin-overview__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wex-admin-overview__metric:nth-child(2n) {
+    border-inline-end: 0;
+  }
+
+  .wex-admin-overview__metric:nth-child(n + 3) {
+    border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  }
+}
+
+@media (max-width: 767px) {
+  .wex-admin-overview {
+    gap: var(--wex-space-12);
+  }
+
+  .wex-admin-overview__metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wex-admin-overview__metric,
+  .wex-admin-overview__metric:nth-child(2n) {
+    border-inline-end: 0;
+  }
+
+  .wex-admin-overview__metric + .wex-admin-overview__metric {
+    border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  }
+}

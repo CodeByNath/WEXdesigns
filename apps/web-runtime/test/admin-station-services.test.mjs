@@ -28,11 +28,12 @@ test('uses the compact Manager heading and Small typography throughout service c
   assert.match(services, /wex-type-navigation-small-semibold wex-admin-services__value/);
 });
 
-test('wires All Services navigation to the station-scoped collection', () => {
-  assert.match(navigation, /import \{ ALL_SERVICES_OWNER, mountAllServicesBody \} from '\.\/admin-station-services\.js';/);
+test('keeps All Services navigation separate from the station-scoped collection module', () => {
+  assert.match(navigation, /import \{ mountProductsBody \} from '\.\/admin-station-products\.js';/);
+  assert.match(navigation, /import \{ ALL_SERVICES_OWNER \} from '\.\/admin-station-services\.js';/);
   assert.match(navigation, /id: ALL_SERVICES_OWNER, label: 'All Services', active: true/);
-  assert.match(navigation, /if \(selected\.dataset\.sidebarTab === ALL_SERVICES_OWNER\) \{[\s\S]*mountAllServicesBody\(shell\);/);
-  assert.match(navigation, /navigation\.replaceChildren\(list\);\s*mountAllServicesBody\(shell\);/);
+  assert.match(navigation, /if \(selected\.dataset\.sidebarTab === ALL_SERVICES_OWNER\) \{[\s\S]*mountProductsBody\(shell\);/);
+  assert.match(navigation, /navigation\.replaceChildren\(list\);\s*mountProductsBody\(shell\);/);
 });
 
 test('uses WEX tokens and reflows both views into a non-scrolling compact list', () => {

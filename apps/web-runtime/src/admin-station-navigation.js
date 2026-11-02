@@ -1,6 +1,7 @@
 import { announceLocationChange } from './admin-station-location.js';
 import { mountDashboardBody } from './admin-station-dashboard.js';
-import { ALL_SERVICES_OWNER, mountAllServicesBody } from './admin-station-services.js';
+import { mountProductsBody } from './admin-station-products.js';
+import { ALL_SERVICES_OWNER } from './admin-station-services.js';
 
 const ICON_STROKE_WIDTH = '1.75';
 const DASHBOARD_BODY_OWNER = 'dashboard';
@@ -192,11 +193,11 @@ export function mountSidebarNavigation(shell) {
       mountDashboardBody(shell);
     }
     if (selected.dataset.sidebarTab === ALL_SERVICES_OWNER) {
-      mountAllServicesBody(shell);
+      mountProductsBody(shell);
     }
     announceLocationChange(shell);
   });
 
   navigation.replaceChildren(list);
-  mountAllServicesBody(shell);
+  mountProductsBody(shell);
 }

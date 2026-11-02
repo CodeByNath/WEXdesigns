@@ -16,6 +16,11 @@
 
 ### Recent work (newest first)
 
+- Overview is a station-scoped module composed ahead of the existing Manager
+  list/grid module by the local Products page mount. Overview owns only its
+  summary structure and consumes the current Services fixture; Manager retains
+  its existing cards, list controls, and presentation ownership.
+
 - The local All Services view is a single station-scoped collection mounted by
   the selected Services leaf. Grid and list controls only change the
   presentation of the same rendered service item; compact layout reflows to
@@ -129,6 +134,11 @@ adapters, schemas, or pluggable components.
   [`admin-station-services.css`](../../apps/web-runtime/src/admin-station-services.css),
   and the shared system SVG factory
   [`admin-station-system-icons.js`](../../apps/web-runtime/src/admin-station-system-icons.js)
+- Products-page composition and standalone Overview module:
+  [`apps/web-runtime/src/admin-station-products.js`](../../apps/web-runtime/src/admin-station-products.js),
+  [`admin-station-products.css`](../../apps/web-runtime/src/admin-station-products.css),
+  [`admin-station-overview.js`](../../apps/web-runtime/src/admin-station-overview.js), and
+  [`admin-station-overview.css`](../../apps/web-runtime/src/admin-station-overview.css)
 - Portable Studio host: [`apps/web-runtime/src/studio-host.js`](../../apps/web-runtime/src/studio-host.js), [`apps/web-runtime/vite.studio-host.config.ts`](../../apps/web-runtime/vite.studio-host.config.ts), [`apps/web-runtime/studio-host/README.md`](../../apps/web-runtime/studio-host/README.md)
 - Staging pointer: [`ADR 0025`](../decisions/0025-studio-staging-release-pointer.md), [`tooling/scripts/studio-staging-pointer.mjs`](../../tooling/scripts/studio-staging-pointer.mjs), [`apps/web-runtime/test/studio-staging-pointer.test.mjs`](../../apps/web-runtime/test/studio-staging-pointer.test.mjs)
 - Release producer and proof: [`tooling/scripts/studio-release.mjs`](../../tooling/scripts/studio-release.mjs), [`tooling/scripts/verify-studio-releases.mjs`](../../tooling/scripts/verify-studio-releases.mjs), [`apps/web-runtime/test/studio-release.test.mjs`](../../apps/web-runtime/test/studio-release.test.mjs)
@@ -155,6 +165,8 @@ adapters, schemas, or pluggable components.
   [`apps/web-runtime/test/admin-station-drawer.test.mjs`](../../apps/web-runtime/test/admin-station-drawer.test.mjs)
 - All Services focused checks:
   [`apps/web-runtime/test/admin-station-services.test.mjs`](../../apps/web-runtime/test/admin-station-services.test.mjs)
+- Overview composition check:
+  [`apps/web-runtime/test/admin-station-overview.test.mjs`](../../apps/web-runtime/test/admin-station-overview.test.mjs)
 - Generic web materializer: [`apps/web-runtime/src/render-description.js`](../../apps/web-runtime/src/render-description.js)
 - Focused checks: [`apps/web-runtime/test/catalogue.test.mjs`](../../apps/web-runtime/test/catalogue.test.mjs), [`apps/web-runtime/test/studio-host.test.mjs`](../../apps/web-runtime/test/studio-host.test.mjs), [`packages/wex/test/header-foundation.test.mjs`](../../packages/wex/test/header-foundation.test.mjs), and [`tooling/scripts/validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
 
@@ -166,6 +178,7 @@ Admin Station runtime layout
   -> accepted Shared UI Logo render description via generic materializer
   -> local Sidebar-tab presentation with no product command bindings
   -> Header-owned location label derived only from the local Sidebar selection
+  -> Products-page composition of independent Overview and Manager modules
   -> Admin-owned Body and Drawer request frames, each with one current owner
   -> requesting feature-owned mounted content and actions
   -> Services-owned single-station list presentation
