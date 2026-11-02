@@ -429,7 +429,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-dropdown\[aria-pressed="true"\]\s*\{[\s\S]*--wex-tab-navigation-small-dropdown-selected-background/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-horizontal:not\(:disabled\):active\s*\{[\s\S]*background: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-dropdown:not\(:disabled\):active\s*\{[\s\S]*background: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\s*\{[\s\S]*inset-inline-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*inline-size: max-content;[\s\S]*white-space: nowrap;/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\s*\{[\s\S]*inset-inline-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*white-space: nowrap;/);
+  assert.doesNotMatch(adminStationNotificationsCss, /__(?:item-menu-)?options\s*\{[^}]*inline-size/);
   assert.match(adminStationNotifications, /className = 'wex-dropdown-menu--small wex-admin-notifications__options'/);
   assert.match(adminStationNotifications, /className = 'wex-dropdown-menu--small wex-admin-notifications__item-menu-options'/);
   assert.doesNotMatch(adminStationNotificationsCss, /__(?:item-menu-)?options\s*\{[^}]*(?:padding|border-radius|background):/);
