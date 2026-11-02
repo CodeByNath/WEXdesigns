@@ -14,7 +14,7 @@
 
 - WEX Component Title Default registers the component/module heading as a
   component-token family over Navigation Default type and primary text colour.
-  Overview is its first consumer (ADR 0031).
+  Overview and the Services Manager heading consume it (ADR 0031).
 
 - WEX Pill Notification registers Message and Status modes from the existing
   Notifications count pill. Message serves unread/message counts; Status

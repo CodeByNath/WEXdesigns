@@ -84,7 +84,7 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   let popover = null;
   const section = document.createElement('section'); section.className = 'wex-admin-services'; section.dataset.stationId = snapshot.stationId; section.setAttribute('aria-labelledby', 'wex-admin-services-title');
   const header = document.createElement('header'); header.className = 'wex-admin-services__header';
-  const heading = document.createElement('h1'); heading.id = 'wex-admin-services-title'; heading.className = 'wex-type-title-small-semibold'; heading.textContent = 'Manager'; header.append(heading);
+  const heading = document.createElement('h1'); heading.id = 'wex-admin-services-title'; heading.className = 'wex-component-title'; heading.textContent = 'Manager'; header.append(heading);
   const tabs = document.createElement('div'); tabs.className = 'wex-admin-services__tabs'; tabs.setAttribute('aria-label', 'Service search and status filter');
   const tools = document.createElement('div'); tools.className = 'wex-admin-services__tools';
   const viewControl = iconControl(document, 'List', 'view', 'list'); const columnsControl = iconControl(document, 'Columns', 'columns', 'columns'); const filterControl = iconControl(document, 'Filter', 'filter', 'filter');

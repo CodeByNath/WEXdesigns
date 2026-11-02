@@ -20,11 +20,12 @@ consumer needs them. The presentation class is `.wex-component-title`.
 
 This registers presentation tokens only. It does not define heading semantics,
 a component, or an identifier convention. The consuming component keeps its
-element level, text and accessible labelling. Overview is the first consumer.
+element level, text and accessible labelling. Overview is the first consumer and the Services Manager heading is the second.
 
 ## Evidence
 
 - Canonical tokens and class: `packages/wex/src/foundations/component-title.css`
 - Focused proof: `packages/wex/test/component-title-foundation.test.mjs`
 - Global Tokens catalogue: `apps/web-runtime/global-tokens/index.html`
-- Consumer: `apps/web-runtime/src/admin-station-overview.js`
+- Consumers: `apps/web-runtime/src/admin-station-overview.js`,
+  `apps/web-runtime/src/admin-station-services.js`

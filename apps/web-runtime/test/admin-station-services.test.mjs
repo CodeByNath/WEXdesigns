@@ -145,7 +145,7 @@ test('uses a Small Dropdown status filter after the Services Search Input', () =
 test('keeps every Services popover inside its trigger anchor with the compact Manager heading', () => {
   assert.match(services, /menuControl\(columnsControl, columnsMenu, 'columns'\)/);
   assert.match(services, /menuControl\(filterControl, filterMenu, 'filter'\)/);
-  assert.match(services, /wex-type-title-small-semibold/);
+  assert.match(services, /heading\.className = 'wex-component-title'; heading\.textContent = 'Manager'/);
   assert.doesNotMatch(services, /wex-admin-services__summary/);
   assert.match(servicesCss, /\.wex-admin-services \{ display: grid;[\s\S]*overflow: hidden;/);
 });
