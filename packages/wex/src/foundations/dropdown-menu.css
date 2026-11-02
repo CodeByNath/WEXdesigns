@@ -1,0 +1,96 @@
+/**
+ * WEX Dropdown Menu component tokens
+ *
+ * The popover that lists the options of an action, such as the Manager Columns
+ * and Filter menus and the Overview Add New menu. The container and each row
+ * point to existing WEX foundations; the rows reuse the registered WEX Tab
+ * Navigation Small Dropdown contract. Consumers position the menu and own its
+ * options; they do not recreate its surface or rows locally.
+ */
+
+:root {
+  /* WEX Dropdown Menu Small */
+  --wex-dropdown-menu-small-min-inline-size: calc(var(--wex-space-64) * 3);
+  --wex-dropdown-menu-small-padding: var(--wex-space-8);
+  --wex-dropdown-menu-small-gap: var(--wex-space-4);
+  --wex-dropdown-menu-small-border-width: var(--wex-border-width-default);
+  --wex-dropdown-menu-small-border-color: var(--wex-color-border-subtle);
+  --wex-dropdown-menu-small-radius: var(--wex-radius-default);
+  --wex-dropdown-menu-small-background: var(--wex-color-background-primary);
+}
+
+.wex-dropdown-menu--small {
+  display: grid;
+  gap: var(--wex-dropdown-menu-small-gap);
+  min-inline-size: var(--wex-dropdown-menu-small-min-inline-size);
+  padding: var(--wex-dropdown-menu-small-padding);
+  border: var(--wex-dropdown-menu-small-border-width) solid var(--wex-dropdown-menu-small-border-color);
+  border-radius: var(--wex-dropdown-menu-small-radius);
+  background: var(--wex-dropdown-menu-small-background);
+}
+
+.wex-dropdown-menu__item--small {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  inline-size: 100%;
+  min-block-size: var(--wex-tab-navigation-small-dropdown-target-size);
+  padding: var(--wex-tab-navigation-small-dropdown-padding-block) var(--wex-tab-navigation-small-dropdown-padding-inline);
+  border: var(--wex-tab-navigation-small-dropdown-border-width) solid var(--wex-tab-navigation-small-dropdown-border-color);
+  border-radius: var(--wex-tab-navigation-small-dropdown-radius);
+  background: var(--wex-tab-navigation-small-dropdown-background);
+  color: var(--wex-tab-navigation-small-dropdown-foreground);
+  font-family: var(--wex-tab-navigation-small-dropdown-font-family);
+  font-size: var(--wex-tab-navigation-small-dropdown-font-size);
+  font-weight: var(--wex-tab-navigation-small-dropdown-font-weight);
+  letter-spacing: var(--wex-tab-navigation-small-dropdown-letter-spacing);
+  line-height: var(--wex-tab-navigation-small-dropdown-line-height);
+  outline: none;
+  text-align: start;
+}
+
+.wex-dropdown-menu__item--small:not([aria-pressed="true"]):hover {
+  background: var(--wex-tab-navigation-small-dropdown-hover-background);
+  border-color: var(--wex-tab-navigation-small-dropdown-hover-border-color);
+  color: var(--wex-tab-navigation-small-dropdown-hover-foreground);
+}
+
+.wex-dropdown-menu__item--small[aria-pressed="true"] {
+  background: var(--wex-tab-navigation-small-dropdown-selected-background);
+  border-color: var(--wex-tab-navigation-small-dropdown-selected-border-color);
+  color: var(--wex-tab-navigation-small-dropdown-selected-foreground);
+}
+
+.wex-dropdown-menu__item--small:not(:disabled):active {
+  background: var(--wex-button-neutral-background-pressed);
+  color: var(--wex-button-neutral-foreground-pressed);
+}
+
+.wex-dropdown-menu__item--small:not(:disabled):active,
+.wex-dropdown-menu__item--small:focus {
+  border-color: var(--wex-outer-ring-color);
+}
+
+.wex-dropdown-menu__item--small:not(:disabled):active::after,
+.wex-dropdown-menu__item--small:focus::after {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-tab-navigation-small-dropdown-focus-inner-width) solid var(--wex-tab-navigation-small-dropdown-focus-color);
+  border-radius: calc(var(--wex-tab-navigation-small-dropdown-radius) - var(--wex-tab-navigation-small-dropdown-border-width));
+  content: '';
+}
+
+.wex-dropdown-menu__item--small:not(:disabled):active::before,
+.wex-dropdown-menu__item--small:focus::before {
+  position: absolute;
+  inset: var(--wex-tab-navigation-small-dropdown-focus-inner-width);
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-tab-navigation-small-dropdown-focus-gap) solid var(--wex-tab-navigation-small-dropdown-focus-gap-color);
+  border-radius: calc(var(--wex-tab-navigation-small-dropdown-radius) - var(--wex-tab-navigation-small-dropdown-focus-outer-width));
+  content: '';
+}

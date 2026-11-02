@@ -2,11 +2,12 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-const [services, servicesCss, navigation, appCss] = await Promise.all([
+const [services, servicesCss, navigation, appCss, dropdownMenu] = await Promise.all([
   readFile(new URL('../src/admin-station-services.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-services.css', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-navigation.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station.css', import.meta.url), 'utf8'),
+  readFile(new URL('../../../packages/wex/src/foundations/dropdown-menu.css', import.meta.url), 'utf8'),
 ]);
 
 test('mounts one station-scoped All Services view with a shared item renderer', () => {
@@ -89,7 +90,8 @@ test('binds View and Edit actions to one open Service action dropdown', () => {
   assert.match(services, /command\.startsWith\('menu:'\)/);
   assert.match(services, /command\.startsWith\('service-view:'\) \|\| command\.startsWith\('service-edit:'\)/);
   assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-block-start: auto; inset-block-end: calc\(100% \+ var\(--wex-space-4\)\); inset-inline-start: auto; inset-inline-end: 0; min-inline-size: max-content; padding: var\(--wex-space-4\); gap: var\(--wex-space-4\);/);
-  assert.match(servicesCss, /\.wex-admin-services__menu-tab \{[^}]*min-block-size: var\(--wex-tab-navigation-small-dropdown-target-size\);[^}]*font-family: var\(--wex-tab-navigation-small-dropdown-font-family\);/);
+  assert.doesNotMatch(servicesCss, /menu-tab|--wex-tab-navigation-small-dropdown/);
+  assert.match(services, /className = 'wex-dropdown-menu--small wex-admin-services__menu'/);
 });
 
 test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes', () => {
@@ -108,15 +110,15 @@ test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes
 test('uses the current WEX small Dropdown Navigation contract for every Services popover row', () => {
   assert.match(services, /function menuOption\(document, label, command, selected\)/);
   assert.match(services, /node\.setAttribute\('aria-pressed', String\(selected\)\)/);
-  assert.match(services, /node\.className = 'wex-admin-services__menu-tab'/);
+  assert.match(services, /node\.className = 'wex-dropdown-menu__item--small'/);
   assert.doesNotMatch(services, /createSystemIcon\(document, 'check'\)/);
   assert.match(services, /columnsMenu\.replaceChildren\(\);/);
   assert.match(services, /filterMenu\.replaceChildren\(\);/);
-  assert.match(servicesCss, /\.wex-admin-services__menu-tab/);
-  assert.match(servicesCss, /\[aria-pressed="true"\]/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-selected-background/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-hover-background/);
-  assert.match(servicesCss, /--wex-tab-navigation-small-dropdown-focus-color/);
+  assert.match(dropdownMenu, /\.wex-dropdown-menu__item--small/);
+  assert.match(dropdownMenu, /\[aria-pressed="true"\]/);
+  assert.match(dropdownMenu, /--wex-tab-navigation-small-dropdown-selected-background/);
+  assert.match(dropdownMenu, /--wex-tab-navigation-small-dropdown-hover-background/);
+  assert.match(dropdownMenu, /--wex-tab-navigation-small-dropdown-focus-color/);
 });
 
 test('limits grid columns by the measured results width and anchors its menu inside the wrapper', () => {

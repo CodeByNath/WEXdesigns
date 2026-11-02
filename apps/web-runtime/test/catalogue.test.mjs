@@ -146,6 +146,12 @@ test('shows the registered WEX Action Button Icon Only tokens in Global Tokens',
   assert.match(tokens, /WEX Action Button Icon Only Small[\s\S]*wex-action-button-icon-only--small/);
 });
 
+test('shows the registered WEX Dropdown Menu tokens in Global Tokens', () => {
+  const tokens = pageByPath['global-tokens/index.html'];
+  assert.match(tokens, /data-global-token-role="wex-dropdown-menu"/);
+  assert.match(tokens, /WEX Dropdown Menu Small[\s\S]*wex-dropdown-menu--small[\s\S]*wex-dropdown-menu__item--small/);
+});
+
 test('provides an isolated Component Manager sandbox with the approved Logo candidate only', () => {
   const manager = pageByPath['component-manager/index.html'];
   assert.match(manager, /<a aria-current="page" href="\.\/">Component Manager<\/a>/);

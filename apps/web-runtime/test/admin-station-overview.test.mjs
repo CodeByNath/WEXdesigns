@@ -35,7 +35,9 @@ test('uses registered WEX tokens for Overview with desktop, tablet, and compact 
   assert.match(overviewCss, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\);/);
   assert.match(overviewCss, /\.wex-admin-overview__scope-toggle \{[\s\S]*border-inline-start: 0;/);
   assert.doesNotMatch(overviewCss, /\.wex-admin-overview__scope-toggle svg|inline-size: var\(--wex-button-small-target-size\)/);
-  assert.match(overviewCss, /\.wex-admin-overview__scope-menu-item \{[\s\S]*min-block-size: var\(--wex-tab-navigation-small-dropdown-target-size\);/);
+  assert.match(overview, /className = 'wex-dropdown-menu--small wex-admin-overview__scope-menu'/);
+  assert.match(overview, /className = 'wex-dropdown-menu__item--small wex-admin-overview__scope-menu-item'/);
+  assert.doesNotMatch(overviewCss, /--wex-tab-navigation-small-dropdown|scope-menu-item/);
   assert.match(overviewCss, /\.wex-admin-overview__scope \.wex-button:focus::after \{\s*content: none;/);
   assert.match(overviewCss, /\.wex-admin-overview__scope:focus-within::after \{[\s\S]*border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
   assert.match(overviewCss, /\.wex-admin-overview__header \{[^}]*gap: var\(--wex-space-8\);/);
