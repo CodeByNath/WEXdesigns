@@ -42,28 +42,6 @@ function pagerIconControl(document, label, command, icon) { const node = control
 /** @param {number} value */
 function money(value) { return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(value); }
 
-/** @param {Document} document @param {readonly ServiceListItem[]} services */
-function overview(document, services) {
-  const section = document.createElement('section'); section.className = 'wex-admin-services__overview'; section.setAttribute('aria-labelledby', 'wex-admin-services-overview-title');
-  const header = document.createElement('div'); header.className = 'wex-admin-services__overview-header';
-  const heading = document.createElement('h2'); heading.id = 'wex-admin-services-overview-title'; heading.className = 'wex-type-navigation-default-semibold'; heading.textContent = 'Overview';
-  const scope = document.createElement('span'); scope.className = 'wex-admin-services__overview-scope wex-type-navigation-small-semibold'; scope.append(text(document, 'All services'), createSystemIcon(document, 'chevron-down'));
-  header.append(heading, scope);
-  const metrics = document.createElement('dl'); metrics.className = 'wex-admin-services__overview-metrics';
-  [
-    ['All services', services.length],
-    ['Active', services.filter(({ status }) => status === 'active').length],
-    ['Pending', services.filter(({ status }) => status === 'pending').length],
-    ['Disabled', services.filter(({ status }) => status === 'disabled').length],
-  ].forEach(([label, count]) => {
-    const metric = document.createElement('div'); metric.className = 'wex-admin-services__overview-metric';
-    const term = document.createElement('dt'); term.className = 'wex-type-body-small-regular'; term.textContent = String(label);
-    const definition = document.createElement('dd'); definition.className = 'wex-type-title-small-semibold'; definition.textContent = String(count);
-    metric.append(term, definition); metrics.append(metric);
-  });
-  section.append(header, metrics); return section;
-}
-
 /** @param {Document} document @param {ServiceListItem} service @param {string|null} openServiceMenuId */
 function serviceItem(document, service, openServiceMenuId) {
   const item = document.createElement('article'); item.className = 'wex-admin-services__item'; item.dataset.serviceId = service.id;
@@ -118,7 +96,6 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   const filterMenu = document.createElement('div'); filterMenu.id = 'wex-admin-services-filter-menu'; filterMenu.className = 'wex-admin-services__menu'; filterMenu.dataset.servicePopover = 'filter'; filterControl.setAttribute('aria-controls', filterMenu.id); const columnsMenuControl = menuControl(columnsControl, columnsMenu, 'columns'); tools.append(columnsMenuControl, viewControl, menuControl(filterControl, filterMenu, 'filter'));
   const statusMenu = document.createElement('div'); statusMenu.id = 'wex-admin-services-status-menu'; statusMenu.className = 'wex-admin-services__menu'; statusMenu.dataset.servicePopover = 'status'; statusControl.setAttribute('aria-controls', statusMenu.id); tabs.append(search, menuControl(statusControl, statusMenu, 'status'));
   const toolbar = document.createElement('div'); toolbar.className = 'wex-admin-services__toolbar'; toolbar.append(tabs, tools);
-  const serviceOverview = overview(document, services);
   const results = document.createElement('div'); results.className = 'wex-admin-services__results'; results.setAttribute('aria-live', 'polite');
   const footer = document.createElement('footer'); footer.className = 'wex-admin-services__footer'; const total = text(document, '', 'wex-type-body-small-regular wex-admin-services__total'); const pager = document.createElement('div'); pager.className = 'wex-admin-services__pager'; footer.append(total, pager);
   const availableColumns = () => {
@@ -158,7 +135,7 @@ export function mountAllServicesBody(shell, snapshot = allServicesPreviewSnapsho
   document.addEventListener('click', (event) => { if ((!popover && !openServiceMenuId) || !(event.target instanceof Node)) return; if (event.target instanceof Element && event.target.closest('[data-service-item-menu]')) return; const activeMenu = popover === 'columns' ? columnsMenu : popover === 'filter' ? filterMenu : popover === 'status' ? statusMenu : null; const activeControl = popover === 'columns' ? columnsControl : popover === 'filter' ? filterControl : popover === 'status' ? statusControl : null; if (activeMenu?.contains(event.target) || activeControl?.contains(event.target)) return; popover = null; openServiceMenuId = null; render(); });
   const syncSearchCompact = () => { const targetSize = Number.parseFloat(document.defaultView?.getComputedStyle(search).getPropertyValue('--wex-search-input-target-size') ?? '0'); search.dataset.compact = String(targetSize > 0 && search.getBoundingClientRect().width <= targetSize); };
   search.addEventListener('click', () => { if (search.dataset.compact !== 'true' || searchExpanded) return; searchExpanded = true; render(); input.focus(); }); input.addEventListener('blur', () => { if (!searchExpanded) return; searchExpanded = false; render(); }); input.addEventListener('input', () => { query = input.value.trim().toLocaleLowerCase(); page = 1; render(); });
-  section.append(header, serviceOverview, toolbar, results, footer); main.replaceChildren(section); syncSearchCompact(); const SearchResizeObserver = document.defaultView?.ResizeObserver; if (SearchResizeObserver) { const observer = new SearchResizeObserver(() => { syncSearchCompact(); render(); }); observer.observe(search); observer.observe(results); } render();
+  section.append(header, toolbar, results, footer); main.replaceChildren(section); syncSearchCompact(); const SearchResizeObserver = document.defaultView?.ResizeObserver; if (SearchResizeObserver) { const observer = new SearchResizeObserver(() => { syncSearchCompact(); render(); }); observer.observe(search); observer.observe(results); } render();
 }
 
 export { ALL_SERVICES_OWNER };
