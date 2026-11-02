@@ -2,6 +2,7 @@
   display: grid;
   align-content: start;
   gap: var(--wex-space-16);
+  padding-block-start: var(--wex-space-8);
   min-block-size: 100%;
   background: var(--wex-color-background-primary);
 }
