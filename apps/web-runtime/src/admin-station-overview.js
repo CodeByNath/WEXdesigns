@@ -16,7 +16,7 @@ export function mountOverviewModule(mount, snapshot) {
   const document = mount.ownerDocument;
   const overview = document.createElement('section'); overview.className = 'wex-admin-overview'; overview.setAttribute('aria-labelledby', 'wex-admin-overview-title');
   const header = document.createElement('div'); header.className = 'wex-admin-overview__header';
-  const heading = document.createElement('h2'); heading.id = 'wex-admin-overview-title'; heading.className = 'wex-type-navigation-default-semibold'; heading.textContent = 'Overview';
+  const heading = document.createElement('h2'); heading.id = 'wex-admin-overview-title'; heading.className = 'wex-component-title'; heading.textContent = 'Overview';
   const scope = document.createElement('div'); scope.className = 'wex-admin-overview__scope'; scope.setAttribute('aria-label', 'Overview actions');
   const scopeAction = document.createElement('button'); scopeAction.type = 'button'; scopeAction.className = 'wex-button wex-button--small wex-button--neutral wex-admin-overview__scope-action'; scopeAction.textContent = 'All services';
   const scopeToggle = document.createElement('button'); scopeToggle.type = 'button'; scopeToggle.className = 'wex-button wex-button--small wex-button--neutral wex-admin-overview__scope-toggle'; scopeToggle.setAttribute('aria-label', 'Open overview actions'); scopeToggle.setAttribute('aria-expanded', 'false'); scopeToggle.setAttribute('aria-haspopup', 'menu'); scopeToggle.append(createSystemIcon(document, 'chevron-down'));

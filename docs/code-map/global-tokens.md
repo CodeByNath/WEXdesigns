@@ -2,8 +2,8 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-31
-- Last updated: 2026-10-31
+- Last visited: 2026-11-02
+- Last updated: 2026-11-02
 - Verified against: Owner-approved WEX Tab Navigation Small Horizontal and
   Small Dropdown modes, and the existing Notifications count pill on main.
 - Registration status: Typography roles remain registered as before. WEX Tab
@@ -11,6 +11,10 @@
   component-token families; no Shared UI component is registered.
 
 ### Recent work (newest first)
+
+- WEX Component Title Default registers the component/module heading as a
+  component-token family over Navigation Default type and primary text colour.
+  Overview is its first consumer (ADR 0031).
 
 - WEX Pill Notification registers Message and Status modes from the existing
   Notifications count pill. Message serves unread/message counts; Status
@@ -64,6 +68,7 @@ does not define HTML semantics, component behaviour, or layout composition.
 - [WEX Tab Navigation Global Tokens](../decisions/0027-tab-navigation-global-tokens.md)
 - [WEX Search Input Global Tokens](../decisions/0029-wex-search-input-global-tokens.md)
 - [WEX More Action Global Tokens](../decisions/0030-wex-more-action-global-tokens.md)
+- [WEX Component Title Global Tokens](../decisions/0031-wex-component-title-global-tokens.md)
 - [Typography and font delivery map](typography-font-delivery.md)
 - [Colour map](colour.md)
 - [Spacing map](spacing.md)
@@ -90,9 +95,12 @@ They do not supply or approve Global Tokens values.
   [`more-action.css`](../../packages/wex/src/foundations/more-action.css)
 - WEX Pill Notification component tokens:
   [`notification-pill.css`](../../packages/wex/src/foundations/notification-pill.css)
+- WEX Component Title component tokens:
+  [`component-title.css`](../../packages/wex/src/foundations/component-title.css)
 - Current focused checks: [`global-tokens.test.mjs`](../../packages/wex/test/global-tokens.test.mjs),
   [`search-input-foundation.test.mjs`](../../packages/wex/test/search-input-foundation.test.mjs),
   [`more-action-foundation.test.mjs`](../../packages/wex/test/more-action-foundation.test.mjs),
+  [`component-title-foundation.test.mjs`](../../packages/wex/test/component-title-foundation.test.mjs),
   [`typography-modules.test.mjs`](../../packages/wex/test/typography-modules.test.mjs),
   [`colour-tokens.test.mjs`](../../packages/wex/test/colour-tokens.test.mjs), and
   [`validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
@@ -106,7 +114,7 @@ They do not supply or approve Global Tokens values.
 existing WEX foundations
   -> accepted Global Tokens authority decisions
   -> Typography selection + optional registered attributes
-  -> WEX Tab Navigation, WEX Search Input, WEX More Action, and WEX Pill Notification component tokens
+  -> WEX Tab Navigation, WEX Search Input, WEX More Action, WEX Pill Notification, and WEX Component Title component tokens
   -> components and consuming applications
 ```
 

@@ -1,0 +1,28 @@
+/**
+ * WEX Component Title component tokens
+ *
+ * The heading of a component or module, such as Overview. Each token points to
+ * an existing WEX foundation; consumers select the family rather than
+ * recreating Navigation typography locally.
+ */
+
+:root {
+  /* WEX Component Title Default */
+  --wex-component-title-default-font-family: var(--wex-type-navigation-default-font-family);
+  --wex-component-title-default-font-size: var(--wex-type-navigation-default-font-size);
+  --wex-component-title-default-font-weight: var(--wex-type-navigation-default-primary-weight);
+  --wex-component-title-default-font-style: var(--wex-type-style-normal);
+  --wex-component-title-default-line-height: var(--wex-type-navigation-default-line-height);
+  --wex-component-title-default-letter-spacing: var(--wex-type-navigation-default-letter-spacing);
+  --wex-component-title-default-foreground: var(--wex-color-text-primary);
+}
+
+.wex-component-title {
+  font-family: var(--wex-component-title-default-font-family);
+  font-size: var(--wex-component-title-default-font-size);
+  font-weight: var(--wex-component-title-default-font-weight);
+  font-style: var(--wex-component-title-default-font-style);
+  line-height: var(--wex-component-title-default-line-height);
+  letter-spacing: var(--wex-component-title-default-letter-spacing);
+  color: var(--wex-component-title-default-foreground);
+}

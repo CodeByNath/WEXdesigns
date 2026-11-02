@@ -134,6 +134,12 @@ test('shows the registered WEX Tab Navigation tokens in Global Tokens', () => {
   assert.match(css, /--wex-tab-navigation-default-focus-color/);
 });
 
+test('shows the registered WEX Component Title tokens in Global Tokens', () => {
+  const tokens = pageByPath['global-tokens/index.html'];
+  assert.match(tokens, /data-global-token-role="wex-component-title"/);
+  assert.match(tokens, /WEX Component Title Default[\s\S]*wex-component-title/);
+});
+
 test('provides an isolated Component Manager sandbox with the approved Logo candidate only', () => {
   const manager = pageByPath['component-manager/index.html'];
   assert.match(manager, /<a aria-current="page" href="\.\/">Component Manager<\/a>/);

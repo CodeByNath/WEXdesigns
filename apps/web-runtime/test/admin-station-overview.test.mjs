@@ -14,6 +14,7 @@ const [overview, overviewCss, products, productsCss, navigation, services] = awa
 test('mounts Overview independently from the Manager list/grid module', () => {
   assert.match(overview, /export function mountOverviewModule\(mount, snapshot\)/);
   assert.match(overview, /heading\.textContent = 'Overview';/);
+  assert.match(overview, /heading\.className = 'wex-component-title';/);
   assert.match(overview, /snapshot\.services\.filter\(\(\{ status \}\) => status === 'active'\)\.length/);
   assert.match(overview, /wex-button wex-button--small wex-button--neutral wex-admin-overview__scope-action/);
   assert.match(overview, /wex-button wex-button--small wex-button--neutral wex-admin-overview__scope-toggle/);
