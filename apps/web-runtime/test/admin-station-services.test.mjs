@@ -93,7 +93,7 @@ test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes
   assert.match(services, /'Ocean Explorer'.*'pending'/);
   assert.match(services, /'Coastal Adventures'.*'disabled'/);
   assert.match(services, /status === 'active' \? 'Active' : service\.status === 'pending' \? 'Pending' : 'Disabled'/);
-  assert.match(servicesCss, /\.wex-admin-services__item \{[^}]*gap: var\(--wex-space-16\);[^}]*padding: var\(--wex-space-16\);/);
+  assert.match(servicesCss, /\.wex-admin-services__item \{[^}]*gap: var\(--wex-space-16\);[^}]*padding: var\(--wex-space-16\) calc\(var\(--wex-space-16\) - var\(--wex-border-width-default\)\);/);
   assert.match(servicesCss, /\.wex-admin-services__status \{[^}]*padding-block: var\(--wex-pill-notification-status-padding-block\);[^}]*padding-inline: var\(--wex-pill-notification-status-padding-inline\);[^}]*border-radius: var\(--wex-pill-notification-status-radius\);/);
   assert.match(servicesCss, /\.wex-admin-services__status--pending \{ background: var\(--wex-pill-notification-status-pending-background\); color: var\(--wex-pill-notification-status-pending-foreground\);/);
   assert.match(servicesCss, /\.wex-admin-services__status--active \{ background: var\(--wex-pill-notification-status-active-background\); color: var\(--wex-pill-notification-status-active-foreground\);/);
@@ -154,7 +154,7 @@ test('centres list rows and hides Columns while List is active', () => {
   assert.match(services, /columnsMenuControl\.hidden = view === 'list';/);
   assert.match(servicesCss, /\.wex-admin-services__menu\[hidden\], \.wex-admin-services__menu-control\[hidden\] \{ display: none; \}/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item \{[^}]*align-items: center;/);
-  assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__list-head \{ padding-inline: var\(--wex-space-16\); \}/);
+  assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__list-head \{ padding-inline: calc\(var\(--wex-space-16\) - var\(--wex-border-width-default\)\); \}/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item-action \{[^}]*align-self: center;/);
   assert.match(servicesCss, /\[data-view="list"\] \.wex-admin-services__item-menu \{[^}]*align-self: center;/);
   assert.match(servicesCss, /\.wex-admin-services\[data-view="list"\] \.wex-admin-services__list-head > :nth-child\(4\), \.wex-admin-services\[data-view="list"\] \.wex-admin-services__list-head > :nth-child\(5\), \.wex-admin-services\[data-view="list"\] \.wex-admin-services__status \{ justify-self: center; \}/);

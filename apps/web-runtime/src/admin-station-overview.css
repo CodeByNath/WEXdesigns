@@ -1,7 +1,7 @@
 .wex-admin-overview {
   display: grid;
   gap: var(--wex-space-16);
-  padding: var(--wex-space-16);
+  padding: calc(var(--wex-space-16) - var(--wex-border-width-default));
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   border-radius: var(--wex-radius-default);
   background: var(--wex-color-background-primary);
@@ -97,6 +97,7 @@
   gap: var(--wex-space-4);
   min-inline-size: 0;
   padding: var(--wex-space-16);
+  padding-inline-start: calc(var(--wex-space-16) - var(--wex-border-width-default));
   border-inline-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
