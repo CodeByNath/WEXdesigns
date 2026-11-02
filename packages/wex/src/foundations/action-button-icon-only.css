@@ -5,13 +5,18 @@
  * Manager Columns, List and Filter tools. Each token points to an existing WEX
  * Button foundation; consumers select the family and mode rather than
  * recreating the square target locally. The button keeps its `wex-button`
- * appearance tone and supplies its own accessible name.
+ * appearance tone and supplies its own accessible name. The Small Menu mode is
+ * one button that shows an icon beside a chevron and opens a Dropdown Menu.
  */
 
 :root {
   /* WEX Action Button Icon Only Small */
   --wex-action-button-icon-only-small-target-size: var(--wex-button-small-target-size);
   --wex-action-button-icon-only-small-icon-size: var(--wex-button-small-icon-size);
+
+  /* WEX Action Button Icon Only Small Menu */
+  --wex-action-button-icon-only-small-menu-padding-inline: var(--wex-space-8);
+  --wex-action-button-icon-only-small-menu-gap: var(--wex-space-4);
 }
 
 .wex-action-button-icon-only--small {
@@ -24,6 +29,20 @@
 }
 
 .wex-action-button-icon-only--small > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-action-button-icon-only-small-icon-size);
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
+}
+
+.wex-action-button-icon-only--small-menu {
+  min-inline-size: var(--wex-action-button-icon-only-small-target-size);
+  padding-inline: var(--wex-action-button-icon-only-small-menu-padding-inline);
+  gap: var(--wex-action-button-icon-only-small-menu-gap);
+  font-size: 0;
+  justify-content: center;
+}
+
+.wex-action-button-icon-only--small-menu > svg {
   flex: 0 0 auto;
   inline-size: var(--wex-action-button-icon-only-small-icon-size);
   block-size: var(--wex-action-button-icon-only-small-icon-size);

@@ -18,12 +18,11 @@ export function mountOverviewModule(mount, snapshot) {
   const header = document.createElement('div'); header.className = 'wex-admin-overview__header';
   const heading = document.createElement('h2'); heading.id = 'wex-admin-overview-title'; heading.className = 'wex-component-title'; heading.textContent = 'Overview';
   const scope = document.createElement('div'); scope.className = 'wex-admin-overview__scope'; scope.setAttribute('aria-label', 'Overview actions');
-  const scopeAction = document.createElement('button'); scopeAction.type = 'button'; scopeAction.className = 'wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small wex-admin-overview__scope-action'; scopeAction.setAttribute('aria-label', 'Add new'); scopeAction.append(createSystemIcon(document, 'plus'));
-  const scopeToggle = document.createElement('button'); scopeToggle.type = 'button'; scopeToggle.className = 'wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small wex-admin-overview__scope-toggle'; scopeToggle.setAttribute('aria-label', 'Open overview actions'); scopeToggle.setAttribute('aria-expanded', 'false'); scopeToggle.setAttribute('aria-haspopup', 'menu'); scopeToggle.append(createSystemIcon(document, 'chevron-down'));
+  const scopeToggle = document.createElement('button'); scopeToggle.type = 'button'; scopeToggle.className = 'wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small-menu'; scopeToggle.setAttribute('aria-label', 'Add new'); scopeToggle.setAttribute('aria-expanded', 'false'); scopeToggle.setAttribute('aria-haspopup', 'menu'); scopeToggle.append(createSystemIcon(document, 'plus'), createSystemIcon(document, 'chevron-down'));
   const scopeMenu = document.createElement('div'); scopeMenu.className = 'wex-dropdown-menu--small wex-admin-overview__scope-menu'; scopeMenu.setAttribute('role', 'menu'); scopeMenu.hidden = true; scopeMenu.append(scopeMenuItem(document, 'Add New'));
   scopeToggle.addEventListener('click', () => { scopeMenu.hidden = !scopeMenu.hidden; scopeToggle.setAttribute('aria-expanded', String(!scopeMenu.hidden)); });
   document.addEventListener('click', (event) => { if (event.target instanceof Node && scope.contains(event.target)) return; scopeMenu.hidden = true; scopeToggle.setAttribute('aria-expanded', 'false'); });
-  scope.append(scopeAction, scopeToggle, scopeMenu);
+  scope.append(scopeToggle, scopeMenu);
   header.append(heading, scope);
   const metrics = document.createElement('dl'); metrics.className = 'wex-admin-overview__metrics';
   [

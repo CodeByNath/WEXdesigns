@@ -21,50 +21,6 @@
   position: relative;
 }
 
-.wex-admin-overview__scope-action {
-  border-start-end-radius: 0;
-  border-end-end-radius: 0;
-}
-
-.wex-admin-overview__scope-toggle {
-  border-inline-start: 0;
-  border-start-start-radius: 0;
-  border-end-start-radius: 0;
-}
-
-.wex-admin-overview__scope .wex-button:not(:disabled):active,
-.wex-admin-overview__scope .wex-button:focus {
-  border-color: var(--wex-button-border-default);
-}
-
-.wex-admin-overview__scope .wex-button:not(:disabled):active::before,
-.wex-admin-overview__scope .wex-button:not(:disabled):active::after,
-.wex-admin-overview__scope .wex-button:focus::before,
-.wex-admin-overview__scope .wex-button:focus::after {
-  content: none;
-}
-
-.wex-admin-overview__scope:focus-within::before,
-.wex-admin-overview__scope:focus-within::after {
-  position: absolute;
-  z-index: 1;
-  box-sizing: border-box;
-  pointer-events: none;
-  content: '';
-}
-
-.wex-admin-overview__scope:focus-within::after {
-  inset: 0;
-  border: var(--wex-outer-ring-inner-width) solid var(--wex-outer-ring-color);
-  border-radius: calc(var(--wex-button-radius) - var(--wex-button-border-width));
-}
-
-.wex-admin-overview__scope:focus-within::before {
-  inset: var(--wex-outer-ring-inner-width);
-  border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color);
-  border-radius: calc(var(--wex-button-radius) - var(--wex-outer-ring-width));
-}
-
 .wex-admin-overview__scope-menu {
   position: absolute;
   z-index: 2;

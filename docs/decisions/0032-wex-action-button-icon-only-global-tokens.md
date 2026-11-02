@@ -17,12 +17,18 @@ or state; the button keeps the tone, border, radius and interaction of its
 `.wex-action-button-icon-only--small`. Default and Large modes are registered
 only when a consumer needs them.
 
+Small Menu is a second mode for one button that shows an icon beside a chevron
+and opens a Dropdown Menu, as in the GitHub create menu. It keeps the Small
+target size as its minimum width and adds only an 8px inline padding and a 4px
+icon gap from the spacing foundation; the class is
+`.wex-action-button-icon-only--small-menu`.
+
 ## Boundaries
 
 This registers presentation tokens only. It does not define a command, menu,
 split behaviour or accessible name; the consuming component supplies its own
-`aria-label`, icon and interaction. Overview consumes it for the split action
-(Add new and its menu toggle) and the Services Manager for its tools.
+`aria-label`, icon and interaction. Overview consumes Small Menu for its single Add new
+menu button and the Services Manager consumes Small for its tools.
 
 ## Evidence
 

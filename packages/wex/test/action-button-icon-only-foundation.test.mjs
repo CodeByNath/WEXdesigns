@@ -14,5 +14,8 @@ test('registers WEX Action Button Icon Only Small from the existing Small Button
   assert.match(actionButton, /--wex-action-button-icon-only-small-icon-size: var\(--wex-button-small-icon-size\);/);
   assert.match(actionButton, /\.wex-action-button-icon-only--small\s*\{[\s\S]*inline-size: var\(--wex-action-button-icon-only-small-target-size\);[\s\S]*font-size: 0;[\s\S]*justify-content: center;/);
   assert.match(actionButton, /\.wex-action-button-icon-only--small > svg\s*\{[\s\S]*inline-size: var\(--wex-action-button-icon-only-small-icon-size\);/);
+  assert.match(actionButton, /--wex-action-button-icon-only-small-menu-padding-inline: var\(--wex-space-8\);/);
+  assert.match(actionButton, /--wex-action-button-icon-only-small-menu-gap: var\(--wex-space-4\);/);
+  assert.match(actionButton, /\.wex-action-button-icon-only--small-menu\s*\{[\s\S]*min-inline-size: var\(--wex-action-button-icon-only-small-target-size\);[\s\S]*padding-inline: var\(--wex-action-button-icon-only-small-menu-padding-inline\);/);
   assert.doesNotMatch(actionButton, /#[0-9a-f]{3,8}\b|rgb\(|hsl\(|\d+(?:px|rem)/i);
 });

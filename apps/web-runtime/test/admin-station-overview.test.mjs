@@ -16,9 +16,9 @@ test('mounts Overview independently from the Manager list/grid module', () => {
   assert.match(overview, /heading\.textContent = 'Overview';/);
   assert.match(overview, /heading\.className = 'wex-component-title';/);
   assert.match(overview, /snapshot\.services\.filter\(\(\{ status \}\) => status === 'active'\)\.length/);
-  assert.match(overview, /wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small wex-admin-overview__scope-action/);
-  assert.match(overview, /scopeAction\.setAttribute\('aria-label', 'Add new'\); scopeAction\.append\(createSystemIcon\(document, 'plus'\)\)/);
-  assert.match(overview, /wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small wex-admin-overview__scope-toggle/);
+  assert.match(overview, /wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small-menu/);
+  assert.match(overview, /scopeToggle\.append\(createSystemIcon\(document, 'plus'\), createSystemIcon\(document, 'chevron-down'\)\)/);
+  assert.match(overview, /scopeToggle\.setAttribute\('aria-label', 'Add new'\)/);
   assert.match(overview, /scopeToggle\.setAttribute\('aria-expanded', String\(!scopeMenu\.hidden\)\)/);
   assert.match(products, /import \{ mountOverviewModule \} from '\.\/admin-station-overview\.js';/);
   assert.match(products, /import \{ allServicesPreviewSnapshot, mountAllServicesBody \} from '\.\/admin-station-services\.js';/);
@@ -33,13 +33,9 @@ test('uses registered WEX tokens for Overview with desktop, tablet, and compact 
   assert.match(overviewCss, /padding: var\(--wex-space-16\);/);
   assert.match(overviewCss, /border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(overviewCss, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\);/);
-  assert.match(overviewCss, /\.wex-admin-overview__scope-toggle \{[\s\S]*border-inline-start: 0;/);
-  assert.doesNotMatch(overviewCss, /\.wex-admin-overview__scope-toggle svg|inline-size: var\(--wex-button-small-target-size\)/);
   assert.match(overview, /className = 'wex-dropdown-menu--small wex-admin-overview__scope-menu'/);
   assert.match(overview, /className = 'wex-dropdown-menu__item--small wex-admin-overview__scope-menu-item'/);
-  assert.doesNotMatch(overviewCss, /--wex-tab-navigation-small-dropdown|scope-menu-item/);
-  assert.match(overviewCss, /\.wex-admin-overview__scope \.wex-button:focus::after \{\s*content: none;/);
-  assert.match(overviewCss, /\.wex-admin-overview__scope:focus-within::after \{[\s\S]*border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
+  assert.doesNotMatch(overviewCss, /--wex-tab-navigation-small-dropdown|scope-menu-item|scope-toggle|scope-action|focus-within/);
   assert.match(overviewCss, /\.wex-admin-overview__header \{[^}]*gap: var\(--wex-space-8\);/);
   assert.match(overviewCss, /@media \(max-width: 1024px\) \{[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
   assert.match(overviewCss, /@media \(max-width: 767px\) \{[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);
