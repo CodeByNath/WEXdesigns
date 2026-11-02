@@ -12,6 +12,10 @@
 
 ### Recent work (newest first)
 
+- WEX Action Button Icon Only Small registers the square icon-only action
+  button over the Small Button target and icon sizes. The Services Manager
+  tools and the Overview split action consume it (ADR 0032).
+
 - WEX Component Title Default registers the component/module heading as a
   component-token family over Navigation Default type and primary text colour.
   Overview and the Services Manager heading consume it (ADR 0031).
@@ -69,6 +73,7 @@ does not define HTML semantics, component behaviour, or layout composition.
 - [WEX Search Input Global Tokens](../decisions/0029-wex-search-input-global-tokens.md)
 - [WEX More Action Global Tokens](../decisions/0030-wex-more-action-global-tokens.md)
 - [WEX Component Title Global Tokens](../decisions/0031-wex-component-title-global-tokens.md)
+- [WEX Action Button Icon Only Global Tokens](../decisions/0032-wex-action-button-icon-only-global-tokens.md)
 - [Typography and font delivery map](typography-font-delivery.md)
 - [Colour map](colour.md)
 - [Spacing map](spacing.md)
@@ -97,10 +102,13 @@ They do not supply or approve Global Tokens values.
   [`notification-pill.css`](../../packages/wex/src/foundations/notification-pill.css)
 - WEX Component Title component tokens:
   [`component-title.css`](../../packages/wex/src/foundations/component-title.css)
+- WEX Action Button Icon Only component tokens:
+  [`action-button-icon-only.css`](../../packages/wex/src/foundations/action-button-icon-only.css)
 - Current focused checks: [`global-tokens.test.mjs`](../../packages/wex/test/global-tokens.test.mjs),
   [`search-input-foundation.test.mjs`](../../packages/wex/test/search-input-foundation.test.mjs),
   [`more-action-foundation.test.mjs`](../../packages/wex/test/more-action-foundation.test.mjs),
   [`component-title-foundation.test.mjs`](../../packages/wex/test/component-title-foundation.test.mjs),
+  [`action-button-icon-only-foundation.test.mjs`](../../packages/wex/test/action-button-icon-only-foundation.test.mjs),
   [`typography-modules.test.mjs`](../../packages/wex/test/typography-modules.test.mjs),
   [`colour-tokens.test.mjs`](../../packages/wex/test/colour-tokens.test.mjs), and
   [`validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
@@ -114,7 +122,7 @@ They do not supply or approve Global Tokens values.
 existing WEX foundations
   -> accepted Global Tokens authority decisions
   -> Typography selection + optional registered attributes
-  -> WEX Tab Navigation, WEX Search Input, WEX More Action, WEX Pill Notification, and WEX Component Title component tokens
+  -> WEX Tab Navigation, WEX Search Input, WEX More Action, WEX Pill Notification, WEX Component Title, and WEX Action Button Icon Only component tokens
   -> components and consuming applications
 ```
 

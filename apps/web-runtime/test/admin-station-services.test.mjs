@@ -60,7 +60,8 @@ test('uses named system SVGs for Service controls and dismisses a popover from o
 test('keeps every Services view tool icon-only while retaining an accessible label', () => {
   assert.match(services, /node\.setAttribute\('aria-label', label\)/);
   assert.match(services, /tools\.append\(columnsMenuControl, viewControl, menuControl\(filterControl, filterMenu, 'filter'\)\)/);
-  assert.match(servicesCss, /\.wex-admin-services__tools \.wex-button \{ inline-size: var\(--wex-button-small-target-size\);[\s\S]*font-size: 0; justify-content: center;/);
+  assert.match(services, /node\.classList\.add\('wex-action-button-icon-only--small'\)/);
+  assert.doesNotMatch(servicesCss, /\.wex-admin-services__tools \.wex-button/);
 });
 
 test('uses a distinct list glyph for the grid-to-list action', () => {
@@ -164,7 +165,6 @@ test('centres list rows and hides Columns while List is active', () => {
 test('keeps the small-viewport Services toolbar inline with responsive search and compact actions', () => {
   assert.match(services, /node\.setAttribute\('aria-label', label\)/);
   assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__toolbar \{ position: relative; display: flex;/);
-  assert.match(servicesCss, /\.wex-admin-services__tools \.wex-button \{ inline-size: var\(--wex-button-small-target-size\);[\s\S]*font-size: 0;/);
   assert.match(servicesCss, /\.wex-admin-services__tools \{ display: flex;[\s\S]*margin-inline-start: auto;/);
   assert.match(services, /let searchExpanded = false;/);
   assert.match(services, /search\.dataset\.compact = String\(targetSize > 0 && search\.getBoundingClientRect\(\)\.width <= targetSize\);/);

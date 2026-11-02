@@ -32,7 +32,7 @@ function text(document, text, className = '') { const node = document.createElem
 /** @param {Document} document @param {string} label @param {string} command */
 function control(document, label, command) { const node = document.createElement('button'); node.type = 'button'; node.className = 'wex-button wex-button--small wex-button--neutral'; node.dataset.serviceControl = command; node.textContent = label; return node; }
 /** @param {Document} document @param {string} label @param {string} command @param {'list'|'table'|'columns'|'filter'} icon */
-function iconControl(document, label, command, icon) { const node = control(document, '', command); node.setAttribute('aria-label', label); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.append(visual, document.createTextNode(label)); return node; }
+function iconControl(document, label, command, icon) { const node = control(document, '', command); node.classList.add('wex-action-button-icon-only--small'); node.setAttribute('aria-label', label); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.append(visual, document.createTextNode(label)); return node; }
 /** @param {HTMLButtonElement} node @param {Document} document @param {string} label @param {'list'|'table'|'columns'|'filter'} icon */
 function setIconControlLabel(node, document, label, icon) { node.setAttribute('aria-label', label); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.replaceChildren(visual, document.createTextNode(label)); }
 /** @param {Document} document @param {string} label @param {string} command @param {boolean} selected */

@@ -1,0 +1,30 @@
+/**
+ * WEX Action Button Icon Only component tokens
+ *
+ * A square action button that shows one icon and no visible label, such as the
+ * Manager Columns, List and Filter tools. Each token points to an existing WEX
+ * Button foundation; consumers select the family and mode rather than
+ * recreating the square target locally. The button keeps its `wex-button`
+ * appearance tone and supplies its own accessible name.
+ */
+
+:root {
+  /* WEX Action Button Icon Only Small */
+  --wex-action-button-icon-only-small-target-size: var(--wex-button-small-target-size);
+  --wex-action-button-icon-only-small-icon-size: var(--wex-button-small-icon-size);
+}
+
+.wex-action-button-icon-only--small {
+  inline-size: var(--wex-action-button-icon-only-small-target-size);
+  min-inline-size: var(--wex-action-button-icon-only-small-target-size);
+  padding-inline: 0;
+  gap: 0;
+  font-size: 0;
+  justify-content: center;
+}
+
+.wex-action-button-icon-only--small > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-action-button-icon-only-small-icon-size);
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
+}

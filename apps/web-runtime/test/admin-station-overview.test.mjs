@@ -16,8 +16,9 @@ test('mounts Overview independently from the Manager list/grid module', () => {
   assert.match(overview, /heading\.textContent = 'Overview';/);
   assert.match(overview, /heading\.className = 'wex-component-title';/);
   assert.match(overview, /snapshot\.services\.filter\(\(\{ status \}\) => status === 'active'\)\.length/);
-  assert.match(overview, /wex-button wex-button--small wex-button--neutral wex-admin-overview__scope-action/);
-  assert.match(overview, /wex-button wex-button--small wex-button--neutral wex-admin-overview__scope-toggle/);
+  assert.match(overview, /wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small wex-admin-overview__scope-action/);
+  assert.match(overview, /scopeAction\.setAttribute\('aria-label', 'Add new'\); scopeAction\.append\(createSystemIcon\(document, 'plus'\)\)/);
+  assert.match(overview, /wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small wex-admin-overview__scope-toggle/);
   assert.match(overview, /scopeToggle\.setAttribute\('aria-expanded', String\(!scopeMenu\.hidden\)\)/);
   assert.match(products, /import \{ mountOverviewModule \} from '\.\/admin-station-overview\.js';/);
   assert.match(products, /import \{ allServicesPreviewSnapshot, mountAllServicesBody \} from '\.\/admin-station-services\.js';/);
@@ -32,8 +33,8 @@ test('uses registered WEX tokens for Overview with desktop, tablet, and compact 
   assert.match(overviewCss, /padding: var\(--wex-space-16\);/);
   assert.match(overviewCss, /border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(overviewCss, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\);/);
-  assert.match(overviewCss, /\.wex-admin-overview__scope-toggle \{[\s\S]*inline-size: var\(--wex-button-small-target-size\);[\s\S]*border-inline-start: 0;/);
-  assert.match(overviewCss, /\.wex-admin-overview__scope-toggle svg \{[\s\S]*inline-size: var\(--wex-icon-size-14\);/);
+  assert.match(overviewCss, /\.wex-admin-overview__scope-toggle \{[\s\S]*border-inline-start: 0;/);
+  assert.doesNotMatch(overviewCss, /\.wex-admin-overview__scope-toggle svg|inline-size: var\(--wex-button-small-target-size\)/);
   assert.match(overviewCss, /\.wex-admin-overview__scope-menu-item \{[\s\S]*min-block-size: var\(--wex-tab-navigation-small-dropdown-target-size\);/);
   assert.match(overviewCss, /@media \(max-width: 1024px\) \{[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
   assert.match(overviewCss, /@media \(max-width: 767px\) \{[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);

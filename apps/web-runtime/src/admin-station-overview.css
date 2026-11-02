@@ -27,18 +27,9 @@
 }
 
 .wex-admin-overview__scope-toggle {
-  inline-size: var(--wex-button-small-target-size);
-  min-inline-size: var(--wex-button-small-target-size);
-  padding-inline: 0;
   border-inline-start: 0;
   border-start-start-radius: 0;
   border-end-start-radius: 0;
-  justify-content: center;
-}
-
-.wex-admin-overview__scope-toggle svg {
-  inline-size: var(--wex-icon-size-14);
-  block-size: var(--wex-icon-size-14);
 }
 
 .wex-admin-overview__scope-menu {
