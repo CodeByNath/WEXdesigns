@@ -3,8 +3,8 @@ import { createSystemIcon } from './admin-station-system-icons.js';
 /** @typedef {{ status: 'pending'|'disabled'|'active' }} OverviewService */
 /** @typedef {{ services: readonly OverviewService[] }} OverviewSnapshot */
 
-/** @param {Document} document @param {string} value @param {string} className */
-function text(document, value, className) { const node = document.createElement('span'); node.className = className; node.textContent = value; return node; }
+/** @param {Document} document @param {string} label */
+function scopeMenuItem(document, label) { const item = document.createElement('button'); item.type = 'button'; item.className = 'wex-admin-overview__scope-menu-item'; item.textContent = label; return item; }
 
 /**
  * Mounts the station-scoped Overview module. The module receives its values
@@ -17,7 +17,13 @@ export function mountOverviewModule(mount, snapshot) {
   const overview = document.createElement('section'); overview.className = 'wex-admin-overview'; overview.setAttribute('aria-labelledby', 'wex-admin-overview-title');
   const header = document.createElement('div'); header.className = 'wex-admin-overview__header';
   const heading = document.createElement('h2'); heading.id = 'wex-admin-overview-title'; heading.className = 'wex-type-navigation-default-semibold'; heading.textContent = 'Overview';
-  const scope = document.createElement('span'); scope.className = 'wex-admin-overview__scope wex-type-navigation-small-semibold'; scope.append(text(document, 'All services', 'wex-admin-overview__scope-label'), createSystemIcon(document, 'chevron-down'));
+  const scope = document.createElement('div'); scope.className = 'wex-admin-overview__scope'; scope.setAttribute('aria-label', 'Overview actions');
+  const scopeAction = document.createElement('button'); scopeAction.type = 'button'; scopeAction.className = 'wex-button wex-button--small wex-button--neutral wex-admin-overview__scope-action'; scopeAction.textContent = 'All services';
+  const scopeToggle = document.createElement('button'); scopeToggle.type = 'button'; scopeToggle.className = 'wex-button wex-button--small wex-button--neutral wex-admin-overview__scope-toggle'; scopeToggle.setAttribute('aria-label', 'Open overview actions'); scopeToggle.setAttribute('aria-expanded', 'false'); scopeToggle.setAttribute('aria-haspopup', 'menu'); scopeToggle.append(createSystemIcon(document, 'chevron-down'));
+  const scopeMenu = document.createElement('div'); scopeMenu.className = 'wex-admin-overview__scope-menu'; scopeMenu.setAttribute('role', 'menu'); scopeMenu.hidden = true; scopeMenu.append(scopeMenuItem(document, 'Add New'));
+  scopeToggle.addEventListener('click', () => { scopeMenu.hidden = !scopeMenu.hidden; scopeToggle.setAttribute('aria-expanded', String(!scopeMenu.hidden)); });
+  document.addEventListener('click', (event) => { if (event.target instanceof Node && scope.contains(event.target)) return; scopeMenu.hidden = true; scopeToggle.setAttribute('aria-expanded', 'false'); });
+  scope.append(scopeAction, scopeToggle, scopeMenu);
   header.append(heading, scope);
   const metrics = document.createElement('dl'); metrics.className = 'wex-admin-overview__metrics';
   [
