@@ -12,7 +12,7 @@ Columns, Filter, Status and item-action menus, and replaces the local copy the
 Overview Add New menu had drifted into.
 
 The container references only existing WEX foundations: spacing, the default
-border width, the subtle border colour, the default radius and the primary
+border width, the subtle border colour, the large radius and the primary
 background. The rows reuse the registered WEX Tab Navigation Small Dropdown
 contract for size, type, hover, selected and focus. The presentation classes are
 `.wex-dropdown-menu--small` and `.wex-dropdown-menu__item--small`.

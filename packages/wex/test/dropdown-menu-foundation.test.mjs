@@ -13,7 +13,7 @@ test('registers WEX Dropdown Menu Small from existing foundations and the Tab Na
   assert.match(dropdownMenu, /--wex-dropdown-menu-small-padding: var\(--wex-space-8\);/);
   assert.match(dropdownMenu, /--wex-dropdown-menu-small-gap: var\(--wex-space-4\);/);
   assert.match(dropdownMenu, /--wex-dropdown-menu-small-border-color: var\(--wex-color-border-subtle\);/);
-  assert.match(dropdownMenu, /--wex-dropdown-menu-small-radius: var\(--wex-radius-default\);/);
+  assert.match(dropdownMenu, /--wex-dropdown-menu-small-radius: var\(--wex-radius-large\);/);
   assert.match(dropdownMenu, /--wex-dropdown-menu-small-background: var\(--wex-color-background-primary\);/);
   assert.match(dropdownMenu, /\.wex-dropdown-menu--small\s*\{[\s\S]*padding: var\(--wex-dropdown-menu-small-padding\);/);
   assert.match(dropdownMenu, /\.wex-dropdown-menu__item--small\s*\{[\s\S]*min-block-size: var\(--wex-tab-navigation-small-dropdown-target-size\);/);

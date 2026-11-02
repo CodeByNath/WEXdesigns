@@ -3,7 +3,7 @@
   gap: var(--wex-space-16);
   padding: calc(var(--wex-space-16) - var(--wex-border-width-default));
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  border-radius: var(--wex-radius-default);
+  border-radius: var(--wex-radius-large);
   background: var(--wex-color-background-primary);
 }
 
@@ -37,7 +37,7 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 0;
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  border-radius: var(--wex-radius-default);
+  border-radius: var(--wex-radius-large);
   overflow: hidden;
 }
 

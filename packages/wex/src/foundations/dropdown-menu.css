@@ -15,7 +15,7 @@
   --wex-dropdown-menu-small-gap: var(--wex-space-4);
   --wex-dropdown-menu-small-border-width: var(--wex-border-width-default);
   --wex-dropdown-menu-small-border-color: var(--wex-color-border-subtle);
-  --wex-dropdown-menu-small-radius: var(--wex-radius-default);
+  --wex-dropdown-menu-small-radius: var(--wex-radius-large);
   --wex-dropdown-menu-small-background: var(--wex-color-background-primary);
 }
 
