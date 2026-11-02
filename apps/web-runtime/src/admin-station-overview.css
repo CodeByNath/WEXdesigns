@@ -10,6 +10,7 @@
 .wex-admin-overview__header {
   display: flex;
   align-items: center;
+  min-block-size: var(--wex-button-small-target-size);
   justify-content: space-between;
   gap: var(--wex-space-16);
 }

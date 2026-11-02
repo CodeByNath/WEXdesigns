@@ -60,3 +60,6 @@
 .wex-admin-services[data-view="list"] .wex-admin-services__image img {
   border-radius: 50%;
 }
+
+/* The heading row shares the Overview header geometry: the small Button target, centred. */
+.wex-admin-services__header { align-items: center; min-block-size: var(--wex-button-small-target-size); }
