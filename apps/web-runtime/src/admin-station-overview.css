@@ -12,7 +12,7 @@
   align-items: center;
   min-block-size: var(--wex-button-small-target-size);
   justify-content: space-between;
-  gap: var(--wex-space-16);
+  gap: var(--wex-space-8);
 }
 
 .wex-admin-overview__scope {

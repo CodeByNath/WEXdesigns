@@ -61,6 +61,9 @@ test('keeps every Services view tool icon-only while retaining an accessible lab
   assert.match(services, /node\.setAttribute\('aria-label', label\)/);
   assert.match(services, /tools\.append\(columnsMenuControl, viewControl, menuControl\(filterControl, filterMenu, 'filter'\)\)/);
   assert.match(services, /node\.classList\.add\('wex-action-button-icon-only--small'\)/);
+  assert.match(servicesCss, /\.wex-admin-services__toolbar \{[^}]*gap: var\(--wex-space-8\);/);
+  assert.match(servicesCss, /\.wex-admin-services__tabs \{[^}]*gap: var\(--wex-space-8\);/);
+  assert.match(servicesCss, /\.wex-admin-services__tools \{[^}]*gap: var\(--wex-space-8\);/);
   assert.doesNotMatch(servicesCss, /\.wex-admin-services__tools \.wex-button/);
 });
 
