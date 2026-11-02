@@ -397,9 +397,14 @@ export function mountHeaderNotifications(shell, trigger) {
     closeOptions();
     render();
   });
+  let itemMenuClickHandled = false;
   document.addEventListener('click', (event) => {
     if (event.target instanceof Node && !headerActions.contains(event.target)) closeOptions();
     const target = event.target instanceof Element ? event.target : null;
+    if (itemMenuClickHandled) {
+      itemMenuClickHandled = false;
+      return;
+    }
     if (openItemMenuId !== null && !target?.closest('[data-notification-item-menu]')) {
       openItemMenuId = null;
       openItemMenuDirection = null;
@@ -418,7 +423,7 @@ export function mountHeaderNotifications(shell, trigger) {
     render();
   });
   list.addEventListener('click', (event) => {
-    event.stopPropagation();
+    itemMenuClickHandled = true;
     const target = event.target instanceof Element ? event.target : null;
     if (openItemMenuId !== null && !target?.closest('[data-notification-item-menu]')) {
       openItemMenuId = null;

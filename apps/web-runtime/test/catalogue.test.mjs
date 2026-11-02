@@ -251,6 +251,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationHeaderResults, /results\.hidden = false;/);
   assert.match(adminStationHeaderResults, /results\.hidden = true;/);
   assert.match(adminStationHeaderResults, /wex:header-results-request/);
+  assert.match(adminStationHeaderResults, /event\.composedPath\(\)\.includes\(results\)/);
   assert.match(adminStationHeaderResults, /shell\.ownerDocument\.addEventListener\('click', \(event\) => \{/);
   assert.match(adminStationHeaderResults, /event\.target\.closest\('\[data-header-results-trigger\]'\)/);
   assert.match(adminStationHeaderResults, /if \(!results\.hidden && results\.dataset\.headerResultsOwner === request\.owner\) \{[\s\S]*return closeHeaderResultsShell\(shell\);/);
@@ -378,7 +379,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /meta\.append\(itemMenu\);/);
   assert.match(adminStationNotifications, /notification\.unread = action === 'unread';/);
   assert.match(adminStationNotifications, /if \(left\.unread !== right\.unread\) return Number\(right\.unread\) - Number\(left\.unread\);/);
-  assert.match(adminStationNotifications, /list\.addEventListener\('click', \(event\) => \{\s*event\.stopPropagation\(\);/);
+  assert.match(adminStationNotifications, /list\.addEventListener\('click', \(event\) => \{\s*itemMenuClickHandled = true;/);
+  assert.doesNotMatch(adminStationNotifications, /stopPropagation/);
   assert.match(adminStationNotifications, /openItemMenuId !== null && !target\?\.closest\('\[data-notification-item-menu\]'\)/);
   assert.match(adminStationNotifications, /list\.addEventListener\('scroll', \(\) => \{\s*header\.classList\.toggle\('wex-admin-notifications__header--scrolled', list\.scrollTop > 0\);/);
   assert.match(adminStationNotifications, /count\.classList\.toggle\('wex-admin-notifications__count--empty', unreadCount === 0\);/);

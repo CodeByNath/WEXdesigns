@@ -79,7 +79,7 @@ export function mountHeaderResultsShell(shell) {
   });
 
   shell.ownerDocument.addEventListener('click', (event) => {
-    if (results.hidden || !(event.target instanceof Node) || results.contains(event.target)) return;
+    if (results.hidden || !(event.target instanceof Node) || event.composedPath().includes(results)) return;
     const trigger = event.target instanceof Element
       ? event.target.closest('[data-header-results-trigger]')
       : null;
