@@ -36,6 +36,8 @@ test('uses registered WEX tokens for Overview with desktop, tablet, and compact 
   assert.match(overviewCss, /\.wex-admin-overview__scope-toggle \{[\s\S]*border-inline-start: 0;/);
   assert.doesNotMatch(overviewCss, /\.wex-admin-overview__scope-toggle svg|inline-size: var\(--wex-button-small-target-size\)/);
   assert.match(overviewCss, /\.wex-admin-overview__scope-menu-item \{[\s\S]*min-block-size: var\(--wex-tab-navigation-small-dropdown-target-size\);/);
+  assert.match(overviewCss, /\.wex-admin-overview__scope \.wex-button:focus::after \{\s*content: none;/);
+  assert.match(overviewCss, /\.wex-admin-overview__scope:focus-within::after \{[\s\S]*border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
   assert.match(overviewCss, /@media \(max-width: 1024px\) \{[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
   assert.match(overviewCss, /@media \(max-width: 767px\) \{[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);
   assert.match(productsCss, /padding-inline: var\(--wex-space-8\);/);
