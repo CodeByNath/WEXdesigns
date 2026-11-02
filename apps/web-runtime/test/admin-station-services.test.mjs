@@ -89,7 +89,8 @@ test('binds View and Edit actions to one open Service action dropdown', () => {
   assert.match(services, /menuOption\(document, 'View', `service-view:\$\{service\.id\}`, false\), menuOption\(document, 'Edit', `service-edit:\$\{service\.id\}`, false\)/);
   assert.match(services, /command\.startsWith\('menu:'\)/);
   assert.match(services, /command\.startsWith\('service-view:'\) \|\| command\.startsWith\('service-edit:'\)/);
-  assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-block-start: auto; inset-block-end: calc\(100% \+ var\(--wex-space-4\)\); inset-inline-start: auto; inset-inline-end: 0; min-inline-size: max-content; padding: var\(--wex-space-4\); gap: var\(--wex-space-4\);/);
+  assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-block-start: auto; inset-block-end: calc\(100% \+ var\(--wex-space-4\)\); inset-inline-start: auto; inset-inline-end: 0; min-inline-size: max-content; \}/);
+  assert.doesNotMatch(servicesCss, /item-menu-options \{[^}]*padding/);
   assert.doesNotMatch(servicesCss, /menu-tab|--wex-tab-navigation-small-dropdown/);
   assert.match(services, /className = 'wex-dropdown-menu--small wex-admin-services__menu'/);
 });

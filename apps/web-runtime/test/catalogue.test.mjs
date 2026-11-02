@@ -424,7 +424,10 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-dropdown\[aria-pressed="true"\]\s*\{[\s\S]*--wex-tab-navigation-small-dropdown-selected-background/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-horizontal:not\(:disabled\):active\s*\{[\s\S]*background: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-dropdown:not\(:disabled\):active\s*\{[\s\S]*background: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\s*\{[\s\S]*display: grid;[\s\S]*inset-inline-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*inline-size: max-content;[\s\S]*white-space: nowrap;/);
+  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\s*\{[\s\S]*inset-inline-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*inline-size: max-content;[\s\S]*white-space: nowrap;/);
+  assert.match(adminStationNotifications, /className = 'wex-dropdown-menu--small wex-admin-notifications__options'/);
+  assert.match(adminStationNotifications, /className = 'wex-dropdown-menu--small wex-admin-notifications__item-menu-options'/);
+  assert.doesNotMatch(adminStationNotificationsCss, /__(?:item-menu-)?options\s*\{[^}]*(?:padding|border-radius|background):/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\[hidden\]\s*\{\s*display: none;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__option\s*\{[\s\S]*border-color: transparent;[\s\S]*color: var\(--wex-color-text-primary\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__option:hover\s*\{[\s\S]*background-color: var\(--wex-color-surface-selected\);/);
