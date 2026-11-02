@@ -152,6 +152,12 @@ test('shows the registered WEX Dropdown Menu tokens in Global Tokens', () => {
   assert.match(tokens, /WEX Dropdown Menu Small[\s\S]*wex-dropdown-menu--small[\s\S]*wex-dropdown-menu__item--small/);
 });
 
+test('shows the registered WEX Option Button tokens in Global Tokens', () => {
+  const tokens = pageByPath['global-tokens/index.html'];
+  assert.match(tokens, /data-global-token-role="wex-option-button"/);
+  assert.match(tokens, /WEX Option Button Default[\s\S]*wex-option-button--default[\s\S]*WEX Option Button Small[\s\S]*wex-option-button--small/);
+});
+
 test('provides an isolated Component Manager sandbox with the approved Logo candidate only', () => {
   const manager = pageByPath['component-manager/index.html'];
   assert.match(manager, /<a aria-current="page" href="\.\/">Component Manager<\/a>/);
@@ -354,11 +360,10 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /createMoreActionIcon\(document\)/);
   assert.match(adminStationNotifications, /title\.className = 'wex-type-navigation-large-semibold';/);
   assert.match(adminStationNotifications, /wex-admin-notifications__count wex-type-navigation-small-semibold/);
-  assert.match(adminStationNotifications, /wex-button wex-button--default wex-button--subtle wex-admin-notifications__more/);
+  assert.match(adminStationNotifications, /wex-button wex-button--default wex-button--subtle wex-option-button--default wex-admin-notifications__more/);
   assert.match(adminStationNotifications, /more\.append\(createMoreActionIcon\(document\)\)/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__more \{[\s\S]*border-radius: 50%;/);
-  assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__more:not\(:disabled\):active::after,[\s\S]*\.wex-admin-notifications__more:focus::before \{[\s\S]*border-radius: 50%;/);
-  assert.match(adminStationNotifications, /wex-button wex-button--small wex-button--subtle wex-admin-notifications__item-menu-toggle/);
+  assert.doesNotMatch(adminStationNotificationsCss, /__more\b|__item-menu-toggle/);
+  assert.match(adminStationNotifications, /wex-button wex-button--small wex-button--subtle wex-option-button--small wex-admin-notifications__item-menu-toggle/);
   assert.match(adminStationNotifications, /close\.textContent = 'Close';/);
   assert.match(adminStationNotifications, /markAllRead\.textContent = 'Mark all as read';/);
   assert.match(adminStationNotifications, /close\.className = 'wex-button wex-button--small wex-button--neutral';/);

@@ -60,7 +60,7 @@ function serviceItem(document, service, openServiceMenuId) {
   const statusLabel = service.status === 'active' ? 'Active' : service.status === 'pending' ? 'Pending' : 'Disabled';
   const status = text(document, statusLabel, `wex-type-navigation-small-semibold wex-admin-services__status wex-admin-services__status--${service.status}`);
   const itemMenu = document.createElement('div'); itemMenu.className = 'wex-admin-services__item-menu'; itemMenu.dataset.serviceItemMenu = service.id;
-  const action = control(document, '', `menu:${service.id}`); action.classList.replace('wex-button--neutral', 'wex-button--subtle'); action.classList.add('wex-admin-services__item-action'); action.setAttribute('aria-label', `Actions for ${service.name}`); action.setAttribute('aria-expanded', String(openServiceMenuId === service.id)); action.append(createMoreActionIcon(document, 'small'));
+  const action = control(document, '', `menu:${service.id}`); action.classList.replace('wex-button--neutral', 'wex-button--subtle'); action.classList.add('wex-option-button--small', 'wex-admin-services__item-action'); action.setAttribute('aria-label', `Actions for ${service.name}`); action.setAttribute('aria-expanded', String(openServiceMenuId === service.id)); action.append(createMoreActionIcon(document, 'small'));
   const actionMenu = document.createElement('div'); actionMenu.className = 'wex-dropdown-menu--small wex-admin-services__menu wex-admin-services__item-menu-options'; actionMenu.hidden = openServiceMenuId !== service.id;
   actionMenu.append(menuOption(document, 'View', `service-view:${service.id}`, false), menuOption(document, 'Edit', `service-edit:${service.id}`, false));
   itemMenu.append(action, actionMenu); footer.append(value, status);

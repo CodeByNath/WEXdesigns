@@ -208,7 +208,7 @@ export function mountHeaderNotifications(shell, trigger) {
   headerActions.className = 'wex-admin-notifications__header-actions';
   const more = document.createElement('button');
   more.type = 'button';
-  more.className = 'wex-button wex-button--default wex-button--subtle wex-admin-notifications__more';
+  more.className = 'wex-button wex-button--default wex-button--subtle wex-option-button--default wex-admin-notifications__more';
   more.setAttribute('aria-label', 'Notification options');
   more.setAttribute('aria-expanded', 'false');
   more.append(createMoreActionIcon(document));
@@ -355,7 +355,7 @@ export function mountHeaderNotifications(shell, trigger) {
         : '';
       const itemMenuToggle = document.createElement('button');
       itemMenuToggle.type = 'button';
-      itemMenuToggle.className = 'wex-button wex-button--small wex-button--subtle wex-admin-notifications__item-menu-toggle';
+      itemMenuToggle.className = 'wex-button wex-button--small wex-button--subtle wex-option-button--small wex-admin-notifications__item-menu-toggle';
       itemMenuToggle.dataset.notificationItemMenuToggle = notification.id;
       itemMenuToggle.setAttribute('aria-label', `Notification actions for ${notification.title}`);
       itemMenuToggle.setAttribute('aria-expanded', String(openItemMenuId === notification.id));

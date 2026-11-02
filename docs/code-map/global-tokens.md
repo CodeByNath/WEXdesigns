@@ -12,6 +12,10 @@
 
 ### Recent work (newest first)
 
+- WEX Option Button Default and Small register the three-dot action. The
+  Notifications header and row actions and the Services Manager row action
+  consume them (ADR 0034).
+
 - WEX Dropdown Menu Small registers the action-options popover surface and
   rows. The Services Manager menus and the Overview Add New menu consume it
   (ADR 0033).
@@ -79,6 +83,7 @@ does not define HTML semantics, component behaviour, or layout composition.
 - [WEX Component Title Global Tokens](../decisions/0031-wex-component-title-global-tokens.md)
 - [WEX Action Button Icon Only Global Tokens](../decisions/0032-wex-action-button-icon-only-global-tokens.md)
 - [WEX Dropdown Menu Global Tokens](../decisions/0033-wex-dropdown-menu-global-tokens.md)
+- [WEX Option Button Global Tokens](../decisions/0034-wex-option-button-global-tokens.md)
 - [Typography and font delivery map](typography-font-delivery.md)
 - [Colour map](colour.md)
 - [Spacing map](spacing.md)
@@ -111,12 +116,15 @@ They do not supply or approve Global Tokens values.
   [`action-button-icon-only.css`](../../packages/wex/src/foundations/action-button-icon-only.css)
 - WEX Dropdown Menu component tokens:
   [`dropdown-menu.css`](../../packages/wex/src/foundations/dropdown-menu.css)
+- WEX Option Button component tokens:
+  [`option-button.css`](../../packages/wex/src/foundations/option-button.css)
 - Current focused checks: [`global-tokens.test.mjs`](../../packages/wex/test/global-tokens.test.mjs),
   [`search-input-foundation.test.mjs`](../../packages/wex/test/search-input-foundation.test.mjs),
   [`more-action-foundation.test.mjs`](../../packages/wex/test/more-action-foundation.test.mjs),
   [`component-title-foundation.test.mjs`](../../packages/wex/test/component-title-foundation.test.mjs),
   [`action-button-icon-only-foundation.test.mjs`](../../packages/wex/test/action-button-icon-only-foundation.test.mjs),
   [`dropdown-menu-foundation.test.mjs`](../../packages/wex/test/dropdown-menu-foundation.test.mjs),
+  [`option-button-foundation.test.mjs`](../../packages/wex/test/option-button-foundation.test.mjs),
   [`typography-modules.test.mjs`](../../packages/wex/test/typography-modules.test.mjs),
   [`colour-tokens.test.mjs`](../../packages/wex/test/colour-tokens.test.mjs), and
   [`validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)
@@ -130,7 +138,7 @@ They do not supply or approve Global Tokens values.
 existing WEX foundations
   -> accepted Global Tokens authority decisions
   -> Typography selection + optional registered attributes
-  -> WEX Tab Navigation, WEX Search Input, WEX More Action, WEX Pill Notification, WEX Component Title, WEX Action Button Icon Only, and WEX Dropdown Menu component tokens
+  -> WEX Tab Navigation, WEX Search Input, WEX More Action, WEX Pill Notification, WEX Component Title, WEX Action Button Icon Only, WEX Dropdown Menu, and WEX Option Button component tokens
   -> components and consuming applications
 ```
 

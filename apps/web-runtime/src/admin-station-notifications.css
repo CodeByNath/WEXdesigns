@@ -67,23 +67,6 @@
   inset-inline-end: var(--wex-space-16);
 }
 
-.wex-admin-notifications__more {
-  inline-size: var(--wex-space-40);
-  min-block-size: var(--wex-space-40);
-  padding: var(--wex-space-8);
-  border-radius: 50%;
-  --wex-button-foreground-default: var(--wex-color-text-primary);
-  --wex-button-foreground-hover: var(--wex-color-text-primary);
-  --wex-button-foreground-pressed: var(--wex-color-text-primary);
-}
-
-.wex-admin-notifications__more:not(:disabled):active::after,
-.wex-admin-notifications__more:focus::after,
-.wex-admin-notifications__more:not(:disabled):active::before,
-.wex-admin-notifications__more:focus::before {
-  border-radius: 50%;
-}
-
 .wex-admin-notifications__options {
   position: absolute;
   z-index: 1;
@@ -328,15 +311,6 @@
 
 .wex-admin-notifications__item-menu {
   position: relative;
-}
-
-.wex-admin-notifications__item-menu-toggle {
-  inline-size: var(--wex-space-24);
-  min-block-size: var(--wex-space-24);
-  padding: var(--wex-space-4);
-  --wex-button-foreground-default: var(--wex-color-text-primary);
-  --wex-button-foreground-hover: var(--wex-color-text-primary);
-  --wex-button-foreground-pressed: var(--wex-color-text-primary);
 }
 
 .wex-admin-notifications__item-menu-options {

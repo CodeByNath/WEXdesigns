@@ -1,0 +1,92 @@
+/**
+ * WEX Option Button component tokens
+ *
+ * The three-dot action that opens the options of a component, such as the
+ * Notifications header options and the per-row actions of Notifications and
+ * the Services Manager. Each token points to an existing WEX foundation;
+ * consumers select the mode rather than recreating the target, padding, icon
+ * allocation, tone or focus behaviour locally. The button keeps its `wex-button`
+ * Subtle tone and supplies its own accessible name.
+ */
+
+:root {
+  /* WEX Option Button Default */
+  --wex-option-button-default-target-size: var(--wex-space-40);
+  --wex-option-button-default-padding: var(--wex-space-8);
+  --wex-option-button-default-radius: calc(var(--wex-option-button-default-target-size) / 2);
+  --wex-option-button-default-icon-size: var(--wex-more-action-default-icon-size);
+
+  /* WEX Option Button Small */
+  --wex-option-button-small-target-size: var(--wex-space-24);
+  --wex-option-button-small-padding: var(--wex-space-4);
+  --wex-option-button-small-icon-size: var(--wex-button-small-icon-size);
+
+  /* Shared by every mode */
+  --wex-option-button-foreground: var(--wex-color-text-primary);
+}
+
+.wex-option-button--default,
+.wex-option-button--small {
+  --wex-button-foreground-default: var(--wex-option-button-foreground);
+  --wex-button-foreground-hover: var(--wex-option-button-foreground);
+  --wex-button-foreground-pressed: var(--wex-option-button-foreground);
+}
+
+.wex-option-button--default {
+  inline-size: var(--wex-option-button-default-target-size);
+  min-inline-size: var(--wex-option-button-default-target-size);
+  min-block-size: var(--wex-option-button-default-target-size);
+  padding: var(--wex-option-button-default-padding);
+  border-radius: var(--wex-option-button-default-radius);
+}
+
+.wex-option-button--default > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-option-button-default-icon-size);
+  block-size: var(--wex-option-button-default-icon-size);
+}
+
+.wex-option-button--default:focus-visible::after,
+.wex-option-button--default:focus-visible::before {
+  border-radius: var(--wex-option-button-default-radius);
+}
+
+.wex-option-button--small {
+  inline-size: var(--wex-option-button-small-target-size);
+  min-inline-size: var(--wex-option-button-small-target-size);
+  min-block-size: var(--wex-option-button-small-target-size);
+  padding: var(--wex-option-button-small-padding);
+}
+
+.wex-option-button--small > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-option-button-small-icon-size);
+  block-size: var(--wex-option-button-small-icon-size);
+}
+
+/* The focus ring shows for keyboard focus only, in every mode. */
+.wex-option-button--default:focus-visible,
+.wex-option-button--small:focus-visible {
+  outline: none;
+}
+
+.wex-option-button--default:not(:disabled):active,
+.wex-option-button--small:not(:disabled):active {
+  border-color: var(--wex-button-border-pressed);
+}
+
+.wex-option-button--default:focus:not(:focus-visible),
+.wex-option-button--small:focus:not(:focus-visible) {
+  border-color: var(--wex-button-border-default);
+}
+
+.wex-option-button--default:not(:disabled):active::before,
+.wex-option-button--default:not(:disabled):active::after,
+.wex-option-button--default:focus:not(:focus-visible)::before,
+.wex-option-button--default:focus:not(:focus-visible)::after,
+.wex-option-button--small:not(:disabled):active::before,
+.wex-option-button--small:not(:disabled):active::after,
+.wex-option-button--small:focus:not(:focus-visible)::before,
+.wex-option-button--small:focus:not(:focus-visible)::after {
+  content: none;
+}

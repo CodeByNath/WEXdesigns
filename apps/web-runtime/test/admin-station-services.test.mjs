@@ -40,7 +40,6 @@ test('keeps All Services navigation separate from the station-scoped collection 
 test('uses WEX tokens and reflows both views into a non-scrolling compact list', () => {
   assert.match(appCss, /@import "\.\/admin-station-services\.css";/);
   assert.match(servicesCss, /var\(--wex-color-background-primary\)/);
-  assert.match(servicesCss, /var\(--wex-space-24\)/);
   assert.match(servicesCss, /\.wex-admin-services \{ display: grid; align-content: start;/);
   assert.match(services, /heading\.textContent = 'Manager';/);
   assert.match(services, /wex-search-input wex-search-input--small wex-admin-services__search/);
@@ -76,12 +75,8 @@ test('uses a distinct list glyph for the grid-to-list action', () => {
 test('uses the stateful subtle More Action button treatment from notification list items', () => {
   assert.match(services, /action\.classList\.replace\('wex-button--neutral', 'wex-button--subtle'\)/);
   assert.match(services, /action\.append\(createMoreActionIcon\(document, 'small'\)\)/);
-  assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*inline-size: var\(--wex-space-24\);[^}]*min-block-size: var\(--wex-space-24\);[^}]*padding: var\(--wex-space-4\);/);
-  assert.match(servicesCss, /\.wex-admin-services__item-action \{[^}]*--wex-button-foreground-default: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-hover: var\(--wex-color-text-primary\);[^}]*--wex-button-foreground-pressed: var\(--wex-color-text-primary\);/);
-  assert.match(servicesCss, /\.wex-admin-services \.wex-admin-services__item-action:focus-visible \{ outline: none; \}/);
-  assert.match(servicesCss, /\.wex-admin-services \.wex-admin-services__item-action:not\(:disabled\):active \{ border-color: var\(--wex-button-border-pressed\); \}/);
-  assert.match(servicesCss, /\.wex-admin-services \.wex-admin-services__item-action:focus:not\(:focus-visible\) \{ border-color: var\(--wex-button-border-default\); \}/);
-  assert.match(servicesCss, /\.wex-admin-services \.wex-admin-services__item-action:not\(:disabled\):active::before,[\s\S]*content: none;/);
+  assert.match(services, /action\.classList\.add\('wex-option-button--small', 'wex-admin-services__item-action'\)/);
+  assert.doesNotMatch(servicesCss, /item-action[^{]*\{[^}]*(?:inline-size|padding|--wex-button-foreground|outline|border-color)/);
 });
 
 test('binds View and Edit actions to one open Service action dropdown', () => {
