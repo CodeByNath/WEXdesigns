@@ -28,6 +28,19 @@ test('uses the compact Manager heading and Small typography throughout service c
   assert.match(services, /wex-type-navigation-small-semibold wex-admin-services__value/);
 });
 
+test('places a fixture-derived Overview ahead of the Manager controls with responsive WEX composition', () => {
+  assert.match(services, /function overview\(document, services\)/);
+  assert.match(services, /heading\.textContent = 'Overview';/);
+  assert.match(services, /\['All services', services\.length\]/);
+  assert.match(services, /services\.filter\(\(\{ status \}\) => status === 'active'\)\.length/);
+  assert.match(services, /section\.append\(header, serviceOverview, toolbar, results, footer\)/);
+  assert.match(servicesCss, /\.wex-admin-services__overview \{[\s\S]*padding: var\(--wex-space-16\);[\s\S]*border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.match(servicesCss, /\.wex-admin-services__overview-metrics \{[\s\S]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\);/);
+  assert.match(servicesCss, /@media \(max-width: 1024px\) \{[\s\S]*\.wex-admin-services__overview-metrics \{[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
+  assert.match(servicesCss, /@media \(max-width: 767px\) \{[\s\S]*\.wex-admin-services__overview-metrics \{[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);
+  assert.doesNotMatch(servicesCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
+});
+
 test('wires All Services navigation to the station-scoped collection', () => {
   assert.match(navigation, /import \{ ALL_SERVICES_OWNER, mountAllServicesBody \} from '\.\/admin-station-services\.js';/);
   assert.match(navigation, /id: ALL_SERVICES_OWNER, label: 'All Services', active: true/);

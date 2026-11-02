@@ -63,3 +63,93 @@
 .wex-admin-services[data-view="list"] .wex-admin-services__image img {
   border-radius: 50%;
 }
+
+.wex-admin-services__overview {
+  display: grid;
+  gap: var(--wex-space-16);
+  padding: var(--wex-space-16);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-default);
+  background: var(--wex-color-background-primary);
+}
+
+.wex-admin-services__overview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-16);
+}
+
+.wex-admin-services__overview-scope {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wex-space-8);
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-services__overview-scope svg {
+  inline-size: var(--wex-icon-size-14);
+  block-size: var(--wex-icon-size-14);
+}
+
+.wex-admin-services__overview-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-default);
+  overflow: hidden;
+}
+
+.wex-admin-services__overview-metric {
+  display: grid;
+  gap: var(--wex-space-4);
+  min-inline-size: 0;
+  padding: var(--wex-space-16);
+  border-inline-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
+.wex-admin-services__overview-metric:last-child {
+  border-inline-end: 0;
+}
+
+.wex-admin-services__overview-metric dt {
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-services__overview-metric dd {
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .wex-admin-services__overview-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wex-admin-services__overview-metric:nth-child(2n) {
+    border-inline-end: 0;
+  }
+
+  .wex-admin-services__overview-metric:nth-child(n + 3) {
+    border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  }
+}
+
+@media (max-width: 767px) {
+  .wex-admin-services__overview {
+    gap: var(--wex-space-12);
+  }
+
+  .wex-admin-services__overview-metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wex-admin-services__overview-metric,
+  .wex-admin-services__overview-metric:nth-child(2n) {
+    border-inline-end: 0;
+  }
+
+  .wex-admin-services__overview-metric + .wex-admin-services__overview-metric {
+    border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  }
+}
