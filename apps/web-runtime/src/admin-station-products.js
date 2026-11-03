@@ -1,5 +1,8 @@
 import { mountOverviewModule } from './admin-station-overview.js';
+import { requestAdminDrawer } from './admin-station-drawer.js';
 import { allServicesPreviewSnapshot, mountAllServicesBody } from './admin-station-services.js';
+
+const ADD_NEW_OWNER = 'add-new';
 
 /**
  * Composes independent Overview and Manager modules for the current local
@@ -13,6 +16,12 @@ export function mountProductsBody(shell) {
   const overviewMount = document.createElement('div'); overviewMount.className = 'wex-admin-products__overview';
   const managerMount = document.createElement('div'); managerMount.className = 'wex-admin-products__manager'; managerMount.dataset.adminStationRegion = 'main';
   page.append(overviewMount, managerMount); main.replaceChildren(page);
-  mountOverviewModule(overviewMount, allServicesPreviewSnapshot);
+  const drawer = shell.querySelector('[data-admin-drawer-shell]');
+  mountOverviewModule(overviewMount, allServicesPreviewSnapshot, {
+    onAddNew: (trigger) => {
+      if (drawer instanceof HTMLElement && drawer.dataset.adminDrawerOwner !== ADD_NEW_OWNER) drawer.replaceChildren();
+      requestAdminDrawer(shell, { owner: ADD_NEW_OWNER }, trigger);
+    },
+  });
   mountAllServicesBody(page, allServicesPreviewSnapshot);
 }

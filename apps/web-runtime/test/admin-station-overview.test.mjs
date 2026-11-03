@@ -12,7 +12,7 @@ const [overview, overviewCss, products, productsCss, navigation, services] = awa
 ]);
 
 test('mounts Overview independently from the Manager list/grid module', () => {
-  assert.match(overview, /export function mountOverviewModule\(mount, snapshot\)/);
+  assert.match(overview, /export function mountOverviewModule\(mount, snapshot, actions = \{\}\)/);
   assert.match(overview, /heading\.textContent = 'Overview';/);
   assert.match(overview, /heading\.className = 'wex-component-title';/);
   assert.match(overview, /snapshot\.services\.filter\(\(\{ status \}\) => status === 'active'\)\.length/);
@@ -20,9 +20,13 @@ test('mounts Overview independently from the Manager list/grid module', () => {
   assert.match(overview, /scopeToggle\.append\(createSystemIcon\(document, 'plus'\), createSystemIcon\(document, 'chevron-down'\)\)/);
   assert.match(overview, /scopeToggle\.setAttribute\('aria-label', 'Add new'\)/);
   assert.match(overview, /scopeToggle\.setAttribute\('aria-expanded', String\(!scopeMenu\.hidden\)\)/);
+  assert.match(overview, /actions\.onAddNew\?\.\(addNew\);/);
+  assert.doesNotMatch(overview, /requestAdminDrawer|data-admin-drawer/);
+  assert.match(products, /import \{ requestAdminDrawer \} from '\.\/admin-station-drawer\.js';/);
+  assert.match(products, /requestAdminDrawer\(shell, \{ owner: ADD_NEW_OWNER \}, trigger\);/);
   assert.match(products, /import \{ mountOverviewModule \} from '\.\/admin-station-overview\.js';/);
   assert.match(products, /import \{ allServicesPreviewSnapshot, mountAllServicesBody \} from '\.\/admin-station-services\.js';/);
-  assert.match(products, /mountOverviewModule\(overviewMount, allServicesPreviewSnapshot\);/);
+  assert.match(products, /mountOverviewModule\(overviewMount, allServicesPreviewSnapshot, \{/);
   assert.match(products, /mountAllServicesBody\(page, allServicesPreviewSnapshot\);/);
   assert.match(navigation, /import \{ mountProductsBody \} from '\.\/admin-station-products\.js';/);
   assert.match(navigation, /mountProductsBody\(shell\);/);

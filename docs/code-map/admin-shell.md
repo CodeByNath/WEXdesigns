@@ -16,6 +16,11 @@
 
 ### Recent work (newest first)
 
+- The Overview Add New menu item requests the Admin Drawer in Default mode
+  under the `add-new` owner. Overview only reports the choice; the Products
+  mount makes the request and clears the Drawer so no earlier requester's
+  content remains. The Drawer content is not yet authored.
+
 - Overview is a station-scoped module composed ahead of the existing Manager
   list/grid module by the local Products page mount. Overview owns only its
   summary structure and consumes the current Services fixture; Manager retains
