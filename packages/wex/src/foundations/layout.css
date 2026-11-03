@@ -375,8 +375,9 @@ button.wex-admin-shell__sidebar-tab {
   grid-area: drawer;
   min-width: 0;
   min-height: 0;
+  padding: var(--wex-space-4);
   overflow: hidden;
-  background: var(--wex-color-layer-02);
+  background: transparent;
 }
 
 .wex-admin-shell__body {
@@ -432,6 +433,7 @@ button.wex-admin-shell__sidebar-tab {
   min-block-size: var(--wex-admin-shell-header-size);
   padding: var(--wex-space-16);
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  background: var(--wex-color-layer-02);
 }
 
 .wex-admin-shell__drawer-sidebar {
@@ -448,12 +450,14 @@ button.wex-admin-shell__sidebar-tab {
   padding: var(--wex-space-16);
   overflow: auto;
   overscroll-behavior: contain;
+  background: var(--wex-color-layer-02);
 }
 
 .wex-admin-shell__drawer-footer {
   grid-area: footer;
   padding: var(--wex-space-16);
   border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  background: var(--wex-color-layer-02);
 }
 
 .wex-admin-shell__page {
