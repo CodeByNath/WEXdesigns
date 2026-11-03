@@ -149,7 +149,7 @@ test('shows the registered WEX Action Button Icon Only tokens in Global Tokens',
 test('shows the registered WEX Dropdown Menu tokens in Global Tokens', () => {
   const tokens = pageByPath['global-tokens/index.html'];
   assert.match(tokens, /data-global-token-role="wex-dropdown-menu"/);
-  assert.match(tokens, /WEX Dropdown Menu Default[\s\S]*wex-dropdown-menu--default[\s\S]*wex-dropdown-menu__item--default/);
+  assert.match(tokens, /WEX Dropdown Menu Default[\s\S]*wex-dropdown-menu--default[\s\S]*wex-dropdown-menu__item--default[\s\S]*WEX Dropdown Menu Small[\s\S]*wex-dropdown-menu--small[\s\S]*wex-dropdown-menu__item--small/);
 });
 
 test('shows the registered WEX Option Button tokens in Global Tokens', () => {
@@ -433,8 +433,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__tab--small-dropdown:not\(:disabled\):active\s*\{[\s\S]*background: var\(--wex-button-neutral-background-pressed\);[\s\S]*color: var\(--wex-button-neutral-foreground-pressed\);/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\s*\{[\s\S]*inset-inline-end: calc\(100% \+ var\(--wex-space-4\)\);[\s\S]*white-space: nowrap;/);
   assert.doesNotMatch(adminStationNotificationsCss, /__(?:item-menu-)?options\s*\{[^}]*inline-size/);
-  assert.match(adminStationNotifications, /className = 'wex-dropdown-menu--default wex-admin-notifications__options'/);
-  assert.match(adminStationNotifications, /className = 'wex-dropdown-menu--default wex-admin-notifications__item-menu-options'/);
+  assert.match(adminStationNotifications, /className = 'wex-dropdown-menu--small wex-admin-notifications__options'/);
+  assert.match(adminStationNotifications, /className = 'wex-dropdown-menu--small wex-admin-notifications__item-menu-options'/);
   assert.doesNotMatch(adminStationNotificationsCss, /__(?:item-menu-)?options\s*\{[^}]*(?:padding|border-radius|background):/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__options\[hidden\]\s*\{\s*display: none;/);
   assert.match(adminStationNotificationsCss, /\.wex-admin-notifications__option\s*\{[\s\S]*border-color: transparent;[\s\S]*color: var\(--wex-color-text-primary\);/);

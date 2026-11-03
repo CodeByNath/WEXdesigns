@@ -81,14 +81,14 @@ test('uses the stateful subtle More Action button treatment from notification li
 
 test('binds View and Edit actions to one open Service action dropdown', () => {
   assert.match(services, /action\.setAttribute\('aria-expanded', String\(openServiceMenuId === service\.id\)\)/);
-  assert.match(services, /menuOption\(document, 'View', `service-view:\$\{service\.id\}`, false\), menuOption\(document, 'Edit', `service-edit:\$\{service\.id\}`, false\)/);
+  assert.match(services, /menuOption\(document, 'View', `service-view:\$\{service\.id\}`, false, 'small'\), menuOption\(document, 'Edit', `service-edit:\$\{service\.id\}`, false, 'small'\)/);
   assert.match(services, /command\.startsWith\('menu:'\)/);
   assert.match(services, /command\.startsWith\('service-view:'\) \|\| command\.startsWith\('service-edit:'\)/);
   assert.match(servicesCss, /\.wex-admin-services__item-menu-options \{ inset-block-start: auto; inset-block-end: calc\(100% \+ var\(--wex-space-4\)\); inset-inline-start: auto; inset-inline-end: 0; \}/);
   assert.doesNotMatch(servicesCss, /item-menu-options \{[^}]*(?:min-)?inline-size/);
   assert.doesNotMatch(servicesCss, /item-menu-options \{[^}]*padding/);
   assert.doesNotMatch(servicesCss, /menu-tab|--wex-tab-navigation-small-dropdown/);
-  assert.match(services, /className = 'wex-dropdown-menu--default wex-admin-services__menu'/);
+  assert.match(services, /className = 'wex-dropdown-menu--small wex-admin-services__menu wex-admin-services__item-menu-options'/);
 });
 
 test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes', () => {
@@ -104,14 +104,15 @@ test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes
   assert.doesNotMatch(servicesCss, /status--inactive/);
 });
 
-test('uses the current WEX small Dropdown Navigation contract for every Services popover row', () => {
-  assert.match(services, /function menuOption\(document, label, command, selected\)/);
+test('uses the registered Dropdown Menu mode for every Services popover row', () => {
+  assert.match(services, /function menuOption\(document, label, command, selected, mode = 'default'\)/);
   assert.match(services, /node\.setAttribute\('aria-pressed', String\(selected\)\)/);
-  assert.match(services, /node\.className = 'wex-dropdown-menu__item--default'/);
+  assert.match(services, /node\.className = `wex-dropdown-menu__item--\$\{mode\}`/);
   assert.doesNotMatch(services, /createSystemIcon\(document, 'check'\)/);
   assert.match(services, /columnsMenu\.replaceChildren\(\);/);
   assert.match(services, /filterMenu\.replaceChildren\(\);/);
   assert.match(dropdownMenu, /\.wex-dropdown-menu__item--default/);
+  assert.match(dropdownMenu, /\.wex-dropdown-menu__item--small/);
   assert.match(dropdownMenu, /\[aria-pressed="true"\]/);
   assert.match(dropdownMenu, /--wex-tab-navigation-small-dropdown-selected-background/);
   assert.match(dropdownMenu, /--wex-tab-navigation-small-dropdown-hover-background/);

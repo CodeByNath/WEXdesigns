@@ -35,8 +35,8 @@ function control(document, label, command) { const node = document.createElement
 function iconControl(document, label, command, icon) { const node = control(document, '', command); node.classList.add('wex-action-button-icon-only--small'); node.setAttribute('aria-label', label); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.append(visual, document.createTextNode(label)); return node; }
 /** @param {HTMLButtonElement} node @param {Document} document @param {string} label @param {'list'|'table'|'columns'|'filter'} icon */
 function setIconControlLabel(node, document, label, icon) { node.setAttribute('aria-label', label); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.replaceChildren(visual, document.createTextNode(label)); }
-/** @param {Document} document @param {string} label @param {string} command @param {boolean} selected */
-function menuOption(document, label, command, selected) { const node = document.createElement('button'); node.type = 'button'; node.className = 'wex-dropdown-menu__item--default'; node.dataset.serviceControl = command; node.setAttribute('aria-pressed', String(selected)); node.textContent = label; return node; }
+/** @param {Document} document @param {string} label @param {string} command @param {boolean} selected @param {'default'|'small'} [mode] */
+function menuOption(document, label, command, selected, mode = 'default') { const node = document.createElement('button'); node.type = 'button'; node.className = `wex-dropdown-menu__item--${mode}`; node.dataset.serviceControl = command; node.setAttribute('aria-pressed', String(selected)); node.textContent = label; return node; }
 /** @param {Document} document @param {string} label @param {string} command @param {'chevron-left'|'chevron-right'} icon */
 function pagerIconControl(document, label, command, icon) { const node = control(document, '', command); node.setAttribute('aria-label', label); const visual = createSystemIcon(document, icon); visual.classList.add('wex-admin-services__system-icon'); node.append(visual); return node; }
 /** @param {number} value */
@@ -61,8 +61,8 @@ function serviceItem(document, service, openServiceMenuId) {
   const status = text(document, statusLabel, `wex-type-navigation-small-semibold wex-admin-services__status wex-admin-services__status--${service.status}`);
   const itemMenu = document.createElement('div'); itemMenu.className = 'wex-admin-services__item-menu'; itemMenu.dataset.serviceItemMenu = service.id;
   const action = control(document, '', `menu:${service.id}`); action.classList.replace('wex-button--neutral', 'wex-button--subtle'); action.classList.add('wex-option-button--small', 'wex-admin-services__item-action'); action.setAttribute('aria-label', `Actions for ${service.name}`); action.setAttribute('aria-expanded', String(openServiceMenuId === service.id)); action.append(createMoreActionIcon(document, 'small'));
-  const actionMenu = document.createElement('div'); actionMenu.className = 'wex-dropdown-menu--default wex-admin-services__menu wex-admin-services__item-menu-options'; actionMenu.hidden = openServiceMenuId !== service.id;
-  actionMenu.append(menuOption(document, 'View', `service-view:${service.id}`, false), menuOption(document, 'Edit', `service-edit:${service.id}`, false));
+  const actionMenu = document.createElement('div'); actionMenu.className = 'wex-dropdown-menu--small wex-admin-services__menu wex-admin-services__item-menu-options'; actionMenu.hidden = openServiceMenuId !== service.id;
+  actionMenu.append(menuOption(document, 'View', `service-view:${service.id}`, false, 'small'), menuOption(document, 'Edit', `service-edit:${service.id}`, false, 'small'));
   itemMenu.append(action, actionMenu); footer.append(value, status);
   const compactFooter = document.createElement('div'); compactFooter.className = 'wex-admin-services__compact-footer'; compactFooter.append(fields, footer);
   item.append(picture, content, compactFooter, itemMenu); return item;

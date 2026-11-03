@@ -20,6 +20,10 @@
   rows. The Services Manager menus and the Overview Add New menu consume it
   (ADR 0033).
 
+- WEX Dropdown Menu Small is the WEX Option Button three-dot popover mode. It
+  retains Default presentation with a 120px minimum and fit-content maximum
+  inline size; Notifications and Services Manager row options consume it (ADR 0033).
+
 - WEX Action Button Icon Only Small registers the square icon-only action
   button over the Small Button target and icon sizes. The Services Manager
   tools and the Overview split action consume it (ADR 0032).
