@@ -1,5 +1,5 @@
 import { mountOverviewModule } from './admin-station-overview.js';
-import { requestAdminDrawer } from './admin-station-drawer.js';
+import { adminDrawerCompartment, requestAdminDrawer } from './admin-station-drawer.js';
 import { allServicesPreviewSnapshot, mountAllServicesBody } from './admin-station-services.js';
 
 const ADD_NEW_OWNER = 'add-new';
@@ -19,7 +19,7 @@ export function mountProductsBody(shell) {
   const drawer = shell.querySelector('[data-admin-drawer-shell]');
   mountOverviewModule(overviewMount, allServicesPreviewSnapshot, {
     onAddNew: (trigger) => {
-      if (drawer instanceof HTMLElement && drawer.dataset.adminDrawerOwner !== ADD_NEW_OWNER) drawer.replaceChildren();
+      if (drawer instanceof HTMLElement && drawer.dataset.adminDrawerOwner !== ADD_NEW_OWNER) adminDrawerCompartment(shell, 'body')?.replaceChildren();
       requestAdminDrawer(shell, { owner: ADD_NEW_OWNER }, trigger);
     },
   });

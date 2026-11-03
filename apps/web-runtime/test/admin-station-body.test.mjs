@@ -31,12 +31,13 @@ test('wires Dashboard View action to request the Admin Body and Drawer shells', 
   assert.match(navigation, /if \(selected\.dataset\.sidebarTab === DASHBOARD_BODY_OWNER\) \{[\s\S]*mountDashboardBody\(shell\);/);
   assert.doesNotMatch(navigation, /requestAdminBodyShell/);
   assert.match(dashboard, /import \{ requestAdminBodyShell \} from '\.\/admin-station-body\.js';/);
-  assert.match(dashboard, /import \{ requestAdminDrawer \} from '\.\/admin-station-drawer\.js';/);
+  assert.match(dashboard, /import \{ adminDrawerCompartment, requestAdminDrawer \} from '\.\/admin-station-drawer\.js';/);
   assert.match(dashboard, /view\.className = 'wex-button wex-button--small wex-button--neutral';/);
   assert.match(dashboard, /view\.textContent = 'View';/);
   assert.match(dashboard, /drawerLabel\.className = 'wex-type-body-small-regular';/);
   assert.match(dashboard, /drawerLabel\.textContent = "I'm the Drawer";/);
-  assert.match(dashboard, /drawer\.replaceChildren\(drawerLabel\);/);
+  assert.match(dashboard, /const drawerBody = adminDrawerCompartment\(shell, 'body'\);/);
+  assert.match(dashboard, /drawerBody\.replaceChildren\(drawerLabel\);/);
   assert.match(dashboard, /requestAdminBodyShell\(shell, \{ owner: DASHBOARD_OWNER \}, view\);/);
   assert.match(dashboard, /requestAdminDrawer\(shell, \{ owner: DASHBOARD_OWNER \}, view\);/);
   assert.match(dashboard, /dashboard\.className = 'wex-admin-dashboard';/);

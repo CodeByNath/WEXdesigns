@@ -375,7 +375,7 @@ button.wex-admin-shell__sidebar-tab {
   grid-area: drawer;
   min-width: 0;
   min-height: 0;
-  overflow: auto;
+  overflow: hidden;
   background: var(--wex-color-layer-01);
 }
 
@@ -387,9 +387,17 @@ button.wex-admin-shell__sidebar-tab {
   overflow: auto;
 }
 
+/* The open Drawer is a complete shell: a full-height Sidebar beside Header, Body, and Footer. */
 .wex-admin-shell[data-admin-drawer="open"] .wex-admin-shell__drawer {
   grid-area: main;
   justify-self: end;
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar body"
+    "sidebar footer";
+  grid-template-columns: var(--wex-admin-shell-sidebar-collapsed) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
 .wex-admin-shell[data-admin-drawer="open"][data-admin-drawer-mode="default"] .wex-admin-shell__drawer {
@@ -402,6 +410,43 @@ button.wex-admin-shell__sidebar-tab {
 
 .wex-admin-shell[data-admin-drawer="open"][data-admin-drawer-mode="full"] .wex-admin-shell__drawer {
   inline-size: 100%;
+}
+
+.wex-admin-shell__drawer-header,
+.wex-admin-shell__drawer-sidebar,
+.wex-admin-shell__drawer-body,
+.wex-admin-shell__drawer-footer {
+  min-width: 0;
+  min-height: 0;
+}
+
+.wex-admin-shell__drawer-header {
+  grid-area: header;
+  min-block-size: var(--wex-admin-shell-header-size);
+  padding: var(--wex-space-16);
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
+.wex-admin-shell__drawer-sidebar {
+  grid-area: sidebar;
+  padding: var(--wex-space-8);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border-inline-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  background: var(--wex-color-layer-02);
+}
+
+.wex-admin-shell__drawer-body {
+  grid-area: body;
+  padding: var(--wex-space-16);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.wex-admin-shell__drawer-footer {
+  grid-area: footer;
+  padding: var(--wex-space-16);
+  border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
 .wex-admin-shell__page {

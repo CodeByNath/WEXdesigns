@@ -8,9 +8,33 @@ const [shell, drawer, layout] = await Promise.all([
   readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8'),
 ]);
 
-test('provides an empty Admin Drawer shell with only approved allocation modes', () => {
-  assert.match(shell, /data-admin-drawer="closed" data-admin-drawer-mode="default"/);
-  assert.match(shell, /<aside class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden><\/aside>/);
+test('provides the Admin Drawer shell with four content-empty compartments', () => {
+  assert.match(shell, /<aside class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden>/);
+  for (const [tag, name] of [['header', 'header'], ['div', 'sidebar'], ['div', 'body'], ['footer', 'footer']]) {
+    assert.match(shell, new RegExp(`<${tag} class="wex-admin-shell__drawer-${name}" data-admin-drawer-compartment="${name}"></${tag}>`));
+  }
+  assert.match(drawer, /@typedef \{'header' \| 'sidebar' \| 'body' \| 'footer'\} AdminDrawerCompartmentName/);
+  assert.match(drawer, /export function adminDrawerCompartment\(shell, name\)/);
+});
+
+test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and Footer using existing tokens', () => {
+  const open = layout.match(/\.wex-admin-shell\[data-admin-drawer="open"\] \.wex-admin-shell__drawer \{[\s\S]*?\n\}/);
+  assert.ok(open, 'missing open Drawer rule');
+  assert.match(open[0], /display: grid;/);
+  assert.match(open[0], /"sidebar header"\s*"sidebar body"\s*"sidebar footer"/);
+  assert.match(open[0], /grid-template-columns: var\(--wex-admin-shell-sidebar-collapsed\) minmax\(0, 1fr\);/);
+  assert.match(open[0], /grid-template-rows: auto minmax\(0, 1fr\) auto;/);
+  assert.doesNotMatch(layout, /^\.wex-admin-shell__drawer \{[^}]*display:/m);
+  for (const name of ['header', 'sidebar', 'body', 'footer']) {
+    assert.match(layout, new RegExp(`\\.wex-admin-shell__drawer-${name} \\{[^}]*grid-area: ${name};`));
+  }
+  assert.match(layout, /\.wex-admin-shell__drawer-header \{[^}]*min-block-size: var\(--wex-admin-shell-header-size\);[^}]*padding: var\(--wex-space-16\);[^}]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.match(layout, /\.wex-admin-shell__drawer-body \{[^}]*overflow: auto;/);
+  assert.match(layout, /\.wex-admin-shell__drawer-footer \{[^}]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.doesNotMatch(shell.match(/<aside class="wex-admin-shell__drawer"[\s\S]*?<\/aside>/)[0], /style=/);
+});
+
+test('keeps the Admin Drawer allocation modes approved and request-owned', () => {
   assert.match(drawer, /@typedef \{'default' \| 'half' \| 'full'\} AdminDrawerMode/);
   assert.match(drawer, /@typedef \{\{ owner: string, mode\?: AdminDrawerMode \}\} AdminDrawerRequest/);
   assert.match(drawer, /const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';/);
@@ -35,7 +59,7 @@ test('allocates the Admin Drawer in the Sidebar-priority workspace above the Adm
   assert.match(hoverRule[0], /position: absolute;/);
   assert.match(hoverRule[0], /z-index: 2;/);
   assert.doesNotMatch(hoverRule[0], /--wex-admin-shell-sidebar-current/);
-  assert.match(layout, /\.wex-admin-shell__drawer\s*\{[\s\S]*z-index: 1;[\s\S]*grid-area: drawer;[\s\S]*overflow: auto;[\s\S]*background: var\(--wex-color-layer-01\);/);
+  assert.match(layout, /\.wex-admin-shell__drawer\s*\{[\s\S]*z-index: 1;[\s\S]*grid-area: drawer;[\s\S]*overflow: hidden;[\s\S]*background: var\(--wex-color-layer-01\);/);
   assert.match(layout, /\.wex-admin-shell\[data-admin-drawer="open"\] \.wex-admin-shell__drawer\s*\{[\s\S]*grid-area: main;[\s\S]*justify-self: end;/);
   assert.match(layout, /data-admin-drawer-mode="default"\] \.wex-admin-shell__drawer\s*\{[\s\S]*inline-size: min\(var\(--wex-admin-shell-drawer-default-inline-size\), 100%\);/);
   assert.match(layout, /data-admin-drawer-mode="half"\] \.wex-admin-shell__drawer\s*\{[\s\S]*inline-size: 50%;/);

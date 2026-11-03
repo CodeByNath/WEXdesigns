@@ -1,5 +1,5 @@
 import { requestAdminBodyShell } from './admin-station-body.js';
-import { requestAdminDrawer } from './admin-station-drawer.js';
+import { adminDrawerCompartment, requestAdminDrawer } from './admin-station-drawer.js';
 
 const DASHBOARD_OWNER = 'dashboard';
 
@@ -10,8 +10,8 @@ const DASHBOARD_OWNER = 'dashboard';
  */
 export function mountDashboardBody(shell) {
   const main = shell.querySelector('[data-admin-station-region="main"]');
-  const drawer = shell.querySelector('[data-admin-drawer-shell]');
-  if (!(main instanceof HTMLElement) || !(drawer instanceof HTMLElement)) return;
+  const drawerBody = adminDrawerCompartment(shell, 'body');
+  if (!(main instanceof HTMLElement) || !drawerBody) return;
 
   const view = shell.ownerDocument.createElement('button');
   view.type = 'button';
@@ -21,7 +21,7 @@ export function mountDashboardBody(shell) {
     const drawerLabel = shell.ownerDocument.createElement('span');
     drawerLabel.className = 'wex-type-body-small-regular';
     drawerLabel.textContent = "I'm the Drawer";
-    drawer.replaceChildren(drawerLabel);
+    drawerBody.replaceChildren(drawerLabel);
     requestAdminBodyShell(shell, { owner: DASHBOARD_OWNER }, view);
     requestAdminDrawer(shell, { owner: DASHBOARD_OWNER }, view);
   });

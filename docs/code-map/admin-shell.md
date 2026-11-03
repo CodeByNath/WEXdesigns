@@ -16,9 +16,15 @@
 
 ### Recent work (newest first)
 
+- The Admin Drawer is now a complete shell of four content-empty compartments:
+  Header, a full-height Sidebar rail, Body (the scroll boundary), and Footer,
+  styled from existing tokens only (ADR 0028 amendment). Requesters mount
+  content with `adminDrawerCompartment(shell, 'body')` instead of replacing the
+  Drawer's children; Dashboard and Products were updated accordingly.
+
 - The Overview Add New menu item requests the Admin Drawer in Default mode
   under the `add-new` owner. Overview only reports the choice; the Products
-  mount makes the request and clears the Drawer so no earlier requester's
+  mount makes the request and clears the Drawer Body so no earlier requester's
   content remains. The Drawer content is not yet authored.
 
 - Overview is a station-scoped module composed ahead of the existing Manager
@@ -219,10 +225,12 @@ before an accepted piece is fitted here.
   product behaviour only through separately authorised runtime work. The
   Services collection is owner-authorised presentation-only work; keep its
   one-station snapshot boundary until an adapter contract is accepted.
-- Keep the Admin Drawer empty: it owns only the direct-body placement, approved
-  allocation mode, and its scroll boundary. It uses the same owner/request
-  boundary shape as Header Results. One requester owns the open allocation;
-  mounted content owns all interior structure, presentation, and behaviour.
+- Keep the Admin Drawer's four compartments (Header, Sidebar, Body, Footer)
+  content-empty: the Drawer owns only the direct-body placement, approved
+  allocation mode, compartment layout, and the Body scroll boundary. It uses
+  the same owner/request boundary shape as Header Results. One requester owns
+  the open allocation; it mounts content through `adminDrawerCompartment` and
+  owns that content's structure, presentation, and behaviour.
 - Keep the Admin Body shell content-empty: it owns only the full available
   workspace allocation and scroll boundary. One requester owns the open
   allocation; an action requests it through its closed event boundary, and the

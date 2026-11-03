@@ -19,8 +19,21 @@ function drawerShell(shell) {
   return drawer instanceof HTMLElement ? drawer : null;
 }
 
+/** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */
+
 /**
- * Opens the Admin-owned empty drawer frame for one requesting component.
+ * Returns one of the four Admin Drawer compartments so a requester can mount
+ * its own content there. The compartments themselves stay content-empty.
+ * @param {HTMLElement} shell
+ * @param {AdminDrawerCompartmentName} name
+ */
+export function adminDrawerCompartment(shell, name) {
+  const compartment = drawerShell(shell)?.querySelector(`[data-admin-drawer-compartment="${name}"]`);
+  return compartment instanceof HTMLElement ? compartment : null;
+}
+
+/**
+ * Opens the Admin-owned drawer frame for one requesting component.
  * Mounted content remains responsible for its own structure and state.
  * @param {HTMLElement} shell
  * @param {unknown} request
