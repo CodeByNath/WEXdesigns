@@ -20,11 +20,18 @@ test('provides the Admin Drawer shell with four content-empty compartments', () 
 test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and Footer using existing tokens', () => {
   const open = layout.match(/\.wex-admin-shell\[data-admin-drawer="open"\] \.wex-admin-shell__drawer \{[\s\S]*?\n\}/);
   assert.ok(open, 'missing open Drawer rule');
-  assert.match(open[0], /display: grid;/);
-  assert.match(open[0], /"sidebar header"\s*"sidebar body"\s*"sidebar footer"/);
-  assert.match(open[0], /grid-template-columns: var\(--wex-admin-shell-sidebar-collapsed\) minmax\(0, 1fr\);/);
-  assert.match(open[0], /grid-template-rows: auto minmax\(0, 1fr\) auto;/);
-  assert.doesNotMatch(layout, /^\.wex-admin-shell__drawer \{[^}]*display:/m);
+  assert.doesNotMatch(open[0], /display:|grid-template|border|radius/);
+  assert.doesNotMatch(layout, /^\.wex-admin-shell__drawer \{[^}]*(?:display|border)/m);
+  const frame = layout.match(/\.wex-admin-shell__drawer-frame \{[\s\S]*?\n\}/);
+  assert.ok(frame, 'missing Drawer frame rule');
+  assert.match(frame[0], /display: grid;/);
+  assert.match(frame[0], /"sidebar header"\s*"sidebar body"\s*"sidebar footer"/);
+  assert.match(frame[0], /grid-template-columns: var\(--wex-admin-shell-sidebar-collapsed\) minmax\(0, 1fr\);/);
+  assert.match(frame[0], /grid-template-rows: auto minmax\(0, 1fr\) auto;/);
+  assert.match(frame[0], /border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.match(frame[0], /border-radius: var\(--wex-radius-large\);/);
+  assert.match(frame[0], /overflow: hidden;/);
+  assert.match(shell, /<div class="wex-admin-shell__drawer-frame">/);
   for (const name of ['header', 'sidebar', 'body', 'footer']) {
     assert.match(layout, new RegExp(`\\.wex-admin-shell__drawer-${name} \\{[^}]*grid-area: ${name};`));
   }

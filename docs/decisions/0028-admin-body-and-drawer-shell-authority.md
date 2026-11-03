@@ -47,6 +47,10 @@ Body, and Footer. The Sidebar spans the Drawer's full height at the collapsed
 Admin Sidebar rail size; Header, Body, and Footer stack beside it. Body is the
 Drawer's scroll boundary; the other three hold their allocation.
 
+The compartments sit inside one Drawer frame carrying the subtle border and
+the large radius; the Drawer shell element itself keeps only placement, mode,
+and its overflow boundary, unchanged.
+
 Compartment styling uses only existing WEX tokens (spacing, border, layer
 colour, and the Admin shell sizing variables). No token was created, changed,
 or amended. A requester mounts content into a compartment and still owns that

@@ -387,17 +387,9 @@ button.wex-admin-shell__sidebar-tab {
   overflow: auto;
 }
 
-/* The open Drawer is a complete shell: a full-height Sidebar beside Header, Body, and Footer. */
 .wex-admin-shell[data-admin-drawer="open"] .wex-admin-shell__drawer {
   grid-area: main;
   justify-self: end;
-  display: grid;
-  grid-template-areas:
-    "sidebar header"
-    "sidebar body"
-    "sidebar footer";
-  grid-template-columns: var(--wex-admin-shell-sidebar-collapsed) minmax(0, 1fr);
-  grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
 .wex-admin-shell[data-admin-drawer="open"][data-admin-drawer-mode="default"] .wex-admin-shell__drawer {
@@ -410,6 +402,21 @@ button.wex-admin-shell__sidebar-tab {
 
 .wex-admin-shell[data-admin-drawer="open"][data-admin-drawer-mode="full"] .wex-admin-shell__drawer {
   inline-size: 100%;
+}
+
+/* The framed Drawer: a full-height Sidebar beside Header, Body, and Footer. */
+.wex-admin-shell__drawer-frame {
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar body"
+    "sidebar footer";
+  grid-template-columns: var(--wex-admin-shell-sidebar-collapsed) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  block-size: 100%;
+  overflow: hidden;
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-large);
 }
 
 .wex-admin-shell__drawer-header,

@@ -29,10 +29,12 @@ const shellMarkup = `
     <main id="admin-station-main" class="wex-admin-shell__main" tabindex="-1" data-admin-station-region="main"><div class="wex-admin-shell__page"></div></main>
     <section class="wex-admin-shell__body" data-admin-body-shell aria-label="Admin body" hidden></section>
     <aside class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden>
-      <header class="wex-admin-shell__drawer-header" data-admin-drawer-compartment="header"></header>
-      <div class="wex-admin-shell__drawer-sidebar" data-admin-drawer-compartment="sidebar"></div>
-      <div class="wex-admin-shell__drawer-body" data-admin-drawer-compartment="body"></div>
-      <footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer"></footer>
+      <div class="wex-admin-shell__drawer-frame">
+        <header class="wex-admin-shell__drawer-header" data-admin-drawer-compartment="header"></header>
+        <div class="wex-admin-shell__drawer-sidebar" data-admin-drawer-compartment="sidebar"></div>
+        <div class="wex-admin-shell__drawer-body" data-admin-drawer-compartment="body"></div>
+        <footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer"></footer>
+      </div>
     </aside>
     <footer class="wex-admin-shell__footer" data-admin-station-region="footer"></footer>
     <div class="wex-admin-shell__backdrop" data-sidebar-control="backdrop" aria-hidden="true"></div>
