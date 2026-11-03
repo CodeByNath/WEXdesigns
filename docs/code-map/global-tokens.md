@@ -16,7 +16,7 @@
   Notifications header and row actions and the Services Manager row action
   consume them (ADR 0034).
 
-- WEX Dropdown Menu Small registers the action-options popover surface and
+- WEX Dropdown Menu Default registers the action-options popover surface and
   rows. The Services Manager menus and the Overview Add New menu consume it
   (ADR 0033).
 

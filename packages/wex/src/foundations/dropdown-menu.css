@@ -9,27 +9,27 @@
  */
 
 :root {
-  /* WEX Dropdown Menu Small */
-  --wex-dropdown-menu-small-min-inline-size: calc(var(--wex-space-64) * 3);
-  --wex-dropdown-menu-small-padding: var(--wex-space-8);
-  --wex-dropdown-menu-small-gap: var(--wex-space-4);
-  --wex-dropdown-menu-small-border-width: var(--wex-border-width-default);
-  --wex-dropdown-menu-small-border-color: var(--wex-color-border-subtle);
-  --wex-dropdown-menu-small-radius: var(--wex-radius-large);
-  --wex-dropdown-menu-small-background: var(--wex-color-background-primary);
+  /* WEX Dropdown Menu Default */
+  --wex-dropdown-menu-default-min-inline-size: calc(var(--wex-space-64) * 3);
+  --wex-dropdown-menu-default-padding: var(--wex-space-8);
+  --wex-dropdown-menu-default-gap: var(--wex-space-4);
+  --wex-dropdown-menu-default-border-width: var(--wex-border-width-default);
+  --wex-dropdown-menu-default-border-color: var(--wex-color-border-subtle);
+  --wex-dropdown-menu-default-radius: var(--wex-radius-large);
+  --wex-dropdown-menu-default-background: var(--wex-color-background-primary);
 }
 
-.wex-dropdown-menu--small {
+.wex-dropdown-menu--default {
   display: grid;
-  gap: var(--wex-dropdown-menu-small-gap);
-  min-inline-size: var(--wex-dropdown-menu-small-min-inline-size);
-  padding: var(--wex-dropdown-menu-small-padding);
-  border: var(--wex-dropdown-menu-small-border-width) solid var(--wex-dropdown-menu-small-border-color);
-  border-radius: var(--wex-dropdown-menu-small-radius);
-  background: var(--wex-dropdown-menu-small-background);
+  gap: var(--wex-dropdown-menu-default-gap);
+  min-inline-size: var(--wex-dropdown-menu-default-min-inline-size);
+  padding: var(--wex-dropdown-menu-default-padding);
+  border: var(--wex-dropdown-menu-default-border-width) solid var(--wex-dropdown-menu-default-border-color);
+  border-radius: var(--wex-dropdown-menu-default-radius);
+  background: var(--wex-dropdown-menu-default-background);
 }
 
-.wex-dropdown-menu__item--small {
+.wex-dropdown-menu__item--default {
   position: relative;
   box-sizing: border-box;
   display: inline-flex;
@@ -51,30 +51,30 @@
   text-align: start;
 }
 
-.wex-dropdown-menu__item--small:not([aria-pressed="true"]):hover {
+.wex-dropdown-menu__item--default:not([aria-pressed="true"]):hover {
   background: var(--wex-tab-navigation-small-dropdown-hover-background);
   border-color: var(--wex-tab-navigation-small-dropdown-hover-border-color);
   color: var(--wex-tab-navigation-small-dropdown-hover-foreground);
 }
 
-.wex-dropdown-menu__item--small[aria-pressed="true"] {
+.wex-dropdown-menu__item--default[aria-pressed="true"] {
   background: var(--wex-tab-navigation-small-dropdown-selected-background);
   border-color: var(--wex-tab-navigation-small-dropdown-selected-border-color);
   color: var(--wex-tab-navigation-small-dropdown-selected-foreground);
 }
 
-.wex-dropdown-menu__item--small:not(:disabled):active {
+.wex-dropdown-menu__item--default:not(:disabled):active {
   background: var(--wex-button-neutral-background-pressed);
   color: var(--wex-button-neutral-foreground-pressed);
 }
 
-.wex-dropdown-menu__item--small:not(:disabled):active,
-.wex-dropdown-menu__item--small:focus {
+.wex-dropdown-menu__item--default:not(:disabled):active,
+.wex-dropdown-menu__item--default:focus {
   border-color: var(--wex-outer-ring-color);
 }
 
-.wex-dropdown-menu__item--small:not(:disabled):active::after,
-.wex-dropdown-menu__item--small:focus::after {
+.wex-dropdown-menu__item--default:not(:disabled):active::after,
+.wex-dropdown-menu__item--default:focus::after {
   position: absolute;
   inset: 0;
   box-sizing: border-box;
@@ -84,8 +84,8 @@
   content: '';
 }
 
-.wex-dropdown-menu__item--small:not(:disabled):active::before,
-.wex-dropdown-menu__item--small:focus::before {
+.wex-dropdown-menu__item--default:not(:disabled):active::before,
+.wex-dropdown-menu__item--default:focus::before {
   position: absolute;
   inset: var(--wex-tab-navigation-small-dropdown-focus-inner-width);
   box-sizing: border-box;

@@ -88,7 +88,7 @@ test('binds View and Edit actions to one open Service action dropdown', () => {
   assert.doesNotMatch(servicesCss, /item-menu-options \{[^}]*(?:min-)?inline-size/);
   assert.doesNotMatch(servicesCss, /item-menu-options \{[^}]*padding/);
   assert.doesNotMatch(servicesCss, /menu-tab|--wex-tab-navigation-small-dropdown/);
-  assert.match(services, /className = 'wex-dropdown-menu--small wex-admin-services__menu'/);
+  assert.match(services, /className = 'wex-dropdown-menu--default wex-admin-services__menu'/);
 });
 
 test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes', () => {
@@ -107,11 +107,11 @@ test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes
 test('uses the current WEX small Dropdown Navigation contract for every Services popover row', () => {
   assert.match(services, /function menuOption\(document, label, command, selected\)/);
   assert.match(services, /node\.setAttribute\('aria-pressed', String\(selected\)\)/);
-  assert.match(services, /node\.className = 'wex-dropdown-menu__item--small'/);
+  assert.match(services, /node\.className = 'wex-dropdown-menu__item--default'/);
   assert.doesNotMatch(services, /createSystemIcon\(document, 'check'\)/);
   assert.match(services, /columnsMenu\.replaceChildren\(\);/);
   assert.match(services, /filterMenu\.replaceChildren\(\);/);
-  assert.match(dropdownMenu, /\.wex-dropdown-menu__item--small/);
+  assert.match(dropdownMenu, /\.wex-dropdown-menu__item--default/);
   assert.match(dropdownMenu, /\[aria-pressed="true"\]/);
   assert.match(dropdownMenu, /--wex-tab-navigation-small-dropdown-selected-background/);
   assert.match(dropdownMenu, /--wex-tab-navigation-small-dropdown-hover-background/);

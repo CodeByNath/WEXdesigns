@@ -213,7 +213,7 @@ export function mountHeaderNotifications(shell, trigger) {
   more.setAttribute('aria-expanded', 'false');
   more.append(createMoreActionIcon(document));
   const options = document.createElement('div');
-  options.className = 'wex-dropdown-menu--small wex-admin-notifications__options';
+  options.className = 'wex-dropdown-menu--default wex-admin-notifications__options';
   options.hidden = true;
   const newestFirst = createNotificationTab(document, 'Newest first');
   newestFirst.dataset.notificationSort = 'newest';
@@ -361,7 +361,7 @@ export function mountHeaderNotifications(shell, trigger) {
       itemMenuToggle.setAttribute('aria-expanded', String(openItemMenuId === notification.id));
       itemMenuToggle.append(createMoreActionIcon(document, 'small'));
       const itemMenuOptions = document.createElement('div');
-      itemMenuOptions.className = 'wex-dropdown-menu--small wex-admin-notifications__item-menu-options';
+      itemMenuOptions.className = 'wex-dropdown-menu--default wex-admin-notifications__item-menu-options';
       itemMenuOptions.dataset.notificationItemMenu = notification.id;
       itemMenuOptions.hidden = openItemMenuId !== notification.id;
       const view = createNotificationOption(document, 'View');

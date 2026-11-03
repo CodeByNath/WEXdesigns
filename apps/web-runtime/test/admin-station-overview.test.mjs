@@ -33,8 +33,8 @@ test('uses registered WEX tokens for Overview with desktop, tablet, and compact 
   assert.match(overviewCss, /padding: var\(--wex-space-16\);/);
   assert.match(overviewCss, /border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(overviewCss, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\);/);
-  assert.match(overview, /className = 'wex-dropdown-menu--small wex-admin-overview__scope-menu'/);
-  assert.match(overview, /className = 'wex-dropdown-menu__item--small wex-admin-overview__scope-menu-item'/);
+  assert.match(overview, /className = 'wex-dropdown-menu--default wex-admin-overview__scope-menu'/);
+  assert.match(overview, /className = 'wex-dropdown-menu__item--default wex-admin-overview__scope-menu-item'/);
   assert.doesNotMatch(overviewCss, /--wex-tab-navigation-small-dropdown|scope-menu-item|scope-toggle|scope-action|focus-within/);
   assert.match(overviewCss, /\.wex-admin-overview__header \{[^}]*gap: var\(--wex-space-8\);/);
   assert.match(overviewCss, /@media \(max-width: 1024px\) \{[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
