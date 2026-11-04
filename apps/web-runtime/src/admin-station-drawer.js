@@ -93,7 +93,8 @@ export function mountAdminDrawerShell(shell) {
   const modeControl = drawer.querySelector('[data-admin-drawer-mode-control]');
   syncDrawerModeControl(shell);
   if (modeControl instanceof HTMLButtonElement) {
-    modeControl.addEventListener('click', () => {
+    modeControl.addEventListener('click', (event) => {
+      event.stopPropagation();
       if (drawer.hidden) return;
       const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
       shell.dataset.adminDrawerMode = nextDrawerMode(mode);
