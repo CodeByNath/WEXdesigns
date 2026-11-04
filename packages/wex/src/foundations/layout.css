@@ -371,12 +371,14 @@ button.wex-admin-shell__sidebar-tab {
 }
 
 .wex-admin-shell__drawer {
+  position: relative;
   z-index: 1;
   grid-area: drawer;
   min-width: 0;
   min-height: 0;
   padding: var(--wex-space-4);
-  overflow: hidden;
+  /* The frame continues to clip Drawer content; the mode control overlaps its edge. */
+  overflow: visible;
   background: transparent;
 }
 
@@ -418,6 +420,14 @@ button.wex-admin-shell__sidebar-tab {
   overflow: hidden;
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   border-radius: var(--wex-radius-large);
+}
+
+.wex-admin-shell__drawer-mode-control {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: calc(var(--wex-admin-shell-header-size) - (var(--wex-action-button-icon-only-small-target-size) / 2));
+  inset-inline-start: calc(var(--wex-action-button-icon-only-small-target-size) * -0.3);
+  border-radius: 50%;
 }
 
 .wex-admin-shell__drawer-header,

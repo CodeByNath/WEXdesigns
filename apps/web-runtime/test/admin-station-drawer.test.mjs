@@ -9,12 +9,23 @@ const [shell, drawer, layout] = await Promise.all([
 ]);
 
 test('provides the Admin Drawer shell with four content-empty compartments', () => {
-  assert.match(shell, /<aside class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden>/);
+  assert.match(shell, /<aside id="admin-station-drawer" class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden>/);
   for (const [tag, name] of [['header', 'header'], ['div', 'sidebar'], ['div', 'body'], ['footer', 'footer']]) {
     assert.match(shell, new RegExp(`<${tag} class="wex-admin-shell__drawer-${name}" data-admin-drawer-compartment="${name}"></${tag}>`));
   }
   assert.match(drawer, /@typedef \{'header' \| 'sidebar' \| 'body' \| 'footer'\} AdminDrawerCompartmentName/);
   assert.match(drawer, /export function adminDrawerCompartment\(shell, name\)/);
+});
+
+test('provides a circular Drawer-edge control that advances only through the approved modes', () => {
+  assert.match(shell, /class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control aria-controls="admin-station-drawer"/);
+  assert.match(drawer, /import \{ createSystemIcon \} from '\.\/admin-station-system-icons\.js';/);
+  assert.match(drawer, /function nextDrawerMode\(mode\) \{[\s\S]*mode === 'default'\) return 'half';[\s\S]*mode === 'half'\) return 'full';[\s\S]*return 'default';/);
+  assert.match(drawer, /isFull \? 'chevron-right' : 'chevron-left'/);
+  assert.match(drawer, /modeControl\.addEventListener\('click', \(\) => \{[\s\S]*shell\.dataset\.adminDrawerMode = nextDrawerMode\(mode\);/);
+  assert.match(layout, /\.wex-admin-shell__drawer \{[\s\S]*position: relative;[\s\S]*overflow: visible;/);
+  assert.match(layout, /\.wex-admin-shell__drawer-frame \{[\s\S]*overflow: hidden;/);
+  assert.match(layout, /\.wex-admin-shell__drawer-mode-control \{[\s\S]*inset-inline-start: calc\(var\(--wex-action-button-icon-only-small-target-size\) \* -0\.3\);[\s\S]*border-radius: 50%;/);
 });
 
 test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and Footer using existing tokens', () => {
@@ -38,7 +49,7 @@ test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and
   assert.match(layout, /\.wex-admin-shell__drawer-header \{[^}]*min-block-size: var\(--wex-admin-shell-header-size\);[^}]*padding: var\(--wex-space-16\);[^}]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(layout, /\.wex-admin-shell__drawer-body \{[^}]*overflow: auto;/);
   assert.match(layout, /\.wex-admin-shell__drawer-footer \{[^}]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
-  assert.doesNotMatch(shell.match(/<aside class="wex-admin-shell__drawer"[\s\S]*?<\/aside>/)[0], /style=/);
+  assert.doesNotMatch(shell.match(/<aside id="admin-station-drawer" class="wex-admin-shell__drawer"[\s\S]*?<\/aside>/)[0], /style=/);
 });
 
 test('keeps the Admin Drawer allocation modes approved and request-owned', () => {
@@ -66,7 +77,7 @@ test('allocates the Admin Drawer in the Sidebar-priority workspace above the Adm
   assert.match(hoverRule[0], /position: absolute;/);
   assert.match(hoverRule[0], /z-index: 2;/);
   assert.doesNotMatch(hoverRule[0], /--wex-admin-shell-sidebar-current/);
-  assert.match(layout, /\.wex-admin-shell__drawer\s*\{[\s\S]*z-index: 1;[\s\S]*grid-area: drawer;[\s\S]*padding: var\(--wex-space-4\);[\s\S]*overflow: hidden;[\s\S]*background: transparent;/);
+  assert.match(layout, /\.wex-admin-shell__drawer\s*\{[\s\S]*position: relative;[\s\S]*z-index: 1;[\s\S]*grid-area: drawer;[\s\S]*padding: var\(--wex-space-4\);[\s\S]*overflow: visible;[\s\S]*background: transparent;/);
   assert.match(layout, /\.wex-admin-shell__drawer-sidebar \{[^}]*background: var\(--wex-color-layer-01\);/);
   for (const name of ['header', 'body', 'footer']) {
     assert.match(layout, new RegExp(`\\.wex-admin-shell__drawer-${name} \\{[^}]*background: var\\(--wex-color-layer-02\\);`));

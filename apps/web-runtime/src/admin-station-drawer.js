@@ -1,6 +1,8 @@
 /** @typedef {'default' | 'half' | 'full'} AdminDrawerMode */
 /** @typedef {{ owner: string, mode?: AdminDrawerMode }} AdminDrawerRequest */
 
+import { createSystemIcon } from './admin-station-system-icons.js';
+
 const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';
 const drawerModes = new Set(['default', 'half', 'full']);
 
@@ -17,6 +19,23 @@ function isAdminDrawerRequest(request) {
 function drawerShell(shell) {
   const drawer = shell.querySelector('[data-admin-drawer-shell]');
   return drawer instanceof HTMLElement ? drawer : null;
+}
+
+/** @param {AdminDrawerMode} mode @returns {AdminDrawerMode} */
+function nextDrawerMode(mode) {
+  if (mode === 'default') return 'half';
+  if (mode === 'half') return 'full';
+  return 'default';
+}
+
+/** @param {HTMLElement} shell */
+function syncDrawerModeControl(shell) {
+  const control = shell.querySelector('[data-admin-drawer-mode-control]');
+  if (!(control instanceof HTMLButtonElement)) return;
+  const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
+  const isFull = mode === 'full';
+  control.setAttribute('aria-label', isFull ? 'Reduce drawer to default width' : mode === 'half' ? 'Expand drawer to full width' : 'Expand drawer to half width');
+  control.replaceChildren(createSystemIcon(shell.ownerDocument, isFull ? 'chevron-right' : 'chevron-left'));
 }
 
 /** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */
@@ -44,6 +63,7 @@ export function openAdminDrawer(shell, request) {
 
   drawer.dataset.adminDrawerOwner = request.owner;
   shell.dataset.adminDrawerMode = request.mode ?? 'default';
+  syncDrawerModeControl(shell);
   drawer.hidden = false;
   shell.dataset.adminDrawer = 'open';
   return true;
@@ -69,6 +89,17 @@ export function closeAdminDrawer(shell) {
 export function mountAdminDrawerShell(shell) {
   const drawer = drawerShell(shell);
   if (!drawer) return;
+
+  const modeControl = drawer.querySelector('[data-admin-drawer-mode-control]');
+  syncDrawerModeControl(shell);
+  if (modeControl instanceof HTMLButtonElement) {
+    modeControl.addEventListener('click', () => {
+      if (drawer.hidden) return;
+      const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
+      shell.dataset.adminDrawerMode = nextDrawerMode(mode);
+      syncDrawerModeControl(shell);
+    });
+  }
 
   shell.addEventListener(ADMIN_DRAWER_REQUEST_EVENT, (event) => {
     if (event instanceof CustomEvent) openAdminDrawer(shell, event.detail);
