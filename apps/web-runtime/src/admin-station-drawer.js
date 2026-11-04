@@ -38,6 +38,15 @@ function syncDrawerModeControl(shell) {
   control.replaceChildren(createSystemIcon(shell.ownerDocument, isFull ? 'chevron-right' : 'chevron-left'));
 }
 
+/** @param {HTMLButtonElement} control @param {MouseEvent} event */
+function isDrawerModeControlHit(control, event) {
+  const bounds = control.getBoundingClientRect();
+  return event.clientX >= bounds.left
+    && event.clientX <= bounds.right
+    && event.clientY >= bounds.top
+    && event.clientY <= bounds.bottom;
+}
+
 /** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */
 
 /**
@@ -93,13 +102,23 @@ export function mountAdminDrawerShell(shell) {
   const modeControl = drawer.querySelector('[data-admin-drawer-mode-control]');
   syncDrawerModeControl(shell);
   if (modeControl instanceof HTMLButtonElement) {
-    modeControl.addEventListener('click', (event) => {
-      event.stopPropagation();
-      if (drawer.hidden) return;
+    const advanceMode = () => {
       const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
       shell.dataset.adminDrawerMode = nextDrawerMode(mode);
       syncDrawerModeControl(shell);
+    };
+    modeControl.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (drawer.hidden) return;
+      advanceMode();
     });
+    shell.ownerDocument.addEventListener('click', (event) => {
+      if (drawer.hidden || !(event instanceof MouseEvent) || modeControl.contains(event.target)) return;
+      if (!isDrawerModeControlHit(modeControl, event)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      advanceMode();
+    }, { capture: true });
   }
 
   shell.addEventListener(ADMIN_DRAWER_REQUEST_EVENT, (event) => {

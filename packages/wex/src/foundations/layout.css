@@ -426,8 +426,8 @@ button.wex-admin-shell__sidebar-tab {
   position: absolute;
   z-index: 2;
   inset-block-start: calc(var(--wex-admin-shell-header-size) - (var(--wex-action-button-icon-only-small-target-size) / 2));
-  /* Offset from the visible frame, not the transparent Drawer wrapper. */
-  inset-inline-start: calc(var(--wex-space-4) - (var(--wex-action-button-icon-only-small-target-size) * 0.3));
+  /* A 30% cut is retained inside the visible frame; 70% extends beyond it. */
+  inset-inline-start: calc(var(--wex-space-4) - (var(--wex-action-button-icon-only-small-target-size) * 0.7));
   border-radius: 50%;
 }
 

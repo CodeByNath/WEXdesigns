@@ -22,10 +22,12 @@ test('provides a circular Drawer-edge control that advances only through the app
   assert.match(drawer, /import \{ createSystemIcon \} from '\.\/admin-station-system-icons\.js';/);
   assert.match(drawer, /function nextDrawerMode\(mode\) \{[\s\S]*mode === 'default'\) return 'half';[\s\S]*mode === 'half'\) return 'full';[\s\S]*return 'default';/);
   assert.match(drawer, /isFull \? 'chevron-right' : 'chevron-left'/);
-  assert.match(drawer, /modeControl\.addEventListener\('click', \(event\) => \{[\s\S]*event\.stopPropagation\(\);[\s\S]*shell\.dataset\.adminDrawerMode = nextDrawerMode\(mode\);/);
+  assert.match(drawer, /function isDrawerModeControlHit\(control, event\)/);
+  assert.match(drawer, /modeControl\.addEventListener\('click', \(event\) => \{[\s\S]*event\.stopPropagation\(\);[\s\S]*advanceMode\(\);/);
+  assert.match(drawer, /isDrawerModeControlHit\(modeControl, event\)[\s\S]*event\.preventDefault\(\);[\s\S]*advanceMode\(\);/);
   assert.match(layout, /\.wex-admin-shell__drawer \{[\s\S]*position: relative;[\s\S]*overflow: visible;/);
   assert.match(layout, /\.wex-admin-shell__drawer-frame \{[\s\S]*overflow: hidden;/);
-  assert.match(layout, /\.wex-admin-shell__drawer-mode-control \{[\s\S]*inset-inline-start: calc\(var\(--wex-space-4\) - \(var\(--wex-action-button-icon-only-small-target-size\) \* 0\.3\)\);[\s\S]*border-radius: 50%;/);
+  assert.match(layout, /\.wex-admin-shell__drawer-mode-control \{[\s\S]*inset-inline-start: calc\(var\(--wex-space-4\) - \(var\(--wex-action-button-icon-only-small-target-size\) \* 0\.7\)\);[\s\S]*border-radius: 50%;/);
 });
 
 test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and Footer using existing tokens', () => {
