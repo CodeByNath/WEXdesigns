@@ -5,6 +5,8 @@ import { createSystemIcon } from './admin-station-system-icons.js';
 
 const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';
 const drawerModes = new Set(['default', 'half', 'full']);
+/** @type {Array<'decrease' | 'increase'>} */
+const drawerModeDirections = ['decrease', 'increase'];
 
 /** @param {unknown} request @returns {request is AdminDrawerRequest} */
 function isAdminDrawerRequest(request) {
@@ -21,7 +23,7 @@ function drawerShell(shell) {
   return drawer instanceof HTMLElement ? drawer : null;
 }
 
-/** @param {AdminDrawerMode} mode @returns {AdminDrawerMode} */
+/** @param {AdminDrawerMode} mode @param {'decrease' | 'increase'} direction @returns {AdminDrawerMode} */
 function drawerModeAfter(mode, direction) {
   if (direction === 'decrease') {
     if (mode === 'full') return 'half';
@@ -38,7 +40,7 @@ function syncDrawerModeControl(shell) {
   const control = shell.querySelector('[data-admin-drawer-mode-control]');
   if (!(control instanceof HTMLElement)) return;
   const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
-  for (const direction of ['decrease', 'increase']) {
+  for (const direction of drawerModeDirections) {
     const step = control.querySelector(`[data-admin-drawer-mode-control-step="${direction}"]`);
     if (!(step instanceof HTMLButtonElement)) continue;
     const nextMode = drawerModeAfter(mode, direction);
@@ -121,6 +123,7 @@ export function mountAdminDrawerShell(shell) {
   const modeControl = drawer.querySelector('[data-admin-drawer-mode-control]');
   syncDrawerModeControl(shell);
   if (modeControl instanceof HTMLElement) {
+    /** @param {'decrease' | 'increase'} direction */
     const changeMode = (direction) => {
       const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
       shell.dataset.adminDrawerMode = drawerModeAfter(mode, direction);
