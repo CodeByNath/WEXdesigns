@@ -113,7 +113,7 @@ export function mountAdminDrawerShell(shell) {
       advanceMode();
     });
     shell.ownerDocument.addEventListener('click', (event) => {
-      if (drawer.hidden || !(event instanceof MouseEvent) || modeControl.contains(event.target)) return;
+      if (drawer.hidden || !(event instanceof MouseEvent) || !(event.target instanceof Node) || modeControl.contains(event.target)) return;
       if (!isDrawerModeControlHit(modeControl, event)) return;
       event.preventDefault();
       event.stopPropagation();
