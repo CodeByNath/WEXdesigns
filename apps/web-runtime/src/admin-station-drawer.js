@@ -31,7 +31,6 @@ function drawerModeAfter(mode, direction) {
     return mode;
   }
   if (mode === 'half') return 'default';
-  if (mode === 'default') return 'full';
   return mode;
 }
 
@@ -48,7 +47,7 @@ function syncDrawerModeControl(shell) {
     step.disabled = !isAvailable;
     step.setAttribute('aria-label', direction === 'decrease'
       ? mode === 'full' ? 'Reduce drawer to default width' : mode === 'default' ? 'Reduce drawer to half width' : 'Drawer is at half width'
-      : mode === 'half' ? 'Expand drawer to default width' : mode === 'default' ? 'Expand drawer to full width' : 'Drawer is at full width');
+      : mode === 'half' ? 'Expand drawer to default width' : mode === 'default' ? 'Drawer is at default width' : 'Drawer is at full width');
     step.replaceChildren(createSystemIcon(shell.ownerDocument, direction === 'decrease' ? 'chevron-left' : 'chevron-right'));
   }
 }

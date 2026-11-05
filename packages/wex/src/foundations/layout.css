@@ -422,16 +422,44 @@ button.wex-admin-shell__sidebar-tab {
   border-radius: var(--wex-radius-large);
 }
 
-/* Placement only: the two Drawer size steps are separate Action Button Icon Only buttons. */
 .wex-admin-shell__drawer-mode-control {
   position: absolute;
   z-index: 2;
-  display: flex;
-  gap: var(--wex-space-4);
   inset-block-start: calc(var(--wex-admin-shell-header-size) - (var(--wex-action-button-icon-only-small-target-size) / 2));
-  /* Half of the pair is retained inside the visible frame. */
+  /* Half of the compact split control is retained inside the visible frame. */
   inset-inline-start: var(--wex-space-4);
   transform: translateX(-50%);
+}
+
+.wex-admin-shell__drawer-mode-control-step {
+  display: grid;
+  place-items: center;
+  inline-size: var(--wex-action-button-icon-only-small-icon-size);
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.wex-admin-shell__drawer-mode-control-step > svg {
+  inline-size: var(--wex-action-button-icon-only-small-icon-size);
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
+}
+
+.wex-admin-shell__drawer-mode-control-step:disabled {
+  opacity: 0.4;
+}
+
+.wex-admin-shell__drawer-mode-control:hover .wex-admin-shell__drawer-mode-control-step:disabled {
+  opacity: 0.6;
+}
+
+.wex-admin-shell__drawer-mode-control-divider {
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
+  inline-size: var(--wex-border-width-default);
+  background: var(--wex-color-border-subtle);
 }
 
 .wex-admin-shell__drawer-header,
