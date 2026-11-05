@@ -35,10 +35,9 @@ const shellMarkup = `
         <div class="wex-admin-shell__drawer-body" data-admin-drawer-compartment="body"></div>
         <footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer"></footer>
       </div>
-      <div class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small-menu wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control role="group" aria-label="Drawer size" aria-controls="admin-station-drawer">
-        <button type="button" class="wex-admin-shell__drawer-mode-control-step" data-admin-drawer-mode-control-step="decrease" aria-controls="admin-station-drawer"></button>
-        <span class="wex-admin-shell__drawer-mode-control-divider" aria-hidden="true"></span>
-        <button type="button" class="wex-admin-shell__drawer-mode-control-step" data-admin-drawer-mode-control-step="increase" aria-controls="admin-station-drawer"></button>
+      <div class="wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control role="group" aria-label="Drawer size" aria-controls="admin-station-drawer">
+        <button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small" data-admin-drawer-mode-control-step="decrease" aria-controls="admin-station-drawer"></button>
+        <button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small" data-admin-drawer-mode-control-step="increase" aria-controls="admin-station-drawer"></button>
       </div>
     </aside>
     <footer class="wex-admin-shell__footer" data-admin-station-region="footer"></footer>
