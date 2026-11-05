@@ -25,8 +25,9 @@ function drawerShell(shell) {
 
 /**
  * Rendered Drawer width per mode, measured from the existing mode rules. Modes
- * are ordered by real width, so left always pushes the Drawer right (narrower)
- * and right always pushes it left (wider), whatever the viewport size.
+ * are ordered by real width, so the left chevron (`decrease`) always stretches
+ * the Drawer to the left (wider) and the right chevron (`increase`) always
+ * collapses it to the right (narrower), whatever the viewport size.
  * @param {HTMLElement} shell
  * @returns {Array<{ mode: AdminDrawerMode, width: number }>}
  */
@@ -48,8 +49,8 @@ function drawerModeAfter(shell, mode, direction) {
   const widths = drawerModeWidths(shell);
   const width = widths.find((entry) => entry.mode === mode)?.width ?? 0;
   const candidates = widths
-    .filter((entry) => (direction === 'decrease' ? entry.width < width : entry.width > width))
-    .sort((a, b) => (direction === 'decrease' ? b.width - a.width : a.width - b.width));
+    .filter((entry) => (direction === 'decrease' ? entry.width > width : entry.width < width))
+    .sort((a, b) => (direction === 'decrease' ? a.width - b.width : b.width - a.width));
   return candidates[0]?.mode ?? mode;
 }
 
@@ -65,8 +66,8 @@ function syncDrawerModeControl(shell) {
     const isAvailable = nextMode !== mode;
     step.disabled = !isAvailable;
     step.setAttribute('aria-label', isAvailable
-      ? `${direction === 'decrease' ? 'Reduce' : 'Expand'} drawer to ${nextMode} width`
-      : `Drawer is at its ${direction === 'decrease' ? 'narrowest' : 'widest'} width`);
+      ? `${direction === 'decrease' ? 'Stretch' : 'Collapse'} drawer to ${nextMode} width`
+      : `Drawer is at its ${direction === 'decrease' ? 'widest' : 'narrowest'} width`);
     step.replaceChildren(createSystemIcon(shell.ownerDocument, direction === 'decrease' ? 'chevron-left' : 'chevron-right'));
   }
 }

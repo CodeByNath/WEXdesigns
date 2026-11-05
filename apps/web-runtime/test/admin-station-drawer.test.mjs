@@ -23,7 +23,7 @@ test('provides a split Drawer-edge size stepper through the approved modes', () 
   assert.match(shell, /data-admin-drawer-mode-control-step="increase"/);
   assert.match(drawer, /import \{ createSystemIcon \} from '\.\/admin-station-system-icons\.js';/);
   assert.match(drawer, /function drawerModeWidths\(shell\)[\s\S]*getBoundingClientRect\(\)\.width/);
-  assert.match(drawer, /function drawerModeAfter\(shell, mode, direction\)[\s\S]*entry\.width < width : entry\.width > width/);
+  assert.match(drawer, /function drawerModeAfter\(shell, mode, direction\)[\s\S]*entry\.width > width : entry\.width < width/);
   assert.match(drawer, /direction === 'decrease' \? 'chevron-left' : 'chevron-right'/);
   assert.match(drawer, /step\.disabled = !isAvailable;/);
   assert.match(drawer, /data-admin-drawer-mode-control-step[\s\S]*step\.addEventListener\('click', \(event\) => \{[\s\S]*changeMode\(direction\);/);
