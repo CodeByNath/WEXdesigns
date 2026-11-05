@@ -26,12 +26,12 @@ function drawerShell(shell) {
 /** @param {AdminDrawerMode} mode @param {'decrease' | 'increase'} direction @returns {AdminDrawerMode} */
 function drawerModeAfter(mode, direction) {
   if (direction === 'decrease') {
-    if (mode === 'full') return 'half';
-    if (mode === 'half') return 'default';
+    if (mode === 'full') return 'default';
+    if (mode === 'default') return 'half';
     return mode;
   }
-  if (mode === 'default') return 'half';
-  if (mode === 'half') return 'full';
+  if (mode === 'half') return 'default';
+  if (mode === 'default') return 'full';
   return mode;
 }
 
@@ -47,25 +47,10 @@ function syncDrawerModeControl(shell) {
     const isAvailable = nextMode !== mode;
     step.disabled = !isAvailable;
     step.setAttribute('aria-label', direction === 'decrease'
-      ? mode === 'full' ? 'Reduce drawer to half width' : mode === 'half' ? 'Reduce drawer to default width' : 'Drawer is at default width'
-      : mode === 'default' ? 'Expand drawer to half width' : mode === 'half' ? 'Expand drawer to full width' : 'Drawer is at full width');
+      ? mode === 'full' ? 'Reduce drawer to default width' : mode === 'default' ? 'Reduce drawer to half width' : 'Drawer is at half width'
+      : mode === 'half' ? 'Expand drawer to default width' : mode === 'default' ? 'Expand drawer to full width' : 'Drawer is at full width');
     step.replaceChildren(createSystemIcon(shell.ownerDocument, direction === 'decrease' ? 'chevron-left' : 'chevron-right'));
   }
-}
-
-/** @param {HTMLElement} control @param {MouseEvent} event */
-function isDrawerModeControlHit(control, event) {
-  const bounds = control.getBoundingClientRect();
-  return event.clientX >= bounds.left
-    && event.clientX <= bounds.right
-    && event.clientY >= bounds.top
-    && event.clientY <= bounds.bottom;
-}
-
-/** @param {HTMLElement} control @param {MouseEvent} event @returns {'decrease' | 'increase'} */
-function drawerModeControlDirection(control, event) {
-  const bounds = control.getBoundingClientRect();
-  return event.clientX < bounds.left + (bounds.width / 2) ? 'decrease' : 'increase';
 }
 
 /** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */
@@ -138,13 +123,6 @@ export function mountAdminDrawerShell(shell) {
         if (direction === 'decrease' || direction === 'increase') changeMode(direction);
       });
     });
-    shell.ownerDocument.addEventListener('click', (event) => {
-      if (drawer.hidden || !(event instanceof MouseEvent) || !(event.target instanceof Node) || modeControl.contains(event.target)) return;
-      if (!isDrawerModeControlHit(modeControl, event)) return;
-      event.preventDefault();
-      event.stopPropagation();
-      changeMode(drawerModeControlDirection(modeControl, event));
-    }, { capture: true });
   }
 
   shell.addEventListener(ADMIN_DRAWER_REQUEST_EVENT, (event) => {
