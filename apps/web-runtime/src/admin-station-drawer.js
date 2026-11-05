@@ -23,15 +23,34 @@ function drawerShell(shell) {
   return drawer instanceof HTMLElement ? drawer : null;
 }
 
-/** @param {AdminDrawerMode} mode @param {'decrease' | 'increase'} direction @returns {AdminDrawerMode} */
-function drawerModeAfter(mode, direction) {
-  if (direction === 'decrease') {
-    if (mode === 'full') return 'default';
-    if (mode === 'default') return 'half';
-    return mode;
-  }
-  if (mode === 'half') return 'default';
-  return mode;
+/**
+ * Rendered Drawer width per mode, measured from the existing mode rules. Modes
+ * are ordered by real width, so left always pushes the Drawer right (narrower)
+ * and right always pushes it left (wider), whatever the viewport size.
+ * @param {HTMLElement} shell
+ * @returns {Array<{ mode: AdminDrawerMode, width: number }>}
+ */
+function drawerModeWidths(shell) {
+  const drawer = drawerShell(shell);
+  if (!drawer) return [];
+  const current = shell.dataset.adminDrawerMode;
+  const widths = [...drawerModes].map((mode) => {
+    shell.dataset.adminDrawerMode = mode;
+    return { mode: /** @type {AdminDrawerMode} */ (mode), width: drawer.getBoundingClientRect().width };
+  });
+  if (current === undefined) delete shell.dataset.adminDrawerMode;
+  else shell.dataset.adminDrawerMode = current;
+  return widths;
+}
+
+/** @param {HTMLElement} shell @param {AdminDrawerMode} mode @param {'decrease' | 'increase'} direction @returns {AdminDrawerMode} */
+function drawerModeAfter(shell, mode, direction) {
+  const widths = drawerModeWidths(shell);
+  const width = widths.find((entry) => entry.mode === mode)?.width ?? 0;
+  const candidates = widths
+    .filter((entry) => (direction === 'decrease' ? entry.width < width : entry.width > width))
+    .sort((a, b) => (direction === 'decrease' ? b.width - a.width : a.width - b.width));
+  return candidates[0]?.mode ?? mode;
 }
 
 /** @param {HTMLElement} shell */
@@ -42,12 +61,12 @@ function syncDrawerModeControl(shell) {
   for (const direction of drawerModeDirections) {
     const step = control.querySelector(`[data-admin-drawer-mode-control-step="${direction}"]`);
     if (!(step instanceof HTMLButtonElement)) continue;
-    const nextMode = drawerModeAfter(mode, direction);
+    const nextMode = drawerModeAfter(shell, mode, direction);
     const isAvailable = nextMode !== mode;
     step.disabled = !isAvailable;
-    step.setAttribute('aria-label', direction === 'decrease'
-      ? mode === 'full' ? 'Reduce drawer to default width' : mode === 'default' ? 'Reduce drawer to half width' : 'Drawer is at half width'
-      : mode === 'half' ? 'Expand drawer to default width' : mode === 'default' ? 'Drawer is at default width' : 'Drawer is at full width');
+    step.setAttribute('aria-label', isAvailable
+      ? `${direction === 'decrease' ? 'Reduce' : 'Expand'} drawer to ${nextMode} width`
+      : `Drawer is at its ${direction === 'decrease' ? 'narrowest' : 'widest'} width`);
     step.replaceChildren(createSystemIcon(shell.ownerDocument, direction === 'decrease' ? 'chevron-left' : 'chevron-right'));
   }
 }
@@ -77,9 +96,9 @@ export function openAdminDrawer(shell, request) {
 
   drawer.dataset.adminDrawerOwner = request.owner;
   shell.dataset.adminDrawerMode = request.mode ?? 'default';
-  syncDrawerModeControl(shell);
   drawer.hidden = false;
   shell.dataset.adminDrawer = 'open';
+  syncDrawerModeControl(shell);
   return true;
 }
 
@@ -110,7 +129,7 @@ export function mountAdminDrawerShell(shell) {
     /** @param {'decrease' | 'increase'} direction */
     const changeMode = (direction) => {
       const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
-      shell.dataset.adminDrawerMode = drawerModeAfter(mode, direction);
+      shell.dataset.adminDrawerMode = drawerModeAfter(shell, mode, direction);
       syncDrawerModeControl(shell);
     };
     modeControl.querySelectorAll('[data-admin-drawer-mode-control-step]').forEach((step) => {
@@ -123,6 +142,10 @@ export function mountAdminDrawerShell(shell) {
       });
     });
   }
+
+  shell.ownerDocument.defaultView?.addEventListener('resize', () => {
+    if (!drawer.hidden) syncDrawerModeControl(shell);
+  });
 
   shell.addEventListener(ADMIN_DRAWER_REQUEST_EVENT, (event) => {
     if (event instanceof CustomEvent) openAdminDrawer(shell, event.detail);
