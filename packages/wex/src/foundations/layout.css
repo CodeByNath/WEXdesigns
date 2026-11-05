@@ -425,20 +425,27 @@ button.wex-admin-shell__sidebar-tab {
 .wex-admin-shell__drawer-mode-control {
   position: absolute;
   z-index: 2;
-  display: flex;
-  align-items: center;
   inset-block-start: calc(var(--wex-admin-shell-header-size) - (var(--wex-action-button-icon-only-small-target-size) / 2));
-  /* Half of the two-step control is retained inside the visible frame. */
-  inset-inline-start: calc(var(--wex-space-4) - var(--wex-action-button-icon-only-small-target-size));
-  overflow: hidden;
-  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  border-radius: var(--wex-radius-large);
-  background: var(--wex-color-background-primary);
+  /* Half of the compact split control is retained inside the visible frame. */
+  inset-inline-start: var(--wex-space-4);
+  transform: translateX(-50%);
 }
 
 .wex-admin-shell__drawer-mode-control-step {
+  display: grid;
+  place-items: center;
+  inline-size: var(--wex-action-button-icon-only-small-icon-size);
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
+  padding: 0;
   border: 0;
   border-radius: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.wex-admin-shell__drawer-mode-control-step > svg {
+  inline-size: var(--wex-action-button-icon-only-small-icon-size);
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
 }
 
 .wex-admin-shell__drawer-mode-control-step:disabled {
@@ -450,7 +457,7 @@ button.wex-admin-shell__sidebar-tab {
 }
 
 .wex-admin-shell__drawer-mode-control-divider {
-  align-self: stretch;
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
   inline-size: var(--wex-border-width-default);
   background: var(--wex-color-border-subtle);
 }
