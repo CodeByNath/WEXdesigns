@@ -17,17 +17,22 @@ test('provides the Admin Drawer shell with four content-empty compartments', () 
   assert.match(drawer, /export function adminDrawerCompartment\(shell, name\)/);
 });
 
-test('provides a circular Drawer-edge control that advances only through the approved modes', () => {
-  assert.match(shell, /class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control aria-controls="admin-station-drawer"/);
+test('provides a split Drawer-edge size stepper through the approved modes', () => {
+  assert.match(shell, /class="wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control role="group" aria-label="Drawer size" aria-controls="admin-station-drawer"/);
+  assert.match(shell, /data-admin-drawer-mode-control-step="decrease"/);
+  assert.match(shell, /data-admin-drawer-mode-control-step="increase"/);
   assert.match(drawer, /import \{ createSystemIcon \} from '\.\/admin-station-system-icons\.js';/);
-  assert.match(drawer, /function nextDrawerMode\(mode\) \{[\s\S]*mode === 'default'\) return 'half';[\s\S]*mode === 'half'\) return 'full';[\s\S]*return 'default';/);
-  assert.match(drawer, /isFull \? 'chevron-right' : 'chevron-left'/);
+  assert.match(drawer, /function drawerModeAfter\(mode, direction\) \{[\s\S]*direction === 'decrease'[\s\S]*mode === 'full'\) return 'half';[\s\S]*mode === 'default'\) return 'half';[\s\S]*mode === 'half'\) return 'full';/);
+  assert.match(drawer, /direction === 'decrease' \? 'chevron-left' : 'chevron-right'/);
+  assert.match(drawer, /step\.disabled = !isAvailable;/);
   assert.match(drawer, /function isDrawerModeControlHit\(control, event\)/);
-  assert.match(drawer, /modeControl\.addEventListener\('click', \(event\) => \{[\s\S]*event\.stopPropagation\(\);[\s\S]*advanceMode\(\);/);
-  assert.match(drawer, /isDrawerModeControlHit\(modeControl, event\)[\s\S]*event\.preventDefault\(\);[\s\S]*advanceMode\(\);/);
+  assert.match(drawer, /function drawerModeControlDirection\(control, event\)/);
+  assert.match(drawer, /data-admin-drawer-mode-control-step[\s\S]*step\.addEventListener\('click', \(event\) => \{[\s\S]*changeMode\(direction\);/);
+  assert.match(drawer, /isDrawerModeControlHit\(modeControl, event\)[\s\S]*changeMode\(drawerModeControlDirection\(modeControl, event\)\);/);
   assert.match(layout, /\.wex-admin-shell__drawer \{[\s\S]*position: relative;[\s\S]*overflow: visible;/);
   assert.match(layout, /\.wex-admin-shell__drawer-frame \{[\s\S]*overflow: hidden;/);
-  assert.match(layout, /\.wex-admin-shell__drawer-mode-control \{[\s\S]*inset-inline-start: calc\(var\(--wex-space-4\) - \(var\(--wex-action-button-icon-only-small-target-size\) \* 0\.7\)\);[\s\S]*border-radius: 50%;/);
+  assert.match(layout, /\.wex-admin-shell__drawer-mode-control \{[\s\S]*inset-inline-start: calc\(var\(--wex-space-4\) - var\(--wex-action-button-icon-only-small-target-size\)\);[\s\S]*border-radius: var\(--wex-radius-large\);/);
+  assert.match(layout, /\.wex-admin-shell__drawer-mode-control-step:disabled \{[\s\S]*opacity: 0\.4;/);
 });
 
 test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and Footer using existing tokens', () => {

@@ -22,29 +22,48 @@ function drawerShell(shell) {
 }
 
 /** @param {AdminDrawerMode} mode @returns {AdminDrawerMode} */
-function nextDrawerMode(mode) {
+function drawerModeAfter(mode, direction) {
+  if (direction === 'decrease') {
+    if (mode === 'full') return 'half';
+    if (mode === 'half') return 'default';
+    return mode;
+  }
   if (mode === 'default') return 'half';
   if (mode === 'half') return 'full';
-  return 'default';
+  return mode;
 }
 
 /** @param {HTMLElement} shell */
 function syncDrawerModeControl(shell) {
   const control = shell.querySelector('[data-admin-drawer-mode-control]');
-  if (!(control instanceof HTMLButtonElement)) return;
+  if (!(control instanceof HTMLElement)) return;
   const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
-  const isFull = mode === 'full';
-  control.setAttribute('aria-label', isFull ? 'Reduce drawer to default width' : mode === 'half' ? 'Expand drawer to full width' : 'Expand drawer to half width');
-  control.replaceChildren(createSystemIcon(shell.ownerDocument, isFull ? 'chevron-right' : 'chevron-left'));
+  for (const direction of ['decrease', 'increase']) {
+    const step = control.querySelector(`[data-admin-drawer-mode-control-step="${direction}"]`);
+    if (!(step instanceof HTMLButtonElement)) continue;
+    const nextMode = drawerModeAfter(mode, direction);
+    const isAvailable = nextMode !== mode;
+    step.disabled = !isAvailable;
+    step.setAttribute('aria-label', direction === 'decrease'
+      ? mode === 'full' ? 'Reduce drawer to half width' : mode === 'half' ? 'Reduce drawer to default width' : 'Drawer is at default width'
+      : mode === 'default' ? 'Expand drawer to half width' : mode === 'half' ? 'Expand drawer to full width' : 'Drawer is at full width');
+    step.replaceChildren(createSystemIcon(shell.ownerDocument, direction === 'decrease' ? 'chevron-left' : 'chevron-right'));
+  }
 }
 
-/** @param {HTMLButtonElement} control @param {MouseEvent} event */
+/** @param {HTMLElement} control @param {MouseEvent} event */
 function isDrawerModeControlHit(control, event) {
   const bounds = control.getBoundingClientRect();
   return event.clientX >= bounds.left
     && event.clientX <= bounds.right
     && event.clientY >= bounds.top
     && event.clientY <= bounds.bottom;
+}
+
+/** @param {HTMLElement} control @param {MouseEvent} event @returns {'decrease' | 'increase'} */
+function drawerModeControlDirection(control, event) {
+  const bounds = control.getBoundingClientRect();
+  return event.clientX < bounds.left + (bounds.width / 2) ? 'decrease' : 'increase';
 }
 
 /** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */
@@ -101,23 +120,27 @@ export function mountAdminDrawerShell(shell) {
 
   const modeControl = drawer.querySelector('[data-admin-drawer-mode-control]');
   syncDrawerModeControl(shell);
-  if (modeControl instanceof HTMLButtonElement) {
-    const advanceMode = () => {
+  if (modeControl instanceof HTMLElement) {
+    const changeMode = (direction) => {
       const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
-      shell.dataset.adminDrawerMode = nextDrawerMode(mode);
+      shell.dataset.adminDrawerMode = drawerModeAfter(mode, direction);
       syncDrawerModeControl(shell);
     };
-    modeControl.addEventListener('click', (event) => {
-      event.stopPropagation();
-      if (drawer.hidden) return;
-      advanceMode();
+    modeControl.querySelectorAll('[data-admin-drawer-mode-control-step]').forEach((step) => {
+      if (!(step instanceof HTMLButtonElement)) return;
+      step.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (drawer.hidden || step.disabled) return;
+        const direction = step.dataset.adminDrawerModeControlStep;
+        if (direction === 'decrease' || direction === 'increase') changeMode(direction);
+      });
     });
     shell.ownerDocument.addEventListener('click', (event) => {
       if (drawer.hidden || !(event instanceof MouseEvent) || !(event.target instanceof Node) || modeControl.contains(event.target)) return;
       if (!isDrawerModeControlHit(modeControl, event)) return;
       event.preventDefault();
       event.stopPropagation();
-      advanceMode();
+      changeMode(drawerModeControlDirection(modeControl, event));
     }, { capture: true });
   }
 
