@@ -37,7 +37,7 @@ const shellMarkup = `
       </div>
       <div class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small-menu wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control role="group" aria-label="Drawer size" aria-controls="admin-station-drawer">
         <button type="button" class="wex-admin-shell__drawer-mode-control-step" data-admin-drawer-mode-control-step="decrease" aria-controls="admin-station-drawer"></button>
-        <span class="wex-admin-shell__drawer-mode-control-divider" aria-hidden="true"></span>
+        <button type="button" class="wex-admin-shell__drawer-mode-control-handle" data-admin-drawer-mode-control-handle aria-label="Show drawer size controls" aria-controls="admin-station-drawer" aria-expanded="false"></button>
         <button type="button" class="wex-admin-shell__drawer-mode-control-step" data-admin-drawer-mode-control-step="increase" aria-controls="admin-station-drawer"></button>
       </div>
     </aside>

@@ -425,24 +425,68 @@ button.wex-admin-shell__sidebar-tab {
 .wex-admin-shell__drawer-mode-control {
   position: absolute;
   z-index: 2;
+  inline-size: var(--wex-action-button-icon-only-small-target-size);
+  padding: 0;
   inset-block-start: calc(var(--wex-admin-shell-header-size) - (var(--wex-action-button-icon-only-small-target-size) / 2));
-  /* Half of the compact split control is retained inside the visible frame. */
+  /* The compact handle stays centred on the Drawer's visible edge. */
   inset-inline-start: var(--wex-space-4);
   transform: translateX(-50%);
 }
 
+.wex-admin-shell__drawer-mode-control-handle,
 .wex-admin-shell__drawer-mode-control-step {
   display: grid;
   place-items: center;
-  inline-size: var(--wex-action-button-icon-only-small-icon-size);
-  block-size: var(--wex-action-button-icon-only-small-icon-size);
   padding: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
   color: inherit;
+  cursor: pointer;
 }
 
+.wex-admin-shell__drawer-mode-control-handle {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.wex-admin-shell__drawer-mode-control-step {
+  inline-size: var(--wex-action-button-icon-only-small-icon-size);
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
+  display: none;
+}
+
+.wex-admin-shell__drawer-mode-control-handle:focus-visible,
+.wex-admin-shell__drawer-mode-control-step:focus-visible {
+  outline: var(--wex-outer-ring-width) solid var(--wex-outer-ring-color);
+  outline-offset: var(--wex-outer-ring-gap);
+}
+
+.wex-admin-shell__drawer-mode-control:focus-within .wex-admin-shell__drawer-mode-control-step {
+  display: grid;
+}
+
+@media (hover: hover) {
+  .wex-admin-shell__drawer-mode-control:hover .wex-admin-shell__drawer-mode-control-step {
+    display: grid;
+  }
+
+  .wex-admin-shell__drawer-mode-control:hover {
+    inline-size: auto;
+  }
+}
+
+@media (hover: none) {
+  .wex-admin-shell__drawer-mode-control[data-admin-drawer-mode-control-expanded="true"] .wex-admin-shell__drawer-mode-control-step {
+    display: grid;
+  }
+
+  .wex-admin-shell__drawer-mode-control[data-admin-drawer-mode-control-expanded="true"] {
+    inline-size: auto;
+  }
+}
+
+.wex-admin-shell__drawer-mode-control-handle > svg,
 .wex-admin-shell__drawer-mode-control-step > svg {
   inline-size: var(--wex-action-button-icon-only-small-icon-size);
   block-size: var(--wex-action-button-icon-only-small-icon-size);
@@ -454,12 +498,6 @@ button.wex-admin-shell__sidebar-tab {
 
 .wex-admin-shell__drawer-mode-control:hover .wex-admin-shell__drawer-mode-control-step:disabled {
   opacity: 0.6;
-}
-
-.wex-admin-shell__drawer-mode-control-divider {
-  block-size: var(--wex-action-button-icon-only-small-icon-size);
-  inline-size: var(--wex-border-width-default);
-  background: var(--wex-color-border-subtle);
 }
 
 .wex-admin-shell__drawer-header,

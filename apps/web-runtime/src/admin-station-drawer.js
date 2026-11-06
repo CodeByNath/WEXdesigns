@@ -70,6 +70,17 @@ function syncDrawerModeControl(shell) {
       : `Drawer is at its ${direction === 'decrease' ? 'widest' : 'narrowest'} width`);
     step.replaceChildren(createSystemIcon(shell.ownerDocument, direction === 'decrease' ? 'chevron-left' : 'chevron-right'));
   }
+  const handle = control.querySelector('[data-admin-drawer-mode-control-handle]');
+  if (handle instanceof HTMLButtonElement) {
+    handle.replaceChildren(createSystemIcon(shell.ownerDocument, 'grip-vertical'));
+  }
+}
+
+/** @param {HTMLElement} control @param {boolean} expanded */
+function setDrawerModeControlExpanded(control, expanded) {
+  control.dataset.adminDrawerModeControlExpanded = String(expanded);
+  const handle = control.querySelector('[data-admin-drawer-mode-control-handle]');
+  if (handle instanceof HTMLButtonElement) handle.setAttribute('aria-expanded', String(expanded));
 }
 
 /** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */
@@ -100,6 +111,8 @@ export function openAdminDrawer(shell, request) {
   drawer.hidden = false;
   shell.dataset.adminDrawer = 'open';
   syncDrawerModeControl(shell);
+  const modeControl = drawer.querySelector('[data-admin-drawer-mode-control]');
+  if (modeControl instanceof HTMLElement) setDrawerModeControlExpanded(modeControl, false);
   return true;
 }
 
@@ -139,9 +152,21 @@ export function mountAdminDrawerShell(shell) {
         event.stopPropagation();
         if (drawer.hidden || step.disabled) return;
         const direction = step.dataset.adminDrawerModeControlStep;
-        if (direction === 'decrease' || direction === 'increase') changeMode(direction);
+        if (direction === 'decrease' || direction === 'increase') {
+          changeMode(direction);
+          setDrawerModeControlExpanded(modeControl, false);
+        }
       });
     });
+    const handle = modeControl.querySelector('[data-admin-drawer-mode-control-handle]');
+    if (handle instanceof HTMLButtonElement) {
+      handle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const view = shell.ownerDocument.defaultView;
+        if (!view?.matchMedia('(hover: none)').matches) return;
+        setDrawerModeControlExpanded(modeControl, modeControl.dataset.adminDrawerModeControlExpanded !== 'true');
+      });
+    }
   }
 
   shell.ownerDocument.defaultView?.addEventListener('resize', () => {
