@@ -35,7 +35,7 @@ const shellMarkup = `
         <div class="wex-admin-shell__drawer-body" data-admin-drawer-compartment="body"></div>
         <footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer"></footer>
       </div>
-      <button type="button" class="wex-button wex-button--small wex-button--primary wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control aria-label="Drag to resize drawer" aria-controls="admin-station-drawer"></button>
+      <button type="button" class="wex-button wex-button--small wex-button--subtle wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control aria-label="Drag to resize drawer" aria-controls="admin-station-drawer"></button>
     </aside>
     <footer class="wex-admin-shell__footer" data-admin-station-region="footer"></footer>
     <div class="wex-admin-shell__backdrop" data-sidebar-control="backdrop" aria-hidden="true"></div>

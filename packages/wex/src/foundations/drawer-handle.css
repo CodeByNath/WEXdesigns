@@ -1,13 +1,17 @@
 /**
  * WEX Admin Drawer handle: a thin vertical pill on the Drawer's visible edge,
  * the handlebar itself with no icon and no circle around it. It is a WEX Button
- * (primary tone, small tier), so hover, pressed, focus, and disabled states come
- * from the existing Button tokens; this file only sizes and places it.
+ * (subtle tone, small tier), so hover, pressed, focus, and disabled states come
+ * from the existing Button tokens; this file sizes and places it, and fills it
+ * with the Drawer Sidebar colour by default.
  */
 
 .wex-admin-shell__drawer-mode-control {
   /* Half the pill width, so the ends are fully rounded. */
   --wex-button-radius: var(--wex-space-4);
+  /* Default fill is the Drawer Sidebar colour; hover uses the existing pressed tone. */
+  --wex-button-background-default: var(--wex-color-layer-01);
+  --wex-button-background-hover: var(--wex-button-subtle-background-pressed);
   position: absolute;
   z-index: 2;
   inline-size: var(--wex-space-8);
@@ -26,4 +30,10 @@
 
 .wex-admin-shell__drawer-mode-control[data-admin-drawer-mode-control-dragging] {
   cursor: grabbing;
+}
+
+/* The Drawer fills the width beside the Sidebar, so the handle sits on their shared seam, centred between the two. */
+.wex-admin-shell__drawer-mode-control[data-admin-drawer-mode-control-seam] {
+  inset-inline-start: calc(var(--wex-space-4) / 2);
+  transform: translateX(-50%);
 }
