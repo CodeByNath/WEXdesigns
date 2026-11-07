@@ -5,8 +5,6 @@ import { createSystemIcon } from './admin-station-system-icons.js';
 
 const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';
 const drawerModes = new Set(['default', 'half', 'full']);
-/** @type {Array<'decrease' | 'increase'>} */
-const drawerModeDirections = ['decrease', 'increase'];
 
 /** @param {unknown} request @returns {request is AdminDrawerRequest} */
 function isAdminDrawerRequest(request) {
@@ -25,9 +23,9 @@ function drawerShell(shell) {
 
 /**
  * Rendered Drawer width per mode, measured from the existing mode rules. Modes
- * are ordered by real width, so the left chevron (`decrease`) always stretches
- * the Drawer to the left (wider) and the right chevron (`increase`) always
- * collapses it to the right (narrower), whatever the viewport size.
+ * are ordered by real width, so dragging the handle left (`decrease`) always
+ * stretches the Drawer to the left (wider) and dragging right (`increase`)
+ * always collapses it to the right (narrower), whatever the viewport size.
  * @param {HTMLElement} shell
  * @returns {Array<{ mode: AdminDrawerMode, width: number }>}
  */
@@ -56,31 +54,10 @@ function drawerModeAfter(shell, mode, direction) {
 
 /** @param {HTMLElement} shell */
 function syncDrawerModeControl(shell) {
-  const control = shell.querySelector('[data-admin-drawer-mode-control]');
-  if (!(control instanceof HTMLElement)) return;
-  const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
-  for (const direction of drawerModeDirections) {
-    const step = control.querySelector(`[data-admin-drawer-mode-control-step="${direction}"]`);
-    if (!(step instanceof HTMLButtonElement)) continue;
-    const nextMode = drawerModeAfter(shell, mode, direction);
-    const isAvailable = nextMode !== mode;
-    step.disabled = !isAvailable;
-    step.setAttribute('aria-label', isAvailable
-      ? `${direction === 'decrease' ? 'Stretch' : 'Collapse'} drawer to ${nextMode} width`
-      : `Drawer is at its ${direction === 'decrease' ? 'widest' : 'narrowest'} width`);
-    step.replaceChildren(createSystemIcon(shell.ownerDocument, direction === 'decrease' ? 'chevron-left' : 'chevron-right'));
-  }
-  const handle = control.querySelector('[data-admin-drawer-mode-control-handle]');
+  const handle = shell.querySelector('[data-admin-drawer-mode-control]');
   if (handle instanceof HTMLButtonElement) {
     handle.replaceChildren(createSystemIcon(shell.ownerDocument, 'grip-vertical'));
   }
-}
-
-/** @param {HTMLElement} control @param {boolean} expanded */
-function setDrawerModeControlExpanded(control, expanded) {
-  control.dataset.adminDrawerModeControlExpanded = String(expanded);
-  const handle = control.querySelector('[data-admin-drawer-mode-control-handle]');
-  if (handle instanceof HTMLButtonElement) handle.setAttribute('aria-expanded', String(expanded));
 }
 
 /** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */
@@ -111,8 +88,6 @@ export function openAdminDrawer(shell, request) {
   drawer.hidden = false;
   shell.dataset.adminDrawer = 'open';
   syncDrawerModeControl(shell);
-  const modeControl = drawer.querySelector('[data-admin-drawer-mode-control]');
-  if (modeControl instanceof HTMLElement) setDrawerModeControlExpanded(modeControl, false);
   return true;
 }
 
@@ -137,36 +112,57 @@ export function mountAdminDrawerShell(shell) {
   const drawer = drawerShell(shell);
   if (!drawer) return;
 
-  const modeControl = drawer.querySelector('[data-admin-drawer-mode-control]');
+  const handle = drawer.querySelector('[data-admin-drawer-mode-control]');
   syncDrawerModeControl(shell);
-  if (modeControl instanceof HTMLElement) {
+  if (handle instanceof HTMLButtonElement) {
     /** @param {'decrease' | 'increase'} direction */
     const changeMode = (direction) => {
       const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
       shell.dataset.adminDrawerMode = drawerModeAfter(shell, mode, direction);
-      syncDrawerModeControl(shell);
     };
-    modeControl.querySelectorAll('[data-admin-drawer-mode-control-step]').forEach((step) => {
-      if (!(step instanceof HTMLButtonElement)) return;
-      step.addEventListener('click', (event) => {
-        event.stopPropagation();
-        if (drawer.hidden || step.disabled) return;
-        const direction = step.dataset.adminDrawerModeControlStep;
-        if (direction === 'decrease' || direction === 'increase') {
-          changeMode(direction);
-          setDrawerModeControlExpanded(modeControl, false);
-        }
-      });
+    const handleCentre = () => {
+      const box = handle.getBoundingClientRect();
+      return box.left + box.width / 2;
+    };
+    /** @type {{ pointerId: number, grabOffset: number } | null} */
+    let drag = null;
+    handle.addEventListener('pointerdown', (event) => {
+      if (drawer.hidden || event.button !== 0) return;
+      drag = { pointerId: event.pointerId, grabOffset: event.clientX - handleCentre() };
+      handle.setPointerCapture(event.pointerId);
+      handle.dataset.adminDrawerModeControlDragging = '';
     });
-    const handle = modeControl.querySelector('[data-admin-drawer-mode-control-handle]');
-    if (handle instanceof HTMLButtonElement) {
-      handle.addEventListener('click', (event) => {
-        event.stopPropagation();
-        const view = shell.ownerDocument.defaultView;
-        if (!view?.matchMedia('(hover: none)').matches) return;
-        setDrawerModeControlExpanded(modeControl, modeControl.dataset.adminDrawerModeControlExpanded !== 'true');
-      });
-    }
+    // The handle snaps to the adjacent mode edge once the pointer is nearer to
+    // it than to the current edge, one mode per move and never past the pointer.
+    // Left stretches the Drawer, right collapses it.
+    handle.addEventListener('pointermove', (event) => {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      const target = event.clientX - drag.grabOffset;
+      const centre = handleCentre();
+      if (target === centre) return;
+      const direction = target < centre ? 'decrease' : 'increase';
+      const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
+      const next = drawerModeAfter(shell, mode, direction);
+      if (next === mode) return;
+      const widths = drawerModeWidths(shell);
+      const currentWidth = widths.find((entry) => entry.mode === mode)?.width ?? 0;
+      const nextWidth = widths.find((entry) => entry.mode === next)?.width ?? 0;
+      const nextCentre = centre + (currentWidth - nextWidth);
+      if (Math.abs(target - nextCentre) < Math.abs(target - centre)) shell.dataset.adminDrawerMode = next;
+    });
+    const endDrag = (/** @type {PointerEvent} */ event) => {
+      if (!drag || event.pointerId !== drag.pointerId) return;
+      drag = null;
+      delete handle.dataset.adminDrawerModeControlDragging;
+    };
+    handle.addEventListener('pointerup', endDrag);
+    handle.addEventListener('pointercancel', endDrag);
+    handle.addEventListener('keydown', (event) => {
+      if (drawer.hidden || (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight')) return;
+      event.preventDefault();
+      changeMode(event.key === 'ArrowLeft' ? 'decrease' : 'increase');
+    });
+    handle.addEventListener('click', (event) => event.stopPropagation());
   }
 
   shell.ownerDocument.defaultView?.addEventListener('resize', () => {
