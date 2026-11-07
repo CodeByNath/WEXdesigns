@@ -1,18 +1,23 @@
 /**
- * WEX Admin Drawer handle: one circular icon-only button on the Drawer's visible
- * edge. It uses the existing Action Button Icon Only Small tokens and the WEX
- * Button states; this file only places it and notches the Drawer frame around it.
+ * WEX Admin Drawer handle: a thin vertical pill on the Drawer's visible edge,
+ * the handlebar itself with no icon and no circle around it. It is a WEX Button
+ * (primary tone, small tier), so hover, pressed, focus, and disabled states come
+ * from the existing Button tokens; this file only sizes and places it.
  */
 
 .wex-admin-shell__drawer-mode-control {
-  --wex-button-radius: 50%;
+  /* Half the pill width, so the ends are fully rounded. */
+  --wex-button-radius: var(--wex-space-4);
   position: absolute;
   z-index: 2;
+  inline-size: var(--wex-space-8);
+  block-size: var(--wex-action-button-icon-only-small-target-size);
+  padding: 0;
   inset-block-start: calc(var(--wex-admin-shell-header-size) - (var(--wex-action-button-icon-only-small-target-size) / 2));
   /* 70% of the handle sits inside the Drawer's visible edge, 30% outside. */
   inset-inline-start: var(--wex-space-4);
   transform: translateX(-30%);
-  /* An opaque page-coloured ring fills the notch, including its edge fade, so nothing shows through it. */
+  /* An opaque page-coloured ring, pill-shaped, notches the Drawer edge and the sidebar around the handle. */
   box-shadow: 0 0 0 calc(var(--wex-space-4) + var(--wex-border-width-default)) var(--wex-color-layer-02);
   cursor: grab;
   touch-action: none;
@@ -21,27 +26,4 @@
 
 .wex-admin-shell__drawer-mode-control[data-admin-drawer-mode-control-dragging] {
   cursor: grabbing;
-}
-
-/* The handlebar glyph is a circle split into two tone halves by a dark bar. */
-.wex-admin-shell__drawer-mode-control [data-handlebar-half="start"] {
-  fill: var(--wex-color-layer-02);
-}
-
-.wex-admin-shell__drawer-mode-control [data-handlebar-half="end"] {
-  fill: var(--wex-color-light-grey);
-}
-
-/*
- * The frame is cut away in a circle around the handle, one --wex-space-4 gap
- * wider than the handle, so the handle floats in the notch and never touches
- * the Drawer. The cut is centred on the handle: 20% of its width in from the
- * frame edge (70% inside) and at the Header height, less the Shell padding.
- */
-.wex-admin-shell__drawer-frame {
-  mask-image: radial-gradient(
-    circle at calc(var(--wex-action-button-icon-only-small-target-size) * 0.2) calc(var(--wex-admin-shell-header-size) - var(--wex-space-4)),
-    transparent calc((var(--wex-action-button-icon-only-small-target-size) / 2) + var(--wex-space-4)),
-    currentColor calc((var(--wex-action-button-icon-only-small-target-size) / 2) + var(--wex-space-4) + var(--wex-border-width-default))
-  );
 }

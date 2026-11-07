@@ -1,7 +1,7 @@
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const OUTLINE_STROKE_WIDTH = '1.5';
 
-/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'handlebar' | 'chevron-down' | 'chevron-left' | 'chevron-right'} SystemIconName */
+/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'chevron-down' | 'chevron-left' | 'chevron-right'} SystemIconName */
 
 /* Heroicons 24/outline system glyphs, MIT License, Copyright Tailwind Labs. */
 /** @type {Record<SystemIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
@@ -20,13 +20,6 @@ const systemIconShapes = {
   ],
   plus: [
     ['path', { d: 'M12 4.5v15m7.5-7.5h-15' }],
-  ],
-  /* Handlebar: the Owner's reference, a full circle split into two tone halves by a dark vertical bar. Half tones are set by token in drawer-handle.css. */
-  handlebar: [
-    ['path', { d: 'M12 1.5a10.5 10.5 0 0 0 0 21Z', 'data-handlebar-half': 'start', stroke: 'none' }],
-    ['path', { d: 'M12 1.5a10.5 10.5 0 0 1 0 21Z', 'data-handlebar-half': 'end', stroke: 'none' }],
-    ['circle', { cx: '12', cy: '12', r: '10.5' }],
-    ['rect', { x: '11', y: '5', width: '2', height: '14', rx: '1', fill: 'currentColor', stroke: 'none' }],
   ],
   'chevron-down': [
     ['path', { d: 'm6.75 9 5.25 5.25L17.25 9' }],

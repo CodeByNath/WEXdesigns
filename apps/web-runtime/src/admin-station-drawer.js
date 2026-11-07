@@ -1,8 +1,6 @@
 /** @typedef {'default' | 'half' | 'full'} AdminDrawerMode */
 /** @typedef {{ owner: string, mode?: AdminDrawerMode }} AdminDrawerRequest */
 
-import { createSystemIcon } from './admin-station-system-icons.js';
-
 const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';
 const drawerModes = new Set(['default', 'half', 'full']);
 
@@ -52,14 +50,6 @@ function drawerModeAfter(shell, mode, direction) {
   return candidates[0]?.mode ?? mode;
 }
 
-/** @param {HTMLElement} shell */
-function syncDrawerModeControl(shell) {
-  const handle = shell.querySelector('[data-admin-drawer-mode-control]');
-  if (handle instanceof HTMLButtonElement) {
-    handle.replaceChildren(createSystemIcon(shell.ownerDocument, 'handlebar'));
-  }
-}
-
 /** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */
 
 /**
@@ -87,7 +77,6 @@ export function openAdminDrawer(shell, request) {
   shell.dataset.adminDrawerMode = request.mode ?? 'default';
   drawer.hidden = false;
   shell.dataset.adminDrawer = 'open';
-  syncDrawerModeControl(shell);
   return true;
 }
 
@@ -113,7 +102,6 @@ export function mountAdminDrawerShell(shell) {
   if (!drawer) return;
 
   const handle = drawer.querySelector('[data-admin-drawer-mode-control]');
-  syncDrawerModeControl(shell);
   if (handle instanceof HTMLButtonElement) {
     /** @param {'decrease' | 'increase'} direction */
     const changeMode = (direction) => {
@@ -164,10 +152,6 @@ export function mountAdminDrawerShell(shell) {
     });
     handle.addEventListener('click', (event) => event.stopPropagation());
   }
-
-  shell.ownerDocument.defaultView?.addEventListener('resize', () => {
-    if (!drawer.hidden) syncDrawerModeControl(shell);
-  });
 
   shell.addEventListener(ADMIN_DRAWER_REQUEST_EVENT, (event) => {
     if (event instanceof CustomEvent) openAdminDrawer(shell, event.detail);

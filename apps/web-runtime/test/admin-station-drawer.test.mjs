@@ -20,25 +20,13 @@ test('provides the Admin Drawer shell with four content-empty compartments', () 
   assert.match(drawer, /export function adminDrawerCompartment\(shell, name\)/);
 });
 
-test('provides one circular Drawer-edge handle that drags the Drawer one approved mode at a time', () => {
-  assert.match(shell, /<button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control aria-label="Drag to resize drawer" aria-controls="admin-station-drawer"><\/button>/);
-  assert.doesNotMatch(shell, /drawer-mode-control-step|drawer-mode-control-handle/);
-  assert.doesNotMatch(drawer, /chevron-left|chevron-right/);
-  assert.match(drawer, /import \{ createSystemIcon \} from '\.\/admin-station-system-icons\.js';/);
+test('provides one standalone pill handle that drags the Drawer one approved mode at a time', () => {
+  assert.match(shell, /<button type="button" class="wex-button wex-button--small wex-button--primary wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control aria-label="Drag to resize drawer" aria-controls="admin-station-drawer"><\/button>/);
+  assert.doesNotMatch(shell, /drawer-mode-control-step|drawer-mode-control-handle|icon-only--small wex-admin-shell__drawer-mode-control/);
+  assert.doesNotMatch(drawer, /chevron|createSystemIcon|handlebar|grip-vertical|replaceChildren/);
+  assert.doesNotMatch(icons, /handlebar|grip-vertical|data-handlebar-half/);
   assert.match(drawer, /function drawerModeWidths\(shell\)[\s\S]*getBoundingClientRect\(\)\.width/);
   assert.match(drawer, /function drawerModeAfter\(shell, mode, direction\)[\s\S]*entry\.width > width : entry\.width < width/);
-  assert.match(drawer, /createSystemIcon\(shell\.ownerDocument, 'handlebar'\)/);
-  assert.doesNotMatch(drawer, /grip-vertical/);
-  const handlebar = icons.match(/handlebar: \[[\s\S]*?\n  \],/);
-  assert.ok(handlebar, 'missing handlebar icon');
-  assert.match(handlebar[0], /'M12 1\.5a10\.5 10\.5 0 0 0 0 21Z', 'data-handlebar-half': 'start'/);
-  assert.match(handlebar[0], /'M12 1\.5a10\.5 10\.5 0 0 1 0 21Z', 'data-handlebar-half': 'end'/);
-  assert.match(handlebar[0], /\['circle', \{ cx: '12', cy: '12', r: '10\.5' \}\]/);
-  assert.match(handlebar[0], /\['rect', \{ x: '11', y: '5', width: '2', height: '14', rx: '1', fill: 'currentColor', stroke: 'none' \}\]/);
-  assert.doesNotMatch(handlebar[0], /chevron/);
-  assert.match(handleCss, /\[data-handlebar-half="start"\] \{\s*fill: var\(--wex-color-layer-02\);/);
-  assert.match(handleCss, /\[data-handlebar-half="end"\] \{\s*fill: var\(--wex-color-light-grey\);/);
-  assert.doesNotMatch(icons, /grip-vertical/);
   assert.match(drawer, /handle\.addEventListener\('pointerdown'[\s\S]*setPointerCapture\(event\.pointerId\)/);
   assert.match(drawer, /grabOffset: event\.clientX - handleCentre\(\)/);
   assert.match(drawer, /const direction = target < centre \? 'decrease' : 'increase';[\s\S]*drawerModeAfter\(shell, mode, direction\)/);
@@ -49,21 +37,17 @@ test('provides one circular Drawer-edge handle that drags the Drawer one approve
   assert.doesNotMatch(drawer, /ownerDocument\.addEventListener\('click', \(event\) => \{[\s\S]*changeMode\(/);
   assert.match(layout, /\.wex-admin-shell__drawer \{[\s\S]*position: relative;[\s\S]*overflow: visible;/);
   assert.match(layout, /\.wex-admin-shell__drawer-frame \{[\s\S]*overflow: hidden;/);
+  assert.doesNotMatch(layout, /drawer-mode-control/);
   const control = handleCss.match(/\.wex-admin-shell__drawer-mode-control \{[\s\S]*?\n\}/);
   assert.ok(control, 'missing Drawer handle rule');
-  assert.match(control[0], /--wex-button-radius: 50%;/);
+  assert.match(control[0], /--wex-button-radius: var\(--wex-space-4\);/);
+  assert.match(control[0], /inline-size: var\(--wex-space-8\);\s*block-size: var\(--wex-action-button-icon-only-small-target-size\);\s*padding: 0;/);
   assert.match(control[0], /inset-inline-start: var\(--wex-space-4\);[\s\S]*transform: translateX\(-30%\);/);
   assert.match(control[0], /box-shadow: 0 0 0 calc\(var\(--wex-space-4\) \+ var\(--wex-border-width-default\)\) var\(--wex-color-layer-02\);/);
   assert.match(control[0], /cursor: grab;[\s\S]*touch-action: none;/);
-  assert.doesNotMatch(control[0], /inline-size|block-size|padding|(?<![-\w])border(?:-[\w-]+)?:|background|(?<![-\w])color:|outline/);
+  assert.doesNotMatch(control[0], /background|(?<![-\w])color:|outline|(?<![-\w])border(?:-[\w-]+)?:|#[0-9a-f]{3,8}\b|\d+px/);
   assert.match(handleCss, /\.wex-admin-shell__drawer-mode-control\[data-admin-drawer-mode-control-dragging\] \{\s*cursor: grabbing;/);
-  assert.doesNotMatch(layout, /drawer-mode-control/);
-  const notch = handleCss.match(/\.wex-admin-shell__drawer-frame \{[\s\S]*?\n\}/);
-  assert.ok(notch, 'missing Drawer frame notch rule');
-  assert.match(notch[0], /mask-image: radial-gradient\(\s*circle at calc\(var\(--wex-action-button-icon-only-small-target-size\) \* 0\.2\) calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\)\),/);
-  assert.match(notch[0], /transparent calc\(\(var\(--wex-action-button-icon-only-small-target-size\) \/ 2\) \+ var\(--wex-space-4\)\)/);
-  assert.match(notch[0], /var\(--wex-border-width-default\)/);
-  assert.doesNotMatch(notch[0], /#[0-9a-f]{3,8}\b|\d+px/i);
+  assert.doesNotMatch(handleCss, /mask-image|radial-gradient|data-handlebar-half|inset\]/);
   assert.match(index, /foundations\/layout\.css";\s*@import "\.\/foundations\/drawer-handle\.css";/);
 });
 
