@@ -2,10 +2,12 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-const [shell, drawer, layout] = await Promise.all([
+const [shell, drawer, layout, handleCss, index] = await Promise.all([
   readFile(new URL('../src/admin-station-shell.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-drawer.js', import.meta.url), 'utf8'),
   readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8'),
+  readFile(new URL('../../../packages/wex/src/foundations/drawer-handle.css', import.meta.url), 'utf8'),
+  readFile(new URL('../../../packages/wex/src/index.css', import.meta.url), 'utf8'),
 ]);
 
 test('provides the Admin Drawer shell with four content-empty compartments', () => {
@@ -35,14 +37,21 @@ test('provides one circular Drawer-edge handle that drags the Drawer one approve
   assert.doesNotMatch(drawer, /ownerDocument\.addEventListener\('click', \(event\) => \{[\s\S]*changeMode\(/);
   assert.match(layout, /\.wex-admin-shell__drawer \{[\s\S]*position: relative;[\s\S]*overflow: visible;/);
   assert.match(layout, /\.wex-admin-shell__drawer-frame \{[\s\S]*overflow: hidden;/);
-  const control = layout.match(/\.wex-admin-shell__drawer-mode-control \{[\s\S]*?\n\}/);
+  const control = handleCss.match(/\.wex-admin-shell__drawer-mode-control \{[\s\S]*?\n\}/);
   assert.ok(control, 'missing Drawer handle rule');
   assert.match(control[0], /--wex-button-radius: 50%;/);
-  assert.match(control[0], /inset-inline-start: var\(--wex-space-4\);[\s\S]*transform: translateX\(-50%\);/);
+  assert.match(control[0], /inset-inline-start: var\(--wex-space-4\);[\s\S]*transform: translateX\(-30%\);/);
   assert.match(control[0], /cursor: grab;[\s\S]*touch-action: none;/);
   assert.doesNotMatch(control[0], /inline-size|block-size|padding|border|background|color:|outline/);
-  assert.match(layout, /\.wex-admin-shell__drawer-mode-control\[data-admin-drawer-mode-control-dragging\] \{\s*cursor: grabbing;/);
-  assert.doesNotMatch(layout, /drawer-mode-control-(step|handle)|data-admin-drawer-mode-control-expanded/);
+  assert.match(handleCss, /\.wex-admin-shell__drawer-mode-control\[data-admin-drawer-mode-control-dragging\] \{\s*cursor: grabbing;/);
+  assert.doesNotMatch(layout, /drawer-mode-control/);
+  const notch = handleCss.match(/\.wex-admin-shell__drawer-frame \{[\s\S]*?\n\}/);
+  assert.ok(notch, 'missing Drawer frame notch rule');
+  assert.match(notch[0], /mask-image: radial-gradient\(\s*circle at calc\(var\(--wex-action-button-icon-only-small-target-size\) \* 0\.2\) calc\(var\(--wex-admin-shell-header-size\) - var\(--wex-space-4\)\),/);
+  assert.match(notch[0], /transparent calc\(\(var\(--wex-action-button-icon-only-small-target-size\) \/ 2\) \+ var\(--wex-space-4\)\)/);
+  assert.match(notch[0], /var\(--wex-border-width-default\)/);
+  assert.doesNotMatch(notch[0], /#[0-9a-f]{3,8}\b|\d+px/i);
+  assert.match(index, /foundations\/layout\.css";\s*@import "\.\/foundations\/drawer-handle\.css";/);
 });
 
 test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and Footer using existing tokens', () => {

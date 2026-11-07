@@ -1,0 +1,36 @@
+/**
+ * WEX Admin Drawer handle: one circular icon-only button on the Drawer's visible
+ * edge. It uses the existing Action Button Icon Only Small tokens and the WEX
+ * Button states; this file only places it and notches the Drawer frame around it.
+ */
+
+.wex-admin-shell__drawer-mode-control {
+  --wex-button-radius: 50%;
+  position: absolute;
+  z-index: 2;
+  inset-block-start: calc(var(--wex-admin-shell-header-size) - (var(--wex-action-button-icon-only-small-target-size) / 2));
+  /* 70% of the handle sits inside the Drawer's visible edge, 30% outside. */
+  inset-inline-start: var(--wex-space-4);
+  transform: translateX(-30%);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.wex-admin-shell__drawer-mode-control[data-admin-drawer-mode-control-dragging] {
+  cursor: grabbing;
+}
+
+/*
+ * The frame is cut away in a circle around the handle, one --wex-space-4 gap
+ * wider than the handle, so the handle floats in the notch and never touches
+ * the Drawer. The cut is centred on the handle: 20% of its width in from the
+ * frame edge (70% inside) and at the Header height, less the Shell padding.
+ */
+.wex-admin-shell__drawer-frame {
+  mask-image: radial-gradient(
+    circle at calc(var(--wex-action-button-icon-only-small-target-size) * 0.2) calc(var(--wex-admin-shell-header-size) - var(--wex-space-4)),
+    transparent calc((var(--wex-action-button-icon-only-small-target-size) / 2) + var(--wex-space-4)),
+    currentColor calc((var(--wex-action-button-icon-only-small-target-size) / 2) + var(--wex-space-4) + var(--wex-border-width-default))
+  );
+}

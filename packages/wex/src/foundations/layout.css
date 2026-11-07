@@ -422,23 +422,6 @@ button.wex-admin-shell__sidebar-tab {
   border-radius: var(--wex-radius-large);
 }
 
-.wex-admin-shell__drawer-mode-control {
-  --wex-button-radius: 50%;
-  position: absolute;
-  z-index: 2;
-  inset-block-start: calc(var(--wex-admin-shell-header-size) - (var(--wex-action-button-icon-only-small-target-size) / 2));
-  /* The compact handle stays centred on the Drawer's visible edge. */
-  inset-inline-start: var(--wex-space-4);
-  transform: translateX(-50%);
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
-}
-
-.wex-admin-shell__drawer-mode-control[data-admin-drawer-mode-control-dragging] {
-  cursor: grabbing;
-}
-
 .wex-admin-shell__drawer-header,
 .wex-admin-shell__drawer-sidebar,
 .wex-admin-shell__drawer-body,
