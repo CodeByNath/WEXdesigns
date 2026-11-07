@@ -21,11 +21,12 @@ const systemIconShapes = {
   plus: [
     ['path', { d: 'M12 4.5v15m7.5-7.5h-15' }],
   ],
-  /* Handlebar: the Owner's reference pictogram (framed panel with a centred rounded block), without its chevrons. */
+  /* Handlebar: the Owner's reference, a full circle split into two tone halves by a dark vertical bar. Half tones are set by token in drawer-handle.css. */
   handlebar: [
-    ['rect', { x: '2.25', y: '3', width: '19.5', height: '18', rx: '3' }],
-    ['path', { d: 'M2.25 8.25h19.5' }],
-    ['rect', { x: '9', y: '10.25', width: '6', height: '8.5', rx: '2', fill: 'currentColor', stroke: 'none' }],
+    ['path', { d: 'M12 1.5a10.5 10.5 0 0 0 0 21Z', 'data-handlebar-half': 'start', stroke: 'none' }],
+    ['path', { d: 'M12 1.5a10.5 10.5 0 0 1 0 21Z', 'data-handlebar-half': 'end', stroke: 'none' }],
+    ['circle', { cx: '12', cy: '12', r: '10.5' }],
+    ['rect', { x: '11', y: '5', width: '2', height: '14', rx: '1', fill: 'currentColor', stroke: 'none' }],
   ],
   'chevron-down': [
     ['path', { d: 'm6.75 9 5.25 5.25L17.25 9' }],

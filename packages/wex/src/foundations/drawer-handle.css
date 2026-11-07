@@ -23,6 +23,15 @@
   cursor: grabbing;
 }
 
+/* The handlebar glyph is a circle split into two tone halves by a dark bar. */
+.wex-admin-shell__drawer-mode-control [data-handlebar-half="start"] {
+  fill: var(--wex-color-layer-02);
+}
+
+.wex-admin-shell__drawer-mode-control [data-handlebar-half="end"] {
+  fill: var(--wex-color-light-grey);
+}
+
 /*
  * The frame is cut away in a circle around the handle, one --wex-space-4 gap
  * wider than the handle, so the handle floats in the notch and never touches

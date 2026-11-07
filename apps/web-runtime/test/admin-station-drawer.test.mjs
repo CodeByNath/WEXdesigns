@@ -29,8 +29,15 @@ test('provides one circular Drawer-edge handle that drags the Drawer one approve
   assert.match(drawer, /function drawerModeAfter\(shell, mode, direction\)[\s\S]*entry\.width > width : entry\.width < width/);
   assert.match(drawer, /createSystemIcon\(shell\.ownerDocument, 'handlebar'\)/);
   assert.doesNotMatch(drawer, /grip-vertical/);
-  assert.match(icons, /handlebar: \[\s*\['rect', \{ x: '2\.25', y: '3', width: '19\.5', height: '18', rx: '3' \}\],\s*\['path', \{ d: 'M2\.25 8\.25h19\.5' \}\],\s*\['rect', \{ x: '9', y: '10\.25', width: '6', height: '8\.5', rx: '2', fill: 'currentColor', stroke: 'none' \}\],\s*\],/);
-  assert.doesNotMatch(icons.match(/handlebar: \[[\s\S]*?\n  \],/)[0], /chevron/);
+  const handlebar = icons.match(/handlebar: \[[\s\S]*?\n  \],/);
+  assert.ok(handlebar, 'missing handlebar icon');
+  assert.match(handlebar[0], /'M12 1\.5a10\.5 10\.5 0 0 0 0 21Z', 'data-handlebar-half': 'start'/);
+  assert.match(handlebar[0], /'M12 1\.5a10\.5 10\.5 0 0 1 0 21Z', 'data-handlebar-half': 'end'/);
+  assert.match(handlebar[0], /\['circle', \{ cx: '12', cy: '12', r: '10\.5' \}\]/);
+  assert.match(handlebar[0], /\['rect', \{ x: '11', y: '5', width: '2', height: '14', rx: '1', fill: 'currentColor', stroke: 'none' \}\]/);
+  assert.doesNotMatch(handlebar[0], /chevron/);
+  assert.match(handleCss, /\[data-handlebar-half="start"\] \{\s*fill: var\(--wex-color-layer-02\);/);
+  assert.match(handleCss, /\[data-handlebar-half="end"\] \{\s*fill: var\(--wex-color-light-grey\);/);
   assert.doesNotMatch(icons, /grip-vertical/);
   assert.match(drawer, /handle\.addEventListener\('pointerdown'[\s\S]*setPointerCapture\(event\.pointerId\)/);
   assert.match(drawer, /grabOffset: event\.clientX - handleCentre\(\)/);
