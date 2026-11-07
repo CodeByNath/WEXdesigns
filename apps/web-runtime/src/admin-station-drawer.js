@@ -61,7 +61,9 @@ function availableModeWidths(shell) {
 /** The requested mode, or the nearest wider one that exists at this width. @param {HTMLElement} shell @param {AdminDrawerMode} mode @returns {AdminDrawerMode} */
 function fitMode(shell, mode) {
   const available = availableModeWidths(shell).map((entry) => entry.mode);
-  return [mode, 'default', 'full'].find((candidate) => available.includes(/** @type {AdminDrawerMode} */ (candidate))) ?? 'full';
+  /** @type {AdminDrawerMode[]} */
+  const preference = [mode, 'default', 'full'];
+  return preference.find((candidate) => available.includes(candidate)) ?? 'full';
 }
 
 /** @param {HTMLElement} shell @param {AdminDrawerMode} mode @param {'decrease' | 'increase'} direction @returns {AdminDrawerMode} */
