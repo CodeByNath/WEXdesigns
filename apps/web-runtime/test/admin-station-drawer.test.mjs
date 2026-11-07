@@ -2,12 +2,13 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-const [shell, drawer, layout, handleCss, index] = await Promise.all([
+const [shell, drawer, layout, handleCss, index, icons] = await Promise.all([
   readFile(new URL('../src/admin-station-shell.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-drawer.js', import.meta.url), 'utf8'),
   readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8'),
   readFile(new URL('../../../packages/wex/src/foundations/drawer-handle.css', import.meta.url), 'utf8'),
   readFile(new URL('../../../packages/wex/src/index.css', import.meta.url), 'utf8'),
+  readFile(new URL('../src/admin-station-system-icons.js', import.meta.url), 'utf8'),
 ]);
 
 test('provides the Admin Drawer shell with four content-empty compartments', () => {
@@ -26,7 +27,10 @@ test('provides one circular Drawer-edge handle that drags the Drawer one approve
   assert.match(drawer, /import \{ createSystemIcon \} from '\.\/admin-station-system-icons\.js';/);
   assert.match(drawer, /function drawerModeWidths\(shell\)[\s\S]*getBoundingClientRect\(\)\.width/);
   assert.match(drawer, /function drawerModeAfter\(shell, mode, direction\)[\s\S]*entry\.width > width : entry\.width < width/);
-  assert.match(drawer, /createSystemIcon\(shell\.ownerDocument, 'grip-vertical'\)/);
+  assert.match(drawer, /createSystemIcon\(shell\.ownerDocument, 'handlebar'\)/);
+  assert.doesNotMatch(drawer, /grip-vertical/);
+  assert.match(icons, /handlebar: \[\s*\['rect', \{ x: '7', y: '4\.5', width: '10', height: '15', rx: '3', fill: 'currentColor', stroke: 'none' \}\],\s*\],/);
+  assert.doesNotMatch(icons, /grip-vertical/);
   assert.match(drawer, /handle\.addEventListener\('pointerdown'[\s\S]*setPointerCapture\(event\.pointerId\)/);
   assert.match(drawer, /grabOffset: event\.clientX - handleCentre\(\)/);
   assert.match(drawer, /const direction = target < centre \? 'decrease' : 'increase';[\s\S]*drawerModeAfter\(shell, mode, direction\)/);

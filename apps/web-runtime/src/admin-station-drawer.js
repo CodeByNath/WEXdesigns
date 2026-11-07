@@ -56,7 +56,7 @@ function drawerModeAfter(shell, mode, direction) {
 function syncDrawerModeControl(shell) {
   const handle = shell.querySelector('[data-admin-drawer-mode-control]');
   if (handle instanceof HTMLButtonElement) {
-    handle.replaceChildren(createSystemIcon(shell.ownerDocument, 'grip-vertical'));
+    handle.replaceChildren(createSystemIcon(shell.ownerDocument, 'handlebar'));
   }
 }
 
