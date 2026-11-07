@@ -32,6 +32,16 @@
   --wex-button-subtle-border-hover: transparent;
   --wex-button-subtle-border-pressed: transparent;
 
+  --wex-button-borderless-background-default: transparent;
+  --wex-button-borderless-background-hover: var(--wex-color-background-secondary);
+  --wex-button-borderless-background-pressed: var(--wex-color-light-grey);
+  --wex-button-borderless-foreground-default: var(--wex-color-text-secondary);
+  --wex-button-borderless-foreground-hover: var(--wex-color-text-secondary);
+  --wex-button-borderless-foreground-pressed: var(--wex-color-text-secondary);
+  --wex-button-borderless-border-default: transparent;
+  --wex-button-borderless-border-hover: transparent;
+  --wex-button-borderless-border-pressed: transparent;
+
   --wex-button-warning-background-default: var(--wex-color-background-warning);
   --wex-button-warning-background-hover: var(--wex-color-background-warning-hover);
   --wex-button-warning-background-pressed: var(--wex-color-background-warning-selected);
@@ -67,6 +77,7 @@
 [data-wex-theme='dark'] {
   --wex-button-neutral-background-pressed: var(--wex-color-dark-grey);
   --wex-button-subtle-background-pressed: var(--wex-color-dark-grey);
+  --wex-button-borderless-background-pressed: var(--wex-color-dark-grey);
 }
 
 .wex-button--primary {
@@ -103,6 +114,18 @@
   --wex-button-border-default: var(--wex-button-subtle-border-default);
   --wex-button-border-hover: var(--wex-button-subtle-border-hover);
   --wex-button-border-pressed: var(--wex-button-subtle-border-pressed);
+}
+
+.wex-button--borderless {
+  --wex-button-background-default: var(--wex-button-borderless-background-default);
+  --wex-button-background-hover: var(--wex-button-borderless-background-hover);
+  --wex-button-background-pressed: var(--wex-button-borderless-background-pressed);
+  --wex-button-foreground-default: var(--wex-button-borderless-foreground-default);
+  --wex-button-foreground-hover: var(--wex-button-borderless-foreground-hover);
+  --wex-button-foreground-pressed: var(--wex-button-borderless-foreground-pressed);
+  --wex-button-border-default: var(--wex-button-borderless-border-default);
+  --wex-button-border-hover: var(--wex-button-borderless-border-hover);
+  --wex-button-border-pressed: var(--wex-button-borderless-border-pressed);
 }
 
 .wex-button--warning {

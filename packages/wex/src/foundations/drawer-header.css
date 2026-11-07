@@ -1,0 +1,46 @@
+/* The Drawer Header holds two compartment shells: Icon, Location and Status Pill at the start, action navigation at the end. */
+.wex-admin-shell__drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-shell__drawer-header-start,
+.wex-admin-shell__drawer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-shell__drawer-header-start {
+  min-inline-size: 0;
+}
+
+.wex-admin-shell__drawer-header-actions {
+  flex: none;
+}
+
+/* Icon tile: the primary tone in the Header profile action's size and circular shape. */
+.wex-admin-shell__drawer-header-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: calc(var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-space-16));
+  block-size: calc(var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-space-16));
+  border-radius: 50%;
+  background: var(--wex-button-primary-background-default);
+  color: var(--wex-button-primary-foreground-default);
+}
+
+.wex-admin-shell__drawer-header-icon svg {
+  inline-size: var(--wex-icon-size-20);
+  block-size: var(--wex-icon-size-20);
+}
+
+.wex-admin-shell__drawer-header-label {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

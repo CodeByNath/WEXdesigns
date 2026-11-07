@@ -2,18 +2,22 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 
-const [shell, drawer, layout, handleCss, index, icons] = await Promise.all([
+const [shell, drawer, layout, handleCss, index, icons, headerCss, headerJs, pillCss] = await Promise.all([
   readFile(new URL('../src/admin-station-shell.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-drawer.js', import.meta.url), 'utf8'),
   readFile(new URL('../../../packages/wex/src/foundations/layout.css', import.meta.url), 'utf8'),
   readFile(new URL('../../../packages/wex/src/foundations/drawer-handle.css', import.meta.url), 'utf8'),
   readFile(new URL('../../../packages/wex/src/index.css', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-system-icons.js', import.meta.url), 'utf8'),
+  readFile(new URL('../../../packages/wex/src/foundations/drawer-header.css', import.meta.url), 'utf8'),
+  readFile(new URL('../src/admin-station-drawer-header.js', import.meta.url), 'utf8'),
+  readFile(new URL('../../../packages/wex/src/foundations/notification-pill.css', import.meta.url), 'utf8'),
 ]);
 
-test('provides the Admin Drawer shell with four content-empty compartments', () => {
+test('provides the Admin Drawer shell with four compartments, three content-empty and the Header holding its two shells', () => {
   assert.match(shell, /<aside id="admin-station-drawer" class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden>/);
-  for (const [tag, name] of [['header', 'header'], ['div', 'sidebar'], ['div', 'body'], ['footer', 'footer']]) {
+  assert.match(shell, /<header class="wex-admin-shell__drawer-header" data-admin-drawer-compartment="header">/);
+  for (const [tag, name] of [['div', 'sidebar'], ['div', 'body'], ['footer', 'footer']]) {
     assert.match(shell, new RegExp(`<${tag} class="wex-admin-shell__drawer-${name}" data-admin-drawer-compartment="${name}"></${tag}>`));
   }
   assert.match(drawer, /@typedef \{'header' \| 'sidebar' \| 'body' \| 'footer'\} AdminDrawerCompartmentName/);
@@ -80,7 +84,7 @@ test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and
   const frame = layout.match(/\.wex-admin-shell__drawer-frame \{[\s\S]*?\n\}/);
   assert.ok(frame, 'missing Drawer frame rule');
   assert.match(frame[0], /display: grid;/);
-  assert.match(frame[0], /"sidebar header"\s*"sidebar body"\s*"sidebar footer"/);
+  assert.match(frame[0], /"header header"\s*"sidebar body"\s*"sidebar footer"/);
   assert.match(frame[0], /grid-template-columns: var\(--wex-admin-shell-sidebar-collapsed\) minmax\(0, 1fr\);/);
   assert.match(frame[0], /grid-template-rows: auto minmax\(0, 1fr\) auto;/);
   assert.match(frame[0], /border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
@@ -90,15 +94,52 @@ test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and
   for (const name of ['header', 'sidebar', 'body', 'footer']) {
     assert.match(layout, new RegExp(`\\.wex-admin-shell__drawer-${name} \\{[^}]*grid-area: ${name};`));
   }
-  assert.match(layout, /\.wex-admin-shell__drawer-header \{[^}]*min-block-size: var\(--wex-admin-shell-header-size\);[^}]*padding: var\(--wex-space-16\);[^}]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.match(layout, /\.wex-admin-shell__drawer-header \{[^}]*min-block-size: var\(--wex-admin-shell-header-size\);[^}]*padding-block: var\(--wex-space-8\);[^}]*padding-inline: var\(--wex-space-16\);[^}]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(layout, /\.wex-admin-shell__drawer-body \{[^}]*overflow: auto;/);
   assert.match(layout, /\.wex-admin-shell__drawer-footer \{[^}]*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.doesNotMatch(shell.match(/<aside id="admin-station-drawer" class="wex-admin-shell__drawer"[\s\S]*?<\/aside>/)[0], /style=/);
 });
 
+test('gives the Drawer Header two compartment shells: content-empty start and the action navigation', () => {
+  const header = shell.match(/<header class="wex-admin-shell__drawer-header"[\s\S]*?<\/header>/)[0];
+  const start = header.match(/<div class="wex-admin-shell__drawer-header-start" data-admin-drawer-header-shell="start">([\s\S]*?)\n          <\/div>/)[1];
+  assert.match(start, /<span class="wex-admin-shell__drawer-header-icon" data-admin-drawer-header-icon aria-hidden="true"><\/span>/);
+  assert.match(start, /<span class="wex-admin-shell__drawer-header-label wex-component-title" data-admin-drawer-header-label><\/span>/);
+  assert.doesNotMatch(start, /wex-pill-notification-status/);
+  assert.doesNotMatch(start, /style=/);
+  const actions = header.match(/<div class="wex-admin-shell__drawer-header-actions" data-admin-drawer-header-shell="actions">([\s\S]*?)\n          <\/div>/)[1];
+  assert.match(actions, /^\s*<span class="wex-pill-notification-status" data-admin-drawer-header-status><\/span>\s*<button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small-menu" aria-label="Edit options" aria-expanded="false" aria-haspopup="menu">/);
+  assert.equal((actions.match(/<svg/g) ?? []).length, 3);
+  assert.match(actions, /class="wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small" data-admin-drawer-close aria-label="Close drawer"/);
+  assert.ok(actions.indexOf('Edit options') < actions.indexOf('Close drawer'), 'close sits at the right corner');
+  assert.doesNotMatch(header, /style=/);
+  assert.match(drawer, /\[data-admin-drawer-close\]'\)\?\.addEventListener\('click', \(\) => closeAdminDrawer\(shell\)\)/);
+  assert.match(headerCss, /\.wex-admin-shell__drawer-header \{\s*display: flex;\s*align-items: center;\s*justify-content: space-between;/);
+  assert.match(index, /@import "\.\/foundations\/drawer-header\.css";/);
+});
+
+test('drives the Drawer Header icon, label and status pill dynamically', () => {
+  assert.match(headerJs, /export function setAdminDrawerHeader\(shell, content\)/);
+  assert.match(headerJs, /parts\.icon\.replaceChildren\(createSystemIcon\(shell\.ownerDocument, content\.icon\)\)/);
+  assert.match(headerJs, /const statusLabels = \{ active: 'Active', pending: 'Pending', disabled: 'Disabled' \};/);
+  assert.match(headerJs, /const DEFAULT_ICON = 'user';\s*const DEFAULT_STATUS = 'active';/);
+  assert.match(headerJs, /new MutationObserver\(\(\) => \{\s*if \(parts\.label\.dataset\.adminDrawerHeaderLabelOwned === undefined\) parts\.label\.textContent = locationLabel\(shell\);/);
+  assert.match(headerJs, /\[data-admin-station-location\]/);
+  assert.doesNotMatch(headerJs, /style\.|innerHTML|fetch\(|localStorage/);
+  assert.match(drawer, /resetAdminDrawerHeader\(shell\);\s*if \(request\.header\) setAdminDrawerHeader\(shell, request\.header\);/);
+  assert.match(drawer, /candidate\.header === undefined \|\| isAdminDrawerHeaderContent\(candidate\.header\)/);
+  assert.match(drawer, /export \{ setAdminDrawerHeader \};/);
+  assert.match(drawer, /mountAdminDrawerHeader\(shell\);/);
+  assert.match(icons, /user: \[\s*\['circle', \{ cx: '12', cy: '8\.25', r: '3\.25' \}\],\s*\['path', \{ d: 'M5\.25 20\.25a6\.75 6\.75 0 0 1 13\.5 0' \}\],/);
+  for (const state of ['pending', 'active', 'disabled']) {
+    assert.match(pillCss, new RegExp(`\\.wex-pill-notification-status--${state} \\{\\s*background: var\\(--wex-pill-notification-status-${state}-background\\);\\s*color: var\\(--wex-pill-notification-status-${state}-foreground\\);`));
+  }
+  assert.match(headerCss, /\.wex-admin-shell__drawer-header-icon \{[^}]*border-radius: 50%;[^}]*background: var\(--wex-button-primary-background-default\);[^}]*color: var\(--wex-button-primary-foreground-default\);/);
+});
+
 test('keeps the Admin Drawer allocation modes approved and request-owned', () => {
   assert.match(drawer, /@typedef \{'default' \| 'half' \| 'full'\} AdminDrawerMode/);
-  assert.match(drawer, /@typedef \{\{ owner: string, mode\?: AdminDrawerMode \}\} AdminDrawerRequest/);
+  assert.match(drawer, /@typedef \{\{ owner: string, mode\?: AdminDrawerMode, header\?: AdminDrawerHeaderContent \}\} AdminDrawerRequest/);
   assert.match(drawer, /const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';/);
   assert.match(drawer, /const drawerModes = new Set\(\['default', 'half', 'full'\]\);/);
   assert.match(drawer, /drawer\.dataset\.adminDrawerOwner = request\.owner;/);

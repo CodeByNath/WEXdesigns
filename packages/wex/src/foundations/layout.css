@@ -407,11 +407,11 @@ button.wex-admin-shell__sidebar-tab {
   inline-size: 100%;
 }
 
-/* The framed Drawer: a full-height Sidebar beside Header, Body, and Footer. */
+/* The framed Drawer: a full-width Header above a Sidebar beside Body and Footer. */
 .wex-admin-shell__drawer-frame {
   display: grid;
   grid-template-areas:
-    "sidebar header"
+    "header header"
     "sidebar body"
     "sidebar footer";
   grid-template-columns: var(--wex-admin-shell-sidebar-collapsed) minmax(0, 1fr);
@@ -433,7 +433,8 @@ button.wex-admin-shell__sidebar-tab {
 .wex-admin-shell__drawer-header {
   grid-area: header;
   min-block-size: var(--wex-admin-shell-header-size);
-  padding: var(--wex-space-16);
+  padding-block: var(--wex-space-8);
+  padding-inline: var(--wex-space-16);
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-layer-02);
 }

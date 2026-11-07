@@ -9,7 +9,7 @@ const buttons = readFileSync(resolve(root, 'src/foundations/buttons.css'), 'utf8
 const geometry = readFileSync(resolve(root, 'src/foundations/geometry.css'), 'utf8');
 
 test('defines accepted Button variants through component-semantic tokens', () => {
-  for (const variant of ['primary', 'neutral', 'subtle', 'warning', 'danger']) {
+  for (const variant of ['primary', 'neutral', 'subtle', 'borderless', 'warning', 'danger']) {
     assert.match(buttons, new RegExp(`--wex-button-${variant}-background-default:`));
     assert.match(buttons, new RegExp(`\\.wex-button--${variant}`));
   }
@@ -25,6 +25,15 @@ test('keeps ordinary Button state transient and accessible', () => {
   assert.match(buttons, /--wex-button-disabled-opacity/);
   assert.doesNotMatch(buttons, /--wex-button-focus-outline/);
   assert.doesNotMatch(buttons, /aria-pressed|data-wex-button-state/);
+});
+
+test('keeps the Borderless Button neutral in colour with no border, theme-semantic', () => {
+  assert.match(buttons, /--wex-button-borderless-foreground-default: var\(--wex-color-text-secondary\);/);
+  assert.match(buttons, /--wex-button-borderless-border-default: transparent;/);
+  assert.match(buttons, /--wex-button-borderless-background-default: transparent;/);
+  assert.match(buttons, /--wex-button-borderless-background-hover: var\(--wex-color-background-secondary\);/);
+  assert.match(buttons, /--wex-button-borderless-background-pressed: var\(--wex-color-light-grey\);/);
+  assert.match(buttons, /\[data-wex-theme='dark'\]\s*\{[\s\S]*--wex-button-borderless-background-pressed: var\(--wex-color-dark-grey\);/);
 });
 
 test('keeps neutral and subtle Action backgrounds theme-semantic', () => {
@@ -124,7 +133,7 @@ test('implements the accepted shared Button geometry for every tier', () => {
   assert.doesNotMatch(buttons, /--wex-button-(?:outer-ring|state-inset)/);
   assert.doesNotMatch(buttons, /--wex-outer-ring-inset/);
   assert.doesNotMatch(buttons, /\b2px\b/);
-  for (const variant of ['primary', 'neutral', 'subtle', 'warning', 'danger']) {
+  for (const variant of ['primary', 'neutral', 'subtle', 'borderless', 'warning', 'danger']) {
     const match = buttons.match(new RegExp(`\\.wex-button--${variant}\\s*\\{([\\s\\S]*?)\\}`));
     assert.ok(match, `missing ${variant} variant`);
     assert.doesNotMatch(match[1], /padding|min-block-size|font-size|line-height|border-radius/);

@@ -1,5 +1,10 @@
+import { isAdminDrawerHeaderContent, mountAdminDrawerHeader, resetAdminDrawerHeader, setAdminDrawerHeader } from './admin-station-drawer-header.js';
+
 /** @typedef {'default' | 'half' | 'full'} AdminDrawerMode */
-/** @typedef {{ owner: string, mode?: AdminDrawerMode }} AdminDrawerRequest */
+/** @typedef {import('./admin-station-drawer-header.js').AdminDrawerHeaderContent} AdminDrawerHeaderContent */
+/** @typedef {{ owner: string, mode?: AdminDrawerMode, header?: AdminDrawerHeaderContent }} AdminDrawerRequest */
+
+export { setAdminDrawerHeader };
 
 const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';
 const drawerModes = new Set(['default', 'half', 'full']);
@@ -16,7 +21,8 @@ function isAdminDrawerRequest(request) {
   const candidate = /** @type {Record<string, unknown>} */ (request);
   return typeof candidate.owner === 'string'
     && candidate.owner.length > 0
-    && (candidate.mode === undefined || (typeof candidate.mode === 'string' && drawerModes.has(candidate.mode)));
+    && (candidate.mode === undefined || (typeof candidate.mode === 'string' && drawerModes.has(candidate.mode)))
+    && (candidate.header === undefined || isAdminDrawerHeaderContent(candidate.header));
 }
 
 /** @param {HTMLElement} shell */
@@ -115,6 +121,8 @@ export function openAdminDrawer(shell, request) {
   shell.dataset.adminDrawerMode = request.mode ?? 'default';
   drawer.hidden = false;
   shell.dataset.adminDrawer = 'open';
+  resetAdminDrawerHeader(shell);
+  if (request.header) setAdminDrawerHeader(shell, request.header);
   shell.dataset.adminDrawerMode = fitMode(shell, request.mode ?? 'default');
   syncHandleSeam(shell);
   return true;
@@ -258,6 +266,9 @@ export function mountAdminDrawerShell(shell) {
     });
     handle.addEventListener('click', (event) => event.stopPropagation());
   }
+
+  mountAdminDrawerHeader(shell);
+  drawer.querySelector('[data-admin-drawer-close]')?.addEventListener('click', () => closeAdminDrawer(shell));
 
   shell.addEventListener(ADMIN_DRAWER_REQUEST_EVENT, (event) => {
     if (event instanceof CustomEvent) openAdminDrawer(shell, event.detail);

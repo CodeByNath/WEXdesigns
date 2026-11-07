@@ -27,3 +27,31 @@
   --wex-pill-notification-status-disabled-background: var(--wex-color-background-error);
   --wex-pill-notification-status-disabled-foreground: var(--wex-color-on-error);
 }
+
+/* WEX Pill Notification / Status as a component: one state label per pill. */
+.wex-pill-notification-status {
+  inline-size: max-content;
+  padding-block: var(--wex-pill-notification-status-padding-block);
+  padding-inline: var(--wex-pill-notification-status-padding-inline);
+  border-radius: var(--wex-pill-notification-status-radius);
+  font-family: var(--wex-pill-notification-status-font-family);
+  font-size: var(--wex-pill-notification-status-font-size);
+  font-weight: var(--wex-pill-notification-status-font-weight);
+  line-height: var(--wex-pill-notification-status-line-height);
+  letter-spacing: var(--wex-pill-notification-status-letter-spacing);
+}
+
+.wex-pill-notification-status--pending {
+  background: var(--wex-pill-notification-status-pending-background);
+  color: var(--wex-pill-notification-status-pending-foreground);
+}
+
+.wex-pill-notification-status--active {
+  background: var(--wex-pill-notification-status-active-background);
+  color: var(--wex-pill-notification-status-active-foreground);
+}
+
+.wex-pill-notification-status--disabled {
+  background: var(--wex-pill-notification-status-disabled-background);
+  color: var(--wex-pill-notification-status-disabled-foreground);
+}

@@ -113,7 +113,7 @@ test('keeps all registered typography specimens and computed facts on Typography
 
 test('limits Actions to existing Button presentation', () => {
   const actions = pageByPath['actions/index.html'];
-  ['primary', 'neutral', 'subtle', 'warning', 'danger'].forEach((variant) => assert.match(actions, new RegExp(`wex-button--${variant}`)));
+  ['primary', 'neutral', 'subtle', 'borderless', 'warning', 'danger'].forEach((variant) => assert.match(actions, new RegExp(`wex-button--${variant}`)));
   assert.doesNotMatch(actions, /aria-pressed|onclick=|addEventListener\(['"]click/);
 });
 

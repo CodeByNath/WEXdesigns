@@ -17,7 +17,7 @@
   inline-size: var(--wex-space-8);
   block-size: var(--wex-action-button-icon-only-small-target-size);
   padding: 0;
-  inset-block-start: calc(var(--wex-admin-shell-header-size) - (var(--wex-action-button-icon-only-small-target-size) / 2));
+  inset-block-start: calc(var(--wex-admin-shell-header-size) + var(--wex-space-16));
   /* 70% of the handle sits inside the Drawer's visible edge, 30% outside. */
   inset-inline-start: var(--wex-space-4);
   transform: translateX(-30%);
