@@ -21,9 +21,11 @@ const systemIconShapes = {
   plus: [
     ['path', { d: 'M12 4.5v15m7.5-7.5h-15' }],
   ],
-  /* Handlebar: the Owner's reference handle, a solid vertical rounded bar with no chevrons. */
+  /* Handlebar: the Owner's reference pictogram (framed panel with a centred rounded block), without its chevrons. */
   handlebar: [
-    ['rect', { x: '7', y: '4.5', width: '10', height: '15', rx: '3', fill: 'currentColor', stroke: 'none' }],
+    ['rect', { x: '2.25', y: '3', width: '19.5', height: '18', rx: '3' }],
+    ['path', { d: 'M2.25 8.25h19.5' }],
+    ['rect', { x: '9', y: '10.25', width: '6', height: '8.5', rx: '2', fill: 'currentColor', stroke: 'none' }],
   ],
   'chevron-down': [
     ['path', { d: 'm6.75 9 5.25 5.25L17.25 9' }],

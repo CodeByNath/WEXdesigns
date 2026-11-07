@@ -29,7 +29,8 @@ test('provides one circular Drawer-edge handle that drags the Drawer one approve
   assert.match(drawer, /function drawerModeAfter\(shell, mode, direction\)[\s\S]*entry\.width > width : entry\.width < width/);
   assert.match(drawer, /createSystemIcon\(shell\.ownerDocument, 'handlebar'\)/);
   assert.doesNotMatch(drawer, /grip-vertical/);
-  assert.match(icons, /handlebar: \[\s*\['rect', \{ x: '7', y: '4\.5', width: '10', height: '15', rx: '3', fill: 'currentColor', stroke: 'none' \}\],\s*\],/);
+  assert.match(icons, /handlebar: \[\s*\['rect', \{ x: '2\.25', y: '3', width: '19\.5', height: '18', rx: '3' \}\],\s*\['path', \{ d: 'M2\.25 8\.25h19\.5' \}\],\s*\['rect', \{ x: '9', y: '10\.25', width: '6', height: '8\.5', rx: '2', fill: 'currentColor', stroke: 'none' \}\],\s*\],/);
+  assert.doesNotMatch(icons.match(/handlebar: \[[\s\S]*?\n  \],/)[0], /chevron/);
   assert.doesNotMatch(icons, /grip-vertical/);
   assert.match(drawer, /handle\.addEventListener\('pointerdown'[\s\S]*setPointerCapture\(event\.pointerId\)/);
   assert.match(drawer, /grabOffset: event\.clientX - handleCentre\(\)/);
