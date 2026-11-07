@@ -30,7 +30,7 @@ test('provides one circular Drawer-edge handle that drags the Drawer one approve
   assert.match(drawer, /handle\.addEventListener\('pointerdown'[\s\S]*setPointerCapture\(event\.pointerId\)/);
   assert.match(drawer, /grabOffset: event\.clientX - handleCentre\(\)/);
   assert.match(drawer, /const direction = target < centre \? 'decrease' : 'increase';[\s\S]*drawerModeAfter\(shell, mode, direction\)/);
-  assert.match(drawer, /Math\.abs\(target - nextCentre\) < Math\.abs\(target - centre\)\) setMode\(next\);/);
+  assert.match(drawer, /Math\.abs\(target - nextCentre\) < Math\.abs\(target - centre\)\) shell\.dataset\.adminDrawerMode = next;/);
   assert.doesNotMatch(drawer, /originX|travel/);
   assert.match(drawer, /handle\.addEventListener\('pointerup', endDrag\);[\s\S]*handle\.addEventListener\('pointercancel', endDrag\);/);
   assert.match(drawer, /event\.key === 'ArrowLeft' \? 'decrease' : 'increase'/);
@@ -52,10 +52,6 @@ test('provides one circular Drawer-edge handle that drags the Drawer one approve
   assert.match(notch[0], /transparent calc\(\(var\(--wex-action-button-icon-only-small-target-size\) \/ 2\) \+ var\(--wex-space-4\)\)/);
   assert.match(notch[0], /var\(--wex-border-width-default\)/);
   assert.doesNotMatch(notch[0], /#[0-9a-f]{3,8}\b|\d+px/i);
-  assert.match(drawer, /function syncDrawerHandleClearance\(shell\)[\s\S]*getBoundingClientRect\(\)\.left < sidebar\.getBoundingClientRect\(\)\.right[\s\S]*adminDrawerHandleInset = ''/);
-  assert.match(drawer, /const setMode = \(mode\) => \{\s*shell\.dataset\.adminDrawerMode = mode;\s*syncDrawerHandleClearance\(shell\);/);
-  assert.match(handleCss, /\.wex-admin-shell\[data-admin-drawer-handle-inset\] \.wex-admin-shell__drawer-mode-control \{\s*transform: translateX\(var\(--wex-border-width-default\)\);/);
-  assert.match(handleCss, /\.wex-admin-shell\[data-admin-drawer-handle-inset\] \.wex-admin-shell__drawer-frame \{[\s\S]*circle at calc\(\(var\(--wex-action-button-icon-only-small-target-size\) \/ 2\) \+ var\(--wex-border-width-default\)\)/);
   assert.match(index, /foundations\/layout\.css";\s*@import "\.\/foundations\/drawer-handle\.css";/);
 });
 

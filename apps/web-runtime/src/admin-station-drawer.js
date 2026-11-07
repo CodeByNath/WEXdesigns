@@ -52,29 +52,12 @@ function drawerModeAfter(shell, mode, direction) {
   return candidates[0]?.mode ?? mode;
 }
 
-/**
- * Moves the handle fully inside the Drawer, with its notch, when its outer part
- * would otherwise touch the Admin sidebar (a Drawer as wide as its column).
- * @param {HTMLElement} shell
- */
-function syncDrawerHandleClearance(shell) {
-  const drawer = drawerShell(shell);
-  const handle = shell.querySelector('[data-admin-drawer-mode-control]');
-  const sidebar = shell.querySelector('.wex-admin-shell__sidebar');
-  if (!drawer || drawer.hidden || !(handle instanceof HTMLElement) || !(sidebar instanceof HTMLElement)) return;
-  delete shell.dataset.adminDrawerHandleInset;
-  if (handle.getBoundingClientRect().left < sidebar.getBoundingClientRect().right) {
-    shell.dataset.adminDrawerHandleInset = '';
-  }
-}
-
 /** @param {HTMLElement} shell */
 function syncDrawerModeControl(shell) {
   const handle = shell.querySelector('[data-admin-drawer-mode-control]');
   if (handle instanceof HTMLButtonElement) {
     handle.replaceChildren(createSystemIcon(shell.ownerDocument, 'grip-vertical'));
   }
-  syncDrawerHandleClearance(shell);
 }
 
 /** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */
@@ -132,15 +115,10 @@ export function mountAdminDrawerShell(shell) {
   const handle = drawer.querySelector('[data-admin-drawer-mode-control]');
   syncDrawerModeControl(shell);
   if (handle instanceof HTMLButtonElement) {
-    /** @param {AdminDrawerMode} mode */
-    const setMode = (mode) => {
-      shell.dataset.adminDrawerMode = mode;
-      syncDrawerHandleClearance(shell);
-    };
     /** @param {'decrease' | 'increase'} direction */
     const changeMode = (direction) => {
       const mode = /** @type {AdminDrawerMode} */ (shell.dataset.adminDrawerMode ?? 'default');
-      setMode(drawerModeAfter(shell, mode, direction));
+      shell.dataset.adminDrawerMode = drawerModeAfter(shell, mode, direction);
     };
     const handleCentre = () => {
       const box = handle.getBoundingClientRect();
@@ -170,7 +148,7 @@ export function mountAdminDrawerShell(shell) {
       const currentWidth = widths.find((entry) => entry.mode === mode)?.width ?? 0;
       const nextWidth = widths.find((entry) => entry.mode === next)?.width ?? 0;
       const nextCentre = centre + (currentWidth - nextWidth);
-      if (Math.abs(target - nextCentre) < Math.abs(target - centre)) setMode(next);
+      if (Math.abs(target - nextCentre) < Math.abs(target - centre)) shell.dataset.adminDrawerMode = next;
     });
     const endDrag = (/** @type {PointerEvent} */ event) => {
       if (!drag || event.pointerId !== drag.pointerId) return;

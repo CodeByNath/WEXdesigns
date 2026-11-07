@@ -36,20 +36,3 @@
     currentColor calc((var(--wex-action-button-icon-only-small-target-size) / 2) + var(--wex-space-4) + var(--wex-border-width-default))
   );
 }
-
-/*
- * When the Drawer is as wide as its column the handle would touch the Admin
- * sidebar, so it moves fully inside the frame, one border width further in so
- * its ring clears the sidebar, and the notch follows it.
- */
-.wex-admin-shell[data-admin-drawer-handle-inset] .wex-admin-shell__drawer-mode-control {
-  transform: translateX(var(--wex-border-width-default));
-}
-
-.wex-admin-shell[data-admin-drawer-handle-inset] .wex-admin-shell__drawer-frame {
-  mask-image: radial-gradient(
-    circle at calc((var(--wex-action-button-icon-only-small-target-size) / 2) + var(--wex-border-width-default)) calc(var(--wex-admin-shell-header-size) - var(--wex-space-4)),
-    transparent calc((var(--wex-action-button-icon-only-small-target-size) / 2) + var(--wex-space-4)),
-    currentColor calc((var(--wex-action-button-icon-only-small-target-size) / 2) + var(--wex-space-4) + var(--wex-border-width-default))
-  );
-}
