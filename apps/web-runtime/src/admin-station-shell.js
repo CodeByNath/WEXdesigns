@@ -54,7 +54,10 @@ const shellMarkup = `
         </header>
         <div class="wex-admin-shell__drawer-sidebar" data-admin-drawer-compartment="sidebar"></div>
         <div class="wex-admin-shell__drawer-body" data-admin-drawer-compartment="body"></div>
-        <footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer"></footer>
+        <footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer">
+          <button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-close>Close</button>
+          <button type="button" class="wex-button wex-button--small wex-button--primary" data-admin-drawer-publish>Publish</button>
+        </footer>
       </div>
       <button type="button" class="wex-button wex-button--small wex-button--subtle wex-admin-shell__drawer-mode-control" data-admin-drawer-mode-control aria-label="Drag to resize drawer" aria-controls="admin-station-drawer"></button>
     </aside>

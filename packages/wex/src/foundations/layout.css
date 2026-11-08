@@ -441,7 +441,7 @@ button.wex-admin-shell__sidebar-tab {
 
 .wex-admin-shell__drawer-sidebar {
   grid-area: sidebar;
-  padding: var(--wex-space-8);
+  padding: var(--wex-space-8) var(--wex-space-16);
   overflow: auto;
   overscroll-behavior: contain;
   border-inline-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);

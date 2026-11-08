@@ -272,7 +272,7 @@ export function mountAdminDrawerShell(shell) {
 
   mountAdminDrawerHeader(shell);
   mountAdminDrawerNotifications(shell);
-  drawer.querySelector('[data-admin-drawer-close]')?.addEventListener('click', () => closeAdminDrawer(shell));
+  drawer.querySelectorAll('[data-admin-drawer-close]').forEach((close) => close.addEventListener('click', () => closeAdminDrawer(shell)));
 
   shell.addEventListener(ADMIN_DRAWER_REQUEST_EVENT, (event) => {
     if (event instanceof CustomEvent) openAdminDrawer(shell, event.detail);

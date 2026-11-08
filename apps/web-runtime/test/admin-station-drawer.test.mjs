@@ -16,12 +16,13 @@ const [shell, drawer, layout, handleCss, index, icons, headerCss, headerJs, pill
   readFile(new URL('../../../packages/wex/src/foundations/notification-pill.css', import.meta.url), 'utf8'),
 ]);
 
-test('provides the Admin Drawer shell with four compartments, three content-empty and the Header holding its two shells', () => {
+test('provides the Admin Drawer shell with four compartments, two content-empty, the Footer holding its Button row and the Header its two shells', () => {
   assert.match(shell, /<aside id="admin-station-drawer" class="wex-admin-shell__drawer" data-admin-drawer-shell aria-label="Admin drawer" hidden>/);
   assert.match(shell, /<header class="wex-admin-shell__drawer-header" data-admin-drawer-compartment="header">/);
-  for (const [tag, name] of [['div', 'sidebar'], ['div', 'body'], ['footer', 'footer']]) {
+  for (const [tag, name] of [['div', 'sidebar'], ['div', 'body']]) {
     assert.match(shell, new RegExp(`<${tag} class="wex-admin-shell__drawer-${name}" data-admin-drawer-compartment="${name}"></${tag}>`));
   }
+  assert.match(shell, /<footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer">/);
   assert.match(drawer, /@typedef \{'header' \| 'sidebar' \| 'body' \| 'footer'\} AdminDrawerCompartmentName/);
   assert.match(drawer, /export function adminDrawerCompartment\(shell, name\)/);
 });
@@ -115,7 +116,7 @@ test('gives the Drawer Header two compartment shells: content-empty start and th
   assert.match(actions, /class="wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small wex-action-button-icon-only--circular" data-admin-drawer-close aria-label="Close drawer"/);
   assert.ok(actions.indexOf('Edit options') < actions.indexOf('Close drawer'), 'close sits at the right corner');
   assert.doesNotMatch(header, /style=/);
-  assert.match(drawer, /\[data-admin-drawer-close\]'\)\?\.addEventListener\('click', \(\) => closeAdminDrawer\(shell\)\)/);
+  assert.match(drawer, /querySelectorAll\('\[data-admin-drawer-close\]'\)\.forEach\(\(close\) => close\.addEventListener\('click', \(\) => closeAdminDrawer\(shell\)\)\)/);
   assert.match(headerCss, /\.wex-admin-shell__drawer-header \{\s*position: relative;\s*display: flex;\s*align-items: center;\s*justify-content: space-between;/);
   assert.match(index, /@import "\.\/foundations\/drawer-header\.css";/);
 });
@@ -193,4 +194,21 @@ test('keeps compact Sidebar priority over an open Admin Drawer', () => {
   assert.ok(compact, 'missing compact Admin Shell rules');
   assert.match(compact[1], /\.wex-admin-shell\[data-admin-drawer="open"\]\s*\{[\s\S]*grid-template-columns: minmax\(0, 1fr\);/);
   assert.match(compact[1], /data-admin-drawer="open"\]\[data-sidebar-drawer="open"\] \.wex-admin-shell__drawer\s*\{\s*display: none;/);
+});
+
+test('the Drawer footer holds a neutral Small Close and a primary Small Publish at its end', async () => {
+  const footerCss = await readFile(new URL('../../../packages/wex/src/foundations/drawer-footer.css', import.meta.url), 'utf8');
+  const footer = shell.match(/<footer class="wex-admin-shell__drawer-footer"[\s\S]*?<\/footer>/)[0];
+  assert.match(footer, /<button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-close>Close<\/button>\s*<button type="button" class="wex-button wex-button--small wex-button--primary" data-admin-drawer-publish>Publish<\/button>/);
+  assert.doesNotMatch(footer, /style=/);
+  assert.match(footerCss, /\.wex-admin-shell__drawer-footer \{[^}]*padding-inline: var\(--wex-space-16\);[^}]*display: flex;[^}]*justify-content: flex-end;[^}]*gap: var\(--wex-space-8\);/);
+  assert.match(index, /@import "\.\/foundations\/drawer-footer\.css";/);
+});
+
+test('every Drawer compartment pads its left and right sides by 16px', async () => {
+  const footerCss = await readFile(new URL('../../../packages/wex/src/foundations/drawer-footer.css', import.meta.url), 'utf8');
+  assert.match(layout, /\.wex-admin-shell__drawer-header \{[^}]*padding-inline: var\(--wex-space-16\);/);
+  assert.match(layout, /\.wex-admin-shell__drawer-sidebar \{[^}]*padding: var\(--wex-space-8\) var\(--wex-space-16\);/);
+  assert.match(layout, /\.wex-admin-shell__drawer-body \{[^}]*padding: var\(--wex-space-16\);/);
+  assert.match(footerCss, /\.wex-admin-shell__drawer-footer \{[^}]*padding-inline: var\(--wex-space-16\);/);
 });
