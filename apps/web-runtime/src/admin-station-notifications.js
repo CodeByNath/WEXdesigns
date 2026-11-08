@@ -1,5 +1,5 @@
 import { closeHeaderResultsShell, requestHeaderResultsShell } from './admin-station-header-results.js';
-import { createMoreActionIcon } from './admin-station-system-icons.js';
+import { createMoreActionIcon, createSystemIcon } from './admin-station-system-icons.js';
 
 const NOTIFICATIONS_OWNER = 'notifications';
 
@@ -170,20 +170,30 @@ function createNotificationTab(document, label) {
 }
 
 /**
- * Mounts the local Notifications Results component. Its fixture and transient
- * read/filter state stay within this component; Header Results owns only its
- * anchored surface.
+ * Builds the Notification Module for a WEX Dropdown. Its fixture and transient
+ * read/filter state stay within the module; the Dropdown owns only its anchored
+ * surface and Component Mode, and the caller owns where the module is mounted.
  * @param {HTMLElement} shell
- * @param {HTMLButtonElement} trigger
+ * @param {{
+ *   onClose: () => void,
+ *   initialSort?: string,
+ *   initialFilter?: string,
+ *   filters?: ReadonlyArray<readonly [string, string]>,
+ *   headerAction?: 'options' | 'close',
+ *   markAllRead?: boolean,
+ *   itemOptions?: 'view-read' | 'view-edit',
+ *   countStyle?: 'new' | 'action-required',
+ *   titleStyle?: 'default' | 'component-title',
+ *   notifications?: ReadonlyArray<Notification>,
+ *   titleId?: string,
+ * }} config
+ * @returns {HTMLElement}
  */
-export function mountHeaderNotifications(shell, trigger) {
-  const results = shell.querySelector('[data-header-results-shell]');
-  if (!(results instanceof HTMLElement)) return;
-
+export function createNotificationModule(shell, config) {
   const document = shell.ownerDocument;
-  const notifications = notificationFixture.map((notification) => ({ ...notification }));
-  let filter = 'all';
-  let sort = 'newest';
+  const notifications = (config.notifications ?? notificationFixture).map((notification) => ({ ...notification }));
+  let filter = config.initialFilter ?? 'all';
+  let sort = config.initialSort ?? 'newest';
   /** @type {string | null} */
   let openItemMenuId = null;
   /** @type {'up' | 'down' | null} */
@@ -191,18 +201,21 @@ export function mountHeaderNotifications(shell, trigger) {
 
   const panel = document.createElement('section');
   panel.className = 'wex-admin-notifications';
-  panel.setAttribute('aria-labelledby', 'wex-admin-notifications-title');
+  panel.setAttribute('aria-labelledby', config.titleId ?? 'wex-admin-notifications-title');
 
   const header = document.createElement('header');
   header.className = 'wex-admin-notifications__header';
   const heading = document.createElement('div');
   heading.className = 'wex-admin-notifications__heading';
   const title = document.createElement('h2');
-  title.id = 'wex-admin-notifications-title';
-  title.className = 'wex-type-navigation-large-semibold';
+  title.id = config.titleId ?? 'wex-admin-notifications-title';
+  title.className = config.titleStyle === 'component-title' ? 'wex-component-title' : 'wex-type-navigation-large-semibold';
   title.textContent = 'Notifications';
   const count = element(document, '', 'wex-admin-notifications__count wex-type-navigation-small-semibold');
   heading.append(title, count);
+  // Action required: one bare number, in yellow.
+  const actionRequiredCount = config.countStyle === 'action-required';
+  if (actionRequiredCount) count.classList.add('wex-admin-notifications__count--action-required');
 
   const headerActions = document.createElement('div');
   headerActions.className = 'wex-admin-notifications__header-actions';
@@ -225,12 +238,21 @@ export function mountHeaderNotifications(shell, trigger) {
   const sortButtons = [newestFirst, oldestFirst, priorityFirst];
   options.append(newestFirst, oldestFirst, priorityFirst);
   headerActions.append(more, options);
+  if (config.headerAction === 'close') {
+    const closeIcon = document.createElement('button');
+    closeIcon.type = 'button';
+    closeIcon.className = 'wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small wex-action-button-icon-only--circular';
+    closeIcon.setAttribute('aria-label', 'Close notifications');
+    closeIcon.append(createSystemIcon(document, 'x'));
+    closeIcon.addEventListener('click', () => { config.onClose(); });
+    headerActions.replaceChildren(closeIcon);
+  }
 
   const filters = document.createElement('nav');
   filters.className = 'wex-admin-notifications__filters';
   filters.setAttribute('aria-label', 'Notification filters');
   /** @type {ReadonlyArray<readonly [string, string]>} */
-  const filterInputs = [
+  const filterInputs = config.filters ?? [
     ['all', 'All'],
     ['unread', 'Unread'],
     ['action-required', 'Action required'],
@@ -262,12 +284,12 @@ export function mountHeaderNotifications(shell, trigger) {
   markAllRead.className = 'wex-button wex-button--small wex-button--primary';
   markAllRead.textContent = 'Mark all as read';
   footer.append(close, markAllRead);
+  if (config.markAllRead === false) markAllRead.remove();
 
   panel.append(header, list, footer);
   const wrapper = document.createElement('div');
   wrapper.className = 'wex-admin-notifications__wrapper';
   wrapper.append(panel);
-  results.replaceChildren(wrapper);
 
   const closeOptions = () => {
     options.hidden = true;
@@ -281,6 +303,9 @@ export function mountHeaderNotifications(shell, trigger) {
 
   /** @param {Notification} left @param {Notification} right */
   const compareNotifications = (left, right) => {
+    if (sort === 'priority' && left.actionRequired !== right.actionRequired) {
+      return Number(right.actionRequired) - Number(left.actionRequired);
+    }
     if (left.unread !== right.unread) return Number(right.unread) - Number(left.unread);
     if (sort === 'oldest') return left.sortIndex - right.sortIndex;
     if (sort === 'priority' && left.actionRequired !== right.actionRequired) {
@@ -291,8 +316,15 @@ export function mountHeaderNotifications(shell, trigger) {
 
   const render = () => {
     const unreadCount = notifications.filter((notification) => notification.unread).length;
-    count.textContent = `${unreadCount} new`;
-    count.classList.toggle('wex-admin-notifications__count--empty', unreadCount === 0);
+    if (actionRequiredCount) {
+      const unreadAction = notifications.filter((notification) => notification.unread && notification.actionRequired).length;
+      count.textContent = String(unreadAction);
+      count.setAttribute('aria-label', `${unreadAction} action required`);
+      count.hidden = unreadAction === 0;
+    } else {
+      count.textContent = `${unreadCount} new`;
+      count.classList.toggle('wex-admin-notifications__count--empty', unreadCount === 0);
+    }
     markAllRead.disabled = unreadCount === 0;
     filterButtons.forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.notificationFilter === filter));
@@ -320,6 +352,7 @@ export function mountHeaderNotifications(shell, trigger) {
       const item = document.createElement('article');
       item.className = 'wex-admin-notifications__item';
       item.dataset.unread = String(notification.unread);
+      item.dataset.actionRequired = String(notification.actionRequired);
       item.dataset.notificationItemMenuOpen = String(openItemMenuId === notification.id);
       item.append(createNotificationIcon(document, notification.icon));
 
@@ -337,7 +370,7 @@ export function mountHeaderNotifications(shell, trigger) {
       meta.className = 'wex-admin-notifications__meta';
       const timeRow = document.createElement('div');
       timeRow.className = 'wex-admin-notifications__time-row';
-      timeRow.append(element(document, notification.time, 'wex-admin-notifications__time wex-type-body-small-regular'));
+      if (notification.time) timeRow.append(element(document, notification.time, 'wex-admin-notifications__time wex-type-body-small-regular'));
       /** @type {HTMLSpanElement | null} */
       let unreadIndicator = null;
       if (notification.unread) {
@@ -347,7 +380,7 @@ export function mountHeaderNotifications(shell, trigger) {
         unreadIndicator = indicator;
         notificationTitle.prepend(unreadIndicator);
       }
-      content.append(timeRow);
+      if (notification.time) content.append(timeRow);
       const itemMenu = document.createElement('div');
       itemMenu.className = 'wex-admin-notifications__item-menu';
       itemMenu.dataset.notificationItemMenuDirection = openItemMenuId === notification.id
@@ -367,8 +400,9 @@ export function mountHeaderNotifications(shell, trigger) {
       const view = createNotificationOption(document, 'View');
       view.dataset.notificationItemAction = 'view';
       view.dataset.notificationId = notification.id;
-      const readState = createNotificationOption(document, notification.unread ? 'Read' : 'Unread');
-      readState.dataset.notificationItemAction = notification.unread ? 'read' : 'unread';
+      const viewEdit = config.itemOptions === 'view-edit';
+      const readState = createNotificationOption(document, viewEdit ? 'Edit' : notification.unread ? 'Read' : 'Unread');
+      readState.dataset.notificationItemAction = viewEdit ? 'edit' : notification.unread ? 'read' : 'unread';
       readState.dataset.notificationId = notification.id;
       itemMenuOptions.append(view, readState);
       itemMenu.append(itemMenuToggle, itemMenuOptions);
@@ -422,6 +456,27 @@ export function mountHeaderNotifications(shell, trigger) {
     filter = button.dataset.notificationFilter ?? 'all';
     render();
   });
+  /**
+   * Opens a row menu on the side of its toggle that has room for the measured
+   * menu, preferring below. When neither side fits, it stays below and the
+   * list scrolls it into view, so the menu is never left hidden.
+   * @param {string} menuId
+   */
+  const fitItemMenu = (menuId) => {
+    const menu = list.querySelector(`[data-notification-item-menu="${menuId}"]`);
+    const itemMenu = menu?.closest('.wex-admin-notifications__item-menu');
+    if (!(menu instanceof HTMLElement) || !(itemMenu instanceof HTMLElement)) return;
+    const toggleBounds = itemMenu.getBoundingClientRect();
+    const listBounds = list.getBoundingClientRect();
+    const needed = menu.getBoundingClientRect().bottom - toggleBounds.bottom;
+    if (listBounds.bottom - toggleBounds.bottom >= needed) return;
+    if (toggleBounds.top - listBounds.top >= needed) {
+      openItemMenuDirection = 'up';
+      itemMenu.dataset.notificationItemMenuDirection = 'up';
+      return;
+    }
+    menu.scrollIntoView({ block: 'nearest' });
+  };
   list.addEventListener('click', (event) => {
     itemMenuClickHandled = true;
     const target = event.target instanceof Element ? event.target : null;
@@ -440,13 +495,11 @@ export function mountHeaderNotifications(shell, trigger) {
         openItemMenuId = null;
         openItemMenuDirection = null;
       } else {
-        const item = button.closest('.wex-admin-notifications__item');
-        const itemBounds = item?.getBoundingClientRect();
-        const listBounds = list.getBoundingClientRect();
         openItemMenuId = menuId;
-        openItemMenuDirection = itemBounds && listBounds.bottom - itemBounds.bottom >= itemBounds.height
-          ? 'down'
-          : 'up';
+        openItemMenuDirection = 'down';
+        render();
+        fitItemMenu(menuId);
+        return;
       }
       render();
       return;
@@ -460,14 +513,25 @@ export function mountHeaderNotifications(shell, trigger) {
     openItemMenuDirection = null;
     render();
   });
-  close.addEventListener('click', () => { closeHeaderResultsShell(shell); });
+  close.addEventListener('click', () => { config.onClose(); });
+  render();
+  return wrapper;
+}
+
+/**
+ * Mounts the Notification Module in the Header's WEX Dropdown. The Dropdown
+ * Component Mode is Notification Module, which takes its sizes from the tokens.
+ * @param {HTMLElement} shell
+ * @param {HTMLButtonElement} trigger
+ */
+export function mountHeaderNotifications(shell, trigger) {
+  const results = shell.querySelector('[data-header-results-shell]');
+  if (!(results instanceof HTMLElement)) return;
+
+  const wrapper = createNotificationModule(shell, { onClose: () => { closeHeaderResultsShell(shell); } });
+  results.replaceChildren(wrapper);
   trigger.addEventListener('click', () => {
     if (results.dataset.headerResultsOwner !== NOTIFICATIONS_OWNER) results.replaceChildren(wrapper);
-    requestHeaderResultsShell(shell, {
-      owner: NOTIFICATIONS_OWNER,
-      inlineSize: 'min(calc(var(--wex-space-64) * 7), 100%)',
-      blockSize: 'min(calc(var(--wex-space-64) * 8), calc(100dvh - var(--wex-admin-shell-header-size)))',
-    }, trigger);
+    requestHeaderResultsShell(shell, { owner: NOTIFICATIONS_OWNER, mode: 'notification-module' }, trigger);
   });
-  render();
 }

@@ -1,0 +1,63 @@
+/**
+ * WEX Dropdown component tokens
+ *
+ * The anchored surface that opens directly beneath a Header or a Drawer header
+ * and hosts one module. Default is the anchor and has no size modes. The
+ * "Component Mode" is carried by `data-wex-component-mode` as space-separated
+ * words: a module (`notification-module`) and, optionally, a size (`small`).
+ * Each token points to an existing WEX foundation. The Dropdown never supplies
+ * module content; the module owns what it prints inside the surface.
+ *
+ * The tokens are declared on `.wex-dropdown`, not `:root`, because they resolve
+ * against the Admin shell's own Header size.
+ */
+
+.wex-dropdown {
+  /* WEX Dropdown Default: the anchor. No size modes. */
+  --wex-dropdown-default-z-index: 3;
+  --wex-dropdown-default-inset-block-start: 100%;
+  --wex-dropdown-default-inset-inline-end: 0;
+  --wex-dropdown-default-max-inline-size: 100%;
+  --wex-dropdown-default-max-block-size: calc(100dvh - var(--wex-admin-shell-header-size));
+
+  /* Component Mode: Notification Module */
+  --wex-dropdown-notification-module-inline-size: min(calc(var(--wex-space-64) * 7), 100%);
+  --wex-dropdown-notification-module-block-size: min(calc(var(--wex-space-64) * 8), var(--wex-dropdown-default-max-block-size));
+
+  /* Component Mode: Notification Module + Small */
+  --wex-dropdown-notification-module-small-inline-size: min(calc(var(--wex-space-64) * 5), 100%);
+  --wex-dropdown-notification-module-small-block-size: min(calc(var(--wex-space-64) * 6), calc(100dvh - var(--wex-admin-shell-header-size) - var(--wex-admin-shell-header-size)));
+  --wex-dropdown-notification-module-small-header-padding: var(--wex-space-16) var(--wex-space-12) var(--wex-space-12);
+  --wex-dropdown-notification-module-small-header-gap: var(--wex-space-8);
+  --wex-dropdown-notification-module-small-item-padding-block: var(--wex-space-8);
+  --wex-dropdown-notification-module-small-item-padding-inline: var(--wex-space-12);
+  --wex-dropdown-notification-module-small-item-gap: var(--wex-space-8);
+  --wex-dropdown-notification-module-small-icon-column-size: var(--wex-space-32);
+  --wex-dropdown-notification-module-small-icon-size: var(--wex-space-32);
+  --wex-dropdown-notification-module-small-glyph-size: var(--wex-icon-size-16);
+
+  position: absolute;
+  z-index: var(--wex-dropdown-default-z-index);
+  inset-block-start: var(--wex-dropdown-default-inset-block-start);
+  inset-inline-end: var(--wex-dropdown-default-inset-inline-end);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  max-inline-size: var(--wex-dropdown-default-max-inline-size);
+  max-block-size: var(--wex-dropdown-default-max-block-size);
+  overflow: auto;
+}
+
+.wex-dropdown[hidden] {
+  display: none;
+}
+
+.wex-dropdown[data-wex-component-mode~="notification-module"] {
+  inline-size: var(--wex-dropdown-notification-module-inline-size);
+  block-size: var(--wex-dropdown-notification-module-block-size);
+}
+
+.wex-dropdown[data-wex-component-mode~="notification-module"][data-wex-component-mode~="small"] {
+  inline-size: var(--wex-dropdown-notification-module-small-inline-size);
+  block-size: var(--wex-dropdown-notification-module-small-block-size);
+  max-block-size: var(--wex-dropdown-notification-module-small-block-size);
+}

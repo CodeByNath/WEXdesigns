@@ -61,6 +61,15 @@
   opacity: 0.5;
 }
 
+/* The action required number is a true circle: the pill's height is its minimum width. */
+.wex-admin-notifications__count--action-required {
+  min-inline-size: calc(var(--wex-pill-notification-message-line-height) + var(--wex-pill-notification-message-padding-block) + var(--wex-pill-notification-message-padding-block));
+  padding-inline: 0;
+  background: var(--wex-pill-notification-status-pending-background);
+  color: var(--wex-pill-notification-status-pending-foreground);
+  text-align: center;
+}
+
 .wex-admin-notifications__header-actions {
   position: absolute;
   inset-block-start: var(--wex-space-16);
@@ -350,4 +359,45 @@
   padding: var(--wex-space-12) var(--wex-space-16);
   border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-background-primary);
+}
+
+/* Component Mode: Notification Module + Small, from the WEX Dropdown tokens. */
+.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__header {
+  gap: var(--wex-dropdown-notification-module-small-header-gap);
+  padding: var(--wex-dropdown-notification-module-small-header-padding);
+}
+
+.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__header-actions {
+  inset-block-start: var(--wex-space-8);
+  inset-inline-end: var(--wex-space-8);
+}
+
+.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__item {
+  grid-template-columns: var(--wex-dropdown-notification-module-small-icon-column-size) minmax(0, 1fr) auto;
+  gap: var(--wex-dropdown-notification-module-small-item-gap);
+  padding-block: var(--wex-dropdown-notification-module-small-item-padding-block);
+  padding-inline: var(--wex-dropdown-notification-module-small-item-padding-inline);
+}
+
+.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__icon {
+  inline-size: var(--wex-dropdown-notification-module-small-icon-size);
+  block-size: var(--wex-dropdown-notification-module-small-icon-size);
+}
+
+.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__item[data-action-required="true"] .wex-admin-notifications__unread-indicator {
+  background: var(--wex-pill-notification-status-pending-background);
+}
+
+.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__icon-svg {
+  inline-size: var(--wex-dropdown-notification-module-small-glyph-size);
+  block-size: var(--wex-dropdown-notification-module-small-glyph-size);
+}
+
+.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__group,
+.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__footer {
+  padding-inline: var(--wex-dropdown-notification-module-small-item-padding-inline);
+}
+
+.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__footer {
+  justify-content: flex-end;
 }

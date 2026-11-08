@@ -88,6 +88,7 @@ does not define HTML semantics, component behaviour, or layout composition.
 - [WEX Action Button Icon Only Global Tokens](../decisions/0032-wex-action-button-icon-only-global-tokens.md)
 - [WEX Dropdown Menu Global Tokens](../decisions/0033-wex-dropdown-menu-global-tokens.md)
 - [WEX Option Button Global Tokens](../decisions/0034-wex-option-button-global-tokens.md)
+- [WEX Dropdown Global Component](../decisions/0035-wex-dropdown-global-component.md)
 - [Typography and font delivery map](typography-font-delivery.md)
 - [Colour map](colour.md)
 - [Spacing map](spacing.md)
@@ -122,6 +123,8 @@ They do not supply or approve Global Tokens values.
   [`dropdown-menu.css`](../../packages/wex/src/foundations/dropdown-menu.css)
 - WEX Option Button component tokens:
   [`option-button.css`](../../packages/wex/src/foundations/option-button.css)
+- WEX Dropdown component tokens (Component Mode):
+  [`dropdown.css`](../../packages/wex/src/foundations/dropdown.css)
 - Current focused checks: [`global-tokens.test.mjs`](../../packages/wex/test/global-tokens.test.mjs),
   [`search-input-foundation.test.mjs`](../../packages/wex/test/search-input-foundation.test.mjs),
   [`more-action-foundation.test.mjs`](../../packages/wex/test/more-action-foundation.test.mjs),
@@ -129,6 +132,7 @@ They do not supply or approve Global Tokens values.
   [`action-button-icon-only-foundation.test.mjs`](../../packages/wex/test/action-button-icon-only-foundation.test.mjs),
   [`dropdown-menu-foundation.test.mjs`](../../packages/wex/test/dropdown-menu-foundation.test.mjs),
   [`option-button-foundation.test.mjs`](../../packages/wex/test/option-button-foundation.test.mjs),
+  [`dropdown-foundation.test.mjs`](../../packages/wex/test/dropdown-foundation.test.mjs),
   [`typography-modules.test.mjs`](../../packages/wex/test/typography-modules.test.mjs),
   [`colour-tokens.test.mjs`](../../packages/wex/test/colour-tokens.test.mjs), and
   [`validate-foundation.mjs`](../../tooling/scripts/validate-foundation.mjs)

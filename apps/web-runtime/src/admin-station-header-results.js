@@ -1,12 +1,15 @@
 /**
  * @typedef {{
  *   owner: string,
+ *   mode?: string,
  *   inlineSize?: string,
  *   blockSize?: string,
  * }} HeaderResultsRequest
  */
 
 const HEADER_RESULTS_REQUEST_EVENT = 'wex:header-results-request';
+/** The WEX Dropdown Component Mode: a module and optionally a size, as space-separated words. */
+const COMPONENT_MODE_ATTRIBUTE = 'data-wex-component-mode';
 const HEADER_RESULTS_INLINE_SIZE_PROPERTY = '--wex-admin-shell-header-results-inline-size';
 const HEADER_RESULTS_BLOCK_SIZE_PROPERTY = '--wex-admin-shell-header-results-block-size';
 
@@ -16,6 +19,7 @@ function isHeaderResultsRequest(request) {
   const candidate = /** @type {Record<string, unknown>} */ (request);
   return typeof candidate.owner === 'string'
     && candidate.owner.length > 0
+    && (candidate.mode === undefined || typeof candidate.mode === 'string')
     && (candidate.inlineSize === undefined || typeof candidate.inlineSize === 'string')
     && (candidate.blockSize === undefined || typeof candidate.blockSize === 'string');
 }
@@ -37,6 +41,11 @@ export function openHeaderResultsShell(shell, request) {
   if (!results || !isHeaderResultsRequest(request)) return false;
 
   results.dataset.headerResultsOwner = request.owner;
+  if (request.mode) {
+    results.setAttribute(COMPONENT_MODE_ATTRIBUTE, request.mode);
+  } else {
+    results.removeAttribute(COMPONENT_MODE_ATTRIBUTE);
+  }
   if (request.inlineSize) {
     results.style.setProperty(HEADER_RESULTS_INLINE_SIZE_PROPERTY, request.inlineSize);
   } else {
@@ -57,6 +66,7 @@ export function closeHeaderResultsShell(shell) {
   if (!results) return false;
 
   delete results.dataset.headerResultsOwner;
+  results.removeAttribute(COMPONENT_MODE_ATTRIBUTE);
   results.style.removeProperty(HEADER_RESULTS_INLINE_SIZE_PROPERTY);
   results.style.removeProperty(HEADER_RESULTS_BLOCK_SIZE_PROPERTY);
   results.hidden = true;

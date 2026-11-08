@@ -1,3 +1,4 @@
+import { closeAdminDrawerDropdown, mountAdminDrawerNotifications } from './admin-station-drawer-notifications.js';
 import { isAdminDrawerHeaderContent, mountAdminDrawerHeader, resetAdminDrawerHeader, setAdminDrawerHeader } from './admin-station-drawer-header.js';
 
 /** @typedef {'default' | 'half' | 'full'} AdminDrawerMode */
@@ -122,6 +123,7 @@ export function openAdminDrawer(shell, request) {
   drawer.hidden = false;
   shell.dataset.adminDrawer = 'open';
   resetAdminDrawerHeader(shell);
+  closeAdminDrawerDropdown(shell);
   if (request.header) setAdminDrawerHeader(shell, request.header);
   shell.dataset.adminDrawerMode = fitMode(shell, request.mode ?? 'default');
   syncHandleSeam(shell);
@@ -134,6 +136,7 @@ export function closeAdminDrawer(shell) {
   if (!drawer) return false;
 
   delete drawer.dataset.adminDrawerOwner;
+  closeAdminDrawerDropdown(shell);
   drawer.hidden = true;
   shell.dataset.adminDrawer = 'closed';
   return true;
@@ -268,6 +271,7 @@ export function mountAdminDrawerShell(shell) {
   }
 
   mountAdminDrawerHeader(shell);
+  mountAdminDrawerNotifications(shell);
   drawer.querySelector('[data-admin-drawer-close]')?.addEventListener('click', () => closeAdminDrawer(shell));
 
   shell.addEventListener(ADMIN_DRAWER_REQUEST_EVENT, (event) => {
@@ -287,7 +291,8 @@ export function mountAdminDrawerShell(shell) {
       pressedHandle = false;
       return;
     }
-    if (drawer.hidden || !(event.target instanceof Node) || drawer.contains(event.target)) return;
+    // Drawer content may re-render on a click, which detaches its target; the path still names the Drawer.
+    if (drawer.hidden || !(event.target instanceof Node) || event.composedPath().includes(drawer)) return;
     const target = event.target instanceof Element ? event.target : null;
     const trigger = target?.closest('[data-admin-drawer-trigger]');
     const sidebarControl = target?.closest('[data-sidebar-control]');

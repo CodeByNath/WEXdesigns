@@ -1,4 +1,4 @@
-import { createSystemIcon, systemIconNames } from './admin-station-system-icons.js';
+import { createMoreActionIcon, createSystemIcon, systemIconNames } from './admin-station-system-icons.js';
 
 /** @typedef {import('./admin-station-system-icons.js').SystemIconName} SystemIconName */
 /** @typedef {'active' | 'pending' | 'disabled'} AdminDrawerStatus */
@@ -60,9 +60,38 @@ export function setAdminDrawerHeader(shell, content) {
 export function resetAdminDrawerHeader(shell) {
   const parts = headerParts(shell);
   if (!parts) return false;
+  closeAdminDrawerHeaderMenu(shell);
   delete parts.label.dataset.adminDrawerHeaderLabelOwned;
   parts.label.textContent = locationLabel(shell);
   return setAdminDrawerHeader(shell, { icon: DEFAULT_ICON, status: DEFAULT_STATUS });
+}
+
+/** Closes the Edit options menu. @param {HTMLElement} shell */
+export function closeAdminDrawerHeaderMenu(shell) {
+  const toggle = shell.querySelector('[data-admin-drawer-header-menu-toggle]');
+  const list = shell.querySelector('[data-admin-drawer-header-menu-list]');
+  if (list instanceof HTMLElement) list.hidden = true;
+  if (toggle instanceof HTMLElement) toggle.setAttribute('aria-expanded', 'false');
+}
+
+/** Opens and closes the Edit options menu from its toggle, an outside click, Escape or a chosen option. @param {HTMLElement} shell */
+function mountHeaderMenu(shell) {
+  const menu = shell.querySelector('[data-admin-drawer-header-menu]');
+  const toggle = shell.querySelector('[data-admin-drawer-header-menu-toggle]');
+  const list = shell.querySelector('[data-admin-drawer-header-menu-list]');
+  if (!(menu instanceof HTMLElement) || !(toggle instanceof HTMLElement) || !(list instanceof HTMLElement)) return;
+  toggle.replaceChildren(createMoreActionIcon(shell.ownerDocument));
+  toggle.addEventListener('click', () => {
+    list.hidden = !list.hidden;
+    toggle.setAttribute('aria-expanded', String(!list.hidden));
+  });
+  list.addEventListener('click', () => closeAdminDrawerHeaderMenu(shell));
+  shell.ownerDocument.addEventListener('click', (event) => {
+    if (!(event.target instanceof Node) || !menu.contains(event.target)) closeAdminDrawerHeaderMenu(shell);
+  });
+  shell.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !list.hidden) { closeAdminDrawerHeaderMenu(shell); toggle.focus(); }
+  });
 }
 
 /**
@@ -74,6 +103,7 @@ export function mountAdminDrawerHeader(shell) {
   const parts = headerParts(shell);
   if (!parts) return;
   resetAdminDrawerHeader(shell);
+  mountHeaderMenu(shell);
 
   const location = shell.querySelector('[data-admin-station-location]');
   if (!(location instanceof HTMLElement)) return;

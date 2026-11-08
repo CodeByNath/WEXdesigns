@@ -24,7 +24,7 @@ test('mounts Overview independently from the Manager list/grid module', () => {
   assert.doesNotMatch(overview, /requestAdminDrawer|data-admin-drawer/);
   assert.match(products, /import \{ adminDrawerCompartment, requestAdminDrawer \} from '\.\/admin-station-drawer\.js';/);
   assert.match(products, /adminDrawerCompartment\(shell, 'body'\)\?\.replaceChildren\(\);/);
-  assert.match(products, /requestAdminDrawer\(shell, \{ owner: ADD_NEW_OWNER \}, trigger\);/);
+  assert.match(products, /requestAdminDrawer\(shell, \{ owner: ADD_NEW_OWNER, header: \{ icon: 'plus', label: 'Add New', status: 'pending' \} \}, trigger\);/);
   assert.match(products, /import \{ mountOverviewModule \} from '\.\/admin-station-overview\.js';/);
   assert.match(products, /import \{ allServicesPreviewSnapshot, mountAllServicesBody \} from '\.\/admin-station-services\.js';/);
   assert.match(products, /mountOverviewModule\(overviewMount, allServicesPreviewSnapshot, \{/);

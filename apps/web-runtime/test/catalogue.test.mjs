@@ -152,6 +152,13 @@ test('shows the registered WEX Dropdown Menu tokens in Global Tokens', () => {
   assert.match(tokens, /WEX Dropdown Menu Default[\s\S]*wex-dropdown-menu--default[\s\S]*wex-dropdown-menu__item--default[\s\S]*WEX Dropdown Menu Small[\s\S]*wex-dropdown-menu--small[\s\S]*wex-dropdown-menu__item--small/);
 });
 
+test('shows the registered WEX Dropdown Component Modes in Global Tokens', () => {
+  const tokens = pageByPath['global-tokens/index.html'];
+  assert.match(tokens, /data-global-token-role="wex-dropdown"/);
+  assert.match(tokens, /WEX Dropdown Default[\s\S]*Component Mode: Notification Module[\s\S]*Component Mode: Notification Module \+ Small/);
+  assert.match(tokens, /data-wex-component-mode="notification-module small"/);
+});
+
 test('shows the registered WEX Option Button tokens in Global Tokens', () => {
   const tokens = pageByPath['global-tokens/index.html'];
   assert.match(tokens, /data-global-token-role="wex-option-button"/);
@@ -238,8 +245,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationRuntimeBehaviour, /Switch to \$\{dark \? 'light' : 'dark'\} theme/);
   assert.match(adminStationRuntimeBehaviour, /mountHeaderNavActions\(shell, \{ primaryActionProperties: options\.primaryActionProperties \}\)/);
   assert.match(adminStationRuntimeBehaviour, /mountHeaderResultsShell\(shell\)/);
-  assert.match(adminStation, /<section class="wex-admin-shell__header-results" data-header-compartment="results" data-header-results-shell aria-label="Header results" hidden><\/section>/);
-  assert.match(adminStationShell, /<section class="wex-admin-shell__header-results" data-header-compartment="results" data-header-results-shell aria-label="Header results" hidden><\/section>/);
+  assert.match(adminStation, /<section class="wex-admin-shell__header-results wex-dropdown" data-header-compartment="results" data-header-results-shell aria-label="Header results" hidden><\/section>/);
+  assert.match(adminStationShell, /<section class="wex-admin-shell__header-results wex-dropdown" data-header-compartment="results" data-header-results-shell aria-label="Header results" hidden><\/section>/);
   assert.match(adminStationHeaderResults, /owner: string,/);
   assert.match(adminStationHeaderResults, /inlineSize\?: string,/);
   assert.match(adminStationHeaderResults, /blockSize\?: string,/);
@@ -343,8 +350,8 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.doesNotMatch(adminStationProfileCss, /\.wex-admin-profile__action\.wex-admin-profile__exit-link\s*\{/);
   assert.doesNotMatch(adminStationProfileCss, /#[0-9a-f]{3,8}|rgb\(|hsl\(/i);
   assert.match(adminStationNotifications, /owner: NOTIFICATIONS_OWNER,/);
-  assert.match(adminStationNotifications, /inlineSize: 'min\(calc\(var\(--wex-space-64\) \* 7\), 100%\)',/);
-  assert.match(adminStationNotifications, /blockSize: 'min\(calc\(var\(--wex-space-64\) \* 8\), calc\(100dvh - var\(--wex-admin-shell-header-size\)\)\)',/);
+  assert.match(adminStationNotifications, /requestHeaderResultsShell\(shell, \{ owner: NOTIFICATIONS_OWNER, mode: 'notification-module' \}, trigger\);/);
+  assert.doesNotMatch(adminStationNotifications, /inlineSize:|blockSize:/);
   assert.match(adminStationNotifications, /Mark all as read/);
   assert.match(adminStationNotifications, /Newest first/);
   assert.match(adminStationNotifications, /Oldest first/);
@@ -359,7 +366,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /visual\.className = 'wex-admin-notifications__icon';/);
   assert.match(adminStationNotifications, /svg\.classList\.add\('wex-admin-notifications__icon-svg'\);/);
   assert.match(adminStationNotifications, /createMoreActionIcon\(document\)/);
-  assert.match(adminStationNotifications, /title\.className = 'wex-type-navigation-large-semibold';/);
+  assert.match(adminStationNotifications, /title\.className = config\.titleStyle === 'component-title' \? 'wex-component-title' : 'wex-type-navigation-large-semibold';/);
   assert.match(adminStationNotifications, /wex-admin-notifications__count wex-type-navigation-small-semibold/);
   assert.match(adminStationNotifications, /wex-button wex-button--default wex-button--subtle wex-option-button--default wex-admin-notifications__more/);
   assert.match(adminStationNotifications, /more\.append\(createMoreActionIcon\(document\)\)/);
@@ -369,12 +376,15 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(adminStationNotifications, /markAllRead\.textContent = 'Mark all as read';/);
   assert.match(adminStationNotifications, /close\.className = 'wex-button wex-button--small wex-button--neutral';/);
   assert.match(adminStationNotifications, /markAllRead\.className = 'wex-button wex-button--small wex-button--primary';/);
-  assert.match(adminStationNotifications, /close\.addEventListener\('click', \(\) => \{ closeHeaderResultsShell\(shell\); \}\);/);
+  assert.match(adminStationNotifications, /close\.addEventListener\('click', \(\) => \{ config\.onClose\(\); \}\);/);
+  assert.match(adminStationNotifications, /onClose: \(\) => \{ closeHeaderResultsShell\(shell\); \}/);
   assert.match(adminStationNotifications, /itemMenuToggle\.dataset\.notificationItemMenuToggle = notification\.id;/);
   assert.match(adminStationNotifications, /const view = createNotificationOption\(document, 'View'\);/);
-  assert.match(adminStationNotifications, /const readState = createNotificationOption\(document, notification\.unread \? 'Read' : 'Unread'\);/);
+  assert.match(adminStationNotifications, /const readState = createNotificationOption\(document, viewEdit \? 'Edit' : notification\.unread \? 'Read' : 'Unread'\);/);
+  assert.match(adminStationNotifications, /readState\.dataset\.notificationItemAction = viewEdit \? 'edit' : notification\.unread \? 'read' : 'unread';/);
   assert.match(adminStationNotifications, /notificationTitle\.prepend\(unreadIndicator\);/);
-  assert.match(adminStationNotifications, /openItemMenuDirection = itemBounds && listBounds\.bottom - itemBounds\.bottom >= itemBounds\.height/);
+  assert.match(adminStationNotifications, /openItemMenuDirection = 'down';\s*render\(\);\s*fitItemMenu\(menuId\);/);
+  assert.match(adminStationNotifications, /menu\.scrollIntoView\(\{ block: 'nearest' \}\);/);
   assert.match(adminStationNotifications, /content\.append\(timeRow\);/);
   assert.match(adminStationNotifications, /meta\.append\(itemMenu\);/);
   assert.match(adminStationNotifications, /notification\.unread = action === 'unread';/);
@@ -459,7 +469,7 @@ test('keeps the Admin Shell as a standalone Admin Station runtime layout', () =>
   assert.match(headerFoundation, /\.wex-admin-shell__header\s*\{/);
   assert.match(headerFoundation, /\.wex-admin-shell__brand\s*\{/);
   assert.match(headerFoundation, /\.wex-admin-shell__brand \.wex-logo\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);/);
-  assert.match(headerFoundation, /\.wex-admin-shell__nav-primary-action\s*\{[\s\S]*inline-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);[\s\S]*block-size: calc\(var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-space-16\)\);/);
+  assert.match(headerFoundation, /\.wex-admin-shell__nav-primary-action\s*\{\s*flex: 0 0 auto;\s*\}/);
   assert.match(headerFoundation, /\.wex-admin-shell__nav-primary-action-image\s*\{\s*object-fit: contain;/);
   assert.doesNotMatch(headerFoundation, /wex-admin-header/);
   assert.match(wexLayout, /block-size: 100dvh;/);

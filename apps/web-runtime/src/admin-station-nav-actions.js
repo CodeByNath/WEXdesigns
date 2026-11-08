@@ -71,7 +71,7 @@ export function createHeaderActionIcon(document, name) {
 function createPrimaryAction(document, properties = {}) {
   const action = document.createElement('button');
   action.type = 'button';
-  action.className = 'wex-button wex-button--primary wex-admin-shell__nav-primary-action';
+  action.className = 'wex-button wex-button--primary wex-action-button-icon-only--large wex-action-button-icon-only--circular wex-admin-shell__nav-primary-action';
   action.dataset.headerPrimaryAction = '';
   action.setAttribute('aria-label', 'Primary action');
   const presentation = HeaderPrimaryActionPresentationPropertiesSchema.safeParse(properties);

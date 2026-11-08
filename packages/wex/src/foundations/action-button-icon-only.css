@@ -17,6 +17,17 @@
   /* WEX Action Button Icon Only Small Menu */
   --wex-action-button-icon-only-small-menu-padding-inline: var(--wex-space-8);
   --wex-action-button-icon-only-small-menu-gap: var(--wex-space-4);
+
+  /* WEX Action Button Icon Only Default */
+  --wex-action-button-icon-only-default-target-size: var(--wex-button-default-target-size);
+  --wex-action-button-icon-only-default-icon-size: var(--wex-icon-size-20);
+
+  /* WEX Action Button Icon Only Large */
+  --wex-action-button-icon-only-large-target-size: var(--wex-button-large-target-size);
+  --wex-action-button-icon-only-large-icon-size: var(--wex-icon-size-20);
+
+  /* WEX Action Button Icon Only Circular: a shape mode combined with Small, Default or Large. */
+  --wex-action-button-icon-only-circular-radius: 50%;
 }
 
 .wex-action-button-icon-only--small {
@@ -46,4 +57,46 @@
   flex: 0 0 auto;
   inline-size: var(--wex-action-button-icon-only-small-icon-size);
   block-size: var(--wex-action-button-icon-only-small-icon-size);
+}
+
+.wex-action-button-icon-only--default {
+  inline-size: var(--wex-action-button-icon-only-default-target-size);
+  min-inline-size: var(--wex-action-button-icon-only-default-target-size);
+  block-size: var(--wex-action-button-icon-only-default-target-size);
+  min-block-size: var(--wex-action-button-icon-only-default-target-size);
+  padding: 0;
+  gap: 0;
+  font-size: 0;
+  justify-content: center;
+}
+
+.wex-action-button-icon-only--default > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-action-button-icon-only-default-icon-size);
+  block-size: var(--wex-action-button-icon-only-default-icon-size);
+}
+
+.wex-action-button-icon-only--large {
+  inline-size: var(--wex-action-button-icon-only-large-target-size);
+  min-inline-size: var(--wex-action-button-icon-only-large-target-size);
+  block-size: var(--wex-action-button-icon-only-large-target-size);
+  min-block-size: var(--wex-action-button-icon-only-large-target-size);
+  padding: 0;
+  gap: 0;
+  font-size: 0;
+  justify-content: center;
+}
+
+.wex-action-button-icon-only--large > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-action-button-icon-only-large-icon-size);
+  block-size: var(--wex-action-button-icon-only-large-icon-size);
+}
+
+.wex-action-button-icon-only--circular,
+.wex-action-button-icon-only--circular:not(:disabled):active::after,
+.wex-action-button-icon-only--circular:focus::after,
+.wex-action-button-icon-only--circular:not(:disabled):active::before,
+.wex-action-button-icon-only--circular:focus::before {
+  border-radius: var(--wex-action-button-icon-only-circular-radius);
 }

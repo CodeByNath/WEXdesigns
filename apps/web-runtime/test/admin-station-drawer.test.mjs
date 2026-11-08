@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 
+const drawerNotifications = await readFile(new URL('../src/admin-station-drawer-notifications.js', import.meta.url), 'utf8');
+
 const [shell, drawer, layout, handleCss, index, icons, headerCss, headerJs, pillCss] = await Promise.all([
   readFile(new URL('../src/admin-station-shell.js', import.meta.url), 'utf8'),
   readFile(new URL('../src/admin-station-drawer.js', import.meta.url), 'utf8'),
@@ -103,18 +105,18 @@ test('lays the open Drawer out as a full-height Sidebar beside Header, Body, and
 test('gives the Drawer Header two compartment shells: content-empty start and the action navigation', () => {
   const header = shell.match(/<header class="wex-admin-shell__drawer-header"[\s\S]*?<\/header>/)[0];
   const start = header.match(/<div class="wex-admin-shell__drawer-header-start" data-admin-drawer-header-shell="start">([\s\S]*?)\n          <\/div>/)[1];
-  assert.match(start, /<span class="wex-admin-shell__drawer-header-icon" data-admin-drawer-header-icon aria-hidden="true"><\/span>/);
+  assert.match(start, /<span class="wex-action-button-icon-only--default wex-action-button-icon-only--circular wex-admin-shell__drawer-header-icon" data-admin-drawer-header-icon aria-hidden="true"><\/span>/);
   assert.match(start, /<span class="wex-admin-shell__drawer-header-label wex-component-title" data-admin-drawer-header-label><\/span>/);
   assert.doesNotMatch(start, /wex-pill-notification-status/);
   assert.doesNotMatch(start, /style=/);
   const actions = header.match(/<div class="wex-admin-shell__drawer-header-actions" data-admin-drawer-header-shell="actions">([\s\S]*?)\n          <\/div>/)[1];
-  assert.match(actions, /^\s*<span class="wex-pill-notification-status" data-admin-drawer-header-status><\/span>\s*<button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small-menu" aria-label="Edit options" aria-expanded="false" aria-haspopup="menu">/);
-  assert.equal((actions.match(/<svg/g) ?? []).length, 3);
-  assert.match(actions, /class="wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small" data-admin-drawer-close aria-label="Close drawer"/);
+  assert.match(actions, /^\s*<button type="button" class="wex-pill-notification-status" data-admin-drawer-header-status aria-haspopup="dialog" aria-expanded="false" aria-controls="admin-station-drawer-notifications"><\/button>\s*<div class="wex-admin-shell__drawer-header-menu" data-admin-drawer-header-menu>\s*<button type="button" class="wex-button wex-button--default wex-button--subtle wex-option-button--default" aria-label="Edit options" aria-expanded="false" aria-haspopup="menu" data-admin-drawer-header-menu-toggle><\/button>/);
+  assert.equal((actions.match(/<svg/g) ?? []).length, 1);
+  assert.match(actions, /class="wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small wex-action-button-icon-only--circular" data-admin-drawer-close aria-label="Close drawer"/);
   assert.ok(actions.indexOf('Edit options') < actions.indexOf('Close drawer'), 'close sits at the right corner');
   assert.doesNotMatch(header, /style=/);
   assert.match(drawer, /\[data-admin-drawer-close\]'\)\?\.addEventListener\('click', \(\) => closeAdminDrawer\(shell\)\)/);
-  assert.match(headerCss, /\.wex-admin-shell__drawer-header \{\s*display: flex;\s*align-items: center;\s*justify-content: space-between;/);
+  assert.match(headerCss, /\.wex-admin-shell__drawer-header \{\s*position: relative;\s*display: flex;\s*align-items: center;\s*justify-content: space-between;/);
   assert.match(index, /@import "\.\/foundations\/drawer-header\.css";/);
 });
 
@@ -126,7 +128,20 @@ test('drives the Drawer Header icon, label and status pill dynamically', () => {
   assert.match(headerJs, /new MutationObserver\(\(\) => \{\s*if \(parts\.label\.dataset\.adminDrawerHeaderLabelOwned === undefined\) parts\.label\.textContent = locationLabel\(shell\);/);
   assert.match(headerJs, /\[data-admin-station-location\]/);
   assert.doesNotMatch(headerJs, /style\.|innerHTML|fetch\(|localStorage/);
-  assert.match(drawer, /resetAdminDrawerHeader\(shell\);\s*if \(request\.header\) setAdminDrawerHeader\(shell, request\.header\);/);
+  assert.match(shell, /<div class="wex-dropdown-menu--default wex-admin-shell__drawer-header-menu-list" role="menu" hidden data-admin-drawer-header-menu-list>/);
+  ['edit', 'disabled', 'archive', 'delete'].forEach((action) => {
+    assert.match(shell, new RegExp(`<button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="${action}">`));
+  });
+  assert.match(drawer, /event\.composedPath\(\)\.includes\(drawer\)/);
+  assert.match(drawerNotifications, /initialFilter: 'action-required',/);
+  assert.match(drawerNotifications, /filters: \[\['action-required', 'Action required'\], \['all', 'All'\]\],/);
+  assert.match(drawerNotifications, /headerAction: 'close',\s*markAllRead: false,\s*itemOptions: 'view-edit',\s*countStyle: 'action-required',\s*titleStyle: 'component-title',\s*notifications: drawerModuleNotifications,/);
+  ['Title missing', 'Category not selected', 'Description missing'].forEach((title) => assert.match(drawerNotifications, new RegExp(`title: '${title}', description: 'Overview · Pending', time: ''`)));
+  assert.match(headerJs, /function mountHeaderMenu\(shell\)/);
+  assert.match(headerJs, /toggle\.replaceChildren\(createMoreActionIcon\(shell\.ownerDocument\)\);/);
+  assert.match(headerJs, /event\.key === 'Escape'/);
+  assert.match(headerCss, /\.wex-admin-shell__drawer-header-menu-list \{[^}]*inset-block-start: calc\(100% \+ var\(--wex-space-4\)\);/);
+  assert.match(drawer, /resetAdminDrawerHeader\(shell\);\s*closeAdminDrawerDropdown\(shell\);\s*if \(request\.header\) setAdminDrawerHeader\(shell, request\.header\);/);
   assert.match(drawer, /candidate\.header === undefined \|\| isAdminDrawerHeaderContent\(candidate\.header\)/);
   assert.match(drawer, /export \{ setAdminDrawerHeader \};/);
   assert.match(drawer, /mountAdminDrawerHeader\(shell\);/);
@@ -134,7 +149,7 @@ test('drives the Drawer Header icon, label and status pill dynamically', () => {
   for (const state of ['pending', 'active', 'disabled']) {
     assert.match(pillCss, new RegExp(`\\.wex-pill-notification-status--${state} \\{\\s*background: var\\(--wex-pill-notification-status-${state}-background\\);\\s*color: var\\(--wex-pill-notification-status-${state}-foreground\\);`));
   }
-  assert.match(headerCss, /\.wex-admin-shell__drawer-header-icon \{[^}]*border-radius: 50%;[^}]*background: var\(--wex-button-primary-background-default\);[^}]*color: var\(--wex-button-primary-foreground-default\);/);
+  assert.match(headerCss, /\.wex-admin-shell__drawer-header-icon \{[^}]*background: var\(--wex-button-primary-background-default\);[^}]*color: var\(--wex-button-primary-foreground-default\);/);
 });
 
 test('keeps the Admin Drawer allocation modes approved and request-owned', () => {

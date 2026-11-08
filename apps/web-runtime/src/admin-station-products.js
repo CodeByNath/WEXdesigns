@@ -20,7 +20,7 @@ export function mountProductsBody(shell) {
   mountOverviewModule(overviewMount, allServicesPreviewSnapshot, {
     onAddNew: (trigger) => {
       if (drawer instanceof HTMLElement && drawer.dataset.adminDrawerOwner !== ADD_NEW_OWNER) adminDrawerCompartment(shell, 'body')?.replaceChildren();
-      requestAdminDrawer(shell, { owner: ADD_NEW_OWNER }, trigger);
+      requestAdminDrawer(shell, { owner: ADD_NEW_OWNER, header: { icon: 'plus', label: 'Add New', status: 'pending' } }, trigger);
     },
   });
   mountAllServicesBody(page, allServicesPreviewSnapshot);

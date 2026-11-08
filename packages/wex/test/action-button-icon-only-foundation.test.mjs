@@ -19,3 +19,14 @@ test('registers WEX Action Button Icon Only Small from the existing Small Button
   assert.match(actionButton, /\.wex-action-button-icon-only--small-menu\s*\{[\s\S]*min-inline-size: var\(--wex-action-button-icon-only-small-target-size\);[\s\S]*padding-inline: var\(--wex-action-button-icon-only-small-menu-padding-inline\);/);
   assert.doesNotMatch(actionButton, /#[0-9a-f]{3,8}\b|rgb\(|hsl\(|\d+(?:px|rem)/i);
 });
+
+test('registers Action Button Icon Only Default, Large and Circular modes from Button foundations', () => {
+  assert.match(actionButton, /--wex-action-button-icon-only-default-target-size: var\(--wex-button-default-target-size\);/);
+  assert.match(actionButton, /--wex-action-button-icon-only-default-icon-size: var\(--wex-icon-size-20\);/);
+  assert.match(actionButton, /--wex-action-button-icon-only-large-target-size: var\(--wex-button-large-target-size\);/);
+  assert.match(actionButton, /--wex-action-button-icon-only-large-icon-size: var\(--wex-icon-size-20\);/);
+  assert.match(actionButton, /--wex-action-button-icon-only-circular-radius: 50%;/);
+  assert.match(actionButton, /\.wex-action-button-icon-only--default\s*\{[\s\S]*inline-size: var\(--wex-action-button-icon-only-default-target-size\);[\s\S]*block-size: var\(--wex-action-button-icon-only-default-target-size\);/);
+  assert.match(actionButton, /\.wex-action-button-icon-only--large\s*\{[\s\S]*inline-size: var\(--wex-action-button-icon-only-large-target-size\);[\s\S]*block-size: var\(--wex-action-button-icon-only-large-target-size\);/);
+  assert.match(actionButton, /\.wex-action-button-icon-only--circular:focus::before\s*\{\s*border-radius: var\(--wex-action-button-icon-only-circular-radius\);/);
+});

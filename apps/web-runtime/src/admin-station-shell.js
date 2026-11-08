@@ -9,7 +9,7 @@ const shellMarkup = `
         <div class="wex-admin-shell__location wex-type-navigation-large-semibold" data-admin-station-location></div>
         <div class="wex-admin-shell__nav-actions" data-header-nav-actions></div>
       </div>
-      <section class="wex-admin-shell__header-results" data-header-compartment="results" data-header-results-shell aria-label="Header results" hidden></section>
+      <section class="wex-admin-shell__header-results wex-dropdown" data-header-compartment="results" data-header-results-shell aria-label="Header results" hidden></section>
       <button type="button" class="wex-admin-shell__control wex-admin-shell__drawer-trigger" data-sidebar-control="open" aria-label="Open sidebar" aria-controls="admin-station-sidebar" aria-expanded="false">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" focusable="false"><rect x="3.75" y="4.5" width="16.5" height="15" rx="2" /><path stroke-linecap="round" d="M9.75 5.5v13" /></svg>
       </button>
@@ -32,19 +32,25 @@ const shellMarkup = `
       <div class="wex-admin-shell__drawer-frame">
         <header class="wex-admin-shell__drawer-header" data-admin-drawer-compartment="header">
           <div class="wex-admin-shell__drawer-header-start" data-admin-drawer-header-shell="start">
-            <span class="wex-admin-shell__drawer-header-icon" data-admin-drawer-header-icon aria-hidden="true"></span>
+            <span class="wex-action-button-icon-only--default wex-action-button-icon-only--circular wex-admin-shell__drawer-header-icon" data-admin-drawer-header-icon aria-hidden="true"></span>
             <span class="wex-admin-shell__drawer-header-label wex-component-title" data-admin-drawer-header-label></span>
           </div>
           <div class="wex-admin-shell__drawer-header-actions" data-admin-drawer-header-shell="actions">
-            <span class="wex-pill-notification-status" data-admin-drawer-header-status></span>
-            <button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small-menu" aria-label="Edit options" aria-expanded="false" aria-haspopup="menu">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6.75 9 5.25 5.25L17.25 9" /></svg>
-            </button>
-            <button type="button" class="wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small" data-admin-drawer-close aria-label="Close drawer">
+            <button type="button" class="wex-pill-notification-status" data-admin-drawer-header-status aria-haspopup="dialog" aria-expanded="false" aria-controls="admin-station-drawer-notifications"></button>
+            <div class="wex-admin-shell__drawer-header-menu" data-admin-drawer-header-menu>
+            <button type="button" class="wex-button wex-button--default wex-button--subtle wex-option-button--default" aria-label="Edit options" aria-expanded="false" aria-haspopup="menu" data-admin-drawer-header-menu-toggle></button>
+            <div class="wex-dropdown-menu--default wex-admin-shell__drawer-header-menu-list" role="menu" hidden data-admin-drawer-header-menu-list>
+              <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="edit">Edit</button>
+              <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="disabled">Disabled</button>
+              <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="archive">Archive</button>
+              <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="delete">Delete</button>
+            </div>
+            </div>
+            <button type="button" class="wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small wex-action-button-icon-only--circular" data-admin-drawer-close aria-label="Close drawer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6l12 12" /></svg>
             </button>
           </div>
+          <section id="admin-station-drawer-notifications" class="wex-dropdown" data-wex-component-mode="notification-module small" data-admin-drawer-dropdown aria-label="Notifications" hidden></section>
         </header>
         <div class="wex-admin-shell__drawer-sidebar" data-admin-drawer-compartment="sidebar"></div>
         <div class="wex-admin-shell__drawer-body" data-admin-drawer-compartment="body"></div>

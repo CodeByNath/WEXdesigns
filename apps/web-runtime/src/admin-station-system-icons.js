@@ -1,7 +1,7 @@
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const OUTLINE_STROKE_WIDTH = '1.5';
 
-/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'chevron-down' | 'chevron-left' | 'chevron-right'} SystemIconName */
+/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'x' | 'chevron-down' | 'chevron-left' | 'chevron-right'} SystemIconName */
 
 /* Heroicons 24/outline system glyphs, MIT License, Copyright Tailwind Labs. */
 /** @type {Record<SystemIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
@@ -24,6 +24,9 @@ const systemIconShapes = {
   user: [
     ['circle', { cx: '12', cy: '8.25', r: '3.25' }],
     ['path', { d: 'M5.25 20.25a6.75 6.75 0 0 1 13.5 0' }],
+  ],
+  x: [
+    ['path', { d: 'M6 18 18 6M6 6l12 12' }],
   ],
   'chevron-down': [
     ['path', { d: 'm6.75 9 5.25 5.25L17.25 9' }],

@@ -456,9 +456,12 @@ button.wex-admin-shell__sidebar-tab {
   background: var(--wex-color-layer-02);
 }
 
+/* The Drawer footer holds one Small Button row, the same height as the Notification Module footer. */
 .wex-admin-shell__drawer-footer {
   grid-area: footer;
-  padding: var(--wex-space-16);
+  box-sizing: border-box;
+  min-block-size: calc(var(--wex-button-small-target-size) + var(--wex-space-12) + var(--wex-space-12) + var(--wex-border-width-default));
+  padding: var(--wex-space-12);
   border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   background: var(--wex-color-layer-02);
 }
