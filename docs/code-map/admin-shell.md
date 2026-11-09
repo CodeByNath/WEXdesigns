@@ -16,6 +16,11 @@
 
 ### Recent work (newest first)
 
+- 2026-11-10: Add New Body sections: `admin-station-add-new-sections.js` listens
+  for `wex:admin-drawer-tab` and mounts one section shell per Sidebar tab into
+  the Drawer Body (hover previews, leaving restores the selected tab's shell,
+  click keeps it); styled in `admin-station-add-new-sections.css` with existing
+  tokens. Shells hold the section title only until the Owner defines fields.
 - 2026-11-10: The Add New requester (`admin-station-products.js`) now passes
   four placeholder `sidebar` tabs (Details, Pricing, Options, Settings) so the
   Drawer Sidebar shows in the product. Tabs and icons are placeholders until

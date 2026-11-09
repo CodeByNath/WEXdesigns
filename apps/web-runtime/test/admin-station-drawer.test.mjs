@@ -231,3 +231,14 @@ test('the Drawer Sidebar prints icon-only requester tabs and previews the hovere
   assert.doesNotMatch(sidebarCss, /#[0-9a-f]{3,6}\b|\d+px/i);
   assert.match(index, /@import "\.\/foundations\/drawer-sidebar\.css";/);
 });
+
+test('Add New Sidebar tabs mount one section shell per tab in the Drawer Body', async () => {
+  const [sections, css] = await Promise.all([
+    readFile(new URL('../src/admin-station-add-new-sections.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8'),
+  ]);
+  assert.match(sections, /ADMIN_DRAWER_TAB_EVENT/);
+  assert.match(sections, /adminDrawerCompartment\(shell, 'body'\)/);
+  assert.match(sections, /body\.replaceChildren\(section\)/);
+  assert.doesNotMatch(css, /\d+px/);
+});
