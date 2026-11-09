@@ -14,7 +14,9 @@
   --wex-tab-navigation-toggle-gap: var(--wex-space-2);
   --wex-tab-navigation-toggle-radius: var(--wex-tab-navigation-small-radius);
   --wex-tab-navigation-toggle-selected-shadow: var(--wex-shadow-default);
-  /* WEX Tab Navigation Default */
+  /* Toggle mode: Stretched. The track spans its container; the tabs keep their place. */
+  --wex-tab-navigation-toggle-stretched-margin-inline: calc(-1 * var(--wex-space-12));
+  --wex-tab-navigation-toggle-stretched-padding-inline: calc(var(--wex-space-12) + var(--wex-tab-navigation-toggle-padding));  /* WEX Tab Navigation Default */
   --wex-tab-navigation-default-font-family: var(--wex-type-navigation-default-font-family);
   --wex-tab-navigation-default-font-size: var(--wex-type-navigation-default-font-size);
   --wex-tab-navigation-default-line-height: var(--wex-type-navigation-default-line-height);

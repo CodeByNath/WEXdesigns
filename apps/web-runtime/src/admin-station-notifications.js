@@ -180,6 +180,7 @@ function createNotificationTab(document, label) {
  *   initialFilter?: string,
  *   filters?: ReadonlyArray<readonly [string, string]>,
  *   selectedTabFirst?: boolean,
+ *   toggleStretched?: boolean,
  *   headerAction?: 'options' | 'close',
  *   markAllRead?: boolean,
  *   itemOptions?: 'view-read' | 'view-edit',
@@ -251,6 +252,7 @@ export function createNotificationModule(shell, config) {
 
   const filters = document.createElement('nav');
   filters.className = 'wex-admin-notifications__filters wex-admin-notifications__filters--toggle';
+  filters.classList.toggle('wex-admin-notifications__filters--toggle-stretched', config.toggleStretched === true);
   filters.setAttribute('aria-label', 'Notification filters');
   /** @type {ReadonlyArray<readonly [string, string]>} */
   const filterInputs = config.filters ?? [

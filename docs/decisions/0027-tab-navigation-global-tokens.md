@@ -59,10 +59,13 @@ independent of theme. Notification filters explicitly opt into Toggle;
 existing Horizontal, Dropdown and Sidebar token contracts are unchanged.
 Pressed and focused tabs retain the existing perimeter and inset focus system.
 
-In the Drawer notifications dropdown (Small mode) the Toggle track spans the
-full module width with no corner radius, while the tabs keep their position and
-radius. The Owner also directed that the selected tab moves to the first place
-once its notifications load, opted into by the Drawer only.
+The Owner added Toggle mode Stretched (`--wex-tab-navigation-toggle-stretched-*`:
+negative inline margin and matching inline padding from the 12px space token
+plus the Toggle padding; the track radius is a plain `0`, no token). The track spans its container while the
+tabs keep their position and radius. The Drawer notifications opt in with
+`toggleStretched`; the header bell keeps plain Toggle. The Owner also directed
+that the selected tab moves to the first place once its notifications load,
+opted into by the Drawer only.
 
 ## Component boundaries
 

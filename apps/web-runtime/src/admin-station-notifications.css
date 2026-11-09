@@ -394,10 +394,10 @@
   inset-inline-end: var(--wex-space-8);
 }
 
-/* The Toggle tab track spans the full module width; its inline padding keeps the tabs where they were. */
-.wex-dropdown[data-wex-component-mode~="small"] .wex-admin-notifications__filters--toggle {
-  margin-inline: calc(-1 * var(--wex-space-12));
-  padding-inline: calc(var(--wex-space-12) + var(--wex-tab-navigation-toggle-padding));
+/* Toggle mode: Stretched, from the Tab Navigation Toggle tokens. */
+.wex-admin-notifications__filters--toggle-stretched {
+  margin-inline: var(--wex-tab-navigation-toggle-stretched-margin-inline);
+  padding-inline: var(--wex-tab-navigation-toggle-stretched-padding-inline);
   border-radius: 0;
 }
 
