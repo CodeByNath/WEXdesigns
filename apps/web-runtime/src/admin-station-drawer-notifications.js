@@ -56,6 +56,10 @@ export function mountAdminDrawerNotifications(shell) {
   }));
   pill.addEventListener('click', () => {
     dropdown.hidden = !dropdown.hidden;
+    if (!dropdown.hidden) {
+      const actionRequiredTab = dropdown.querySelector('[data-notification-filter="action-required"]');
+      if (actionRequiredTab instanceof HTMLButtonElement) actionRequiredTab.click();
+    }
     pill.setAttribute('aria-expanded', String(!dropdown.hidden));
   });
   shell.ownerDocument.addEventListener('click', (event) => {
