@@ -6,6 +6,14 @@
  */
 
 :root {
+  /* Owner-requested Toggle mode preview, using existing WEX foundations. */
+  --wex-tab-navigation-toggle-track-background: var(--wex-color-background-secondary);
+  --wex-tab-navigation-toggle-selected-background: var(--wex-color-background-primary);
+  --wex-tab-navigation-toggle-selected-border-color: var(--wex-color-border-subtle);
+  --wex-tab-navigation-toggle-padding: var(--wex-space-2);
+  --wex-tab-navigation-toggle-gap: var(--wex-space-2);
+  --wex-tab-navigation-toggle-radius: var(--wex-tab-navigation-small-radius);
+  --wex-tab-navigation-toggle-selected-shadow: var(--wex-shadow-default);
   /* WEX Tab Navigation Default */
   --wex-tab-navigation-default-font-family: var(--wex-type-navigation-default-font-family);
   --wex-tab-navigation-default-font-size: var(--wex-type-navigation-default-font-size);

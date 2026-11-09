@@ -45,6 +45,22 @@ variant, interaction mechanic, or raw visual value.
 
 ## Boundaries
 
+## Owner-directed Toggle mode — 2026-11-09
+
+The Owner authorised a separate Toggle mode from the supplied segmented-tab
+reference. It consumes Small Horizontal typography, target and interaction
+tokens, secondary surface for the track, primary surface and subtle border for
+selection, 2px spacing tokens for track padding/gap, and the existing Small
+navigation radius (inherited from the Button radius).
+Selection consumes `--wex-shadow-default`. The separately authorised shadow
+foundation registers Light (0 1px 2px, black 8%), Default (0 2px 4px, black 16%)
+and Dark (0 4px 8px, black 24%) strengths. These are elevation strengths,
+independent of theme. Notification filters explicitly opt into Toggle;
+existing Horizontal, Dropdown and Sidebar token contracts are unchanged.
+Pressed and focused tabs retain the existing perimeter and inset focus system.
+
+## Component boundaries
+
 This registers a presentation token family only. It does not register a Global
 Component, define a Shared UI schema, create browser interaction mechanics, or
 change product navigation meaning. The current Admin Station Sidebar consumes

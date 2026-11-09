@@ -249,7 +249,7 @@ export function createNotificationModule(shell, config) {
   }
 
   const filters = document.createElement('nav');
-  filters.className = 'wex-admin-notifications__filters';
+  filters.className = 'wex-admin-notifications__filters wex-admin-notifications__filters--toggle';
   filters.setAttribute('aria-label', 'Notification filters');
   /** @type {ReadonlyArray<readonly [string, string]>} */
   const filterInputs = config.filters ?? [

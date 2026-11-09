@@ -20,8 +20,7 @@
   z-index: 1;
   display: grid;
   gap: var(--wex-space-16);
-  padding: var(--wex-space-24) var(--wex-space-16) var(--wex-space-16);
-  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  padding: var(--wex-space-24) var(--wex-space-16) var(--wex-space-4);
   background: var(--wex-color-background-primary);
   transition: box-shadow 150ms ease;
 }
@@ -238,6 +237,29 @@
 
 .wex-admin-notifications__filters::-webkit-scrollbar {
   display: none;
+}
+
+.wex-admin-notifications__filters--toggle {
+  margin-block-start: var(--wex-space-12);
+  gap: var(--wex-tab-navigation-toggle-gap);
+  padding: var(--wex-tab-navigation-toggle-padding);
+  border-radius: var(--wex-tab-navigation-toggle-radius);
+  background: var(--wex-tab-navigation-toggle-track-background);
+}
+
+.wex-admin-notifications__filters--toggle > .wex-admin-notifications__tab {
+  flex: 1 0 auto;
+  justify-content: center;
+  border-radius: var(--wex-tab-navigation-toggle-radius);
+}
+
+.wex-admin-notifications__filters--toggle > .wex-admin-notifications__tab[aria-pressed="true"]:not(:focus):not(:active) {
+  background: var(--wex-tab-navigation-toggle-selected-background);
+  border-color: var(--wex-tab-navigation-toggle-selected-border-color);
+}
+
+.wex-admin-notifications__filters--toggle > .wex-admin-notifications__tab[aria-pressed="true"] {
+  box-shadow: var(--wex-tab-navigation-toggle-selected-shadow);
 }
 
 .wex-admin-notifications__list {

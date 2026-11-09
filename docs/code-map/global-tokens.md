@@ -12,6 +12,11 @@
 
 ### Recent work (newest first)
 
+- 2026-11-09: Owner-directed Toggle mode preview adds isolated notification
+  filter consumption and Light, Default, Dark shadow strengths in
+  `packages/wex/src/foundations/shadow.css`. Toggle selection uses Default.
+  Owner authorised direct Studio release delivery for this UI refinement.
+
 - WEX Option Button Default and Small register the three-dot action. The
   Notifications header and row actions and the Services Manager row action
   consume them (ADR 0034).

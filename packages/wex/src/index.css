@@ -4,6 +4,7 @@
 @import "./foundations/colour.css";
 @import "./foundations/interaction.css";
 @import "./foundations/geometry.css";
+@import "./foundations/shadow.css";
 @import "./foundations/search-input.css";
 @import "./foundations/more-action.css";
 @import "./foundations/notification-pill.css";
