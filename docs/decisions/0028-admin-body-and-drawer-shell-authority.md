@@ -72,3 +72,16 @@ Discard and restores Close. Save and Discard emit `wex:admin-drawer-save` and
 `wex:admin-drawer-discard` on the Admin shell; the requester owns what they do.
 Only existing Small Button variants and spacing tokens are used; no token was
 created.
+
+## Owner-directed Drawer Sidebar tabs — 2026-11-09
+
+The Drawer Sidebar prints the tabs a requester supplies in its request
+(`sidebar: [{ id, label, icon, active? }]`, icons from the existing system
+icons). They use the Tab Navigation Small tier tokens and are icon only in every
+Drawer mode: there is no label text, no pin or unpin control and no separate
+panel. Hovering or focusing a tab previews its section in the existing Drawer
+Body shell, leaving returns the Body to the selected tab's section, and clicking
+a tab selects it. The change is emitted as `wex:admin-drawer-tab`
+(`{ id, preview }`) on the Admin shell; the requester mounts the section into
+`adminDrawerCompartment(shell, 'body')` and owns its content. The Body carries
+`data-admin-drawer-body-preview` while previewing. No token was created.

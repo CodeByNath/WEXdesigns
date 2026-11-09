@@ -2,8 +2,8 @@
 
 ## Current operating status
 
-- Last visited: 2026-11-02
-- Last updated: 2026-11-02
+- Last visited: 2026-11-09
+- Last updated: 2026-11-09
 - Verified against: Owner-approved WEX Tab Navigation Small Horizontal and
   Small Dropdown modes, and the existing Notifications count pill on main.
 - Registration status: Typography roles remain registered as before. WEX Tab
@@ -11,6 +11,14 @@
   component-token families; no Shared UI component is registered.
 
 ### Recent work (newest first)
+
+- 2026-11-09: Tab Navigation Toggle gains mode Stretched:
+  `--wex-tab-navigation-toggle-stretched-margin-inline` and `-padding-inline` in
+  `packages/wex/src/foundations/tab-navigation.css` (ADR 0027). The track spans
+  its container while the tabs keep their position; the track radius is a plain
+  `0` in the consumer class, not a token. Modes of Toggle are selected by token
+  name, not by an attribute. Drawer notifications consume it; the header bell
+  keeps plain Toggle.
 
 - 2026-11-09: Owner-directed Toggle mode preview adds isolated notification
   filter consumption and Light, Default, Dark shadow strengths in

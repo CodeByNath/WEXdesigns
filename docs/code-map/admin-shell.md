@@ -2,8 +2,8 @@
 
 ## Current operating status
 
-- Last visited: 2026-10-28
-- Last updated: 2026-10-28
+- Last visited: 2026-11-09
+- Last updated: 2026-11-09
 - Verified against `main` at `bae8a663b80113e626e9c3e0783316f45aae58b0`,
   with the owner-authorised Services refinement in the working tree:
   the Logo-fitted Dashboard shell remains standalone; the portable Studio
@@ -15,6 +15,21 @@
   or Component Manager specimen.
 
 ### Recent work (newest first)
+
+- 2026-11-09: Drawer Sidebar tabs: requests may carry `sidebar` tabs, printed by
+  `apps/web-runtime/src/admin-station-drawer-sidebar.js` and styled in
+  `packages/wex/src/foundations/drawer-sidebar.css` (Tab Navigation Small
+  tokens, icon only in every mode). Hover previews the section in the Drawer
+  Body shell, click selects it (`wex:admin-drawer-tab`). Not yet released.
+
+- 2026-11-09: Drawer notifications dropdown opts into Toggle mode Stretched and
+  puts the selected tab first (`toggleStretched`, `selectedTabFirst`). The Drawer
+  footer holds Close (or Discard in its place) at the start and Save and Publish
+  at the end. Footer state lives in `apps/web-runtime/src/admin-station-drawer-footer.js`:
+  a requester calls `setAdminDrawerDirty(shell, boolean)` and listens for
+  `wex:admin-drawer-save` and `wex:admin-drawer-discard`. Layout is in
+  `packages/wex/src/foundations/drawer-footer.css` (ADR 0028, ADR 0027). Published
+  as Studio releases, staging pointer 341 to 343.
 
 - The Admin Drawer is now a complete shell of four content-empty compartments:
   Header, a full-height Sidebar rail, Body (the scroll boundary), and Footer,

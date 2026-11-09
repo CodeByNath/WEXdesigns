@@ -1,10 +1,11 @@
 import { closeAdminDrawerDropdown, mountAdminDrawerNotifications } from './admin-station-drawer-notifications.js';
 import { mountAdminDrawerFooter, setAdminDrawerDirty } from './admin-station-drawer-footer.js';
+import { isAdminDrawerSidebar, resetAdminDrawerSidebar, setAdminDrawerSidebar } from './admin-station-drawer-sidebar.js';
 import { isAdminDrawerHeaderContent, mountAdminDrawerHeader, resetAdminDrawerHeader, setAdminDrawerHeader } from './admin-station-drawer-header.js';
 
 /** @typedef {'default' | 'half' | 'full'} AdminDrawerMode */
 /** @typedef {import('./admin-station-drawer-header.js').AdminDrawerHeaderContent} AdminDrawerHeaderContent */
-/** @typedef {{ owner: string, mode?: AdminDrawerMode, header?: AdminDrawerHeaderContent }} AdminDrawerRequest */
+/** @typedef {{ owner: string, mode?: AdminDrawerMode, header?: AdminDrawerHeaderContent, sidebar?: import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab[] }} AdminDrawerRequest */
 
 export { setAdminDrawerHeader };
 
@@ -24,7 +25,8 @@ function isAdminDrawerRequest(request) {
   return typeof candidate.owner === 'string'
     && candidate.owner.length > 0
     && (candidate.mode === undefined || (typeof candidate.mode === 'string' && drawerModes.has(candidate.mode)))
-    && (candidate.header === undefined || isAdminDrawerHeaderContent(candidate.header));
+    && (candidate.header === undefined || isAdminDrawerHeaderContent(candidate.header))
+    && (candidate.sidebar === undefined || isAdminDrawerSidebar(candidate.sidebar));
 }
 
 /** @param {HTMLElement} shell */
@@ -126,6 +128,8 @@ export function openAdminDrawer(shell, request) {
   resetAdminDrawerHeader(shell);
   closeAdminDrawerDropdown(shell);
   if (request.header) setAdminDrawerHeader(shell, request.header);
+  resetAdminDrawerSidebar(shell);
+  if (request.sidebar) setAdminDrawerSidebar(shell, request.sidebar);
   setAdminDrawerDirty(shell, false);
   shell.dataset.adminDrawerMode = fitMode(shell, request.mode ?? 'default');
   syncHandleSeam(shell);

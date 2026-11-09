@@ -1,0 +1,74 @@
+/*
+ * Drawer Sidebar tabs: the Tab Navigation Small tier, icon only in every Drawer
+ * mode. Hovering a tab previews its section in the Drawer Body shell; clicking
+ * selects it.
+ */
+.wex-admin-shell__drawer-tabs {
+  display: grid;
+  justify-items: center;
+}
+
+.wex-admin-shell__drawer-tab-list {
+  display: grid;
+  gap: var(--wex-tab-navigation-small-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wex-admin-shell__drawer-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wex-tab-navigation-small-gap);
+  inline-size: var(--wex-tab-navigation-small-target-size);
+  block-size: var(--wex-tab-navigation-small-target-size);
+  padding: 0;
+  border: var(--wex-tab-navigation-small-border-width) solid var(--wex-tab-navigation-small-border-color);
+  border-radius: var(--wex-tab-navigation-small-radius);
+  background: var(--wex-tab-navigation-small-background);
+  color: var(--wex-tab-navigation-small-foreground);
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.wex-admin-shell__drawer-tab:hover:not([aria-pressed="true"]) {
+  background: var(--wex-tab-navigation-small-hover-background);
+  border-color: var(--wex-tab-navigation-small-hover-border-color);
+  color: var(--wex-tab-navigation-small-hover-foreground);
+}
+
+.wex-admin-shell__drawer-tab[aria-pressed="true"] {
+  background: var(--wex-tab-navigation-small-selected-background);
+  border-color: var(--wex-tab-navigation-small-selected-border-color);
+  color: var(--wex-tab-navigation-small-selected-foreground);
+}
+
+.wex-admin-shell__drawer-tab:focus {
+  border-color: var(--wex-outer-ring-color);
+}
+
+.wex-admin-shell__drawer-tab:focus::after {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-tab-navigation-small-focus-inner-width) solid var(--wex-tab-navigation-small-focus-color);
+  border-radius: calc(var(--wex-tab-navigation-small-radius) - var(--wex-tab-navigation-small-border-width));
+  content: '';
+}
+
+.wex-admin-shell__drawer-tab-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  inline-size: var(--wex-tab-navigation-small-icon-allocation-size);
+  block-size: var(--wex-tab-navigation-small-icon-allocation-size);
+}
+
+.wex-admin-shell__drawer-tab-icon svg {
+  inline-size: var(--wex-tab-navigation-small-icon-size);
+  block-size: var(--wex-tab-navigation-small-icon-size);
+}
