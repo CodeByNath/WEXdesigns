@@ -179,6 +179,7 @@ function createNotificationTab(document, label) {
  *   initialSort?: string,
  *   initialFilter?: string,
  *   filters?: ReadonlyArray<readonly [string, string]>,
+ *   selectedTabFirst?: boolean,
  *   headerAction?: 'options' | 'close',
  *   markAllRead?: boolean,
  *   itemOptions?: 'view-read' | 'view-edit',
@@ -329,6 +330,11 @@ export function createNotificationModule(shell, config) {
     filterButtons.forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.notificationFilter === filter));
     });
+    // The selected tab jumps to the first place once its notifications have loaded.
+    if (config.selectedTabFirst) {
+      const selected = filterButtons.find((button) => button.dataset.notificationFilter === filter);
+      if (selected) filters.prepend(selected);
+    }
     sortButtons.forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.notificationSort === sort));
     });

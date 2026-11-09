@@ -59,6 +59,11 @@ independent of theme. Notification filters explicitly opt into Toggle;
 existing Horizontal, Dropdown and Sidebar token contracts are unchanged.
 Pressed and focused tabs retain the existing perimeter and inset focus system.
 
+In the Drawer notifications dropdown (Small mode) the Toggle track spans the
+full module width with no corner radius, while the tabs keep their position and
+radius. The Owner also directed that the selected tab moves to the first place
+once its notifications load, opted into by the Drawer only.
+
 ## Component boundaries
 
 This registers a presentation token family only. It does not register a Global

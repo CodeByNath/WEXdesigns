@@ -45,6 +45,7 @@ export function mountAdminDrawerNotifications(shell) {
     initialSort: 'priority',
     initialFilter: 'action-required',
     filters: [['action-required', 'Action required'], ['all', 'All']],
+    selectedTabFirst: true,
     headerAction: 'close',
     markAllRead: false,
     itemOptions: 'view-edit',

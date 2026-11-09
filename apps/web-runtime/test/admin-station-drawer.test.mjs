@@ -135,7 +135,7 @@ test('drives the Drawer Header icon, label and status pill dynamically', () => {
   });
   assert.match(drawer, /event\.composedPath\(\)\.includes\(drawer\)/);
   assert.match(drawerNotifications, /initialFilter: 'action-required',/);
-  assert.match(drawerNotifications, /filters: \[\['action-required', 'Action required'\], \['all', 'All'\]\],/);
+  assert.match(drawerNotifications, /filters: \[\['action-required', 'Action required'\], \['all', 'All'\]\],\s*selectedTabFirst: true,/);
   assert.match(drawerNotifications, /headerAction: 'close',\s*markAllRead: false,\s*itemOptions: 'view-edit',\s*countStyle: 'action-required',\s*titleStyle: 'component-title',\s*notifications: drawerModuleNotifications,/);
   ['Title missing', 'Category not selected', 'Description missing'].forEach((title) => assert.match(drawerNotifications, new RegExp(`title: '${title}', description: 'Overview · Pending', time: ''`)));
   assert.match(headerJs, /function mountHeaderMenu\(shell\)/);
