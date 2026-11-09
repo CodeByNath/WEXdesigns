@@ -1,4 +1,5 @@
 import { closeAdminDrawerDropdown, mountAdminDrawerNotifications } from './admin-station-drawer-notifications.js';
+import { mountAdminDrawerFooter, setAdminDrawerDirty } from './admin-station-drawer-footer.js';
 import { isAdminDrawerHeaderContent, mountAdminDrawerHeader, resetAdminDrawerHeader, setAdminDrawerHeader } from './admin-station-drawer-header.js';
 
 /** @typedef {'default' | 'half' | 'full'} AdminDrawerMode */
@@ -125,6 +126,7 @@ export function openAdminDrawer(shell, request) {
   resetAdminDrawerHeader(shell);
   closeAdminDrawerDropdown(shell);
   if (request.header) setAdminDrawerHeader(shell, request.header);
+  setAdminDrawerDirty(shell, false);
   shell.dataset.adminDrawerMode = fitMode(shell, request.mode ?? 'default');
   syncHandleSeam(shell);
   return true;
@@ -271,6 +273,7 @@ export function mountAdminDrawerShell(shell) {
   }
 
   mountAdminDrawerHeader(shell);
+  mountAdminDrawerFooter(shell);
   mountAdminDrawerNotifications(shell);
   drawer.querySelectorAll('[data-admin-drawer-close]').forEach((close) => close.addEventListener('click', () => closeAdminDrawer(shell)));
 

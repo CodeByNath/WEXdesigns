@@ -61,3 +61,14 @@ modes, and the Body shell above are unchanged.
 This decision preserves ADR 0026 as the authority for Header Results. The
 shared request-boundary shape does not make Body or Drawer Header components or
 create a global surface-content family.
+
+## Owner-directed footer actions — 2026-11-09
+
+The Drawer footer holds Close at its start and Save and Publish at its end.
+Save is disabled while there is nothing to save. When a requester reports
+something to save or discard (`setAdminDrawerDirty`), Save enables and Discard
+replaces Close at the start; using Save or Discard clears the state, which hides
+Discard and restores Close. Save and Discard emit `wex:admin-drawer-save` and
+`wex:admin-drawer-discard` on the Admin shell; the requester owns what they do.
+Only existing Small Button variants and spacing tokens are used; no token was
+created.

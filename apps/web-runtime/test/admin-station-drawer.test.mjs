@@ -196,10 +196,14 @@ test('keeps compact Sidebar priority over an open Admin Drawer', () => {
   assert.match(compact[1], /data-admin-drawer="open"\]\[data-sidebar-drawer="open"\] \.wex-admin-shell__drawer\s*\{\s*display: none;/);
 });
 
-test('the Drawer footer holds a neutral Small Close and a primary Small Publish at its end', async () => {
+test('the Drawer footer holds Close or Discard at its start, and Save and a primary Publish at its end', async () => {
   const footerCss = await readFile(new URL('../../../packages/wex/src/foundations/drawer-footer.css', import.meta.url), 'utf8');
   const footer = shell.match(/<footer class="wex-admin-shell__drawer-footer"[\s\S]*?<\/footer>/)[0];
-  assert.match(footer, /<button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-close>Close<\/button>\s*<button type="button" class="wex-button wex-button--small wex-button--primary" data-admin-drawer-publish>Publish<\/button>/);
+  assert.match(footer, /<button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-close>Close<\/button>\s*<button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-discard hidden>Discard<\/button>\s*<button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-save disabled>Save<\/button>\s*<button type="button" class="wex-button wex-button--small wex-button--primary" data-admin-drawer-publish>Publish<\/button>/);
+  assert.match(footerCss, /> \[data-admin-drawer-close\],\s*\.wex-admin-shell__drawer-footer > \[data-admin-drawer-discard\] \{\s*margin-inline-end: auto;/);
+  const footerJs = await readFile(new URL('../src/admin-station-drawer-footer.js', import.meta.url), 'utf8');
+  assert.match(footerJs, /parts\.save\.disabled = !dirty;\s*parts\.discard\.hidden = !dirty;\s*parts\.close\.hidden = dirty;/);
+  assert.match(footerJs, /ADMIN_DRAWER_DISCARD_EVENT[\s\S]*setAdminDrawerDirty\(shell, false\);/);
   assert.doesNotMatch(footer, /style=/);
   assert.match(footerCss, /\.wex-admin-shell__drawer-footer \{[^}]*padding-inline: var\(--wex-space-16\);[^}]*display: flex;[^}]*justify-content: flex-end;[^}]*gap: var\(--wex-space-8\);/);
   assert.match(index, /@import "\.\/foundations\/drawer-footer\.css";/);

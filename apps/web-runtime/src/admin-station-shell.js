@@ -56,6 +56,8 @@ const shellMarkup = `
         <div class="wex-admin-shell__drawer-body" data-admin-drawer-compartment="body"></div>
         <footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer">
           <button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-close>Close</button>
+          <button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-discard hidden>Discard</button>
+          <button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-save disabled>Save</button>
           <button type="button" class="wex-button wex-button--small wex-button--primary" data-admin-drawer-publish>Publish</button>
         </footer>
       </div>
