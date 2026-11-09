@@ -2,9 +2,9 @@ import { ADMIN_DRAWER_TAB_EVENT } from './admin-station-drawer-sidebar.js';
 import { adminDrawerCompartment } from './admin-station-drawer.js';
 
 /**
- * Add New Drawer sections. Each Sidebar tab owns one section shell in the Drawer
- * Body. Hovering a tab previews its shell, leaving returns to the selected tab's
- * shell and clicking a tab keeps it. Only the section shells exist here; their
+ * Add New Drawer sections. Each Sidebar tab owns one section printed straight
+ * into the Drawer Body shell, with no wrapper of its own. Hovering a tab previews its section, leaving
+ * returns to the selected tab's section and clicking a tab keeps it. Only the section titles exist here; the
  * fields are the Owner's next step.
  */
 
@@ -15,15 +15,11 @@ const listening = new WeakSet();
 export function mountAddNewSection(shell, id, label) {
   const body = adminDrawerCompartment(shell, 'body');
   if (!body) return;
-  const document = shell.ownerDocument;
-  const section = document.createElement('section');
-  section.className = 'wex-admin-add-new-section';
-  section.dataset.adminDrawerSection = id;
-  const heading = document.createElement('h2');
+  const heading = shell.ownerDocument.createElement('h2');
   heading.className = 'wex-component-title';
   heading.textContent = label;
-  section.append(heading);
-  body.replaceChildren(section);
+  body.dataset.adminDrawerSection = id;
+  body.replaceChildren(heading);
 }
 
 /**
