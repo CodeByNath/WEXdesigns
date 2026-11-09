@@ -1,0 +1,10 @@
+/* While the Drawer is open, a glass overlay covers only the Admin Body (the main area), not the Header, the Sidebar or the Drawer. Owner-approved by preview: a 35% white tint and a 1px blur, raw values until the Owner approves tokens; the blur is half the 2px spacing token. */
+.wex-admin-shell[data-admin-drawer="open"]::before {
+  content: '';
+  z-index: 1;
+  grid-area: main;
+  border-radius: var(--wex-radius-large);
+  background: color-mix(in srgb, var(--wex-color-background-primary) 35%, transparent);
+  -webkit-backdrop-filter: blur(calc(var(--wex-space-2) * 0.5));
+  backdrop-filter: blur(calc(var(--wex-space-2) * 0.5));
+}

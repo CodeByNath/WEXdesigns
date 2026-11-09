@@ -16,6 +16,11 @@
 
 ### Recent work (newest first)
 
+- 2026-11-10: Drawer open overlay: `packages/wex/src/foundations/drawer-overlay.css`
+  adds a glass overlay (`::before` on `.wex-admin-shell[data-admin-drawer="open"]`,
+  `grid-area: main`) over the Admin Body only, with the large radius token. Tint
+  35% white and blur 1px are Owner-approved by preview but still raw values, not
+  tokens.
 - 2026-11-10: Add New Body sections: `admin-station-add-new-sections.js` listens
   for `wex:admin-drawer-tab` and prints one section per Sidebar tab straight
   into the Drawer Body shell, with no wrapper (hover previews, leaving restores
