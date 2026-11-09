@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-10: The Add New requester (`admin-station-products.js`) now passes
+  four placeholder `sidebar` tabs (Details, Pricing, Options, Settings) so the
+  Drawer Sidebar shows in the product. Tabs and icons are placeholders until
+  the Owner supplies the real sections; section content is not mounted yet.
 - 2026-11-09: Drawer Sidebar tabs: requests may carry `sidebar` tabs, printed by
   `apps/web-runtime/src/admin-station-drawer-sidebar.js` and styled in
   `packages/wex/src/foundations/drawer-sidebar.css` (Tab Navigation Small
