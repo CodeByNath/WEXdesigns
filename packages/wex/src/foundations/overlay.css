@@ -1,0 +1,15 @@
+/**
+ * WEX Overlay component tokens
+ *
+ * Glass mode: a translucent tint of the primary background with a light blur,
+ * used to dim the surface behind an open Drawer. Consumers select the complete
+ * mode and never recreate overlay values locally.
+ */
+
+:root {
+  /* Glass mode, Owner-approved by preview 2026-11-10. */
+  --wex-overlay-glass-tint: 35%;
+  --wex-overlay-glass-background: color-mix(in srgb, var(--wex-color-background-primary) var(--wex-overlay-glass-tint), transparent);
+  --wex-overlay-glass-blur: calc(var(--wex-space-2) * 0.5);
+  --wex-overlay-glass-radius: var(--wex-radius-large);
+}

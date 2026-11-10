@@ -90,7 +90,5 @@ a tab selects it. The change is emitted as `wex:admin-drawer-tab`
 
 While the Drawer is open, a glass overlay covers only the Admin Body (the main
 area), not the Header, the Sidebar or the Drawer. It is a `::before` of the Admin
-shell in the main grid area with the large radius token, a 35% white tint of the
-primary background token and a 1px blur. The tint and the blur were chosen by the
-Owner in preview and are raw values; no token was created, and tokens need the
-Owner's approval.
+shell in the main grid area that uses the WEX Overlay Glass tokens (ADR 0036):
+the large radius, a 35% tint of the primary background and a 1px blur.

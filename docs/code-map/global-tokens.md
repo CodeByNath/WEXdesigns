@@ -12,6 +12,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-10: WEX Overlay, mode Glass: `--wex-overlay-glass-tint` (35%),
+  `-background`, `-blur` (1px) and `-radius` in
+  `packages/wex/src/foundations/overlay.css` (ADR 0036). The Drawer overlay
+  (`drawer-overlay.css`) consumes them. The tint was Owner-approved by preview.
 - 2026-11-09: Tab Navigation Toggle gains mode Stretched:
   `--wex-tab-navigation-toggle-stretched-margin-inline` and `-padding-inline` in
   `packages/wex/src/foundations/tab-navigation.css` (ADR 0027). The track spans
@@ -102,6 +106,7 @@ does not define HTML semantics, component behaviour, or layout composition.
 - [WEX Dropdown Menu Global Tokens](../decisions/0033-wex-dropdown-menu-global-tokens.md)
 - [WEX Option Button Global Tokens](../decisions/0034-wex-option-button-global-tokens.md)
 - [WEX Dropdown Global Component](../decisions/0035-wex-dropdown-global-component.md)
+- [WEX Overlay Global Tokens](../decisions/0036-wex-overlay-global-tokens.md)
 - [Typography and font delivery map](typography-font-delivery.md)
 - [Colour map](colour.md)
 - [Spacing map](spacing.md)
