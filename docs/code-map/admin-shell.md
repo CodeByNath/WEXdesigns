@@ -16,6 +16,37 @@
 
 ### Recent work (newest first)
 
+- 2026-11-11: Owner rule, Drawer only: a zero count is never shown. The Drawer
+  Header pill count and the Promotions active count hide at zero (pinned by a
+  test in `admin-station-drawer.test.mjs`). Counts outside the Drawer (bell
+  "N new", Search "N results", stats) are unchanged.
+- 2026-11-11: The Drawer Header status pill follows what is pending: with
+  pending items it is Pending and carries their count in a 24px circle on its top
+  right corner (`data-admin-drawer-header-count`); with none the count is hidden
+  and the pill is the requester's Active or Disabled (a requested Pending becomes
+  Active). `setAdminDrawerHeaderCount` and `renderStatus` in
+  `admin-station-drawer-header.js`; the Drawer notifications module reports its
+  action-required count through the `onActionRequiredChange` option. The
+  Promotions row shows the same circle on its green Active pill, or "No active
+  promotions" with no pill and See all disabled at zero.
+- 2026-11-11: The Drawer Header has a section line right below the Drawer label
+  (`data-admin-drawer-header-location`, `setAdminDrawerHeaderLocation` in
+  `admin-station-drawer-header.js`); Add New prints the shown section there
+  (Presentation, Pricing, Options, Settings) and no longer prints it in the Body.
+- 2026-11-11: Add New first tab is Presentation: its Body prints
+  the two-column Product Summary (`admin-station-product-summary.js`/`.css`:
+  name, then the ID (Rezdy product code, bold, no pill), Rating, Price, Duration,
+  Language, Category (bold, no pill) and Labels (chips) label and value rows at
+  the start; the framed image (padding, border) with the ID chip below it at the end; preview data from the PADI courses at
+  qldscubadive.com.au/padi-courses-gold-coast, which also replace the Services
+  preview rows in `admin-station-services.js`), then the Promotions row
+  (`createPromotionsHeading`: label, active count with a green Active pill or "No
+  active promotions", subtle See all at the end), the two promotion cards
+  (`createPromotionCards`, 12px under the row, shown while any are active; each
+  card's options button, top right inline with the title, opens a small dropdown
+  menu with View and Edit and announces `wex:admin-promotion-action`) and the
+  Notifications label. Built and kept, not placed until asked: the Notification
+  Module `footerClose: false` option. New system icons: calendar, tag, layers.
 - 2026-11-10: Drawer open overlay: `packages/wex/src/foundations/drawer-overlay.css`
   adds a glass overlay (`::before` on `.wex-admin-shell[data-admin-drawer="open"]`,
   `grid-area: main`) over the Admin Body only, using the WEX Overlay Glass
@@ -26,7 +57,7 @@
   the selected tab's section, click keeps it). Sections hold the title only
   until the Owner defines fields.
 - 2026-11-10: The Add New requester (`admin-station-products.js`) now passes
-  four placeholder `sidebar` tabs (Details, Pricing, Options, Settings) so the
+  four placeholder `sidebar` tabs (Presentation, Pricing, Options, Settings) so the
   Drawer Sidebar shows in the product. Tabs and icons are placeholders until
   the Owner supplies the real sections; section content is not mounted yet.
 - 2026-11-09: Drawer Sidebar tabs: requests may carry `sidebar` tabs, printed by

@@ -1,4 +1,5 @@
 import { createNotificationModule } from './admin-station-notifications.js';
+import { setAdminDrawerHeaderCount } from './admin-station-drawer-header.js';
 
 /** @typedef {import('./admin-station-notifications.js').Notification} Notification */
 
@@ -54,6 +55,7 @@ export function mountAdminDrawerNotifications(shell) {
     titleStyle: 'component-title',
     notifications: drawerModuleNotifications,
     titleId: 'wex-admin-drawer-notifications-title',
+    onActionRequiredChange: (count) => setAdminDrawerHeaderCount(shell, count),
     onClose: () => closeAdminDrawerDropdown(shell),
   }));
   pill.addEventListener('click', () => {

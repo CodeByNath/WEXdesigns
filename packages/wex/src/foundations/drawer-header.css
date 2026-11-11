@@ -59,9 +59,53 @@ button.wex-pill-notification-status:focus-visible {
   display: none;
 }
 
+.wex-admin-shell__drawer-header-text {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.wex-admin-shell__drawer-header-location {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-shell__drawer-header-location[hidden] {
+  display: none;
+}
+
 .wex-admin-shell__drawer-header-label {
   min-inline-size: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* The status pill carries a count: a small circle in the label pill colours, centred on the pill's top right corner, half of it outside. */
+.wex-admin-shell__drawer-header-status {
+  position: relative;
+  display: inline-flex;
+}
+
+.wex-admin-shell__drawer-header-count {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  inline-size: var(--wex-space-24);
+  block-size: var(--wex-space-24);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: 50%;
+  background: var(--wex-color-background-secondary);
+  color: var(--wex-color-text-primary);
+  transform: translate(50%, -50%);
+  pointer-events: none;
+}
+
+.wex-admin-shell__drawer-header-count[hidden] {
+  display: none;
 }

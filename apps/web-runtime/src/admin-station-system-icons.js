@@ -1,7 +1,7 @@
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const OUTLINE_STROKE_WIDTH = '1.5';
 
-/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'x' | 'chevron-down' | 'chevron-left' | 'chevron-right'} SystemIconName */
+/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'x' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'calendar' | 'tag' | 'layers'} SystemIconName */
 
 /* Heroicons 24/outline system glyphs, MIT License, Copyright Tailwind Labs. */
 /** @type {Record<SystemIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
@@ -36,6 +36,15 @@ const systemIconShapes = {
   ],
   'chevron-right': [
     ['path', { d: 'm9.75 18 6-6-6-6' }],
+  ],
+  calendar: [
+    ['path', { d: 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5' }],
+  ],
+  tag: [
+    ['path', { d: 'M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3ZM6 6h.008v.008H6V6Z' }],
+  ],
+  layers: [
+    ['path', { d: 'M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3' }],
   ],
 };
 

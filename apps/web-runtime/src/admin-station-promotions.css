@@ -1,0 +1,135 @@
+.wex-admin-promotions {
+  display: grid;
+  gap: var(--wex-space-12);
+}
+
+.wex-admin-promotions__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-promotions__heading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-promotions__count {
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-promotions__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wex-space-12);
+}
+
+.wex-admin-promotion {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--wex-space-12);
+  padding: calc(var(--wex-space-16) - var(--wex-border-width-default));
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-large);
+  background: var(--wex-color-background-primary);
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-promotion__header,
+.wex-admin-promotion__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--wex-space-8);
+}
+
+/* The icon is one text line high, so it stays level with the first line when the text wraps. */
+.wex-admin-promotion__detail > .wex-admin-promotion__icon {
+  block-size: 1lh;
+}
+
+.wex-admin-promotion__title {
+  margin: 0;
+}
+
+.wex-admin-promotion__details {
+  display: grid;
+  gap: var(--wex-space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wex-admin-promotion__icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  inline-size: var(--wex-icon-size-16);
+  block-size: var(--wex-icon-size-16);
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-promotion__icon svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* The options menu ends the title row; its negative block margin keeps the row at its text height, and its small dropdown opens under the button. */
+.wex-admin-promotion__menu {
+  position: relative;
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+  margin-block: calc(-1 * var(--wex-space-2));
+}
+
+.wex-admin-promotion__menu-list {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: calc(100% + var(--wex-space-4));
+  inset-inline-end: 0;
+}
+
+.wex-admin-promotion__menu-list[hidden] {
+  display: none;
+}
+
+.wex-admin-promotions-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-promotions-heading__start {
+  display: flex;
+  align-items: center;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-promotions-heading__start > h2 {
+  margin: 0;
+}
+
+/* The count is a small circle in the label pill colours, centred on the top right corner of the Active pill, half of it outside. */
+.wex-admin-promotions-heading__status {
+  position: relative;
+  display: inline-flex;
+}
+
+.wex-admin-promotions-heading__count {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  inline-size: var(--wex-space-24);
+  block-size: var(--wex-space-24);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: 50%;
+  background: var(--wex-color-background-secondary);
+  color: var(--wex-color-text-primary);
+  transform: translate(50%, -50%);
+}

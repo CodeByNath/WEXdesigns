@@ -1,0 +1,29 @@
+/* Presentation prints Promotions and Notifications straight into the Drawer Body shell; the Body spaces them. */
+.wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] {
+  display: grid;
+  align-content: start;
+  gap: var(--wex-space-24);
+}
+
+.wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] .wex-admin-notifications__wrapper {
+  block-size: auto;
+  padding: 0;
+}
+
+.wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] .wex-admin-notifications {
+  block-size: auto;
+}
+
+.wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] .wex-admin-notifications__footer {
+  justify-content: flex-end;
+}
+
+/* The promotion cards sit 12px under the Promotions row (the Body gap is 24px). A 1px line closes them like the one under the summary: 24px below the cards, edge to edge across the Body, and 16px above Notifications. */
+.wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] > .wex-admin-promotions__list {
+  margin-block-start: calc(-1 * var(--wex-space-12));
+  margin-block-end: calc(-1 * var(--wex-space-8));
+  margin-inline: calc(-1 * var(--wex-space-16));
+  padding-inline: var(--wex-space-16);
+  padding-block-end: var(--wex-space-24);
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}

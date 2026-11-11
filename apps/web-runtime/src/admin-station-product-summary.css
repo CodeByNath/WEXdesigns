@@ -1,0 +1,125 @@
+.wex-admin-product-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--wex-space-16);
+  /* A 1px line closes the summary, running edge to edge across the Drawer Body (its padding is 16px). */
+  margin-inline: calc(-1 * var(--wex-space-16));
+  padding-inline: var(--wex-space-16);
+  padding-block-end: var(--wex-space-24);
+  /* The Body gap is 24px; pulling the next section 8px up leaves 16px below the line. */
+  margin-block-end: calc(-1 * var(--wex-space-8));
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
+.wex-admin-product-summary__media {
+  display: grid;
+  gap: var(--wex-space-8);
+  min-inline-size: 0;
+}
+
+/* The ID chip below the image is centred on it. */
+.wex-admin-product-summary__id {
+  justify-self: center;
+}
+
+/* The image keeps the framed treatment of the Services list image: padding, border and the page background. */
+
+.wex-admin-product-summary__image {
+  box-sizing: border-box;
+  overflow: hidden;
+  aspect-ratio: 1;
+  padding: var(--wex-space-4);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-large);
+  background: var(--wex-color-background-secondary);
+}
+
+.wex-admin-product-summary__image img {
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: calc(var(--wex-radius-large) - var(--wex-space-4) - var(--wex-border-width-default));
+  object-fit: cover;
+}
+
+.wex-admin-product-summary__details {
+  display: grid;
+  gap: var(--wex-space-12);
+  min-inline-size: 0;
+}
+
+.wex-admin-product-summary__identity {
+  display: grid;
+  gap: var(--wex-space-4);
+}
+
+.wex-admin-product-summary__label {
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-product-summary__name {
+  margin: 0;
+}
+
+/* One label column as wide as the longest label, so the values get the rest of the width and chips can sit inline. */
+.wex-admin-product-summary__rows {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  column-gap: var(--wex-space-16);
+  row-gap: var(--wex-space-8);
+  margin: 0;
+}
+
+.wex-admin-product-summary__row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: start;
+}
+
+/* A label next to chips is centred on the first chip row: it takes the chip height and centres its text, so it still sits at the top if the chips wrap. */
+.wex-admin-product-summary__row:has(.wex-admin-product-summary__chips) > .wex-admin-product-summary__label {
+  display: flex;
+  align-items: center;
+  min-block-size: calc(var(--wex-pill-notification-status-line-height) + 2 * var(--wex-pill-notification-status-padding-block) + 2 * var(--wex-border-width-default));
+}
+
+/* A value never runs past two lines: it ends in an ellipsis, and its label stays at the top. */
+.wex-admin-product-summary__value > span {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+
+
+.wex-admin-product-summary__label,
+.wex-admin-product-summary__value {
+  margin: 0;
+}
+
+.wex-admin-product-summary__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wex-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wex-admin-product-summary__chip {
+  padding-block: var(--wex-pill-notification-status-padding-block);
+  padding-inline: var(--wex-pill-notification-status-padding-inline);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-pill-notification-status-radius);
+  background: var(--wex-color-background-secondary);
+  color: var(--wex-color-text-primary);
+  font-family: var(--wex-pill-notification-status-font-family);
+  font-size: var(--wex-pill-notification-status-font-size);
+  font-weight: var(--wex-pill-notification-status-font-weight);
+  line-height: var(--wex-pill-notification-status-line-height);
+  letter-spacing: var(--wex-pill-notification-status-letter-spacing);
+}

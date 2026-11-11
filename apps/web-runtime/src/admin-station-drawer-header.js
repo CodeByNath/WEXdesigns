@@ -48,19 +48,65 @@ export function setAdminDrawerHeader(shell, content) {
     parts.label.dataset.adminDrawerHeaderLabelOwned = '';
   }
   if (content.status !== undefined) {
-    Object.keys(statusLabels).forEach((state) => parts.status.classList.remove(`wex-pill-notification-status--${state}`));
-    parts.status.classList.add(`wex-pill-notification-status--${content.status}`);
-    parts.status.dataset.adminDrawerHeaderStatus = content.status;
-    parts.status.textContent = statusLabels[content.status];
+    parts.status.dataset.adminDrawerHeaderRequested = content.status;
+    renderStatus(shell);
   }
   return true;
 }
 
-/** Back to the defaults: user icon, Header location label, Active pill. @param {HTMLElement} shell */
+/**
+ * Prints the status pill. Pending wins while anything is pending (the count on
+ * its corner); with nothing pending it shows the requester's Active or
+ * Disabled, and a requested Pending becomes Active.
+ * @param {HTMLElement} shell
+ */
+function renderStatus(shell) {
+  const parts = headerParts(shell);
+  if (!parts) return;
+  const badge = shell.querySelector('[data-admin-drawer-header-count]');
+  const count = badge instanceof HTMLElement ? Number(badge.dataset.adminDrawerHeaderCount ?? 0) : 0;
+  const requested = /** @type {AdminDrawerStatus} */ (parts.status.dataset.adminDrawerHeaderRequested ?? DEFAULT_STATUS);
+  /** @type {AdminDrawerStatus} */
+  const status = count > 0 ? 'pending' : requested === 'pending' ? 'active' : requested;
+  Object.keys(statusLabels).forEach((state) => parts.status.classList.remove(`wex-pill-notification-status--${state}`));
+  parts.status.classList.add(`wex-pill-notification-status--${status}`);
+  parts.status.dataset.adminDrawerHeaderStatus = status;
+  parts.status.textContent = statusLabels[status];
+}
+
+/**
+ * Prints the section the Drawer is showing right below the Drawer label; an
+ * empty text hides it.
+ * @param {HTMLElement} shell @param {string} text
+ */
+export function setAdminDrawerHeaderLocation(shell, text) {
+  const location = shell.querySelector('[data-admin-drawer-header-location]');
+  if (!(location instanceof HTMLElement)) return;
+  location.textContent = text;
+  location.hidden = text === '';
+}
+
+/**
+ * Sets how many things are pending. Above zero the pill is Pending and shows the
+ * count on its corner; at zero the count is hidden and the pill goes back to
+ * Active or Disabled.
+ * @param {HTMLElement} shell @param {number} count
+ */
+export function setAdminDrawerHeaderCount(shell, count) {
+  const badge = shell.querySelector('[data-admin-drawer-header-count]');
+  if (!(badge instanceof HTMLElement)) return;
+  badge.dataset.adminDrawerHeaderCount = String(Math.max(0, count));
+  badge.textContent = count > 0 ? String(count) : '';
+  badge.hidden = count <= 0;
+  renderStatus(shell);
+}
+
+/** Back to the defaults: user icon, Header location label, Active pill, no section line. @param {HTMLElement} shell */
 export function resetAdminDrawerHeader(shell) {
   const parts = headerParts(shell);
   if (!parts) return false;
   closeAdminDrawerHeaderMenu(shell);
+  setAdminDrawerHeaderLocation(shell, '');
   delete parts.label.dataset.adminDrawerHeaderLabelOwned;
   parts.label.textContent = locationLabel(shell);
   return setAdminDrawerHeader(shell, { icon: DEFAULT_ICON, status: DEFAULT_STATUS });

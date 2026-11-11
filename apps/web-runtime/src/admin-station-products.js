@@ -5,7 +5,7 @@ import { allServicesPreviewSnapshot, mountAllServicesBody } from './admin-statio
 
 const ADD_NEW_OWNER = 'add-new';
 /** @type {import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab} */
-const ADD_NEW_FIRST_TAB = { id: 'details', label: 'Details', icon: 'list', active: true };
+const ADD_NEW_FIRST_TAB = { id: 'presentation', label: 'Presentation', icon: 'list', active: true };
 /** @type {import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab[]} */
 const ADD_NEW_TABS = [
   ADD_NEW_FIRST_TAB,
@@ -30,7 +30,7 @@ export function mountProductsBody(shell) {
   mountOverviewModule(overviewMount, allServicesPreviewSnapshot, {
     onAddNew: (trigger) => {
       if (drawer instanceof HTMLElement && drawer.dataset.adminDrawerOwner !== ADD_NEW_OWNER) adminDrawerCompartment(shell, 'body')?.replaceChildren();
-      requestAdminDrawer(shell, { owner: ADD_NEW_OWNER, header: { icon: 'plus', label: 'Add New', status: 'pending' }, sidebar: ADD_NEW_TABS }, trigger);
+      requestAdminDrawer(shell, { owner: ADD_NEW_OWNER, header: { icon: 'plus', label: 'Service', status: 'pending' }, sidebar: ADD_NEW_TABS }, trigger);
       listenAddNewSections(shell, ADD_NEW_TABS, ADD_NEW_OWNER);
       mountAddNewSection(shell, ADD_NEW_FIRST_TAB.id, ADD_NEW_FIRST_TAB.label);
     },

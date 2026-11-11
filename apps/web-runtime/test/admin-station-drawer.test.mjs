@@ -111,7 +111,7 @@ test('gives the Drawer Header two compartment shells: content-empty start and th
   assert.doesNotMatch(start, /wex-pill-notification-status/);
   assert.doesNotMatch(start, /style=/);
   const actions = header.match(/<div class="wex-admin-shell__drawer-header-actions" data-admin-drawer-header-shell="actions">([\s\S]*?)\n          <\/div>/)[1];
-  assert.match(actions, /^\s*<button type="button" class="wex-pill-notification-status" data-admin-drawer-header-status aria-haspopup="dialog" aria-expanded="false" aria-controls="admin-station-drawer-notifications"><\/button>\s*<div class="wex-admin-shell__drawer-header-menu" data-admin-drawer-header-menu>\s*<button type="button" class="wex-button wex-button--default wex-button--subtle wex-option-button--default" aria-label="Edit options" aria-expanded="false" aria-haspopup="menu" data-admin-drawer-header-menu-toggle><\/button>/);
+  assert.match(actions, /^\s*<span class="wex-admin-shell__drawer-header-status">\s*<button type="button" class="wex-pill-notification-status" data-admin-drawer-header-status aria-haspopup="dialog" aria-expanded="false" aria-controls="admin-station-drawer-notifications"><\/button>\s*<span class="wex-admin-shell__drawer-header-count wex-type-body-small-regular" data-admin-drawer-header-count hidden><\/span>\s*<\/span>\s*<div class="wex-admin-shell__drawer-header-menu" data-admin-drawer-header-menu>\s*<button type="button" class="wex-button wex-button--default wex-button--subtle wex-option-button--default" aria-label="Edit options" aria-expanded="false" aria-haspopup="menu" data-admin-drawer-header-menu-toggle><\/button>/);
   assert.equal((actions.match(/<svg/g) ?? []).length, 1);
   assert.match(actions, /class="wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small wex-action-button-icon-only--circular" data-admin-drawer-close aria-label="Close drawer"/);
   assert.ok(actions.indexOf('Edit options') < actions.indexOf('Close drawer'), 'close sits at the right corner');
@@ -232,10 +232,52 @@ test('the Drawer Sidebar prints icon-only requester tabs and previews the hovere
   assert.match(index, /@import "\.\/foundations\/drawer-sidebar\.css";/);
 });
 
-test('Add New Sidebar tabs print each section straight into the Drawer Body shell', async () => {
+test('Add New Sidebar tabs print each section label straight into the Drawer Body shell', async () => {
   const sections = await readFile(new URL('../src/admin-station-add-new-sections.js', import.meta.url), 'utf8');
   assert.match(sections, /ADMIN_DRAWER_TAB_EVENT/);
   assert.match(sections, /adminDrawerCompartment\(shell, 'body'\)/);
-  assert.match(sections, /body\.replaceChildren\(heading\)/);
-  assert.doesNotMatch(sections, /createElement\('section'\)|wex-admin-add-new-section/);
+  assert.match(sections, /PRESENTATION_LABELS = Object\.freeze\(\['Notifications'\]\)/);
+  assert.match(sections, /createPromotionsHeading\(document, activePromotionCount\)/);
+  assert.match(sections, /setAdminDrawerHeaderLocation\(shell, label\)/);
+  assert.match(sections, /createProductSummary\(shell\)/);
+  assert.match(sections, /PRESENTATION_LABELS\.map/);
+  assert.match(sections, /body\.replaceChildren\(\.\.\.\(id === 'presentation'/);
+  assert.doesNotMatch(sections, /createNotificationModule|createPromotionsModule|createElement\('section'\)|wex-admin-add-new-section/);
+});
+
+test('a zero count is never shown: the header pill count and the Promotions count hide at zero', async () => {
+  const [header, promotions] = await Promise.all([
+    readFile(new URL('../src/admin-station-drawer-header.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-promotions.js', import.meta.url), 'utf8'),
+  ]);
+  assert.match(header, /badge\.textContent = count > 0 \? String\(count\) : '';/);
+  assert.match(header, /badge\.hidden = count <= 0;/);
+  assert.match(promotions, /if \(activeCount > 0\) \{[\s\S]*wex-admin-promotions-heading__count[\s\S]*\} else \{[\s\S]*No active promotions/);
+});
+
+test('the header pill is Pending with a count while anything is pending, otherwise Active or Disabled, and See all is disabled with no active promotions', async () => {
+  const [header, notifications, drawerNotifications, promotions] = await Promise.all([
+    readFile(new URL('../src/admin-station-drawer-header.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-notifications.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-drawer-notifications.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-promotions.js', import.meta.url), 'utf8'),
+  ]);
+  assert.match(header, /const status = count > 0 \? 'pending' : requested === 'pending' \? 'active' : requested;/);
+  assert.match(header, /renderStatus\(shell\);/);
+  assert.match(notifications, /config\.onActionRequiredChange\?\.\(unreadAction\);/);
+  assert.match(drawerNotifications, /onActionRequiredChange: \(count\) => setAdminDrawerHeaderCount\(shell, count\)/);
+  assert.match(promotions, /if \(activeCount <= 0\) seeAll\.setAttribute\('disabled', ''\);/);
+});
+
+test('each promotion card options button opens a small dropdown menu with View and Edit', async () => {
+  const [promotions, css] = await Promise.all([
+    readFile(new URL('../src/admin-station-promotions.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-promotions.css', import.meta.url), 'utf8'),
+  ]);
+  assert.match(promotions, /wex-dropdown-menu--small wex-admin-promotion__menu-list/);
+  assert.match(promotions, /\[\['view', 'View'\], \['edit', 'Edit'\]\]/);
+  assert.match(promotions, /wex-dropdown-menu__item--small/);
+  assert.match(promotions, /PROMOTION_ACTION_EVENT = 'wex:admin-promotion-action'/);
+  assert.match(promotions, /event\.key === 'Escape'/);
+  assert.doesNotMatch(css, /\d+px/);
 });

@@ -183,6 +183,8 @@ function createNotificationTab(document, label) {
  *   toggleStretched?: boolean,
  *   headerAction?: 'options' | 'close',
  *   markAllRead?: boolean,
+ *   footerClose?: boolean,
+ *   onActionRequiredChange?: (count: number) => void,
  *   itemOptions?: 'view-read' | 'view-edit',
  *   countStyle?: 'new' | 'action-required',
  *   titleStyle?: 'default' | 'component-title',
@@ -288,6 +290,7 @@ export function createNotificationModule(shell, config) {
   markAllRead.textContent = 'Mark all as read';
   footer.append(close, markAllRead);
   if (config.markAllRead === false) markAllRead.remove();
+  if (config.footerClose === false) close.remove();
 
   panel.append(header, list, footer);
   const wrapper = document.createElement('div');
@@ -324,6 +327,7 @@ export function createNotificationModule(shell, config) {
       count.textContent = String(unreadAction);
       count.setAttribute('aria-label', `${unreadAction} action required`);
       count.hidden = unreadAction === 0;
+      config.onActionRequiredChange?.(unreadAction);
     } else {
       count.textContent = `${unreadCount} new`;
       count.classList.toggle('wex-admin-notifications__count--empty', unreadCount === 0);

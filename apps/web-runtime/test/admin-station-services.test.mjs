@@ -93,8 +93,8 @@ test('binds View and Edit actions to one open Service action dropdown', () => {
 
 test('uses only Pending, Disabled, and Active WEX Pill Notification Status modes', () => {
   assert.match(services, /status: 'pending'\|'disabled'\|'active'/);
-  assert.match(services, /'Ocean Explorer'.*'pending'/);
-  assert.match(services, /'Coastal Adventures'.*'disabled'/);
+  assert.match(services, /'PADI Advanced Open Water Diver Course'.*'pending'/);
+  assert.match(services, /'PADI DiveMaster Course'.*'disabled'/);
   assert.match(services, /status === 'active' \? 'Active' : service\.status === 'pending' \? 'Pending' : 'Disabled'/);
   assert.match(servicesCss, /\.wex-admin-services__item \{[^}]*gap: var\(--wex-space-16\);[^}]*padding: var\(--wex-space-16\) calc\(var\(--wex-space-16\) - var\(--wex-border-width-default\)\);/);
   assert.match(servicesCss, /\.wex-admin-services__status \{[^}]*padding-block: var\(--wex-pill-notification-status-padding-block\);[^}]*padding-inline: var\(--wex-pill-notification-status-padding-inline\);[^}]*border-radius: var\(--wex-pill-notification-status-radius\);/);

@@ -33,10 +33,16 @@ const shellMarkup = `
         <header class="wex-admin-shell__drawer-header" data-admin-drawer-compartment="header">
           <div class="wex-admin-shell__drawer-header-start" data-admin-drawer-header-shell="start">
             <span class="wex-action-button-icon-only--default wex-action-button-icon-only--circular wex-admin-shell__drawer-header-icon" data-admin-drawer-header-icon aria-hidden="true"></span>
-            <span class="wex-admin-shell__drawer-header-label wex-component-title" data-admin-drawer-header-label></span>
+            <div class="wex-admin-shell__drawer-header-text">
+              <span class="wex-admin-shell__drawer-header-label wex-component-title" data-admin-drawer-header-label></span>
+              <span class="wex-admin-shell__drawer-header-location wex-type-navigation-small-semibold" data-admin-drawer-header-location hidden></span>
+            </div>
           </div>
           <div class="wex-admin-shell__drawer-header-actions" data-admin-drawer-header-shell="actions">
-            <button type="button" class="wex-pill-notification-status" data-admin-drawer-header-status aria-haspopup="dialog" aria-expanded="false" aria-controls="admin-station-drawer-notifications"></button>
+            <span class="wex-admin-shell__drawer-header-status">
+              <button type="button" class="wex-pill-notification-status" data-admin-drawer-header-status aria-haspopup="dialog" aria-expanded="false" aria-controls="admin-station-drawer-notifications"></button>
+              <span class="wex-admin-shell__drawer-header-count wex-type-body-small-regular" data-admin-drawer-header-count hidden></span>
+            </span>
             <div class="wex-admin-shell__drawer-header-menu" data-admin-drawer-header-menu>
             <button type="button" class="wex-button wex-button--default wex-button--subtle wex-option-button--default" aria-label="Edit options" aria-expanded="false" aria-haspopup="menu" data-admin-drawer-header-menu-toggle></button>
             <div class="wex-dropdown-menu--default wex-admin-shell__drawer-header-menu-list" role="menu" hidden data-admin-drawer-header-menu-list>

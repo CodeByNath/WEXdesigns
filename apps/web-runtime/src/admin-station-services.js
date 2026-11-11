@@ -7,16 +7,15 @@ const PAGE_SIZE = 8;
 /** @typedef {{id: string, name: string, category: string, value: number, status: 'pending'|'disabled'|'active', imageUrl: string}} ServiceListItem */
 /** @typedef {{stationId: string, services: readonly ServiceListItem[]}} ServiceStationSnapshot */
 
+/* The PADI courses listed at qldscubadive.com.au/padi-courses-gold-coast, with their listed prices. Pending and Disabled are demo statuses that preview the pill modes. */
 /** @type {readonly (readonly [string, string, string, number, 'pending'|'disabled'|'active', string])[]} */
 const previewRows = [
-  ['Nath', 'Tours', 'QSDXXXXX', 333, 'active', '1500534623283-312aade485b7'],
-  ['Paradise Watersports', 'Activities', 'QSDX0002', 520, 'active', '1530053969600-caed2596d242'],
-  ['Quack R Duck', 'Tours', 'QSDX0003', 140, 'active', '1500375592092-40eb2168fd21'],
-  ['Ocean Explorer', 'Experiences', 'QSDX0004', 275, 'pending', '1507525428034-b723cf961d3e'],
-  ['Island Discovery', 'Tours', 'QSDX0005', 450, 'active', '1473116763249-2faaef81ccda'],
-  ['Coastal Adventures', 'Activities', 'QSDX0006', 180, 'disabled', '1510414842594-a61c69b5ae57'],
-  ['Sunset Cruise', 'Cruises', 'QSDX0007', 390, 'active', '1544551763-46a013bb70d5'],
-  ['Reef Discovery', 'Experiences', 'QSDX0008', 620, 'active', '1469474968028-56623f02e42e'],
+  ['PADI SCUBA Diver Course', 'PADI Course', 'QSDXXXXX', 425, 'active', '1544551763-46a013bb70d5'],
+  ['PADI Refresher Course', 'PADI Course', 'QSDX0002', 299, 'active', '1530053969600-caed2596d242'],
+  ['PADI Open Water Diver Course', 'PADI Course', 'QSDX0003', 495, 'active', '1507525428034-b723cf961d3e'],
+  ['PADI Advanced Open Water Diver Course', 'PADI Course', 'QSDX0004', 545, 'pending', '1510414842594-a61c69b5ae57'],
+  ['PADI Rescue Diver Course', 'PADI Course', 'QSDX0005', 550, 'active', '1473116763249-2faaef81ccda'],
+  ['PADI DiveMaster Course', 'PADI Course', 'QSDX0006', 1600, 'disabled', '1500375592092-40eb2168fd21'],
 ];
 
 /** @type {ServiceStationSnapshot} */
