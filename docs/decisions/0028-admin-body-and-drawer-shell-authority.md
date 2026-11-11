@@ -92,3 +92,28 @@ While the Drawer is open, a glass overlay covers only the Admin Body (the main
 area), not the Header, the Sidebar or the Drawer. It is a `::before` of the Admin
 shell in the main grid area that uses the WEX Overlay Glass tokens (ADR 0036):
 the large radius, a 35% tint of the primary background and a 1px blur.
+
+## Owner-directed Presentation section and header status — 2026-11-12
+
+The Add New requester (`admin-station-products.js`) passes four Sidebar tabs and
+prints the shown section's name in a new line right below the Drawer Header
+label (`data-admin-drawer-header-location`). The first tab, Presentation, prints
+straight into the Drawer Body shell, with no wrapper: a two-column Product
+Summary (title and label and value rows at the start, the framed image with its
+ID chip at the end), a 1px edge to edge separator, the Promotions row (label,
+green Active pill with its count in a circle on the pill's top right corner, and
+a subtle See all, disabled when nothing is active), the two promotion cards (each
+with a small View and Edit dropdown) and the Notifications label.
+
+The Drawer Header status pill follows what is pending: with pending items it is
+Pending and carries their count in the same circle; with none the count is hidden
+and the pill is the requester's Active or Disabled. The notification module
+reports its action-required count through the optional `onActionRequiredChange`
+option. A zero count is never shown in the Drawer.
+
+Boundaries: only existing tokens are used, apart from the 35% overlay tint
+recorded in ADR 0036 and the label chip classes reused from the Pill
+Notification Status tokens. The data (the six PADI courses of
+qldscubadive.com.au/padi-courses-gold-coast, plus the product code PFT4KA, the
+rating, the language and the promotions) is preview fixture data until the
+product feed is connected. Nothing outside the Drawer was changed.
