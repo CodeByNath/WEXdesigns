@@ -105,6 +105,16 @@ green Active pill with its count in a circle on the pill's top right corner, and
 a subtle See all, disabled when nothing is active), the two promotion cards (each
 with a small View and Edit dropdown) and the Notifications label.
 
+### Promotion cards data — 2026-11-13
+
+The preview promotions are Black Friday (By Jake Harper) and Adults at kids
+Price (By Amanda Collins), both Jan 10, 2024 to Jan 31, 2024 for New Customers.
+A card prints the start and the end date in two rows, each with the calendar
+icon, then the audience with the user-group icon.
+
+The first Add New Sidebar tab (Presentation) uses the presentation-chart-bar
+icon and the second (Pricing) uses the tag icon.
+
 The Drawer Header status pill follows what is pending: with pending items it is
 Pending and carries their count in the same circle; with none the count is hidden
 and the pill is the requester's Active or Disabled. The notification module

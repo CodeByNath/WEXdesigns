@@ -281,3 +281,10 @@ test('each promotion card options button opens a small dropdown menu with View a
   assert.match(promotions, /event\.key === 'Escape'/);
   assert.doesNotMatch(css, /\d+px/);
 });
+
+test('the preview promotions are Black Friday and Adults at kids Price, with the start and end dates in separate rows', async () => {
+  const promotions = await readFile(new URL('../src/admin-station-promotions.js', import.meta.url), 'utf8');
+  assert.match(promotions, /title: 'Black Friday', owner: 'By Jake Harper', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers'/);
+  assert.match(promotions, /title: 'Adults at kids Price', owner: 'By Amanda Collins', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers'/);
+  assert.match(promotions, /\['calendar', promotion\.start\], \['calendar', promotion\.end\]/);
+});

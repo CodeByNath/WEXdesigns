@@ -26,10 +26,12 @@
   gap: var(--wex-space-12);
 }
 
+/* Each card spans the list's header and details rows (subgrid), so the details of both cards line up however many lines a title takes. */
 .wex-admin-promotion {
   position: relative;
   display: grid;
-  align-content: start;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
   gap: var(--wex-space-12);
   padding: calc(var(--wex-space-16) - var(--wex-border-width-default));
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);

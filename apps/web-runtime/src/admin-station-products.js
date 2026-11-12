@@ -5,11 +5,11 @@ import { allServicesPreviewSnapshot, mountAllServicesBody } from './admin-statio
 
 const ADD_NEW_OWNER = 'add-new';
 /** @type {import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab} */
-const ADD_NEW_FIRST_TAB = { id: 'presentation', label: 'Presentation', icon: 'list', active: true };
+const ADD_NEW_FIRST_TAB = { id: 'presentation', label: 'Presentation', icon: 'presentation-chart-bar', active: true };
 /** @type {import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab[]} */
 const ADD_NEW_TABS = [
   ADD_NEW_FIRST_TAB,
-  { id: 'pricing', label: 'Pricing', icon: 'table' },
+  { id: 'pricing', label: 'Pricing', icon: 'tag' },
   { id: 'options', label: 'Options', icon: 'columns' },
   { id: 'settings', label: 'Settings', icon: 'filter' },
 ];

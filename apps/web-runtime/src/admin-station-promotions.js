@@ -1,11 +1,11 @@
 import { createMoreActionIcon, createSystemIcon } from './admin-station-system-icons.js';
 
-/** @typedef {{ id: string, title: string, owner: string, period: string, audience: string }} Promotion */
+/** @typedef {{ id: string, title: string, owner: string, start: string, end: string, audience: string }} Promotion */
 
 /** @type {ReadonlyArray<Promotion>} */
 const promotionFixture = Object.freeze([
-  { id: 'custom-quote', title: 'Custom Quote', owner: 'Jake Harper', period: 'Jan 10, 2024 – Jan 31, 2024', audience: 'Enterprise Customers' },
-  { id: 'confirm-quote', title: 'Confirm Quote', owner: 'Amanda Collins', period: 'Feb 1, 2024 – Feb 29, 2024', audience: 'Existing Customers' },
+  { id: 'black-friday', title: 'Black Friday', owner: 'By Jake Harper', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers' },
+  { id: 'adults-at-kids-price', title: 'Adults at kids Price', owner: 'By Amanda Collins', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers' },
 ]);
 
 /** @param {Document} document @param {keyof HTMLElementTagNameMap} tag @param {string} className @param {string} [text] */
@@ -41,7 +41,46 @@ function listenForMenuDismissal(document) {
 }
 
 /**
- * One running promotion or campaign: its name, owner, period and audience, with
+ * A Small Option Button with a small View and Edit dropdown. Choosing an item
+ * announces `eventName` (`{ id, action }`) from `card`. Shared by the promotion
+ * and activity cards.
+ * @param {Document} document @param {HTMLElement} card
+ * @param {{ id: string, label: string, eventName: string }} config
+ */
+export function createOptionsMenu(document, card, { id, label: name, eventName }) {
+  listenForMenuDismissal(document);
+  const more = node(document, 'button', 'wex-button wex-button--small wex-button--subtle wex-option-button--small wex-admin-promotion__more');
+  more.setAttribute('type', 'button');
+  more.setAttribute('aria-label', `${name} options`);
+  more.setAttribute('aria-haspopup', 'menu');
+  more.setAttribute('aria-expanded', 'false');
+  more.append(createMoreActionIcon(document, 'small'));
+  const list = node(document, 'div', 'wex-dropdown-menu--small wex-admin-promotion__menu-list');
+  list.setAttribute('role', 'menu');
+  list.hidden = true;
+  [['view', 'View'], ['edit', 'Edit']].forEach(([action, label]) => {
+    const item = node(document, 'button', 'wex-dropdown-menu__item--small', label);
+    item.setAttribute('type', 'button');
+    item.setAttribute('role', 'menuitem');
+    item.addEventListener('click', () => {
+      closePromotionMenus(document);
+      card.dispatchEvent(new CustomEvent(eventName, { bubbles: true, detail: { id, action } }));
+    });
+    list.append(item);
+  });
+  more.addEventListener('click', () => {
+    const open = list.hidden;
+    closePromotionMenus(document);
+    list.hidden = !open;
+    more.setAttribute('aria-expanded', String(open));
+  });
+  const menu = node(document, 'div', 'wex-admin-promotion__menu');
+  menu.append(more, list);
+  return menu;
+}
+
+/**
+ * One running promotion or campaign: its name, owner, start and end dates (one row each) and audience, with
  * a Small Option Button at the top right, inline with the name. The button opens
  * a small menu with View and Edit; choosing one announces
  * `wex:admin-promotion-action` (`{ id, action }`) from the card.
@@ -55,8 +94,8 @@ function createPromotion(document, promotion) {
   tag.append(createSystemIcon(document, 'tag'));
   header.append(tag, node(document, 'h3', 'wex-admin-promotion__title wex-type-navigation-small-semibold', promotion.title));
   const details = node(document, 'ul', 'wex-admin-promotion__details');
-  /** @type {ReadonlyArray<readonly ['user' | 'calendar' | 'layers', string]>} */
-  const rows = [['user', promotion.owner], ['calendar', promotion.period], ['layers', promotion.audience]];
+  /** @type {ReadonlyArray<readonly ['user' | 'calendar' | 'user-group', string]>} */
+  const rows = [['user', promotion.owner], ['calendar', promotion.start], ['calendar', promotion.end], ['user-group', promotion.audience]];
   rows.forEach(([icon, text]) => {
     const row = node(document, 'li', 'wex-admin-promotion__detail');
     const glyph = node(document, 'span', 'wex-admin-promotion__icon wex-type-body-small-regular');
@@ -64,34 +103,7 @@ function createPromotion(document, promotion) {
     row.append(glyph, node(document, 'span', 'wex-type-body-small-regular', text));
     details.append(row);
   });
-  const more = node(document, 'button', 'wex-button wex-button--small wex-button--subtle wex-option-button--small wex-admin-promotion__more');
-  more.setAttribute('type', 'button');
-  more.setAttribute('aria-label', `${promotion.title} options`);
-  more.setAttribute('aria-haspopup', 'menu');
-  more.setAttribute('aria-expanded', 'false');
-  more.append(createMoreActionIcon(document, 'small'));
-  const list = node(document, 'div', 'wex-dropdown-menu--small wex-admin-promotion__menu-list');
-  list.setAttribute('role', 'menu');
-  list.hidden = true;
-  [['view', 'View'], ['edit', 'Edit']].forEach(([action, label]) => {
-    const item = node(document, 'button', 'wex-dropdown-menu__item--small', label);
-    item.setAttribute('type', 'button');
-    item.setAttribute('role', 'menuitem');
-    item.addEventListener('click', () => {
-      closePromotionMenus(document);
-      card.dispatchEvent(new CustomEvent(PROMOTION_ACTION_EVENT, { bubbles: true, detail: { id: promotion.id, action } }));
-    });
-    list.append(item);
-  });
-  more.addEventListener('click', () => {
-    const open = list.hidden;
-    closePromotionMenus(document);
-    list.hidden = !open;
-    more.setAttribute('aria-expanded', String(open));
-  });
-  const menu = node(document, 'div', 'wex-admin-promotion__menu');
-  menu.append(more, list);
-  header.append(menu);
+  header.append(createOptionsMenu(document, card, { id: promotion.id, label: promotion.title, eventName: PROMOTION_ACTION_EVENT }));
   card.append(header, details);
   return card;
 }

@@ -16,6 +16,13 @@
 
 ### Recent work (newest first)
 
+- 2026-11-13: Promotion cards (`admin-station-promotions.js`/`.css`): preview
+  data Black Friday and Adults at kids Price; each card prints its start and end
+  date in two rows and the audience with the user-group icon; the cards share
+  their rows (subgrid) so the details of both line up; the options button and its
+  View/Edit menu are `createOptionsMenu`. Drawer Sidebar tabs: Presentation uses
+  presentation-chart-bar and Pricing uses tag. New system icons: tool, cart,
+  user-group, presentation-chart-bar (`admin-station-system-icons.js`).
 - 2026-11-11: Owner rule, Drawer only: a zero count is never shown. The Drawer
   Header pill count and the Promotions active count hide at zero (pinned by a
   test in `admin-station-drawer.test.mjs`). Counts outside the Drawer (bell
