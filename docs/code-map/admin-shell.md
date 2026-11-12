@@ -16,6 +16,12 @@
 
 ### Recent work (newest first)
 
+- 2026-11-13: The Presentation Notifications label is now Activity
+  (`admin-station-activity.js`/`.css`: `createActivityHeading` and
+  `createActivityCards`): a label row with See all, then the two most recent
+  activity cards, one per row, in the Note card design (icon and title, time, a
+  View/Edit options button via `createOptionsMenu`, description). Preview data:
+  Product price updated, New order created, New review.
 - 2026-11-13: Promotion cards (`admin-station-promotions.js`/`.css`): preview
   data Black Friday and Adults at kids Price; each card prints its start and end
   date in two rows and the audience with the user-group icon; the cards share

@@ -103,7 +103,8 @@ Summary (title and label and value rows at the start, the framed image with its
 ID chip at the end), a 1px edge to edge separator, the Promotions row (label,
 green Active pill with its count in a circle on the pill's top right corner, and
 a subtle See all, disabled when nothing is active), the two promotion cards (each
-with a small View and Edit dropdown) and the Notifications label.
+with a small View and Edit dropdown) and the Notifications label (replaced by
+the Activity row, see below).
 
 ### Promotion cards data — 2026-11-13
 
@@ -114,6 +115,23 @@ icon, then the audience with the user-group icon.
 
 The first Add New Sidebar tab (Presentation) uses the presentation-chart-bar
 icon and the second (Pricing) uses the tag icon.
+
+### Activity — 2026-11-12
+
+The Notifications label in Presentation became **Activity**: the log of product
+activity (Product price updated, New order created, New review). Like
+Promotions it prints a label row with a subtle See all (disabled when nothing is
+logged), then the two most recent activities as cards, one per row (single
+column), in `admin-station-activity.js` and `.css`. Each card follows the Note
+card design: an icon (tool for product edits, cart for orders, user for reviews; Heroicons
+outline system icons) and the title at the
+start of a header, the time (calendar icon), a
+divider and a Small Option Button (View and Edit, `wex:admin-activity-action`)
+at the end, a line under the header, then the description. The options button
+is the one the promotion cards use (`createOptionsMenu`). No avatar or
+attachments. Existing tokens only; no
+new token, inline style or component. The data is preview data until a provider
+supplies the log.
 
 The Drawer Header status pill follows what is pending: with pending items it is
 Pending and carries their count in the same circle; with none the count is hidden

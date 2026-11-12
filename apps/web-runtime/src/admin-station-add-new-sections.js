@@ -2,6 +2,7 @@ import { ADMIN_DRAWER_TAB_EVENT } from './admin-station-drawer-sidebar.js';
 import { adminDrawerCompartment } from './admin-station-drawer.js';
 import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
+import { activityCount, createActivityCards, createActivityHeading } from './admin-station-activity.js';
 import { activePromotionCount, createPromotionCards, createPromotionsHeading } from './admin-station-promotions.js';
 
 /**
@@ -11,14 +12,11 @@ import { activePromotionCount, createPromotionCards, createPromotionsHeading } f
  * its section, leaving returns to the selected tab's section and clicking a tab
  * keeps it. Presentation prints the Product Summary, the Promotions row (active
  * count, green Active pill, See all) with the promotion cards below it while any
- * are active, and the Notifications label; the other sections are empty until the Owner defines them.
+ * are active, then the Activity row (label, See all) with the two most recent activity cards; the other sections are empty until the Owner defines them.
  */
 
 /** @type {WeakSet<HTMLElement>} */
 const listening = new WeakSet();
-
-/** Labels Presentation prints after the Promotions row: what recently happened. */
-const PRESENTATION_LABELS = Object.freeze(['Notifications']);
 
 /** @param {HTMLElement} shell @param {string} id @param {string} label */
 export function mountAddNewSection(shell, id, label) {
@@ -28,16 +26,8 @@ export function mountAddNewSection(shell, id, label) {
   setAdminDrawerHeaderLocation(shell, label);
   const document = shell.ownerDocument;
   body.replaceChildren(...(id === 'presentation'
-    ? [createProductSummary(shell), createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : []), ...PRESENTATION_LABELS.map((text) => heading(document, text))]
+    ? [createProductSummary(shell), createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : []), createActivityHeading(document, activityCount), createActivityCards(document)]
     : []));
-}
-
-/** @param {Document} document @param {string} text */
-function heading(document, text) {
-  const node = document.createElement('h2');
-  node.className = 'wex-type-navigation-small-semibold';
-  node.textContent = text;
-  return node;
 }
 
 /**

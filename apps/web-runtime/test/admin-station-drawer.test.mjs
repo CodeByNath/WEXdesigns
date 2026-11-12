@@ -236,11 +236,10 @@ test('Add New Sidebar tabs print each section label straight into the Drawer Bod
   const sections = await readFile(new URL('../src/admin-station-add-new-sections.js', import.meta.url), 'utf8');
   assert.match(sections, /ADMIN_DRAWER_TAB_EVENT/);
   assert.match(sections, /adminDrawerCompartment\(shell, 'body'\)/);
-  assert.match(sections, /PRESENTATION_LABELS = Object\.freeze\(\['Notifications'\]\)/);
+  assert.match(sections, /createActivityHeading\(document, activityCount\), createActivityCards\(document\)/);
   assert.match(sections, /createPromotionsHeading\(document, activePromotionCount\)/);
   assert.match(sections, /setAdminDrawerHeaderLocation\(shell, label\)/);
   assert.match(sections, /createProductSummary\(shell\)/);
-  assert.match(sections, /PRESENTATION_LABELS\.map/);
   assert.match(sections, /body\.replaceChildren\(\.\.\.\(id === 'presentation'/);
   assert.doesNotMatch(sections, /createNotificationModule|createPromotionsModule|createElement\('section'\)|wex-admin-add-new-section/);
 });
@@ -280,6 +279,21 @@ test('each promotion card options button opens a small dropdown menu with View a
   assert.match(promotions, /PROMOTION_ACTION_EVENT = 'wex:admin-promotion-action'/);
   assert.match(promotions, /event\.key === 'Escape'/);
   assert.doesNotMatch(css, /\d+px/);
+});
+
+test('Presentation prints the Activity row and the two most recent activity cards, with tokens only', async () => {
+  const [activity, css] = await Promise.all([
+    readFile(new URL('../src/admin-station-activity.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8'),
+  ]);
+  ['Product price updated', 'New order created', 'New review'].forEach((title) => assert.match(activity, new RegExp(`title: '${title}'`)));
+  assert.match(activity, /ACTIVITY_RECENT_COUNT = 2/);
+  assert.match(activity, /activities\.slice\(0, ACTIVITY_RECENT_COUNT\)/);
+  assert.match(activity, /'Activity'/);
+  assert.match(activity, /'See all'/);
+  assert.match(activity, /if \(count <= 0\) seeAll\.setAttribute\('disabled', ''\)/);
+  assert.doesNotMatch(activity, /style\.|innerHTML|Notifications/);
+  assert.doesNotMatch(css, /#[0-9a-f]{3,6}\b|\d+px|rgb/i);
 });
 
 test('the preview promotions are Black Friday and Adults at kids Price, with the start and end dates in separate rows', async () => {

@@ -1,0 +1,98 @@
+.wex-admin-activity-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-activity-heading > h2 {
+  margin: 0;
+}
+
+.wex-admin-activity__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--wex-space-12);
+}
+
+.wex-admin-activity {
+  display: grid;
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-large);
+  background: var(--wex-color-background-primary);
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-activity__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
+  padding: var(--wex-space-12) var(--wex-space-16);
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
+.wex-admin-activity__title,
+.wex-admin-activity__time {
+  margin: 0;
+}
+
+.wex-admin-activity__description {
+  margin: 0;
+  padding: var(--wex-space-16);
+}
+
+.wex-admin-activity__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-activity__end {
+  display: flex;
+  align-items: center;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-activity__time {
+  display: flex;
+  align-items: center;
+  gap: var(--wex-space-8);
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-activity__icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  inline-size: var(--wex-icon-size-16);
+  block-size: var(--wex-icon-size-16);
+}
+
+.wex-admin-activity__icon--title {
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-activity__icon svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* A divider separates the time from the options button, as in the Note card. */
+.wex-admin-activity__menu {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin-block: 0;
+  padding-inline-start: var(--wex-space-8);
+  border-inline-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
+.wex-admin-activity__menu > .wex-admin-promotion__menu-list {
+  inset-block-start: 100%;
+}
+
+/* The activity cards sit closer to the Activity row than the Body gap, as the promotion cards do. */
+.wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] > .wex-admin-activity__list {
+  margin-block-start: calc(-1 * var(--wex-space-12));
+}
