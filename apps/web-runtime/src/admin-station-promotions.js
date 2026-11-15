@@ -90,7 +90,7 @@ function createPromotion(document, promotion) {
   listenForMenuDismissal(document);
   const card = node(document, 'article', 'wex-admin-promotion');
   const header = node(document, 'header', 'wex-admin-promotion__header');
-  const tag = node(document, 'span', 'wex-admin-promotion__icon');
+  const tag = node(document, 'span', 'wex-admin-promotion__icon wex-type-navigation-small-semibold');
   tag.append(createSystemIcon(document, 'tag'));
   header.append(tag, node(document, 'h3', 'wex-admin-promotion__title wex-type-navigation-small-semibold', promotion.title));
   const details = node(document, 'ul', 'wex-admin-promotion__details');

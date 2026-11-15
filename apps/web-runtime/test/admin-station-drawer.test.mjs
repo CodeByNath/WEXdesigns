@@ -313,6 +313,22 @@ test('the Product Summary lists Platform ID then Booking ID, has no ID chip unde
   assert.match(css, /grid-template-columns: minmax\(0, 2fr\) minmax\(0, 0\.6fr\);/);
 });
 
+test('icons beside text stay level with the first line when the text wraps', async () => {
+  const [activityJs, activityCss, promoJs, promoCss] = await Promise.all([
+    readFile(new URL('../src/admin-station-activity.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-promotions.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-promotions.css', import.meta.url), 'utf8'),
+  ]);
+  assert.match(activityCss, /__heading \{\s*display: flex;\s*align-items: flex-start;/);
+  assert.match(activityCss, /__time \{\s*display: flex;\s*align-items: flex-start;/);
+  assert.match(activityCss, /__heading > \.wex-admin-activity__icon,\s*\.wex-admin-activity__time > \.wex-admin-activity__icon \{\s*block-size: 1lh;/);
+  assert.match(activityJs, /wex-admin-activity__icon--title wex-type-navigation-small-semibold/);
+  assert.match(activityJs, /wex-admin-activity__icon wex-type-body-small-regular/);
+  assert.match(promoCss, /__header > \.wex-admin-promotion__icon,\s*\.wex-admin-promotion__detail > \.wex-admin-promotion__icon \{\s*block-size: 1lh;/);
+  assert.match(promoJs, /wex-admin-promotion__icon wex-type-navigation-small-semibold/);
+});
+
 test('the Product Summary image has a 16px shell and floats on small devices so content breaks around it', async () => {
   const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');

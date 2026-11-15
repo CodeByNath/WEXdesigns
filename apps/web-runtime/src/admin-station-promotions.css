@@ -48,6 +48,7 @@
 }
 
 /* The icon is one text line high, so it stays level with the first line when the text wraps. */
+.wex-admin-promotion__header > .wex-admin-promotion__icon,
 .wex-admin-promotion__detail > .wex-admin-promotion__icon {
   block-size: 1lh;
 }
