@@ -487,3 +487,11 @@ there is no content to load into another column, the Half Drawer is at most 1000
 (`--wex-admin-shell-drawer-half-max-inline-size`, built from the 64px, 48px and 8px spaces; the
 Half rules in `layout.css` use `min(50%, ...)`). Full stays the full width for now, Default is
 560px, and the Body content caps (560px, 720px in Half) are unchanged. No token was created.
+
+## Owner-directed section lines stretch full — 2026-11-16
+
+The 1px section lines (under the Product summary and under the Promotions unit) run edge to
+edge across the whole Drawer Body, including the room that capped content leaves at the Drawer
+end in Half and Full. The Body publishes its end inset (`--wex-admin-shell-drawer-body-end-inset`,
+16px at least) and the two sections use it as negative end margin and matching end padding, so
+their content width does not change. Default is unchanged. No token was created.

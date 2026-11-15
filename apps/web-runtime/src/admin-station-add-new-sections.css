@@ -25,11 +25,11 @@
   min-inline-size: 0;
 }
 
-/* The Promotions unit closes with a 1px line like the one under the summary: 24px below the cards, edge to edge across the Body, and 16px above the next unit. It has no line without cards. */
+/* The Promotions unit closes with a 1px line like the one under the summary: 24px below the cards, edge to edge across the Body (also across the room capped content leaves), and 16px above the next unit. It has no line without cards. */
 .wex-admin-drawer-section[data-admin-drawer-unit="promotions"]:has(> .wex-admin-promotions__list) {
   margin-block-end: calc(-1 * var(--wex-space-8));
-  margin-inline: calc(-1 * var(--wex-space-16));
-  padding-inline: var(--wex-space-16);
+  margin-inline: calc(-1 * var(--wex-space-16)) calc(-1 * var(--wex-admin-shell-drawer-body-end-inset));
+  padding-inline: var(--wex-space-16) var(--wex-admin-shell-drawer-body-end-inset);
   padding-block-end: var(--wex-space-24);
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }

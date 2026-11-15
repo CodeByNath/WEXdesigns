@@ -248,6 +248,15 @@ test('Add New Sidebar tabs print each section label straight into the Drawer Bod
   assert.doesNotMatch(sections, /createNotificationModule|createPromotionsModule|wex-admin-add-new-section/);
 });
 
+test('the section lines stretch across the room the capped Body content leaves', async () => {
+  const summary = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
+  const sections = await readFile(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
+  for (const css of [summary, sections]) {
+    assert.match(css, /margin-inline: calc\(-1 \* var\(--wex-space-16\)\) calc\(-1 \* var\(--wex-admin-shell-drawer-body-end-inset\)\);/);
+    assert.match(css, /padding-inline: var\(--wex-space-16\) var\(--wex-admin-shell-drawer-body-end-inset\);/);
+  }
+});
+
 test('each section is one unit: its row and cards sit in one element, the Body gap spaces the units', async () => {
   const css = await readFile(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
   const activity = await readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8');

@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-16: The 1px lines under the Product summary and under Promotions stretch
+  across the whole Drawer Body, also across the room the capped content leaves, using
+  `--wex-admin-shell-drawer-body-end-inset` (`drawer-body.css`). The content stays capped.
 - 2026-11-16: The Half Drawer is at most 1000px wide while there is no content for
   another column (`drawer-width.css`, read by the Half rules in `layout.css`); Full
   stays the full width for now. The right divider and the Header and Footer actions

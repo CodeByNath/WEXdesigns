@@ -4,9 +4,9 @@
   grid-template-columns: minmax(0, 2fr) minmax(0, 0.6fr);
   align-items: start;
   gap: var(--wex-space-16);
-  /* A 1px line closes the summary, running edge to edge across the Drawer Body (its padding is 16px). */
-  margin-inline: calc(-1 * var(--wex-space-16));
-  padding-inline: var(--wex-space-16);
+  /* A 1px line closes the summary, running edge to edge across the Drawer Body: the Body padding at the start (16px) and its end inset at the end, so it also reaches across the room the capped content leaves. */
+  margin-inline: calc(-1 * var(--wex-space-16)) calc(-1 * var(--wex-admin-shell-drawer-body-end-inset));
+  padding-inline: var(--wex-space-16) var(--wex-admin-shell-drawer-body-end-inset);
   padding-block-end: var(--wex-space-24);
   /* The Body gap is 24px; pulling the next section 8px up leaves 16px below the line. */
   margin-block-end: calc(-1 * var(--wex-space-8));
