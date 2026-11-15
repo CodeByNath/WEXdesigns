@@ -22,7 +22,8 @@
 
 .wex-admin-promotions__list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Two cards to a row; when a card would be narrower than 2.5 times the 64 space token (Owner-directed, 2026-11-15, the width seen at the narrow Drawer) each card flows in a row of its own. */
+  grid-template-columns: repeat(auto-fit, minmax(calc(var(--wex-space-64) * 2.5), 1fr));
   gap: var(--wex-space-12);
 }
 

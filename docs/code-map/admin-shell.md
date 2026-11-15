@@ -16,6 +16,8 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: Promotion cards flow two to a row, and one to a row when a card
+  would be narrower than 160px (`auto-fit`, 2.5 times the 64px space token).
 - 2026-11-15: Promotion cards share every row (header plus owner, start, end,
   audience) as nested subgrids, so matching details of the two cards sit on the
   same line when a title or detail wraps.

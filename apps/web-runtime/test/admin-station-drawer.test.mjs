@@ -313,6 +313,11 @@ test('the Product Summary lists Platform ID then Booking ID, has no ID chip unde
   assert.match(css, /grid-template-columns: minmax\(0, 2fr\) minmax\(0, 0\.6fr\);/);
 });
 
+test('the Promotion cards flow one to a row when a card would be narrower than 160px', async () => {
+  const css = await readFile(new URL('../src/admin-station-promotions.css', import.meta.url), 'utf8');
+  assert.match(css, /__list \{[^}]*grid-template-columns: repeat\(auto-fit, minmax\(calc\(var\(--wex-space-64\) \* 2\.5\), 1fr\)\);/);
+});
+
 test('the Promotion cards share every row, so matching details sit on the same line', async () => {
   const css = await readFile(new URL('../src/admin-station-promotions.css', import.meta.url), 'utf8');
   assert.match(css, /\.wex-admin-promotion \{[^}]*grid-row: span 5;[^}]*grid-template-rows: subgrid;/);

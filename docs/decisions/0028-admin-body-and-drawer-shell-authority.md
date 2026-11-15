@@ -225,3 +225,11 @@ details list spans four, both as subgrids. When a title or a detail wraps in one
 card, the matching row of the other card keeps the same line, so the dates sit
 on the same axis. The spacing between details stays 8px and between the header
 and details 12px. No token was created.
+
+## Owner-directed Promotion cards flow one to a row when narrow — 2026-11-15
+
+The Promotion cards sit two to a row. When a card would be narrower than 160px,
+the width the Owner saw at the narrow Drawer, each card flows in a row of its own
+(`repeat(auto-fit, minmax(...))`). The 160px is written as 2.5 times the 64px
+space token; the rows stay shared between the cards of one row. No token was
+created.
