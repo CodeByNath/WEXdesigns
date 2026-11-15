@@ -188,3 +188,10 @@ This replaces the wrapped-only alignment (`data-wrapped`, the resize observer
 and the chip-height centring of the label) and removes the 1px top border on
 the Labels label and value. The row already aligns its cells to the start, so no
 Labels-specific rule remains. No token was created.
+
+## Owner-directed revert of the all-width Labels label alignment — 2026-11-15
+
+The all-width top alignment of the Labels label is reverted. The Labels label
+is again centred on the first chip row and moves to the top only when its chips
+wrap onto a second row (`data-wrapped`, set by a resize observer). The 1px top
+borders on the Labels label and value stay removed. No token was created.
