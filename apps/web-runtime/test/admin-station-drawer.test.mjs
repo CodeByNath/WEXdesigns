@@ -331,7 +331,8 @@ test('when the time wraps in any Activity card, every card stacks its time', asy
   const css = await readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8');
   assert.match(js, /toggleAttribute\('data-time-stacked', wraps\)/);
   assert.match(js, /removeAttribute\('data-time-stacked'\)/);
-  assert.match(css, /__list\[data-time-stacked\] \.wex-admin-activity__time \{\s*flex-basis: 100%;\s*order: -1;/);
+  assert.match(css, /__list\[data-time-stacked\] \.wex-admin-activity__time \{\s*flex-basis: 100%;\s*\}/);
+  assert.doesNotMatch(css, /order: -1/);
 });
 
 test('the Promotion cards flow one to a row when a card would be narrower than 160px', async () => {

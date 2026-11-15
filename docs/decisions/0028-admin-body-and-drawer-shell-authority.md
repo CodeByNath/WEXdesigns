@@ -269,3 +269,9 @@ When the Activity cards stack their time on a row of its own, the time sits abov
 the title and the title below it (visual order only, `order: -1` on the time).
 With room on one row the title stays at the start and the time beside it. No
 token was created.
+
+## Owner-directed revert of the Activity time above the title — 2026-11-15
+
+The swap is reverted: when the Activity cards stack their time on a row of its
+own, the time sits below the title again, in the order of the markup. No token
+was created.

@@ -60,10 +60,9 @@
   flex: 0 0 auto;
 }
 
-/* The cards look identical (Owner-directed, 2026-11-15): when the time wraps in any card, every card gives it a row of its own, above the title. */
+/* The cards look identical (Owner-directed, 2026-11-15): when the time wraps in any card, every card gives it a row of its own, below the title. */
 .wex-admin-activity__list[data-time-stacked] .wex-admin-activity__time {
   flex-basis: 100%;
-  order: -1;
 }
 
 .wex-admin-activity__time {
