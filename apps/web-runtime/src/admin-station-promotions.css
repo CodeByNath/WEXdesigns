@@ -116,8 +116,3 @@
   color: var(--wex-color-text-primary);
   transform: translate(50%, -50%);
 }
-
-/* Temporary (Owner-directed, 2026-11-15): a hidden icon keeps its space so the text stays aligned. */
-.wex-admin-promotion__icon[data-icon-hidden] {
-  visibility: hidden;
-}

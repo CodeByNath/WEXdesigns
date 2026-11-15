@@ -304,3 +304,8 @@ have the same width. The preview values are updated. No token was created.
 Temporary: the calendar icon of the Promotion end date row is hidden
 (`visibility: hidden`, so it keeps its space and the text stays aligned). To be
 reverted when the Owner asks. No token was created.
+
+## Owner-directed revert of the hidden end-date icon — 2026-11-15
+
+The temporary hidden calendar icon on the Promotion end date row is reverted;
+both date rows show their calendar icon again. No token was created.
