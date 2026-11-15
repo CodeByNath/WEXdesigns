@@ -7,8 +7,9 @@ import { activePromotionCount, createPromotionCards, createPromotionsHeading } f
 
 /**
  * Add New Drawer sections. Each Sidebar tab owns one section: its name prints in
- * the Drawer Header right below the Drawer label, and its content prints straight
- * into the Drawer Body shell with no wrapper of its own. Hovering a tab previews
+ * the Drawer Header right below the Drawer label, and its content prints into the
+ * Drawer Body shell. Each section is one unit: one element holds all its pieces (the Promotions row with its cards,
+ * the Activity row with its cards), so the pieces always stay together (Owner-directed, 2026-11-15). Hovering a tab previews
  * its section, leaving returns to the selected tab's section and clicking a tab
  * keeps it. Presentation prints the Product Summary, the Promotions row (active
  * count, green Active pill, See all) with the promotion cards below it while any
@@ -18,6 +19,19 @@ import { activePromotionCount, createPromotionCards, createPromotionsHeading } f
 /** @type {WeakSet<HTMLElement>} */
 const listening = new WeakSet();
 
+/**
+ * One section as one unit: a single element that holds every piece of the section.
+ * @param {Document} document @param {string} name @param {string} label @param {ReadonlyArray<Node>} pieces
+ */
+function sectionUnit(document, name, label, pieces) {
+  const unit = document.createElement('section');
+  unit.className = 'wex-admin-drawer-section';
+  unit.dataset.adminDrawerUnit = name;
+  unit.setAttribute('aria-label', label);
+  unit.append(...pieces);
+  return unit;
+}
+
 /** @param {HTMLElement} shell @param {string} id @param {string} label */
 export function mountAddNewSection(shell, id, label) {
   const body = adminDrawerCompartment(shell, 'body');
@@ -26,7 +40,11 @@ export function mountAddNewSection(shell, id, label) {
   setAdminDrawerHeaderLocation(shell, label);
   const document = shell.ownerDocument;
   body.replaceChildren(...(id === 'presentation'
-    ? [createProductSummary(shell), createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : []), createActivityHeading(document, activityCount), createActivityCards(document)]
+    ? [
+      createProductSummary(shell),
+      sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
+      sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),
+    ]
     : []));
 }
 

@@ -239,10 +239,21 @@ test('Add New Sidebar tabs print each section label straight into the Drawer Bod
   assert.match(sections, /adminDrawerCompartment\(shell, 'body'\)/);
   assert.match(sections, /createActivityHeading\(document, activityCount\), createActivityCards\(document\)/);
   assert.match(sections, /createPromotionsHeading\(document, activePromotionCount\)/);
+  assert.match(sections, /function sectionUnit\(document, name, label, pieces\) \{\s*const unit = document\.createElement\('section'\);\s*unit\.className = 'wex-admin-drawer-section';/);
+  assert.match(sections, /sectionUnit\(document, 'promotions', 'Promotions', \[/);
+  assert.match(sections, /sectionUnit\(document, 'activity', 'Activity', \[/);
   assert.match(sections, /setAdminDrawerHeaderLocation\(shell, label\)/);
   assert.match(sections, /createProductSummary\(shell\)/);
   assert.match(sections, /body\.replaceChildren\(\.\.\.\(id === 'presentation'/);
-  assert.doesNotMatch(sections, /createNotificationModule|createPromotionsModule|createElement\('section'\)|wex-admin-add-new-section/);
+  assert.doesNotMatch(sections, /createNotificationModule|createPromotionsModule|wex-admin-add-new-section/);
+});
+
+test('each section is one unit: its row and cards sit in one element, the Body gap spaces the units', async () => {
+  const css = await readFile(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
+  const activity = await readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8');
+  assert.match(css, /\.wex-admin-drawer-section \{\s*display: grid;\s*gap: var\(--wex-space-12\);/);
+  assert.match(css, /\.wex-admin-drawer-section\[data-admin-drawer-unit="promotions"\]:has\(> \.wex-admin-promotions__list\) \{[^}]*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.doesNotMatch(css + activity, /drawer-body\[data-admin-drawer-section="presentation"\] > \.wex-admin-(promotions|activity)__list/);
 });
 
 test('a zero count is never shown: the header pill count and the Promotions count hide at zero', async () => {

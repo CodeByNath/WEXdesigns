@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: Each Drawer Body section is one unit: `sectionUnit` in
+  `admin-station-add-new-sections.js` prints the Promotions row with its cards and
+  the Activity row with its cards inside one `.wex-admin-drawer-section` element
+  (the summary is already one). Spacing and the Promotions line are unchanged.
 - 2026-11-15: The Drawer Body 720px max content width is reverted (`drawer-body.css`
   removed); the Body is full width with its 16px padding again.
 - 2026-11-15: Half mode does not exist when it would be narrower than 720px

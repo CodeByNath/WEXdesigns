@@ -420,3 +420,13 @@ heading from its list until sections are grouped.
 The Drawer Body 720px max content width above is reverted: `drawer-body.css`, its import
 and its test are removed, and the Drawer is no longer a size container for it. The Body
 is as it was before: full width with its 16px padding. No token was created.
+
+
+## Owner-directed each section is one unit — 2026-11-15
+
+Each Drawer Body section is one unit: one element holds all its pieces, so a row and its
+cards can never be separated. The Presentation sections are the Product summary (already
+one element), Promotions (row and cards) and Activity (row and cards). The Body spaces the
+units with its 24px gap; inside a unit the row and its cards are 12px apart, and the
+Promotions unit carries the closing 1px line that the cards used to carry. The look is
+unchanged. No token was created.

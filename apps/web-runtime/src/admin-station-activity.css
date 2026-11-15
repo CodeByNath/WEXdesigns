@@ -102,8 +102,3 @@
 .wex-admin-activity__menu > .wex-admin-promotion__menu-list {
   inset-block-start: calc(50% + var(--wex-space-12) + var(--wex-space-4));
 }
-
-/* The activity cards sit closer to the Activity row than the Body gap, as the promotion cards do. */
-.wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] > .wex-admin-activity__list {
-  margin-block-start: calc(-1 * var(--wex-space-12));
-}

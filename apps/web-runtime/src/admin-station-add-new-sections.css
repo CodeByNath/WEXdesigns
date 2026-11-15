@@ -18,9 +18,15 @@
   justify-content: flex-end;
 }
 
-/* The promotion cards sit 12px under the Promotions row (the Body gap is 24px). A 1px line closes them like the one under the summary: 24px below the cards, edge to edge across the Body, and 16px above Notifications. */
-.wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] > .wex-admin-promotions__list {
-  margin-block-start: calc(-1 * var(--wex-space-12));
+/* Each section is one unit: its row and its cards sit together, 12px apart (the Body gap between units is 24px). */
+.wex-admin-drawer-section {
+  display: grid;
+  gap: var(--wex-space-12);
+  min-inline-size: 0;
+}
+
+/* The Promotions unit closes with a 1px line like the one under the summary: 24px below the cards, edge to edge across the Body, and 16px above the next unit. It has no line without cards. */
+.wex-admin-drawer-section[data-admin-drawer-unit="promotions"]:has(> .wex-admin-promotions__list) {
   margin-block-end: calc(-1 * var(--wex-space-8));
   margin-inline: calc(-1 * var(--wex-space-16));
   padding-inline: var(--wex-space-16);
