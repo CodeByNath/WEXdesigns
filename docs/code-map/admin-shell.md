@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Admin main shell (`#admin-station-main`) follows the same
+  width rule as the Admin Body shell (`admin-body.css`): it stretches, its
+  content is at most 1440px and aligned left.
 - 2026-11-15: Drawer Body shell columns (`drawer-body.css`): the shell lays the
   Body out as columns of at most 560px (`--wex-admin-shell-drawer-body-column-max-inline-size`,
   the default Drawer inline size), left aligned; another column appears only when

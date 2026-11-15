@@ -349,3 +349,10 @@ column no wider than 560px, aligned to the left. At 767px and below the Body is
 one full-width column. Sections are laid out in the order they are mounted, so a
 section whose heading and list are separate children can be split across columns
 until sections are grouped. No new design value was created.
+
+## Owner-directed Admin main width — 2026-11-15
+
+The normal Admin body, the main workspace shell (`.wex-admin-shell__main`), also
+stretches while its content is at most 1440px and aligned left, using the same
+core value as the Admin Body shell, `--wex-admin-shell-body-max-inline-size`.
+The Admin header and footer stay full width. No new design value was created.
