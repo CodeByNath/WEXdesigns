@@ -2,8 +2,9 @@
  * Drawer Body shell content width (Owner-directed, 2026-11-15). The Drawer is a size container, so the Body can
  * read its width. The Body content is at most 560px (the default Drawer inline size) wide and stays on the left;
  * in Half mode it can be up to 720px (11 x the 64px space plus the 16px space), but once the Body has room for two
- * 560px columns the cap drops back to 560px, so the room is kept for another column. The Body end inset takes the
- * rest. Header, Sidebar and Footer are not affected.
+ * 560px columns the cap drops back to 560px, so the room is kept for another column. In Half mode the content is
+ * centred (Owner-directed, 2026-11-16): the room is shared equally at the start and the end. In the other modes the
+ * content stays on the left and the Body end inset takes the rest. Header, Sidebar and Footer are not affected.
  */
 .wex-admin-shell__drawer {
   container-type: inline-size;
@@ -11,6 +12,7 @@
 
 .wex-admin-shell {
   --wex-admin-shell-drawer-body-max-inline-size: var(--wex-admin-shell-drawer-default-inline-size);
+  --wex-admin-shell-drawer-body-start-inset: var(--wex-space-16);
 }
 
 .wex-admin-shell {
@@ -21,15 +23,17 @@
 .wex-admin-shell[data-admin-drawer-mode="half"] {
   --wex-admin-shell-drawer-body-half-max-inline-size: calc(var(--wex-space-64) * 11 + var(--wex-space-16));
   --wex-admin-shell-drawer-body-max-inline-size: calc(var(--wex-admin-shell-drawer-body-half-max-inline-size) - clamp(calc(var(--wex-space-16) * 0), calc((var(--wex-admin-shell-drawer-body-inline-size) - var(--wex-admin-shell-drawer-default-inline-size) * 2) * 1000), calc(var(--wex-admin-shell-drawer-body-half-max-inline-size) - var(--wex-admin-shell-drawer-default-inline-size))));
+  --wex-admin-shell-drawer-body-start-inset: max(var(--wex-space-16), calc((100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-border-width-default) * 2 - var(--wex-admin-shell-drawer-body-max-inline-size)) / 2));
 }
 
 /* The space at the Drawer end that no Body content reaches. */
 .wex-admin-shell {
-  --wex-admin-shell-drawer-content-end-inset: calc(100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-border-width-default) * 2 - var(--wex-admin-shell-drawer-body-max-inline-size));
+  --wex-admin-shell-drawer-content-end-inset: calc(100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-admin-shell-drawer-body-start-inset) - var(--wex-border-width-default) * 2 - var(--wex-admin-shell-drawer-body-max-inline-size));
 }
 
-/* The Body keeps its full width and background; its end padding takes the room the content does not use. Edge to edge section lines reach across that room, so they use the same end inset. */
+/* The Body keeps its full width and background; its end padding takes the room the content does not use. Edge to edge section lines reach across that room, so they use the same start and end insets. */
 .wex-admin-shell__drawer-body {
   --wex-admin-shell-drawer-body-end-inset: max(var(--wex-space-16), var(--wex-admin-shell-drawer-content-end-inset));
+  padding-inline-start: var(--wex-admin-shell-drawer-body-start-inset);
   padding-inline-end: var(--wex-admin-shell-drawer-body-end-inset);
 }

@@ -14,8 +14,10 @@ test('the Drawer Body shell caps its content at 560px, left aligned, and at 720p
   assert.match(body, /--wex-admin-shell-drawer-body-max-inline-size: var\(--wex-admin-shell-drawer-default-inline-size\);/);
   assert.match(body, /--wex-admin-shell-drawer-body-half-max-inline-size: calc\(var\(--wex-space-64\) \* 11 \+ var\(--wex-space-16\)\);/);
   assert.match(body, /\.wex-admin-shell\[data-admin-drawer-mode="half"\] \{[^}]*--wex-admin-shell-drawer-body-max-inline-size: calc\(var\(--wex-admin-shell-drawer-body-half-max-inline-size\) - clamp\(calc\(var\(--wex-space-16\) \* 0\), calc\(\(var\(--wex-admin-shell-drawer-body-inline-size\) - var\(--wex-admin-shell-drawer-default-inline-size\) \* 2\) \* 1000\), calc\(var\(--wex-admin-shell-drawer-body-half-max-inline-size\) - var\(--wex-admin-shell-drawer-default-inline-size\)\)\)\);/);
-  assert.match(body, /--wex-admin-shell-drawer-content-end-inset: calc\(100cqi - var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-space-16\) - var\(--wex-border-width-default\) \* 2 - var\(--wex-admin-shell-drawer-body-max-inline-size\)\);/);
-  assert.match(body, /\.wex-admin-shell__drawer-body \{\s*--wex-admin-shell-drawer-body-end-inset: max\(var\(--wex-space-16\), var\(--wex-admin-shell-drawer-content-end-inset\)\);\s*padding-inline-end: var\(--wex-admin-shell-drawer-body-end-inset\);/);
+  assert.match(body, /--wex-admin-shell-drawer-body-start-inset: var\(--wex-space-16\);/);
+  assert.match(body, /--wex-admin-shell-drawer-body-start-inset: max\(var\(--wex-space-16\), calc\(\(100cqi - var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-border-width-default\) \* 2 - var\(--wex-admin-shell-drawer-body-max-inline-size\)\) \/ 2\)\);/);
+  assert.match(body, /--wex-admin-shell-drawer-content-end-inset: calc\(100cqi - var\(--wex-admin-shell-sidebar-collapsed\) - var\(--wex-admin-shell-drawer-body-start-inset\) - var\(--wex-border-width-default\) \* 2 - var\(--wex-admin-shell-drawer-body-max-inline-size\)\);/);
+  assert.match(body, /\.wex-admin-shell__drawer-body \{\s*--wex-admin-shell-drawer-body-end-inset: max\(var\(--wex-space-16\), var\(--wex-admin-shell-drawer-content-end-inset\)\);\s*padding-inline-start: var\(--wex-admin-shell-drawer-body-start-inset\);\s*padding-inline-end: var\(--wex-admin-shell-drawer-body-end-inset\);/);
   assert.doesNotMatch(body.replace(/\/\*[\s\S]*?\*\//g, ''), /margin-inline-end|border-inline-end|background/);
   assert.doesNotMatch(body.replace(/\/\*[\s\S]*?\*\//g, ''), /#[0-9a-f]{3,8}\b|\d+(?:px|rem)\b(?!\))/i);
 });

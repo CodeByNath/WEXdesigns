@@ -252,8 +252,8 @@ test('the section lines stretch across the room the capped Body content leaves',
   const summary = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
   const sections = await readFile(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
   for (const css of [summary, sections]) {
-    assert.match(css, /margin-inline: calc\(-1 \* var\(--wex-space-16\)\) calc\(-1 \* var\(--wex-admin-shell-drawer-body-end-inset\)\);/);
-    assert.match(css, /padding-inline: var\(--wex-space-16\) var\(--wex-admin-shell-drawer-body-end-inset\);/);
+    assert.match(css, /margin-inline: calc\(-1 \* var\(--wex-admin-shell-drawer-body-start-inset\)\) calc\(-1 \* var\(--wex-admin-shell-drawer-body-end-inset\)\);/);
+    assert.match(css, /padding-inline: var\(--wex-admin-shell-drawer-body-start-inset\) var\(--wex-admin-shell-drawer-body-end-inset\);/);
   }
 });
 

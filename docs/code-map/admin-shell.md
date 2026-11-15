@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-16: In Half mode the Drawer Body content is centred: the room is shared
+  equally at the start and the end (`--wex-admin-shell-drawer-body-start-inset`,
+  `drawer-body.css`). The section lines still run edge to edge. Default and Full are
+  unchanged (content on the left).
 - 2026-11-16: The 1px lines under the Product summary and under Promotions stretch
   across the whole Drawer Body, also across the room the capped content leaves, using
   `--wex-admin-shell-drawer-body-end-inset` (`drawer-body.css`). The content stays capped.
