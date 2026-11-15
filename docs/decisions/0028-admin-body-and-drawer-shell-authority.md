@@ -387,3 +387,11 @@ goes below the Default minimum, the default Drawer inline size (560px):
 `max(50%, min(560px, 100%))`. Where half of the workspace is narrower than that,
 Default stays at its minimum and Half is not offered, as before. No token was
 created.
+
+## Owner-directed revert of the compact Drawer Default — 2026-11-15
+
+The compact Default rule (Default is half of the workspace when Half would be
+under 720px) and its 560px minimum fix are both reverted: `drawer-width.css`,
+`HALF_COMPACT_BELOW` and `data-admin-drawer-compact` are removed. The Drawer
+modes are as before: Default is 560px, Half is 50%, Full is the whole workspace,
+and Half is hidden only when it is not wider than Default. No token was created.
