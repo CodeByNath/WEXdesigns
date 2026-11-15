@@ -262,3 +262,10 @@ token was created.
 The Activity options button is centred vertically in its cell, which keeps the
 full-height divider, instead of sitting at the top. Its menu opens just below
 the button. This refines the earlier top placement. No token was created.
+
+## Owner-directed Activity time above the title — 2026-11-15
+
+When the Activity cards stack their time on a row of its own, the time sits above
+the title and the title below it (visual order only, `order: -1` on the time).
+With room on one row the title stays at the start and the time beside it. No
+token was created.
