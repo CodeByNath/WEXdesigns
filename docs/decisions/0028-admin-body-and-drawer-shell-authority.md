@@ -414,3 +414,9 @@ The 720px is Owner-directed and is built from existing tokens (11 x the 64px spa
 the 16px space); no token was created. The two 560px columns idea is not built yet: the
 Body children are flat (heading, list, heading, list), so columns would split each
 heading from its list until sections are grouped.
+
+## Owner-directed revert of the Drawer Body max content width — 2026-11-15
+
+The Drawer Body 720px max content width above is reverted: `drawer-body.css`, its import
+and its test are removed, and the Drawer is no longer a size container for it. The Body
+is as it was before: full width with its 16px padding. No token was created.
