@@ -471,3 +471,10 @@ removed. The Body keeps its full width and background; the 1px divider is a back
 placed 16px after the content, and the end padding takes the rest. It shows whenever the
 Drawer is wider than the content (not only with two columns) and has no width otherwise, so
 Default is unchanged. The end margin and border approach is removed. No token was created.
+
+## Owner-directed divider through Header and Footer — 2026-11-15
+
+The Drawer right divider (16px after the content, shown whenever the Drawer is wider than
+the content) is also drawn in the Header and the Footer, at the same place as in the Body, so
+it runs the full Drawer height. The bars keep their backgrounds, borders and actions. Default
+is unchanged. No token was created.

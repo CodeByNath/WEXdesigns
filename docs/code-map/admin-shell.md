@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Drawer right divider also runs through the Header and Footer: the
+  three compartments draw the same 1px line at the same place (`drawer-body.css`),
+  so it spans the full Drawer height.
 - 2026-11-15: The Drawer Body right divider is a background line, not a shrunk Body:
   the Body keeps its full width and background, and the 1px divider sits 16px after
   the content whenever the Drawer is wider than the content (`drawer-body.css`).
