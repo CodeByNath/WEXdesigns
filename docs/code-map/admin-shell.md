@@ -16,6 +16,11 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: Drawer Body shell columns (`drawer-body.css`): the shell lays the
+  Body out as columns of at most 560px (`--wex-admin-shell-drawer-body-column-max-inline-size`,
+  the default Drawer inline size), left aligned; another column appears only when
+  a full 560px fits; below 767px the Body is one full-width column. Components
+  carry no column rules.
 - 2026-11-15: Admin Body shell width (`admin-body.css`): the shell stretches, its
   mounted content is at most `--wex-admin-shell-body-max-inline-size` (the wide
   layout maximum, 1440px) and aligned left; the Admin header and footer stretch

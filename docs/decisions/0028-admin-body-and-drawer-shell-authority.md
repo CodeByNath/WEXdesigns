@@ -338,3 +338,14 @@ always aligned to the left. The limit is the core value
 it from the shell rather than choosing its own. The Admin header and footer are
 not limited. The rule lives in `admin-body.css` because `layout.css` is at its
 line cap. No new design value was created.
+
+## Owner-directed Drawer Body shell columns — 2026-11-15
+
+The Drawer Body shell, not the mounted components, lays out the Body in columns.
+Each column is at most 560px (`--wex-admin-shell-drawer-body-column-max-inline-size`,
+set to the existing default Drawer inline size). When the Drawer has room for
+another full 560px column the content continues in it; otherwise it stays in one
+column no wider than 560px, aligned to the left. At 767px and below the Body is
+one full-width column. Sections are laid out in the order they are mounted, so a
+section whose heading and list are separate children can be split across columns
+until sections are grouped. No new design value was created.
