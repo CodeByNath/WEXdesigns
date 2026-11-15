@@ -16,11 +16,6 @@
 
 ### Recent work (newest first)
 
-- 2026-11-15: Drawer Body shell columns (`drawer-body.css`): the shell lays the
-  Body out as columns of at most 560px (`--wex-admin-shell-drawer-body-column-max-inline-size`,
-  the default Drawer inline size), left aligned; another column appears only when
-  a full 560px fits; below 767px the Body is one full-width column. Components
-  carry no column rules.
 - 2026-11-15: The Activity cards share three grid columns (title, time, options;
   cards and headers are subgrids), so every time starts at the same left edge.
   When the columns overflow, the list carries `data-time-stacked` and every card
