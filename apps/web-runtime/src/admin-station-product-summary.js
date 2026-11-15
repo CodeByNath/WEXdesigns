@@ -28,21 +28,10 @@ function node(document, tag, className, text) {
   return element;
 }
 
-/**
- * The chips list carries `data-wrapped` while its chips run onto a second row,
- * so the label beside it moves from centred on the first chip to the top.
- * @param {Document} document @param {ReadonlyArray<string>} items
- */
+/** @param {Document} document @param {ReadonlyArray<string>} items */
 function chips(document, items) {
   const list = node(document, 'ul', 'wex-admin-product-summary__chips');
   items.forEach((item) => list.append(node(document, 'li', 'wex-admin-product-summary__chip', item)));
-  if (typeof ResizeObserver !== 'undefined') {
-    new ResizeObserver(() => {
-      const first = /** @type {HTMLElement | null} */ (list.firstElementChild);
-      const last = /** @type {HTMLElement | null} */ (list.lastElementChild);
-      list.toggleAttribute('data-wrapped', first !== null && last !== null && first.offsetTop !== last.offsetTop);
-    }).observe(list);
-  }
   return list;
 }
 

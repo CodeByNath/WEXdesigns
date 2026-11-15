@@ -313,14 +313,11 @@ test('the Product Summary lists Platform ID then Booking ID, has no ID chip unde
   assert.match(css, /grid-template-columns: minmax\(0, 2fr\) minmax\(0, 0\.6fr\);/);
 });
 
-test('the Product Summary label moves to the top when its chips wrap onto a second row', async () => {
+test('the Product Summary Labels label sits at the top at every width, with no top borders', async () => {
   const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
-  assert.match(js, /toggleAttribute\('data-wrapped'/);
-  assert.match(css, /__chips\[data-wrapped\]\) > \.wex-admin-product-summary__label \{\s*align-items: flex-start;/);
-});
-
-test('the Product Summary Labels label and value carry a 1px top border at every width', async () => {
-  const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
-  assert.match(css, /__row:has\(\.wex-admin-product-summary__chips\) > :is\(\.wex-admin-product-summary__label, \.wex-admin-product-summary__value\) \{\s*border-block-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.doesNotMatch(js + css, /data-wrapped|ResizeObserver/);
+  assert.doesNotMatch(css, /__label\s*\{\s*display: flex/);
+  assert.doesNotMatch(css, /border-block-start/);
+  assert.match(css, /__row \{[^}]*align-items: start;/);
 });

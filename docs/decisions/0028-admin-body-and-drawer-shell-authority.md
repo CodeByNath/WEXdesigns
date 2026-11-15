@@ -180,3 +180,11 @@ The Labels row's label (`dt`) and its value (`dd`) each carry a 1px top border
 in the subtle border colour, at every width. The rule uses the existing
 `--wex-border-width-default` and `--wex-color-border-subtle` tokens in
 `admin-station-product-summary.css`. No token was created.
+
+## Owner-directed Product Summary Labels label at the top — 2026-11-15
+
+The Labels label sits at the top of its row at every width, like the text rows.
+This replaces the wrapped-only alignment (`data-wrapped`, the resize observer
+and the chip-height centring of the label) and removes the 1px top border on
+the Labels label and value. The row already aligns its cells to the start, so no
+Labels-specific rule remains. No token was created.
