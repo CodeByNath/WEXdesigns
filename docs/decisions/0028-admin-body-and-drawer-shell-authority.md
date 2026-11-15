@@ -256,3 +256,9 @@ title in any one card, every card puts its time on its own row, aligned to the
 start. The list is marked `data-time-stacked` by a resize observer that measures
 the cards with the marker off on each width change; the CSS reads the marker. No
 token was created.
+
+## Owner-directed Activity options button centred — 2026-11-15
+
+The Activity options button is centred vertically in its cell, which keeps the
+full-height divider, instead of sitting at the top. Its menu opens just below
+the button. This refines the earlier top placement. No token was created.

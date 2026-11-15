@@ -23,7 +23,7 @@
   color: var(--wex-color-text-primary);
 }
 
-/* The options button sits at the top end, and its divider runs the full height of the header (Owner-directed, 2026-11-15). */
+/* The options button sits centred in a cell at the end, and its divider runs the full height of the header (Owner-directed, 2026-11-15). */
 .wex-admin-activity__header {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -78,15 +78,14 @@
 .wex-admin-activity__menu {
   align-self: stretch;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin-block: 0;
-  padding-block-start: calc(var(--wex-space-12) - var(--wex-space-2));
   padding-inline-start: var(--wex-space-8);
   border-inline-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
 .wex-admin-activity__menu > .wex-admin-promotion__menu-list {
-  inset-block-start: calc(var(--wex-space-12) - var(--wex-space-2) + var(--wex-space-24) + var(--wex-space-4));
+  inset-block-start: calc(50% + var(--wex-space-12) + var(--wex-space-4));
 }
 
 /* The activity cards sit closer to the Activity row than the Body gap, as the promotion cards do. */

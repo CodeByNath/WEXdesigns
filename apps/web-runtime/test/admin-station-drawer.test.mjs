@@ -322,7 +322,7 @@ test('the Activity time never breaks inside itself and sits at the start when it
   assert.match(css, /__time \{\s*flex: 0 0 auto;/);
   assert.match(css, /__time \{\s*white-space: nowrap;/);
   assert.match(css, /__header \{[^}]*grid-template-columns: minmax\(0, 1fr\) auto;/);
-  assert.match(css, /__menu \{[^}]*align-self: stretch;[^}]*align-items: flex-start;/);
+  assert.match(css, /__menu \{[^}]*align-self: stretch;[^}]*align-items: center;/);
   assert.doesNotMatch(css, /__end\b/);
 });
 
