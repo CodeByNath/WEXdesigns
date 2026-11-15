@@ -77,7 +77,31 @@ function createActivity(document, activity) {
 export function createActivityCards(document, activities = activityFixture) {
   const list = node(document, 'div', 'wex-admin-activity__list');
   list.append(...activities.slice(0, ACTIVITY_RECENT_COUNT).map((activity) => createActivity(document, activity)));
+  keepCardsIdentical(list);
   return list;
+}
+
+/**
+ * The cards look identical: when the time does not fit beside the title in any
+ * one card, the list carries `data-time-stacked` and every card puts its time on
+ * its own row. The list is measured with the marker off, on every width change.
+ * @param {HTMLElement} list
+ */
+function keepCardsIdentical(list) {
+  if (typeof ResizeObserver === 'undefined') return;
+  let width = -1;
+  new ResizeObserver((entries) => {
+    const next = entries[0]?.contentBoxSize?.[0]?.inlineSize ?? entries[0]?.contentRect.width ?? 0;
+    if (next === width) return;
+    width = next;
+    list.removeAttribute('data-time-stacked');
+    const wraps = [...list.querySelectorAll('.wex-admin-activity__content')].some((content) => {
+      const heading = /** @type {HTMLElement | null} */ (content.querySelector('.wex-admin-activity__heading'));
+      const time = /** @type {HTMLElement | null} */ (content.querySelector('.wex-admin-activity__time'));
+      return heading !== null && time !== null && time.offsetTop > heading.offsetTop;
+    });
+    list.toggleAttribute('data-time-stacked', wraps);
+  }).observe(list);
 }
 
 /** How many activities are logged in the preview data. */

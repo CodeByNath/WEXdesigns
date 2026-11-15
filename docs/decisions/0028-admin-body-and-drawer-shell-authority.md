@@ -248,3 +248,11 @@ header, with its divider running the full height of the header. When the title
 and the time do not fit on one row, the time takes a row of its own, aligned to
 the start; it never breaks inside itself. This refines the earlier rule that
 moved the time and button to a second row together. No token was created.
+
+## Owner-directed identical Activity cards — 2026-11-15
+
+The Activity cards always look identical. When the time does not fit beside the
+title in any one card, every card puts its time on its own row, aligned to the
+start. The list is marked `data-time-stacked` by a resize observer that measures
+the cards with the marker off on each width change; the CSS reads the marker. No
+token was created.

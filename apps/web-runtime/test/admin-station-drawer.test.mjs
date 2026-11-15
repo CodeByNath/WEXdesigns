@@ -326,6 +326,14 @@ test('the Activity time never breaks inside itself and sits at the start when it
   assert.doesNotMatch(css, /__end\b/);
 });
 
+test('when the time wraps in any Activity card, every card stacks its time', async () => {
+  const js = await readFile(new URL('../src/admin-station-activity.js', import.meta.url), 'utf8');
+  const css = await readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8');
+  assert.match(js, /toggleAttribute\('data-time-stacked', wraps\)/);
+  assert.match(js, /removeAttribute\('data-time-stacked'\)/);
+  assert.match(css, /__list\[data-time-stacked\] \.wex-admin-activity__time \{\s*flex-basis: 100%;/);
+});
+
 test('the Promotion cards flow one to a row when a card would be narrower than 160px', async () => {
   const css = await readFile(new URL('../src/admin-station-promotions.css', import.meta.url), 'utf8');
   assert.match(css, /__list \{[^}]*grid-template-columns: repeat\(auto-fit, minmax\(calc\(var\(--wex-space-64\) \* 2\.5\), 1fr\)\);/);

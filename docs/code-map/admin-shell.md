@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Activity cards look identical: when the time does not fit beside
+  the title in any card, the list carries `data-time-stacked` (set by a resize
+  observer in `admin-station-activity.js`) and every card gives its time a row of
+  its own.
 - 2026-11-15: Activity card header: the time uses the new `clock` system icon;
   the options button sits at the top end with a divider the full height of the
   header; the time takes its own row, aligned to the start, when it does not fit
