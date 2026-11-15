@@ -1,6 +1,7 @@
 .wex-admin-product-summary {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  /* The image column is 40% smaller than its 1fr share (0.6fr, Owner-directed, 2026-11-15); the content area keeps 2fr. */
+  grid-template-columns: minmax(0, 2fr) minmax(0, 0.6fr);
   align-items: start;
   gap: var(--wex-space-16);
   /* A 1px line closes the summary, running edge to edge across the Drawer Body (its padding is 16px). */
@@ -16,11 +17,6 @@
   display: grid;
   gap: var(--wex-space-8);
   min-inline-size: 0;
-}
-
-/* The ID chip below the image is centred on it. */
-.wex-admin-product-summary__id {
-  justify-self: center;
 }
 
 /* The image keeps the framed treatment of the Services list image: padding, border and the page background. */

@@ -48,9 +48,9 @@
   (Presentation, Pricing, Options, Settings) and no longer prints it in the Body.
 - 2026-11-11: Add New first tab is Presentation: its Body prints
   the two-column Product Summary (`admin-station-product-summary.js`/`.css`:
-  name, then the ID (Rezdy product code, bold, no pill), Rating, Price, Duration,
+  name, then the Platform ID (regular weight, no pill) and Booking ID (Rezdy product code; bold, no pill), Rating, Price, Duration,
   Language, Category (bold, no pill) and Labels (chips) label and value rows at
-  the start; the framed image (padding, border) with the ID chip below it at the end; preview data from the PADI courses at
+  the start; the framed image (padding, border) at the end, in a column 40% narrower than before (2fr content, 0.6fr image); preview data from the PADI courses at
   qldscubadive.com.au/padi-courses-gold-coast, which also replace the Services
   preview rows in `admin-station-services.js`), then the Promotions row
   (`createPromotionsHeading`: label, active count with a green Active pill or "No

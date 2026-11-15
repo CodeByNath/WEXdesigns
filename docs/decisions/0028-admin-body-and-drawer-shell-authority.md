@@ -145,3 +145,12 @@ Notification Status tokens. The data (the six PADI courses of
 qldscubadive.com.au/padi-courses-gold-coast, plus the product code PFT4KA, the
 rating, the language and the promotions) is preview fixture data until the
 product feed is connected. Nothing outside the Drawer was changed.
+
+## Owner-directed Product Summary refinements — 2026-11-15
+
+The Add New Presentation Product Summary lists Platform ID (the platform
+identifier, regular weight, no pill) first and Booking ID (the Rezdy product
+code, bold) second; the ID chip under the image is removed. The image column is
+0.6fr beside the 2fr content area, 40% narrower than before, so the content area
+gets the room. The 0.6fr share is an Owner-directed value, not a token. No token
+was created and nothing outside the Drawer Presentation section changed.

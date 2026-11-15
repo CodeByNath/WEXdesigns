@@ -302,3 +302,12 @@ test('the preview promotions are Black Friday and Adults at kids Price, with the
   assert.match(promotions, /title: 'Adults at kids Price', owner: 'By Amanda Collins', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers'/);
   assert.match(promotions, /\['calendar', promotion\.start\], \['calendar', promotion\.end\]/);
 });
+
+test('the Product Summary lists Platform ID then Booking ID, has no ID chip under the image, and gives the image column 0.6fr', async () => {
+  const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
+  const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
+  assert.match(js, /\['Platform ID', node\(document, 'span', 'wex-type-body-small-regular', product\.id\)\],\s*\['Booking ID', node\(document, 'span', 'wex-type-navigation-small-semibold', product\.productCode\)\]/);
+  assert.match(js, /media\.append\(picture\);/);
+  assert.doesNotMatch(js + css, /product-summary__id\b/);
+  assert.match(css, /grid-template-columns: minmax\(0, 2fr\) minmax\(0, 0\.6fr\);/);
+});

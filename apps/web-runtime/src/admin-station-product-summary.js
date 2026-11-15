@@ -37,9 +37,9 @@ function chips(document, items) {
 
 /**
  * Two columns: the title and the label and value rows at the start, and the
- * framed product image, with its ID as a centred chip below it, at the end. The rows are ID (the Rezdy product code),
- * Rating, Price, Duration, Language, Category (bold text, no pill) and Labels
- * (chips).
+ * framed product image at the end. The rows are Platform ID (regular weight),
+ * Booking ID (the Rezdy product code, bold), no pills, then Rating, Price, Duration, Language, Category (bold
+ * text, no pill) and Labels (chips).
  * @param {HTMLElement} shell
  * @param {ProductSummary} [product]
  * @returns {HTMLElement}
@@ -74,7 +74,8 @@ export function createProductSummary(shell, product = productSummaryFixture) {
     return list;
   };
   const facts = labelledRows([
-    ['ID', node(document, 'span', 'wex-type-navigation-small-semibold', product.productCode)],
+    ['Platform ID', node(document, 'span', 'wex-type-body-small-regular', product.id)],
+    ['Booking ID', node(document, 'span', 'wex-type-navigation-small-semibold', product.productCode)],
     ['Rating', node(document, 'span', 'wex-type-navigation-small-semibold', product.ratings + ' | ' + product.reviews)],
     ['Price', node(document, 'span', 'wex-type-navigation-small-semibold', product.price)],
     ['Duration', node(document, 'span', 'wex-type-navigation-small-semibold', product.duration)],
@@ -84,7 +85,7 @@ export function createProductSummary(shell, product = productSummaryFixture) {
   ]);
   details.append(identity, facts);
   const media = node(document, 'div', 'wex-admin-product-summary__media');
-  media.append(picture, node(document, 'span', 'wex-admin-product-summary__id wex-admin-product-summary__chip', product.id));
+  media.append(picture);
   section.append(details, media);
   return section;
 }
