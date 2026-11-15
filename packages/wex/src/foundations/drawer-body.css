@@ -29,6 +29,8 @@
   --wex-admin-shell-drawer-content-end-inset: calc(100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-border-width-default) * 2 - var(--wex-admin-shell-drawer-body-max-inline-size));
 }
 
+/* The Body ends 16px after its content (the same gap the Sidebar has before it) and closes there with a 1px divider, like the Sidebar's. With no room left over the divider has no width, so Default is unchanged. */
 .wex-admin-shell__drawer-body {
-  padding-inline-end: max(var(--wex-space-16), var(--wex-admin-shell-drawer-content-end-inset));
+  margin-inline-end: max(calc(var(--wex-space-16) * 0), calc(var(--wex-admin-shell-drawer-content-end-inset) - var(--wex-space-16) - var(--wex-border-width-default)));
+  border-inline-end: clamp(calc(var(--wex-space-16) * 0), calc((var(--wex-admin-shell-drawer-content-end-inset) - var(--wex-space-16)) * 1000), var(--wex-border-width-default)) solid var(--wex-color-border-subtle);
 }

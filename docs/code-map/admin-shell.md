@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Drawer Body closes on the right with a 1px divider, 16px after its
+  content (like the Sidebar's), when the content leaves room at the Drawer end
+  (`drawer-body.css`); with no room it has no width, so Default is unchanged.
 - 2026-11-15: The Drawer Header and Footer actions (status pill, menu, close, Save,
   Publish) end where the Body content ends, through the shared
   `--wex-admin-shell-drawer-content-end-inset` (`drawer-body.css`, used by

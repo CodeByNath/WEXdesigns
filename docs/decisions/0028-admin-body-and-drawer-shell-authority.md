@@ -455,3 +455,11 @@ the far Drawer edge. One shared inset (`--wex-admin-shell-drawer-content-end-ins
 Body, Header and Footer end padding, so they always agree. The bars keep their full width and
 their 16px minimum end padding, so Default is unchanged. When a second column exists, the
 actions should end at the end of the last column. No token was created.
+
+## Owner-directed Drawer Body right divider — 2026-11-15
+
+The Drawer Body ends 16px after its content and closes there with a 1px divider on the right,
+the counterpart of the Sidebar's. The Body shrinks with an end margin (the shared
+`--wex-admin-shell-drawer-content-end-inset` minus its 16px padding and the divider), so the
+content, the Header actions and the Footer actions keep the same end edge. When the content
+fills the Drawer the divider has no width, so Default is unchanged. No token was created.
