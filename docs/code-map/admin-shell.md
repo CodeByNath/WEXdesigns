@@ -78,6 +78,8 @@
   `packages/wex/src/foundations/drawer-sidebar.css` (Tab Navigation Small
   tokens, icon only in every mode). Hover previews the section in the Drawer
   Body shell, click selects it (`wex:admin-drawer-tab`). Not yet released.
+- 2026-11-15: At max-width 767px the Drawer Sidebar icon tabs sit in one
+  horizontal row below the Header (rules in `drawer-sidebar.css`, ADR 0028).
 
 - 2026-11-09: Drawer notifications dropdown opts into Toggle mode Stretched and
   puts the selected tab first (`toggleStretched`, `selectedTabFirst`). The Drawer

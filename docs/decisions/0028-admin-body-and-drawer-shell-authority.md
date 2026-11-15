@@ -154,3 +154,13 @@ code, bold) second; the ID chip under the image is removed. The image column is
 0.6fr beside the 2fr content area, 40% narrower than before, so the content area
 gets the room. The 0.6fr share is an Owner-directed value, not a token. No token
 was created and nothing outside the Drawer Presentation section changed.
+
+## Owner-directed mobile Drawer Sidebar — 2026-11-15
+
+At the mobile breakpoint (max-width 767px, the existing Admin shell breakpoint)
+the Drawer Sidebar tabs stay icon only but sit in one horizontal row below the
+Header and above the Body, instead of in a column beside it. The tabs, tokens
+and states are unchanged; only the frame grid, the Sidebar border and the tab
+list direction move to the row layout. Above the breakpoint nothing changes. No
+token was created; the rules live in `drawer-sidebar.css` because `layout.css`
+is at its line cap.

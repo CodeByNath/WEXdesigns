@@ -1,6 +1,7 @@
 /*
  * Drawer Sidebar tabs: the Tab Navigation Small tier, icon only in every Drawer
- * mode. Hovering a tab previews its section in the Drawer Body shell; clicking
+ * mode; beside the Body, and on mobile in one horizontal row below the Header.
+ * Hovering a tab previews its section in the Drawer Body shell; clicking
  * selects it.
  */
 .wex-admin-shell__drawer-tabs {
@@ -71,4 +72,30 @@
 .wex-admin-shell__drawer-tab-icon svg {
   inline-size: var(--wex-tab-navigation-small-icon-size);
   block-size: var(--wex-tab-navigation-small-icon-size);
+}
+
+/* Mobile: the Sidebar is one horizontal row of icon tabs below the Header, above the Body. */
+@media (max-width: 767px) {
+  .wex-admin-shell__drawer-frame {
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "body"
+      "footer";
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+  }
+
+  .wex-admin-shell__drawer-sidebar {
+    border-inline-end: 0;
+    border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  }
+
+  .wex-admin-shell__drawer-tabs {
+    justify-items: start;
+  }
+
+  .wex-admin-shell__drawer-tab-list {
+    grid-auto-flow: column;
+  }
 }

@@ -217,7 +217,7 @@ test('every Drawer compartment pads its left and right sides by 16px', async () 
   assert.match(footerCss, /\.wex-admin-shell__drawer-footer \{[^}]*padding-inline: var\(--wex-space-16\);/);
 });
 
-test('the Drawer Sidebar prints icon-only requester tabs and previews the hovered section in the Body shell', async () => {
+test('the Drawer Sidebar prints icon-only requester tabs (one row below the Header on mobile) and previews the hovered section in the Body shell', async () => {
   const sidebarJs = await readFile(new URL('../src/admin-station-drawer-sidebar.js', import.meta.url), 'utf8');
   const sidebarCss = await readFile(new URL('../../../packages/wex/src/foundations/drawer-sidebar.css', import.meta.url), 'utf8');
   assert.match(sidebarJs, /export function setAdminDrawerSidebar\(shell, tabs\)/);
@@ -228,7 +228,8 @@ test('the Drawer Sidebar prints icon-only requester tabs and previews the hovere
   assert.doesNotMatch(sidebarJs, /style\.|innerHTML|label\.textContent|sidebar-toggle|drawer-peek/);
   assert.match(drawer, /resetAdminDrawerSidebar\(shell\);\s*if \(request\.sidebar\) setAdminDrawerSidebar\(shell, request\.sidebar\);/);
   assert.doesNotMatch(sidebarCss, /tab-label|data-admin-drawer-sidebar|sidebar-toggle|drawer-peek/);
-  assert.doesNotMatch(sidebarCss, /#[0-9a-f]{3,6}\b|\d+px/i);
+  assert.match(sidebarCss, /@media \(max-width: 767px\)[\s\S]*grid-auto-flow: column;/);
+  assert.doesNotMatch(sidebarCss.replace(/@media \(max-width: 767px\)/, ''), /#[0-9a-f]{3,6}\b|\d+px/i);
   assert.match(index, /@import "\.\/foundations\/drawer-sidebar\.css";/);
 });
 
