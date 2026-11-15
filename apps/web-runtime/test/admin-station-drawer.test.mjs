@@ -313,17 +313,18 @@ test('the Product Summary lists Platform ID then Booking ID, has no ID chip unde
   assert.match(css, /grid-template-columns: minmax\(0, 2fr\) minmax\(0, 0\.6fr\);/);
 });
 
-test('the Activity time never breaks inside itself and sits at the start when it takes its own row; the options button is at the top with a full-height divider', async () => {
+test('the Activity cards share three columns so every time starts at the same left edge; the time never splits', async () => {
   const js = await readFile(new URL('../src/admin-station-activity.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8');
   assert.match(js, /createSystemIcon\(document, 'clock'\)/);
-  assert.doesNotMatch(js, /'calendar'/);
-  assert.match(css, /__content \{[^}]*flex-wrap: wrap;[^}]*align-items: flex-start;/);
-  assert.match(css, /__time \{\s*flex: 0 0 auto;/);
+  assert.doesNotMatch(js, /'calendar'|__content/);
+  assert.match(js, /header\.append\(heading, time, menu\);/);
+  assert.match(css, /__list \{[^}]*grid-template-columns: minmax\(max-content, 1fr\) max-content auto;/);
+  assert.match(css, /\.wex-admin-activity \{[^}]*grid-column: 1 \/ -1;[^}]*grid-template-columns: subgrid;/);
+  assert.match(css, /__header \{[^}]*grid-template-columns: subgrid;/);
   assert.match(css, /__time \{\s*white-space: nowrap;/);
-  assert.match(css, /__header \{[^}]*grid-template-columns: minmax\(0, 1fr\) auto;/);
   assert.match(css, /__menu \{[^}]*align-self: stretch;[^}]*align-items: center;/);
-  assert.doesNotMatch(css, /__end\b/);
+  assert.doesNotMatch(css, /__end\b|__content/);
 });
 
 test('the title icons carry a status tone: green success, yellow warning, red error, blue info', async () => {
@@ -338,12 +339,12 @@ test('the title icons carry a status tone: green success, yellow warning, red er
   assert.match(promoJs, /id: 'black-friday', title: 'Black Friday', tone: 'success'/);
 });
 
-test('when the time wraps in any Activity card, every card stacks its time', async () => {
+test('when a title and a time do not fit in any Activity card, every card stacks its time', async () => {
   const js = await readFile(new URL('../src/admin-station-activity.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8');
-  assert.match(js, /toggleAttribute\('data-time-stacked', wraps\)/);
+  assert.match(js, /toggleAttribute\('data-time-stacked', list\.scrollWidth > list\.clientWidth\)/);
   assert.match(js, /removeAttribute\('data-time-stacked'\)/);
-  assert.match(css, /__list\[data-time-stacked\] \.wex-admin-activity__time \{\s*flex-basis: 100%;\s*\}/);
+  assert.match(css, /__list\[data-time-stacked\] \.wex-admin-activity__time \{\s*grid-column: 1 \/ 3;\s*grid-row: 2;/);
   assert.doesNotMatch(css, /order: -1/);
 });
 

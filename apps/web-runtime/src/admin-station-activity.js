@@ -51,7 +51,6 @@ export const ACTIVITY_ACTION_EVENT = 'wex:admin-activity-action';
 function createActivity(document, activity) {
   const card = node(document, 'article', 'wex-admin-activity');
   const header = node(document, 'header', 'wex-admin-activity__header');
-  const content = node(document, 'div', 'wex-admin-activity__content');
   const heading = node(document, 'div', 'wex-admin-activity__heading wex-icon-label');
   const mark = node(document, 'span', 'wex-admin-activity__icon--title wex-icon-label__icon wex-type-navigation-small-semibold');
   mark.dataset.tone = activity.tone;
@@ -61,10 +60,9 @@ function createActivity(document, activity) {
   const glyph = node(document, 'span', 'wex-icon-label__icon wex-type-body-small-regular');
   glyph.append(createSystemIcon(document, 'clock'));
   time.append(glyph, node(document, 'span', '', activity.time));
-  content.append(heading, time);
   const menu = createOptionsMenu(document, card, { id: activity.id, label: activity.title, eventName: ACTIVITY_ACTION_EVENT });
   menu.classList.add('wex-admin-activity__menu');
-  header.append(content, menu);
+  header.append(heading, time, menu);
   card.append(header, node(document, 'p', 'wex-admin-activity__description wex-type-body-small-regular', activity.description));
   return card;
 }
@@ -84,8 +82,9 @@ export function createActivityCards(document, activities = activityFixture) {
 
 /**
  * The cards look identical: when the time does not fit beside the title in any
- * one card, the list carries `data-time-stacked` and every card puts its time on
- * its own row. The list is measured with the marker off, on every width change.
+ * one card (the shared columns overflow), the list carries `data-time-stacked`
+ * and every card puts its time on its own row. The list is measured with the
+ * marker off, on every width change.
  * @param {HTMLElement} list
  */
 function keepCardsIdentical(list) {
@@ -96,12 +95,7 @@ function keepCardsIdentical(list) {
     if (next === width) return;
     width = next;
     list.removeAttribute('data-time-stacked');
-    const wraps = [...list.querySelectorAll('.wex-admin-activity__content')].some((content) => {
-      const heading = /** @type {HTMLElement | null} */ (content.querySelector('.wex-admin-activity__heading'));
-      const time = /** @type {HTMLElement | null} */ (content.querySelector('.wex-admin-activity__time'));
-      return heading !== null && time !== null && time.offsetTop > heading.offsetTop;
-    });
-    list.toggleAttribute('data-time-stacked', wraps);
+    list.toggleAttribute('data-time-stacked', list.scrollWidth > list.clientWidth);
   }).observe(list);
 }
 

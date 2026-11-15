@@ -284,3 +284,12 @@ warning, red for errors and blue for no action required. The preview data is
 assigned as follows: both promotions are success (Active); Product price updated
 is info, New order created is success and New review is warning. These
 assignments are preview values. No token was created.
+
+## Owner-directed Activity times share a left edge — 2026-11-15
+
+The Activity cards share three grid columns (title, time, options): the list is
+the grid and each card and header is a subgrid, so every time starts at the same
+left edge. The title column is at least as wide as the longest title. When the
+shared columns overflow the list, the resize observer marks the list
+`data-time-stacked` and every card gives its time a row of its own below the
+title. This replaces the earlier flex-wrap header. No token was created.

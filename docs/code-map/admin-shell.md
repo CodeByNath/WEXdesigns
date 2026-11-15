@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Activity cards share three grid columns (title, time, options;
+  cards and headers are subgrids), so every time starts at the same left edge.
+  When the columns overflow, the list carries `data-time-stacked` and every card
+  puts its time on its own row below the title.
 - 2026-11-15: Title icons in the Drawer Body carry a status tone through the
   global Icon Label rule (`data-tone`): success green (active, success, pass),
   warning yellow, error red, info blue (no action required). Preview data:
