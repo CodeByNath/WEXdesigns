@@ -5,6 +5,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--wex-space-8);
+  /* The Header actions end where the Body content ends. */
+  padding-inline-end: max(var(--wex-space-16), var(--wex-admin-shell-drawer-content-end-inset));
 }
 
 .wex-admin-shell__drawer-header-start,

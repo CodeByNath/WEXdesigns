@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Drawer Header and Footer actions (status pill, menu, close, Save,
+  Publish) end where the Body content ends, through the shared
+  `--wex-admin-shell-drawer-content-end-inset` (`drawer-body.css`, used by
+  `drawer-header.css` and `drawer-footer.css`). The bars stay full width.
 - 2026-11-15: In Half mode the Drawer Body content cap is 720px only until the Body
   has room for two 560px columns; from then on it is 560px, keeping the room for
   another column (`drawer-body.css`).

@@ -3,7 +3,8 @@
  * read its width. The Body content is at most 560px (the default Drawer inline size) wide and stays on the left;
  * in Half mode it can be up to 720px (11 x the 64px space plus the 16px space), but once the Body has room for two
  * 560px columns the cap drops back to 560px, so the room is kept for another column. The Body end inset takes the
- * rest. Header, Sidebar and Footer are not affected.
+ * rest. The Header and Footer bars stay full width, but their actions (status pill, menu, close, Save, Publish)
+ * end where the content ends (Owner-directed, 2026-11-15).
  */
 .wex-admin-shell__drawer {
   container-type: inline-size;
@@ -23,6 +24,11 @@
   --wex-admin-shell-drawer-body-max-inline-size: calc(var(--wex-admin-shell-drawer-body-half-max-inline-size) - clamp(calc(var(--wex-space-16) * 0), calc((var(--wex-admin-shell-drawer-body-inline-size) - var(--wex-admin-shell-drawer-default-inline-size) * 2) * 1000), calc(var(--wex-admin-shell-drawer-body-half-max-inline-size) - var(--wex-admin-shell-drawer-default-inline-size))));
 }
 
+/* The space at the Drawer end that no Body content reaches. The Header and Footer actions use it too, so they end where the content ends. */
+.wex-admin-shell {
+  --wex-admin-shell-drawer-content-end-inset: calc(100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-border-width-default) * 2 - var(--wex-admin-shell-drawer-body-max-inline-size));
+}
+
 .wex-admin-shell__drawer-body {
-  padding-inline-end: max(var(--wex-space-16), calc(100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-border-width-default) * 2 - var(--wex-admin-shell-drawer-body-max-inline-size)));
+  padding-inline-end: max(var(--wex-space-16), var(--wex-admin-shell-drawer-content-end-inset));
 }

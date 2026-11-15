@@ -446,3 +446,12 @@ In Half mode the Drawer Body content cap is 720px only while the Body is narrowe
 560px column and the content does not stretch. Default and Full are unchanged (Full is 560px).
 The step uses existing tokens only (the default Drawer inline size, the 64px and 16px spaces);
 no token was created.
+
+## Owner-directed Header and Footer actions end at the content — 2026-11-15
+
+When the Body content is capped and leaves empty room at the Drawer end, the Header and
+Footer actions (status pill, menu, close, Save, Publish) end where the content ends, not at
+the far Drawer edge. One shared inset (`--wex-admin-shell-drawer-content-end-inset`) feeds the
+Body, Header and Footer end padding, so they always agree. The bars keep their full width and
+their 16px minimum end padding, so Default is unchanged. When a second column exists, the
+actions should end at the end of the last column. No token was created.
