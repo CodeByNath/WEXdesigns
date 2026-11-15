@@ -164,3 +164,12 @@ and states are unchanged; only the frame grid, the Sidebar border and the tab
 list direction move to the row layout. Above the breakpoint nothing changes. No
 token was created; the rules live in `drawer-sidebar.css` because `layout.css`
 is at its line cap.
+
+## Owner-directed Product Summary Labels alignment — 2026-11-15
+
+When the Labels chips run onto a second row, the Labels label moves from
+centred on the first chip to the top of its area (`align-items: flex-start`
+with the existing chip-height minimum), like the text rows. On one row it stays
+centred on the chip. The Product Summary marks the wrapped state on the chips
+list with `data-wrapped`, set by a resize observer; the CSS reads that marker.
+No token was created.

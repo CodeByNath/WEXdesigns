@@ -312,3 +312,10 @@ test('the Product Summary lists Platform ID then Booking ID, has no ID chip unde
   assert.doesNotMatch(js + css, /product-summary__id\b/);
   assert.match(css, /grid-template-columns: minmax\(0, 2fr\) minmax\(0, 0\.6fr\);/);
 });
+
+test('the Product Summary label moves to the top when its chips wrap onto a second row', async () => {
+  const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
+  const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
+  assert.match(js, /toggleAttribute\('data-wrapped'/);
+  assert.match(css, /__chips\[data-wrapped\]\) > \.wex-admin-product-summary__label \{\s*align-items: flex-start;/);
+});

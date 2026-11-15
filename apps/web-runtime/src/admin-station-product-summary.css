@@ -81,6 +81,11 @@
   min-block-size: calc(var(--wex-pill-notification-status-line-height) + 2 * var(--wex-pill-notification-status-padding-block) + 2 * var(--wex-border-width-default));
 }
 
+/* When the chips wrap onto a second row (Owner-directed, 2026-11-15), the label moves from centred on the first chip to the top of the area, like the text rows. */
+.wex-admin-product-summary__row:has(.wex-admin-product-summary__chips[data-wrapped]) > .wex-admin-product-summary__label {
+  align-items: flex-start;
+}
+
 /* A value never runs past two lines: it ends in an ellipsis, and its label stays at the top. */
 .wex-admin-product-summary__value > span {
   display: -webkit-box;
