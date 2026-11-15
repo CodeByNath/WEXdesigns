@@ -23,8 +23,10 @@
   color: var(--wex-color-text-primary);
 }
 
+/* The time never breaks inside itself (Owner-directed, 2026-11-15): when the title and the time do not fit on one row, the time and options button move to a second row. */
 .wex-admin-activity__header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--wex-space-8);
@@ -45,10 +47,12 @@
 .wex-admin-activity__end {
   display: flex;
   align-items: center;
+  margin-inline-start: auto;
   gap: var(--wex-space-8);
 }
 
 .wex-admin-activity__time {
+  white-space: nowrap;
   color: var(--wex-color-text-secondary);
 }
 

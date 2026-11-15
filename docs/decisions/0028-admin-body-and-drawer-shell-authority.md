@@ -233,3 +233,9 @@ the width the Owner saw at the narrow Drawer, each card flows in a row of its ow
 (`repeat(auto-fit, minmax(...))`). The 160px is written as 2.5 times the 64px
 space token; the rows stay shared between the cards of one row. No token was
 created.
+
+## Owner-directed Activity time never splits — 2026-11-15
+
+The Activity time stays on one line (`white-space: nowrap`). When the title and
+the time with its options button do not fit on one row, the card header wraps
+and the time and button take a second row, at the end. No token was created.

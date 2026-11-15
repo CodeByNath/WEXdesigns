@@ -313,6 +313,13 @@ test('the Product Summary lists Platform ID then Booking ID, has no ID chip unde
   assert.match(css, /grid-template-columns: minmax\(0, 2fr\) minmax\(0, 0\.6fr\);/);
 });
 
+test('the Activity time never breaks inside itself, the header wraps to two rows instead', async () => {
+  const css = await readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8');
+  assert.match(css, /__header \{[^}]*flex-wrap: wrap;/);
+  assert.match(css, /__end \{[^}]*margin-inline-start: auto;/);
+  assert.match(css, /__time \{\s*white-space: nowrap;/);
+});
+
 test('the Promotion cards flow one to a row when a card would be narrower than 160px', async () => {
   const css = await readFile(new URL('../src/admin-station-promotions.css', import.meta.url), 'utf8');
   assert.match(css, /__list \{[^}]*grid-template-columns: repeat\(auto-fit, minmax\(calc\(var\(--wex-space-64\) \* 2\.5\), 1fr\)\);/);

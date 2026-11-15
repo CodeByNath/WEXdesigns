@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Activity time never breaks inside itself; when the title and
+  the time do not fit on one row, the time and options button move to a second
+  row (`flex-wrap` on the card header).
 - 2026-11-15: Promotion cards flow two to a row, and one to a row when a card
   would be narrower than 160px (`auto-fit`, 2.5 times the 64px space token).
 - 2026-11-15: Promotion cards share every row (header plus owner, start, end,
