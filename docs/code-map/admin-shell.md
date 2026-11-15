@@ -16,18 +16,11 @@
 
 ### Recent work (newest first)
 
-- 2026-11-15: The Admin main shell (`#admin-station-main`) follows the same
-  width rule as the Admin Body shell (`admin-body.css`): it stretches, its
-  content is at most 1440px and aligned left.
 - 2026-11-15: Drawer Body shell columns (`drawer-body.css`): the shell lays the
   Body out as columns of at most 560px (`--wex-admin-shell-drawer-body-column-max-inline-size`,
   the default Drawer inline size), left aligned; another column appears only when
   a full 560px fits; below 767px the Body is one full-width column. Components
   carry no column rules.
-- 2026-11-15: Admin Body shell width (`admin-body.css`): the shell stretches, its
-  mounted content is at most `--wex-admin-shell-body-max-inline-size` (the wide
-  layout maximum, 1440px) and aligned left; the Admin header and footer stretch
-  full width.
 - 2026-11-15: The Activity cards share three grid columns (title, time, options;
   cards and headers are subgrids), so every time starts at the same left edge.
   When the columns overflow, the list carries `data-time-stacked` and every card

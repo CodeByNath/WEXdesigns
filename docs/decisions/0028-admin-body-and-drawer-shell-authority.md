@@ -356,3 +356,9 @@ The normal Admin body, the main workspace shell (`.wex-admin-shell__main`), also
 stretches while its content is at most 1440px and aligned left, using the same
 core value as the Admin Body shell, `--wex-admin-shell-body-max-inline-size`.
 The Admin header and footer stay full width. No new design value was created.
+
+## Owner-directed revert of the Admin Body shell width rule — 2026-11-15
+
+For now, the Admin Body shell and Admin main width rule (content at most 1440px,
+aligned left; `admin-body.css` and `--wex-admin-shell-body-max-inline-size`) is
+reverted. The shells stretch their content as before. No token remains.
