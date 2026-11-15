@@ -22,8 +22,8 @@
 .wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] > .wex-admin-promotions__list {
   margin-block-start: calc(-1 * var(--wex-space-12));
   margin-block-end: calc(-1 * var(--wex-space-8));
-  margin-inline: calc(-1 * var(--wex-admin-shell-drawer-body-inset));
-  padding-inline: var(--wex-admin-shell-drawer-body-inset);
+  margin-inline: calc(-1 * var(--wex-space-16));
+  padding-inline: var(--wex-space-16);
   padding-block-end: var(--wex-space-24);
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }

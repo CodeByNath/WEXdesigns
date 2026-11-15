@@ -320,3 +320,10 @@ inset stays the 16px Body padding, so nothing changes there. The edge to edge
 lines under the summary and the promotions use the same inset
 (`--wex-admin-shell-drawer-body-inset`). The width is the existing Drawer token,
 chosen by the assistant for the Owner to confirm. No token was created.
+
+## Owner-directed revert of the Drawer Body max width — 2026-11-15
+
+The Drawer Body max content width is reverted (`drawer-body.css`, the size
+container and the shared inset are removed); the Drawer Body is as before. The
+width limit belongs to the Admin Body shell instead (next section). No token was
+created.

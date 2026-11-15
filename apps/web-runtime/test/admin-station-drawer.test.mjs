@@ -353,14 +353,6 @@ test('the Promotion cards flow one to a row when a card would be narrower than 1
   assert.match(css, /__list \{[^}]*grid-template-columns: repeat\(auto-fit, minmax\(calc\(var\(--wex-space-64\) \* 2\.5\), 1fr\)\);/);
 });
 
-test('the edge to edge lines follow the Drawer Body inset', async () => {
-  const sections = await readFile(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
-  const summary = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
-  for (const css of [sections, summary]) {
-    assert.match(css, /margin-inline: calc\(-1 \* var\(--wex-admin-shell-drawer-body-inset\)\);\s*padding-inline: var\(--wex-admin-shell-drawer-body-inset\);/);
-  }
-});
-
 test('the Promotion cards share every row, so matching details sit on the same line', async () => {
   const css = await readFile(new URL('../src/admin-station-promotions.css', import.meta.url), 'utf8');
   assert.match(css, /\.wex-admin-promotion \{[^}]*grid-row: span 5;[^}]*grid-template-rows: subgrid;/);
