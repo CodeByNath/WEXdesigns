@@ -7,8 +7,8 @@ import { createSystemIcon } from './admin-station-system-icons.js';
 /** @type {ReadonlyArray<Activity>} */
 const activityFixture = Object.freeze([
   { id: 'price-updated', icon: 'tool', tone: 'info', title: 'Product price updated', time: 'Today, 10:24 AM', description: 'The price of PADI SCUBA Diver Course was updated.' },
-  { id: 'order-created', icon: 'cart', tone: 'success', title: 'New order created', time: 'Today, 9:41 AM', description: 'A new order was created for PADI SCUBA Diver Course.' },
-  { id: 'new-review', icon: 'user', tone: 'warning', title: 'New review', time: 'Yesterday, 4:12 PM', description: 'A new review was left for PADI SCUBA Diver Course.' },
+  { id: 'order-created', icon: 'cart', tone: 'success', title: 'New order created', time: 'Today, 09:41 AM', description: 'A new order was created for PADI SCUBA Diver Course.' },
+  { id: 'new-review', icon: 'user', tone: 'warning', title: 'New review', time: 'Yesterday, 04:12 PM', description: 'A new review was left for PADI SCUBA Diver Course.' },
 ]);
 
 /** How many recent activities the Drawer shows before See all. */

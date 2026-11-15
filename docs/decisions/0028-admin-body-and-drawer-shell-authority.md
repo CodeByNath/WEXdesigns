@@ -293,3 +293,8 @@ left edge. The title column is at least as wide as the longest title. When the
 shared columns overflow the list, the resize observer marks the list
 `data-time-stacked` and every card gives its time a row of its own below the
 title. This replaces the earlier flex-wrap header. No token was created.
+
+## Owner-directed zero-padded Activity times — 2026-11-15
+
+Activity times print the hour with a leading zero (09:41 AM, 10:24 AM) so they
+have the same width. The preview values are updated. No token was created.
