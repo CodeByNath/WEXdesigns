@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: Activity card header: the time uses the new `clock` system icon;
+  the options button sits at the top end with a divider the full height of the
+  header; the time takes its own row, aligned to the start, when it does not fit
+  beside the title.
 - 2026-11-15: The Activity time never breaks inside itself; when the title and
   the time do not fit on one row, the time and options button move to a second
   row (`flex-wrap` on the card header).

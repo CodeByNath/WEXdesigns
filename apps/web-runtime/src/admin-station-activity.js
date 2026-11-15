@@ -43,7 +43,7 @@ export const ACTIVITY_ACTION_EVENT = 'wex:admin-activity-action';
 
 /**
  * One logged activity, in the Note card design: a header with an icon and the title at the
- * start and the time (calendar icon), a divider and a Small Option Button (View
+ * start and the time (clock icon), a divider and a Small Option Button (View
  * and Edit, announcing `wex:admin-activity-action`) at the end, a line under
  * the header, then the description.
  * @param {Document} document @param {Activity} activity
@@ -51,20 +51,19 @@ export const ACTIVITY_ACTION_EVENT = 'wex:admin-activity-action';
 function createActivity(document, activity) {
   const card = node(document, 'article', 'wex-admin-activity');
   const header = node(document, 'header', 'wex-admin-activity__header');
+  const content = node(document, 'div', 'wex-admin-activity__content');
   const heading = node(document, 'div', 'wex-admin-activity__heading wex-icon-label');
   const mark = node(document, 'span', 'wex-admin-activity__icon--title wex-icon-label__icon wex-type-navigation-small-semibold');
   mark.append(createSystemIcon(document, activity.icon));
   heading.append(mark, node(document, 'h3', 'wex-admin-activity__title wex-type-navigation-small-semibold', activity.title));
-  header.append(heading);
-  const end = node(document, 'div', 'wex-admin-activity__end');
   const time = node(document, 'p', 'wex-admin-activity__time wex-icon-label wex-type-body-small-regular');
   const glyph = node(document, 'span', 'wex-icon-label__icon wex-type-body-small-regular');
-  glyph.append(createSystemIcon(document, 'calendar'));
+  glyph.append(createSystemIcon(document, 'clock'));
   time.append(glyph, node(document, 'span', '', activity.time));
+  content.append(heading, time);
   const menu = createOptionsMenu(document, card, { id: activity.id, label: activity.title, eventName: ACTIVITY_ACTION_EVENT });
   menu.classList.add('wex-admin-activity__menu');
-  end.append(time, menu);
-  header.append(end);
+  header.append(content, menu);
   card.append(header, node(document, 'p', 'wex-admin-activity__description wex-type-body-small-regular', activity.description));
   return card;
 }

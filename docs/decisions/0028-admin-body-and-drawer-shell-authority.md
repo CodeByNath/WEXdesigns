@@ -239,3 +239,12 @@ created.
 The Activity time stays on one line (`white-space: nowrap`). When the title and
 the time with its options button do not fit on one row, the card header wraps
 and the time and button take a second row, at the end. No token was created.
+
+## Owner-directed Activity header layout — 2026-11-15
+
+The Activity time uses a clock icon (a new Heroicons `clock` system glyph, MIT)
+instead of the calendar. The options button sits at the top end of the card
+header, with its divider running the full height of the header. When the title
+and the time do not fit on one row, the time takes a row of its own, aligned to
+the start; it never breaks inside itself. This refines the earlier rule that
+moved the time and button to a second row together. No token was created.

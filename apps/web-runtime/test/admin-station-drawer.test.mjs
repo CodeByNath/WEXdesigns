@@ -313,11 +313,17 @@ test('the Product Summary lists Platform ID then Booking ID, has no ID chip unde
   assert.match(css, /grid-template-columns: minmax\(0, 2fr\) minmax\(0, 0\.6fr\);/);
 });
 
-test('the Activity time never breaks inside itself, the header wraps to two rows instead', async () => {
+test('the Activity time never breaks inside itself and sits at the start when it takes its own row; the options button is at the top with a full-height divider', async () => {
+  const js = await readFile(new URL('../src/admin-station-activity.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-activity.css', import.meta.url), 'utf8');
-  assert.match(css, /__header \{[^}]*flex-wrap: wrap;/);
-  assert.match(css, /__end \{[^}]*margin-inline-start: auto;/);
+  assert.match(js, /createSystemIcon\(document, 'clock'\)/);
+  assert.doesNotMatch(js, /'calendar'/);
+  assert.match(css, /__content \{[^}]*flex-wrap: wrap;[^}]*align-items: flex-start;/);
+  assert.match(css, /__time \{\s*flex: 0 0 auto;/);
   assert.match(css, /__time \{\s*white-space: nowrap;/);
+  assert.match(css, /__header \{[^}]*grid-template-columns: minmax\(0, 1fr\) auto;/);
+  assert.match(css, /__menu \{[^}]*align-self: stretch;[^}]*align-items: flex-start;/);
+  assert.doesNotMatch(css, /__end\b/);
 });
 
 test('the Promotion cards flow one to a row when a card would be narrower than 160px', async () => {
@@ -346,7 +352,7 @@ test('icons beside text use the global Icon Label rule, so they stay level with 
   assert.match(promoJs, /wex-admin-promotion__detail wex-icon-label/);
   assert.match(promoJs, /wex-icon-label__icon wex-type-navigation-small-semibold/);
   assert.match(promoJs, /wex-icon-label__icon wex-type-body-small-regular/);
-  assert.doesNotMatch(activityCss + promoCss, /1lh|activity__heading \{|promotion__detail \{|promotion__header \{/);
+  assert.doesNotMatch(activityCss + promoCss, /1lh|activity__heading \{[^}]*(display|align-items)|promotion__detail \{|promotion__header \{/);
 });
 
 test('the Product Summary image has a 16px shell and floats on small devices so content breaks around it', async () => {

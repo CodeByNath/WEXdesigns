@@ -23,14 +23,12 @@
   color: var(--wex-color-text-primary);
 }
 
-/* The time never breaks inside itself (Owner-directed, 2026-11-15): when the title and the time do not fit on one row, the time and options button move to a second row. */
+/* The options button sits at the top end, and its divider runs the full height of the header (Owner-directed, 2026-11-15). */
 .wex-admin-activity__header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--wex-space-8);
-  padding: var(--wex-space-12) var(--wex-space-16);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--wex-space-8);
+  padding-inline: var(--wex-space-16);
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
@@ -44,11 +42,22 @@
   padding: var(--wex-space-16);
 }
 
-.wex-admin-activity__end {
+/* The time never breaks inside itself (Owner-directed, 2026-11-15): when the title and the time do not fit on one row, the time takes a row of its own, aligned to the start. */
+.wex-admin-activity__content {
   display: flex;
-  align-items: center;
-  margin-inline-start: auto;
+  flex-wrap: wrap;
+  align-items: flex-start;
   gap: var(--wex-space-8);
+  padding-block: var(--wex-space-12);
+  min-inline-size: 0;
+}
+
+.wex-admin-activity__heading {
+  flex: 1 1 auto;
+}
+
+.wex-admin-activity__time {
+  flex: 0 0 auto;
 }
 
 .wex-admin-activity__time {
@@ -64,14 +73,15 @@
 .wex-admin-activity__menu {
   align-self: stretch;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-block: 0;
+  padding-block-start: calc(var(--wex-space-12) - var(--wex-space-2));
   padding-inline-start: var(--wex-space-8);
   border-inline-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
 .wex-admin-activity__menu > .wex-admin-promotion__menu-list {
-  inset-block-start: 100%;
+  inset-block-start: calc(var(--wex-space-12) - var(--wex-space-2) + var(--wex-space-24) + var(--wex-space-4));
 }
 
 /* The activity cards sit closer to the Activity row than the Body gap, as the promotion cards do. */
