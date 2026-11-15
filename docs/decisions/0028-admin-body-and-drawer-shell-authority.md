@@ -327,3 +327,14 @@ The Drawer Body max content width is reverted (`drawer-body.css`, the size
 container and the shared inset are removed); the Drawer Body is as before. The
 width limit belongs to the Admin Body shell instead (next section). No token was
 created.
+
+## Owner-directed Admin Body shell max width — 2026-11-15
+
+The Admin Body shell controls the width of what is mounted in it. The shell
+stretches the full workspace, but its content is never wider than 1440px and is
+always aligned to the left. The limit is the core value
+`--wex-admin-shell-body-max-inline-size`, set to the existing
+`--wex-layout-max-wide` (1440px, ADR and `layout.css`); mounted content applies
+it from the shell rather than choosing its own. The Admin header and footer are
+not limited. The rule lives in `admin-body.css` because `layout.css` is at its
+line cap. No new design value was created.

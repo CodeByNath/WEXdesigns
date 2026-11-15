@@ -1,0 +1,18 @@
+/*
+ * Admin Body shell width. The shell stretches the full workspace, but the
+ * content mounted in it never grows wider than the layout maximum, and the
+ * content always aligns to the left (Owner-directed, 2026-11-15). The limit is a
+ * core value that mounted content applies from the shell; it is the existing
+ * wide layout maximum. The Admin header and footer are not affected and stretch
+ * full width.
+ */
+:root {
+  --wex-admin-shell-body-max-inline-size: var(--wex-layout-max-wide);
+}
+
+.wex-admin-shell__body:not([hidden]) {
+  display: grid;
+  grid-template-columns: minmax(0, var(--wex-admin-shell-body-max-inline-size));
+  justify-content: start;
+  align-content: start;
+}
