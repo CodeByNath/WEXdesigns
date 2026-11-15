@@ -395,3 +395,11 @@ under 720px) and its 560px minimum fix are both reverted: `drawer-width.css`,
 `HALF_COMPACT_BELOW` and `data-admin-drawer-compact` are removed. The Drawer
 modes are as before: Default is 560px, Half is 50%, Full is the whole workspace,
 and Half is hidden only when it is not wider than Default. No token was created.
+
+## Owner-directed Half mode skipped when narrow — 2026-11-15
+
+Half mode does not exist when it would be narrower than 720px. The Drawer then has
+Default (560px) and Full only and jumps between them, by drag or keyboard; Default
+is unchanged. When Half is 720px or wider it exists as before (and still only when
+it is wider than Default). This replaces the earlier compact Default idea. The
+720px is Owner-directed. No token was created.

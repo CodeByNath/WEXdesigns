@@ -17,6 +17,8 @@ const MODE_TRAVEL = 96;
 const STRETCH_MAX = 40;
 /** Time (ms) the Drawer takes to spring back when released short of a jump. */
 const SPRING_BACK = 200;
+/** Half does not exist when it would be narrower than this (px): the Drawer jumps from Default to Full (Owner-directed, 2026-11-15). */
+const HALF_MIN_WIDTH = 720;
 
 /** @param {unknown} request @returns {request is AdminDrawerRequest} */
 function isAdminDrawerRequest(request) {
@@ -58,14 +60,15 @@ function drawerModeWidths(shell) {
 
 /**
  * The modes that exist at this width. Half exists only when it is wider than
- * default, and when default already fills the available width only full exists.
+ * default and at least HALF_MIN_WIDTH, and when default already fills the
+ * available width only full exists.
  * @param {HTMLElement} shell
  */
 function availableModeWidths(shell) {
   const widths = drawerModeWidths(shell);
   const width = (/** @type {AdminDrawerMode} */ mode) => widths.find((entry) => entry.mode === mode)?.width ?? 0;
   if (width('default') >= width('full') - 1) return widths.filter((entry) => entry.mode === 'full');
-  return widths.filter((entry) => entry.mode !== 'half' || entry.width > width('default') + 1);
+  return widths.filter((entry) => entry.mode !== 'half' || (entry.width > width('default') + 1 && entry.width >= HALF_MIN_WIDTH));
 }
 
 /** The requested mode, or the nearest wider one that exists at this width. @param {HTMLElement} shell @param {AdminDrawerMode} mode @returns {AdminDrawerMode} */

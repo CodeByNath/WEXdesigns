@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: Half mode does not exist when it would be narrower than 720px
+  (`HALF_MIN_WIDTH` in `admin-station-drawer.js`): the Drawer jumps from Default
+  (560px) to Full. Default is unchanged.
 - 2026-11-15: The Activity cards share three grid columns (title, time, options;
   cards and headers are subgrids), so every time starts at the same left edge.
   When the columns overflow, the list carries `data-time-stacked` and every card

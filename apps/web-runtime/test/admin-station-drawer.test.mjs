@@ -46,7 +46,7 @@ test('provides one standalone pill handle that drags the Drawer one approved mod
   assert.match(drawer, /prefers-reduced-motion: reduce/);
   assert.match(drawer, /event\.buttons === 0\) \{\s*stopDrag\(\);\s*return;/);
   assert.match(drawer, /const limit = Math\.min\(MODE_TRAVEL, widthGap\(mode, next\)\);\s*if \(Math\.abs\(travel\) < limit\) \{/);
-  assert.match(drawer, /function availableModeWidths\(shell\)[\s\S]*width\('default'\) >= width\('full'\) - 1[\s\S]*entry\.mode !== 'half' \|\| entry\.width > width\('default'\) \+ 1/);
+  assert.match(drawer, /function availableModeWidths\(shell\)[\s\S]*width\('default'\) >= width\('full'\) - 1[\s\S]*entry\.mode !== 'half' \|\| \(entry\.width > width\('default'\) \+ 1 && entry\.width >= HALF_MIN_WIDTH\)/);
   assert.match(drawer, /shell\.dataset\.adminDrawerMode = fitMode\(shell, request\.mode \?\? 'default'\);/);
   assert.match(drawer, /resize', \(\) => \{\s*if \(drawer\.hidden\) return;\s*shell\.dataset\.adminDrawerMode = fitMode\(/);
   assert.match(drawer, /const changeMode = \(direction\) => \{[\s\S]*next === mode && direction === 'increase'\) closeAdminDrawer\(shell\)/);
@@ -375,6 +375,12 @@ test('icons beside text use the global Icon Label rule, so they stay level with 
   assert.match(promoJs, /wex-icon-label__icon wex-type-navigation-small-semibold/);
   assert.match(promoJs, /wex-icon-label__icon wex-type-body-small-regular/);
   assert.doesNotMatch(activityCss + promoCss, /1lh|activity__heading \{[^}]*(display|align-items)|promotion__detail \{|promotion__header \{/);
+});
+
+test('Half does not exist when it would be under 720px, so the Drawer jumps from Default to Full', async () => {
+  const js = await readFile(new URL('../src/admin-station-drawer.js', import.meta.url), 'utf8');
+  assert.match(js, /const HALF_MIN_WIDTH = 720;/);
+  assert.match(js, /entry\.mode !== 'half' \|\| \(entry\.width > width\('default'\) \+ 1 && entry\.width >= HALF_MIN_WIDTH\)/);
 });
 
 test('the Product Summary image has a 16px shell and floats on small devices so content breaks around it', async () => {
