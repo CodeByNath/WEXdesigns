@@ -403,3 +403,14 @@ Default (560px) and Full only and jumps between them, by drag or keyboard; Defau
 is unchanged. When Half is 720px or wider it exists as before (and still only when
 it is wider than Default). This replaces the earlier compact Default idea. The
 720px is Owner-directed. No token was created.
+
+## Owner-directed Drawer Body max content width — 2026-11-15
+
+The Drawer Body shell keeps its content at most 720px wide and on the left; the Body
+end inset (`padding-inline-end`) absorbs the rest, so Header and Footer stay full width
+and nothing else in the Body changes. At Default and Half the content is under 720px,
+so they are unchanged. The Drawer is a size container so the Body can read its width.
+The 720px is Owner-directed and is built from existing tokens (11 x the 64px space plus
+the 16px space); no token was created. The two 560px columns idea is not built yet: the
+Body children are flat (heading, list, heading, list), so columns would split each
+heading from its list until sections are grouped.

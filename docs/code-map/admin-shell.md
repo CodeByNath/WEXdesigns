@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Drawer Body shell keeps its content at most 720px wide, left
+  aligned (`packages/wex/src/foundations/drawer-body.css`); in wide Full the Body
+  end inset takes the rest. Header and Footer stay full width.
 - 2026-11-15: Half mode does not exist when it would be narrower than 720px
   (`HALF_MIN_WIDTH` in `admin-station-drawer.js`): the Drawer jumps from Default
   (560px) to Full. Default is unchanged.
