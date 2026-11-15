@@ -1,0 +1,16 @@
+/*
+ * Drawer Body content width. The Drawer is a size container, so the Body can read
+ * its width. The content never grows wider than the default Drawer inline size
+ * (Owner-directed, 2026-11-15); in the Half and Full modes the content stays at
+ * that width and the Body inset grows on both sides. At the default Drawer width
+ * the inset is the 16px Body padding, so nothing changes there. Edge to edge
+ * lines use the same inset to run across the Body.
+ */
+.wex-admin-shell__drawer {
+  container-type: inline-size;
+}
+
+.wex-admin-shell__drawer-body {
+  --wex-admin-shell-drawer-body-inset: max(var(--wex-space-16), calc((100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-admin-shell-drawer-default-inline-size)) / 2));
+  padding-inline: var(--wex-admin-shell-drawer-body-inset);
+}

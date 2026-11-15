@@ -309,3 +309,14 @@ reverted when the Owner asks. No token was created.
 
 The temporary hidden calendar icon on the Promotion end date row is reverted;
 both date rows show their calendar icon again. No token was created.
+
+## Owner-directed Drawer Body max content width — 2026-11-15
+
+The Drawer Body content no longer stretches without limit in the Half and Full
+modes. The Drawer is a size container and the Body inset grows on both sides so
+the content is at most the default Drawer inline size (560px, the existing
+`--wex-admin-shell-drawer-default-inline-size`); at the default Drawer width the
+inset stays the 16px Body padding, so nothing changes there. The edge to edge
+lines under the summary and the promotions use the same inset
+(`--wex-admin-shell-drawer-body-inset`). The width is the existing Drawer token,
+chosen by the assistant for the Owner to confirm. No token was created.

@@ -16,6 +16,11 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: Drawer Body content max width (`drawer-body.css`): the Drawer is a
+  size container and the Body inset is `max(16px, (width - sidebar - default
+  Drawer inline size) / 2)`, so content never exceeds the default Drawer inline
+  size (560px) in Half and Full modes. The summary and promotions lines use the
+  same inset to run edge to edge.
 - 2026-11-15: The Activity cards share three grid columns (title, time, options;
   cards and headers are subgrids), so every time starts at the same left edge.
   When the columns overflow, the list carries `data-time-stacked` and every card
