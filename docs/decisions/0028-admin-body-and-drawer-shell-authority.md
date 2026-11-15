@@ -369,3 +369,13 @@ The Drawer Body shell columns rule is reverted (`drawer-body.css` and
 `--wex-admin-shell-drawer-body-column-max-inline-size`). In a wide Drawer it
 split section headings from their lists across columns. The Drawer Body is one
 column as before. No token remains.
+
+## Owner-directed compact Drawer Default — 2026-11-15
+
+When Half would be narrower than 720px, Default becomes half of the workspace, the
+same width as Half, so Default and Half are not offered as separate modes (the
+existing check hides Half when it is not wider than Default). The Drawer shell
+measures Half on open and on resize and marks the Admin shell
+`data-admin-drawer-compact`; `drawer-width.css` applies the width at 768px and
+up. Small screens keep their Drawer rules. The 720px is Owner-directed. No token
+was created.

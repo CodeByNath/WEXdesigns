@@ -17,6 +17,8 @@ const MODE_TRAVEL = 96;
 const STRETCH_MAX = 40;
 /** Time (ms) the Drawer takes to spring back when released short of a jump. */
 const SPRING_BACK = 200;
+/** When Half would be narrower than this (px), Default is half of the workspace and Half does not exist apart from it (Owner-directed, 2026-11-15). */
+const HALF_COMPACT_BELOW = 720;
 
 /** @param {unknown} request @returns {request is AdminDrawerRequest} */
 function isAdminDrawerRequest(request) {
@@ -47,6 +49,8 @@ function drawerModeWidths(shell) {
   const drawer = drawerShell(shell);
   if (!drawer) return [];
   const current = shell.dataset.adminDrawerMode;
+  shell.dataset.adminDrawerMode = 'half';
+  shell.toggleAttribute('data-admin-drawer-compact', drawer.getBoundingClientRect().width < HALF_COMPACT_BELOW);
   const widths = [...drawerModes].map((mode) => {
     shell.dataset.adminDrawerMode = mode;
     return { mode: /** @type {AdminDrawerMode} */ (mode), width: drawer.getBoundingClientRect().width };

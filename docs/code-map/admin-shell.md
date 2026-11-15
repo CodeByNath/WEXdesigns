@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: When Half would be narrower than 720px (`HALF_COMPACT_BELOW` in
+  `admin-station-drawer.js`), the shell sets `data-admin-drawer-compact` and
+  Default becomes half of the workspace (`drawer-width.css`, 768px and up), so
+  Default and Half are not offered apart.
 - 2026-11-15: The Activity cards share three grid columns (title, time, options;
   cards and headers are subgrids), so every time starts at the same left edge.
   When the columns overflow, the list carries `data-time-stacked` and every card
