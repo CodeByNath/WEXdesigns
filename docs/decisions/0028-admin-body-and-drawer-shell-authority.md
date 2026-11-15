@@ -430,3 +430,11 @@ one element), Promotions (row and cards) and Activity (row and cards). The Body 
 units with its 24px gap; inside a unit the row and its cards are 12px apart, and the
 Promotions unit carries the closing 1px line that the cards used to carry. The look is
 unchanged. No token was created.
+
+## Owner-directed Drawer Body content width by mode — 2026-11-15
+
+The Drawer Body shell caps its content at 560px (the default Drawer inline size) and keeps it
+on the left; in Half mode the cap is 720px (11 x the 64px space plus the 16px space). The Body
+end inset (`padding-inline-end`) takes the rest, and the Drawer is a size container so the Body
+can read its width. Default is narrower than the cap, so it is unchanged. Header, Sidebar and
+Footer are not affected. No token was created.

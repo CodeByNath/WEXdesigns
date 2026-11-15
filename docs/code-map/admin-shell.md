@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Drawer Body shell caps its content at 560px, left aligned, and
+  at 720px in Half mode (`packages/wex/src/foundations/drawer-body.css`). The Body
+  end inset takes the rest; Header, Sidebar and Footer are unaffected.
 - 2026-11-15: Each Drawer Body section is one unit: `sectionUnit` in
   `admin-station-add-new-sections.js` prints the Promotions row with its cards and
   the Activity row with its cards inside one `.wex-admin-drawer-section` element

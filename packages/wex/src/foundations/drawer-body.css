@@ -1,0 +1,21 @@
+/*
+ * Drawer Body shell content width (Owner-directed, 2026-11-15). The Drawer is a size container, so the Body can
+ * read its width. The Body content is at most 560px (the default Drawer inline size) wide and stays on the left;
+ * in Half mode it can be up to 720px (11 x the 64px space plus the 16px space). The Body end inset takes the rest.
+ * Header, Sidebar and Footer are not affected.
+ */
+.wex-admin-shell__drawer {
+  container-type: inline-size;
+}
+
+.wex-admin-shell {
+  --wex-admin-shell-drawer-body-max-inline-size: var(--wex-admin-shell-drawer-default-inline-size);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="half"] {
+  --wex-admin-shell-drawer-body-max-inline-size: calc(var(--wex-space-64) * 11 + var(--wex-space-16));
+}
+
+.wex-admin-shell__drawer-body {
+  padding-inline-end: max(var(--wex-space-16), calc(100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-border-width-default) * 2 - var(--wex-admin-shell-drawer-body-max-inline-size)));
+}
