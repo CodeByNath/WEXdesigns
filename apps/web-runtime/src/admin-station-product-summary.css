@@ -13,7 +13,14 @@
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
+.wex-admin-product-summary__details {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 .wex-admin-product-summary__media {
+  grid-column: 2;
+  grid-row: 1;
   display: grid;
   gap: var(--wex-space-8);
   min-inline-size: 0;
@@ -27,14 +34,15 @@
   aspect-ratio: 1;
   padding: var(--wex-space-4);
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
-  border-radius: var(--wex-radius-large);
+  /* The image shell is rounded 16px (Owner-directed, 2026-11-15); there is no 16px radius token, so the 16px space token carries the value. */
+  border-radius: var(--wex-space-16);
   background: var(--wex-color-background-secondary);
 }
 
 .wex-admin-product-summary__image img {
   inline-size: 100%;
   block-size: 100%;
-  border-radius: calc(var(--wex-radius-large) - var(--wex-space-4) - var(--wex-border-width-default));
+  border-radius: calc(var(--wex-space-16) - var(--wex-space-4) - var(--wex-border-width-default));
   object-fit: cover;
 }
 
@@ -123,4 +131,41 @@
   font-weight: var(--wex-pill-notification-status-font-weight);
   line-height: var(--wex-pill-notification-status-line-height);
   letter-spacing: var(--wex-pill-notification-status-letter-spacing);
+}
+
+/*
+ * Small devices (Owner-directed, 2026-11-15): the image floats at the end, out of the column, so nothing runs over it.
+ * Text beside it breaks its line at the image edge; rows below the image use the full width. The image keeps the
+ * width the 0.6fr column gave it.
+ */
+@media (max-width: 767px) {
+  .wex-admin-product-summary {
+    display: flow-root;
+  }
+
+  .wex-admin-product-summary__media {
+    float: inline-end;
+    inline-size: calc((100% - var(--wex-space-16)) * 0.6 / 2.6);
+    margin-inline-start: var(--wex-space-16);
+    margin-block-end: var(--wex-space-12);
+  }
+
+  .wex-admin-product-summary__details,
+  .wex-admin-product-summary__rows {
+    display: block;
+  }
+
+  .wex-admin-product-summary__rows {
+    margin-block-start: var(--wex-space-12);
+  }
+
+  /* Each row now wraps the image on its own, so the rows no longer share one label column: every row gets the same label width, wide enough for the longest label (Platform ID, 74px). */
+  .wex-admin-product-summary__row {
+    grid-template-columns: 9ch minmax(0, 1fr);
+    column-gap: var(--wex-space-16);
+  }
+
+  .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+    margin-block-start: var(--wex-space-8);
+  }
 }

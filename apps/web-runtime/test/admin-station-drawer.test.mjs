@@ -313,6 +313,17 @@ test('the Product Summary lists Platform ID then Booking ID, has no ID chip unde
   assert.match(css, /grid-template-columns: minmax\(0, 2fr\) minmax\(0, 0\.6fr\);/);
 });
 
+test('the Product Summary image has a 16px shell and floats on small devices so content breaks around it', async () => {
+  const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
+  const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
+  assert.match(css, /__image \{[^}]*border-radius: var\(--wex-space-16\);/);
+  assert.match(js, /section\.append\(media, details\);/);
+  const small = css.slice(css.indexOf('@media (max-width: 767px)'));
+  assert.match(small, /__media \{\s*float: inline-end;/);
+  assert.match(small, /__row \{\s*grid-template-columns: 9ch minmax\(0, 1fr\);/);
+  assert.doesNotMatch(small, /nth-child|nth-of-type/);
+});
+
 test('the Product Summary label moves to the top when its chips wrap onto a second row', async () => {
   const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');

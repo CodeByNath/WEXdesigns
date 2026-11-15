@@ -97,6 +97,6 @@ export function createProductSummary(shell, product = productSummaryFixture) {
   details.append(identity, facts);
   const media = node(document, 'div', 'wex-admin-product-summary__media');
   media.append(picture);
-  section.append(details, media);
+  section.append(media, details);
   return section;
 }

@@ -195,3 +195,16 @@ The all-width top alignment of the Labels label is reverted. The Labels label
 is again centred on the first chip row and moves to the top only when its chips
 wrap onto a second row (`data-wrapped`, set by a resize observer). The 1px top
 borders on the Labels label and value stay removed. No token was created.
+
+## Owner-directed Product Summary image shell and small-device wrap — 2026-11-15
+
+The Product Summary image shell is rounded 16px at every width. There is no 16px
+radius token, so the 16px space token carries the Owner-directed value. On small
+devices (max-width 767px) the image floats at the end, out of the column, with
+the width the 0.6fr column gave it. Nothing runs over it: the title and the rows
+beside it break their lines at the image edge, and rows below it use the full
+width. The image comes first in the DOM so it can float; above the breakpoint
+the grid places it in the end column as before. Because each row now wraps the
+image on its own, the rows no longer share one label column on small devices:
+every row gets the same label width (`9ch`, wide enough for the longest label).
+That `9ch` is not a token; the Owner approved it on 2026-11-15. No token was created.
