@@ -42,12 +42,6 @@
   padding: var(--wex-space-16);
 }
 
-.wex-admin-activity__heading {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--wex-space-8);
-}
-
 .wex-admin-activity__end {
   display: flex;
   align-items: center;
@@ -55,33 +49,11 @@
 }
 
 .wex-admin-activity__time {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--wex-space-8);
   color: var(--wex-color-text-secondary);
-}
-
-.wex-admin-activity__icon {
-  display: grid;
-  flex: 0 0 auto;
-  place-items: center;
-  inline-size: var(--wex-icon-size-16);
-  block-size: var(--wex-icon-size-16);
-}
-
-/* As in the Promotion details: the icon is one text line high, so it stays level with the first line when the text wraps. */
-.wex-admin-activity__heading > .wex-admin-activity__icon,
-.wex-admin-activity__time > .wex-admin-activity__icon {
-  block-size: 1lh;
 }
 
 .wex-admin-activity__icon--title {
   color: var(--wex-color-text-secondary);
-}
-
-.wex-admin-activity__icon svg {
-  inline-size: 100%;
-  block-size: 100%;
 }
 
 /* A divider separates the time from the options button, as in the Note card. */

@@ -21,6 +21,7 @@ presentation authority and explicit domain ownership.
 - [0029: WEX Search Input Global Tokens](0029-wex-search-input-global-tokens.md)
 - [0030: WEX More Action Global Tokens](0030-wex-more-action-global-tokens.md)
 - [0031: WEX Component Title Global Tokens](0031-wex-component-title-global-tokens.md)
+- [0037: WEX Icon Label Global Rule](0037-wex-icon-label-global-rule.md)
 - [0032: WEX Action Button Icon Only Global Tokens](0032-wex-action-button-icon-only-global-tokens.md)
 - [0033: WEX Dropdown Menu Global Tokens](0033-wex-dropdown-menu-global-tokens.md)
 - [0034: WEX Option Button Global Tokens](0034-wex-option-button-global-tokens.md)

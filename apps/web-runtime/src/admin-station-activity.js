@@ -51,14 +51,14 @@ export const ACTIVITY_ACTION_EVENT = 'wex:admin-activity-action';
 function createActivity(document, activity) {
   const card = node(document, 'article', 'wex-admin-activity');
   const header = node(document, 'header', 'wex-admin-activity__header');
-  const heading = node(document, 'div', 'wex-admin-activity__heading');
-  const mark = node(document, 'span', 'wex-admin-activity__icon wex-admin-activity__icon--title wex-type-navigation-small-semibold');
+  const heading = node(document, 'div', 'wex-admin-activity__heading wex-icon-label');
+  const mark = node(document, 'span', 'wex-admin-activity__icon--title wex-icon-label__icon wex-type-navigation-small-semibold');
   mark.append(createSystemIcon(document, activity.icon));
   heading.append(mark, node(document, 'h3', 'wex-admin-activity__title wex-type-navigation-small-semibold', activity.title));
   header.append(heading);
   const end = node(document, 'div', 'wex-admin-activity__end');
-  const time = node(document, 'p', 'wex-admin-activity__time wex-type-body-small-regular');
-  const glyph = node(document, 'span', 'wex-admin-activity__icon wex-type-body-small-regular');
+  const time = node(document, 'p', 'wex-admin-activity__time wex-icon-label wex-type-body-small-regular');
+  const glyph = node(document, 'span', 'wex-icon-label__icon wex-type-body-small-regular');
   glyph.append(createSystemIcon(document, 'calendar'));
   time.append(glyph, node(document, 'span', '', activity.time));
   const menu = createOptionsMenu(document, card, { id: activity.id, label: activity.title, eventName: ACTIVITY_ACTION_EVENT });

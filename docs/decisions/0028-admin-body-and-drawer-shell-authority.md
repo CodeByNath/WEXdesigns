@@ -209,11 +209,10 @@ image on its own, the rows no longer share one label column on small devices:
 every row gets the same label width (`9ch`, wide enough for the longest label).
 That `9ch` is not a token; the Owner approved it on 2026-11-15. No token was created.
 
+
 ## Owner-directed icon beside wrapping text — 2026-11-15
 
 An icon beside a text label in the Drawer Body stays level with the first line
-when the text wraps onto a second line, the rule the Promotion details already
-follow: the row aligns to the start and the icon is one text line high (`1lh`),
-so it carries the same type class as its text. The rule now also covers the
-Promotion card title icon and the Activity card title icon and time icon. No
-token was created.
+when the text wraps. The Owner made this a global rule: WEX Icon Label
+(`.wex-icon-label`, ADR 0037). The Promotion card and Activity card icons use it
+and carry no local alignment rules. No token was created.

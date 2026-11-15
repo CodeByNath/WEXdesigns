@@ -17,9 +17,8 @@
 ### Recent work (newest first)
 
 - 2026-11-15: Icons beside text in the Drawer Body (Promotion details and title,
-  Activity title and time) stay level with the first line when the text wraps:
-  the row aligns to the start and the icon is `1lh` high, carrying its text's
-  type class.
+  Activity title and time) use the global Icon Label rule (`.wex-icon-label`,
+  ADR 0037): the icon stays level with the first line when the text wraps.
 - 2026-11-13: The Presentation Notifications label is now Activity
   (`admin-station-activity.js`/`.css`: `createActivityHeading` and
   `createActivityCards`): a label row with See all, then the two most recent

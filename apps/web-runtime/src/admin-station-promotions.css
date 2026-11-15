@@ -40,19 +40,6 @@
   color: var(--wex-color-text-primary);
 }
 
-.wex-admin-promotion__header,
-.wex-admin-promotion__detail {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--wex-space-8);
-}
-
-/* The icon is one text line high, so it stays level with the first line when the text wraps. */
-.wex-admin-promotion__header > .wex-admin-promotion__icon,
-.wex-admin-promotion__detail > .wex-admin-promotion__icon {
-  block-size: 1lh;
-}
-
 .wex-admin-promotion__title {
   margin: 0;
 }
@@ -66,17 +53,7 @@
 }
 
 .wex-admin-promotion__icon {
-  display: grid;
-  flex: 0 0 auto;
-  place-items: center;
-  inline-size: var(--wex-icon-size-16);
-  block-size: var(--wex-icon-size-16);
   color: var(--wex-color-text-secondary);
-}
-
-.wex-admin-promotion__icon svg {
-  inline-size: 100%;
-  block-size: 100%;
 }
 
 /* The options menu ends the title row; its negative block margin keeps the row at its text height, and its small dropdown opens under the button. */

@@ -102,6 +102,7 @@ does not define HTML semantics, component behaviour, or layout composition.
 - [WEX Search Input Global Tokens](../decisions/0029-wex-search-input-global-tokens.md)
 - [WEX More Action Global Tokens](../decisions/0030-wex-more-action-global-tokens.md)
 - [WEX Component Title Global Tokens](../decisions/0031-wex-component-title-global-tokens.md)
+- [WEX Icon Label Global Rule](../decisions/0037-wex-icon-label-global-rule.md)
 - [WEX Action Button Icon Only Global Tokens](../decisions/0032-wex-action-button-icon-only-global-tokens.md)
 - [WEX Dropdown Menu Global Tokens](../decisions/0033-wex-dropdown-menu-global-tokens.md)
 - [WEX Option Button Global Tokens](../decisions/0034-wex-option-button-global-tokens.md)
@@ -135,6 +136,8 @@ They do not supply or approve Global Tokens values.
   [`notification-pill.css`](../../packages/wex/src/foundations/notification-pill.css)
 - WEX Component Title component tokens:
   [`component-title.css`](../../packages/wex/src/foundations/component-title.css)
+- WEX Icon Label global rule (no tokens):
+  [`icon-label.css`](../../packages/wex/src/foundations/icon-label.css)
 - WEX Action Button Icon Only component tokens:
   [`action-button-icon-only.css`](../../packages/wex/src/foundations/action-button-icon-only.css)
 - WEX Dropdown Menu component tokens:
@@ -147,6 +150,7 @@ They do not supply or approve Global Tokens values.
   [`search-input-foundation.test.mjs`](../../packages/wex/test/search-input-foundation.test.mjs),
   [`more-action-foundation.test.mjs`](../../packages/wex/test/more-action-foundation.test.mjs),
   [`component-title-foundation.test.mjs`](../../packages/wex/test/component-title-foundation.test.mjs),
+  [`icon-label-foundation.test.mjs`](../../packages/wex/test/icon-label-foundation.test.mjs),
   [`action-button-icon-only-foundation.test.mjs`](../../packages/wex/test/action-button-icon-only-foundation.test.mjs),
   [`dropdown-menu-foundation.test.mjs`](../../packages/wex/test/dropdown-menu-foundation.test.mjs),
   [`option-button-foundation.test.mjs`](../../packages/wex/test/option-button-foundation.test.mjs),

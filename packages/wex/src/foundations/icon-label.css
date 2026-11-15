@@ -1,0 +1,28 @@
+/**
+ * WEX Icon Label rule
+ *
+ * A text label with an icon beside it. The row aligns to the start and the icon
+ * is one text line high, so when the text wraps onto a second line the icon
+ * stays level with the first line. The icon carries the same type class as its
+ * text, so its line height is the text's. Only existing spacing and icon-size
+ * foundations are used; no new token is created.
+ */
+
+.wex-icon-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--wex-space-8);
+}
+
+.wex-icon-label__icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  inline-size: var(--wex-icon-size-16);
+  block-size: 1lh;
+}
+
+.wex-icon-label__icon > svg {
+  inline-size: var(--wex-icon-size-16);
+  block-size: var(--wex-icon-size-16);
+}

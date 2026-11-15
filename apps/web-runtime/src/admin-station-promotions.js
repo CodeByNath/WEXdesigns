@@ -89,16 +89,16 @@ export function createOptionsMenu(document, card, { id, label: name, eventName }
 function createPromotion(document, promotion) {
   listenForMenuDismissal(document);
   const card = node(document, 'article', 'wex-admin-promotion');
-  const header = node(document, 'header', 'wex-admin-promotion__header');
-  const tag = node(document, 'span', 'wex-admin-promotion__icon wex-type-navigation-small-semibold');
+  const header = node(document, 'header', 'wex-admin-promotion__header wex-icon-label');
+  const tag = node(document, 'span', 'wex-admin-promotion__icon wex-icon-label__icon wex-type-navigation-small-semibold');
   tag.append(createSystemIcon(document, 'tag'));
   header.append(tag, node(document, 'h3', 'wex-admin-promotion__title wex-type-navigation-small-semibold', promotion.title));
   const details = node(document, 'ul', 'wex-admin-promotion__details');
   /** @type {ReadonlyArray<readonly ['user' | 'calendar' | 'user-group', string]>} */
   const rows = [['user', promotion.owner], ['calendar', promotion.start], ['calendar', promotion.end], ['user-group', promotion.audience]];
   rows.forEach(([icon, text]) => {
-    const row = node(document, 'li', 'wex-admin-promotion__detail');
-    const glyph = node(document, 'span', 'wex-admin-promotion__icon wex-type-body-small-regular');
+    const row = node(document, 'li', 'wex-admin-promotion__detail wex-icon-label');
+    const glyph = node(document, 'span', 'wex-admin-promotion__icon wex-icon-label__icon wex-type-body-small-regular');
     glyph.append(createSystemIcon(document, icon));
     row.append(glyph, node(document, 'span', 'wex-type-body-small-regular', text));
     details.append(row);
