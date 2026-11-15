@@ -353,6 +353,13 @@ test('the Promotion cards flow one to a row when a card would be narrower than 1
   assert.match(css, /__list \{[^}]*grid-template-columns: repeat\(auto-fit, minmax\(calc\(var\(--wex-space-64\) \* 2\.5\), 1fr\)\);/);
 });
 
+test('temporary: the end date calendar icon is hidden but keeps its space', async () => {
+  const js = await readFile(new URL('../src/admin-station-promotions.js', import.meta.url), 'utf8');
+  const css = await readFile(new URL('../src/admin-station-promotions.css', import.meta.url), 'utf8');
+  assert.match(js, /if \(index === 2\) glyph\.dataset\.iconHidden = '';/);
+  assert.match(css, /__icon\[data-icon-hidden\] \{\s*visibility: hidden;/);
+});
+
 test('the Promotion cards share every row, so matching details sit on the same line', async () => {
   const css = await readFile(new URL('../src/admin-station-promotions.css', import.meta.url), 'utf8');
   assert.match(css, /\.wex-admin-promotion \{[^}]*grid-row: span 5;[^}]*grid-template-rows: subgrid;/);

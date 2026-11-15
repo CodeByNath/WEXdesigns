@@ -298,3 +298,9 @@ title. This replaces the earlier flex-wrap header. No token was created.
 
 Activity times print the hour with a leading zero (09:41 AM, 10:24 AM) so they
 have the same width. The preview values are updated. No token was created.
+
+## Owner-directed temporary hidden end-date icon — 2026-11-15
+
+Temporary: the calendar icon of the Promotion end date row is hidden
+(`visibility: hidden`, so it keeps its space and the text stays aligned). To be
+reverted when the Owner asks. No token was created.

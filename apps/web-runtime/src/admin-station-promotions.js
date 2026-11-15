@@ -98,9 +98,11 @@ function createPromotion(document, promotion) {
   const details = node(document, 'ul', 'wex-admin-promotion__details');
   /** @type {ReadonlyArray<readonly ['user' | 'calendar' | 'user-group', string]>} */
   const rows = [['user', promotion.owner], ['calendar', promotion.start], ['calendar', promotion.end], ['user-group', promotion.audience]];
-  rows.forEach(([icon, text]) => {
+  rows.forEach(([icon, text], index) => {
     const row = node(document, 'li', 'wex-admin-promotion__detail wex-icon-label');
     const glyph = node(document, 'span', 'wex-admin-promotion__icon wex-icon-label__icon wex-type-body-small-regular');
+    // Temporary (Owner-directed, 2026-11-15): the end date's calendar icon is hidden.
+    if (index === 2) glyph.dataset.iconHidden = '';
     glyph.append(createSystemIcon(document, icon));
     row.append(glyph, node(document, 'span', 'wex-type-body-small-regular', text));
     details.append(row);
