@@ -478,3 +478,12 @@ The Drawer right divider (16px after the content, shown whenever the Drawer is w
 the content) is also drawn in the Header and the Footer, at the same place as in the Body, so
 it runs the full Drawer height. The bars keep their backgrounds, borders and actions. Default
 is unchanged. No token was created.
+
+## Owner-directed Half Drawer max width, divider and action movement removed — 2026-11-16
+
+The right divider (Body, Header, Footer) and the Header and Footer actions ending where the
+Body content ends are removed; the actions sit at the Drawer edge again. In their place, while
+there is no content to load into another column, the Half Drawer is at most 1000px wide
+(`--wex-admin-shell-drawer-half-max-inline-size`, built from the 64px, 48px and 8px spaces; the
+Half rules in `layout.css` use `min(50%, ...)`). Full stays the full width for now, Default is
+560px, and the Body content caps (560px, 720px in Half) are unchanged. No token was created.

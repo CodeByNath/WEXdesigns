@@ -3,8 +3,7 @@
  * read its width. The Body content is at most 560px (the default Drawer inline size) wide and stays on the left;
  * in Half mode it can be up to 720px (11 x the 64px space plus the 16px space), but once the Body has room for two
  * 560px columns the cap drops back to 560px, so the room is kept for another column. The Body end inset takes the
- * rest. The Header and Footer bars stay full width, but their actions (status pill, menu, close, Save, Publish)
- * end where the content ends (Owner-directed, 2026-11-15).
+ * rest. Header, Sidebar and Footer are not affected.
  */
 .wex-admin-shell__drawer {
   container-type: inline-size;
@@ -24,27 +23,12 @@
   --wex-admin-shell-drawer-body-max-inline-size: calc(var(--wex-admin-shell-drawer-body-half-max-inline-size) - clamp(calc(var(--wex-space-16) * 0), calc((var(--wex-admin-shell-drawer-body-inline-size) - var(--wex-admin-shell-drawer-default-inline-size) * 2) * 1000), calc(var(--wex-admin-shell-drawer-body-half-max-inline-size) - var(--wex-admin-shell-drawer-default-inline-size))));
 }
 
-/* The space at the Drawer end that no Body content reaches. The Header and Footer actions use it too, so they end where the content ends. */
+/* The space at the Drawer end that no Body content reaches. */
 .wex-admin-shell {
   --wex-admin-shell-drawer-content-end-inset: calc(100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-space-16) - var(--wex-border-width-default) * 2 - var(--wex-admin-shell-drawer-body-max-inline-size));
 }
 
-/*
- * The Body keeps its full width and its background. Whenever the Drawer is wider than the content, a 1px divider
- * is drawn 16px after the content (the same gap the Sidebar has before it), and the end padding takes the rest.
- * The Header and Footer draw the same divider at the same place, so it runs the full height of the Drawer. With no
- * room left over the divider has no width, so Default is unchanged. The divider is a background layer, so it stays
- * in place while the Body scrolls.
- */
+/* The Body keeps its full width and background; its end padding takes the room the content does not use. */
 .wex-admin-shell__drawer-body {
   padding-inline-end: max(var(--wex-space-16), var(--wex-admin-shell-drawer-content-end-inset));
-}
-
-.wex-admin-shell__drawer-header,
-.wex-admin-shell__drawer-body,
-.wex-admin-shell__drawer-footer {
-  background-image: linear-gradient(var(--wex-color-border-subtle), var(--wex-color-border-subtle));
-  background-repeat: no-repeat;
-  background-size: clamp(calc(var(--wex-space-16) * 0), calc((var(--wex-admin-shell-drawer-content-end-inset) - var(--wex-space-16)) * 1000), var(--wex-border-width-default)) 100%;
-  background-position: right max(calc(var(--wex-space-16) * 0), calc(var(--wex-admin-shell-drawer-content-end-inset) - var(--wex-space-16) - var(--wex-border-width-default))) top;
 }

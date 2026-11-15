@@ -1,0 +1,8 @@
+/*
+ * Drawer Half width (Owner-directed, 2026-11-16). While there is no content to load into another column, the Half
+ * Drawer is at most 1000px wide (15 x the 64px space plus the 48px space, less the 8px space). The Half rules in
+ * layout.css read this value. Full stays the full width for now.
+ */
+.wex-admin-shell {
+  --wex-admin-shell-drawer-half-max-inline-size: calc(var(--wex-space-64) * 15 + var(--wex-space-48) - var(--wex-space-8));
+}

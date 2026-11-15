@@ -400,7 +400,7 @@ button.wex-admin-shell__sidebar-tab {
 }
 
 .wex-admin-shell[data-admin-drawer="open"][data-admin-drawer-mode="half"] .wex-admin-shell__drawer {
-  inline-size: 50%;
+  inline-size: min(50%, var(--wex-admin-shell-drawer-half-max-inline-size));
 }
 
 .wex-admin-shell[data-admin-drawer="open"][data-admin-drawer-mode="full"] .wex-admin-shell__drawer {
@@ -583,7 +583,7 @@ button.wex-admin-shell__sidebar-tab {
   }
 
   .wex-admin-shell[data-admin-drawer="open"][data-admin-drawer-mode="half"] .wex-admin-shell__drawer {
-    inline-size: 50%;
+    inline-size: min(50%, var(--wex-admin-shell-drawer-half-max-inline-size));
   }
 
   .wex-admin-shell[data-admin-drawer="open"][data-admin-drawer-mode="full"] .wex-admin-shell__drawer {

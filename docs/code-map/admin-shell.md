@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-16: The Half Drawer is at most 1000px wide while there is no content for
+  another column (`drawer-width.css`, read by the Half rules in `layout.css`); Full
+  stays the full width for now. The right divider and the Header and Footer actions
+  following the content are removed: the actions sit at the Drawer edge again.
 - 2026-11-15: The Drawer right divider also runs through the Header and Footer: the
   three compartments draw the same 1px line at the same place (`drawer-body.css`),
   so it spans the full Drawer height.

@@ -1,8 +1,6 @@
 /* The Drawer Footer holds its Small Button row on the same side padding as the Drawer Header so the Publish edge meets the close button edge. Close, or Discard in its place, sits at the start; Save and Publish sit at the end. */
 .wex-admin-shell__drawer-footer {
   padding-inline: var(--wex-space-16);
-  /* The Footer actions end where the Body content ends. */
-  padding-inline-end: max(var(--wex-space-16), var(--wex-admin-shell-drawer-content-end-inset));
   display: flex;
   align-items: center;
   justify-content: flex-end;
