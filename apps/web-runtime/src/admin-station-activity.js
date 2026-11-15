@@ -1,14 +1,14 @@
 import { createOptionsMenu } from './admin-station-promotions.js';
 import { createSystemIcon } from './admin-station-system-icons.js';
 
-/** @typedef {{ id: string, icon: 'tool' | 'cart' | 'user', title: string, time: string, description: string }} Activity */
+/** @typedef {{ id: string, icon: 'tool' | 'cart' | 'user', tone: 'success' | 'warning' | 'error' | 'info', title: string, time: string, description: string }} Activity */
 
 /** Product activity in the preview data, most recent first. */
 /** @type {ReadonlyArray<Activity>} */
 const activityFixture = Object.freeze([
-  { id: 'price-updated', icon: 'tool', title: 'Product price updated', time: 'Today, 10:24 AM', description: 'The price of PADI SCUBA Diver Course was updated.' },
-  { id: 'order-created', icon: 'cart', title: 'New order created', time: 'Today, 9:41 AM', description: 'A new order was created for PADI SCUBA Diver Course.' },
-  { id: 'new-review', icon: 'user', title: 'New review', time: 'Yesterday, 4:12 PM', description: 'A new review was left for PADI SCUBA Diver Course.' },
+  { id: 'price-updated', icon: 'tool', tone: 'info', title: 'Product price updated', time: 'Today, 10:24 AM', description: 'The price of PADI SCUBA Diver Course was updated.' },
+  { id: 'order-created', icon: 'cart', tone: 'success', title: 'New order created', time: 'Today, 9:41 AM', description: 'A new order was created for PADI SCUBA Diver Course.' },
+  { id: 'new-review', icon: 'user', tone: 'warning', title: 'New review', time: 'Yesterday, 4:12 PM', description: 'A new review was left for PADI SCUBA Diver Course.' },
 ]);
 
 /** How many recent activities the Drawer shows before See all. */
@@ -54,6 +54,7 @@ function createActivity(document, activity) {
   const content = node(document, 'div', 'wex-admin-activity__content');
   const heading = node(document, 'div', 'wex-admin-activity__heading wex-icon-label');
   const mark = node(document, 'span', 'wex-admin-activity__icon--title wex-icon-label__icon wex-type-navigation-small-semibold');
+  mark.dataset.tone = activity.tone;
   mark.append(createSystemIcon(document, activity.icon));
   heading.append(mark, node(document, 'h3', 'wex-admin-activity__title wex-type-navigation-small-semibold', activity.title));
   const time = node(document, 'p', 'wex-admin-activity__time wex-icon-label wex-type-body-small-regular');

@@ -4,8 +4,10 @@
  * A text label with an icon beside it. The row aligns to the start and the icon
  * is one text line high, so when the text wraps onto a second line the icon
  * stays level with the first line. The icon carries the same type class as its
- * text, so its line height is the text's. Only existing spacing and icon-size
- * foundations are used; no new token is created.
+ * text, so its line height is the text's. An icon may carry a status tone
+ * (`data-tone`): success (active, success, pass) green, warning yellow, error
+ * red, info (no action required) blue. Only existing spacing, icon-size and
+ * colour foundations are used; no new token is created.
  */
 
 .wex-icon-label {
@@ -25,4 +27,20 @@
 .wex-icon-label__icon > svg {
   inline-size: var(--wex-icon-size-16);
   block-size: var(--wex-icon-size-16);
+}
+
+.wex-icon-label__icon[data-tone="success"] {
+  color: var(--wex-color-background-success);
+}
+
+.wex-icon-label__icon[data-tone="warning"] {
+  color: var(--wex-color-background-warning);
+}
+
+.wex-icon-label__icon[data-tone="error"] {
+  color: var(--wex-color-background-error);
+}
+
+.wex-icon-label__icon[data-tone="info"] {
+  color: var(--wex-color-icon-accent);
 }

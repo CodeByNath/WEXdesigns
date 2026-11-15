@@ -275,3 +275,12 @@ token was created.
 The swap is reverted: when the Activity cards stack their time on a row of its
 own, the time sits below the title again, in the order of the markup. No token
 was created.
+
+## Owner-directed status tones on title icons — 2026-11-15
+
+The Promotion and Activity title icons are coloured by status through the global
+Icon Label tone (ADR 0037): green for active, success and pass, yellow for
+warning, red for errors and blue for no action required. The preview data is
+assigned as follows: both promotions are success (Active); Product price updated
+is info, New order created is success and New review is warning. These
+assignments are preview values. No token was created.

@@ -16,6 +16,11 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: Title icons in the Drawer Body carry a status tone through the
+  global Icon Label rule (`data-tone`): success green (active, success, pass),
+  warning yellow, error red, info blue (no action required). Preview data:
+  both promotions success; Product price updated info, New order created
+  success, New review warning.
 - 2026-11-15: The Activity options button is centred vertically in its full-height
   divider cell; its menu opens below the button.
 - 2026-11-15: The Activity cards look identical: when the time does not fit beside

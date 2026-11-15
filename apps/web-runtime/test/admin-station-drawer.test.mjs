@@ -299,8 +299,8 @@ test('Presentation prints the Activity row and the two most recent activity card
 
 test('the preview promotions are Black Friday and Adults at kids Price, with the start and end dates in separate rows', async () => {
   const promotions = await readFile(new URL('../src/admin-station-promotions.js', import.meta.url), 'utf8');
-  assert.match(promotions, /title: 'Black Friday', owner: 'By Jake Harper', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers'/);
-  assert.match(promotions, /title: 'Adults at kids Price', owner: 'By Amanda Collins', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers'/);
+  assert.match(promotions, /title: 'Black Friday', tone: 'success', owner: 'By Jake Harper', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers'/);
+  assert.match(promotions, /title: 'Adults at kids Price', tone: 'success', owner: 'By Amanda Collins', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers'/);
   assert.match(promotions, /\['calendar', promotion\.start\], \['calendar', promotion\.end\]/);
 });
 
@@ -324,6 +324,18 @@ test('the Activity time never breaks inside itself and sits at the start when it
   assert.match(css, /__header \{[^}]*grid-template-columns: minmax\(0, 1fr\) auto;/);
   assert.match(css, /__menu \{[^}]*align-self: stretch;[^}]*align-items: center;/);
   assert.doesNotMatch(css, /__end\b/);
+});
+
+test('the title icons carry a status tone: green success, yellow warning, red error, blue info', async () => {
+  const [activityJs, promoJs] = await Promise.all([
+    readFile(new URL('../src/admin-station-activity.js', import.meta.url), 'utf8'),
+    readFile(new URL('../src/admin-station-promotions.js', import.meta.url), 'utf8'),
+  ]);
+  assert.match(activityJs, /mark\.dataset\.tone = activity\.tone;/);
+  assert.match(activityJs, /id: 'order-created', icon: 'cart', tone: 'success'/);
+  assert.match(activityJs, /id: 'price-updated', icon: 'tool', tone: 'info'/);
+  assert.match(promoJs, /tag\.dataset\.tone = promotion\.tone;/);
+  assert.match(promoJs, /id: 'black-friday', title: 'Black Friday', tone: 'success'/);
 });
 
 test('when the time wraps in any Activity card, every card stacks its time', async () => {

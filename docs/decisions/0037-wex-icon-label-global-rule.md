@@ -14,8 +14,15 @@ type class as its text and centres its glyph on the first line. This is the rule
 the Promotion details already followed; it is promoted from the Promotion card
 and generalised instead of being repeated in each component.
 
-The rule uses only existing foundations: the 8px spacing token for the gap and
-the 16px icon size token for the icon. It creates no token, tier or mode.
+An icon may carry a status tone (`data-tone`), Owner-directed on 2026-11-15:
+`success` (active, success, pass) is green, `warning` yellow, `error` red and
+`info` (no action required) blue. The tones use the existing status background
+tokens (`--wex-color-background-success`, `-warning`, `-error`) and
+`--wex-color-icon-accent`.
+
+The rule uses only existing foundations: the 8px spacing token for the gap, the
+16px icon size token for the icon and the status colour tokens for the tones. It
+creates no token, tier or mode.
 
 ## Consumers
 

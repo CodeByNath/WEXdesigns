@@ -1,11 +1,12 @@
 import { createMoreActionIcon, createSystemIcon } from './admin-station-system-icons.js';
 
-/** @typedef {{ id: string, title: string, owner: string, start: string, end: string, audience: string }} Promotion */
+/** @typedef {'success' | 'warning' | 'error' | 'info'} IconTone */
+/** @typedef {{ id: string, title: string, tone: IconTone, owner: string, start: string, end: string, audience: string }} Promotion */
 
 /** @type {ReadonlyArray<Promotion>} */
 const promotionFixture = Object.freeze([
-  { id: 'black-friday', title: 'Black Friday', owner: 'By Jake Harper', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers' },
-  { id: 'adults-at-kids-price', title: 'Adults at kids Price', owner: 'By Amanda Collins', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers' },
+  { id: 'black-friday', title: 'Black Friday', tone: 'success', owner: 'By Jake Harper', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers' },
+  { id: 'adults-at-kids-price', title: 'Adults at kids Price', tone: 'success', owner: 'By Amanda Collins', start: 'Jan 10, 2024', end: 'Jan 31, 2024', audience: 'New Customers' },
 ]);
 
 /** @param {Document} document @param {keyof HTMLElementTagNameMap} tag @param {string} className @param {string} [text] */
@@ -91,6 +92,7 @@ function createPromotion(document, promotion) {
   const card = node(document, 'article', 'wex-admin-promotion');
   const header = node(document, 'header', 'wex-admin-promotion__header wex-icon-label');
   const tag = node(document, 'span', 'wex-admin-promotion__icon wex-icon-label__icon wex-type-navigation-small-semibold');
+  tag.dataset.tone = promotion.tone;
   tag.append(createSystemIcon(document, 'tag'));
   header.append(tag, node(document, 'h3', 'wex-admin-promotion__title wex-type-navigation-small-semibold', promotion.title));
   const details = node(document, 'ul', 'wex-admin-promotion__details');

@@ -15,4 +15,8 @@ test('registers the global Icon Label rule: icon one text line high, aligned to 
   assert.match(iconLabel, /\.wex-icon-label__icon > svg\s*\{[^}]*inline-size: var\(--wex-icon-size-16\);[^}]*block-size: var\(--wex-icon-size-16\);/);
   assert.doesNotMatch(iconLabel.replace(/\/\*[\s\S]*?\*\//g, ''), /#[0-9a-f]{3,8}\b|rgb\(|hsl\(|\d+(?:px|rem)/i);
   assert.doesNotMatch(iconLabel.replace(/\/\*[\s\S]*?\*\//g, ''), /--wex-icon-label-/);
+  const tones = { success: 'background-success', warning: 'background-warning', error: 'background-error', info: 'icon-accent' };
+  for (const [tone, token] of Object.entries(tones)) {
+    assert.match(iconLabel, new RegExp(`\\.wex-icon-label__icon\\[data-tone="${tone}"\\]\\s*\\{\\s*color: var\\(--wex-color-${token}\\);`));
+  }
 });
