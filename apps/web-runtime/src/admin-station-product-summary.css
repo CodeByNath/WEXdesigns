@@ -86,6 +86,11 @@
   align-items: flex-start;
 }
 
+/* The Labels row shows a 1px top border on its label and its value (Owner-directed, 2026-11-15), so the top edges can be compared. */
+.wex-admin-product-summary__row:has(.wex-admin-product-summary__chips) > :is(.wex-admin-product-summary__label, .wex-admin-product-summary__value) {
+  border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
 /* A value never runs past two lines: it ends in an ellipsis, and its label stays at the top. */
 .wex-admin-product-summary__value > span {
   display: -webkit-box;

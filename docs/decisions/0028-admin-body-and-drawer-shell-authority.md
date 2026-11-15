@@ -173,3 +173,10 @@ with the existing chip-height minimum), like the text rows. On one row it stays
 centred on the chip. The Product Summary marks the wrapped state on the chips
 list with `data-wrapped`, set by a resize observer; the CSS reads that marker.
 No token was created.
+
+## Owner-directed Product Summary Labels top border — 2026-11-15
+
+The Labels row's label (`dt`) and its value (`dd`) each carry a 1px top border
+in the subtle border colour, at every width. The rule uses the existing
+`--wex-border-width-default` and `--wex-color-border-subtle` tokens in
+`admin-station-product-summary.css`. No token was created.

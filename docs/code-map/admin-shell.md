@@ -50,7 +50,7 @@
   the two-column Product Summary (`admin-station-product-summary.js`/`.css`:
   name, then the Platform ID (regular weight, no pill) and Booking ID (Rezdy product code; bold, no pill), Rating, Price, Duration,
   Language, Category (bold, no pill) and Labels (chips) label and value rows at
-  the start; the framed image (padding, border) at the end, in a column 40% narrower than before (2fr content, 0.6fr image); the Labels label moves to the top when its chips wrap onto a second row (`data-wrapped`); preview data from the PADI courses at
+  the start; the framed image (padding, border) at the end, in a column 40% narrower than before (2fr content, 0.6fr image); the Labels label moves to the top when its chips wrap onto a second row (`data-wrapped`); the Labels label and value carry a 1px top border; preview data from the PADI courses at
   qldscubadive.com.au/padi-courses-gold-coast, which also replace the Services
   preview rows in `admin-station-services.js`), then the Promotions row
   (`createPromotionsHeading`: label, active count with a green Active pill or "No
