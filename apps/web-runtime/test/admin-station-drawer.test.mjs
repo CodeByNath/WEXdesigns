@@ -384,7 +384,7 @@ test('when Half would be narrower than 720px, Default is half of the workspace',
   assert.match(js, /const HALF_COMPACT_BELOW = 720;/);
   assert.match(js, /toggleAttribute\('data-admin-drawer-compact', drawer\.getBoundingClientRect\(\)\.width < HALF_COMPACT_BELOW\)/);
   assert.match(index, /@import "\.\/foundations\/drawer-width\.css";/);
-  assert.match(css, /@media \(min-width: 768px\) \{\s*\.wex-admin-shell\[data-admin-drawer="open"\]\[data-admin-drawer-compact\]\[data-admin-drawer-mode="default"\] \.wex-admin-shell__drawer \{\s*inline-size: 50%;/);
+  assert.match(css, /@media \(min-width: 768px\) \{\s*\.wex-admin-shell\[data-admin-drawer="open"\]\[data-admin-drawer-compact\]\[data-admin-drawer-mode="default"\] \.wex-admin-shell__drawer \{\s*inline-size: max\(50%, min\(var\(--wex-admin-shell-drawer-default-inline-size\), 100%\)\);/);
 });
 
 test('the Product Summary image has a 16px shell and floats on small devices so content breaks around it', async () => {

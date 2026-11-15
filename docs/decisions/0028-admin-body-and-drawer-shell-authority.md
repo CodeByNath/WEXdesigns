@@ -379,3 +379,11 @@ measures Half on open and on resize and marks the Admin shell
 `data-admin-drawer-compact`; `drawer-width.css` applies the width at 768px and
 up. Small screens keep their Drawer rules. The 720px is Owner-directed. No token
 was created.
+
+## Owner-directed Default Drawer minimum kept — 2026-11-15
+
+The compact Default (half of the workspace when Half would be under 720px) never
+goes below the Default minimum, the default Drawer inline size (560px):
+`max(50%, min(560px, 100%))`. Where half of the workspace is narrower than that,
+Default stays at its minimum and Half is not offered, as before. No token was
+created.
