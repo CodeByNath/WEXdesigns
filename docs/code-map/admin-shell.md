@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: The Drawer Body right divider is a background line, not a shrunk Body:
+  the Body keeps its full width and background, and the 1px divider sits 16px after
+  the content whenever the Drawer is wider than the content (`drawer-body.css`).
 - 2026-11-15: The Drawer Body closes on the right with a 1px divider, 16px after its
   content (like the Sidebar's), when the content leaves room at the Drawer end
   (`drawer-body.css`); with no room it has no width, so Default is unchanged.

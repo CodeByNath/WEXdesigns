@@ -463,3 +463,11 @@ the counterpart of the Sidebar's. The Body shrinks with an end margin (the share
 `--wex-admin-shell-drawer-content-end-inset` minus its 16px padding and the divider), so the
 content, the Header actions and the Footer actions keep the same end edge. When the content
 fills the Drawer the divider has no width, so Default is unchanged. No token was created.
+
+## Owner-directed Drawer Body divider keeps the background — 2026-11-15
+
+Correction to the right divider above: the Body is not shrunk and its background is not
+removed. The Body keeps its full width and background; the 1px divider is a background layer
+placed 16px after the content, and the end padding takes the rest. It shows whenever the
+Drawer is wider than the content (not only with two columns) and has no width otherwise, so
+Default is unchanged. The end margin and border approach is removed. No token was created.
