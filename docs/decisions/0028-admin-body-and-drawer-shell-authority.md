@@ -216,3 +216,12 @@ An icon beside a text label in the Drawer Body stays level with the first line
 when the text wraps. The Owner made this a global rule: WEX Icon Label
 (`.wex-icon-label`, ADR 0037). The Promotion card and Activity card icons use it
 and carry no local alignment rules. No token was created.
+
+## Owner-directed Promotion cards share every row — 2026-11-15
+
+The two Promotion cards share the list's rows for the header and for each of the
+four details (owner, start, end, audience): the card spans five rows and its
+details list spans four, both as subgrids. When a title or a detail wraps in one
+card, the matching row of the other card keeps the same line, so the dates sit
+on the same axis. The spacing between details stays 8px and between the header
+and details 12px. No token was created.

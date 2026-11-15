@@ -26,11 +26,11 @@
   gap: var(--wex-space-12);
 }
 
-/* Each card spans the list's header and details rows (subgrid), so the details of both cards line up however many lines a title takes. */
+/* Each card spans the list's header row and its four detail rows (owner, start, end, audience) as subgrids, so every row of both cards sits on the same line however many lines a title or a detail takes. */
 .wex-admin-promotion {
   position: relative;
   display: grid;
-  grid-row: span 2;
+  grid-row: span 5;
   grid-template-rows: subgrid;
   gap: var(--wex-space-12);
   padding: calc(var(--wex-space-16) - var(--wex-border-width-default));
@@ -46,6 +46,8 @@
 
 .wex-admin-promotion__details {
   display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
   gap: var(--wex-space-8);
   margin: 0;
   padding: 0;

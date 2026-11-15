@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: Promotion cards share every row (header plus owner, start, end,
+  audience) as nested subgrids, so matching details of the two cards sit on the
+  same line when a title or detail wraps.
 - 2026-11-15: Icons beside text in the Drawer Body (Promotion details and title,
   Activity title and time) use the global Icon Label rule (`.wex-icon-label`,
   ADR 0037): the icon stays level with the first line when the text wraps.
