@@ -1,8 +1,9 @@
 /*
  * Drawer Body shell content width (Owner-directed, 2026-11-15). The Drawer is a size container, so the Body can
  * read its width. The Body content is at most 560px (the default Drawer inline size) wide and stays on the left;
- * in Half mode it can be up to 720px (11 x the 64px space plus the 16px space). The Body end inset takes the rest.
- * Header, Sidebar and Footer are not affected.
+ * in Half mode it can be up to 720px (11 x the 64px space plus the 16px space), but once the Body has room for two
+ * 560px columns the cap drops back to 560px, so the room is kept for another column. The Body end inset takes the
+ * rest. Header, Sidebar and Footer are not affected.
  */
 .wex-admin-shell__drawer {
   container-type: inline-size;
@@ -12,8 +13,14 @@
   --wex-admin-shell-drawer-body-max-inline-size: var(--wex-admin-shell-drawer-default-inline-size);
 }
 
+.wex-admin-shell {
+  --wex-admin-shell-drawer-body-inline-size: calc(100cqi - var(--wex-admin-shell-sidebar-collapsed) - var(--wex-border-width-default) * 2 - var(--wex-space-16) * 2);
+}
+
+/* The cap falls from 720px to 560px (a 160px step) as soon as the Body is at least two columns wide; the large factor makes the step abrupt. */
 .wex-admin-shell[data-admin-drawer-mode="half"] {
-  --wex-admin-shell-drawer-body-max-inline-size: calc(var(--wex-space-64) * 11 + var(--wex-space-16));
+  --wex-admin-shell-drawer-body-half-max-inline-size: calc(var(--wex-space-64) * 11 + var(--wex-space-16));
+  --wex-admin-shell-drawer-body-max-inline-size: calc(var(--wex-admin-shell-drawer-body-half-max-inline-size) - clamp(calc(var(--wex-space-16) * 0), calc((var(--wex-admin-shell-drawer-body-inline-size) - var(--wex-admin-shell-drawer-default-inline-size) * 2) * 1000), calc(var(--wex-admin-shell-drawer-body-half-max-inline-size) - var(--wex-admin-shell-drawer-default-inline-size))));
 }
 
 .wex-admin-shell__drawer-body {

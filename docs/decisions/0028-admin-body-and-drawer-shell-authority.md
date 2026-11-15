@@ -438,3 +438,11 @@ on the left; in Half mode the cap is 720px (11 x the 64px space plus the 16px sp
 end inset (`padding-inline-end`) takes the rest, and the Drawer is a size container so the Body
 can read its width. Default is narrower than the cap, so it is unchanged. Header, Sidebar and
 Footer are not affected. No token was created.
+
+## Owner-directed Half cap returns to 560px when two columns fit — 2026-11-15
+
+In Half mode the Drawer Body content cap is 720px only while the Body is narrower than two
+560px columns (1120px). From that width on the cap is 560px, so the room is kept for another
+560px column and the content does not stretch. Default and Full are unchanged (Full is 560px).
+The step uses existing tokens only (the default Drawer inline size, the 64px and 16px spaces);
+no token was created.

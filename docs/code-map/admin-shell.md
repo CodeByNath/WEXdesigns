@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-15: In Half mode the Drawer Body content cap is 720px only until the Body
+  has room for two 560px columns; from then on it is 560px, keeping the room for
+  another column (`drawer-body.css`).
 - 2026-11-15: The Drawer Body shell caps its content at 560px, left aligned, and
   at 720px in Half mode (`packages/wex/src/foundations/drawer-body.css`). The Body
   end inset takes the rest; Header, Sidebar and Footer are unaffected.
