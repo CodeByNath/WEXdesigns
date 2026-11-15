@@ -502,3 +502,23 @@ In Half mode the Drawer Body content (not the Body shell) is centred: the Body s
 half of the room the capped content leaves (16px at least), and the end inset takes the other
 half. The end inset formula now subtracts the start inset, and the section lines use both insets
 so they still run edge to edge. Default and Full are unchanged. No token was created.
+
+## Current Drawer width state — 2026-11-16
+
+Summary of the Owner-directed Drawer width work, so the sections above need not be replayed.
+
+- **Modes:** Default is 560px. Half is `min(50%, 1000px)` (`drawer-width.css`, read by the Half
+  rules in `layout.css`) and exists only when it is wider than Default and at least 720px
+  (`HALF_MIN_WIDTH`); otherwise the Drawer jumps from Default to Full. Full is the whole width
+  for now.
+- **Body content:** capped at 560px, and 720px in Half (back to 560px once the Body has room
+  for two 560px columns; not reachable while Half is at most 1000px), left aligned. In Half the
+  content is centred. Insets come from `--wex-admin-shell-drawer-body-start-inset` and
+  `--wex-admin-shell-drawer-body-end-inset` (`drawer-body.css`).
+- **Sections:** each Body section is one unit (`sectionUnit`); the 1px section lines run edge to
+  edge across the Body using the two insets.
+- **Removed (history above):** the Drawer Body multi-column layout, the Admin Body and main
+  1440px cap, the compact Default, the right divider and the Header and Footer actions following
+  the content. No token was created for any of this.
+- **Open:** the second column is not built. When it is, the Header and Footer actions should end
+  at the end of the last column, and the Half cap rule for two columns becomes reachable.

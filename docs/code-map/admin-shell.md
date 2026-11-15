@@ -2,10 +2,10 @@
 
 ## Current operating status
 
-- Last visited: 2026-11-09
-- Last updated: 2026-11-09
-- Verified against `main` at `bae8a663b80113e626e9c3e0783316f45aae58b0`,
-  with the owner-authorised Services refinement in the working tree:
+- Last visited: 2026-11-16
+- Last updated: 2026-11-16
+- Verified against `main` at `e54a24e4e738b0c802c6d34aee52b9692d8ceada`
+  (Studio staging pointer 395), clean working tree:
   the Logo-fitted Dashboard shell remains standalone; the portable Studio
   entry consumes only the narrow Logo image-property adapter seam through a
   one-time serializable host input; the Header-owned location label prints the
@@ -15,6 +15,17 @@
   or Component Manager specimen.
 
 ### Recent work (newest first)
+
+- 2026-11-16 (current Drawer width state, this session's result): Drawer modes are
+  Default 560px, Half `min(50%, 1000px)` (only when it is at least 720px and wider
+  than Default; otherwise the Drawer jumps from Default to Full) and Full 100%.
+  The Drawer Body (`drawer-body.css`) caps its content at 560px, 720px in Half
+  (back to 560px once two 560px columns fit), left aligned, centred in Half. Each
+  Body section is one unit (`sectionUnit`), and the section lines run edge to
+  edge. Header, Sidebar and Footer are unaffected. Not built: the second column
+  (the Header and Footer actions should then end at the last column). Removed this
+  session: the right divider, the actions following the content, the Admin Body
+  1440px cap, the Drawer Body multi-column layout and the compact Default.
 
 - 2026-11-16: In Half mode the Drawer Body content is centred: the room is shared
   equally at the start and the end (`--wex-admin-shell-drawer-body-start-inset`,
@@ -27,16 +38,16 @@
   another column (`drawer-width.css`, read by the Half rules in `layout.css`); Full
   stays the full width for now. The right divider and the Header and Footer actions
   following the content are removed: the actions sit at the Drawer edge again.
-- 2026-11-15: The Drawer right divider also runs through the Header and Footer: the
+- 2026-11-15 (removed 2026-11-16): The Drawer right divider also runs through the Header and Footer: the
   three compartments draw the same 1px line at the same place (`drawer-body.css`),
   so it spans the full Drawer height.
-- 2026-11-15: The Drawer Body right divider is a background line, not a shrunk Body:
+- 2026-11-15 (removed 2026-11-16): The Drawer Body right divider is a background line, not a shrunk Body:
   the Body keeps its full width and background, and the 1px divider sits 16px after
   the content whenever the Drawer is wider than the content (`drawer-body.css`).
-- 2026-11-15: The Drawer Body closes on the right with a 1px divider, 16px after its
+- 2026-11-15 (removed 2026-11-16): The Drawer Body closes on the right with a 1px divider, 16px after its
   content (like the Sidebar's), when the content leaves room at the Drawer end
   (`drawer-body.css`); with no room it has no width, so Default is unchanged.
-- 2026-11-15: The Drawer Header and Footer actions (status pill, menu, close, Save,
+- 2026-11-15 (removed 2026-11-16): The Drawer Header and Footer actions (status pill, menu, close, Save,
   Publish) end where the Body content ends, through the shared
   `--wex-admin-shell-drawer-content-end-inset` (`drawer-body.css`, used by
   `drawer-header.css` and `drawer-footer.css`). The bars stay full width.
