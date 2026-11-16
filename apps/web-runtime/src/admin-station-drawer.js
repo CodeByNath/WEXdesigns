@@ -17,6 +17,8 @@ const MODE_TRAVEL = 96;
 const STRETCH_MAX = 40;
 /** Time (ms) the Drawer takes to spring back when released short of a jump. */
 const SPRING_BACK = 200;
+/** Full exists only when the content has another column; none is built yet, so Full is off (Owner-directed, 2026-11-17). */
+const SECOND_COLUMN_CONTENT = false;
 /** Half does not exist when it would be narrower than this (px): the Drawer jumps from Default to Full (Owner-directed, 2026-11-15). */
 const HALF_MIN_WIDTH = 720;
 
@@ -60,20 +62,20 @@ function drawerModeWidths(shell) {
 
 /**
  * The modes that exist at this width. Half exists only when it is wider than
- * default and at least HALF_MIN_WIDTH. Wide (stops at 1000px, Owner-directed
- * 2026-11-17) exists only when it is wider than the mode below it and narrower
- * than Full. When default already fills the available width only full exists.
+ * default and at least HALF_MIN_WIDTH. Wide (stops at 1000px, the whole width
+ * within it) exists when it is wider than the mode below it. Full exists only
+ * when the content has another column (SECOND_COLUMN_CONTENT).
  * @param {HTMLElement} shell
  */
 function availableModeWidths(shell) {
   const widths = drawerModeWidths(shell);
   const width = (/** @type {AdminDrawerMode} */ mode) => widths.find((entry) => entry.mode === mode)?.width ?? 0;
-  if (width('default') >= width('full') - 1) return widths.filter((entry) => entry.mode === 'full');
   const halfExists = width('half') > width('default') + 1 && width('half') >= HALF_MIN_WIDTH;
   const below = halfExists ? width('half') : width('default');
   return widths.filter((entry) => {
     if (entry.mode === 'half') return halfExists;
-    if (entry.mode === 'wide') return entry.width > below + 1 && entry.width < width('full') - 1;
+    if (entry.mode === 'wide') return entry.width > below + 1;
+    if (entry.mode === 'full') return SECOND_COLUMN_CONTENT;
     return true;
   });
 }
@@ -82,8 +84,8 @@ function availableModeWidths(shell) {
 function fitMode(shell, mode) {
   const available = availableModeWidths(shell).map((entry) => entry.mode);
   /** @type {AdminDrawerMode[]} */
-  const preference = [mode, 'default', 'full'];
-  return preference.find((candidate) => available.includes(candidate)) ?? 'full';
+  const preference = [mode, 'default'];
+  return preference.find((candidate) => available.includes(candidate)) ?? 'default';
 }
 
 /** @param {HTMLElement} shell @param {AdminDrawerMode} mode @param {'decrease' | 'increase'} direction @returns {AdminDrawerMode} */
@@ -103,9 +105,10 @@ function drawerModeAfter(shell, mode, direction) {
 function syncHandleSeam(shell) {
   const handle = drawerShell(shell)?.querySelector('[data-admin-drawer-mode-control]');
   if (!(handle instanceof HTMLElement)) return;
+  const main = shell.querySelector('[data-admin-station-region="main"]');
   const widths = drawerModeWidths(shell);
   const width = (/** @type {string} */ mode) => widths.find((entry) => entry.mode === mode)?.width ?? 0;
-  handle.toggleAttribute('data-admin-drawer-mode-control-seam', width(shell.dataset.adminDrawerMode ?? 'default') >= width('full') - 1);
+  handle.toggleAttribute('data-admin-drawer-mode-control-seam', main instanceof HTMLElement && width(shell.dataset.adminDrawerMode ?? 'default') >= main.getBoundingClientRect().width - 1);
 }
 
 /** @typedef {'header' | 'sidebar' | 'body' | 'footer'} AdminDrawerCompartmentName */

@@ -36,7 +36,7 @@ test('provides one standalone pill handle that drags the Drawer one approved mod
   assert.match(drawer, /function drawerModeAfter\(shell, mode, direction\)[\s\S]*entry\.width > width : entry\.width < width/);
   assert.match(drawer, /handle\.addEventListener\('pointerdown'[\s\S]*setPointerCapture\(event\.pointerId\)/);
   assert.match(drawer, /const MODE_TRAVEL = 96;/);
-  assert.match(drawer, /function syncHandleSeam\(shell\)[\s\S]*toggleAttribute\('data-admin-drawer-mode-control-seam', width\(shell\.dataset\.adminDrawerMode \?\? 'default'\) >= width\('full'\) - 1\)/);
+  assert.match(drawer, /function syncHandleSeam\(shell\)[\s\S]*toggleAttribute\('data-admin-drawer-mode-control-seam', main instanceof HTMLElement && width\(shell\.dataset\.adminDrawerMode \?\? 'default'\) >= main\.getBoundingClientRect\(\)\.width - 1\)/);
   assert.equal((drawer.match(/syncHandleSeam\(shell\);/g) ?? []).length, 4);
   assert.match(handleCss, /\[data-admin-drawer-mode-control-seam\] \{\s*inset-inline-start: calc\(var\(--wex-space-4\) \/ 2\);\s*transform: translateX\(-50%\);/);
   assert.match(drawer, /const closing = event\.type === 'pointerup' && drag\.closing;\s*if \(closing\) closeAdminDrawer\(shell\);\s*stopDrag\(!closing\);/);
@@ -46,7 +46,8 @@ test('provides one standalone pill handle that drags the Drawer one approved mod
   assert.match(drawer, /prefers-reduced-motion: reduce/);
   assert.match(drawer, /event\.buttons === 0\) \{\s*stopDrag\(\);\s*return;/);
   assert.match(drawer, /const limit = Math\.min\(MODE_TRAVEL, widthGap\(mode, next\)\);\s*if \(Math\.abs\(travel\) < limit\) \{/);
-  assert.match(drawer, /function availableModeWidths\(shell\)[\s\S]*width\('default'\) >= width\('full'\) - 1[\s\S]*const halfExists = width\('half'\) > width\('default'\) \+ 1 && width\('half'\) >= HALF_MIN_WIDTH;[\s\S]*entry\.mode === 'wide'\) return entry\.width > below \+ 1 && entry\.width < width\('full'\) - 1;/);
+  assert.match(drawer, /function availableModeWidths\(shell\)[\s\S]*const halfExists = width\('half'\) > width\('default'\) \+ 1 && width\('half'\) >= HALF_MIN_WIDTH;[\s\S]*entry\.mode === 'wide'\) return entry\.width > below \+ 1;[\s\S]*entry\.mode === 'full'\) return SECOND_COLUMN_CONTENT;/);
+  assert.match(drawer, /const SECOND_COLUMN_CONTENT = false;/);
   assert.match(drawer, /shell\.dataset\.adminDrawerMode = fitMode\(shell, request\.mode \?\? 'default'\);/);
   assert.match(drawer, /resize', \(\) => \{\s*if \(drawer\.hidden\) return;\s*shell\.dataset\.adminDrawerMode = fitMode\(/);
   assert.match(drawer, /const changeMode = \(direction\) => \{[\s\S]*next === mode && direction === 'increase'\) closeAdminDrawer\(shell\)/);
@@ -397,7 +398,7 @@ test('icons beside text use the global Icon Label rule, so they stay level with 
   assert.doesNotMatch(activityCss + promoCss, /1lh|activity__heading \{[^}]*(display|align-items)|promotion__detail \{|promotion__header \{/);
 });
 
-test('Half does not exist when it would be under 720px, so the Drawer jumps from Default to Full', async () => {
+test('Half does not exist when it would be under 720px, so the Drawer jumps from Default to Wide, and Full is off', async () => {
   const js = await readFile(new URL('../src/admin-station-drawer.js', import.meta.url), 'utf8');
   assert.match(js, /const HALF_MIN_WIDTH = 720;/);
   assert.match(js, /const halfExists = width\('half'\) > width\('default'\) \+ 1 && width\('half'\) >= HALF_MIN_WIDTH;/);
