@@ -1,8 +1,13 @@
 /*
- * Drawer Half width (Owner-directed, 2026-11-16). While there is no content to load into another column, the Half
- * Drawer is at most 1000px wide (15 x the 64px space plus the 48px space, less the 8px space). The Half rules in
- * layout.css read this value. Full stays the full width for now.
+ * Drawer Half and Wide width (Owner-directed, 2026-11-16 and 2026-11-17). While there is no content to load into
+ * another column, the Half Drawer is at most 1000px wide (15 x the 64px space plus the 48px space, less the 8px
+ * space). The Wide mode is the Drawer that stops at that same width, or takes the whole width when the view is
+ * within it. Full stays the full width. The Half rules in layout.css and the Wide rule here read this value.
  */
 .wex-admin-shell {
   --wex-admin-shell-drawer-half-max-inline-size: calc(var(--wex-space-64) * 15 + var(--wex-space-48) - var(--wex-space-8));
+}
+
+.wex-admin-shell[data-admin-drawer="open"][data-admin-drawer-mode="wide"] .wex-admin-shell__drawer {
+  inline-size: min(100%, var(--wex-admin-shell-drawer-half-max-inline-size));
 }

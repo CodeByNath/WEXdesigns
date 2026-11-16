@@ -3,14 +3,14 @@ import { mountAdminDrawerFooter, setAdminDrawerDirty } from './admin-station-dra
 import { isAdminDrawerSidebar, resetAdminDrawerSidebar, setAdminDrawerSidebar } from './admin-station-drawer-sidebar.js';
 import { isAdminDrawerHeaderContent, mountAdminDrawerHeader, resetAdminDrawerHeader, setAdminDrawerHeader } from './admin-station-drawer-header.js';
 
-/** @typedef {'default' | 'half' | 'full'} AdminDrawerMode */
+/** @typedef {'default' | 'half' | 'wide' | 'full'} AdminDrawerMode */
 /** @typedef {import('./admin-station-drawer-header.js').AdminDrawerHeaderContent} AdminDrawerHeaderContent */
 /** @typedef {{ owner: string, mode?: AdminDrawerMode, header?: AdminDrawerHeaderContent, sidebar?: import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab[] }} AdminDrawerRequest */
 
 export { setAdminDrawerHeader };
 
 const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';
-const drawerModes = new Set(['default', 'half', 'full']);
+const drawerModes = new Set(['default', 'half', 'wide', 'full']);
 /** Pointer travel (px) that jumps the Drawer one mode, either way, whatever the screen size. Capped at the gap between the two edges on small screens. */
 const MODE_TRAVEL = 96;
 /** Most the Drawer stretches (px) while the pointer pulls toward a jump. */
@@ -60,15 +60,22 @@ function drawerModeWidths(shell) {
 
 /**
  * The modes that exist at this width. Half exists only when it is wider than
- * default and at least HALF_MIN_WIDTH, and when default already fills the
- * available width only full exists.
+ * default and at least HALF_MIN_WIDTH. Wide (stops at 1000px, Owner-directed
+ * 2026-11-17) exists only when it is wider than the mode below it and narrower
+ * than Full. When default already fills the available width only full exists.
  * @param {HTMLElement} shell
  */
 function availableModeWidths(shell) {
   const widths = drawerModeWidths(shell);
   const width = (/** @type {AdminDrawerMode} */ mode) => widths.find((entry) => entry.mode === mode)?.width ?? 0;
   if (width('default') >= width('full') - 1) return widths.filter((entry) => entry.mode === 'full');
-  return widths.filter((entry) => entry.mode !== 'half' || (entry.width > width('default') + 1 && entry.width >= HALF_MIN_WIDTH));
+  const halfExists = width('half') > width('default') + 1 && width('half') >= HALF_MIN_WIDTH;
+  const below = halfExists ? width('half') : width('default');
+  return widths.filter((entry) => {
+    if (entry.mode === 'half') return halfExists;
+    if (entry.mode === 'wide') return entry.width > below + 1 && entry.width < width('full') - 1;
+    return true;
+  });
 }
 
 /** The requested mode, or the nearest wider one that exists at this width. @param {HTMLElement} shell @param {AdminDrawerMode} mode @returns {AdminDrawerMode} */

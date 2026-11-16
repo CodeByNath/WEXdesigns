@@ -509,8 +509,9 @@ Summary of the Owner-directed Drawer width work, so the sections above need not 
 
 - **Modes:** Default is 560px. Half is `min(50%, 1000px)` (`drawer-width.css`, read by the Half
   rules in `layout.css`) and exists only when it is wider than Default and at least 720px
-  (`HALF_MIN_WIDTH`); otherwise the Drawer jumps from Default to Full. Full is the whole width
-  for now.
+  (`HALF_MIN_WIDTH`); otherwise the Drawer jumps from Default to Full. Wide (Owner-directed
+  2026-11-17) is `min(100%, 1000px)` using the same `drawer-width.css` value as Half; it exists only when it
+  is wider than the mode below it and narrower than Full. Full is the whole width.
 - **Body content:** capped at 560px, and 720px in Half (back to 560px once the Body has room
   for two 560px columns; not reachable while Half is at most 1000px), left aligned. In Half the
   content is centred. Insets come from `--wex-admin-shell-drawer-body-start-inset` and
@@ -520,5 +521,7 @@ Summary of the Owner-directed Drawer width work, so the sections above need not 
 - **Removed (history above):** the Drawer Body multi-column layout, the Admin Body and main
   1440px cap, the compact Default, the right divider and the Header and Footer actions following
   the content. No token was created for any of this.
+- **Wide mode (2026-11-17, Owner-directed):** a fourth mode between Half and Full that stops at 1000px,
+  with the Half Body rules (720px cap, centred; `drawer-body.css`). No token was created.
 - **Open:** the second column is not built. When it is, the Header and Footer actions should end
   at the end of the last column, and the Half cap rule for two columns becomes reachable.

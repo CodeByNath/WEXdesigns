@@ -46,7 +46,7 @@ test('provides one standalone pill handle that drags the Drawer one approved mod
   assert.match(drawer, /prefers-reduced-motion: reduce/);
   assert.match(drawer, /event\.buttons === 0\) \{\s*stopDrag\(\);\s*return;/);
   assert.match(drawer, /const limit = Math\.min\(MODE_TRAVEL, widthGap\(mode, next\)\);\s*if \(Math\.abs\(travel\) < limit\) \{/);
-  assert.match(drawer, /function availableModeWidths\(shell\)[\s\S]*width\('default'\) >= width\('full'\) - 1[\s\S]*entry\.mode !== 'half' \|\| \(entry\.width > width\('default'\) \+ 1 && entry\.width >= HALF_MIN_WIDTH\)/);
+  assert.match(drawer, /function availableModeWidths\(shell\)[\s\S]*width\('default'\) >= width\('full'\) - 1[\s\S]*const halfExists = width\('half'\) > width\('default'\) \+ 1 && width\('half'\) >= HALF_MIN_WIDTH;[\s\S]*entry\.mode === 'wide'\) return entry\.width > below \+ 1 && entry\.width < width\('full'\) - 1;/);
   assert.match(drawer, /shell\.dataset\.adminDrawerMode = fitMode\(shell, request\.mode \?\? 'default'\);/);
   assert.match(drawer, /resize', \(\) => \{\s*if \(drawer\.hidden\) return;\s*shell\.dataset\.adminDrawerMode = fitMode\(/);
   assert.match(drawer, /const changeMode = \(direction\) => \{[\s\S]*next === mode && direction === 'increase'\) closeAdminDrawer\(shell\)/);
@@ -154,10 +154,10 @@ test('drives the Drawer Header icon, label and status pill dynamically', () => {
 });
 
 test('keeps the Admin Drawer allocation modes approved and request-owned', () => {
-  assert.match(drawer, /@typedef \{'default' \| 'half' \| 'full'\} AdminDrawerMode/);
+  assert.match(drawer, /@typedef \{'default' \| 'half' \| 'wide' \| 'full'\} AdminDrawerMode/);
   assert.match(drawer, /@typedef \{\{ owner: string, mode\?: AdminDrawerMode, header\?: AdminDrawerHeaderContent, sidebar\?: [^}]+\[\] \}\} AdminDrawerRequest/);
   assert.match(drawer, /const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';/);
-  assert.match(drawer, /const drawerModes = new Set\(\['default', 'half', 'full'\]\);/);
+  assert.match(drawer, /const drawerModes = new Set\(\['default', 'half', 'wide', 'full'\]\);/);
   assert.match(drawer, /drawer\.dataset\.adminDrawerOwner = request\.owner;/);
   assert.match(drawer, /shell\.dataset\.adminDrawerMode = request\.mode \?\? 'default';/);
   assert.match(drawer, /drawer\.hidden = false;/);
@@ -400,7 +400,7 @@ test('icons beside text use the global Icon Label rule, so they stay level with 
 test('Half does not exist when it would be under 720px, so the Drawer jumps from Default to Full', async () => {
   const js = await readFile(new URL('../src/admin-station-drawer.js', import.meta.url), 'utf8');
   assert.match(js, /const HALF_MIN_WIDTH = 720;/);
-  assert.match(js, /entry\.mode !== 'half' \|\| \(entry\.width > width\('default'\) \+ 1 && entry\.width >= HALF_MIN_WIDTH\)/);
+  assert.match(js, /const halfExists = width\('half'\) > width\('default'\) \+ 1 && width\('half'\) >= HALF_MIN_WIDTH;/);
 });
 
 test('the Product Summary image has a 16px shell and floats on small devices so content breaks around it', async () => {
