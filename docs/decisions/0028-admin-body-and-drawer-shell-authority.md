@@ -553,3 +553,14 @@ row. Product Summary has no bottom border in Full mode. Existing content nodes
 are moved by CSS grid placement, never cloned. At the existing compact Drawer boundary, the
 product navigation scrolls horizontally and content stacks without overlap.
 No new visual token or Global Component is registered.
+
+## Full Drawer shell allocation — Owner-directed, 2026-11-17
+
+Supersedes the 60% / 40% split above. In Full mode the Drawer has three shells:
+product navigation, main content and connections (Promotions and Activity). They
+share the Drawer width 2 : 5 : 3, excluding the insets and gaps. The navigation no
+longer sizes to its content. The 720px content maximum is kept: one part stops at a
+fifth of it, so main content stops at 720px (navigation 288px, connections 432px) and
+the ratio holds; the extra width is not spread. Full only; other modes and
+compact Full are unchanged. `admin-station-drawer-full.css`; behaviour check in
+`admin-station-product-sections.test.mjs`. No token was created.

@@ -68,7 +68,10 @@
     "sidebar sidebar sidebar sidebar sidebar sidebar sidebar"
     "body body body body body body body"
     "footer footer footer footer footer footer footer";
-  grid-template-columns: var(--wex-space-16) max-content var(--wex-space-24) minmax(0, 3fr) var(--wex-space-24) minmax(0, 2fr) var(--wex-space-16);
+  /* Three shells share the Drawer 2 : 5 : 3 (navigation, main content, connections; Owner-directed, 2026-11-17), excluding the insets and gaps. The 720px content maximum (11 x the 64px space plus the 16px space) is kept: one part stops at a fifth of it, so main content stops at 720px and the ratio holds. The end track keeps the 16px inset and takes the rest. */
+  --wex-admin-shell-drawer-column-max-inline-size: calc(var(--wex-space-64) * 11 + var(--wex-space-16));
+  --wex-admin-shell-drawer-full-part: min(calc(var(--wex-admin-shell-drawer-column-max-inline-size) / 5), calc((100cqi - var(--wex-border-width-default) * 2 - var(--wex-space-16) * 2 - var(--wex-space-24) * 2) / 10));
+  grid-template-columns: var(--wex-space-16) calc(var(--wex-admin-shell-drawer-full-part) * 2) var(--wex-space-24) calc(var(--wex-admin-shell-drawer-full-part) * 5) var(--wex-space-24) calc(var(--wex-admin-shell-drawer-full-part) * 3) minmax(var(--wex-space-16), 1fr);
   column-gap: 0;
 }
 

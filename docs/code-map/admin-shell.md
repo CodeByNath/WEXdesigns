@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-17: Full Drawer shells share the width 2 : 5 : 3 (navigation, main content,
+  connections), excluding insets and gaps, stopping at 720px main content; supersedes the 60/40 split below
+  (`admin-station-drawer-full.css`, ADR 0028).
 - 2026-11-17 (Owner-approved release batch): Full-mode Sidebar tabs move
   into one row below the Header (`drawer-sidebar.css`). Add New Presentation
   adds numbered product navigation with Overview selected by default
