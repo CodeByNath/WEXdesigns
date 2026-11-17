@@ -561,6 +561,24 @@ product navigation, main content and connections (Promotions and Activity). They
 share the Drawer width 2 : 5 : 3, excluding the insets and gaps. The navigation no
 longer sizes to its content. The 720px content maximum is kept: one part stops at a
 fifth of it, so main content stops at 720px (navigation 288px, connections 432px) and
-the ratio holds; the extra width is not spread. Full only; other modes and
+the ratio holds; the extra width is not spread. The navigation is also capped at 220px
+(3 x the 64px space plus the 24px and 4px spaces, Owner-directed), so it stops there
+and the 288px above no longer applies. Full only; other modes and
 compact Full are unchanged. `admin-station-drawer-full.css`; behaviour check in
 `admin-station-product-sections.test.mjs`. No token was created.
+
+In desktop Full the three shells each run the full Drawer height, with the Footer at the
+bottom of the main content shell only (Owner-directed, 2026-11-17): the Footer is placed in
+the main content column, so Close and Save/Publish align with the main content and the
+Footer shares the main content start and end borders (`--wex-border-width-default`,
+`--wex-color-border-subtle`) and its top line. The Body spans the Body and Footer rows, the
+shells carry their own 16px start padding, and the main content shell ends above the Footer.
+The frame takes the Drawer layer colour so the shells show through nowhere. The Promotions
+line stretches across the whole connections shell, from the main content border to the
+Drawer end, with its content kept 24px and 16px in (Owner-directed). In desktop Full the navigation,
+main content and connections shells each scroll on their own when their content is taller
+than the Drawer (Owner-directed): the Body does not scroll, and Promotions and Activity
+are grouped in a connections shell (`wex-admin-drawer-connections`, `display: contents`
+outside desktop Full) so they scroll together. The navigation
+shell has no border. Compact Full is unchanged. Other modes are unchanged. No token was
+created.
