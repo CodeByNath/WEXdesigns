@@ -15,7 +15,7 @@ export const productSections = [
 /** The numbered name of a section, as the navigation prints it. @param {string} id */
 export function productSectionHeading(id) {
   const index = productSections.findIndex((section) => section.id === id);
-  return `${index + 1}. ${productSections[index].label}`;
+  return `${index + 1}. ${productSections[index]?.label ?? ''}`;
 }
 
 /**
@@ -28,7 +28,7 @@ export function createProductSectionHead(document, id, className = '') {
   head.className = `wex-admin-product-section-head ${className}`.trim();
   const name = document.createElement('h3');
   name.className = 'wex-admin-product-section-head__name wex-type-navigation-small-semibold';
-  name.textContent = productSections[index].label;
+  name.textContent = productSections[index]?.label ?? '';
   const count = document.createElement('span');
   count.className = 'wex-admin-product-section-head__count wex-admin-product-summary__chip';
   count.textContent = `${index + 1} / ${productSections.length}`;
