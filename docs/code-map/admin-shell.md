@@ -16,6 +16,9 @@
 
 ### Recent work (newest first)
 
+- 2026-11-18: Drawer Sidebar tabs return to the selected section only when the pointer or focus
+  leaves the whole tab list, so moving between tabs no longer flashes it
+  (`admin-station-drawer-sidebar.js`, ADR 0028).
 - 2026-11-18: Product navigation (Full) previews on hover or focus like the Drawer Sidebar tabs:
   the main content shell shows the hovered section, and the selected one returns when the pointer or
   focus leaves the whole list (`createProductSections`, `admin-station-product-sections.js`; ADR 0028).

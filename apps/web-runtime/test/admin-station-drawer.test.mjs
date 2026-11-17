@@ -224,7 +224,9 @@ test('the Drawer Sidebar prints icon-only requester tabs (one row below the Head
   const sidebarJs = await readFile(new URL('../src/admin-station-drawer-sidebar.js', import.meta.url), 'utf8');
   const sidebarCss = await readFile(new URL('../../../packages/wex/src/foundations/drawer-sidebar.css', import.meta.url), 'utf8');
   assert.match(sidebarJs, /export function setAdminDrawerSidebar\(shell, tabs\)/);
-  assert.match(sidebarJs, /const enter = \(\) => show\(id, id !== selected\);\s*const leave = \(\) => show\(selected, false\);/);
+  assert.match(sidebarJs, /const enter = \(\) => show\(id, id !== selected\);/);
+  assert.match(sidebarJs, /list\.addEventListener\('pointerleave', \(\) => show\(selected, false\)\);/);
+  assert.doesNotMatch(sidebarJs, /button\.addEventListener\('(pointerleave|blur)'/);
   assert.match(sidebarJs, /selected = id;[\s\S]*show\(id, false\);/);
   assert.match(sidebarJs, /detail: \{ id, preview \}/);
   assert.match(sidebarJs, /data-admin-drawer-body-preview/);

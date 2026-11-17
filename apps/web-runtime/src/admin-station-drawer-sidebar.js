@@ -6,7 +6,7 @@ import { createSystemIcon, systemIconNames } from './admin-station-system-icons.
 /**
  * Drawer Sidebar tabs. The requester supplies the tabs; every tab is icon only
  * in every Drawer mode. Hovering or focusing a tab previews its section in the
- * Drawer Body shell; leaving it returns the Body to the selected tab's section;
+ * Drawer Body shell; leaving the whole tab list returns the Body to the selected tab's section;
  * clicking a tab selects it. The Drawer announces each change as
  * `wex:admin-drawer-tab` on the Admin shell (`{ id, preview }`); the requester
  * mounts that section into `adminDrawerCompartment(shell, 'body')` and owns what
@@ -83,11 +83,8 @@ export function setAdminDrawerSidebar(shell, tabs) {
   buttons.forEach((button) => {
     const id = button.dataset.adminDrawerTab;
     const enter = () => show(id, id !== selected);
-    const leave = () => show(selected, false);
     button.addEventListener('pointerenter', enter);
     button.addEventListener('focus', enter);
-    button.addEventListener('pointerleave', leave);
-    button.addEventListener('blur', leave);
     button.addEventListener('click', () => {
       selected = id;
       buttons.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate === button)));
@@ -95,6 +92,13 @@ export function setAdminDrawerSidebar(shell, tabs) {
     });
   });
 
+  /* The selected section returns only when the pointer or focus leaves the whole list, not each tab, so crossing the gap between two tabs never flashes the selected section. */
+  list.addEventListener('pointerleave', () => show(selected, false));
+  list.addEventListener('focusout', (event) => {
+    const next = /** @type {Node | null} */ (/** @type {FocusEvent} */ (event).relatedTarget);
+    if (next !== null && list.contains(next)) return;
+    show(selected, false);
+  });
   nav.append(list);
   compartment.replaceChildren(nav);
 }
