@@ -583,6 +583,9 @@ outside desktop Full) so they scroll together. The shells end with a 16px inset
 and an extra last track takes the remaining width, so the connections shell has a maximum
 width too (24px + 3 parts + 16px) and does not spread. In desktop Full the Header start
 and actions stay within the shell columns: the actions end where the connections shell
-ends (Owner-directed). The navigation
+ends (Owner-directed). The main content shell
+(`wex-admin-drawer-main`) is always present in Full: it owns the borders, padding and
+scroll and loads the section the product navigation selects, so its borders stay when a
+section without content is chosen (Overview loads the Product Summary). The navigation
 shell has no border. Compact Full is unchanged. Other modes are unchanged. No token was
 created.

@@ -33,6 +33,14 @@ function sectionUnit(document, name, label, pieces) {
   return unit;
 }
 
+/** The main content shell: stays in place while the product navigation loads a section into it. @param {Document} document @param {Node} content */
+function mainShell(document, content) {
+  const shell = document.createElement('div');
+  shell.className = 'wex-admin-drawer-main';
+  shell.append(content);
+  return shell;
+}
+
 /** The connections shell: holds the Promotions and Activity units so Full mode can scroll them together. @param {Document} document @param {ReadonlyArray<Node>} units */
 function connectionsShell(document, units) {
   const shell = document.createElement('div');
@@ -51,7 +59,7 @@ export function mountAddNewSection(shell, id, label) {
   body.replaceChildren(...(id === 'presentation'
     ? [
       createProductSections(body),
-      createProductSummary(shell),
+      mainShell(document, createProductSummary(shell)),
       connectionsShell(document, [
         sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
         sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),

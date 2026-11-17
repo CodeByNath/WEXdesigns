@@ -93,10 +93,8 @@
 }
 
 .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-summary {
-  grid-column: 4;
-  grid-row: 1;
   margin: 0;
-  padding-inline: 0;
+  padding: 0;
   border-block-end: 0;
 }
 
@@ -134,18 +132,18 @@
     overflow: hidden;
   }
 
-  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-product-summary, .wex-admin-drawer-connections) {
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-drawer-main, .wex-admin-drawer-connections) {
     align-self: stretch;
     min-block-size: 0;
     overflow: auto;
     overscroll-behavior: contain;
   }
 
-  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-product-summary, [data-admin-drawer-unit="promotions"]) {
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-drawer-main, [data-admin-drawer-unit="promotions"]) {
     padding-block-start: var(--wex-space-16);
   }
 
-  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, [data-admin-drawer-unit="activity"]) {
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-drawer-main, [data-admin-drawer-unit="activity"]) {
     padding-block-end: var(--wex-space-16);
   }
 
@@ -163,13 +161,15 @@
     padding-inline: var(--wex-space-24) var(--wex-space-16);
   }
 
-  /* The Footer covers the bottom of the main content shell, so the shell ends above it. */
-  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-summary {
+  /* The main content shell is always there with its borders and loads the selected product section; the Footer covers its bottom, so the shell ends above it. */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-drawer-main {
+    display: block;
+    grid-row: 1;
     margin-block-end: calc(var(--wex-button-small-target-size) + var(--wex-space-12) * 2 + var(--wex-border-width-default));
     padding-inline: var(--wex-space-16);
   }
 
-  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-summary,
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-drawer-main,
   .wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer-footer {
     grid-column: 4;
     border-inline: var(--wex-border-width-default) solid var(--wex-color-border-subtle);

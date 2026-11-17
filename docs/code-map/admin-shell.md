@@ -18,7 +18,7 @@
 
 - 2026-11-17: Full Drawer shells share the width 2 : 5 : 3 (navigation, main content,
   connections), stopping at 720px main content and 220px navigation, each running the
-  full Drawer height scrolling on its own, with the Header actions ending at the connections shell end (connections groups Promotions and Activity,
+  full Drawer height scrolling on its own, with the Header actions ending at the connections shell end (a main content shell keeps its borders while the navigation loads a section; connections groups Promotions and Activity,
   `admin-station-add-new-sections.js`); the Footer sits under main content only and shares its start and
   end borders (`admin-station-drawer-full.css`, ADR 0028). Supersedes the 60/40 split below.
 - 2026-11-17 (Owner-approved release batch): Full-mode Sidebar tabs move

@@ -43,7 +43,7 @@ test('Full Drawer shares navigation, main content and connections 2 : 5 : 3', ()
 
 test('Full shells run the Drawer height and the Footer sits under main content with its borders, with no extra offsets', () => {
   const css = readFileSync(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
-  assert.match(css, /@media \(min-width: 768px\) \{[\s\S]*\.wex-admin-product-summary,\n  \.wex-admin-shell\[data-admin-drawer-mode="full"\]:has\(\[data-admin-drawer-section="presentation"\]\) \.wex-admin-shell__drawer-footer \{\n    grid-column: 4;\n    border-inline: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.match(css, /@media \(min-width: 768px\) \{[\s\S]*\.wex-admin-drawer-main,\n  \.wex-admin-shell\[data-admin-drawer-mode="full"\]:has\(\[data-admin-drawer-section="presentation"\]\) \.wex-admin-shell__drawer-footer \{\n    grid-column: 4;\n    border-inline: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.doesNotMatch(css, /::before|margin-block: calc\(-1|drawer-footer-actions|margin-inline-start/);
   assert.doesNotMatch(css, /\.wex-admin-product-sections \{[^}]*border/);
   assert.match(css, /grid-row: 3 \/ span 2;/);
@@ -53,11 +53,12 @@ test('Full shells run the Drawer height and the Footer sits under main content w
 test('Full navigation, main content and connections scroll on their own on desktop', () => {
   const css = readFileSync(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
   assert.match(css, /drawer-body\[data-admin-drawer-section="presentation"\] \{\n    grid-row: 3 \/ span 2;\n    grid-template-rows: minmax\(0, 1fr\);\n    padding-block: 0;\n    overflow: hidden;/);
-  assert.match(css, /:is\(\.wex-admin-product-sections, \.wex-admin-product-summary, \.wex-admin-drawer-connections\) \{\n    align-self: stretch;\n    min-block-size: 0;\n    overflow: auto;\n    overscroll-behavior: contain;/);
+  assert.match(css, /:is\(\.wex-admin-product-sections, \.wex-admin-drawer-main, \.wex-admin-drawer-connections\) \{\n    align-self: stretch;\n    min-block-size: 0;\n    overflow: auto;\n    overscroll-behavior: contain;/);
   const sections = readFileSync(new URL('../src/admin-station-add-new-sections.js', import.meta.url), 'utf8');
   assert.match(sections, /connectionsShell\(document, \[\s*sectionUnit\(document, 'promotions'[\s\S]*sectionUnit\(document, 'activity'/);
   const base = readFileSync(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
-  assert.match(base, /\.wex-admin-drawer-connections \{\n  display: contents;/);
+  assert.match(base, /\.wex-admin-drawer-main,\n\.wex-admin-drawer-connections \{\n  display: contents;/);
+  assert.match(sections, /mainShell\(document, createProductSummary\(shell\)\)/);
 });
 
 test('Full Promotions line stretches across the connections shell on desktop only', () => {

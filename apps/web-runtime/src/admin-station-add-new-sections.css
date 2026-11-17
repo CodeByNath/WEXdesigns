@@ -18,7 +18,8 @@
   justify-content: flex-end;
 }
 
-/* The connections shell only groups its units; outside desktop Full it does not take part in the layout. */
+/* The main content and connections shells only group their content; outside desktop Full it does not take part in the layout. */
+.wex-admin-drawer-main,
 .wex-admin-drawer-connections {
   display: contents;
 }
