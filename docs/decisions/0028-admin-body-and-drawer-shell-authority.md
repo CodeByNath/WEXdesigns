@@ -511,8 +511,9 @@ Summary of the Owner-directed Drawer width work, so the sections above need not 
   rules in `layout.css`) and exists only when it is wider than Default and at least 720px
   (`HALF_MIN_WIDTH`); otherwise the Drawer jumps from Default to Wide. Wide (Owner-directed
   2026-11-17) is `min(100%, 1000px)` using the same `drawer-width.css` value as Half; it exists when it is
-  wider than the mode below it, and is the whole width within 1000px. Full is the whole width but is off
-  while there is no content for another column (`SECOND_COLUMN_CONTENT` is `false`).
+  wider than the mode below it, and is the whole width within 1000px. Full is the whole width; availability follows the request’s `columns: 1 | 2` declaration
+  (omitted means one). Full is available for two columns. Add New declares two for now,
+  enabling Full without adding second-column content (Owner-directed, 2026-11-17).
 - **Body content:** capped at 560px, and 720px in Half (back to 560px once the Body has room
   for two 560px columns; not reachable while Half is at most 1000px), left aligned. In Half the
   content is centred. Insets come from `--wex-admin-shell-drawer-body-start-inset` and
@@ -523,7 +524,7 @@ Summary of the Owner-directed Drawer width work, so the sections above need not 
   1440px cap, the compact Default, the right divider and the Header and Footer actions following
   the content. No token was created for any of this.
 - **Wide mode (2026-11-17, Owner-directed):** a fourth mode between Half and Full that stops at 1000px,
-  with the Half Body rules (720px cap, centred; `drawer-body.css`). With no content for another column,
-  Full is off and Wide is the widest mode. No token was created.
+  with the Half Body rules (720px cap, centred; `drawer-body.css`). For one-column requests,
+  Wide is the widest mode; two-column requests also allow Full. No token was created.
 - **Open:** the second column is not built. When it is, the Header and Footer actions should end
   at the end of the last column, and the Half cap rule for two columns becomes reachable.

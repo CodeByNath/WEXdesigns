@@ -46,8 +46,10 @@ test('provides one standalone pill handle that drags the Drawer one approved mod
   assert.match(drawer, /prefers-reduced-motion: reduce/);
   assert.match(drawer, /event\.buttons === 0\) \{\s*stopDrag\(\);\s*return;/);
   assert.match(drawer, /const limit = Math\.min\(MODE_TRAVEL, widthGap\(mode, next\)\);\s*if \(Math\.abs\(travel\) < limit\) \{/);
-  assert.match(drawer, /function availableModeWidths\(shell\)[\s\S]*const halfExists = width\('half'\) > width\('default'\) \+ 1 && width\('half'\) >= HALF_MIN_WIDTH;[\s\S]*entry\.mode === 'wide'\) return entry\.width > below \+ 1;[\s\S]*entry\.mode === 'full'\) return SECOND_COLUMN_CONTENT;/);
-  assert.match(drawer, /const SECOND_COLUMN_CONTENT = false;/);
+  assert.match(drawer, /function availableModeWidths\(shell\)[\s\S]*const halfExists = width\('half'\) > width\('default'\) \+ 1 && width\('half'\) >= HALF_MIN_WIDTH;[\s\S]*entry\.mode === 'wide'\) return entry\.width > below \+ 1;[\s\S]*entry\.mode === 'full'\) return drawerShell\(shell\)\?\.dataset\.adminDrawerColumns === '2';/);
+  assert.match(drawer, /candidate\.columns === undefined \|\| candidate\.columns === 1 \|\| candidate\.columns === 2/);
+  assert.match(drawer, /drawer\.dataset\.adminDrawerColumns = String\(request\.columns \?\? 1\);/);
+  assert.match(drawer, /delete drawer\.dataset\.adminDrawerColumns;/);
   assert.match(drawer, /shell\.dataset\.adminDrawerMode = fitMode\(shell, request\.mode \?\? 'default'\);/);
   assert.match(drawer, /resize', \(\) => \{\s*if \(drawer\.hidden\) return;\s*shell\.dataset\.adminDrawerMode = fitMode\(/);
   assert.match(drawer, /const changeMode = \(direction\) => \{[\s\S]*next === mode && direction === 'increase'\) closeAdminDrawer\(shell\)/);
@@ -156,7 +158,7 @@ test('drives the Drawer Header icon, label and status pill dynamically', () => {
 
 test('keeps the Admin Drawer allocation modes approved and request-owned', () => {
   assert.match(drawer, /@typedef \{'default' \| 'half' \| 'wide' \| 'full'\} AdminDrawerMode/);
-  assert.match(drawer, /@typedef \{\{ owner: string, mode\?: AdminDrawerMode, header\?: AdminDrawerHeaderContent, sidebar\?: [^}]+\[\] \}\} AdminDrawerRequest/);
+  assert.match(drawer, /@typedef \{\{ owner: string, columns\?: 1 \| 2, mode\?: AdminDrawerMode, header\?: AdminDrawerHeaderContent, sidebar\?: [^}]+\[\] \}\} AdminDrawerRequest/);
   assert.match(drawer, /const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';/);
   assert.match(drawer, /const drawerModes = new Set\(\['default', 'half', 'wide', 'full'\]\);/);
   assert.match(drawer, /drawer\.dataset\.adminDrawerOwner = request\.owner;/);

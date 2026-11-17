@@ -5,7 +5,7 @@ import { isAdminDrawerHeaderContent, mountAdminDrawerHeader, resetAdminDrawerHea
 
 /** @typedef {'default' | 'half' | 'wide' | 'full'} AdminDrawerMode */
 /** @typedef {import('./admin-station-drawer-header.js').AdminDrawerHeaderContent} AdminDrawerHeaderContent */
-/** @typedef {{ owner: string, mode?: AdminDrawerMode, header?: AdminDrawerHeaderContent, sidebar?: import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab[] }} AdminDrawerRequest */
+/** @typedef {{ owner: string, columns?: 1 | 2, mode?: AdminDrawerMode, header?: AdminDrawerHeaderContent, sidebar?: import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab[] }} AdminDrawerRequest */
 
 export { setAdminDrawerHeader };
 
@@ -17,8 +17,6 @@ const MODE_TRAVEL = 96;
 const STRETCH_MAX = 40;
 /** Time (ms) the Drawer takes to spring back when released short of a jump. */
 const SPRING_BACK = 200;
-/** Full exists only when the content has another column; none is built yet, so Full is off (Owner-directed, 2026-11-17). */
-const SECOND_COLUMN_CONTENT = false;
 /** Half does not exist when it would be narrower than this (px): the Drawer jumps from Default to Full (Owner-directed, 2026-11-15). */
 const HALF_MIN_WIDTH = 720;
 
@@ -28,6 +26,7 @@ function isAdminDrawerRequest(request) {
   const candidate = /** @type {Record<string, unknown>} */ (request);
   return typeof candidate.owner === 'string'
     && candidate.owner.length > 0
+    && (candidate.columns === undefined || candidate.columns === 1 || candidate.columns === 2)
     && (candidate.mode === undefined || (typeof candidate.mode === 'string' && drawerModes.has(candidate.mode)))
     && (candidate.header === undefined || isAdminDrawerHeaderContent(candidate.header))
     && (candidate.sidebar === undefined || isAdminDrawerSidebar(candidate.sidebar));
@@ -64,7 +63,7 @@ function drawerModeWidths(shell) {
  * The modes that exist at this width. Half exists only when it is wider than
  * default and at least HALF_MIN_WIDTH. Wide (stops at 1000px, the whole width
  * within it) exists when it is wider than the mode below it. Full exists only
- * when the content has another column (SECOND_COLUMN_CONTENT).
+ * when the request declares two content columns.
  * @param {HTMLElement} shell
  */
 function availableModeWidths(shell) {
@@ -75,7 +74,7 @@ function availableModeWidths(shell) {
   return widths.filter((entry) => {
     if (entry.mode === 'half') return halfExists;
     if (entry.mode === 'wide') return entry.width > below + 1;
-    if (entry.mode === 'full') return SECOND_COLUMN_CONTENT;
+    if (entry.mode === 'full') return drawerShell(shell)?.dataset.adminDrawerColumns === '2';
     return true;
   });
 }
@@ -135,6 +134,7 @@ export function openAdminDrawer(shell, request) {
   if (!drawer || !isAdminDrawerRequest(request)) return false;
 
   drawer.dataset.adminDrawerOwner = request.owner;
+  drawer.dataset.adminDrawerColumns = String(request.columns ?? 1);
   shell.dataset.adminDrawerMode = request.mode ?? 'default';
   drawer.hidden = false;
   shell.dataset.adminDrawer = 'open';
@@ -155,6 +155,7 @@ export function closeAdminDrawer(shell) {
   if (!drawer) return false;
 
   delete drawer.dataset.adminDrawerOwner;
+  delete drawer.dataset.adminDrawerColumns;
   closeAdminDrawerDropdown(shell);
   drawer.hidden = true;
   shell.dataset.adminDrawer = 'closed';

@@ -19,8 +19,9 @@
 - 2026-11-16 (current Drawer width state, this session's result): Drawer modes are
   Default 560px, Half `min(50%, 1000px)` (only when it is at least 720px and wider
   than Default; otherwise the Drawer jumps from Default to Wide), Wide `min(100%, 1000px)` (when it is wider
-  than the mode below it) and Full 100%, which is off while there is no content for another column
-  (`SECOND_COLUMN_CONTENT` in `admin-station-drawer.js`).
+  than the mode below it) and Full 100%, available when the request declares `columns: 2`
+  (`columns: 1` or omitted disables Full). Add New declares two for now, enabling Full
+  without adding second-column content (Owner-directed, 2026-11-17).
   The Drawer Body (`drawer-body.css`) caps its content at 560px, 720px in Half
   (back to 560px once two 560px columns fit), left aligned, centred in Half. Each
   Body section is one unit (`sectionUnit`), and the section lines run edge to
@@ -37,7 +38,7 @@
   across the whole Drawer Body, also across the room the capped content leaves, using
   `--wex-admin-shell-drawer-body-end-inset` (`drawer-body.css`). The content stays capped.
 - 2026-11-17: New Wide mode (Owner-directed): the Drawer stops at 1000px, with the Half content rules (720px
-  cap, centred). Full stays 100% but is off until content for another column exists. Rule in `drawer-width.css`; modes in
+  cap, centred). Full stays 100%; its availability now follows the request column declaration. Rule in `drawer-width.css`; modes in
   `admin-station-drawer.js`.
 - 2026-11-16: The Half Drawer is at most 1000px wide while there is no content for
   another column (`drawer-width.css`, read by the Half rules in `layout.css`); Full
