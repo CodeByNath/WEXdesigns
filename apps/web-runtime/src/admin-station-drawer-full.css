@@ -1,0 +1,162 @@
+/* Owner-directed Full Presentation: product navigation, Overview, then Promotions and Activity. */
+.wex-admin-product-sections {
+  display: none;
+}
+
+.wex-admin-product-sections__list {
+  display: grid;
+  gap: var(--wex-tab-navigation-small-dropdown-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wex-admin-product-sections__tab {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: var(--wex-tab-navigation-small-dropdown-target-size);
+  padding: var(--wex-tab-navigation-small-dropdown-padding-block) var(--wex-tab-navigation-small-dropdown-padding-inline);
+  border: var(--wex-tab-navigation-small-dropdown-border-width) solid var(--wex-tab-navigation-small-dropdown-border-color);
+  border-radius: var(--wex-tab-navigation-small-dropdown-radius);
+  background: var(--wex-tab-navigation-small-dropdown-background);
+  color: var(--wex-tab-navigation-small-dropdown-foreground);
+  font-family: var(--wex-tab-navigation-small-dropdown-font-family);
+  font-size: var(--wex-tab-navigation-small-dropdown-font-size);
+  font-weight: var(--wex-tab-navigation-small-dropdown-font-weight);
+  letter-spacing: var(--wex-tab-navigation-small-dropdown-letter-spacing);
+  line-height: var(--wex-tab-navigation-small-dropdown-line-height);
+  text-align: start;
+  cursor: pointer;
+}
+
+.wex-admin-product-sections__tab:hover:not([aria-pressed="true"]) {
+  background: var(--wex-tab-navigation-small-dropdown-hover-background);
+  border-color: var(--wex-tab-navigation-small-dropdown-hover-border-color);
+  color: var(--wex-tab-navigation-small-dropdown-hover-foreground);
+}
+
+.wex-admin-product-sections__tab[aria-pressed="true"] {
+  background: var(--wex-tab-navigation-small-dropdown-selected-background);
+  border-color: var(--wex-tab-navigation-small-dropdown-selected-border-color);
+  color: var(--wex-tab-navigation-small-dropdown-selected-foreground);
+}
+
+.wex-admin-product-sections__tab:focus-visible {
+  outline: var(--wex-tab-navigation-small-dropdown-focus-outer-width) solid var(--wex-tab-navigation-small-dropdown-focus-color);
+  outline-offset: var(--wex-tab-navigation-small-dropdown-focus-gap);
+}
+
+.wex-admin-product-sections__tab:focus-visible::after {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-tab-navigation-small-dropdown-focus-inner-width) solid var(--wex-tab-navigation-small-dropdown-focus-color);
+  border-radius: calc(var(--wex-tab-navigation-small-dropdown-radius) - var(--wex-tab-navigation-small-dropdown-border-width));
+  content: '';
+}
+
+.wex-admin-product-sections__tab:active {
+  background: var(--wex-button-neutral-background-pressed);
+  color: var(--wex-button-neutral-foreground-pressed);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer-frame {
+  grid-template-areas:
+    "header header header header header header header"
+    "sidebar sidebar sidebar sidebar sidebar sidebar sidebar"
+    "body body body body body body body"
+    "footer footer footer footer footer footer footer";
+  grid-template-columns: var(--wex-space-16) max-content var(--wex-space-24) minmax(0, 3fr) var(--wex-space-24) minmax(0, 2fr) var(--wex-space-16);
+  column-gap: 0;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] {
+  --wex-admin-shell-drawer-body-start-inset: var(--wex-space-16);
+  --wex-admin-shell-drawer-body-end-inset: var(--wex-space-16);
+  grid-template-columns: subgrid;
+  padding-inline: 0;
+  column-gap: 0;
+  align-items: start;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer-footer {
+  display: grid;
+  grid-template-columns: subgrid;
+  padding-inline: 0;
+  column-gap: 0;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer-footer-actions {
+  grid-column: 4;
+  justify-self: end;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-sections {
+  display: block;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-summary {
+  grid-column: 4;
+  grid-row: 1 / span 2;
+  margin: 0;
+  padding-inline: 0;
+  border-block-end: 0;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body:not([data-admin-product-section="overview"]) .wex-admin-product-summary {
+  display: none;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] [data-admin-drawer-unit="promotions"] {
+  grid-column: 6;
+  grid-row: 1;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] [data-admin-drawer-unit="activity"] {
+  grid-column: 6;
+  grid-row: 2;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer-footer > :is([data-admin-drawer-close], [data-admin-drawer-discard]) {
+  grid-column: 2;
+}
+
+/* Reuse the existing compact Drawer boundary; narrow Full remains usable after resizing. */
+@media (max-width: 767px) {
+  .wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer-frame {
+    grid-template-areas: "header" "sidebar" "body" "footer";
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer-footer {
+    display: flex;
+    padding-inline: var(--wex-space-16);
+    gap: var(--wex-space-8);
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: max-content;
+    padding-inline: var(--wex-space-16);
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-product-summary, [data-admin-drawer-unit="promotions"], [data-admin-drawer-unit="activity"]) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-sections {
+    overflow: auto;
+  }
+
+  .wex-admin-product-sections__list {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+  }
+}

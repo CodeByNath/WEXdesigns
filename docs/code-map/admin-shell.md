@@ -2,8 +2,8 @@
 
 ## Current operating status
 
-- Last visited: 2026-11-16
-- Last updated: 2026-11-16
+- Last visited: 2026-11-17
+- Last updated: 2026-11-17
 - Verified against `main` at `e54a24e4e738b0c802c6d34aee52b9692d8ceada`
   (Studio staging pointer 395), clean working tree:
   the Logo-fitted Dashboard shell remains standalone; the portable Studio
@@ -15,6 +15,19 @@
   or Component Manager specimen.
 
 ### Recent work (newest first)
+
+- 2026-11-17 (Owner-approved release batch): Full-mode Sidebar tabs move
+  into one row below the Header (`drawer-sidebar.css`). Add New Presentation
+  adds numbered product navigation with Overview selected by default
+  (`admin-station-product-sections.js`); Product Summary stays in content column
+  one and Promotions/Activity occupy column two (`admin-station-drawer-full.css`),
+  split 60% left / 40% right excluding navigation and gaps (Owner-directed).
+  Footer Save/Publish share the left content column’s end via subgrid; Close
+  remains at the start (`drawer-footer.css`, `admin-station-shell.js`).
+  Product Summary’s bottom border is removed only in Full mode.
+  Other modes retain their existing arrangement. Navigation consumes the
+  registered Small Dropdown tokens; compact Full stacks at the existing Drawer
+  boundary. Behaviour check: `admin-station-product-sections.test.mjs`.
 
 - 2026-11-16 (current Drawer width state, this session's result): Drawer modes are
   Default 560px, Half `min(50%, 1000px)` (only when it is at least 720px and wider

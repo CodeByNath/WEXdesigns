@@ -4,6 +4,7 @@ import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
 import { activityCount, createActivityCards, createActivityHeading } from './admin-station-activity.js';
 import { activePromotionCount, createPromotionCards, createPromotionsHeading } from './admin-station-promotions.js';
+import { createProductSections } from './admin-station-product-sections.js';
 
 /**
  * Add New Drawer sections. Each Sidebar tab owns one section: its name prints in
@@ -41,6 +42,7 @@ export function mountAddNewSection(shell, id, label) {
   const document = shell.ownerDocument;
   body.replaceChildren(...(id === 'presentation'
     ? [
+      createProductSections(body),
       createProductSummary(shell),
       sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
       sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),

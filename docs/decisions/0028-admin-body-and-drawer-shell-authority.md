@@ -528,3 +528,28 @@ Summary of the Owner-directed Drawer width work, so the sections above need not 
   Wide is the widest mode; two-column requests also allow Full. No token was created.
 - **Open:** the second column is not built. When it is, the Header and Footer actions should end
   at the end of the last column, and the Half cap rule for two columns becomes reachable.
+
+## Full-mode Presentation composition — Owner-directed, 2026-11-17
+
+In Full mode, the Drawer Sidebar's existing icon tabs form one row immediately
+below the Header. The Footer spans the frame. Other modes retain their existing
+Sidebar and content arrangement.
+
+Add New Presentation adds the Owner-supplied numbered product navigation:
+Overview, Pricing, Description, Media, Snapshot, Meeting, Itinerary, Info,
+Product Keywords, and FAQ / Booking. Overview is selected initially and displays
+the existing Product Summary. The other product sections have no content yet.
+Selection uses native buttons and the registered Tab Navigation Small Dropdown
+family. The navigation appears only in Full mode.
+
+Full Presentation places product navigation at the start, the selected product
+section in the first content column, and the existing Promotions and Activity
+units stacked in the second content column. The two content columns split their
+available space 60% left and 40% right, excluding the navigation and gaps
+(Owner-directed, 2026-11-17). Save and Publish end at the right edge of the
+left content column; the Body and Footer share the same grid tracks. Close or
+Discard stays at the Drawer start. Compact Full restores the existing footer
+row. Product Summary has no bottom border in Full mode. Existing content nodes
+are moved by CSS grid placement, never cloned. At the existing compact Drawer boundary, the
+product navigation scrolls horizontally and content stacks without overlap.
+No new visual token or Global Component is registered.

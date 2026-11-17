@@ -11,6 +11,12 @@
   display: none;
 }
 
+.wex-admin-shell__drawer-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--wex-space-8);
+}
+
 .wex-admin-shell__drawer-footer > [data-admin-drawer-close],
 .wex-admin-shell__drawer-footer > [data-admin-drawer-discard] {
   margin-inline-end: auto;

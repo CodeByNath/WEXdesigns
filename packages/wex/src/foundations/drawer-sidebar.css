@@ -74,6 +74,26 @@
   block-size: var(--wex-tab-navigation-small-icon-size);
 }
 
+/* Full: the same requester tabs form one row directly below the Header. */
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-frame {
+  grid-template-areas: "header" "sidebar" "body" "footer";
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-sidebar {
+  border-inline-end: 0;
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-tabs {
+  justify-items: start;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-tab-list {
+  grid-auto-flow: column;
+}
+
 /* Mobile: the Sidebar is one horizontal row of icon tabs below the Header, above the Body. */
 @media (max-width: 767px) {
   .wex-admin-shell__drawer-frame {
