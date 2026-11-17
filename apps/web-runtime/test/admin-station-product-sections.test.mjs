@@ -38,7 +38,7 @@ test('Full Drawer shares navigation, main content and connections 2 : 5 : 3', ()
   assert.match(css, /--wex-admin-shell-drawer-column-max-inline-size: calc\(var\(--wex-space-64\) \* 11 \+ var\(--wex-space-16\)\);/);
   assert.match(css, /--wex-admin-shell-drawer-full-part: min\(calc\(var\(--wex-admin-shell-drawer-column-max-inline-size\) \/ 5\), /);
   assert.match(css, /--wex-admin-shell-drawer-full-navigation-max-inline-size: calc\(var\(--wex-space-64\) \* 3 \+ var\(--wex-space-24\) \+ var\(--wex-space-4\)\);/);
-  assert.match(css, /grid-template-columns: var\(--wex-space-16\) min\(calc\(var\(--wex-admin-shell-drawer-full-part\) \* 2\), var\(--wex-admin-shell-drawer-full-navigation-max-inline-size\)\) var\(--wex-space-24\) calc\(var\(--wex-admin-shell-drawer-full-part\) \* 5\) var\(--wex-space-24\) calc\(var\(--wex-admin-shell-drawer-full-part\) \* 3\) minmax\(var\(--wex-space-16\), 1fr\);/);
+  assert.match(css, /grid-template-columns: var\(--wex-space-16\) min\(calc\(var\(--wex-admin-shell-drawer-full-part\) \* 2\), var\(--wex-admin-shell-drawer-full-navigation-max-inline-size\)\) var\(--wex-space-24\) calc\(var\(--wex-admin-shell-drawer-full-part\) \* 5\) var\(--wex-space-24\) calc\(var\(--wex-admin-shell-drawer-full-part\) \* 3\) var\(--wex-space-16\) minmax\(0, 1fr\);/);
 });
 
 test('Full shells run the Drawer height and the Footer sits under main content with its borders, with no extra offsets', () => {
@@ -64,4 +64,11 @@ test('Full Promotions line stretches across the connections shell on desktop onl
   const css = readFileSync(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
   assert.match(css, /@media \(min-width: 768px\) \{[\s\S]*\.wex-admin-drawer-connections \{\n    display: grid;\n    grid-column: 5 \/ 8;/);
   assert.match(css, /\.wex-admin-drawer-connections > \.wex-admin-drawer-section \{\n    margin-inline: 0;\n    padding-inline: var\(--wex-space-24\) var\(--wex-space-16\);/);
+});
+
+test('Full Header start and actions stay within the shell columns', () => {
+  const css = readFileSync(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
+  assert.match(css, /drawer-header \{\n    display: grid;\n    grid-template-columns: subgrid;\n    padding-inline: 0;/);
+  assert.match(css, /drawer-header-actions\) \{\n    grid-column: 2 \/ 7;\n    grid-row: 1;/);
+  assert.match(css, /drawer-header-actions \{\n    justify-self: end;/);
 });

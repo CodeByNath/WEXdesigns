@@ -579,6 +579,10 @@ Drawer end, with its content kept 24px and 16px in (Owner-directed). In desktop 
 main content and connections shells each scroll on their own when their content is taller
 than the Drawer (Owner-directed): the Body does not scroll, and Promotions and Activity
 are grouped in a connections shell (`wex-admin-drawer-connections`, `display: contents`
-outside desktop Full) so they scroll together. The navigation
+outside desktop Full) so they scroll together. The shells end with a 16px inset
+and an extra last track takes the remaining width, so the connections shell has a maximum
+width too (24px + 3 parts + 16px) and does not spread. In desktop Full the Header start
+and actions stay within the shell columns: the actions end where the connections shell
+ends (Owner-directed). The navigation
 shell has no border. Compact Full is unchanged. Other modes are unchanged. No token was
 created.
