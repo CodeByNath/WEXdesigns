@@ -33,6 +33,14 @@ function sectionUnit(document, name, label, pieces) {
   return unit;
 }
 
+/** The connections shell: holds the Promotions and Activity units so Full mode can scroll them together. @param {Document} document @param {ReadonlyArray<Node>} units */
+function connectionsShell(document, units) {
+  const shell = document.createElement('div');
+  shell.className = 'wex-admin-drawer-connections';
+  shell.append(...units);
+  return shell;
+}
+
 /** @param {HTMLElement} shell @param {string} id @param {string} label */
 export function mountAddNewSection(shell, id, label) {
   const body = adminDrawerCompartment(shell, 'body');
@@ -44,8 +52,10 @@ export function mountAddNewSection(shell, id, label) {
     ? [
       createProductSections(body),
       createProductSummary(shell),
-      sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
-      sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),
+      connectionsShell(document, [
+        sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
+        sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),
+      ]),
     ]
     : []));
 }
