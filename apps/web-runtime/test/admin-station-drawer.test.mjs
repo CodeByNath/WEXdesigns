@@ -410,7 +410,7 @@ test('the Product Summary image has a 16px shell and floats on small devices so 
   const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
   assert.match(css, /__image \{[^}]*border-radius: var\(--wex-space-16\);/);
-  assert.match(js, /section\.append\(media, details\);/);
+  assert.match(js, /section\.append\(createProductSectionHead\(document, 'overview', 'wex-admin-product-summary__heading'\), media, details\);/);
   const small = css.slice(css.indexOf('@media (max-width: 767px)'));
   assert.match(small, /__media \{\s*float: inline-end;/);
   assert.match(small, /__row \{\s*grid-template-columns: 9ch minmax\(0, 1fr\);/);

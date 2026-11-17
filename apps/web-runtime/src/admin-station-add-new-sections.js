@@ -2,6 +2,7 @@ import { ADMIN_DRAWER_TAB_EVENT } from './admin-station-drawer-sidebar.js';
 import { adminDrawerCompartment } from './admin-station-drawer.js';
 import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
+import { createProductPricing } from './admin-station-product-pricing.js';
 import { activityCount, createActivityCards, createActivityHeading } from './admin-station-activity.js';
 import { activePromotionCount, createPromotionCards, createPromotionsHeading } from './admin-station-promotions.js';
 import { createProductSections } from './admin-station-product-sections.js';
@@ -33,11 +34,11 @@ function sectionUnit(document, name, label, pieces) {
   return unit;
 }
 
-/** The main content shell: stays in place while the product navigation loads a section into it. @param {Document} document @param {Node} content */
-function mainShell(document, content) {
+/** The main content shell: stays in place while the product navigation loads a section into it. @param {Document} document @param {ReadonlyArray<Node>} sections */
+function mainShell(document, sections) {
   const shell = document.createElement('div');
   shell.className = 'wex-admin-drawer-main';
-  shell.append(content);
+  shell.append(...sections);
   return shell;
 }
 
@@ -59,7 +60,7 @@ export function mountAddNewSection(shell, id, label) {
   body.replaceChildren(...(id === 'presentation'
     ? [
       createProductSections(body),
-      mainShell(document, createProductSummary(shell)),
+      mainShell(document, [createProductSummary(shell), createProductPricing(shell)]),
       connectionsShell(document, [
         sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
         sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),

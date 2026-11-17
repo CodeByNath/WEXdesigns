@@ -13,6 +13,10 @@
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
+.wex-admin-product-summary__heading {
+  display: none;
+}
+
 .wex-admin-product-summary__details {
   grid-column: 1;
   grid-row: 1;
@@ -168,4 +172,18 @@
   .wex-admin-product-summary__row + .wex-admin-product-summary__row {
     margin-block-start: var(--wex-space-8);
   }
+}
+
+/* A section heading: the name and its step count chip on one line, space between, shared by the Overview and Pricing sections. */
+.wex-admin-product-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
+  /* The heading is as tall as a navigation tab, so its line sits level with the first tab and the Promotions heading. */
+  min-block-size: var(--wex-tab-navigation-small-dropdown-target-size);
+}
+
+.wex-admin-product-section-head__name {
+  margin: 0;
 }

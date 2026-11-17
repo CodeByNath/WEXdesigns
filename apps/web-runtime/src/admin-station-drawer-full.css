@@ -98,6 +98,16 @@
   border-block-end: 0;
 }
 
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-summary__heading {
+  display: flex;
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-summary__details, .wex-admin-product-summary__media) {
+  grid-row: 2;
+}
+
 .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body:not([data-admin-product-section="overview"]) .wex-admin-product-summary {
   display: none;
 }

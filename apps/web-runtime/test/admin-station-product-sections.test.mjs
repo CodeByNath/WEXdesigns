@@ -58,7 +58,7 @@ test('Full navigation, main content and connections scroll on their own on deskt
   assert.match(sections, /connectionsShell\(document, \[\s*sectionUnit\(document, 'promotions'[\s\S]*sectionUnit\(document, 'activity'/);
   const base = readFileSync(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
   assert.match(base, /\.wex-admin-drawer-main,\n\.wex-admin-drawer-connections \{\n  display: contents;/);
-  assert.match(sections, /mainShell\(document, createProductSummary\(shell\)\)/);
+  assert.match(sections, /mainShell\(document, \[createProductSummary\(shell\), createProductPricing\(shell\)\]\)/);
 });
 
 test('Full Promotions line stretches across the connections shell on desktop only', () => {
@@ -72,4 +72,13 @@ test('Full Header start and actions stay within the shell columns', () => {
   assert.match(css, /drawer-header \{\n    display: grid;\n    grid-template-columns: subgrid;\n    padding-inline: 0;/);
   assert.match(css, /drawer-header-actions\) \{\n    grid-column: 2 \/ 7;\n    grid-row: 1;/);
   assert.match(css, /drawer-header-actions \{\n    justify-self: end;/);
+});
+
+test('Pricing shows the reference fields as labels and values, never inputs, and only in Full when selected', () => {
+  const js = readFileSync(new URL('../src/admin-station-product-pricing.js', import.meta.url), 'utf8');
+  for (const label of ['Advertised price', 'Price list', 'Badges', 'Featured']) assert.ok(js.includes(`'${label}'`), label);
+  assert.doesNotMatch(js, /'(input|select|textarea|button)'/);
+  const css = readFileSync(new URL('../src/admin-station-product-pricing.css', import.meta.url), 'utf8');
+  assert.match(css, /\.wex-admin-product-pricing \{\n  display: none;/);
+  assert.match(css, /\[data-admin-drawer-mode="full"\] \.wex-admin-shell__drawer-body\[data-admin-product-section="pricing"\] \.wex-admin-product-pricing \{\n  display: grid;/);
 });

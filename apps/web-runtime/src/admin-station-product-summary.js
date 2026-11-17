@@ -1,3 +1,4 @@
+import { createProductSectionHead } from './admin-station-product-sections.js';
 import { allServicesPreviewSnapshot } from './admin-station-services.js';
 
 /** @typedef {{ id: string, productCode: string, name: string, imageUrl: string, category: string, labels: ReadonlyArray<string>, ratings: string, reviews: number, price: string, duration: string, language: string }} ProductSummary */
@@ -21,7 +22,7 @@ const productSummaryFixture = Object.freeze({
 });
 
 /** @param {Document} document @param {keyof HTMLElementTagNameMap} tag @param {string} className @param {string} [text] */
-function node(document, tag, className, text) {
+export function node(document, tag, className, text) {
   const element = document.createElement(tag);
   element.className = className;
   if (text !== undefined) element.textContent = text;
@@ -33,7 +34,7 @@ function node(document, tag, className, text) {
  * so the label beside it moves from centred on the first chip to the top.
  * @param {Document} document @param {ReadonlyArray<string>} items
  */
-function chips(document, items) {
+export function chips(document, items) {
   const list = node(document, 'ul', 'wex-admin-product-summary__chips');
   items.forEach((item) => list.append(node(document, 'li', 'wex-admin-product-summary__chip', item)));
   if (typeof ResizeObserver !== 'undefined') {
@@ -43,6 +44,24 @@ function chips(document, items) {
       list.toggleAttribute('data-wrapped', first !== null && last !== null && first.offsetTop !== last.offsetTop);
     }).observe(list);
   }
+  return list;
+}
+
+/**
+ * Label and value rows: one label column as wide as the longest label.
+ * @param {Document} document @param {ReadonlyArray<readonly [string, Node]>} entries
+ */
+export function labelledRows(document, entries) {
+  const list = node(document, 'dl', 'wex-admin-product-summary__rows');
+  entries.forEach(([label, value]) => {
+    const row = node(document, 'div', 'wex-admin-product-summary__row');
+    const term = node(document, 'dt', 'wex-admin-product-summary__label wex-type-body-small-regular', label);
+    const definition = node(document, 'dd', 'wex-admin-product-summary__value');
+    definition.append(value);
+    if (value instanceof HTMLElement && value.tagName === 'SPAN') definition.setAttribute('title', value.textContent ?? '');
+    row.append(term, definition);
+    list.append(row);
+  });
   return list;
 }
 
@@ -70,21 +89,7 @@ export function createProductSummary(shell, product = productSummaryFixture) {
   identity.append(
     node(document, 'h3', 'wex-admin-product-summary__name wex-type-title-small-semibold', product.name),
   );
-  /** @param {ReadonlyArray<readonly [string, Node]>} entries */
-  const labelledRows = (entries) => {
-    const list = node(document, 'dl', 'wex-admin-product-summary__rows');
-    entries.forEach(([label, value]) => {
-      const row = node(document, 'div', 'wex-admin-product-summary__row');
-      const term = node(document, 'dt', 'wex-admin-product-summary__label wex-type-body-small-regular', label);
-      const definition = node(document, 'dd', 'wex-admin-product-summary__value');
-      definition.append(value);
-      if (value instanceof HTMLElement && value.tagName === 'SPAN') definition.setAttribute('title', value.textContent ?? '');
-      row.append(term, definition);
-      list.append(row);
-    });
-    return list;
-  };
-  const facts = labelledRows([
+  const facts = labelledRows(document, [
     ['Platform ID', node(document, 'span', 'wex-type-body-small-regular', product.id)],
     ['Booking ID', node(document, 'span', 'wex-type-navigation-small-semibold', product.productCode)],
     ['Rating', node(document, 'span', 'wex-type-navigation-small-semibold', product.ratings + ' | ' + product.reviews)],
@@ -97,6 +102,6 @@ export function createProductSummary(shell, product = productSummaryFixture) {
   details.append(identity, facts);
   const media = node(document, 'div', 'wex-admin-product-summary__media');
   media.append(picture);
-  section.append(media, details);
+  section.append(createProductSectionHead(document, 'overview', 'wex-admin-product-summary__heading'), media, details);
   return section;
 }

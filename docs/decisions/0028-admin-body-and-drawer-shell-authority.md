@@ -589,3 +589,10 @@ scroll and loads the section the product navigation selects, so its borders stay
 section without content is chosen (Overview loads the Product Summary). The navigation
 shell has no border. Compact Full is unchanged. Other modes are unchanged. No token was
 created.
+
+Full Pricing section (Owner-directed, 2026-11-17): the main content shell loads Pricing as
+labels and values, never inputs, from the reference Tour Product Editor. Advertised price,
+a Price list (price in bold, then type with its note in small text beside it, or below it when
+the line is tight), and Badges and Featured chips share one label column. Overview and Pricing
+headings print the name with its "n / 10" step chip on one line, level with the first tab. Existing
+tokens only; no token was created.

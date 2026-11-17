@@ -16,6 +16,12 @@
 
 ### Recent work (newest first)
 
+- 2026-11-17: Full Pricing section (`admin-station-product-pricing.js/.css`), loaded into the
+  main content shell by the product navigation: labels and values only, never inputs, from the
+  reference Tour Product Editor Pricing (Advertised price, Price list with price, type and a
+  small note beside or below it, Badges and Featured chips). Overview and Pricing share a section
+  heading, the name with its "n / 10" chip (`createProductSectionHead` in
+  `admin-station-product-sections.js`); ADR 0028. Preview values only.
 - 2026-11-17: Full Drawer shells share the width 2 : 5 : 3 (navigation, main content,
   connections), stopping at 720px main content and 220px navigation, each running the
   full Drawer height scrolling on its own, with the Header actions ending at the connections shell end (a main content shell keeps its borders while the navigation loads a section; connections groups Promotions and Activity,
