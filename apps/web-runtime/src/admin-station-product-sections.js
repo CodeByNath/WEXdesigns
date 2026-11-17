@@ -36,7 +36,7 @@ export function createProductSectionHead(document, id, className = '') {
   return head;
 }
 
-/** Full-mode product navigation; other Drawer modes retain the original Presentation. @param {HTMLElement} body */
+/** Full-mode product navigation: hovering or focusing an item previews its section in the main content shell, leaving returns to the selected one, clicking selects it. Other Drawer modes retain the original Presentation. @param {HTMLElement} body */
 export function createProductSections(body) {
   const document = body.ownerDocument;
   const nav = document.createElement('nav');
@@ -45,20 +45,39 @@ export function createProductSections(body) {
   const list = document.createElement('ol');
   list.className = 'wex-admin-product-sections__list';
   body.dataset.adminProductSection = 'overview';
+  /** The selected section; the one in the main content shell follows it, or the hovered or focused one while previewing (same as the Drawer Sidebar tabs). */
+  let selected = 'overview';
+  /** @param {string} id */
+  const show = (id) => {
+    body.dataset.adminProductSection = id;
+    if (id === selected) delete body.dataset.adminProductPreview;
+    else body.dataset.adminProductPreview = '';
+  };
   const buttons = productSections.map((section, index) => {
     const item = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'wex-admin-product-sections__tab';
     button.textContent = productSectionHeading(section.id);
-    button.setAttribute('aria-pressed', String(section.id === 'overview'));
+    button.setAttribute('aria-pressed', String(section.id === selected));
+    const enter = () => show(section.id);
+    button.addEventListener('pointerenter', enter);
+    button.addEventListener('focus', enter);
     button.addEventListener('click', () => {
-      body.dataset.adminProductSection = section.id;
+      selected = section.id;
       buttons.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate === button)));
+      show(section.id);
     });
     item.append(button);
     list.append(item);
     return button;
+  });
+  /* The selected section returns only when the pointer or focus leaves the whole list, not each item, so crossing the gap between two items never flashes the selected section. */
+  list.addEventListener('pointerleave', () => show(selected));
+  list.addEventListener('focusout', (event) => {
+    const next = /** @type {Node | null} */ (/** @type {FocusEvent} */ (event).relatedTarget);
+    if (next !== null && list.contains(next)) return;
+    show(selected);
   });
   nav.append(list);
   return nav;

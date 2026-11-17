@@ -33,6 +33,31 @@ test('product navigation follows the reference, defaults to Overview and selects
   assert.deepEqual(selected(), [buttons[0]]);
 });
 
+test('hovering or focusing a product section previews it; only leaving the whole list returns to the selected one', () => {
+  const body = { dataset: {}, ownerDocument: { createElement: element } };
+  const list = createProductSections(body).children[0];
+  const buttons = list.children.map((item) => item.children[0]);
+  buttons[2].events.pointerenter();
+  assert.equal(body.dataset.adminProductSection, 'description');
+  assert.ok('adminProductPreview' in body.dataset);
+  assert.equal(buttons[0].attributes['aria-pressed'], 'true');
+  buttons[3].events.pointerenter();
+  assert.equal(body.dataset.adminProductSection, 'media');
+  assert.equal(buttons[2].events.pointerleave, undefined);
+  list.events.pointerleave();
+  assert.equal(body.dataset.adminProductSection, 'overview');
+  assert.ok(!('adminProductPreview' in body.dataset));
+  buttons[1].events.focus();
+  assert.equal(body.dataset.adminProductSection, 'pricing');
+  buttons[1].events.click();
+  list.events.focusout({ relatedTarget: null });
+  assert.equal(body.dataset.adminProductSection, 'pricing');
+  assert.ok(!('adminProductPreview' in body.dataset));
+  buttons[3].events.pointerenter();
+  list.events.pointerleave();
+  assert.equal(body.dataset.adminProductSection, 'pricing');
+});
+
 test('Full Drawer shares navigation, main content and connections 2 : 5 : 3', () => {
   const css = readFileSync(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
   assert.match(css, /--wex-admin-shell-drawer-column-max-inline-size: calc\(var\(--wex-space-64\) \* 11 \+ var\(--wex-space-16\)\);/);

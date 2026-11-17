@@ -594,5 +594,5 @@ Full Pricing section (Owner-directed, 2026-11-17): the main content shell loads 
 labels and values, never inputs, from the reference Tour Product Editor. Advertised price,
 a Price list (price in bold, then type with its note in small text beside it, or below it when
 the line is tight), and Badges and Featured chips share one label column. Overview and Pricing
-headings print the name with its "n / 10" step chip on one line, level with the first tab. Existing
+headings print the name with its "n / 10" step chip on one line, level with the first tab. The product navigation previews on hover or focus like the Drawer Sidebar tabs (Owner-directed, 2026-11-18). Existing
 tokens only; no token was created.
