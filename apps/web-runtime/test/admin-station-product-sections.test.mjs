@@ -10,6 +10,7 @@ function element(tagName) {
     append(...children) { this.children.push(...children); },
     setAttribute(name, value) { this.attributes[name] = value; },
     addEventListener(name, callback) { this.events[name] = callback; },
+    focus() { this.focused = true; this.events.focus?.(); },
   };
 }
 
@@ -31,6 +32,51 @@ test('product navigation follows the reference, defaults to Overview and selects
   buttons[0].events.click();
   assert.equal(body.dataset.adminProductSection, 'overview');
   assert.deepEqual(selected(), [buttons[0]]);
+});
+
+test('section arrows navigate both ways and disable only at their respective boundaries', () => {
+  const body = { dataset: {}, ownerDocument: { createElement: element } };
+  const next = element('button'), previous = element('button');
+  const nav = createProductSections(body, next, previous);
+  const buttons = nav.children[0].children.map((item) => item.children[0]);
+  assert.equal(next.hidden, false);
+  assert.equal(previous.hidden, false);
+  assert.equal(previous.disabled, true);
+  previous.onclick();
+  assert.equal(body.dataset.adminProductSection, 'overview');
+  for (let index = 1; index < buttons.length; index++) {
+    next.onclick();
+    assert.equal(buttons[index].attributes['aria-pressed'], 'true');
+    assert.equal(buttons.filter((button) => button.attributes['aria-pressed'] === 'true').length, 1);
+    assert.equal(buttons[index].focused, true);
+    assert.equal(body.dataset.adminProductPreview, undefined);
+    assert.equal(next.hidden, false);
+    assert.equal(previous.disabled, false);
+    assert.equal(next.disabled, index === buttons.length - 1);
+  }
+  next.onclick();
+  assert.equal(body.dataset.adminProductSection, 'faq-booking');
+  for (let index = buttons.length - 2; index >= 0; index--) {
+    previous.onclick();
+    assert.equal(buttons[index].attributes['aria-pressed'], 'true');
+    assert.equal(previous.disabled, index === 0);
+    assert.equal(next.disabled, false);
+  }
+  buttons[9].events.click();
+  assert.equal(next.disabled, true);
+  buttons[0].events.click();
+  assert.equal(next.hidden, false);
+  assert.equal(previous.disabled, true);
+  buttons[8].events.pointerenter();
+  next.onclick();
+  assert.equal(body.dataset.adminProductSection, 'pricing', 'Next advances from selection, not a hover preview');
+});
+
+test('section arrows stay hidden outside Full mode and clears when the requester supplies no product navigation', () => {
+  const css = readFileSync(new URL('../../../packages/wex/src/foundations/drawer-footer.css', import.meta.url), 'utf8');
+  assert.match(css, /:not\(\[data-admin-drawer-mode="full"\]\) \[data-admin-drawer-next\],\n\.wex-admin-shell:not\(\[data-admin-drawer-mode="full"\]\) \[data-admin-drawer-previous\] \{\n  display: none;/);
+  const sections = readFileSync(new URL('../src/admin-station-add-new-sections.js', import.meta.url), 'utf8');
+  assert.match(sections, /control\.hidden = true; control\.disabled = true; control\.onclick = null;/);
 });
 
 test('hovering or focusing a product section previews it; only leaving the whole list returns to the selected one', () => {
@@ -68,9 +114,9 @@ test('Full Drawer shares navigation, main content and connections 2 : 5 : 3', ()
 
 test('Full shells run the Drawer height and the Footer sits under main content with its borders, with no extra offsets', () => {
   const css = readFileSync(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
-  assert.match(css, /@media \(min-width: 768px\) \{[\s\S]*\.wex-admin-drawer-main,\n  \.wex-admin-shell\[data-admin-drawer-mode="full"\]:has\(\[data-admin-drawer-section="presentation"\]\) \.wex-admin-shell__drawer-footer \{\n    grid-column: 4;\n    border-inline: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.match(css, /@container wex-admin-drawer \(width >= 840px\) \{[\s\S]*\.wex-admin-drawer-main,\n  \.wex-admin-shell\[data-admin-drawer-mode="full"\]:has\(\[data-admin-drawer-section="presentation"\]\) \.wex-admin-shell__drawer-footer \{\n    grid-column: 4;\n    border-inline: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.doesNotMatch(css, /::before|margin-block: calc\(-1|drawer-footer-actions|margin-inline-start/);
-  assert.doesNotMatch(css, /\.wex-admin-product-sections \{[^}]*border/);
+  assert.match(css, /@container wex-admin-drawer \(width < 840px\)/);
   assert.match(css, /grid-row: 3 \/ span 2;/);
   assert.match(css, /drawer-footer \{\n    grid-row: 4;/);
 });
@@ -83,12 +129,12 @@ test('Full navigation, main content and connections scroll on their own on deskt
   assert.match(sections, /connectionsShell\(document, \[\s*sectionUnit\(document, 'promotions'[\s\S]*sectionUnit\(document, 'activity'/);
   const base = readFileSync(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
   assert.match(base, /\.wex-admin-drawer-main,\n\.wex-admin-drawer-connections \{\n  display: contents;/);
-  assert.match(sections, /mainShell\(document, \[createProductSummary\(shell\), createProductPricing\(shell\)\]\)/);
+  assert.match(sections, /mainShell\(document, \[createProductSummary\(shell, undefined, \{[\s\S]*setAdminDrawerMode\(shell, 'full'\)[\s\S]*createProductPricing\(shell\)\]\)/);
 });
 
 test('Full Promotions line stretches across the connections shell on desktop only', () => {
   const css = readFileSync(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
-  assert.match(css, /@media \(min-width: 768px\) \{[\s\S]*\.wex-admin-drawer-connections \{\n    display: grid;\n    grid-column: 5 \/ 8;/);
+  assert.match(css, /@container wex-admin-drawer \(width >= 840px\) \{[\s\S]*\.wex-admin-drawer-connections \{\n    display: grid;\n    grid-column: 5 \/ 8;/);
   assert.match(css, /\.wex-admin-drawer-connections > \.wex-admin-drawer-section \{\n    margin-inline: 0;\n    padding-inline: var\(--wex-space-24\) var\(--wex-space-16\);/);
 });
 

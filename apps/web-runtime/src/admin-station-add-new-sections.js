@@ -1,5 +1,5 @@
 import { ADMIN_DRAWER_TAB_EVENT } from './admin-station-drawer-sidebar.js';
-import { adminDrawerCompartment } from './admin-station-drawer.js';
+import { adminDrawerCompartment, setAdminDrawerMode } from './admin-station-drawer.js';
 import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
 import { createProductPricing } from './admin-station-product-pricing.js';
@@ -57,10 +57,24 @@ export function mountAddNewSection(shell, id, label) {
   body.dataset.adminDrawerSection = id;
   setAdminDrawerHeaderLocation(shell, label);
   const document = shell.ownerDocument;
+  const next = shell.querySelector('[data-admin-drawer-next]');
+  const nextButton = next instanceof HTMLButtonElement ? next : undefined;
+  const previous = shell.querySelector('[data-admin-drawer-previous]');
+  const previousButton = previous instanceof HTMLButtonElement ? previous : undefined;
+  for (const control of [previousButton, nextButton]) {
+    if (control) { control.hidden = true; control.disabled = true; control.onclick = null; }
+  }
   body.replaceChildren(...(id === 'presentation'
     ? [
-      createProductSections(body),
-      mainShell(document, [createProductSummary(shell), createProductPricing(shell)]),
+      createProductSections(body, nextButton, previousButton),
+      mainShell(document, [createProductSummary(shell, undefined, {
+        onSeeAll: () => {
+          if (!setAdminDrawerMode(shell, 'full')) return;
+          body.querySelector('.wex-admin-product-sections__tab[aria-pressed="true"]')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          const selected = body.querySelector('.wex-admin-product-sections__tab[aria-pressed="true"]');
+          if (selected instanceof HTMLElement) selected.focus();
+        },
+      }), createProductPricing(shell)]),
       connectionsShell(document, [
         sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
         sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),

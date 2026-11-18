@@ -1,5 +1,5 @@
 import { closeAdminDrawerDropdown, mountAdminDrawerNotifications } from './admin-station-drawer-notifications.js';
-import { mountAdminDrawerFooter, setAdminDrawerDirty } from './admin-station-drawer-footer.js';
+import { closeAdminDrawerActionMenu, mountAdminDrawerFooter, setAdminDrawerActionState } from './admin-station-drawer-footer.js';
 import { isAdminDrawerSidebar, resetAdminDrawerSidebar, setAdminDrawerSidebar } from './admin-station-drawer-sidebar.js';
 import { isAdminDrawerHeaderContent, mountAdminDrawerHeader, resetAdminDrawerHeader, setAdminDrawerHeader } from './admin-station-drawer-header.js';
 
@@ -87,6 +87,17 @@ function fitMode(shell, mode) {
   return preference.find((candidate) => available.includes(candidate)) ?? 'default';
 }
 
+/** Selects an already approved mode without reopening or resetting the requester.
+ * Full remains available at narrow widths even when it measures the same as Default.
+ * @param {HTMLElement} shell @param {AdminDrawerMode} mode */
+export function setAdminDrawerMode(shell, mode) {
+  const drawer = drawerShell(shell);
+  if (!drawer || drawer.hidden || !availableModeWidths(shell).some((entry) => entry.mode === mode)) return false;
+  shell.dataset.adminDrawerMode = mode;
+  syncHandleSeam(shell);
+  return true;
+}
+
 /** @param {HTMLElement} shell @param {AdminDrawerMode} mode @param {'decrease' | 'increase'} direction @returns {AdminDrawerMode} */
 function drawerModeAfter(shell, mode, direction) {
   const width = drawerModeWidths(shell).find((entry) => entry.mode === mode)?.width ?? 0;
@@ -143,7 +154,10 @@ export function openAdminDrawer(shell, request) {
   if (request.header) setAdminDrawerHeader(shell, request.header);
   resetAdminDrawerSidebar(shell);
   if (request.sidebar) setAdminDrawerSidebar(shell, request.sidebar);
-  setAdminDrawerDirty(shell, false);
+  setAdminDrawerActionState(shell, { dirty: false, publishable: false });
+  for (const control of drawer.querySelectorAll('[data-admin-drawer-previous], [data-admin-drawer-next]')) {
+    if (control instanceof HTMLButtonElement) { control.hidden = true; control.disabled = true; control.onclick = null; }
+  }
   shell.dataset.adminDrawerMode = fitMode(shell, request.mode ?? 'default');
   syncHandleSeam(shell);
   return true;
@@ -154,6 +168,7 @@ export function closeAdminDrawer(shell) {
   const drawer = drawerShell(shell);
   if (!drawer) return false;
 
+  closeAdminDrawerActionMenu(shell);
   delete drawer.dataset.adminDrawerOwner;
   delete drawer.dataset.adminDrawerColumns;
   closeAdminDrawerDropdown(shell);

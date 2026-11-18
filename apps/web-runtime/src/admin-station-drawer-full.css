@@ -1,3 +1,7 @@
+.wex-admin-shell__drawer {
+  container-name: wex-admin-drawer;
+}
+
 /* Owner-directed Full Presentation: product navigation, Overview, then Promotions and Activity. */
 .wex-admin-product-sections {
   display: none;
@@ -113,7 +117,7 @@
 }
 
 /* Desktop Full: each shell runs the full Drawer height, scrolls on its own and carries its own padding. The Footer sits at the bottom of the main content shell only, sharing its borders. */
-@media (min-width: 768px) {
+@container wex-admin-drawer (width >= 840px) {
   .wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer-frame {
     background: var(--wex-color-layer-02);
   }
@@ -190,8 +194,8 @@
   }
 }
 
-/* Reuse the existing compact Drawer boundary; narrow Full remains usable after resizing. */
-@media (max-width: 767px) {
+/* Owner-directed: use horizontal navigation below a Drawer frame width of 840px. */
+@container wex-admin-drawer (width < 840px) {
   .wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer-frame {
     grid-template-areas: "header" "sidebar" "body" "footer";
     grid-template-columns: minmax(0, 1fr);
@@ -216,6 +220,15 @@
 
   .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-sections {
     overflow: auto;
+    scrollbar-width: none;
+    margin-inline: calc(-1 * var(--wex-admin-shell-drawer-body-start-inset)) calc(-1 * var(--wex-admin-shell-drawer-body-end-inset));
+    padding-inline: var(--wex-admin-shell-drawer-body-start-inset) var(--wex-admin-shell-drawer-body-end-inset);
+    padding-block-end: var(--wex-space-16);
+    border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  }
+
+  .wex-admin-product-sections::-webkit-scrollbar {
+    display: none;
   }
 
   .wex-admin-product-sections__list {

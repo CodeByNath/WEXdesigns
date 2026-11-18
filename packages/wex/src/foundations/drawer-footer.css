@@ -1,4 +1,4 @@
-/* The Drawer Footer holds its Small Button row on the same side padding as the Drawer Header so the Publish edge meets the close button edge. Close, or Discard in its place, sits at the start; Save and Publish sit at the end. */
+/* Close stays at the start; section arrows and the action menu sit at the end. */
 .wex-admin-shell__drawer-footer {
   padding-inline: var(--wex-space-16);
   display: flex;
@@ -7,7 +7,13 @@
   gap: var(--wex-space-8);
 }
 
-.wex-admin-shell__drawer-footer > [hidden] {
+.wex-admin-shell__drawer-footer [hidden] {
+  display: none;
+}
+
+/* Product section navigation is available only in the Full Drawer. */
+.wex-admin-shell:not([data-admin-drawer-mode="full"]) [data-admin-drawer-next],
+.wex-admin-shell:not([data-admin-drawer-mode="full"]) [data-admin-drawer-previous] {
   display: none;
 }
 
@@ -17,7 +23,22 @@
   gap: var(--wex-space-8);
 }
 
-.wex-admin-shell__drawer-footer > [data-admin-drawer-close],
-.wex-admin-shell__drawer-footer > [data-admin-drawer-discard] {
+.wex-admin-shell__drawer-footer > [data-admin-drawer-close] {
   margin-inline-end: auto;
+}
+
+.wex-admin-shell__drawer-action-menu {
+  position: relative;
+  display: inline-flex;
+}
+
+.wex-admin-shell__drawer-action-choices {
+  position: absolute;
+  inset-block-end: calc(100% + var(--wex-space-4));
+  inset-inline-end: 0;
+}
+
+.wex-admin-shell__drawer-action-choices > :disabled {
+  opacity: var(--wex-button-disabled-opacity);
+  pointer-events: none;
 }

@@ -37,7 +37,7 @@ test('provides one standalone pill handle that drags the Drawer one approved mod
   assert.match(drawer, /handle\.addEventListener\('pointerdown'[\s\S]*setPointerCapture\(event\.pointerId\)/);
   assert.match(drawer, /const MODE_TRAVEL = 96;/);
   assert.match(drawer, /function syncHandleSeam\(shell\)[\s\S]*toggleAttribute\('data-admin-drawer-mode-control-seam', main instanceof HTMLElement && width\(shell\.dataset\.adminDrawerMode \?\? 'default'\) >= main\.getBoundingClientRect\(\)\.width - 1\)/);
-  assert.equal((drawer.match(/syncHandleSeam\(shell\);/g) ?? []).length, 4);
+  assert.equal((drawer.match(/syncHandleSeam\(shell\);/g) ?? []).length, 5);
   assert.match(handleCss, /\[data-admin-drawer-mode-control-seam\] \{\s*inset-inline-start: calc\(var\(--wex-space-4\) \/ 2\);\s*transform: translateX\(-50%\);/);
   assert.match(drawer, /const closing = event\.type === 'pointerup' && drag\.closing;\s*if \(closing\) closeAdminDrawer\(shell\);\s*stopDrag\(!closing\);/);
   assert.match(drawer, /const STRETCH_MAX = 40;[\s\S]*const SPRING_BACK = 200;/);
@@ -199,16 +199,19 @@ test('keeps compact Sidebar priority over an open Admin Drawer', () => {
   assert.match(compact[1], /data-admin-drawer="open"\]\[data-sidebar-drawer="open"\] \.wex-admin-shell__drawer\s*\{\s*display: none;/);
 });
 
-test('the Drawer footer holds Close or Discard at its start, and Save and a primary Publish at its end', async () => {
+test('the Drawer footer keeps Close, starts the section arrows hidden and uses the primary Label Only action menu', async () => {
   const footerCss = await readFile(new URL('../../../packages/wex/src/foundations/drawer-footer.css', import.meta.url), 'utf8');
   const footer = shell.match(/<footer class="wex-admin-shell__drawer-footer"[\s\S]*?<\/footer>/)[0];
-  assert.match(footer, /<button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-close>Close<\/button>\s*<button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-discard hidden>Discard<\/button>\s*<div class="wex-admin-shell__drawer-footer-actions">\s*<button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-save disabled>Save<\/button>\s*<button type="button" class="wex-button wex-button--small wex-button--primary" data-admin-drawer-publish>Publish<\/button>/);
-  assert.match(footerCss, /> \[data-admin-drawer-close\],\s*\.wex-admin-shell__drawer-footer > \[data-admin-drawer-discard\] \{\s*margin-inline-end: auto;/);
-  const footerJs = await readFile(new URL('../src/admin-station-drawer-footer.js', import.meta.url), 'utf8');
-  assert.match(footerJs, /parts\.save\.disabled = !dirty;\s*parts\.discard\.hidden = !dirty;\s*parts\.close\.hidden = dirty;/);
-  assert.match(footerJs, /ADMIN_DRAWER_DISCARD_EVENT[\s\S]*setAdminDrawerDirty\(shell, false\);/);
+  assert.match(footer, /data-admin-drawer-close>Close/);
+  assert.match(footer, /wex-action-button-icon-only--small" data-admin-drawer-next aria-label="Next section" title="Next section" hidden disabled/);
+  assert.match(footer, /wex-action-button-icon-only--small" data-admin-drawer-previous aria-label="Previous section" title="Previous section" hidden disabled/);
+  assert.match(footer, /wex-button--primary wex-action-button-label-only--small-menu/);
+  assert.match(footer, /aria-haspopup="menu" aria-expanded="false"/);
+  assert.match(footer, /data-admin-drawer-publish hidden/);
+  assert.match(footer, /data-admin-drawer-save disabled/);
+  assert.match(footer, /data-admin-drawer-discard disabled/);
+  assert.match(footerCss, /inset-block-end: calc\(100% \+ var\(--wex-space-4\)\);/);
   assert.doesNotMatch(footer, /style=/);
-  assert.match(footerCss, /\.wex-admin-shell__drawer-footer \{[^}]*padding-inline: var\(--wex-space-16\);[^}]*display: flex;[^}]*justify-content: flex-end;[^}]*gap: var\(--wex-space-8\);/);
   assert.match(index, /@import "\.\/foundations\/drawer-footer\.css";/);
 });
 
@@ -248,7 +251,7 @@ test('Add New Sidebar tabs print each section label straight into the Drawer Bod
   assert.match(sections, /sectionUnit\(document, 'promotions', 'Promotions', \[/);
   assert.match(sections, /sectionUnit\(document, 'activity', 'Activity', \[/);
   assert.match(sections, /setAdminDrawerHeaderLocation\(shell, label\)/);
-  assert.match(sections, /createProductSummary\(shell\)/);
+  assert.match(sections, /createProductSummary\(shell, undefined, \{/);
   assert.match(sections, /body\.replaceChildren\(\.\.\.\(id === 'presentation'/);
   assert.doesNotMatch(sections, /createNotificationModule|createPromotionsModule|wex-admin-add-new-section/);
 });

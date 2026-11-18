@@ -36,8 +36,9 @@ export function createProductSectionHead(document, id, className = '') {
   return head;
 }
 
-/** Full-mode product navigation: hovering or focusing an item previews its section in the main content shell, leaving returns to the selected one, clicking selects it. Other Drawer modes retain the original Presentation. @param {HTMLElement} body */
-export function createProductSections(body) {
+/** Full-mode product navigation: hovering or focusing an item previews its section in the main content shell, leaving returns to the selected one, clicking selects it. Other Drawer modes retain the original Presentation.
+ * @param {HTMLElement} body @param {HTMLButtonElement} [nextButton] @param {HTMLButtonElement} [previousButton] */
+export function createProductSections(body, nextButton, previousButton) {
   const document = body.ownerDocument;
   const nav = document.createElement('nav');
   nav.className = 'wex-admin-product-sections';
@@ -47,6 +48,14 @@ export function createProductSections(body) {
   body.dataset.adminProductSection = 'overview';
   /** The selected section; the one in the main content shell follows it, or the hovered or focused one while previewing (same as the Drawer Sidebar tabs). */
   let selected = 'overview';
+  /** @param {string} id */
+  const select = (id) => {
+    selected = id;
+    buttons.forEach((button, index) => button.setAttribute('aria-pressed', String(productSections[index]?.id === id)));
+    if (nextButton) nextButton.disabled = productSections.at(-1)?.id === selected;
+    if (previousButton) previousButton.disabled = productSections[0]?.id === selected;
+    show(id);
+  };
   /** @param {string} id */
   const show = (id) => {
     body.dataset.adminProductSection = id;
@@ -63,15 +72,27 @@ export function createProductSections(body) {
     const enter = () => show(section.id);
     button.addEventListener('pointerenter', enter);
     button.addEventListener('focus', enter);
-    button.addEventListener('click', () => {
-      selected = section.id;
-      buttons.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate === button)));
-      show(section.id);
-    });
+    button.addEventListener('click', () => select(section.id));
     item.append(button);
     list.append(item);
     return button;
   });
+  /** @param {HTMLButtonElement | undefined} control @param {number} direction */
+  const bindStep = (control, direction) => {
+    if (!control) return;
+    control.hidden = false;
+    control.onclick = () => {
+      if (control.disabled) return;
+      const index = productSections.findIndex((section) => section.id === selected) + direction;
+      const section = productSections[index];
+      if (!section) return;
+      select(section.id);
+      buttons[index]?.focus();
+    };
+  };
+  bindStep(previousButton, -1);
+  bindStep(nextButton, 1);
+  select(selected);
   /* The selected section returns only when the pointer or focus leaves the whole list, not each item, so crossing the gap between two items never flashes the selected section. */
   list.addEventListener('pointerleave', () => show(selected));
   list.addEventListener('focusout', (event) => {

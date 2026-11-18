@@ -21,6 +21,14 @@ const productSummaryFixture = Object.freeze({
   language: 'English',
 });
 
+/** @param {ProductSummary} product */
+export function hasProductSummaryContent(product) {
+  return [product.id, product.productCode, product.name, product.imageUrl,
+    product.category, product.ratings, product.price, product.duration, product.language]
+    .some((value) => value.trim().length > 0)
+    || product.labels.some((label) => label.trim().length > 0) || product.reviews > 0;
+}
+
 /** @param {Document} document @param {keyof HTMLElementTagNameMap} tag @param {string} className @param {string} [text] */
 export function node(document, tag, className, text) {
   const element = document.createElement(tag);
@@ -72,9 +80,10 @@ export function labelledRows(document, entries) {
  * text, no pill) and Labels (chips).
  * @param {HTMLElement} shell
  * @param {ProductSummary} [product]
+ * @param {{ onSeeAll?: () => void }} [actions]
  * @returns {HTMLElement}
  */
-export function createProductSummary(shell, product = productSummaryFixture) {
+export function createProductSummary(shell, product = productSummaryFixture, actions = {}) {
   const document = shell.ownerDocument;
   const section = node(document, 'section', 'wex-admin-product-summary');
   section.setAttribute('aria-label', 'Product summary');
@@ -103,5 +112,14 @@ export function createProductSummary(shell, product = productSummaryFixture) {
   const media = node(document, 'div', 'wex-admin-product-summary__media');
   media.append(picture);
   section.append(createProductSectionHead(document, 'overview', 'wex-admin-product-summary__heading'), media, details);
+  if (actions.onSeeAll && hasProductSummaryContent(product)) {
+    const row = node(document, 'div', 'wex-admin-product-summary__actions');
+    const seeAll = node(document, 'button', 'wex-button wex-button--small wex-button--subtle', 'See all');
+    seeAll.setAttribute('type', 'button');
+    seeAll.setAttribute('aria-label', 'See all product sections');
+    seeAll.addEventListener('click', actions.onSeeAll);
+    row.append(seeAll);
+    section.append(row);
+  }
   return section;
 }

@@ -62,10 +62,17 @@ const shellMarkup = `
         <div class="wex-admin-shell__drawer-body" data-admin-drawer-compartment="body"></div>
         <footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer">
           <button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-close>Close</button>
-          <button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-discard hidden>Discard</button>
           <div class="wex-admin-shell__drawer-footer-actions">
-            <button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-save disabled>Save</button>
-            <button type="button" class="wex-button wex-button--small wex-button--primary" data-admin-drawer-publish>Publish</button>
+            <button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small" data-admin-drawer-previous aria-label="Previous section" title="Previous section" hidden disabled></button>
+            <button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small" data-admin-drawer-next aria-label="Next section" title="Next section" hidden disabled></button>
+            <div class="wex-admin-shell__drawer-action-menu" data-admin-drawer-action-menu>
+              <button type="button" class="wex-button wex-button--small wex-button--primary wex-action-button-label-only--small-menu" data-admin-drawer-action-toggle aria-haspopup="menu" aria-expanded="false" aria-controls="admin-drawer-action-choices" disabled><span data-admin-drawer-action-label>Save</span></button>
+              <div id="admin-drawer-action-choices" class="wex-dropdown-menu--default wex-admin-shell__drawer-action-choices" data-admin-drawer-action-choices role="menu" aria-label="Drawer actions" hidden>
+                <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-publish hidden>Publish</button>
+                <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-save disabled>Save</button>
+                <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-discard disabled>Discard</button>
+              </div>
+            </div>
           </div>
         </footer>
       </div>

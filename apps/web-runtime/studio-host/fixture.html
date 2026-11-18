@@ -16,6 +16,20 @@
         },
       };
     </script>
+    <script type="module">
+      // Optional fixture-only states for checking Footer availability in a browser.
+      import { setAdminDrawerActionState } from '../src/admin-station-drawer-footer.js';
+      const actionStates = {
+        dirty: { dirty: true, publishable: false },
+        publishable: { dirty: true, publishable: true },
+        'publish-only': { dirty: false, publishable: true },
+      };
+      const actionState = actionStates[new URLSearchParams(location.search).get('drawerActionState')];
+      if (actionState) document.addEventListener('wex:admin-drawer-request', (event) => {
+        const shell = event.target;
+        if (shell instanceof HTMLElement) queueMicrotask(() => setAdminDrawerActionState(shell, actionState));
+      }, true);
+    </script>
     <script type="module" src="../src/studio-host.js"></script>
   </body>
 </html>

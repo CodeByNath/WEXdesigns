@@ -17,6 +17,16 @@
   display: none;
 }
 
+.wex-admin-product-summary__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-summary__actions {
+  display: none;
+}
+
 .wex-admin-product-summary__details {
   grid-column: 1;
   grid-row: 1;
@@ -143,6 +153,10 @@
  * width the 0.6fr column gave it.
  */
 @media (max-width: 767px) {
+  .wex-admin-product-summary__actions {
+    clear: both;
+    padding-block-start: var(--wex-space-16);
+  }
   .wex-admin-product-summary {
     display: flow-root;
   }

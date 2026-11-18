@@ -64,14 +64,10 @@ create a global surface-content family.
 
 ## Owner-directed footer actions — 2026-11-09
 
-The Drawer footer holds Close at its start and Save and Publish at its end.
-Save is disabled while there is nothing to save. When a requester reports
-something to save or discard (`setAdminDrawerDirty`), Save enables and Discard
-replaces Close at the start; using Save or Discard clears the state, which hides
-Discard and restores Close. Save and Discard emit `wex:admin-drawer-save` and
-`wex:admin-drawer-discard` on the Admin shell; the requester owns what they do.
-Only existing Small Button variants and spacing tokens are used; no token was
-created.
+The Drawer footer keeps Close at its start. Owner-directed Label Only Small
+Menu actions, section arrows, availability and command ownership are now specified
+by [ADR 0038](0038-wex-action-button-label-only-global-tokens.md), superseding
+the former separate Save / Publish buttons and Discard replacing Close.
 
 ## Owner-directed Drawer Sidebar tabs — 2026-11-09
 
@@ -596,3 +592,9 @@ a Price list (price in bold, then type with its note in small text beside it, or
 the line is tight), and Badges and Featured chips share one label column. Overview and Pricing
 headings print the name with its "n / 10" step chip on one line, level with the first tab. The product navigation previews on hover or focus like the Drawer Sidebar tabs (Owner-directed, 2026-11-18); in both, the selected section returns only when the pointer or focus leaves the whole list, so crossing the gap between items does not flash it. Existing
 tokens only; no token was created.
+
+## Owner-directed Full Drawer boundary — 2026-11-18
+Full product navigation and its compact composition become horizontal below
+840px of Drawer frame width; at 840px and above, retain vertical navigation.
+Product Summary’s content-backed See all opens existing Full navigation directly,
+even when Full and Default widths match on mobile (Owner, 2026-11-18).

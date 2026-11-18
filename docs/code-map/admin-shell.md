@@ -16,6 +16,24 @@
 
 ### Recent work (newest first)
 
+- 2026-11-18: Product Summary offers the existing subtle See all action only
+  with product content and an open-view handler, outside Full. It opens existing
+  Full product navigation without resetting content, including when Default and
+  Full measure the same on mobile. `setAdminDrawerMode` keeps approved mode and
+  column eligibility; focused proof: `admin-station-product-summary.test.mjs`.
+
+- 2026-11-18: Full Drawer switches its product navigation and compact composition
+  below 840px of Drawer frame width (Owner-directed), using the existing Drawer
+  size container; at 840px and above it retains the vertical three-shell layout.
+
+- 2026-11-18: Drawer Footer uses Full-mode Previous/Next icon-only chevrons, disabled at
+  the first/last product section and replaces the former Publish control
+  with a primary-accent Label Only Small Menu (ADR 0038). Requester-supplied
+  `dirty` and `publishable` state determines Publish / Save / Discard ordering
+  and native disabled states; Close stays at the start. Commands emit events;
+  the requester reports completion. Source: `admin-station-drawer-footer.js`;
+  behavioural proof: `admin-station-drawer-footer.test.mjs`.
+
 - 2026-11-18: Drawer Sidebar tabs return to the selected section only when the pointer or focus
   leaves the whole tab list, so moving between tabs no longer flashes it
   (`admin-station-drawer-sidebar.js`, ADR 0028).
