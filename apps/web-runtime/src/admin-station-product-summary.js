@@ -119,7 +119,7 @@ export function createProductSummary(shell, product = productSummaryFixture, act
     seeAll.setAttribute('aria-label', 'See all product sections');
     seeAll.addEventListener('click', actions.onSeeAll);
     row.append(seeAll);
-    section.append(row);
+    media.append(row);
   }
   return section;
 }

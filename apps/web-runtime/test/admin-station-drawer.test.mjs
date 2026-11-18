@@ -443,6 +443,16 @@ test('the heading gap is one variable: 16px, 8px in stacked Full, with the navig
   assert.match(summary, /row-gap: var\(--wex-admin-shell-drawer-heading-gap\);/);
 });
 
+test('See all sits under the Product Summary image, 8px from it and 8px below on small devices', async () => {
+  const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
+  const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
+  assert.match(js, /row\.append\(seeAll\);\s*media\.append\(row\);/);
+  assert.doesNotMatch(js, /section\.append\(row\)/);
+  assert.match(css, /__media \{\s*grid-column: 2;[^}]*gap: var\(--wex-space-8\);/);
+  assert.match(css.slice(css.indexOf('@media (max-width: 767px)')), /__media \{\s*float: inline-end;[^}]*margin-block-end: var\(--wex-space-8\);/);
+  assert.doesNotMatch(css, /__actions \{\s*clear: both/);
+});
+
 test('the horizontal Full navigation sits 8px below the icon strip and 8px above its line', async () => {
   const css = await readFile(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
   const stacked = css.slice(css.indexOf('@container wex-admin-drawer (width < 840px)'));
