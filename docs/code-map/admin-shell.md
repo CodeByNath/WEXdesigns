@@ -46,6 +46,11 @@
   small note beside or below it, Badges and Featured chips). Overview and Pricing share a section
   heading, the name with its "n / 10" chip (`createProductSectionHead` in
   `admin-station-product-sections.js`); ADR 0028. Preview values only.
+- 2026-11-18: The Drawer Body keeps the same three shells in every view (navigation, main
+  content, connections; `admin-station-add-new-sections.js`/`.css`, `admin-station-drawer-full.css`;
+  ADR 0028). Stacked views give the main content shell the edge-to-edge 1px line (it moved
+  from the Product Summary to the shell, so Full below 840px has it too); desktop Full is
+  unchanged. The Overview heading shows only in Full.
 - 2026-11-17: Full Drawer shells share the width 2 : 5 : 3 (navigation, main content,
   connections), stopping at 720px main content and 220px navigation, each running the
   full Drawer height scrolling on its own, with the Header actions ending at the connections shell end (a main content shell keeps its borders while the navigation loads a section; connections groups Promotions and Activity,

@@ -96,12 +96,6 @@
   grid-row: 1;
 }
 
-.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-summary {
-  margin: 0;
-  padding: 0;
-  border-block-end: 0;
-}
-
 .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-summary__heading {
   display: flex;
   grid-column: 1 / -1;
@@ -179,8 +173,10 @@
   .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-drawer-main {
     display: block;
     grid-row: 1;
+    margin-inline: 0;
     margin-block-end: calc(var(--wex-button-small-target-size) + var(--wex-space-12) * 2 + var(--wex-border-width-default));
     padding-inline: var(--wex-space-16);
+    border-block-end: 0;
   }
 
   .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-drawer-main,
@@ -213,7 +209,7 @@
     padding-inline: var(--wex-space-16);
   }
 
-  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-product-summary, [data-admin-drawer-unit="promotions"], [data-admin-drawer-unit="activity"]) {
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-drawer-main, .wex-admin-drawer-connections) {
     grid-column: 1;
     grid-row: auto;
   }

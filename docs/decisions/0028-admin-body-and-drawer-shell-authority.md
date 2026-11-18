@@ -574,8 +574,12 @@ line stretches across the whole connections shell, from the main content border 
 Drawer end, with its content kept 24px and 16px in (Owner-directed). In desktop Full the navigation,
 main content and connections shells each scroll on their own when their content is taller
 than the Drawer (Owner-directed): the Body does not scroll, and Promotions and Activity
-are grouped in a connections shell (`wex-admin-drawer-connections`, `display: contents`
-outside desktop Full) so they scroll together. The shells end with a 16px inset
+are grouped in a connections shell (`wex-admin-drawer-connections`) so they scroll together.
+The Body keeps the same three shells in every view (navigation, main content, connections;
+Owner-directed, 2026-11-18): they are real shells, never `display: contents`. Desktop Full
+places them side by side; every other view stacks them, the navigation showing only in Full.
+Stacked, the main content shell carries the 1px section line edge to edge (it belongs to the
+shell, not to the Product Summary), so the line stays whichever section the shell holds.
 and an extra last track takes the remaining width, so the connections shell has a maximum
 width too (24px + 3 parts + 16px) and does not spread. In desktop Full the Header start
 and actions stay within the shell columns: the actions end where the connections shell

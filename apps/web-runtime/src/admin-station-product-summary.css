@@ -3,17 +3,12 @@
   /* The image column is 40% smaller than its 1fr share (0.6fr, Owner-directed, 2026-11-15); the content area keeps 2fr. */
   grid-template-columns: minmax(0, 2fr) minmax(0, 0.6fr);
   align-items: start;
-  gap: var(--wex-space-16);
-  /* A 1px line closes the summary, running edge to edge across the Drawer Body: the Body start inset and its end inset, so it also reaches across the room the capped content leaves. */
-  margin-inline: calc(-1 * var(--wex-admin-shell-drawer-body-start-inset)) calc(-1 * var(--wex-admin-shell-drawer-body-end-inset));
-  padding-inline: var(--wex-admin-shell-drawer-body-start-inset) var(--wex-admin-shell-drawer-body-end-inset);
-  padding-block-end: var(--wex-space-24);
-  /* The Body gap is 24px; pulling the next section 8px up leaves 16px below the line. */
-  margin-block-end: calc(-1 * var(--wex-space-8));
-  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  row-gap: var(--wex-admin-shell-drawer-heading-gap);
+  column-gap: var(--wex-space-16);
 }
 
-.wex-admin-product-summary__heading {
+/* The Overview heading shows only in the Full (See all) presentation. Two classes keep it above the shared section-head display rule further down. */
+.wex-admin-product-section-head.wex-admin-product-summary__heading {
   display: none;
 }
 

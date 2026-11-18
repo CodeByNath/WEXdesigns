@@ -259,10 +259,10 @@ test('Add New Sidebar tabs print each section label straight into the Drawer Bod
 test('the section lines stretch across the room the capped Body content leaves', async () => {
   const summary = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
   const sections = await readFile(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
-  for (const css of [summary, sections]) {
-    assert.match(css, /margin-inline: calc\(-1 \* var\(--wex-admin-shell-drawer-body-start-inset\)\) calc\(-1 \* var\(--wex-admin-shell-drawer-body-end-inset\)\);/);
-    assert.match(css, /padding-inline: var\(--wex-admin-shell-drawer-body-start-inset\) var\(--wex-admin-shell-drawer-body-end-inset\);/);
-  }
+  const insets = /margin-inline: calc\(-1 \* var\(--wex-admin-shell-drawer-body-start-inset\)\) calc\(-1 \* var\(--wex-admin-shell-drawer-body-end-inset\)\);[^}]*padding-inline: var\(--wex-admin-shell-drawer-body-start-inset\) var\(--wex-admin-shell-drawer-body-end-inset\);/;
+  assert.match(sections, new RegExp(`\\.wex-admin-drawer-main \\{[^}]*${insets.source}[^}]*border-block-end: var\\(--wex-border-width-default\\) solid var\\(--wex-color-border-subtle\\);`));
+  assert.match(sections, new RegExp(`\\.wex-admin-drawer-section\\[data-admin-drawer-unit="promotions"\\]:has\\(> \\.wex-admin-promotions__list\\) \\{[^}]*${insets.source}`));
+  assert.doesNotMatch(summary, /border-block-end|margin-inline: calc/);
 });
 
 test('each section is one unit: its row and cards sit in one element, the Body gap spaces the units', async () => {
@@ -415,6 +415,7 @@ test('the Product Summary image has a 16px shell and floats on small devices so 
   const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
   assert.match(css, /__image \{[^}]*border-radius: var\(--wex-space-16\);/);
+  assert.match(css, /\.wex-admin-product-section-head\.wex-admin-product-summary__heading \{\s*display: none;/);
   assert.match(js, /section\.append\(createProductSectionHead\(document, 'overview', 'wex-admin-product-summary__heading'\), media, details\);/);
   const small = css.slice(css.indexOf('@media (max-width: 767px)'));
   assert.match(small, /__media \{\s*float: inline-end;/);

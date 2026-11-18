@@ -18,10 +18,25 @@
   justify-content: flex-end;
 }
 
-/* The main content and connections shells only group their content; outside desktop Full it does not take part in the layout. */
+/* The Body is always divided into the same three shells: navigation, main content and connections. Every view keeps them; a view only decides how they sit (side by side on desktop Full, stacked everywhere else) and whether the navigation shows. */
 .wex-admin-drawer-main,
 .wex-admin-drawer-connections {
-  display: contents;
+  display: grid;
+  align-content: start;
+  gap: var(--wex-space-24);
+  min-inline-size: 0;
+}
+
+/* Stacked, the main content shell closes with a 1px line, edge to edge across the Drawer Body: the Body start inset and its end inset, so it also reaches across the room the capped content leaves. The line belongs to the shell, so it stays whichever section the shell holds. */
+.wex-admin-drawer-main {
+  /* The gap between a section heading and its content: 16px, 8px in stacked Full (Owner-directed, 2026-11-18). */
+  --wex-admin-shell-drawer-heading-gap: var(--wex-space-16);
+  margin-inline: calc(-1 * var(--wex-admin-shell-drawer-body-start-inset)) calc(-1 * var(--wex-admin-shell-drawer-body-end-inset));
+  padding-inline: var(--wex-admin-shell-drawer-body-start-inset) var(--wex-admin-shell-drawer-body-end-inset);
+  padding-block-end: var(--wex-space-24);
+  /* The Body gap is 24px; pulling the next shell 8px up leaves 16px below the line. */
+  margin-block-end: calc(-1 * var(--wex-space-8));
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
 
 /* Each section is one unit: its row and its cards sit together, 12px apart (the Body gap between units is 24px). */
