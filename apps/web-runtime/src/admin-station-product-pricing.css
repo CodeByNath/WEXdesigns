@@ -1,11 +1,16 @@
 /* Pricing section of the Full Drawer: labels and values only. It shows in the main content shell when Pricing is the selected product section. */
 .wex-admin-product-pricing {
   display: none;
-  gap: var(--wex-space-16);
+  gap: var(--wex-admin-shell-drawer-heading-gap);
 }
 
 .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-product-section="pricing"] .wex-admin-product-pricing {
   display: grid;
+}
+
+/* The labels and values follow the heading by the section gap alone, like the Overview; the 12px start margin is only for rows that sit below the floated Overview image. */
+.wex-admin-product-pricing .wex-admin-product-summary__rows {
+  margin-block-start: 0;
 }
 
 /* The fares line up in two columns inside the Price list value: price, then type with its note. */

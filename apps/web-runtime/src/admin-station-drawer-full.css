@@ -206,6 +206,8 @@
   .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-drawer-section="presentation"] {
     grid-template-columns: minmax(0, 1fr);
     grid-auto-rows: max-content;
+    /* The horizontal navigation sits 8px below the icon strip and 8px above its own line (Owner-directed, 2026-11-18). */
+    padding-block-start: var(--wex-space-8);
     padding-inline: var(--wex-space-16);
   }
 
@@ -214,12 +216,18 @@
     grid-row: auto;
   }
 
+  /* Stacked Full: 8px between the navigation line and the section heading, and 8px between the heading and its content (Owner-directed, 2026-11-18). */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-drawer-main {
+    --wex-admin-shell-drawer-heading-gap: var(--wex-space-8);
+  }
+
   .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-sections {
+    margin-block-end: calc(-1 * var(--wex-space-16));
     overflow: auto;
     scrollbar-width: none;
     margin-inline: calc(-1 * var(--wex-admin-shell-drawer-body-start-inset)) calc(-1 * var(--wex-admin-shell-drawer-body-end-inset));
     padding-inline: var(--wex-admin-shell-drawer-body-start-inset) var(--wex-admin-shell-drawer-body-end-inset);
-    padding-block-end: var(--wex-space-16);
+    padding-block-end: var(--wex-space-8);
     border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   }
 

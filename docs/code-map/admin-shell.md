@@ -51,6 +51,7 @@
   ADR 0028). Stacked views give the main content shell the edge-to-edge 1px line (it moved
   from the Product Summary to the shell, so Full below 840px has it too); desktop Full is
   unchanged. The Overview heading shows only in Full.
+  Stacked Full spacing: navigation 8px above and below, heading 8px above and below (`--wex-admin-shell-drawer-heading-gap`).
 - 2026-11-17: Full Drawer shells share the width 2 : 5 : 3 (navigation, main content,
   connections), stopping at 720px main content and 220px navigation, each running the
   full Drawer height scrolling on its own, with the Header actions ending at the connections shell end (a main content shell keeps its borders while the navigation loads a section; connections groups Promotions and Activity,

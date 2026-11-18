@@ -152,6 +152,11 @@
     clear: both;
     padding-block-start: var(--wex-space-16);
   }
+  /* The summary is a flow root here, so the 16px gap between the heading and the content comes from the heading, the same 16px the Pricing section has. */
+  .wex-admin-product-summary__heading {
+    margin-block-end: var(--wex-admin-shell-drawer-heading-gap);
+  }
+
   .wex-admin-product-summary {
     display: flow-root;
   }

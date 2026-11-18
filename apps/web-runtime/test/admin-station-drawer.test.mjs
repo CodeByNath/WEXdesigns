@@ -423,6 +423,33 @@ test('the Product Summary image has a 16px shell and floats on small devices so 
   assert.doesNotMatch(small, /nth-child|nth-of-type/);
 });
 
+test('Overview and Pricing sit the same 16px below their heading on every width', async () => {
+  const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
+  const pricing = await readFile(new URL('../src/admin-station-product-pricing.css', import.meta.url), 'utf8');
+  assert.match(css.slice(css.indexOf('@media (max-width: 767px)')), /__heading \{\s*margin-block-end: var\(--wex-admin-shell-drawer-heading-gap\);/);
+  assert.match(pricing, /\.wex-admin-product-pricing \.wex-admin-product-summary__rows \{\s*margin-block-start: 0;/);
+});
+
+test('the heading gap is one variable: 16px, 8px in stacked Full, with the navigation line 8px above the heading', async () => {
+  const sections = await readFile(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
+  const full = await readFile(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
+  const pricing = await readFile(new URL('../src/admin-station-product-pricing.css', import.meta.url), 'utf8');
+  const summary = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
+  assert.match(sections, /--wex-admin-shell-drawer-heading-gap: var\(--wex-space-16\);/);
+  const stacked = full.slice(full.indexOf('@container wex-admin-drawer (width < 840px)'));
+  assert.match(stacked, /\.wex-admin-drawer-main \{\s*--wex-admin-shell-drawer-heading-gap: var\(--wex-space-8\);/);
+  assert.match(stacked, /\.wex-admin-product-sections \{\s*margin-block-end: calc\(-1 \* var\(--wex-space-16\)\);/);
+  assert.match(pricing, /gap: var\(--wex-admin-shell-drawer-heading-gap\);/);
+  assert.match(summary, /row-gap: var\(--wex-admin-shell-drawer-heading-gap\);/);
+});
+
+test('the horizontal Full navigation sits 8px below the icon strip and 8px above its line', async () => {
+  const css = await readFile(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
+  const stacked = css.slice(css.indexOf('@container wex-admin-drawer (width < 840px)'));
+  assert.match(stacked, /drawer-body\[data-admin-drawer-section="presentation"\] \{[^}]*padding-block-start: var\(--wex-space-8\);/);
+  assert.match(stacked, /\.wex-admin-product-sections \{[^}]*padding-block-end: var\(--wex-space-8\);/);
+});
+
 test('the Product Summary label moves to the top when its chips wrap onto a second row', async () => {
   const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
