@@ -28,6 +28,8 @@ presentation authority and explicit domain ownership.
 - [0035: WEX Dropdown Global Component](0035-wex-dropdown-global-component.md)
 - [0036: WEX Overlay Global Tokens](0036-wex-overlay-global-tokens.md)
 
+- [0038: WEX Action Button Label Only Global Tokens](0038-wex-action-button-label-only-global-tokens.md)
+
 ## Proposed
 
 - [0024: Versioned Studio Release Delivery](0024-versioned-studio-release-delivery.md)

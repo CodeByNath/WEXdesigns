@@ -12,6 +12,12 @@
 
 ### Recent work (newest first)
 
+- 2026-11-18: Owner-approved WEX Action Button Label Only Small Menu uses
+  Small Button geometry/type with a label and system chevron (ADR 0038). Source:
+  `packages/wex/src/foundations/action-button-label-only.css`; focused proof:
+  `packages/wex/test/action-button-label-only-foundation.test.mjs`. The Drawer
+  consumes primary accent and the existing Dropdown Menu Default.
+
 - 2026-11-10: WEX Overlay, mode Glass: `--wex-overlay-glass-tint` (35%),
   `-background`, `-blur` (1px) and `-radius` in
   `packages/wex/src/foundations/overlay.css` (ADR 0036). The Drawer overlay
@@ -103,6 +109,7 @@ does not define HTML semantics, component behaviour, or layout composition.
 - [WEX More Action Global Tokens](../decisions/0030-wex-more-action-global-tokens.md)
 - [WEX Component Title Global Tokens](../decisions/0031-wex-component-title-global-tokens.md)
 - [WEX Icon Label Global Rule](../decisions/0037-wex-icon-label-global-rule.md)
+- [WEX Action Button Label Only Global Tokens](../decisions/0038-wex-action-button-label-only-global-tokens.md)
 - [WEX Action Button Icon Only Global Tokens](../decisions/0032-wex-action-button-icon-only-global-tokens.md)
 - [WEX Dropdown Menu Global Tokens](../decisions/0033-wex-dropdown-menu-global-tokens.md)
 - [WEX Option Button Global Tokens](../decisions/0034-wex-option-button-global-tokens.md)

@@ -1,0 +1,20 @@
+/* Label Only Small Menu: Small Button type and geometry, label plus chevron.
+ * The consumer selects the ordinary Button tone and owns the menu behaviour. */
+:root {
+  --wex-action-button-label-only-small-menu-target-size: var(--wex-button-small-target-size);
+  --wex-action-button-label-only-small-menu-icon-size: var(--wex-button-small-icon-size);
+  --wex-action-button-label-only-small-menu-padding-inline: var(--wex-button-padding-inline);
+  --wex-action-button-label-only-small-menu-gap: var(--wex-button-content-gap);
+}
+
+.wex-action-button-label-only--small-menu {
+  min-block-size: var(--wex-action-button-label-only-small-menu-target-size);
+  padding-inline: var(--wex-action-button-label-only-small-menu-padding-inline);
+  gap: var(--wex-action-button-label-only-small-menu-gap);
+}
+
+.wex-action-button-label-only--small-menu > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-action-button-label-only-small-menu-icon-size);
+  block-size: var(--wex-action-button-label-only-small-menu-icon-size);
+}
