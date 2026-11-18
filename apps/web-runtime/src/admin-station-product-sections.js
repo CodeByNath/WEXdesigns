@@ -19,7 +19,7 @@ export function productSectionHeading(id) {
 }
 
 /**
- * The heading of a section as the reference prints it: the name, with its step count ("1 / 10") in a chip on the same line, space between.
+ * The heading of a section as the reference prints it: the name, with its step count ("1 / 10") in the same count badge the Promotions heading uses, on the same line, space between.
  * @param {Document} document @param {string} id @param {string} [className]
  */
 export function createProductSectionHead(document, id, className = '') {
@@ -30,7 +30,7 @@ export function createProductSectionHead(document, id, className = '') {
   name.className = 'wex-admin-product-section-head__name wex-type-navigation-small-semibold';
   name.textContent = productSections[index]?.label ?? '';
   const count = document.createElement('span');
-  count.className = 'wex-admin-product-section-head__count wex-admin-product-summary__chip';
+  count.className = 'wex-admin-product-section-head__count wex-type-body-small-regular';
   count.textContent = `${index + 1} / ${productSections.length}`;
   head.append(name, count);
   return head;

@@ -453,6 +453,13 @@ test('See all sits under the Product Summary image, 8px from it and 8px below on
   assert.doesNotMatch(css, /__actions \{\s*clear: both/);
 });
 
+test('the section step count uses the Promotions count badge look, not the label chip', async () => {
+  const js = await readFile(new URL('../src/admin-station-product-sections.js', import.meta.url), 'utf8');
+  const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
+  assert.match(js, /'wex-admin-product-section-head__count wex-type-body-small-regular'/);
+  assert.match(css, /\.wex-admin-product-section-head__count \{[^}]*min-inline-size: var\(--wex-space-24\);\s*block-size: var\(--wex-space-24\);[^}]*background: var\(--wex-color-background-secondary\);/);
+});
+
 test('the horizontal Full navigation sits 8px below the icon strip and 8px above its line', async () => {
   const css = await readFile(new URL('../src/admin-station-drawer-full.css', import.meta.url), 'utf8');
   const stacked = css.slice(css.indexOf('@container wex-admin-drawer (width < 840px)'));

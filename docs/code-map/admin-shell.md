@@ -53,6 +53,7 @@
   unchanged. The Overview heading shows only in Full.
   Stacked Full spacing: navigation 8px above and below, heading 8px above and below (`--wex-admin-shell-drawer-heading-gap`).
   See all moved under the Product Summary image (`admin-station-product-summary.js`).
+  The section step count uses the Promotions count badge look (`admin-station-product-summary.css`).
 - 2026-11-17: Full Drawer shells share the width 2 : 5 : 3 (navigation, main content,
   connections), stopping at 720px main content and 220px navigation, each running the
   full Drawer height scrolling on its own, with the Header actions ending at the connections shell end (a main content shell keeps its borders while the navigation loads a section; connections groups Promotions and Activity,

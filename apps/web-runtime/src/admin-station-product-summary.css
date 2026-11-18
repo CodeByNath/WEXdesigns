@@ -151,13 +151,10 @@
   .wex-admin-product-summary {
     display: flow-root;
   }
+
   /* The summary is a flow root here, so the 16px gap between the heading and the content comes from the heading, the same 16px the Pricing section has. */
   .wex-admin-product-summary__heading {
     margin-block-end: var(--wex-admin-shell-drawer-heading-gap);
-  }
-
-  .wex-admin-product-summary {
-    display: flow-root;
   }
 
   .wex-admin-product-summary__media {
@@ -200,4 +197,18 @@
 
 .wex-admin-product-section-head__name {
   margin: 0;
+}
+
+/* The step count is the Promotions heading count badge (24px, subtle border, secondary background, primary text, Body Small Regular); wider than a circle, it keeps the pill ends and the pill's inline padding. */
+.wex-admin-product-section-head__count {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-inline-size: var(--wex-space-24);
+  block-size: var(--wex-space-24);
+  padding-inline: var(--wex-pill-notification-status-padding-inline);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-pill-notification-status-radius);
+  background: var(--wex-color-background-secondary);
+  color: var(--wex-color-text-primary);
 }

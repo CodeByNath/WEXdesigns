@@ -582,6 +582,7 @@ Stacked, the main content shell carries the 1px section line edge to edge (it be
 shell, not to the Product Summary), so the line stays whichever section the shell holds.
 In stacked Full the horizontal navigation sits 8px below the icon strip and 8px above its line, and the section heading sits 8px below that line and 8px above its content (one `--wex-admin-shell-drawer-heading-gap`, 16px elsewhere); the Overview heading shows only in Full (Owner-directed, 2026-11-18).
 See all sits under the Product Summary image in the same media column, 8px from it (Owner-directed, 2026-11-18).
+The section step count uses the Promotions count badge look (Owner-directed, 2026-11-18). The shells end with a 16px inset
 and an extra last track takes the remaining width, so the connections shell has a maximum
 width too (24px + 3 parts + 16px) and does not spread. In desktop Full the Header start
 and actions stay within the shell columns: the actions end where the connections shell
