@@ -1,0 +1,32 @@
+/* FAQ / Booking shares Meeting's groups, bold text and existing neutral chips. */
+.wex-admin-product-faq-booking {
+  display: none;
+  gap: var(--wex-admin-shell-drawer-heading-gap);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-product-section="faq-booking"] .wex-admin-product-faq-booking {
+  display: grid;
+}
+
+.wex-admin-product-faq-booking__group {
+  display: grid;
+  gap: var(--wex-space-16);
+  min-inline-size: 0;
+}
+
+.wex-admin-product-faq-booking__text {
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.wex-admin-product-faq-booking .wex-admin-product-summary__rows {
+  margin-block-start: 0;
+  row-gap: var(--wex-space-16);
+}
+
+@media (max-width: 767px) {
+  .wex-admin-product-faq-booking .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+    margin-block-start: var(--wex-space-16);
+  }
+}

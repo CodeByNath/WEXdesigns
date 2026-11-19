@@ -1,4 +1,4 @@
-/** Product sections supplied by the Owner's reference. Overview through Keywords have preview content. */
+/** Product sections supplied by the Owner's reference. All ten sections have preview content. */
 export const productSections = [
   { id: 'overview', label: 'Overview' },
   { id: 'pricing', label: 'Pricing' },

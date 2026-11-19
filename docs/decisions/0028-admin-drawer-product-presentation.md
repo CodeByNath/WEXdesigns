@@ -162,3 +162,15 @@ Type, Audience Level and Experience Group use existing shared labelled rows,
 16px row spacing and wrapping bold neutral chips. Reference choices populate
 preview data only; the screenshots establish no saved selections. No browse,
 add, checkbox, editor, persistence, new token or domain adapter.
+
+## FAQ / Booking presentation — Owner-directed, 2026-11-19
+
+FAQ / Booking uses the shared 10 / 10 heading and Meeting-style read-only groups
+for five Question/Answer pairs, then Booking details. Bold plain values and
+existing 16px gaps are retained. Booking system and Primary product code show
+reference values Rezdy and PBASBR. Optional Alt product code, Reviews embed /
+shortcode and Catalogue destinations print only with supplied content; reviews
+remain inert plain text. The four fully visible Related Tours choices and IDs
+use existing chips as preview data, not saved selections; clipped further choices
+are not invented. No editor, ordering controls, embed execution, booking provider
+connection, persistence, new token or domain adapter.

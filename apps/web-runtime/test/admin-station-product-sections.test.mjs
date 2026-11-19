@@ -130,7 +130,7 @@ test('Full navigation, main content and connections scroll on their own on deskt
   const base = readFileSync(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
   assert.match(base, /\.wex-admin-drawer-main,\n\.wex-admin-drawer-connections \{\n  display: grid;\n  align-content: start;\n  gap: var\(--wex-space-24\);\n  min-inline-size: 0;/);
   assert.doesNotMatch(base, /display: contents/);
-  assert.match(sections, /mainShell\(document, \[createProductSummary\(shell, undefined, \{[\s\S]*setAdminDrawerMode\(shell, 'full'\)[\s\S]*createProductPricing\(shell\), createProductDescription\(shell\), createProductMedia\(shell\), createProductSnapshot\(shell\), createProductMeeting\(shell\), createProductItinerary\(shell\), createProductInfo\(shell\), createProductKeywords\(shell\)\]\)/);
+  assert.match(sections, /mainShell\(document, \[createProductSummary\(shell, undefined, \{[\s\S]*setAdminDrawerMode\(shell, 'full'\)[\s\S]*createProductPricing\(shell\), createProductDescription\(shell\), createProductMedia\(shell\), createProductSnapshot\(shell\), createProductMeeting\(shell\), createProductItinerary\(shell\), createProductInfo\(shell\), createProductKeywords\(shell\), createProductFaqBooking\(shell\)\]\)/);
 });
 
 test('Full Promotions line stretches across the connections shell on desktop only', () => {

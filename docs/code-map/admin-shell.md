@@ -16,6 +16,13 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: FAQ / Booking preview (`admin-station-product-faq-booking.js`/`.css`)
+  completes the ten product sections with shared 10 / 10 heading, five read-only
+  Q&A groups and booking details. Bold plain values and 16px rows follow Meeting;
+  fully visible related-tour choices use existing chips as preview data. Empty
+  optional fields are omitted; review shortcodes never execute. No editor or booking
+  integration. [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: Keywords preview (`admin-station-product-keywords.js`/`.css`) uses
   the shared 9 / 10 heading, 16px labelled rows and wrapping neutral chips for
   Activity Type, Audience Level and Experience Group. Owner renamed the main
