@@ -1,0 +1,38 @@
+/* Description follows Pricing's section gap and label/value presentation. */
+.wex-admin-product-description {
+  display: none;
+  gap: var(--wex-admin-shell-drawer-heading-gap);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-product-section="description"] .wex-admin-product-description {
+  display: grid;
+}
+
+.wex-admin-product-description .wex-admin-product-summary__rows {
+  margin-block-start: 0;
+  row-gap: var(--wex-space-16);
+}
+
+/* Long copy stays fully readable; the highlights reuse Pricing’s neutral chip styles. */
+.wex-admin-product-description__copy {
+  margin: 0;
+}
+
+/* Owner-directed: one full-width pill per row, all as tall as the longest item. */
+.wex-admin-product-description .wex-admin-product-summary__chips {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+}
+
+.wex-admin-product-description .wex-admin-product-summary__chip {
+  display: flex;
+  align-items: center;
+}
+
+/* Compact rows use block layout, matching the shared summary's spacing route. */
+@media (max-width: 767px) {
+  .wex-admin-product-description .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+    margin-block-start: var(--wex-space-16);
+  }
+}

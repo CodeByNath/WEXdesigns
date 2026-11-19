@@ -16,6 +16,15 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: Owner-directed Description preview in the Full Drawer main content
+  shell (`admin-station-product-description.js`/`.css`). Shares Overview/Pricing
+  section heading and label/value rows; plain product description and Quick
+  Highlights using Pricing’s neutral chips, no editor. Description rows have a 16px gap; highlights share full width and
+  content-driven equal height. Values are bold. Overview retains its 8px rows.
+  Reference copy is preview data; [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+  ADR 0028's existing product notes moved into that companion without semantic
+  change to keep its parent under the authored-file limit.
+
 - 2026-11-18: Product Summary offers the existing subtle See all action only
   with product content and an open-view handler, outside Full. It opens existing
   Full product navigation without resetting content, including when Default and

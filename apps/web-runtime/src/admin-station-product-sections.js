@@ -1,4 +1,4 @@
-/** Product sections supplied by the Owner's reference. Only Overview has content so far. */
+/** Product sections supplied by the Owner's reference. Overview, Pricing and Description have preview content. */
 export const productSections = [
   { id: 'overview', label: 'Overview' },
   { id: 'pricing', label: 'Pricing' },
