@@ -134,3 +134,12 @@ for Meeting values). Existing 16px spacing
 separates rows and group headings from content. Optional Map URL prints as bold
 text only when provided; the reference supplies no map URLs. No editor, add or
 remove controls, embedded maps, persistence, new token or domain adapter.
+
+## Itinerary presentation — Owner-directed, 2026-11-19
+
+Itinerary uses the shared 7 / 10 heading and read-only ordered step groups.
+Step title and Step description are bold plain text in shared labelled rows.
+Image labels sit above the existing Media 128px hero frame with its 8px
+gap; existing 16px tokens separate rows and steps. No editing, reordering,
+picking, removal, persistence or new tokens. All eight reference steps retain their supplied order and numbers.
+Existing Studio preview images stand in for original files not supplied.

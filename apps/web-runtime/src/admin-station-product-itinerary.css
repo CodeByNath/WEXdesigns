@@ -1,0 +1,43 @@
+/* Itinerary follows Meeting's read-only groups and Media's existing image frame. */
+.wex-admin-product-itinerary {
+  display: none;
+  gap: var(--wex-admin-shell-drawer-heading-gap);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-product-section="itinerary"] .wex-admin-product-itinerary {
+  display: grid;
+}
+
+.wex-admin-product-itinerary__steps,
+.wex-admin-product-itinerary__step {
+  display: grid;
+  gap: var(--wex-space-16);
+  min-inline-size: 0;
+}
+
+.wex-admin-product-itinerary__steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wex-admin-product-itinerary__text {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.wex-admin-product-itinerary .wex-admin-product-summary__rows {
+  margin-block-start: 0;
+  row-gap: var(--wex-space-16);
+}
+
+.wex-admin-product-itinerary .wex-admin-product-summary__row:has(img) {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--wex-space-8);
+}
+
+@media (max-width: 767px) {
+  .wex-admin-product-itinerary .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+    margin-block-start: var(--wex-space-16);
+  }
+}

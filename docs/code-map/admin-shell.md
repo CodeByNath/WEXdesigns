@@ -16,6 +16,13 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: Itinerary preview (`admin-station-product-itinerary.js`/`.css`)
+  uses the shared 7 / 10 heading, Meeting-style read-only step groups, bold
+  title/description values and existing Media thumbnail frames. All eight reference
+  steps retain their supplied order and numbers.
+  Images use existing Studio preview assets pending originals. No editor.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: Owner-directed Meeting preview (`admin-station-product-meeting.js`/`.css`)
   mounts in the main shell with the shared 6 / 10 heading. Four meeting points
   show Time, Label and Address as bold plain text with existing 16px row gaps.
