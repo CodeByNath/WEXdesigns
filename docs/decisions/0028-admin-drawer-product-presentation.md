@@ -94,3 +94,9 @@ chips. Each highlight fills the same width and shares the content-driven height
 of the longest highlight. Description rows have a 16px gap, including compact
 views. Uses existing typography, spacing and chip tokens; no editor, persistence,
 new token or Global Component. Reference copy remains preview data.
+
+## Pricing section spacing — Owner-directed, 2026-11-19
+
+Advertised price, Price list, Badges and Featured have the same 16px gap as
+Description, including compact views, through `--wex-space-16`. The fare list
+and chip gaps keep their existing values. Overview row spacing stays at 8px.

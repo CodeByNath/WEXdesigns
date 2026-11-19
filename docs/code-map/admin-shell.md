@@ -16,6 +16,10 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: Pricing rows use the same 16px gap as Description on desktop and
+  compact views (`admin-station-product-pricing.css`); fare and chip internal
+  gaps unchanged. [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: Owner-directed Description preview in the Full Drawer main content
   shell (`admin-station-product-description.js`/`.css`). Shares Overview/Pricing
   section heading and label/value rows; plain product description and Quick

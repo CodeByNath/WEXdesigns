@@ -11,6 +11,7 @@
 /* The labels and values follow the heading by the section gap alone, like the Overview; the 12px start margin is only for rows that sit below the floated Overview image. */
 .wex-admin-product-pricing .wex-admin-product-summary__rows {
   margin-block-start: 0;
+  row-gap: var(--wex-space-16);
 }
 
 /* The fares line up in two columns inside the Price list value: price, then type with its note. */
@@ -39,4 +40,11 @@
 
 .wex-admin-product-pricing__note {
   color: var(--wex-color-text-secondary);
+}
+
+/* Owner-directed: the same 16px section gap as Description on compact layouts. */
+@media (max-width: 767px) {
+  .wex-admin-product-pricing .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+    margin-block-start: var(--wex-space-16);
+  }
 }
