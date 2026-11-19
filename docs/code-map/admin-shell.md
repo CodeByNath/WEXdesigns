@@ -16,6 +16,12 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: Owner-directed Snapshot preview (`admin-station-product-snapshot.js`/`.css`)
+  mounts in the existing main shell with shared 5 / 10 heading and ten labelled
+  fields from the reference. Bold neutral chips reuse Description/Pricing;
+  rows use the existing 16px gap on desktop and compact views. Read-only fixture
+  values; no editor or domain adapter. [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: Owner-directed Media preview (`admin-station-product-media.js`/`.css`)
   mounts in the existing main shell: shared 4 / 10 heading, bold Video URL,
   Hero image and wrapping Gallery images with labels above their values (8px

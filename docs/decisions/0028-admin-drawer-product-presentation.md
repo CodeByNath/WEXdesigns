@@ -115,3 +115,12 @@ hero to double to 128px square, using twice `--wex-space-64`; gallery is
 media gap. No picker, upload, removal, editor or embedded third-party player.
 The fixture reuses existing Studio preview images; the reference screenshot's
 original image files are not available. No new visual token or component.
+
+## Snapshot presentation — Owner-directed, 2026-11-19
+
+Snapshot uses the shared Full Drawer heading with 5 / 10 count and label/value
+rows, with the existing 16px spacing including compact views. Duration, Walking,
+Departure time, Return time, Fitness, Group size, Min age, Pickup, Operated by
+and Languages use the neutral bold chips already used by Description highlights
+and Pricing. Values transcribed from the Owner's reference remain preview data.
+No input, editing, persistence, domain adapter, new token or component.
