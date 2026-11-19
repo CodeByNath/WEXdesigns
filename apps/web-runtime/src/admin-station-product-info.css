@@ -1,0 +1,43 @@
+/* Info uses Description's read-only rows and neutral chips. */
+.wex-admin-product-info {
+  display: none;
+  gap: var(--wex-admin-shell-drawer-heading-gap);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-product-section="info"] .wex-admin-product-info {
+  display: grid;
+}
+
+.wex-admin-product-info .wex-admin-product-summary__rows {
+  margin-block-start: 0;
+  row-gap: var(--wex-space-16);
+}
+
+.wex-admin-product-info .wex-admin-product-summary__chips {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+}
+
+.wex-admin-product-info .wex-admin-product-summary__chip {
+  display: flex;
+  align-items: center;
+}
+
+.wex-admin-product-info__copy {
+  display: grid;
+  gap: var(--wex-space-16);
+  min-inline-size: 0;
+}
+
+.wex-admin-product-info__paragraph {
+  margin: 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 767px) {
+  .wex-admin-product-info .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+    margin-block-start: var(--wex-space-16);
+  }
+}

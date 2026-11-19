@@ -143,3 +143,13 @@ Image labels sit above the existing Media 128px hero frame with its 8px
 gap; existing 16px tokens separate rows and steps. No editing, reordering,
 picking, removal, persistence or new tokens. All eight reference steps retain their supplied order and numbers.
 Existing Studio preview images stand in for original files not supplied.
+
+## Info presentation — Owner-directed, 2026-11-19
+
+Info uses the shared 8 / 10 heading and 16px labelled rows. Included, Not Included
+and What to bring reuse Description’s full-width, equal-height neutral chips.
+Fitness & accessibility, Weather policy, Cancellation, Child / Infant info,
+Safety, Tour disclaimer and Why Book Direct use bold plain paragraphs retaining
+line breaks. Screenshot markup is represented as readable text, never injected
+HTML. Reference copy remains preview data; the Owner supplied the complete wording
+for the two previously clipped list entries. No editor, persistence, domain adapter or new visual tokens.

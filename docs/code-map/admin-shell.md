@@ -16,6 +16,13 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: Info preview (`admin-station-product-info.js`/`.css`) uses the shared
+  8 / 10 heading and 16px labelled rows. Included, Not Included and What to bring
+  reuse Description’s full-width neutral chips; seven information sections use
+  bold plain paragraphs. Reference copy includes Owner-supplied full list
+  wording. No editor, HTML injection or domain adapter.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: Itinerary preview (`admin-station-product-itinerary.js`/`.css`)
   uses the shared 7 / 10 heading, Meeting-style read-only step groups, bold
   title/description values and existing Media thumbnail frames. All eight reference

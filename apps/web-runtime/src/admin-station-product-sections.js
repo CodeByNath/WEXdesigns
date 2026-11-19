@@ -1,4 +1,4 @@
-/** Product sections supplied by the Owner's reference. Overview through Itinerary have preview content. */
+/** Product sections supplied by the Owner's reference. Overview through Info have preview content. */
 export const productSections = [
   { id: 'overview', label: 'Overview' },
   { id: 'pricing', label: 'Pricing' },
