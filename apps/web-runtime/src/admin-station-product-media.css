@@ -1,0 +1,51 @@
+/* Media shares Description/Pricing presentation and existing Overview image framing. */
+.wex-admin-product-media {
+  display: none;
+  gap: var(--wex-admin-shell-drawer-heading-gap);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-product-section="media"] .wex-admin-product-media {
+  display: grid;
+}
+
+.wex-admin-product-media .wex-admin-product-summary__rows {
+  margin-block-start: 0;
+  row-gap: var(--wex-space-16);
+}
+
+.wex-admin-product-media__url {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Image groups place their label above the values, using the existing media gap. */
+.wex-admin-product-media .wex-admin-product-summary__row:has(.wex-admin-product-media__image) {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--wex-space-8);
+}
+
+/* Owner explicitly requests 96px gallery thumbnails, with Overview's frame. */
+.wex-admin-product-media__image {
+  inline-size: calc(var(--wex-space-64) + var(--wex-space-32));
+  max-inline-size: 100%;
+}
+
+/* Owner explicitly requests 128px: double the existing 64px allocation for the hero only. */
+.wex-admin-product-summary__value > .wex-admin-product-media__image {
+  inline-size: calc(var(--wex-space-64) * 2);
+}
+
+.wex-admin-product-media__gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wex-space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 767px) {
+  .wex-admin-product-media .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+    margin-block-start: var(--wex-space-16);
+  }
+}

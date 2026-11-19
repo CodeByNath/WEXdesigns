@@ -16,6 +16,14 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: Owner-directed Media preview (`admin-station-product-media.js`/`.css`)
+  mounts in the existing main shell: shared 4 / 10 heading, bold Video URL,
+  Hero image and wrapping Gallery images with labels above their values (8px
+  media gap), 16px between groups. Existing Overview frames
+  and Owner-directed 96px gallery thumbnails (`--wex-space-64` + `--wex-space-32`);
+  hero is 128px using twice `--wex-space-64`. Existing Studio preview images pending supplied
+  originals. No editor or asset management. [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: Pricing rows use the same 16px gap as Description on desktop and
   compact views (`admin-station-product-pricing.css`); fare and chip internal
   gaps unchanged. [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).

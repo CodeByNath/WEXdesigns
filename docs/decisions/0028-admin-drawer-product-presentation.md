@@ -100,3 +100,18 @@ new token or Global Component. Reference copy remains preview data.
 Advertised price, Price list, Badges and Featured have the same 16px gap as
 Description, including compact views, through `--wex-space-16`. The fare list
 and chip gaps keep their existing values. Overview row spacing stays at 8px.
+
+## Media presentation — Owner-directed, 2026-11-19
+
+Media follows the same read-only Full Drawer presentation: shared heading and
+4 / 10 count, Video URL in bold, Hero image and Gallery images in shared
+label/value rows with 16px gaps. Hero image and Gallery images put the label on
+its own row above the values, separated by the existing 8px media gap
+(Owner-directed). Images reuse Overview's frame and the existing
+Services 64px square thumbnail allocation. The Owner explicitly directs the
+hero to double to 128px square, using twice `--wex-space-64`; gallery is
+96px square at the Owner's explicit direction, using `--wex-space-64` plus
+`--wex-space-32`, and wraps with the existing 8px
+media gap. No picker, upload, removal, editor or embedded third-party player.
+The fixture reuses existing Studio preview images; the reference screenshot's
+original image files are not available. No new visual token or component.
