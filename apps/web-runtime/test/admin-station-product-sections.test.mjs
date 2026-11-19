@@ -21,7 +21,7 @@ test('product navigation follows the reference, defaults to Overview and selects
   assert.equal(nav.attributes['aria-label'], 'Product sections');
   assert.deepEqual(buttons.map((button) => button.textContent), [
     '1. Overview', '2. Pricing', '3. Description', '4. Media', '5. Snapshot',
-    '6. Meeting', '7. Itinerary', '8. Info', '9. Product Keywords', '10. FAQ / Booking',
+    '6. Meeting', '7. Itinerary', '8. Info', '9. Keywords', '10. FAQ / Booking',
   ]);
   const selected = () => buttons.filter((button) => button.attributes['aria-pressed'] === 'true');
   assert.equal(body.dataset.adminProductSection, 'overview');
@@ -130,7 +130,7 @@ test('Full navigation, main content and connections scroll on their own on deskt
   const base = readFileSync(new URL('../src/admin-station-add-new-sections.css', import.meta.url), 'utf8');
   assert.match(base, /\.wex-admin-drawer-main,\n\.wex-admin-drawer-connections \{\n  display: grid;\n  align-content: start;\n  gap: var\(--wex-space-24\);\n  min-inline-size: 0;/);
   assert.doesNotMatch(base, /display: contents/);
-  assert.match(sections, /mainShell\(document, \[createProductSummary\(shell, undefined, \{[\s\S]*setAdminDrawerMode\(shell, 'full'\)[\s\S]*createProductPricing\(shell\), createProductDescription\(shell\), createProductMedia\(shell\), createProductSnapshot\(shell\), createProductMeeting\(shell\), createProductItinerary\(shell\), createProductInfo\(shell\)\]\)/);
+  assert.match(sections, /mainShell\(document, \[createProductSummary\(shell, undefined, \{[\s\S]*setAdminDrawerMode\(shell, 'full'\)[\s\S]*createProductPricing\(shell\), createProductDescription\(shell\), createProductMedia\(shell\), createProductSnapshot\(shell\), createProductMeeting\(shell\), createProductItinerary\(shell\), createProductInfo\(shell\), createProductKeywords\(shell\)\]\)/);
 });
 
 test('Full Promotions line stretches across the connections shell on desktop only', () => {

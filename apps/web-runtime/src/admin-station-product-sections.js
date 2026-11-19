@@ -1,4 +1,4 @@
-/** Product sections supplied by the Owner's reference. Overview through Info have preview content. */
+/** Product sections supplied by the Owner's reference. Overview through Keywords have preview content. */
 export const productSections = [
   { id: 'overview', label: 'Overview' },
   { id: 'pricing', label: 'Pricing' },
@@ -8,7 +8,7 @@ export const productSections = [
   { id: 'meeting', label: 'Meeting' },
   { id: 'itinerary', label: 'Itinerary' },
   { id: 'info', label: 'Info' },
-  { id: 'product-keywords', label: 'Product Keywords' },
+  { id: 'product-keywords', label: 'Keywords' },
   { id: 'faq-booking', label: 'FAQ / Booking' },
 ];
 

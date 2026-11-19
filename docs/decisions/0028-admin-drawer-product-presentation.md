@@ -153,3 +153,12 @@ Safety, Tour disclaimer and Why Book Direct use bold plain paragraphs retaining
 line breaks. Screenshot markup is represented as readable text, never injected
 HTML. Reference copy remains preview data; the Owner supplied the complete wording
 for the two previously clipped list entries. No editor, persistence, domain adapter or new visual tokens.
+
+## Keywords presentation — Owner-directed, 2026-11-19
+
+The main label is Keywords in both product navigation and the shared 9 / 10
+heading; the internal product-keywords section identity stays stable. Activity
+Type, Audience Level and Experience Group use existing shared labelled rows,
+16px row spacing and wrapping bold neutral chips. Reference choices populate
+preview data only; the screenshots establish no saved selections. No browse,
+add, checkbox, editor, persistence, new token or domain adapter.

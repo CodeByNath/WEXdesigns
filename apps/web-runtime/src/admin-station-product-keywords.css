@@ -1,0 +1,20 @@
+/* Keywords follows Snapshot's heading, row spacing and neutral chips. */
+.wex-admin-product-keywords {
+  display: none;
+  gap: var(--wex-admin-shell-drawer-heading-gap);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-product-section="product-keywords"] .wex-admin-product-keywords {
+  display: grid;
+}
+
+.wex-admin-product-keywords .wex-admin-product-summary__rows {
+  margin-block-start: 0;
+  row-gap: var(--wex-space-16);
+}
+
+@media (max-width: 767px) {
+  .wex-admin-product-keywords .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+    margin-block-start: var(--wex-space-16);
+  }
+}

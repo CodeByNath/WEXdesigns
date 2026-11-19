@@ -16,6 +16,13 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: Keywords preview (`admin-station-product-keywords.js`/`.css`) uses
+  the shared 9 / 10 heading, 16px labelled rows and wrapping neutral chips for
+  Activity Type, Audience Level and Experience Group. Owner renamed the main
+  navigation label and heading from Product Keywords to Keywords. Screenshot
+  choices are fixture vocabulary, not persisted selections. No browse/add/editor UI.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: Info preview (`admin-station-product-info.js`/`.css`) uses the shared
   8 / 10 heading and 16px labelled rows. Included, Not Included and What to bring
   reuse Description’s full-width neutral chips; seven information sections use
