@@ -50,6 +50,7 @@ const shellMarkup = `
               <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="disabled">Disabled</button>
               <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="archive">Archive</button>
               <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="delete">Delete</button>
+              <button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="view">View</button>
             </div>
             </div>
             <button type="button" class="wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small wex-action-button-icon-only--circular" data-admin-drawer-close aria-label="Close drawer">

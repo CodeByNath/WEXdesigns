@@ -16,6 +16,11 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: Drawer header options menu lists Edit, Disabled, Archive, Delete,
+  then View (`data-admin-drawer-header-action="view"` in `admin-station-shell.js`;
+  pinned in `admin-station-drawer.test.mjs`). No handler or new token.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: FAQ / Booking preview (`admin-station-product-faq-booking.js`/`.css`)
   completes the ten product sections with shared 10 / 10 heading, five read-only
   Q&A groups and booking details. Bold plain values and 16px rows follow Meeting;

@@ -174,3 +174,11 @@ remain inert plain text. The four fully visible Related Tours choices and IDs
 use existing chips as preview data, not saved selections; clipped further choices
 are not invented. No editor, ordering controls, embed execution, booking provider
 connection, persistence, new token or domain adapter.
+
+## Drawer header options menu: View — Owner-directed, 2026-11-19
+
+The Drawer header options menu adds a View action as its last item, after Edit,
+Disabled, Archive and Delete. The Drawer already shows the view, so people opening
+this menu are looking to change something and View sits below them. The item uses
+the existing Dropdown Menu item class. No handler, token, icon or persistence is
+added; actions remain requester-driven.

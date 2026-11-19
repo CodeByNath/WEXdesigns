@@ -133,7 +133,7 @@ test('drives the Drawer Header icon, label and status pill dynamically', () => {
   assert.match(headerJs, /\[data-admin-station-location\]/);
   assert.doesNotMatch(headerJs, /style\.|innerHTML|fetch\(|localStorage/);
   assert.match(shell, /<div class="wex-dropdown-menu--default wex-admin-shell__drawer-header-menu-list" role="menu" hidden data-admin-drawer-header-menu-list>/);
-  ['edit', 'disabled', 'archive', 'delete'].forEach((action) => {
+  ['edit', 'disabled', 'archive', 'delete', 'view'].forEach((action) => {
     assert.match(shell, new RegExp(`<button type="button" class="wex-dropdown-menu__item--default" role="menuitem" data-admin-drawer-header-action="${action}">`));
   });
   assert.match(drawer, /event\.composedPath\(\)\.includes\(drawer\)/);
