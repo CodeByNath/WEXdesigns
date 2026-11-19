@@ -124,3 +124,13 @@ Departure time, Return time, Fitness, Group size, Min age, Pickup, Operated by
 and Languages use the neutral bold chips already used by Description highlights
 and Pricing. Values transcribed from the Owner's reference remain preview data.
 No input, editing, persistence, domain adapter, new token or component.
+
+## Meeting presentation — Owner-directed, 2026-11-19
+
+Meeting uses the shared Full Drawer heading and 6 / 10 count. Each reference
+meeting point is a named read-only group with Time, Label and Address in the
+existing bold plain text styling and shared label/value rows (Owner correction: no pills
+for Meeting values). Existing 16px spacing
+separates rows and group headings from content. Optional Map URL prints as bold
+text only when provided; the reference supplies no map URLs. No editor, add or
+remove controls, embedded maps, persistence, new token or domain adapter.

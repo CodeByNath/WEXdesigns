@@ -1,0 +1,32 @@
+/* Meeting uses the shared section heading, labelled rows and bold text values. */
+.wex-admin-product-meeting {
+  display: none;
+  gap: var(--wex-admin-shell-drawer-heading-gap);
+}
+
+.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer-body[data-admin-product-section="meeting"] .wex-admin-product-meeting {
+  display: grid;
+}
+
+.wex-admin-product-meeting__point {
+  display: grid;
+  gap: var(--wex-space-16);
+  min-inline-size: 0;
+}
+
+.wex-admin-product-meeting__title,
+.wex-admin-product-meeting__value {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.wex-admin-product-meeting .wex-admin-product-summary__rows {
+  margin-block-start: 0;
+  row-gap: var(--wex-space-16);
+}
+
+@media (max-width: 767px) {
+  .wex-admin-product-meeting .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+    margin-block-start: var(--wex-space-16);
+  }
+}

@@ -16,6 +16,12 @@
 
 ### Recent work (newest first)
 
+- 2026-11-19: Owner-directed Meeting preview (`admin-station-product-meeting.js`/`.css`)
+  mounts in the main shell with the shared 6 / 10 heading. Four meeting points
+  show Time, Label and Address as bold plain text with existing 16px row gaps.
+  Map URL is optional read-only text, omitted when empty in the reference. No
+  editor or map embed. [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: Owner-directed Snapshot preview (`admin-station-product-snapshot.js`/`.css`)
   mounts in the existing main shell with shared 5 / 10 heading and ten labelled
   fields from the reference. Bold neutral chips reuse Description/Pricing;

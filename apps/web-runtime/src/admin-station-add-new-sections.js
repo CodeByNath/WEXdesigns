@@ -6,6 +6,7 @@ import { createProductPricing } from './admin-station-product-pricing.js';
 import { createProductDescription } from './admin-station-product-description.js';
 import { createProductMedia } from './admin-station-product-media.js';
 import { createProductSnapshot } from './admin-station-product-snapshot.js';
+import { createProductMeeting } from './admin-station-product-meeting.js';
 import { activityCount, createActivityCards, createActivityHeading } from './admin-station-activity.js';
 import { activePromotionCount, createPromotionCards, createPromotionsHeading } from './admin-station-promotions.js';
 import { createProductSections } from './admin-station-product-sections.js';
@@ -77,7 +78,7 @@ export function mountAddNewSection(shell, id, label) {
           const selected = body.querySelector('.wex-admin-product-sections__tab[aria-pressed="true"]');
           if (selected instanceof HTMLElement) selected.focus();
         },
-      }), createProductPricing(shell), createProductDescription(shell), createProductMedia(shell), createProductSnapshot(shell)]),
+      }), createProductPricing(shell), createProductDescription(shell), createProductMedia(shell), createProductSnapshot(shell), createProductMeeting(shell)]),
       connectionsShell(document, [
         sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
         sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),

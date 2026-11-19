@@ -1,4 +1,4 @@
-/** Product sections supplied by the Owner's reference. Overview through Snapshot have preview content. */
+/** Product sections supplied by the Owner's reference. Overview through Meeting have preview content. */
 export const productSections = [
   { id: 'overview', label: 'Overview' },
   { id: 'pricing', label: 'Pricing' },
