@@ -36,6 +36,15 @@
   overflow-wrap: anywhere;
 }
 
+.wex-admin-product-info__groups {
+  margin-block-start: 0;
+  min-inline-size: 0;
+}
+
+.wex-admin-product-info__group {
+  min-inline-size: 0;
+}
+
 @media (max-width: 767px) {
   .wex-admin-product-info .wex-admin-product-summary__row + .wex-admin-product-summary__row {
     margin-block-start: var(--wex-space-16);

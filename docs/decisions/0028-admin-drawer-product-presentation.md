@@ -308,3 +308,14 @@ reference steps; Hot Air Balloon Flight adds all seven supplied steps. The
 reference's editor controls are not reproduced. Existing 8px inner rows and
 16px step gaps remain. Single products retain the untabbed current itinerary
 and construct no combo content. Presentation preview only; no new token or release.
+
+## Combo Info preview — Owner-directed, 2026-11-20
+
+Info uses only Natural Bridge Tour and Hot Air Balloon Flight tabs directly
+below its heading, following the existing Toggle / Small Horizontal system.
+Each activity supplies Included, Not Included, What to bring and six policy
+fields using the existing pills, paragraph styling and 16px group spacing.
+Why Book Direct remains shared outside the activity panel with existing pills.
+Single products retain all original Info copy and structure without combo DOM.
+Only readable reference copy is transcribed; clipped continuations are omitted
+and the balloon disclaimer remains empty. No editor, new token or release.

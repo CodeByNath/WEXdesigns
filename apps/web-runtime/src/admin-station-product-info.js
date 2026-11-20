@@ -1,11 +1,15 @@
+import { comboInfoGroups } from './admin-station-product-info-combo.js';
 import { createProductSectionHead } from './admin-station-product-sections.js';
-import { chips, labelledRows, node } from './admin-station-product-summary.js';
+import { chips, labelledRows, node, productSummaryFixture } from './admin-station-product-summary.js';
 
-/** @typedef {{ included: ReadonlyArray<string>, notIncluded: ReadonlyArray<string>, bring: ReadonlyArray<string>, details: ReadonlyArray<readonly [string, ReadonlyArray<string>]> }} ProductInfo */
+/** @typedef {{ included: ReadonlyArray<string>, notIncluded: ReadonlyArray<string>, bring: ReadonlyArray<string>, details: ReadonlyArray<readonly [string, ReadonlyArray<string>]> }} InfoContent */
+/** @typedef {InfoContent & { isCombo?: boolean, groups?: ReadonlyArray<InfoContent & { label: string }> }} ProductInfo */
 
 /* Presentation-only reference copy, including Owner-supplied complete list entries. */
 /** @type {ProductInfo} */
 const productInfoFixture = {
+  isCombo: productSummaryFixture.isCombo,
+  groups: comboInfoGroups,
   included: [
     'Return transfers from Brisbane CBD and Southbank',
     'Conservation & national park fees',
@@ -52,13 +56,9 @@ const productInfoFixture = {
   ],
 };
 
-/** Read-only Info with shared list chips and readable policy paragraphs.
- * @param {HTMLElement} shell @param {ProductInfo} [product] */
-export function createProductInfo(shell, product = productInfoFixture) {
-  const document = shell.ownerDocument;
-  const section = node(document, 'section', 'wex-admin-product-info');
-  section.setAttribute('aria-label', 'Product info');
-  const details = product.details.map(([label, paragraphs]) => {
+/** @param {Document} document @param {InfoContent['details']} entries */
+function infoDetails(document, entries) {
+  return entries.map(([label, paragraphs]) => {
     if (label === 'Why Book Direct') {
       return /** @type {readonly [string, Node]} */ ([label, chips(document,
         paragraphs.flatMap((text) => text.split('\n')).map((text) => text.trim()).filter(Boolean))]);
@@ -67,14 +67,51 @@ export function createProductInfo(shell, product = productInfoFixture) {
     paragraphs.forEach((text) => copy.append(node(document, 'p', 'wex-admin-product-info__paragraph wex-type-navigation-small-semibold', text)));
     return /** @type {readonly [string, Node]} */ ([label, copy]);
   });
-  section.append(
-    createProductSectionHead(document, 'info'),
-    labelledRows(document, [
-      ['What’s Included', chips(document, product.included)],
-      ['What’s Not Included', chips(document, product.notIncluded)],
-      ['What to bring', chips(document, product.bring)],
-      ...details,
-    ]),
-  );
+}
+
+/** @param {Document} document @param {InfoContent} product */
+function infoRows(document, product) {
+  return labelledRows(document, [
+    ['What’s Included', chips(document, product.included)],
+    ['What’s Not Included', chips(document, product.notIncluded)],
+    ['What to bring', chips(document, product.bring)],
+    ...infoDetails(document, product.details),
+  ]);
+}
+
+/** Read-only Info with shared list chips and readable policy paragraphs.
+ * @param {HTMLElement} shell @param {ProductInfo} [product] */
+export function createProductInfo(shell, product = productInfoFixture) {
+  const document = shell.ownerDocument;
+  const section = node(document, 'section', 'wex-admin-product-info');
+  section.setAttribute('aria-label', 'Product info');
+  section.append(createProductSectionHead(document, 'info'));
+  const groups = product.isCombo === true ? product.groups ?? [] : [];
+  const firstGroup = groups[0];
+  if (!firstGroup) {
+    section.append(infoRows(document, product));
+    return section;
+  }
+  const tabs = node(document, 'nav', 'wex-admin-notifications__filters wex-admin-notifications__filters--toggle wex-admin-product-info__groups');
+  tabs.setAttribute('aria-label', 'Combo info groups');
+  const panel = node(document, 'div', 'wex-admin-product-info__group');
+  panel.setAttribute('role', 'region');
+  const buttons = groups.map((group, index) => {
+    const button = node(document, 'button', 'wex-admin-notifications__tab wex-admin-notifications__tab--small-horizontal', group.label);
+    button.setAttribute('type', 'button');
+    button.setAttribute('aria-pressed', String(index === 0));
+    button.addEventListener('click', () => {
+      buttons.forEach((tab, selected) => tab.setAttribute('aria-pressed', String(index === selected)));
+      panel.setAttribute('aria-label', group.label);
+      panel.replaceChildren(infoRows(document, group));
+    });
+    return button;
+  });
+  tabs.append(...buttons);
+  panel.setAttribute('aria-label', firstGroup.label);
+  panel.append(infoRows(document, firstGroup));
+  section.append(tabs, panel);
+  const sharedDetails = product.details.filter(([label]) => label === 'Why Book Direct');
+  if (sharedDetails.length) section.append(labelledRows(document, infoDetails(document, sharedDetails)));
   return section;
 }
