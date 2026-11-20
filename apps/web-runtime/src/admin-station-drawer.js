@@ -306,6 +306,17 @@ export function mountAdminDrawerShell(shell) {
   }
 
   mountAdminDrawerHeader(shell);
+  shell.querySelector('[data-admin-drawer-header-action="view"]')?.addEventListener('click', () => {
+    if (!setAdminDrawerMode(shell, 'full')) return;
+    const selected = shell.querySelector('.wex-admin-product-sections__tab[aria-pressed="true"]');
+    if (selected instanceof HTMLElement) {
+      selected.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      selected.focus();
+    } else {
+      const toggle = shell.querySelector('[data-admin-drawer-header-menu-toggle]');
+      if (toggle instanceof HTMLElement) toggle.focus();
+    }
+  });
   mountAdminDrawerFooter(shell);
   mountAdminDrawerNotifications(shell);
   drawer.querySelectorAll('[data-admin-drawer-close]').forEach((close) => close.addEventListener('click', () => closeAdminDrawer(shell)));

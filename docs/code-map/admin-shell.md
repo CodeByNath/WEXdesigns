@@ -16,6 +16,18 @@
 
 ### Recent work (newest first)
 
+- 2026-11-20: Normal and Full Presentation use the existing floating image/text-wrap
+  layout at all viewport widths; lower rows reclaim the image column. Full
+  shell allocation and image radius remain unchanged. Header View opens approved
+  Full mode without resetting content and focuses the selected product tab.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Overview adds Marketing Title and Tagline after Booking ID,
+  for all services. Type follows Language only for explicit preview `isCombo: true`,
+  reusing the existing neutral summary pill with Combo; Single omits the row.
+  PADI uses its existing title and Owner-supplied tagline. No editor,
+  persistence or CSS change. [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-19: Drawer header options menu lists Edit, Disabled, Archive, Delete,
   then View (`data-admin-drawer-header-action="view"` in `admin-station-shell.js`;
   pinned in `admin-station-drawer.test.mjs`). No handler or new token.

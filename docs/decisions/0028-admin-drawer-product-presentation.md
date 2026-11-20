@@ -182,3 +182,30 @@ Disabled, Archive and Delete. The Drawer already shows the view, so people openi
 this menu are looking to change something and View sits below them. The item uses
 the existing Dropdown Menu item class. No handler, token, icon or persistence is
 added; actions remain requester-driven.
+
+## Overview common fields — Owner-directed, 2026-11-20
+
+All products show Marketing Title immediately after Booking ID, followed by
+Tagline (the Owner's label for the reference's one-sentence hook). Type appears
+immediately after Language only for explicit preview `isCombo: true`, as an
+existing neutral summary pill displaying Combo. For Single products the whole
+Type row is omitted, including from print. Marketing Title and Tagline use
+existing bold plain value styling for all services. The PADI preview uses its
+existing product title as Marketing Title and the Owner-supplied Tagline:
+“Become a certified PADI scuba diver in just one weekend.” No editor,
+persistence, provider integration, new token or CSS value.
+
+## Normal Presentation wrapping and View — Owner-directed, 2026-11-20
+
+Normal and Full Presentation use the previously approved compact floating
+image composition at every viewport width: existing image allocation, 16px
+side gap, 8px bottom gap, 12px facts gap and row layout. Below the image and its
+See all action, rows use the available width. The existing image radius and
+Full-mode shell allocation are unchanged. The heading retains its existing
+Drawer heading gap above the floating composition. No new visual value or token.
+
+Superseding the inert View item above, Header View now selects the existing
+Full mode through `setAdminDrawerMode`, retaining two-column eligibility and
+requester/section state. The existing menu dismissal remains; focus moves to
+the selected product tab, or back to the toggle if no tab exists. No editor,
+persistence or release.

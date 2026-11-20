@@ -143,6 +143,43 @@
 }
 
 /*
+ * All Presentation modes use the existing compact wrapping composition at every
+ * viewport width, so rows below the image reclaim its allocation.
+ */
+.wex-admin-shell .wex-admin-product-summary {
+  display: flow-root;
+}
+
+.wex-admin-shell .wex-admin-product-summary__heading {
+  margin-block-end: var(--wex-admin-shell-drawer-heading-gap);
+}
+
+.wex-admin-shell .wex-admin-product-summary__media {
+  float: inline-end;
+  inline-size: calc((100% - var(--wex-space-16)) * 0.6 / 2.6);
+  margin-inline-start: var(--wex-space-16);
+  margin-block-end: var(--wex-space-8);
+}
+
+.wex-admin-shell .wex-admin-product-summary__details,
+.wex-admin-shell .wex-admin-product-summary__rows {
+  display: block;
+}
+
+.wex-admin-shell .wex-admin-product-summary__rows {
+  margin-block-start: var(--wex-space-12);
+}
+
+.wex-admin-shell .wex-admin-product-summary__row {
+  grid-template-columns: 9ch minmax(0, 1fr);
+  column-gap: var(--wex-space-16);
+}
+
+.wex-admin-shell .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+  margin-block-start: var(--wex-space-8);
+}
+
+/*
  * Small devices (Owner-directed, 2026-11-15): the image floats at the end, out of the column, so nothing runs over it.
  * Text beside it breaks its line at the image edge; rows below the image use the full width. The image keeps the
  * width the 0.6fr column gave it.

@@ -1,7 +1,7 @@
 import { createProductSectionHead } from './admin-station-product-sections.js';
 import { allServicesPreviewSnapshot } from './admin-station-services.js';
 
-/** @typedef {{ id: string, productCode: string, name: string, imageUrl: string, category: string, labels: ReadonlyArray<string>, ratings: string, reviews: number, price: string, duration: string, language: string }} ProductSummary */
+/** @typedef {{ id: string, productCode: string, marketingTitle?: string, tagline?: string, isCombo?: boolean, name: string, imageUrl: string, category: string, labels: ReadonlyArray<string>, ratings: string, reviews: number, price: string, duration: string, language: string }} ProductSummary */
 
 const previewService = allServicesPreviewSnapshot.services[0];
 
@@ -10,6 +10,9 @@ const previewService = allServicesPreviewSnapshot.services[0];
 const productSummaryFixture = Object.freeze({
   id: previewService?.id ?? '',
   productCode: 'PFT4KA',
+  marketingTitle: previewService?.name ?? '',
+  tagline: 'Become a certified PADI scuba diver in just one weekend.',
+  isCombo: false,
   name: previewService?.name ?? '',
   imageUrl: previewService?.imageUrl ?? '',
   category: previewService?.category ?? '',
@@ -24,7 +27,8 @@ const productSummaryFixture = Object.freeze({
 /** @param {ProductSummary} product */
 export function hasProductSummaryContent(product) {
   return [product.id, product.productCode, product.name, product.imageUrl,
-    product.category, product.ratings, product.price, product.duration, product.language]
+    product.category, product.ratings, product.price, product.duration, product.language,
+    product.marketingTitle ?? '', product.tagline ?? '']
     .some((value) => value.trim().length > 0)
     || product.labels.some((label) => label.trim().length > 0) || product.reviews > 0;
 }
@@ -76,8 +80,9 @@ export function labelledRows(document, entries) {
 /**
  * Two columns: the title and the label and value rows at the start, and the
  * framed product image at the end. The rows are Platform ID (regular weight),
- * Booking ID (the Rezdy product code, bold), no pills, then Rating, Price, Duration, Language, Category (bold
- * text, no pill) and Labels (chips).
+ * Booking ID, Marketing Title, Tagline, Rating, Price, Duration, Language,
+ * Type (Combo pill, only for combo products), Category and Labels. Text values
+ * are bold except Platform ID. Marketing Title and Tagline appear for all products.
  * @param {HTMLElement} shell
  * @param {ProductSummary} [product]
  * @param {{ onSeeAll?: () => void }} [actions]
@@ -98,16 +103,21 @@ export function createProductSummary(shell, product = productSummaryFixture, act
   identity.append(
     node(document, 'h3', 'wex-admin-product-summary__name wex-type-title-small-semibold', product.name),
   );
-  const facts = labelledRows(document, [
+  /** @type {Array<readonly [string, Node]>} */
+  const entries = [
     ['Platform ID', node(document, 'span', 'wex-type-body-small-regular', product.id)],
     ['Booking ID', node(document, 'span', 'wex-type-navigation-small-semibold', product.productCode)],
+    ['Marketing Title', node(document, 'span', 'wex-type-navigation-small-semibold', product.marketingTitle ?? '')],
+    ['Tagline', node(document, 'span', 'wex-type-navigation-small-semibold', product.tagline ?? '')],
     ['Rating', node(document, 'span', 'wex-type-navigation-small-semibold', product.ratings + ' | ' + product.reviews)],
     ['Price', node(document, 'span', 'wex-type-navigation-small-semibold', product.price)],
     ['Duration', node(document, 'span', 'wex-type-navigation-small-semibold', product.duration)],
     ['Language', node(document, 'span', 'wex-type-navigation-small-semibold', product.language)],
     ['Category', node(document, 'span', 'wex-type-navigation-small-semibold', product.category)],
     ['Labels', chips(document, product.labels)],
-  ]);
+  ];
+  if (product.isCombo === true) entries.splice(8, 0, ['Type', chips(document, ['Combo'])]);
+  const facts = labelledRows(document, entries);
   details.append(identity, facts);
   const media = node(document, 'div', 'wex-admin-product-summary__media');
   media.append(picture);
