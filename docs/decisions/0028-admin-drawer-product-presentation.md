@@ -319,3 +319,15 @@ Why Book Direct remains shared outside the activity panel with existing pills.
 Single products retain all original Info copy and structure without combo DOM.
 Only readable reference copy is transcribed; clipped continuations are omitted
 and the balloon disclaimer remains empty. No editor, new token or release.
+
+## Combo FAQ / Booking preview — Owner-directed, 2026-11-20
+
+Only combo products construct the two activity Toggle / Small Horizontal tabs,
+placed directly below the FAQ / Booking heading. Natural Bridge Tour supplies
+four fully visible Q&As; Hot Air Balloon Flight supplies the four visible Q&As
+plus the breakfast Q&A in the continuation reference. Clipped unseen entries
+are not invented. Existing 8px Question/Answer rows and group gaps remain.
+Booking details remain shared outside the activity panel, including existing
+codes, optional reviews/destinations and related-tour pills. Single products
+retain their original FAQs and booking content without tabs. No editor, new
+visual token or release.

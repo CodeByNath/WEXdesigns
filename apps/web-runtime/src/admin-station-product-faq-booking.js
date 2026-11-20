@@ -1,12 +1,15 @@
+import { comboFaqGroups } from './admin-station-product-faq-booking-combo.js';
 import { createProductSectionHead } from './admin-station-product-sections.js';
-import { chips, labelledRows, node } from './admin-station-product-summary.js';
+import { chips, labelledRows, node, productSummaryFixture } from './admin-station-product-summary.js';
 
 /** @typedef {{ question: string, answer: string }} ProductFaq */
-/** @typedef {{ faqs: ReadonlyArray<ProductFaq>, reviews: string, bookingSystem: string, primaryCode: string, altCode: string, destinations: ReadonlyArray<string>, relatedTours: ReadonlyArray<{ name: string, id: string }> }} ProductFaqBooking */
+/** @typedef {{ faqs: ReadonlyArray<ProductFaq>, isCombo?: boolean, groups?: ReadonlyArray<{ label: string, faqs: ReadonlyArray<ProductFaq> }>, reviews: string, bookingSystem: string, primaryCode: string, altCode: string, destinations: ReadonlyArray<string>, relatedTours: ReadonlyArray<{ name: string, id: string }> }} ProductFaqBooking */
 
 /* Reference preview copy; related-tour choices are not persisted selections. */
 /** @type {ProductFaqBooking} */
 const faqBookingFixture = {
+  isCombo: productSummaryFixture.isCombo,
+  groups: comboFaqGroups,
   faqs: [
     { question: 'Where does the tour depart from?', answer: 'The tour departs from selected Brisbane CBD locations including Southbank, Sofitel Brisbane Central, and Royal on the Park. Exact pick-up details are confirmed after booking.' },
     { question: 'Will we see kangaroos and koalas?', answer: 'Coombabah Lakelands Conservation Park is known for frequent sightings of kangaroos and koalas in their natural habitat. As wildlife is free roaming, sightings cannot be guaranteed, but the area is recognised for its strong wildlife presence.' },
@@ -30,14 +33,9 @@ const faqBookingFixture = {
 /** @param {Document} document @param {string} text */
 const copy = (document, text) => node(document, 'p', 'wex-admin-product-faq-booking__text wex-type-navigation-small-semibold', text);
 
-/** Read-only FAQ and booking metadata. Supplied shortcode text is never executed.
- * @param {HTMLElement} shell @param {ProductFaqBooking} [product] */
-export function createProductFaqBooking(shell, product = faqBookingFixture) {
-  const document = shell.ownerDocument;
-  const section = node(document, 'section', 'wex-admin-product-faq-booking');
-  section.setAttribute('aria-label', 'Product FAQ and booking');
-  section.append(createProductSectionHead(document, 'faq-booking'));
-  product.faqs.forEach((faq, index) => {
+/** @param {Document} document @param {ReadonlyArray<ProductFaq>} faqs */
+function faqSections(document, faqs) {
+  return faqs.map((faq, index) => {
     const group = node(document, 'section', 'wex-admin-product-faq-booking__group');
     group.setAttribute('aria-label', `Q&A ${index + 1}`);
     group.append(
@@ -47,8 +45,42 @@ export function createProductFaqBooking(shell, product = faqBookingFixture) {
         ['Answer', copy(document, faq.answer)],
       ]),
     );
-    section.append(group);
+    return group;
   });
+}
+
+/** Read-only FAQ and booking metadata. Supplied shortcode text is never executed.
+ * @param {HTMLElement} shell @param {ProductFaqBooking} [product] */
+export function createProductFaqBooking(shell, product = faqBookingFixture) {
+  const document = shell.ownerDocument;
+  const section = node(document, 'section', 'wex-admin-product-faq-booking');
+  section.setAttribute('aria-label', 'Product FAQ and booking');
+  section.append(createProductSectionHead(document, 'faq-booking'));
+  const groups = product.isCombo === true ? product.groups ?? [] : [];
+  const firstGroup = groups[0];
+  if (!firstGroup) {
+    section.append(...faqSections(document, product.faqs));
+  } else {
+    const tabs = node(document, 'nav', 'wex-admin-notifications__filters wex-admin-notifications__filters--toggle wex-admin-product-faq-booking__groups');
+    tabs.setAttribute('aria-label', 'Combo FAQ groups');
+    const panel = node(document, 'div', 'wex-admin-product-faq-booking__activity');
+    panel.setAttribute('role', 'region');
+    const buttons = groups.map((group, index) => {
+      const button = node(document, 'button', 'wex-admin-notifications__tab wex-admin-notifications__tab--small-horizontal', group.label);
+      button.setAttribute('type', 'button');
+      button.setAttribute('aria-pressed', String(index === 0));
+      button.addEventListener('click', () => {
+        buttons.forEach((tab, selected) => tab.setAttribute('aria-pressed', String(index === selected)));
+        panel.setAttribute('aria-label', group.label);
+        panel.replaceChildren(...faqSections(document, group.faqs));
+      });
+      return button;
+    });
+    tabs.append(...buttons);
+    panel.setAttribute('aria-label', firstGroup.label);
+    panel.append(...faqSections(document, firstGroup.faqs));
+    section.append(tabs, panel);
+  }
   const booking = node(document, 'section', 'wex-admin-product-faq-booking__group wex-admin-product-faq-booking__booking');
   booking.setAttribute('aria-label', 'Booking details');
   booking.append(

@@ -16,9 +16,12 @@
 
 ### Recent work (newest first)
 
-- 2026-11-20: Combo Info adds the same two activity tabs below the heading,
-  reference lists/policies and shared Why Book Direct pills. Single content
-  stays unchanged. Preview only; clipped reference text is not reconstructed.
+- 2026-11-20: Combo FAQ / Booking adds two activity tabs below the heading;
+  booking details stay shared, Single content unchanged. Preview only.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Combo Info adds two activity tabs and shared Why Book Direct pills.
+  Single content stays unchanged; clipped reference text is not reconstructed.
   [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
 
 - 2026-11-20: Combo Itinerary has only the two activity tabs below the
