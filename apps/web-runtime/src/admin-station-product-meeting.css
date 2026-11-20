@@ -25,6 +25,17 @@
   row-gap: var(--wex-space-8);
 }
 
+.wex-admin-product-meeting__groups {
+  margin-block-start: 0;
+  min-inline-size: 0;
+}
+
+.wex-admin-product-meeting__group {
+  display: grid;
+  gap: var(--wex-admin-shell-drawer-heading-gap);
+  min-inline-size: 0;
+}
+
 @media (max-width: 767px) {
   .wex-admin-product-meeting .wex-admin-product-summary__row + .wex-admin-product-summary__row {
     margin-block-start: var(--wex-space-8);

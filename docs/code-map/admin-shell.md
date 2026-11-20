@@ -16,6 +16,23 @@
 
 ### Recent work (newest first)
 
+- 2026-11-20: Combo Itinerary has only the two activity tabs below the
+  heading, showing the supplied Natural Bridge and balloon references. Single
+  products retain their existing steps/images unchanged, without tabs.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Combo Meeting reuses Description/Snapshot's Toggle tabs, showing
+  the existing points in the first tab and a sample point in the second, with
+  Time, Label and Address rows at 8px. Tabs sit directly below the heading;
+  Single products keep their untabbed meeting points. Preview only.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Combo Snapshot uses Description's existing Toggle presentation
+  for Natural Bridge Tour and Hot Air Balloon Flight, with the same ten fields
+  and 8px rows. Blank supplied values remain empty; Single products construct
+  no group tabs or content. Preview only.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-20: Q&A Question/Answer inner rows now also use 8px, like Booking
   details. Between-group and heading gaps are unchanged.
   [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).

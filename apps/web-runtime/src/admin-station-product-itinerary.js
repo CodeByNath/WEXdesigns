@@ -1,5 +1,6 @@
+import { comboItineraryGroups } from './admin-station-product-itinerary-combo.js';
 import { createProductSectionHead } from './admin-station-product-sections.js';
-import { labelledRows, node } from './admin-station-product-summary.js';
+import { labelledRows, node, productSummaryFixture } from './admin-station-product-summary.js';
 import { allServicesPreviewSnapshot } from './admin-station-services.js';
 
 /** @typedef {{ number: number, title: string, description: string, image?: { src: string, alt: string } }} ItineraryStep */
@@ -34,13 +35,10 @@ function picture(document, value) {
   return frame;
 }
 
-/** Read-only ordered itinerary in the existing Full Drawer main shell.
- * @param {HTMLElement} shell @param {ReadonlyArray<ItineraryStep>} [steps] */
-export function createProductItinerary(shell, steps = itineraryFixture) {
-  const document = shell.ownerDocument;
-  const section = node(document, 'section', 'wex-admin-product-itinerary');
-  section.setAttribute('aria-label', 'Product itinerary');
-  section.append(createProductSectionHead(document, 'itinerary'));
+/** @typedef {{ isCombo?: boolean, groups?: ReadonlyArray<{ label: string, steps: ReadonlyArray<ItineraryStep> }> }} ItineraryOptions */
+
+/** @param {Document} document @param {ReadonlyArray<ItineraryStep>} steps */
+function itineraryList(document, steps) {
   const list = node(document, 'ol', 'wex-admin-product-itinerary__steps');
   steps.forEach((step) => {
     const item = node(document, 'li', 'wex-admin-product-itinerary__step');
@@ -55,6 +53,43 @@ export function createProductItinerary(shell, steps = itineraryFixture) {
     );
     list.append(item);
   });
-  section.append(list);
+  return list;
+}
+
+/** Read-only ordered itinerary in the existing Full Drawer main shell.
+ * @param {HTMLElement} shell @param {ReadonlyArray<ItineraryStep>} [steps]
+ * @param {ItineraryOptions} [options] */
+export function createProductItinerary(shell, steps = itineraryFixture, options = { isCombo: productSummaryFixture.isCombo, groups: comboItineraryGroups }) {
+  const document = shell.ownerDocument;
+  const section = node(document, 'section', 'wex-admin-product-itinerary');
+  section.setAttribute('aria-label', 'Product itinerary');
+  section.append(createProductSectionHead(document, 'itinerary'));
+  const groups = options.isCombo === true ? options.groups ?? [] : [];
+  if (!groups.length) {
+    section.append(itineraryList(document, steps));
+    return section;
+  }
+  const activities = groups;
+  const firstGroup = activities[0];
+  if (!firstGroup) return section;
+  const tabs = node(document, 'nav', 'wex-admin-notifications__filters wex-admin-notifications__filters--toggle wex-admin-product-itinerary__groups');
+  tabs.setAttribute('aria-label', 'Combo itinerary groups');
+  const panel = node(document, 'div', 'wex-admin-product-itinerary__group');
+  panel.setAttribute('role', 'region');
+  const buttons = activities.map((group, index) => {
+    const button = node(document, 'button', 'wex-admin-notifications__tab wex-admin-notifications__tab--small-horizontal', group.label);
+    button.setAttribute('type', 'button');
+    button.setAttribute('aria-pressed', String(index === 0));
+    button.addEventListener('click', () => {
+      buttons.forEach((tab, selected) => tab.setAttribute('aria-pressed', String(index === selected)));
+      panel.setAttribute('aria-label', group.label);
+      panel.replaceChildren(itineraryList(document, group.steps));
+    });
+    return button;
+  });
+  tabs.append(...buttons);
+  panel.setAttribute('aria-label', firstGroup.label);
+  panel.append(itineraryList(document, firstGroup.steps));
+  section.append(tabs, panel);
   return section;
 }

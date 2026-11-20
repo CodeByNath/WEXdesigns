@@ -275,3 +275,36 @@ details heading gap and internal chip gaps are unchanged. Preview only.
 Question-to-Answer spacing within every Q&A group now also uses
 `--wex-space-8` on desktop and compact layouts. Booking details remains 8px.
 Heading-to-content and between-group spacing are unchanged. Preview only.
+
+## Combo Snapshot preview — Owner-directed, 2026-11-20
+
+Snapshot uses the same combo-only Toggle / Small Horizontal presentation and
+native pressed-button selection as Description. Natural Bridge Tour and Hot
+Air Balloon Flight retain their supplied ten fields: Duration, Walking,
+Departure time, Return time, Fitness, Group size, Min age, Pickup, Operated by
+and Languages. Values use the existing neutral pills with 8px rows. The balloon
+reference's blank Walking and Return time values stay empty, without empty
+pills or invented data. Single products keep the original Snapshot with no
+combo navigation or group content. Preview only, no editor, new token or release.
+
+## Combo Meeting preview — Owner-directed, 2026-11-20
+
+Meeting uses the same combo-only Toggle / Small Horizontal tabs as Description
+and Snapshot directly below the Meeting heading, using the existing
+Time, Label and Address rows with 8px spacing; optional Map URL still prints
+only when supplied. The Owner authorised placeholder meeting details for this
+preview. All four existing points remain inside the first activity tab; the
+second activity shows one sample point. Single
+products construct no combo tabs or group content and retain their existing
+meeting points. No editor, new token or release.
+
+## Combo Itinerary preview — Owner-directed, 2026-11-20
+
+Combo-only Toggle / Small Horizontal tabs sit directly below the Itinerary
+heading, with only Natural Bridge Tour and Hot Air Balloon Flight. Single
+products retain the existing eight steps, descriptions and preview images
+unchanged. Natural Bridge Tour shows the four fully visible
+reference steps; Hot Air Balloon Flight adds all seven supplied steps. The
+reference's editor controls are not reproduced. Existing 8px inner rows and
+16px step gaps remain. Single products retain the untabbed current itinerary
+and construct no combo content. Presentation preview only; no new token or release.

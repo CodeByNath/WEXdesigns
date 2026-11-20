@@ -36,6 +36,15 @@
   row-gap: var(--wex-space-8);
 }
 
+.wex-admin-product-itinerary__groups {
+  margin-block-start: 0;
+  min-inline-size: 0;
+}
+
+.wex-admin-product-itinerary__group {
+  min-inline-size: 0;
+}
+
 @media (max-width: 767px) {
   .wex-admin-product-itinerary .wex-admin-product-summary__row + .wex-admin-product-summary__row {
     margin-block-start: var(--wex-space-8);
