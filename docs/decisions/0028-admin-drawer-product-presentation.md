@@ -4,6 +4,23 @@ Part of [ADR 0028](0028-admin-body-and-drawer-shell-authority.md). Existing
 product-presentation notes moved here without changing their meaning to keep
 the parent document within the repository file-length limit.
 
+## Current implementation reading guide — verified 2026-11-20
+
+The dated sections below preserve the sequence of Owner decisions. Later spacing,
+View-action and combo decisions supersede earlier descriptions of the same
+behavior. Historical “no release” statements describe the individual edit at that
+time: the accumulated changes are now published through Studio pointer 422.
+This update records implementation evidence; it introduces no presentation rule.
+
+The [Drawer product preview Code Map](../code-map/admin-drawer-product-preview.md)
+provides the current section matrix, exact release/source evidence, source/test
+routes, styling audit and Single-content provenance. Exactly two activity tabs
+appear only for Combo in Description, Snapshot, Meeting, Itinerary, Info and
+FAQ / Booking. Pricing, Media and Keywords have no added activity tabs.
+Single retains its untabbed fixture content. “Unchanged Single” refers to the
+existing fixture copy: only Overview and reused preview images are Scuba-related;
+the other section fixtures were introduced from Gold Coast tour references.
+
 ## Full-mode Presentation composition — Owner-directed, 2026-11-17
 
 In Full mode, the Drawer Sidebar's existing icon tabs form one row immediately

@@ -1,10 +1,14 @@
 # QSD Studio host assets
 
-Phase 1A supplies only the existing WEX Admin Dashboard shell as a portable,
-relative-URL asset bundle. It mounts into QSD's host-owned
-`#qsd-studio-host` element and contains the Header, Sidebar, empty Main, and
-empty Footer. It does not call QSD APIs, read or write storage, initialise an
-identity space, create IDs, or connect business data.
+Phase 1A originally supplied the portable shell with empty Main and Footer.
+The current WEX-owned bundle also mounts the standalone Services preview and
+Owner-directed Drawer presentation, including combo activity tabs. It mounts
+into the host-owned `#qsd-studio-host` element. It does not call QSD APIs, read
+or write business records, initialise an identity space, create IDs, or connect
+business data. Product copy and the Combo flag remain local preview fixtures.
+
+Current source, release evidence and boundaries are indexed in the
+[Drawer product preview Code Map](../../../docs/code-map/admin-drawer-product-preview.md).
 
 ## Build and install
 
@@ -95,3 +99,22 @@ from this bundle.
 `fixture.html` configures the approved Logo and primary-action inputs and
 demonstrates the image paths; `error-fixture.html` covers the missing-host-mount
 state. They are local browser fixtures, not QSD deployment files.
+
+## Previewing source and a published release
+
+The local development fixture is `/WEXdesigns/studio-host/fixture.html` on the
+Vite server (port 5174 in the current session). Open Add new → Add New → See all
+product sections to reach Full Presentation. The default fixture is Combo;
+select Description, Snapshot, Meeting, Itinerary, Info or FAQ / Booking to inspect
+the two activity tabs. Single rendering is verified with explicit non-combo test
+inputs; no product-type editor or preview switch has been added.
+
+The fixture HTML is not a deployed Pages route. The published `/admin-station/`
+catalogue route is also distinct from the portable Studio host entry and is not
+proof of that entry's Drawer behavior. To inspect an exact published bundle, a
+local preview wrapper can supply `#qsd-studio-host` and load the selected immutable
+manifest's `styles` and module `entry` from its release directory. Use the existing
+release/pointer tooling to verify the selected manifest and assets first. Such a
+wrapper is a local inspection aid, not a QSD deployment or a new host contract.
+The 2026-11-20 browser inspection used a temporary wrapper for pointer 422;
+its localhost address and process are session-specific, not durable release URLs.
