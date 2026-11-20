@@ -1,4 +1,4 @@
-/* Snapshot shares Description's heading, row spacing and neutral value chips. */
+/* Snapshot uses the shared heading and neutral chips, with Owner-directed 8px rows. */
 .wex-admin-product-snapshot {
   display: none;
   gap: var(--wex-admin-shell-drawer-heading-gap);
@@ -10,11 +10,11 @@
 
 .wex-admin-product-snapshot .wex-admin-product-summary__rows {
   margin-block-start: 0;
-  row-gap: var(--wex-space-16);
+  row-gap: var(--wex-space-8);
 }
 
 @media (max-width: 767px) {
   .wex-admin-product-snapshot .wex-admin-product-summary__row + .wex-admin-product-summary__row {
-    margin-block-start: var(--wex-space-16);
+    margin-block-start: var(--wex-space-8);
   }
 }

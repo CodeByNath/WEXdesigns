@@ -7,12 +7,12 @@ const previewService = allServicesPreviewSnapshot.services[0];
 
 /* The first PADI course listed at qldscubadive.com.au/padi-courses-gold-coast; product code (the Rezdy product code), labels, ratings, review count and language are preview values. */
 /** @type {ProductSummary} */
-const productSummaryFixture = Object.freeze({
+export const productSummaryFixture = Object.freeze({
   id: previewService?.id ?? '',
   productCode: 'PFT4KA',
   marketingTitle: previewService?.name ?? '',
   tagline: 'Become a certified PADI scuba diver in just one weekend.',
-  isCombo: false,
+  isCombo: true,
   name: previewService?.name ?? '',
   imageUrl: previewService?.imageUrl ?? '',
   category: previewService?.category ?? '',

@@ -59,6 +59,10 @@ export function createProductInfo(shell, product = productInfoFixture) {
   const section = node(document, 'section', 'wex-admin-product-info');
   section.setAttribute('aria-label', 'Product info');
   const details = product.details.map(([label, paragraphs]) => {
+    if (label === 'Why Book Direct') {
+      return /** @type {readonly [string, Node]} */ ([label, chips(document,
+        paragraphs.flatMap((text) => text.split('\n')).map((text) => text.trim()).filter(Boolean))]);
+    }
     const copy = node(document, 'div', 'wex-admin-product-info__copy');
     paragraphs.forEach((text) => copy.append(node(document, 'p', 'wex-admin-product-info__paragraph wex-type-navigation-small-semibold', text)));
     return /** @type {readonly [string, Node]} */ ([label, copy]);

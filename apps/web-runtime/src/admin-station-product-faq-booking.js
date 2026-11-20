@@ -49,7 +49,7 @@ export function createProductFaqBooking(shell, product = faqBookingFixture) {
     );
     section.append(group);
   });
-  const booking = node(document, 'section', 'wex-admin-product-faq-booking__group');
+  const booking = node(document, 'section', 'wex-admin-product-faq-booking__group wex-admin-product-faq-booking__booking');
   booking.setAttribute('aria-label', 'Booking details');
   booking.append(
     node(document, 'h4', 'wex-admin-product-faq-booking__text wex-type-navigation-small-semibold', 'Booking details'),

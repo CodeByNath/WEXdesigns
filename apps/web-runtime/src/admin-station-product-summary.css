@@ -144,7 +144,8 @@
 
 /*
  * All Presentation modes use the existing compact wrapping composition at every
- * viewport width, so rows below the image reclaim its allocation.
+ * viewport width, so rows below the image reclaim its allocation. Shared row
+ * classes are scoped to Overview here; other sections retain their own 16px gaps.
  */
 .wex-admin-shell .wex-admin-product-summary {
   display: flow-root;
@@ -162,20 +163,20 @@
 }
 
 .wex-admin-shell .wex-admin-product-summary__details,
-.wex-admin-shell .wex-admin-product-summary__rows {
+.wex-admin-product-summary .wex-admin-product-summary__rows {
   display: block;
 }
 
-.wex-admin-shell .wex-admin-product-summary__rows {
+.wex-admin-product-summary .wex-admin-product-summary__rows {
   margin-block-start: var(--wex-space-12);
 }
 
-.wex-admin-shell .wex-admin-product-summary__row {
+.wex-admin-product-summary .wex-admin-product-summary__row {
   grid-template-columns: 9ch minmax(0, 1fr);
   column-gap: var(--wex-space-16);
 }
 
-.wex-admin-shell .wex-admin-product-summary__row + .wex-admin-product-summary__row {
+.wex-admin-product-summary .wex-admin-product-summary__row + .wex-admin-product-summary__row {
   margin-block-start: var(--wex-space-8);
 }
 

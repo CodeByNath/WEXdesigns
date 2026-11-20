@@ -209,3 +209,69 @@ Full mode through `setAdminDrawerMode`, retaining two-column eligibility and
 requester/section state. The existing menu dismissal remains; focus moves to
 the selected product tab, or back to the toggle if no tab exists. No editor,
 persistence or release.
+
+## Combo Description preview — Owner-directed, 2026-11-20
+
+Pricing remains unchanged. Description alone adds labelled combo activity
+groups beneath its section heading, selected using the existing Notification
+filters Toggle / Small Horizontal presentation (ADR 0027). The reference groups
+are Natural Bridge Tour and Hot Air Balloon Flight. Each shows its read-only
+Product description and Quick Highlights using the current Description styles.
+Only fully visible overview paragraphs and highlights are transcribed; clipped
+copy is not invented. Selection replaces one content panel and uses the same
+native pressed-button semantics and focus states as Notification filters.
+
+Groups and their navigation are constructed only for explicit `isCombo: true`;
+Single products retain their original description without combo DOM or printed
+combo content. The local preview fixture is now explicitly Combo, shared by
+Overview's Type pill and Description. Existing other fixture fields stay as
+presentation samples. No editor, add/remove control, persistence, provider
+contract, Global Component registration, new visual value or Studio release.
+
+## Restore section spacing — Owner-directed, 2026-11-20
+
+The all-width image-wrapping rules apply shared row classes only beneath the
+Overview Product Summary. They must not override other sections’ grid layout,
+label columns or 16px group spacing. Overview retains its existing 8px row gaps;
+Pricing, Description, Media, Snapshot, Meeting, Itinerary, Info, Keywords and
+FAQ / Booking retain their established 16px spacing and internal gaps.
+
+## Snapshot and Meeting row refinement — Owner-directed, 2026-11-20
+
+Superseding their 16px row spacing above, Snapshot label/value rows and the
+Time, Label and Address rows within each Meeting point use `--wex-space-8`
+on desktop and compact layouts. The Meeting point heading-to-content and
+between-point gaps retain their existing spacing. Overview remains 8px;
+all other section spacing is unchanged. Preview only; no release.
+
+## Itinerary inner row refinement — Owner-directed, 2026-11-20
+
+Step title, Step description and Image rows inside each Itinerary step use
+`--wex-space-8` on desktop and compact layouts. Step heading-to-content and
+between-step spacing remain unchanged. No new token or release.
+
+## Why Book Direct pills — Owner-directed, 2026-11-20
+
+Each existing Why Book Direct benefit renders as an individual pill using the
+same full-width neutral chips as Info's Included, Not Included and What to bring
+lists. Benefit wording and section spacing are unchanged. No new token, editor
+or release.
+
+## Keywords row refinement — Owner-directed, 2026-11-20
+
+Activity Type, Audience Level and Experience Group rows use `--wex-space-8`
+on desktop and compact layouts. Internal chip gaps and section heading spacing
+are unchanged. No new token or release.
+
+## Booking details row refinement — Owner-directed, 2026-11-20
+
+Only Booking details' labelled rows (Booking system, product codes and supplied
+optional metadata including Related Tours) use `--wex-space-8` at desktop and
+compact widths. Q&A retains its existing row and group spacing. The Booking
+details heading gap and internal chip gaps are unchanged. Preview only.
+
+## Q&A inner row refinement — Owner-directed, 2026-11-20
+
+Question-to-Answer spacing within every Q&A group now also uses
+`--wex-space-8` on desktop and compact layouts. Booking details remains 8px.
+Heading-to-content and between-group spacing are unchanged. Preview only.

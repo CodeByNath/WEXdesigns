@@ -14,6 +14,15 @@
 }
 
 /* Long copy stays fully readable; the highlights reuse Pricing’s neutral chip styles. */
+.wex-admin-product-description__groups {
+  margin-block-start: 0;
+  min-inline-size: 0;
+}
+
+.wex-admin-product-description__group {
+  min-inline-size: 0;
+}
+
 .wex-admin-product-description__copy {
   margin: 0;
 }

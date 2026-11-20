@@ -16,6 +16,45 @@
 
 ### Recent work (newest first)
 
+- 2026-11-20: Q&A Question/Answer inner rows now also use 8px, like Booking
+  details. Between-group and heading gaps are unchanged.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Booking details alone uses 8px rows at desktop and compact widths;
+  Q&A keeps its existing 16px row gaps. The booking group has its own local
+  class in `admin-station-product-faq-booking.js`/`.css`.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Keywords Activity Type, Audience Level and Experience Group
+  rows use `--wex-space-8` on desktop and compact layouts; chip gaps unchanged.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Why Book Direct displays each existing benefit as an Info-style
+  neutral pill using the shared chips renderer. Wording and section gaps remain
+  unchanged. [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Itinerary inner Step title, Step description and Image rows
+  return to the existing 8px token at desktop and compact widths. Step heading
+  and between-step spacing are unchanged.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Owner refines Snapshot rows and rows inside each Meeting point
+  to the existing 8px token on desktop and compact layouts. Meeting point
+  headings and between-point gaps retain their existing responsive spacing.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Overview wrapping overrides now scope shared row classes to the
+  Product Summary only. Pricing through FAQ / Booking retain their established
+  16px group gaps; Overview retains 8px. No new spacing value or release.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
+- 2026-11-20: Combo Description preview uses Notification filters' existing
+  Toggle / Small Horizontal classes to select Natural Bridge Tour or Hot Air
+  Balloon Flight. Single products construct no group tabs/content. Overview
+  and Description share the preview combo flag; Pricing is unchanged. Only
+  fully visible screenshot copy is transcribed. No editor or release.
+  [ADR 0028 companion](../decisions/0028-admin-drawer-product-presentation.md).
+
 - 2026-11-20: Normal and Full Presentation use the existing floating image/text-wrap
   layout at all viewport widths; lower rows reclaim the image column. Full
   shell allocation and image radius remain unchanged. Header View opens approved

@@ -22,11 +22,11 @@
 
 .wex-admin-product-meeting .wex-admin-product-summary__rows {
   margin-block-start: 0;
-  row-gap: var(--wex-space-16);
+  row-gap: var(--wex-space-8);
 }
 
 @media (max-width: 767px) {
   .wex-admin-product-meeting .wex-admin-product-summary__row + .wex-admin-product-summary__row {
-    margin-block-start: var(--wex-space-16);
+    margin-block-start: var(--wex-space-8);
   }
 }
