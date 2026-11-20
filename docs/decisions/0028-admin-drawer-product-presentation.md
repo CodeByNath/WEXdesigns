@@ -204,13 +204,20 @@ added; actions remain requester-driven.
 
 All products show Marketing Title immediately after Booking ID, followed by
 Tagline (the Owner's label for the reference's one-sentence hook). Type appears
-immediately after Language only for explicit preview `isCombo: true`, as an
-existing neutral summary pill displaying Combo. For Single products the whole
+immediately after Language only for explicit preview `isCombo: true`, as plain
+bold text displaying Combo (no pill; Owner-directed 2026-11-20). For Single products the whole
 Type row is omitted, including from print. Marketing Title and Tagline use
 existing bold plain value styling for all services. The PADI preview uses its
 existing product title as Marketing Title and the Owner-supplied Tagline:
 “Become a certified PADI scuba diver in just one weekend.” No editor,
 persistence, provider integration, new token or CSS value.
+
+## Empty rows and default Overview — Owner-directed, 2026-11-20
+
+The read-only view never shows a label whose value is empty: the shared
+`labelledRows` omits such rows (blank Walking/Return time, empty balloon Tour
+disclaimer). Marketing Title and Tagline show only in Full mode; the default
+presentation leaves both out (`display: none` outside Full, no new token).
 
 ## Normal Presentation wrapping and View — Owner-directed, 2026-11-20
 

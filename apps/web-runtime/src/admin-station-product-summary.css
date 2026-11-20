@@ -103,6 +103,11 @@
   align-items: flex-start;
 }
 
+/* Marketing Title and Tagline (Owner-directed, 2026-11-20) show only in Full; the default presentation leaves them out. */
+.wex-admin-shell:not([data-admin-drawer-mode="full"]) .wex-admin-product-summary__row--full-only {
+  display: none;
+}
+
 /* A value never runs past two lines: it ends in an ellipsis, and its label stays at the top. */
 .wex-admin-product-summary__value > span {
   display: -webkit-box;

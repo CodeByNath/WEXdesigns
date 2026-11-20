@@ -96,8 +96,9 @@ export function labelledRows(document, entries) {
  * Two columns: the title and the label and value rows at the start, and the
  * framed product image at the end. The rows are Platform ID (regular weight),
  * Booking ID, Marketing Title, Tagline, Rating, Price, Duration, Language,
- * Type (Combo pill, only for combo products), Category and Labels. Text values
- * are bold except Platform ID. Marketing Title and Tagline appear for all products.
+ * Type (Combo, plain bold text, only for combo products), Category and Labels. Text values
+ * are bold except Platform ID. Marketing Title and Tagline apply to all products
+ * but show only in Full mode (hidden in the default presentation).
  * @param {HTMLElement} shell
  * @param {ProductSummary} [product]
  * @param {{ onSeeAll?: () => void }} [actions]
@@ -118,12 +119,13 @@ export function createProductSummary(shell, product = productSummaryFixture, act
   identity.append(
     node(document, 'h3', 'wex-admin-product-summary__name wex-type-title-small-semibold', product.name),
   );
-  /** @type {Array<readonly [string, Node]>} */
+  const fullOnlyRow = 'wex-admin-product-summary__row--full-only';
+  /** @type {Array<readonly [string, Node, string?]>} */
   const entries = [
     ['Platform ID', node(document, 'span', 'wex-type-body-small-regular', product.id)],
     ['Booking ID', node(document, 'span', 'wex-type-navigation-small-semibold', product.productCode)],
-    ['Marketing Title', node(document, 'span', 'wex-type-navigation-small-semibold', product.marketingTitle ?? '')],
-    ['Tagline', node(document, 'span', 'wex-type-navigation-small-semibold', product.tagline ?? '')],
+    ['Marketing Title', node(document, 'span', 'wex-type-navigation-small-semibold', product.marketingTitle ?? ''), fullOnlyRow],
+    ['Tagline', node(document, 'span', 'wex-type-navigation-small-semibold', product.tagline ?? ''), fullOnlyRow],
     ['Rating', node(document, 'span', 'wex-type-navigation-small-semibold', product.ratings + ' | ' + product.reviews)],
     ['Price', node(document, 'span', 'wex-type-navigation-small-semibold', product.price)],
     ['Duration', node(document, 'span', 'wex-type-navigation-small-semibold', product.duration)],
@@ -131,7 +133,7 @@ export function createProductSummary(shell, product = productSummaryFixture, act
     ['Category', node(document, 'span', 'wex-type-navigation-small-semibold', product.category)],
     ['Labels', chips(document, product.labels)],
   ];
-  if (product.isCombo === true) entries.splice(8, 0, ['Type', chips(document, ['Combo'])]);
+  if (product.isCombo === true) entries.splice(8, 0, ['Type', node(document, 'span', 'wex-type-navigation-small-semibold', 'Combo')]);
   const facts = labelledRows(document, entries);
   details.append(identity, facts);
   const media = node(document, 'div', 'wex-admin-product-summary__media');

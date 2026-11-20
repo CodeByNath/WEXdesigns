@@ -47,7 +47,7 @@ one named region. No Current itinerary tab exists.
 
 | Section | Current behavior | Row / group spacing |
 | --- | --- | --- |
-| Overview | PADI summary; Marketing Title after Booking ID, then Tagline; Type after Language only for Combo | 8px rows |
+| Overview | PADI summary; Marketing Title after Booking ID, then Tagline (both Full mode only); Type (plain bold text, no pill) after Language only for Combo | 8px rows |
 | Pricing | Existing reference fares and badges; no activity tabs | 16px groups; 8px fare lines |
 | Description | Two activity overviews and highlights; Single retains original tour copy | 16px rows |
 | Media | Existing video/image samples; no activity tabs | 16px groups; 8px image-label/gallery gaps |
@@ -66,6 +66,10 @@ width, so rows below the image regain the available width. Header menu View
 opens existing Full mode. The image radius and shell allocations are unchanged.
 Only readable reference copy is used; clipped continuation text is not invented.
 Why Book Direct retains its six original benefits; balloon Info disclaimer is empty.
+View rule (Owner, 2026-11-20): `labelledRows` omits any row whose value is empty,
+so a bare label is never shown (blank Walking/Return time, balloon Tour disclaimer).
+Marketing Title and Tagline rows carry `wex-admin-product-summary__row--full-only`
+and are hidden by CSS unless the Drawer is in Full mode.
 
 ## Single-content history audit
 
