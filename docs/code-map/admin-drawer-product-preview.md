@@ -51,7 +51,7 @@ one named region. No Current itinerary tab exists.
 | Pricing | Existing reference fares and badges; no activity tabs | 16px groups; 8px fare lines |
 | Description | Two activity overviews and highlights; Single retains original tour copy | 16px rows |
 | Media | Existing video/image samples; no activity tabs | 16px groups; 8px image-label/gallery gaps |
-| Snapshot | Same ten fields per activity; supplied blank values stay empty | 8px rows |
+| Snapshot | Same ten fields per activity; a field with a blank value (Walking, Return time) is not shown | 8px rows |
 | Meeting | First activity retains all four original meeting points; second has one authorised sample point | 8px inner rows; existing heading/group gaps |
 | Itinerary | Four Natural Bridge steps / seven balloon steps; Single keeps eight original steps and preview images | 8px inner rows; 16px step gaps |
 | Info | Activity-specific lists and six policy fields; Why Book Direct pills remain shared | 16px groups; existing pill gaps |

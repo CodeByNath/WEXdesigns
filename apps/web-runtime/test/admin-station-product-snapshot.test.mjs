@@ -39,9 +39,11 @@ test('Snapshot keeps combo content out of Single products and replaces exactly t
     assert.deepEqual(nav.children.map((button) => button.attributes['aria-pressed']), ['false', 'true']);
     assert.equal(panel.attributes['aria-label'], 'Second activity');
     const rows = panel.children[0].children;
-    assert.equal(rows.length, 10);
+    // Owner-directed (2026-11-20): a label with an empty value is not shown, so Walking and Return time drop out.
+    assert.equal(rows.length, 8);
+    const labels = rows.map((row) => row.children[0].textContent);
+    assert.equal(labels.includes('Walking') || labels.includes('Return time'), false);
     assert.equal(flatten(panel).some((node) => node.textContent === 'First operator'), false);
     assert.equal(flatten(panel).some((node) => node.textContent === 'Second operator'), true);
-    for (const index of [1, 3]) assert.equal(rows[index].children[1].children[0].children.length, 0);
   } finally { globalThis.HTMLElement = previous; }
 });

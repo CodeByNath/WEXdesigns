@@ -60,13 +60,28 @@ export function chips(document, items) {
 }
 
 /**
- * Label and value rows: one label column as wide as the longest label.
- * @param {Document} document @param {ReadonlyArray<readonly [string, Node]>} entries
+ * A value with no text and no media (an empty pill, chips list or text) has nothing to view.
+ * @param {Node} value
+ */
+function hasViewableValue(value) {
+  if ((value.textContent ?? '').trim().length > 0) return true;
+  if (!(value instanceof HTMLElement)) return false;
+  const media = ['IMG', 'SVG', 'VIDEO', 'IFRAME', 'INPUT', 'BUTTON', 'A'];
+  if (media.includes(value.tagName.toUpperCase())) return true;
+  return Array.from(value.children ?? []).some(hasViewableValue);
+}
+
+/**
+ * Label and value rows: one label column as wide as the longest label. A row
+ * whose value is empty is not shown, so the view never lists a bare label.
+ * The optional third entry value is an extra class for that row.
+ * @param {Document} document @param {ReadonlyArray<readonly [string, Node, string?]>} entries
  */
 export function labelledRows(document, entries) {
   const list = node(document, 'dl', 'wex-admin-product-summary__rows');
-  entries.forEach(([label, value]) => {
-    const row = node(document, 'div', 'wex-admin-product-summary__row');
+  entries.forEach(([label, value, modifier]) => {
+    if (!hasViewableValue(value)) return;
+    const row = node(document, 'div', modifier ? 'wex-admin-product-summary__row ' + modifier : 'wex-admin-product-summary__row');
     const term = node(document, 'dt', 'wex-admin-product-summary__label wex-type-body-small-regular', label);
     const definition = node(document, 'dd', 'wex-admin-product-summary__value');
     definition.append(value);

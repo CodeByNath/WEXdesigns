@@ -37,9 +37,10 @@ test('Info preserves Single content and switches only two combo activities while
     assert.equal(panel.attributes['aria-label'], 'Hot Air Balloon Flight');
     assert.equal(flatten(panel).some((node) => node.textContent === 'Hot air balloon flight'), true);
     assert.equal(flatten(panel).some((node) => node.textContent === 'Expert tour guide'), false);
-    assert.equal(panel.children[0].children.length, 9);
+    // Owner-directed (2026-11-20): the empty balloon Tour disclaimer has no value, so its label is not shown.
+    assert.equal(panel.children[0].children.length, 8);
+    assert.equal(panel.children[0].children.some((row) => row.children[0].textContent === 'Tour disclaimer'), false);
     assert.equal(flatten(shared).some((node) => node.textContent === 'Free cancellation'), true);
     assert.equal(flatten(shared).filter((node) => node.tagName === 'LI').length, 2);
-    assert.equal(panel.children[0].children[8].children[1].children[0].children.length, 0);
   } finally { globalThis.HTMLElement = previous; }
 });
