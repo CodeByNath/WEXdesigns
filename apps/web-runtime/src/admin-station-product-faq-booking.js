@@ -5,7 +5,8 @@ import { chips, labelledRows, node, productSummaryFixture } from './admin-statio
 /** @typedef {{ question: string, answer: string }} ProductFaq */
 /** @typedef {{ faqs: ReadonlyArray<ProductFaq>, isCombo?: boolean, groups?: ReadonlyArray<{ label: string, faqs: ReadonlyArray<ProductFaq> }>, reviews: string, bookingSystem: string, primaryCode: string, altCode: string, destinations: ReadonlyArray<string>, relatedTours: ReadonlyArray<{ name: string, id: string }> }} ProductFaqBooking */
 
-/* Reference preview copy; related-tour choices are not persisted selections. */
+/* Read-only preview copy: combo FAQs switch by activity; booking details stay shared.
+ * Related-tour choices are not persisted selections. */
 /** @type {ProductFaqBooking} */
 const faqBookingFixture = {
   isCombo: productSummaryFixture.isCombo,
