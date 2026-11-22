@@ -99,7 +99,7 @@
   (`admin-station-drawer-editor.css`, `admin-station-add-new-sections.js`, ADR 0028
   Editor view; proof `admin-station-drawer-editor.test.mjs`). Content not built.
 - 2026-11-22: Editor with the top navigation (Drawer below 840px): main content shell centred
-  once capped at the content maximum, content aligned with navigation and footer
+  once capped at the content maximum, content aligned with navigation and footer, no bottom line (editor only)
   (`admin-station-drawer-full.css`, ADR 0028 Editor view; proof `admin-station-drawer-editor.test.mjs`).
 
 - 2026-11-22: Overview editor: outlined fields, label pill on the border, Search Input states (Focused, Pressed, no hover), full-content textarea values

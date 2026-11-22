@@ -240,9 +240,11 @@
     grid-auto-columns: max-content;
   }
 
-  /* Editor with the top navigation: the main content shell keeps its edge to edge line and its own padding (so content lines up with the navigation and footer) and is centred in the Body once the content maximum caps it (editor view only). */
+  /* Editor with the top navigation: the main content shell keeps its edge to edge line and its own padding (so content lines up with the navigation and footer) and is centred in the Body once the content maximum caps it and ends without the bottom line (editor view only). */
   .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main {
     inline-size: min(calc(100% + var(--wex-admin-shell-drawer-body-start-inset) + var(--wex-admin-shell-drawer-body-end-inset)), var(--wex-admin-shell-drawer-column-max-inline-size));
     justify-self: center;
+    /* Nothing follows the editor's main content shell (the connections shell is empty), so it closes without the stacked line. */
+    border-block-end: 0;
   }
 }

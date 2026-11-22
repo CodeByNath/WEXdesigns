@@ -394,9 +394,10 @@ own. In every layout the editor's main content shell never passes the content ma
 11 x the 64px space plus the 16px space; `admin-station-drawer-editor.css`).
 
 Editor with the top navigation (Drawer frame below 840px, Owner-directed, 2026-11-22): the
-main content shell keeps its edge to edge line and its own padding, so the heading and fields
-line up with the navigation and footer, and it is centred in the Body once the content maximum
-caps it (`admin-station-drawer-full.css`, editor view only; the view is unchanged).
+main content shell keeps its own padding, so the heading and fields line up with the
+navigation and footer, and it is centred in the Body once the content maximum caps it. It ends
+without the bottom line, because nothing follows it
+(`admin-station-drawer-full.css`, editor view only; the view and other modes are unchanged).
 
 ### Overview editor
 
