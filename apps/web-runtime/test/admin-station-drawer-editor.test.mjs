@@ -52,12 +52,9 @@ test('the Overview editor is one outlined field per value, label on the border, 
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-outlined-field\.css";/);
 });
 
-test('editor proportion: main content shell takes up to the content maximum, the navigation keeps its width, connections take the rest', () => {
+test('editor proportion: the editor keeps the view 2 : 5 : 3 split, with no grid override of its own', () => {
   const css = read('admin-station-drawer-editor.css');
-  assert.match(css, /@container wex-admin-drawer \(width >= 840px\) \{[\s\S]*\[data-admin-drawer-shell\]\[data-admin-drawer-editing\]\) \.wex-admin-shell__drawer-frame \{/);
-  assert.match(css, /min\(var\(--wex-admin-shell-drawer-column-max-inline-size\), calc\(100cqi - /);
-  assert.match(css, /var\(--wex-admin-shell-drawer-editor-navigation\)\s*var\(--wex-space-24\)\s*min\(/);
-  assert.doesNotMatch(css.slice(css.indexOf('{', css.indexOf('@container'))), /\d+px/);
+  assert.doesNotMatch(css, /grid-template-columns|drawer-editor-navigation/);
 });
 
 test('the editor main content shell never passes the content maximum in any layout', () => {

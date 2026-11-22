@@ -388,11 +388,10 @@ connections shell (Promotions and Activity hidden, shell kept) and turns the mai
 content shell into the editor, keeping only each section heading. The editor
 content is built per section, Overview first (below). Reopening starts in view. No new token or visual value.
 
-Editor proportion (Owner-directed, 2026-11-22): in desktop Full the editor's main content
-shell takes the room up to the content maximum (the same maximum the view's main shell stops
-at, 11 x the 64px space plus the 16px space), the navigation keeps its width and the connections
-shell (kept, empty) takes what is left, instead of the view's 2 : 5 : 3 split. In every layout the
-editor's main content shell never passes that maximum (`admin-station-drawer-editor.css`).
+Editor proportion (Owner-directed, 2026-11-22, revised): the editor keeps the view's
+2 : 5 : 3 split in desktop Full (navigation, main content, connections); it has no grid of its
+own. In every layout the editor's main content shell never passes the content maximum (720px,
+11 x the 64px space plus the 16px space; `admin-station-drawer-editor.css`).
 
 ### Overview editor
 
