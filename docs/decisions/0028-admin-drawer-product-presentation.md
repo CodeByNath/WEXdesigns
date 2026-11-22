@@ -393,6 +393,11 @@ Editor proportion (Owner-directed, 2026-11-22, revised): the editor keeps the vi
 own. In every layout the editor's main content shell never passes the content maximum (720px,
 11 x the 64px space plus the 16px space; `admin-station-drawer-editor.css`).
 
+Editor with the top navigation (Drawer frame below 840px, Owner-directed, 2026-11-22): the
+main content shell keeps its edge to edge line and its own padding, so the heading and fields
+line up with the navigation and footer, and it is centred in the Body once the content maximum
+caps it (`admin-station-drawer-full.css`, editor view only; the view is unchanged).
+
 ### Overview editor
 
 From the Owner's "Outlined (adaptive label)" design: one outlined field per

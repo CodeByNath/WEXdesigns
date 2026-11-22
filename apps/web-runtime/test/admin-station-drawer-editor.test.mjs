@@ -57,6 +57,10 @@ test('editor proportion: the editor keeps the view 2 : 5 : 3 split, with no grid
   assert.doesNotMatch(css, /grid-template-columns|drawer-editor-navigation/);
 });
 
+test('editor with the top navigation (Drawer below 840px) centres the main content shell', () => {
+  assert.match(read('admin-station-drawer-full.css'), /@container wex-admin-drawer \(width < 840px\) \{[\s\S]*\[data-admin-drawer-editing\] \.wex-admin-drawer-main \{\s*inline-size: min\(calc\(100% \+ var\(--wex-admin-shell-drawer-body-start-inset\) \+ var\(--wex-admin-shell-drawer-body-end-inset\)\), var\(--wex-admin-shell-drawer-column-max-inline-size\)\);\s*justify-self: center;/);
+});
+
 test('the editor main content shell never passes the content maximum in any layout', () => {
   assert.match(read('admin-station-drawer-editor.css'), /\[data-admin-drawer-editing\] \.wex-admin-drawer-main \{\s*max-inline-size: var\(--wex-admin-shell-drawer-column-max-inline-size\);/);
 });
