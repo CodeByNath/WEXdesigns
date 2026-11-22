@@ -77,7 +77,7 @@ places them side by side; every other view stacks them, the navigation showing o
 Stacked, the main content shell carries the 1px section line edge to edge (it belongs to the
 shell, not to the Product Summary), so the line stays whichever section the shell holds.
 In stacked Full the horizontal navigation sits 8px below the icon strip and 8px above its line, and the section heading sits 8px below that line and 8px above its content (one `--wex-admin-shell-drawer-heading-gap`, 16px elsewhere); the Overview heading shows only in Full (Owner-directed, 2026-11-18).
-See all sits under the Product Summary image in the same media column, 8px from it (Owner-directed, 2026-11-18).
+The Product Summary no longer has a See all button; the footer View opens Full (Owner-directed, 2026-11-22).
 The section step count uses the Promotions count badge look (Owner-directed, 2026-11-18). The shells end with a 16px inset
 and an extra last track takes the remaining width, so the connections shell has a maximum
 width too (24px + 3 parts + 16px) and does not spread. In desktop Full the Header start
@@ -99,7 +99,7 @@ tokens only; no token was created.
 ## Owner-directed Full Drawer boundary — 2026-11-18
 Full product navigation and its compact composition become horizontal below
 840px of Drawer frame width; at 840px and above, retain vertical navigation.
-Product Summary’s content-backed See all opens existing Full navigation directly,
+The footer View (previously Product Summary See all) opens existing Full navigation directly,
 even when Full and Default widths match on mobile (Owner, 2026-11-18).
 
 ## Description presentation — Owner-directed, 2026-11-19
@@ -223,8 +223,7 @@ presentation leaves both out (`display: none` outside Full, no new token).
 
 Normal and Full Presentation use the previously approved compact floating
 image composition at every viewport width: existing image allocation, 16px
-side gap, 8px bottom gap, 12px facts gap and row layout. Below the image and its
-See all action, rows use the available width. The existing image radius and
+side gap, 8px bottom gap, 12px facts gap and row layout. Below the image, rows use the available width. The existing image radius and
 Full-mode shell allocation are unchanged. The heading retains its existing
 Drawer heading gap above the floating composition. No new visual value or token.
 

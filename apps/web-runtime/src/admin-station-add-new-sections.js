@@ -1,5 +1,5 @@
 import { ADMIN_DRAWER_TAB_EVENT } from './admin-station-drawer-sidebar.js';
-import { adminDrawerCompartment, setAdminDrawerMode } from './admin-station-drawer.js';
+import { adminDrawerCompartment } from './admin-station-drawer.js';
 import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
 import { createProductPricing } from './admin-station-product-pricing.js';
@@ -75,14 +75,7 @@ export function mountAddNewSection(shell, id, label) {
   body.replaceChildren(...(id === 'presentation'
     ? [
       createProductSections(body, nextButton, previousButton),
-      mainShell(document, [createProductSummary(shell, undefined, {
-        onSeeAll: () => {
-          if (!setAdminDrawerMode(shell, 'full')) return;
-          body.querySelector('.wex-admin-product-sections__tab[aria-pressed="true"]')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-          const selected = body.querySelector('.wex-admin-product-sections__tab[aria-pressed="true"]');
-          if (selected instanceof HTMLElement) selected.focus();
-        },
-      }), createProductPricing(shell), createProductDescription(shell), createProductMedia(shell), createProductSnapshot(shell), createProductMeeting(shell), createProductItinerary(shell), createProductInfo(shell), createProductKeywords(shell), createProductFaqBooking(shell)]),
+      mainShell(document, [createProductSummary(shell), createProductPricing(shell), createProductDescription(shell), createProductMedia(shell), createProductSnapshot(shell), createProductMeeting(shell), createProductItinerary(shell), createProductInfo(shell), createProductKeywords(shell), createProductFaqBooking(shell)]),
       connectionsShell(document, [
         sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
         sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),

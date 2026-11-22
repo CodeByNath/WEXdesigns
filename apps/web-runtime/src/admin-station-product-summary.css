@@ -7,18 +7,8 @@
   column-gap: var(--wex-space-16);
 }
 
-/* The Overview heading shows only in the Full (See all) presentation. Two classes keep it above the shared section-head display rule further down. */
+/* The Overview heading shows only in the Full presentation. Two classes keep it above the shared section-head display rule further down. */
 .wex-admin-product-section-head.wex-admin-product-summary__heading {
-  display: none;
-}
-
-/* See all sits under the image in the media column, so the media gap (8px) is its gap from the image. */
-.wex-admin-product-summary__actions {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-product-summary__actions {
   display: none;
 }
 
@@ -204,7 +194,7 @@
     float: inline-end;
     inline-size: calc((100% - var(--wex-space-16)) * 0.6 / 2.6);
     margin-inline-start: var(--wex-space-16);
-    /* 8px below the image and its See all button before the rows run on below them. */
+    /* 8px below the image before the rows run on below them. */
     margin-block-end: var(--wex-space-8);
   }
 

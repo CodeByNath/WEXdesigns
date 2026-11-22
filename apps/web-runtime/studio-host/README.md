@@ -103,8 +103,8 @@ state. They are local browser fixtures, not QSD deployment files.
 ## Previewing source and a published release
 
 The local development fixture is `/WEXdesigns/studio-host/fixture.html` on the
-Vite server (port 5174 in the current session). Open Add new → Add New → See all
-product sections to reach Full Presentation. The default fixture is Combo;
+Vite server (port 5174 in the current session). Open Add new → Add New → View (footer)
+to reach Full Presentation. The default fixture is Combo;
 select Description, Snapshot, Meeting, Itinerary, Info or FAQ / Booking to inspect
 the two activity tabs. Single rendering is verified with explicit non-combo test
 inputs; no product-type editor or preview switch has been added.

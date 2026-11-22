@@ -2,20 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 // Load the runtime entry graph in the same order as the application.
 import '../src/admin-station-shell.js';
-import { hasProductSummaryContent } from '../src/admin-station-product-summary.js';
 import { setAdminDrawerMode } from '../src/admin-station-drawer.js';
-
-const empty = {
-  id: '', productCode: '', name: '', imageUrl: '', category: '', labels: [],
-  ratings: '', reviews: 0, price: '', duration: '', language: '',
-};
-
-test('See all content guard rejects empty content and accepts meaningful product values', () => {
-  assert.equal(hasProductSummaryContent(empty), false);
-  assert.equal(hasProductSummaryContent({ ...empty, name: '   ', labels: [' '] }), false);
-  assert.equal(hasProductSummaryContent({ ...empty, name: 'Course' }), true);
-  assert.equal(hasProductSummaryContent({ ...empty, labels: ['Top rated'] }), true);
-});
 
 test('explicit Full navigation works when Default and Full have the same narrow width, preserving state', () => {
   class Element {}

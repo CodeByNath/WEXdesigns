@@ -251,7 +251,7 @@ test('Add New Sidebar tabs print each section label straight into the Drawer Bod
   assert.match(sections, /sectionUnit\(document, 'promotions', 'Promotions', \[/);
   assert.match(sections, /sectionUnit\(document, 'activity', 'Activity', \[/);
   assert.match(sections, /setAdminDrawerHeaderLocation\(shell, label\)/);
-  assert.match(sections, /createProductSummary\(shell, undefined, \{/);
+  assert.match(sections, /createProductSummary\(shell\)/);
   assert.match(sections, /body\.replaceChildren\(\.\.\.\(id === 'presentation'/);
   assert.doesNotMatch(sections, /createNotificationModule|createPromotionsModule|wex-admin-add-new-section/);
 });
@@ -443,14 +443,12 @@ test('the heading gap is one variable: 16px, 8px in stacked Full, with the navig
   assert.match(summary, /row-gap: var\(--wex-admin-shell-drawer-heading-gap\);/);
 });
 
-test('See all sits under the Product Summary image, 8px from it and 8px below on small devices', async () => {
+test('Product Summary has no See all button; the footer View/Edit opens Full instead', async () => {
   const js = await readFile(new URL('../src/admin-station-product-summary.js', import.meta.url), 'utf8');
   const css = await readFile(new URL('../src/admin-station-product-summary.css', import.meta.url), 'utf8');
-  assert.match(js, /row\.append\(seeAll\);\s*media\.append\(row\);/);
-  assert.doesNotMatch(js, /section\.append\(row\)/);
-  assert.match(css, /__media \{\s*grid-column: 2;[^}]*gap: var\(--wex-space-8\);/);
+  assert.doesNotMatch(js, /See all|onSeeAll|__actions/);
+  assert.doesNotMatch(css, /__actions/);
   assert.match(css.slice(css.indexOf('@media (max-width: 767px)')), /__media \{\s*float: inline-end;[^}]*margin-block-end: var\(--wex-space-8\);/);
-  assert.doesNotMatch(css, /__actions \{\s*clear: both/);
 });
 
 test('the section step count uses the Promotions count badge look, not the label chip', async () => {
