@@ -47,3 +47,15 @@
   border-color: var(--wex-tab-navigation-small-dropdown-hover-border-color);
   color: var(--wex-tab-navigation-small-dropdown-hover-foreground);
 }
+
+/* A disabled action in the menu (Publish while the form is incomplete) takes the Button disabled look (Owner-directed, 2026-11-22):
+ * the Button disabled opacity and no hover, as the Button shows none when disabled. */
+.wex-admin-shell__drawer-action-choices > .wex-dropdown-menu__item--default:disabled {
+  opacity: var(--wex-button-disabled-opacity);
+}
+
+.wex-admin-shell__drawer-action-choices > .wex-dropdown-menu__item--default:disabled:hover {
+  background: var(--wex-tab-navigation-small-dropdown-background);
+  border-color: var(--wex-tab-navigation-small-dropdown-border-color);
+  color: var(--wex-tab-navigation-small-dropdown-foreground);
+}

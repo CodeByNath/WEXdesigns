@@ -6,7 +6,19 @@ const read = (name) => readFileSync(new URL(`../src/${name}`, import.meta.url), 
 
 test('Edit opens the editor view: Full, Publish as the main action, owner-checked', () => {
   const js = read('admin-station-add-new-sections.js');
-  assert.match(js, /addEventListener\(ADMIN_DRAWER_EDIT_EVENT, \(\) => \{[\s\S]*adminDrawerOwner !== owner\) return;\s*setAdminDrawerMode\(shell, 'full'\);\s*setAdminDrawerActionState\(shell, \{ dirty: false, publishable: true \}\);/);
+  assert.match(js, /addEventListener\(ADMIN_DRAWER_EDIT_EVENT, \(\) => \{[\s\S]*adminDrawerOwner !== owner\) return;\s*setAdminDrawerMode\(shell, 'full'\);\s*const editor = shell\.querySelector\('\[data-admin-product-editor="overview"\]'\);\s*setAdminDrawerActionState\(shell, editor instanceof HTMLElement \? overviewEditorState\(editor\)/);
+  assert.match(js, /addEventListener\(ADMIN_DRAWER_DISCARD_EVENT[\s\S]*adminDrawerOwner !== owner\) return;[\s\S]*discardOverviewEditor\(editor\)/);
+});
+
+test('the Overview editor reports dirty and publishable to the footer: every editable field is required, Discard restores the starting values', () => {
+  const editor = read('admin-station-product-overview-editor.js');
+  assert.equal((editor.match(/required: true/g) ?? []).length, 8);
+  assert.doesNotMatch(editor, /name: 'platform-id'[^}]*required/);
+  assert.match(editor, /dirty: inputs\.some\(\(input\) => input\.value !== input\.defaultValue\)/);
+  assert.match(editor, /publishable: inputs\.every\(\(input\) => !input\.required \|\| input\.value\.trim\(\) !== ''\)/);
+  assert.match(editor, /section\.addEventListener\('input', sync\)/);
+  assert.match(editor, /input\.value = input\.defaultValue;/);
+  assert.match(read('admin-station-outlined-field.js'), /input\.defaultValue = value;\s*input\.required = required;/);
 });
 
 test('editor view empties the connections shell and keeps the navigation and each section heading', () => {

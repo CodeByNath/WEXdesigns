@@ -5,9 +5,9 @@
  * to show its full content: a hidden copy of the text (`data-value`) gives the control its height.
  * Built only from existing tokens; it is not a registered Global Component.
  * @param {Document} document
- * @param {{ name: string, label: string, value?: string, readOnly?: boolean }} field
+ * @param {{ name: string, label: string, value?: string, readOnly?: boolean, required?: boolean }} field
  */
-export function createOutlinedField(document, { name, label, value = '', readOnly = false }) {
+export function createOutlinedField(document, { name, label, value = '', readOnly = false, required = false }) {
   const box = document.createElement('div');
   box.className = 'wex-admin-outlined-field';
   const text = document.createElement('label');
@@ -23,6 +23,9 @@ export function createOutlinedField(document, { name, label, value = '', readOnl
   input.rows = 1;
   input.className = 'wex-admin-outlined-field__input';
   input.value = value;
+  // The starting value: the editor tells whether anything changed by comparing with it.
+  input.defaultValue = value;
+  input.required = required;
   input.readOnly = readOnly;
   input.addEventListener('input', () => { control.dataset.value = input.value; });
   control.append(input);

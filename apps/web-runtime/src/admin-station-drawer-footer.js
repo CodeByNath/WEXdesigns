@@ -21,17 +21,22 @@ const COMMAND_EVENTS = [
  * The one footer action button offers only what applies. A presentation (view/edit)
  * footer offers View (only when the Drawer can still stretch to Full) and Edit until
  * editing starts; otherwise Publish while the requester says it is ready, and Save and
- * Discard only while there is something to save. The requester supplies availability;
+ * Discard only while there is something to save. While editing, Publish is listed but disabled until the form is publishable. The requester supplies availability;
  * the footer never infers domain readiness.
  * @param {DrawerActionState & Partial<DrawerFooterState>} state
- * @returns {Array<{ action: DrawerAction, label: string }>}
+ * @returns {Array<{ action: DrawerAction, label: string, disabled: boolean }>}
  */
 export function drawerActionChoices({ dirty, publishable, viewEdit = false, editing = false, stretch = false }) {
-  /** @type {DrawerAction[]} */
-  const actions = viewEdit && !editing
-    ? [...(stretch ? /** @type {const} */ (['view']) : []), 'edit']
-    : [...(publishable ? /** @type {const} */ (['publish']) : []), ...(dirty ? /** @type {const} */ (['save', 'discard']) : [])];
-  return actions.map((action) => ({ action, label: ACTION_LABELS[action] }));
+  /** @param {DrawerAction} action @param {boolean} [disabled] */
+  const choice = (action, disabled = false) => ({ action, label: ACTION_LABELS[action], disabled });
+  if (viewEdit && !editing) return [...(stretch ? [choice('view')] : []), choice('edit')];
+  if (viewEdit && editing) {
+    // Editor: nothing edited leaves only a disabled Publish; once edited, Publish leads when the form is publishable,
+    // otherwise Save leads and Publish stays listed, disabled.
+    if (!dirty) return [choice('publish', true)];
+    return publishable ? [choice('publish'), choice('save'), choice('discard')] : [choice('save'), choice('discard'), choice('publish', true)];
+  }
+  return [...(publishable ? [choice('publish')] : []), ...(dirty ? [choice('save'), choice('discard')] : [])];
 }
 
 /** @param {HTMLElement} shell */
@@ -73,14 +78,20 @@ export function refreshAdminDrawerFooter(shell) {
   const parts = footerParts(shell);
   if (!parts) return;
   const choices = drawerActionChoices(footerState(shell, parts));
+  const enabled = choices.filter((choice) => !choice.disabled);
+  const main = enabled[0] ?? choices[0];
   for (const action of /** @type {DrawerAction[]} */ (Object.keys(ACTION_LABELS))) {
     const item = parts.menu.querySelector(`[data-admin-drawer-${action}]`);
     if (!(item instanceof HTMLButtonElement)) continue;
-    item.hidden = !choices.some((choice) => choice.action === action);
-    // The main action (the first one shown) reads as hovered while the menu is open (drawer-footer.css).
-    item.toggleAttribute('data-admin-drawer-action-main', choices[0]?.action === action);
+    const choice = choices.find((candidate) => candidate.action === action);
+    item.hidden = !choice;
+    item.disabled = choice?.disabled === true;
+    // The main action (the first enabled one) reads as hovered while the menu is open (drawer-footer.css).
+    item.toggleAttribute('data-admin-drawer-action-main', main?.action === action);
   }
-  parts.label.textContent = choices[0]?.label ?? '';
+  parts.label.textContent = main?.label ?? '';
+  // Nothing enabled (only a disabled Publish): the button shows it, disabled.
+  parts.toggle.disabled = enabled.length === 0;
   parts.root.hidden = choices.length === 0;
   // The footer's close button reads Cancel while the editor is active, Close in every other mode.
   const close = parts.drawer.querySelector('[data-admin-drawer-footer-close]');
@@ -161,7 +172,7 @@ export function mountAdminDrawerFooter(shell) {
    * Only the keyboard (ArrowDown/ArrowUp) moves focus into the menu.
    * @param {boolean} [last] @param {boolean} [focusItem] */
   const open = (last = false, focusItem = false) => {
-    if (parts.root.hidden) return;
+    if (parts.root.hidden || parts.toggle.disabled) return;
     parts.menu.hidden = false;
     parts.toggle.setAttribute('aria-expanded', 'true');
     if (!focusItem) return;

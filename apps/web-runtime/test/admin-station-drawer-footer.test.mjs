@@ -45,8 +45,37 @@ test('offers only what applies: Save and Discard need something to save, View ne
   }
   assert.deepEqual(names({ dirty: true, publishable: true, viewEdit: true, editing: false, stretch: true }), ['view', 'edit']);
   assert.deepEqual(names({ dirty: false, publishable: false, viewEdit: true, editing: false, stretch: false }), ['edit']);
-  assert.deepEqual(names({ dirty: true, publishable: false, viewEdit: true, editing: true, stretch: true }), ['save', 'discard']);
-  assert.deepEqual(names({ dirty: false, publishable: false, viewEdit: true, editing: true, stretch: true }), []);
+  // While editing, Publish stays in the list: disabled until the form is publishable.
+  const editing = (dirty, publishable) => drawerActionChoices({ dirty, publishable, viewEdit: true, editing: true, stretch: true }).map(({ action, disabled }) => `${action}${disabled ? ':disabled' : ''}`);
+  assert.deepEqual(editing(true, false), ['save', 'discard', 'publish:disabled']);
+  assert.deepEqual(editing(false, false), ['publish:disabled']);
+  // Untouched: nothing to save or publish, even when the form is complete. Edited and complete: Publish leads.
+  assert.deepEqual(editing(false, true), ['publish:disabled']);
+  assert.deepEqual(editing(true, true), ['publish', 'save', 'discard']);
+});
+
+test('editing: untouched is a disabled Publish; edited and incomplete lists Publish disabled with Save as the main action; Publish cannot fire', () => {
+  const f = fixture(); const commands = [];
+  for (const action of ['save', 'publish', 'discard']) f.shell.addEventListener(`wex:admin-drawer-${action}`, () => commands.push(action));
+  f.drawer.dataset.adminDrawerColumns = '2'; setAdminDrawerViewEdit(f.shell, true);
+  f.toggle.dispatchEvent(new Event('click')); f.buttons.edit.dispatchEvent(new Event('click'));
+  setAdminDrawerActionState(f.shell, { dirty: false, publishable: true });
+  assert.deepEqual(visible(f), ['publish']); assert.equal(f.buttons.publish.disabled, true); assert.equal(f.toggle.disabled, true); assert.equal(f.label.textContent, 'Publish');
+  setAdminDrawerActionState(f.shell, { dirty: true, publishable: false });
+  assert.deepEqual(visible(f), ['publish', 'save', 'discard']);
+  assert.equal(f.buttons.publish.disabled, true); assert.equal(f.buttons.save.disabled, false);
+  assert.equal(f.label.textContent, 'Save'); assert.equal(f.toggle.disabled, false);
+  assert.equal(f.buttons.publish.hasAttribute('data-admin-drawer-action-main'), false);
+  assert.equal(f.buttons.save.hasAttribute('data-admin-drawer-action-main'), true);
+  f.toggle.dispatchEvent(new Event('click')); f.buttons.publish.dispatchEvent(new Event('click'));
+  assert.deepEqual(commands, []);
+  key(f.toggle, 'ArrowDown'); assert.equal(f.document.activeElement, f.buttons.save);
+  key(f.root, 'End'); assert.equal(f.document.activeElement, f.buttons.discard);
+  setAdminDrawerActionState(f.shell, { dirty: false, publishable: false });
+  assert.deepEqual(visible(f), ['publish']); assert.equal(f.toggle.disabled, true); assert.equal(f.label.textContent, 'Publish');
+  setAdminDrawerActionState(f.shell, { dirty: true, publishable: true });
+  assert.equal(f.buttons.publish.disabled, false); assert.equal(f.label.textContent, 'Publish'); assert.equal(f.toggle.disabled, false);
+  assert.equal(f.buttons.publish.hasAttribute('data-admin-drawer-action-main'), true);
 });
 
 test('clean, dirty and publish-ready states show and hide the matching actions; nothing to do hides the button', () => {
@@ -125,8 +154,8 @@ test('presentation footer: View and Edit while the Drawer can stretch, Edit alon
   assert.deepEqual(visible(f), ['edit']);
   f.toggle.dispatchEvent(new Event('click')); f.buttons.edit.dispatchEvent(new Event('click'));
   assert.deepEqual(events, ['edit']); assert.equal(f.drawer.hasAttribute('data-admin-drawer-editing'), true);
-  assert.equal(f.root.hidden, true); assert.deepEqual(visible(f), []);
-  setAdminDrawerDirty(f.shell, true); assert.deepEqual(visible(f), ['save', 'discard']);
+  assert.deepEqual(visible(f), ['publish']); assert.equal(f.buttons.publish.disabled, true);
+  setAdminDrawerDirty(f.shell, true); assert.deepEqual(visible(f), ['publish', 'save', 'discard']); assert.equal(f.label.textContent, 'Save');
   setAdminDrawerViewEdit(f.shell, true);
   assert.equal(f.drawer.hasAttribute('data-admin-drawer-editing'), false);
   setAdminDrawerViewEdit(f.shell, false);
@@ -192,4 +221,11 @@ test('the main action is marked for the hover look and a pointer open focuses no
   assert.equal(f.menu.hidden, false); assert.equal(f.document.activeElement, null);
   const css = await readFile(new URL('../../../packages/wex/src/foundations/drawer-footer.css', import.meta.url), 'utf8');
   assert.match(css, /action-choices:not\(:hover\):not\(:has\(> :not\(\[data-admin-drawer-action-main\]\):focus\)\) > \[data-admin-drawer-action-main\] \{\s*background: var\(--wex-tab-navigation-small-dropdown-hover-background\);\s*border-color: var\(--wex-tab-navigation-small-dropdown-hover-border-color\);\s*color: var\(--wex-tab-navigation-small-dropdown-hover-foreground\);/);
+});
+
+test('a disabled menu action takes the Button disabled look: its opacity token and no hover', async () => {
+  const css = await readFile(new URL('../../../packages/wex/src/foundations/drawer-footer.css', import.meta.url), 'utf8');
+  assert.match(css, /action-choices > \.wex-dropdown-menu__item--default:disabled \{\s*opacity: var\(--wex-button-disabled-opacity\);\s*\}/);
+  assert.match(css, /:disabled:hover \{\s*background: var\(--wex-tab-navigation-small-dropdown-background\);\s*border-color: var\(--wex-tab-navigation-small-dropdown-border-color\);\s*color: var\(--wex-tab-navigation-small-dropdown-foreground\);/);
+  assert.doesNotMatch(css.slice(css.indexOf('Button disabled look')), /#[0-9a-f]{3,8}\b|\d+px/i);
 });

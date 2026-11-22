@@ -102,6 +102,10 @@
   once capped at the content maximum, content aligned with navigation and footer, no bottom line (editor only)
   (`admin-station-drawer-full.css`, ADR 0028 Editor view; proof `admin-station-drawer-editor.test.mjs`).
 
+- 2026-11-22: Editor footer actions: untouched = disabled Publish only; edited + complete = Publish leads, Save/Discard listed;
+  edited + incomplete = Save leads, Publish disabled (Overview: all editable fields required), Discard restores values
+  (`admin-station-drawer-footer.js`, `admin-station-product-overview-editor.js`, ADR 0028 Editor footer actions;
+  proof `admin-station-drawer-footer.test.mjs`, `admin-station-drawer-editor.test.mjs`).
 - 2026-11-22: Overview editor: outlined fields, label pill on the border, Search Input states (Focused, Pressed, no hover), full-content textarea values
   (`admin-station-outlined-field.js`/`.css`, `admin-station-product-overview-editor.js`,
   ADR 0028 Overview editor; proof `admin-station-drawer-editor.test.mjs`). Other sections not built.

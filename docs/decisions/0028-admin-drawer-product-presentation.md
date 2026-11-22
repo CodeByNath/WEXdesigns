@@ -399,6 +399,18 @@ navigation and footer, and it is centred in the Body once the content maximum ca
 without the bottom line, because nothing follows it
 (`admin-station-drawer-full.css`, editor view only; the view and other modes are unchanged).
 
+Editor footer actions (Owner-directed, 2026-11-22): while editing, the footer lists Publish,
+Save and Discard. Untouched, only Publish is listed, disabled (nothing to save or publish), so the
+main button is disabled. Save and Discard appear once any editor value differs from its starting
+value. Edited and complete (requester state `publishable`: complete and error free), Publish is the
+main button. Edited and incomplete, Publish stays listed but disabled and the main button reads Save.
+The main button shows the first enabled action. In the Overview
+editor every editable field is required (Platform ID is read only), so an empty field disables
+Publish and sets `aria-invalid`; Discard returns every field to its starting value. Save only emits
+its command event (no persistence yet). The Dropdown Menu family has no disabled look, so (Owner-directed) a
+disabled footer menu item takes the Button disabled look: `--wex-button-disabled-opacity`, no hover
+(`drawer-footer.css`; the Dropdown Menu family itself is unchanged).
+
 ### Overview editor
 
 From the Owner's "Outlined (adaptive label)" design: one outlined field per

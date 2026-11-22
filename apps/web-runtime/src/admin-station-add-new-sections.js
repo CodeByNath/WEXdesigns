@@ -1,9 +1,9 @@
 import { ADMIN_DRAWER_TAB_EVENT } from './admin-station-drawer-sidebar.js';
 import { adminDrawerCompartment, setAdminDrawerMode } from './admin-station-drawer.js';
-import { ADMIN_DRAWER_EDIT_EVENT, setAdminDrawerActionState } from './admin-station-drawer-footer.js';
+import { ADMIN_DRAWER_DISCARD_EVENT, ADMIN_DRAWER_EDIT_EVENT, setAdminDrawerActionState } from './admin-station-drawer-footer.js';
 import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
-import { createProductOverviewEditor } from './admin-station-product-overview-editor.js';
+import { createProductOverviewEditor, discardOverviewEditor, overviewEditorState } from './admin-station-product-overview-editor.js';
 import { createProductPricing } from './admin-station-product-pricing.js';
 import { createProductDescription } from './admin-station-product-description.js';
 import { createProductMedia } from './admin-station-product-media.js';
@@ -108,6 +108,14 @@ export function listenAddNewSections(shell, tabs, owner) {
     const drawer = shell.querySelector('[data-admin-drawer-shell]');
     if (!(drawer instanceof HTMLElement) || drawer.dataset.adminDrawerOwner !== owner) return;
     setAdminDrawerMode(shell, 'full');
-    setAdminDrawerActionState(shell, { dirty: false, publishable: true });
+    const editor = shell.querySelector('[data-admin-product-editor="overview"]');
+    setAdminDrawerActionState(shell, editor instanceof HTMLElement ? overviewEditorState(editor) : { dirty: false, publishable: true });
+  });
+  // Discard returns the editor's fields to their starting values; its state then reports clean.
+  shell.addEventListener(ADMIN_DRAWER_DISCARD_EVENT, () => {
+    const drawer = shell.querySelector('[data-admin-drawer-shell]');
+    if (!(drawer instanceof HTMLElement) || drawer.dataset.adminDrawerOwner !== owner) return;
+    const editor = shell.querySelector('[data-admin-product-editor="overview"]');
+    if (editor instanceof HTMLElement) discardOverviewEditor(editor);
   });
 }
