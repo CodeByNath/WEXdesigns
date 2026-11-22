@@ -1,0 +1,10 @@
+/* Editor view (Drawer `data-admin-drawer-editing`): the navigation shell stays, the connections shell
+ * stays but is empty (Promotions and Activity are hidden), and the main content shell becomes the editor:
+ * only the section heading remains. The editor content is not built yet. */
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections > * {
+  display: none;
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main > * > :not(.wex-admin-product-section-head) {
+  display: none;
+}

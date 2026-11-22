@@ -1,5 +1,6 @@
 import { ADMIN_DRAWER_TAB_EVENT } from './admin-station-drawer-sidebar.js';
-import { adminDrawerCompartment } from './admin-station-drawer.js';
+import { adminDrawerCompartment, setAdminDrawerMode } from './admin-station-drawer.js';
+import { ADMIN_DRAWER_EDIT_EVENT, setAdminDrawerActionState } from './admin-station-drawer-footer.js';
 import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
 import { createProductPricing } from './admin-station-product-pricing.js';
@@ -99,5 +100,13 @@ export function listenAddNewSections(shell, tabs, owner) {
     const { id } = /** @type {CustomEvent<{ id: string }>} */ (event).detail;
     const tab = tabs.find((candidate) => candidate.id === id);
     if (tab) mountAddNewSection(shell, tab.id, tab.label);
+  });
+  // Edit opens the editor view: Full (the section navigation is its frame) and Publish as the main action.
+  // The Drawer itself carries `data-admin-drawer-editing`; `admin-station-drawer-editor.css` shapes the view.
+  shell.addEventListener(ADMIN_DRAWER_EDIT_EVENT, () => {
+    const drawer = shell.querySelector('[data-admin-drawer-shell]');
+    if (!(drawer instanceof HTMLElement) || drawer.dataset.adminDrawerOwner !== owner) return;
+    setAdminDrawerMode(shell, 'full');
+    setAdminDrawerActionState(shell, { dirty: false, publishable: true });
   });
 }

@@ -372,3 +372,14 @@ it shows only the actions that apply (they are hidden, not disabled):
 This supersedes the disabled Save/Discard states and disabled trigger in ADR 0038 for
 the Drawer footer. Mode changes refresh the footer through an attribute observer.
 The Product Summary has no See all. No new token or visual value.
+
+## Editor view (Owner-directed, 2026-11-22)
+
+Edit (footer) opens the editor view of an Add New Drawer: it switches to Full
+(the section navigation is its frame) and the requester reports `publishable`,
+so Publish is the main action, with Save and Discard offered only while there
+are unsaved changes. The Drawer carries `data-admin-drawer-editing`;
+`admin-station-drawer-editor.css` then keeps the navigation shell, empties the
+connections shell (Promotions and Activity hidden, shell kept) and turns the main
+content shell into the editor, keeping only each section heading. The editor
+content is not built yet. Reopening starts in view. No new token or visual value.

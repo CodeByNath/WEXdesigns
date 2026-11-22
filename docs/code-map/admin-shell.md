@@ -92,6 +92,11 @@
   `admin-station-drawer-footer.js`, `drawer-footer.css`, `viewEdit` request field,
   ADR 0028 Footer single action button): View (opens Full) and Edit in view, then
   Publish/Save/Discard while editing and as they apply; always label + chevron.
+- 2026-11-22: Editor view (footer Edit): Full, Publish main, connections shell
+  emptied, main shell keeps only the section heading
+  (`admin-station-drawer-editor.css`, `admin-station-add-new-sections.js`, ADR 0028
+  Editor view; proof `admin-station-drawer-editor.test.mjs`). Content not built.
+
 - 2026-11-18: (superseded by the footer View) Product Summary offered the See all action
   with product content and an open-view handler, outside Full. It opened existing
   Full product navigation without resetting content, including when Default and
