@@ -75,10 +75,16 @@ export function refreshAdminDrawerFooter(shell) {
   const choices = drawerActionChoices(footerState(shell, parts));
   for (const action of /** @type {DrawerAction[]} */ (Object.keys(ACTION_LABELS))) {
     const item = parts.menu.querySelector(`[data-admin-drawer-${action}]`);
-    if (item instanceof HTMLButtonElement) item.hidden = !choices.some((choice) => choice.action === action);
+    if (!(item instanceof HTMLButtonElement)) continue;
+    item.hidden = !choices.some((choice) => choice.action === action);
+    // The main action (the first one shown) reads as hovered while the menu is open (drawer-footer.css).
+    item.toggleAttribute('data-admin-drawer-action-main', choices[0]?.action === action);
   }
   parts.label.textContent = choices[0]?.label ?? '';
   parts.root.hidden = choices.length === 0;
+  // The footer's close button reads Cancel while the editor is active, Close in every other mode.
+  const close = parts.drawer.querySelector('[data-admin-drawer-footer-close]');
+  if (close instanceof HTMLElement) close.textContent = footerState(shell, parts).editing ? 'Cancel' : 'Close';
   closeAdminDrawerActionMenu(shell);
 }
 
@@ -114,6 +120,16 @@ export function setAdminDrawerViewEdit(shell, enabled) {
   refreshAdminDrawerFooter(shell);
 }
 
+/** Cancel: leaves the editor for the view, keeping the Drawer open and the mode as it is.
+ * The requester's availability resets, since nothing is being edited any more.
+ * @param {HTMLElement} shell */
+export function exitAdminDrawerEditor(shell) {
+  const parts = footerParts(shell);
+  if (!parts) return;
+  parts.drawer.toggleAttribute('data-admin-drawer-editing', false);
+  setAdminDrawerActionState(shell, { dirty: false, publishable: false });
+}
+
 /** @param {HTMLElement} shell */
 export function mountAdminDrawerFooter(shell) {
   const parts = footerParts(shell);
@@ -141,11 +157,14 @@ export function mountAdminDrawerFooter(shell) {
     // View is handled by the Drawer (it opens Full); the footer emits no command for it.
     if (event) shell.dispatchEvent(new CustomEvent(event[1]));
   };
-  /** @param {boolean} [last] */
-  const open = (last = false) => {
+  /** Opening by pointer focuses nothing: the main action shows the hover state instead.
+   * Only the keyboard (ArrowDown/ArrowUp) moves focus into the menu.
+   * @param {boolean} [last] @param {boolean} [focusItem] */
+  const open = (last = false, focusItem = false) => {
     if (parts.root.hidden) return;
     parts.menu.hidden = false;
     parts.toggle.setAttribute('aria-expanded', 'true');
+    if (!focusItem) return;
     const items = enabledItems();
     (last ? items.at(-1) : items[0])?.focus();
   };
@@ -156,7 +175,7 @@ export function mountAdminDrawerFooter(shell) {
   parts.toggle.addEventListener('keydown', (event) => {
     if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
     event.preventDefault();
-    open(event.key === 'ArrowUp');
+    open(event.key === 'ArrowUp', true);
   });
   parts.root.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {

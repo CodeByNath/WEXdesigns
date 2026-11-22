@@ -375,6 +375,10 @@ The Product Summary has no See all. No new token or visual value.
 
 ## Editor view (Owner-directed, 2026-11-22)
 
+While the editor is active the footer Close button reads Cancel and closes the editor, not
+the Drawer: the view returns, the Drawer stays open in the same mode and the requester's
+availability resets. In every other mode it reads Close and closes the Drawer.
+
 Edit (footer) opens the editor view of an Add New Drawer: it switches to Full
 (the section navigation is its frame) and the requester reports `publishable`,
 so Publish is the main action, with Save and Discard offered only while there

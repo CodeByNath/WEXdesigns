@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
-import { drawerActionChoices, mountAdminDrawerFooter, refreshAdminDrawerFooter, setAdminDrawerActionState, setAdminDrawerDirty, setAdminDrawerViewEdit } from '../src/admin-station-drawer-footer.js';
+import { exitAdminDrawerEditor, drawerActionChoices, mountAdminDrawerFooter, refreshAdminDrawerFooter, setAdminDrawerActionState, setAdminDrawerDirty, setAdminDrawerViewEdit } from '../src/admin-station-drawer-footer.js';
 
 // The footer only needs this narrow DOM surface; commands remain real events.
 class Element extends EventTarget {
@@ -26,9 +26,10 @@ function fixture() {
   const shell = new Element(document), drawer = element('data-admin-drawer-shell'), root = element('data-admin-drawer-action-menu');
   const toggle = element('data-admin-drawer-action-toggle', true), label = element('data-admin-drawer-action-label'), menu = element('data-admin-drawer-action-choices');
   const buttons = Object.fromEntries(ACTIONS.map((action) => [action, element(`data-admin-drawer-${action}`, true)]));
-  toggle.append(label); menu.append(...Object.values(buttons)); root.append(toggle, menu); drawer.append(root); shell.append(drawer);
+  const close = element('data-admin-drawer-footer-close', true); close.textContent = 'Close';
+  toggle.append(label); menu.append(...Object.values(buttons)); root.append(toggle, menu); drawer.append(close, root); shell.append(drawer);
   mountAdminDrawerFooter(shell);
-  return { shell, drawer, root, toggle, label, menu, buttons, document };
+  return { shell, drawer, root, toggle, label, menu, buttons, document, close };
 }
 const visible = (f) => ACTIONS.filter((action) => !f.buttons[action].hidden);
 function key(target, value) {
@@ -147,4 +148,48 @@ test('the footer stylesheet gives Edit no special size and uses no raw values', 
   const css = await readFile(new URL('../../../packages/wex/src/foundations/drawer-footer.css', import.meta.url), 'utf8');
   assert.doesNotMatch(css, /action-fill|action-single|> svg/);
   assert.doesNotMatch(css, /#[0-9a-f]{3,8}\b|\d+px/i);
+});
+
+test('the footer close button reads Cancel while the editor is active and Close in every other mode', () => {
+  const f = fixture();
+  assert.equal(f.close.textContent, 'Close');
+  f.drawer.dataset.adminDrawerColumns = '2';
+  setAdminDrawerViewEdit(f.shell, true);
+  assert.equal(f.close.textContent, 'Close');
+  f.toggle.dispatchEvent(new Event('click')); f.buttons.edit.dispatchEvent(new Event('click'));
+  assert.equal(f.close.textContent, 'Cancel');
+  setAdminDrawerViewEdit(f.shell, true);
+  assert.equal(f.close.textContent, 'Close');
+  f.toggle.dispatchEvent(new Event('click')); f.buttons.edit.dispatchEvent(new Event('click'));
+  setAdminDrawerViewEdit(f.shell, false);
+  assert.equal(f.close.textContent, 'Close');
+});
+
+test('Cancel leaves the editor for the view with the action state reset', () => {
+  const f = fixture();
+  f.drawer.dataset.adminDrawerColumns = '2';
+  setAdminDrawerViewEdit(f.shell, true);
+  f.toggle.dispatchEvent(new Event('click')); f.buttons.edit.dispatchEvent(new Event('click'));
+  setAdminDrawerActionState(f.shell, { dirty: true, publishable: true });
+  assert.equal(f.close.textContent, 'Cancel');
+  exitAdminDrawerEditor(f.shell);
+  assert.equal(f.drawer.hasAttribute('data-admin-drawer-editing'), false);
+  assert.equal(f.drawer.hasAttribute('data-admin-drawer-view-edit'), true);
+  assert.equal(f.close.textContent, 'Close');
+  assert.deepEqual(visible(f), ['view', 'edit']);
+});
+
+test('the main action is marked for the hover look and a pointer open focuses nothing', async () => {
+  const f = fixture();
+  setAdminDrawerActionState(f.shell, { dirty: true, publishable: true });
+  assert.equal(f.buttons.publish.hasAttribute('data-admin-drawer-action-main'), true);
+  assert.equal(f.buttons.save.hasAttribute('data-admin-drawer-action-main'), false);
+  setAdminDrawerActionState(f.shell, { dirty: true, publishable: false });
+  assert.equal(f.buttons.publish.hasAttribute('data-admin-drawer-action-main'), false);
+  assert.equal(f.buttons.save.hasAttribute('data-admin-drawer-action-main'), true);
+  f.document.activeElement = null;
+  f.toggle.dispatchEvent(new Event('click'));
+  assert.equal(f.menu.hidden, false); assert.equal(f.document.activeElement, null);
+  const css = await readFile(new URL('../../../packages/wex/src/foundations/drawer-footer.css', import.meta.url), 'utf8');
+  assert.match(css, /action-choices:not\(:hover\):not\(:has\(> :not\(\[data-admin-drawer-action-main\]\):focus\)\) > \[data-admin-drawer-action-main\] \{\s*background: var\(--wex-tab-navigation-small-dropdown-hover-background\);\s*border-color: var\(--wex-tab-navigation-small-dropdown-hover-border-color\);\s*color: var\(--wex-tab-navigation-small-dropdown-hover-foreground\);/);
 });

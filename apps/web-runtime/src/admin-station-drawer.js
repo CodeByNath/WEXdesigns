@@ -1,5 +1,5 @@
 import { closeAdminDrawerDropdown, mountAdminDrawerNotifications } from './admin-station-drawer-notifications.js';
-import { closeAdminDrawerActionMenu, mountAdminDrawerFooter, setAdminDrawerActionState, setAdminDrawerViewEdit } from './admin-station-drawer-footer.js';
+import { closeAdminDrawerActionMenu, exitAdminDrawerEditor, mountAdminDrawerFooter, setAdminDrawerActionState, setAdminDrawerViewEdit } from './admin-station-drawer-footer.js';
 import { isAdminDrawerSidebar, resetAdminDrawerSidebar, setAdminDrawerSidebar } from './admin-station-drawer-sidebar.js';
 import { isAdminDrawerHeaderContent, mountAdminDrawerHeader, resetAdminDrawerHeader, setAdminDrawerHeader } from './admin-station-drawer-header.js';
 
@@ -325,7 +325,11 @@ export function mountAdminDrawerShell(shell) {
   mountAdminDrawerFooter(shell);
   shell.querySelector('[data-admin-drawer-view]')?.addEventListener('click', openFullView);
   mountAdminDrawerNotifications(shell);
-  drawer.querySelectorAll('[data-admin-drawer-close]').forEach((close) => close.addEventListener('click', () => closeAdminDrawer(shell)));
+  drawer.querySelectorAll('[data-admin-drawer-close]').forEach((close) => close.addEventListener('click', () => {
+    // The footer button reads Cancel while editing: it closes the editor, not the Drawer.
+    if (close.hasAttribute('data-admin-drawer-footer-close') && drawer.hasAttribute('data-admin-drawer-editing')) exitAdminDrawerEditor(shell);
+    else closeAdminDrawer(shell);
+  }));
 
   shell.addEventListener(ADMIN_DRAWER_REQUEST_EVENT, (event) => {
     if (event instanceof CustomEvent) openAdminDrawer(shell, event.detail);

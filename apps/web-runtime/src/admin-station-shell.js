@@ -62,7 +62,7 @@ const shellMarkup = `
         <div class="wex-admin-shell__drawer-sidebar" data-admin-drawer-compartment="sidebar"></div>
         <div class="wex-admin-shell__drawer-body" data-admin-drawer-compartment="body"></div>
         <footer class="wex-admin-shell__drawer-footer" data-admin-drawer-compartment="footer">
-          <button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-close>Close</button>
+          <button type="button" class="wex-button wex-button--small wex-button--neutral" data-admin-drawer-footer-close data-admin-drawer-close>Close</button>
           <div class="wex-admin-shell__drawer-footer-actions">
             <button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small" data-admin-drawer-previous aria-label="Previous section" title="Previous section" hidden disabled></button>
             <button type="button" class="wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small" data-admin-drawer-next aria-label="Next section" title="Next section" hidden disabled></button>

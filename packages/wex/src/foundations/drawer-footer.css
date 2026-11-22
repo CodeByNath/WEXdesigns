@@ -39,3 +39,11 @@
   inset-block-end: calc(100% + var(--wex-space-4));
   inset-inline-end: 0;
 }
+
+/* The main action reads as hovered (the Dropdown Menu hover values) while the menu is open, until the
+ * pointer is over the menu or focus moves to another item, so hover and focus never show on two rows. */
+.wex-admin-shell__drawer-action-choices:not(:hover):not(:has(> :not([data-admin-drawer-action-main]):focus)) > [data-admin-drawer-action-main] {
+  background: var(--wex-tab-navigation-small-dropdown-hover-background);
+  border-color: var(--wex-tab-navigation-small-dropdown-hover-border-color);
+  color: var(--wex-tab-navigation-small-dropdown-hover-foreground);
+}

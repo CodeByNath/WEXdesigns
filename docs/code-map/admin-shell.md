@@ -93,7 +93,8 @@
   ADR 0028 Footer single action button): View (opens Full) and Edit in view, then
   Publish/Save/Discard while editing and as they apply; always label + chevron.
 - 2026-11-22: Editor view (footer Edit): Full, Publish main, connections shell
-  emptied, main shell keeps only the section heading; editor proportion: main shell up to the
+  emptied, main shell keeps only the section heading; footer Close reads Cancel and closes the
+  editor, not the Drawer (`exitAdminDrawerEditor`); editor proportion: main shell up to the
   content maximum, navigation unchanged, connections take the rest
   (`admin-station-drawer-editor.css`, `admin-station-add-new-sections.js`, ADR 0028
   Editor view; proof `admin-station-drawer-editor.test.mjs`). Content not built.

@@ -119,7 +119,7 @@ test('gives the Drawer Header two compartment shells: content-empty start and th
   assert.match(actions, /class="wex-button wex-button--small wex-button--borderless wex-action-button-icon-only--small wex-action-button-icon-only--circular" data-admin-drawer-close aria-label="Close drawer"/);
   assert.ok(actions.indexOf('Edit options') < actions.indexOf('Close drawer'), 'close sits at the right corner');
   assert.doesNotMatch(header, /style=/);
-  assert.match(drawer, /querySelectorAll\('\[data-admin-drawer-close\]'\)\.forEach\(\(close\) => close\.addEventListener\('click', \(\) => closeAdminDrawer\(shell\)\)\)/);
+  assert.match(drawer, /querySelectorAll\('\[data-admin-drawer-close\]'\)\.forEach\(\(close\) => close\.addEventListener\('click', \(\) => \{[\s\S]*?else closeAdminDrawer\(shell\);\s*\}\)\)/);
   assert.match(headerCss, /\.wex-admin-shell__drawer-header \{\s*position: relative;\s*display: flex;\s*align-items: center;\s*justify-content: space-between;/);
   assert.match(index, /@import "\.\/foundations\/drawer-header\.css";/);
 });
@@ -471,4 +471,9 @@ test('the Product Summary label moves to the top when its chips wrap onto a seco
   assert.match(js, /toggleAttribute\('data-wrapped'/);
   assert.match(css, /__chips\[data-wrapped\]\) > \.wex-admin-product-summary__label \{\s*align-items: flex-start;/);
   assert.doesNotMatch(css, /border-block-start/);
+});
+
+test('the footer button closes the editor, not the Drawer, while editing (Cancel)', async () => {
+  const js = await readFile(new URL('../src/admin-station-drawer.js', import.meta.url), 'utf8');
+  assert.match(js, /data-admin-drawer-footer-close'\) && drawer\.hasAttribute\('data-admin-drawer-editing'\)\) exitAdminDrawerEditor\(shell\);\s*else closeAdminDrawer\(shell\);/);
 });
