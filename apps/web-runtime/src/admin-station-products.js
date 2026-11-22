@@ -30,7 +30,7 @@ export function mountProductsBody(shell) {
   mountOverviewModule(overviewMount, allServicesPreviewSnapshot, {
     onAddNew: (trigger) => {
       if (drawer instanceof HTMLElement && drawer.dataset.adminDrawerOwner !== ADD_NEW_OWNER) adminDrawerCompartment(shell, 'body')?.replaceChildren();
-      requestAdminDrawer(shell, { owner: ADD_NEW_OWNER, columns: 2, header: { icon: 'plus', label: 'Service', status: 'pending' }, sidebar: ADD_NEW_TABS }, trigger);
+      requestAdminDrawer(shell, { owner: ADD_NEW_OWNER, columns: 2, viewEdit: true, header: { icon: 'plus', label: 'Service', status: 'pending' }, sidebar: ADD_NEW_TABS }, trigger);
       listenAddNewSections(shell, ADD_NEW_TABS, ADD_NEW_OWNER);
       mountAddNewSection(shell, ADD_NEW_FIRST_TAB.id, ADD_NEW_FIRST_TAB.label);
     },

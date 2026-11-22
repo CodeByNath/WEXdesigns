@@ -19,7 +19,9 @@
 
 .wex-admin-shell__drawer-footer-actions {
   display: flex;
+  flex: 1 1 auto;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--wex-space-8);
 }
 
@@ -36,9 +38,4 @@
   position: absolute;
   inset-block-end: calc(100% + var(--wex-space-4));
   inset-inline-end: 0;
-}
-
-.wex-admin-shell__drawer-action-choices > :disabled {
-  opacity: var(--wex-button-disabled-opacity);
-  pointer-events: none;
 }

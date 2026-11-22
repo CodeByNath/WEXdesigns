@@ -158,7 +158,7 @@ test('drives the Drawer Header icon, label and status pill dynamically', () => {
 
 test('keeps the Admin Drawer allocation modes approved and request-owned', () => {
   assert.match(drawer, /@typedef \{'default' \| 'half' \| 'wide' \| 'full'\} AdminDrawerMode/);
-  assert.match(drawer, /@typedef \{\{ owner: string, columns\?: 1 \| 2, mode\?: AdminDrawerMode, header\?: AdminDrawerHeaderContent, sidebar\?: [^}]+\[\] \}\} AdminDrawerRequest/);
+  assert.match(drawer, /@typedef \{\{ owner: string, columns\?: 1 \| 2, viewEdit\?: boolean, mode\?: AdminDrawerMode, header\?: AdminDrawerHeaderContent, sidebar\?: [^}]+\[\] \}\} AdminDrawerRequest/);
   assert.match(drawer, /const ADMIN_DRAWER_REQUEST_EVENT = 'wex:admin-drawer-request';/);
   assert.match(drawer, /const drawerModes = new Set\(\['default', 'half', 'wide', 'full'\]\);/);
   assert.match(drawer, /drawer\.dataset\.adminDrawerOwner = request\.owner;/);
@@ -207,9 +207,9 @@ test('the Drawer footer keeps Close, starts the section arrows hidden and uses t
   assert.match(footer, /wex-action-button-icon-only--small" data-admin-drawer-previous aria-label="Previous section" title="Previous section" hidden disabled/);
   assert.match(footer, /wex-button--primary wex-action-button-label-only--small-menu/);
   assert.match(footer, /aria-haspopup="menu" aria-expanded="false"/);
-  assert.match(footer, /data-admin-drawer-publish hidden/);
-  assert.match(footer, /data-admin-drawer-save disabled/);
-  assert.match(footer, /data-admin-drawer-discard disabled/);
+  for (const action of ['view', 'edit', 'publish', 'save', 'discard']) assert.match(footer, new RegExp(`data-admin-drawer-${action} hidden`));
+  assert.match(footer, /data-admin-drawer-action-menu hidden/);
+  assert.doesNotMatch(footer, /disabled>(Publish|Save|Discard)|drawer-(view-menu|edit-direct)/);
   assert.match(footerCss, /inset-block-end: calc\(100% \+ var\(--wex-space-4\)\);/);
   assert.doesNotMatch(footer, /style=/);
   assert.match(index, /@import "\.\/foundations\/drawer-footer\.css";/);

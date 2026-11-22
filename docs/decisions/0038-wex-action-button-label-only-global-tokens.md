@@ -41,8 +41,9 @@ not alter publish readiness. Every Drawer opening resets both flags to false.
 
 - Publishable: trigger label Publish; choices Publish, Save, Discard.
 - Not publishable: trigger label Save; choices Save, Discard.
-- Save and Discard are disabled without unsaved changes. Publish is available
-  only when publishable. With neither flag, the Save trigger is disabled too.
+- Superseded 2026-11-22 (ADR 0028, Footer single action button): Save and Discard
+  are hidden, not disabled, without unsaved changes, and the trigger is hidden when
+  nothing applies. Publish is available only when publishable.
 
 The leading choice is also present in the menu so it can be executed: the
 single label/chevron trigger opens choices rather than executing a command.

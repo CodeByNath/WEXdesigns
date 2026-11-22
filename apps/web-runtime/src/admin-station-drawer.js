@@ -1,11 +1,11 @@
 import { closeAdminDrawerDropdown, mountAdminDrawerNotifications } from './admin-station-drawer-notifications.js';
-import { closeAdminDrawerActionMenu, mountAdminDrawerFooter, setAdminDrawerActionState } from './admin-station-drawer-footer.js';
+import { closeAdminDrawerActionMenu, mountAdminDrawerFooter, setAdminDrawerActionState, setAdminDrawerViewEdit } from './admin-station-drawer-footer.js';
 import { isAdminDrawerSidebar, resetAdminDrawerSidebar, setAdminDrawerSidebar } from './admin-station-drawer-sidebar.js';
 import { isAdminDrawerHeaderContent, mountAdminDrawerHeader, resetAdminDrawerHeader, setAdminDrawerHeader } from './admin-station-drawer-header.js';
 
 /** @typedef {'default' | 'half' | 'wide' | 'full'} AdminDrawerMode */
 /** @typedef {import('./admin-station-drawer-header.js').AdminDrawerHeaderContent} AdminDrawerHeaderContent */
-/** @typedef {{ owner: string, columns?: 1 | 2, mode?: AdminDrawerMode, header?: AdminDrawerHeaderContent, sidebar?: import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab[] }} AdminDrawerRequest */
+/** @typedef {{ owner: string, columns?: 1 | 2, viewEdit?: boolean, mode?: AdminDrawerMode, header?: AdminDrawerHeaderContent, sidebar?: import('./admin-station-drawer-sidebar.js').AdminDrawerSidebarTab[] }} AdminDrawerRequest */
 
 export { setAdminDrawerHeader };
 
@@ -27,6 +27,7 @@ function isAdminDrawerRequest(request) {
   return typeof candidate.owner === 'string'
     && candidate.owner.length > 0
     && (candidate.columns === undefined || candidate.columns === 1 || candidate.columns === 2)
+    && (candidate.viewEdit === undefined || typeof candidate.viewEdit === 'boolean')
     && (candidate.mode === undefined || (typeof candidate.mode === 'string' && drawerModes.has(candidate.mode)))
     && (candidate.header === undefined || isAdminDrawerHeaderContent(candidate.header))
     && (candidate.sidebar === undefined || isAdminDrawerSidebar(candidate.sidebar));
@@ -155,6 +156,7 @@ export function openAdminDrawer(shell, request) {
   resetAdminDrawerSidebar(shell);
   if (request.sidebar) setAdminDrawerSidebar(shell, request.sidebar);
   setAdminDrawerActionState(shell, { dirty: false, publishable: false });
+  setAdminDrawerViewEdit(shell, request.viewEdit === true);
   for (const control of drawer.querySelectorAll('[data-admin-drawer-previous], [data-admin-drawer-next]')) {
     if (control instanceof HTMLButtonElement) { control.hidden = true; control.disabled = true; control.onclick = null; }
   }
@@ -171,6 +173,7 @@ export function closeAdminDrawer(shell) {
   closeAdminDrawerActionMenu(shell);
   delete drawer.dataset.adminDrawerOwner;
   delete drawer.dataset.adminDrawerColumns;
+  setAdminDrawerViewEdit(shell, false);
   closeAdminDrawerDropdown(shell);
   drawer.hidden = true;
   shell.dataset.adminDrawer = 'closed';
@@ -306,7 +309,8 @@ export function mountAdminDrawerShell(shell) {
   }
 
   mountAdminDrawerHeader(shell);
-  shell.querySelector('[data-admin-drawer-header-action="view"]')?.addEventListener('click', () => {
+  /** Both View actions (Header menu and Footer menu) open Full and land on the selected product section. */
+  const openFullView = () => {
     if (!setAdminDrawerMode(shell, 'full')) return;
     const selected = shell.querySelector('.wex-admin-product-sections__tab[aria-pressed="true"]');
     if (selected instanceof HTMLElement) {
@@ -316,8 +320,10 @@ export function mountAdminDrawerShell(shell) {
       const toggle = shell.querySelector('[data-admin-drawer-header-menu-toggle]');
       if (toggle instanceof HTMLElement) toggle.focus();
     }
-  });
+  };
+  shell.querySelector('[data-admin-drawer-header-action="view"]')?.addEventListener('click', openFullView);
   mountAdminDrawerFooter(shell);
+  shell.querySelector('[data-admin-drawer-view]')?.addEventListener('click', openFullView);
   mountAdminDrawerNotifications(shell);
   drawer.querySelectorAll('[data-admin-drawer-close]').forEach((close) => close.addEventListener('click', () => closeAdminDrawer(shell)));
 

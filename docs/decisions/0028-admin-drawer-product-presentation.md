@@ -354,3 +354,21 @@ Booking details remain shared outside the activity panel, including existing
 codes, optional reviews/destinations and related-tour pills. Single products
 retain their original FAQs and booking content without tabs. No editor, new
 visual token or release.
+
+## Footer single action button (Owner-directed, 2026-11-22)
+
+The Drawer footer has one action button (the primary Label Only Small Menu), and
+it shows only the actions that apply (they are hidden, not disabled):
+
+- Presentation footer (the request declares `viewEdit: true`; Add New does), in
+  view: View (opens Full, as the Header View does) only while the request declares
+  two columns and the Drawer is not yet Full, and Edit. Edit enters editing and
+  emits `wex:admin-drawer-edit`. Editing itself is not built. Reopening starts in view.
+- Editing, and every requester without `viewEdit`: Publish while the requester says
+  something is publishable; Save and Discard only while there are unsaved changes.
+- It is always the same label + chevron button; its menu lists the applicable
+  actions, at the ordinary Small Button size, as Save and Publish always were. None hides the button.
+
+This supersedes the disabled Save/Discard states and disabled trigger in ADR 0038 for
+the Drawer footer. Mode changes refresh the footer through an attribute observer.
+The Product Summary has no See all. No new token or visual value.

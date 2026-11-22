@@ -87,9 +87,16 @@
   ADR 0028's existing product notes moved into that companion without semantic
   change to keep its parent under the authored-file limit.
 
-- 2026-11-22: Product Summary See all removed (Owner-directed); the Full view is
-  opened from the Drawer footer (next release) and the Header View. `setAdminDrawerMode`
-  keeps approved mode and column eligibility.
+- 2026-11-22: Product Summary See all removed. The Drawer footer is one action
+  button showing only applicable actions (`drawerActionChoices`,
+  `admin-station-drawer-footer.js`, `drawer-footer.css`, `viewEdit` request field,
+  ADR 0028 Footer single action button): View (opens Full) and Edit in view, then
+  Publish/Save/Discard while editing and as they apply; always label + chevron.
+- 2026-11-18: (superseded by the footer View) Product Summary offered the See all action
+  with product content and an open-view handler, outside Full. It opened existing
+  Full product navigation without resetting content, including when Default and
+  Full measure the same on mobile. `setAdminDrawerMode` keeps approved mode and
+  column eligibility; focused proof: `admin-station-product-summary.test.mjs`.
 
 - 2026-11-18: Full Drawer switches its product navigation and compact composition
   below 840px of Drawer frame width (Owner-directed), using the existing Drawer
