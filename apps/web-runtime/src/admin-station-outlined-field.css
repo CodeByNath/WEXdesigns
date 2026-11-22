@@ -1,0 +1,121 @@
+/* Outlined field. It follows the Search Input: the stable border and, for Focused and Pressed, the
+ * shared outer-state boundary on the outer edge with its inset gap (`--wex-outer-ring-*`), drawn as
+ * `search-input.css` draws it. There is no hover colour. Radius is the existing Large radius.
+ * The label is a pill on the top border, centred on it by its own height; its opaque
+ * background opens the border (and the ring) around it. */
+/* The field is its own stacking context, so its label's z-index stays inside it and never rises above
+ * the Drawer footer's action menu. */
+.wex-admin-outlined-field {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: 0;
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-large);
+}
+
+.wex-admin-outlined-field:active,
+.wex-admin-outlined-field:focus-within {
+  border-color: var(--wex-outer-ring-color);
+}
+
+/* Clicked (Pressed or Focused), the value adds another space-8 at its top and at its bottom (Owner-directed). */
+.wex-admin-outlined-field:active .wex-admin-outlined-field__control::after,
+.wex-admin-outlined-field:focus-within .wex-admin-outlined-field__control::after,
+.wex-admin-outlined-field:active .wex-admin-outlined-field__input,
+.wex-admin-outlined-field:focus-within .wex-admin-outlined-field__input {
+  padding-block: calc(var(--wex-space-12) + var(--wex-space-8));
+}
+
+.wex-admin-outlined-field:active::after,
+.wex-admin-outlined-field:focus-within::after {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-outer-ring-inner-width) solid var(--wex-outer-ring-color);
+  border-radius: calc(var(--wex-radius-large) - var(--wex-border-width-default));
+  content: '';
+}
+
+.wex-admin-outlined-field:active::before,
+.wex-admin-outlined-field:focus-within::before {
+  position: absolute;
+  inset: var(--wex-outer-ring-inner-width);
+  box-sizing: border-box;
+  pointer-events: none;
+  border: var(--wex-outer-ring-gap) solid var(--wex-outer-ring-gap-color);
+  border-radius: calc(var(--wex-radius-large) - var(--wex-outer-ring-width));
+  content: '';
+}
+
+/* The label takes the pill of the section step count (`admin-station-product-summary.css`):
+ * its size, subtle border, secondary background, the pill radius and inline padding. */
+.wex-admin-outlined-field__label {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 0;
+  inset-inline-end: var(--wex-space-12);
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-inline-size: var(--wex-space-24);
+  block-size: var(--wex-space-24);
+  padding-inline: var(--wex-pill-notification-status-padding-inline);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-pill-notification-status-radius);
+  background: var(--wex-color-background-secondary);
+  color: var(--wex-color-text-primary);
+  transform: translateY(-50%);
+}
+
+/* The padding sits on the textarea (and on the hidden copy that sizes it), not on the box, so the
+ * whole inside of the box is the editable area. The control sizes to the whole value: the hidden copy
+ * of the text and the textarea share one grid cell, so the textarea is as tall as the full content
+ * and never clips or scrolls. */
+.wex-admin-outlined-field__control {
+  display: grid;
+}
+
+.wex-admin-outlined-field__control::after {
+  grid-area: 1 / 1;
+  padding: var(--wex-space-12);
+  visibility: hidden;
+  content: attr(data-value) ' ';
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.wex-admin-outlined-field__input {
+  grid-area: 1 / 1;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--wex-space-12);
+  border: 0;
+  outline: 0;
+  overflow: hidden;
+  resize: none;
+  background: transparent;
+  color: var(--wex-color-text-secondary);
+  font: inherit;
+  letter-spacing: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* The label and the value swap their text colours while the field is edited. */
+.wex-admin-outlined-field:focus-within .wex-admin-outlined-field__label {
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-outlined-field:focus-within .wex-admin-outlined-field__input {
+  color: var(--wex-color-text-primary);
+}
+
+/* The box draws the Focused state; the shell's generic focus outline would add a second box inside it. */
+.wex-admin-outlined-field .wex-admin-outlined-field__input:focus-visible {
+  outline: none;
+}

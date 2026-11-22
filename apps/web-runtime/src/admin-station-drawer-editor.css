@@ -1,10 +1,45 @@
 /* Editor view (Drawer `data-admin-drawer-editing`): the navigation shell stays, the connections shell
  * stays but is empty (Promotions and Activity are hidden), and the main content shell becomes the editor:
- * only the section heading remains. The editor content is not built yet. */
+ * only the section heading remains, then the section's editor (Overview only so far). */
 .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections > * {
   display: none;
 }
 
-.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main > * > :not(.wex-admin-product-section-head) {
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main > :not(.wex-admin-product-editor) > :not(.wex-admin-product-section-head) {
   display: none;
+}
+
+/* The editor's main content shell never passes the content maximum, in any layout. */
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main {
+  max-inline-size: var(--wex-admin-shell-drawer-column-max-inline-size);
+}
+
+/* The editor shows only in the editor view, for the section the navigation holds. Overview is built. */
+.wex-admin-product-editor {
+  display: none;
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-shell__drawer-body[data-admin-product-section="overview"] .wex-admin-product-editor[data-admin-product-editor="overview"] {
+  display: grid;
+  gap: var(--wex-space-24);
+  /* More room under the section heading, for the first field's label pill (editor only). */
+  margin-block-start: var(--wex-space-12);
+}
+
+/* Editor proportion (desktop Full): the main content shell takes the room up to the content
+ * maximum (the same maximum the view's main shell stops at), the navigation keeps its width, and the connections shell (kept, empty) takes what is left.
+ * The 2 : 5 : 3 split of the view does not apply to the editor. */
+@container wex-admin-drawer (width >= 840px) {
+  .wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-shell][data-admin-drawer-editing]) .wex-admin-shell__drawer-frame {
+    --wex-admin-shell-drawer-editor-navigation: min(calc(var(--wex-admin-shell-drawer-full-part) * 2), var(--wex-admin-shell-drawer-full-navigation-max-inline-size));
+    grid-template-columns:
+      var(--wex-space-16)
+      var(--wex-admin-shell-drawer-editor-navigation)
+      var(--wex-space-24)
+      min(var(--wex-admin-shell-drawer-column-max-inline-size), calc(100cqi - var(--wex-border-width-default) * 2 - var(--wex-space-16) * 2 - var(--wex-space-24) * 2 - var(--wex-admin-shell-drawer-editor-navigation)))
+      var(--wex-space-24)
+      minmax(0, 1fr)
+      var(--wex-space-16)
+      0;
+  }
 }

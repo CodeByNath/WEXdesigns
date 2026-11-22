@@ -3,6 +3,7 @@ import { adminDrawerCompartment, setAdminDrawerMode } from './admin-station-draw
 import { ADMIN_DRAWER_EDIT_EVENT, setAdminDrawerActionState } from './admin-station-drawer-footer.js';
 import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
+import { createProductOverviewEditor } from './admin-station-product-overview-editor.js';
 import { createProductPricing } from './admin-station-product-pricing.js';
 import { createProductDescription } from './admin-station-product-description.js';
 import { createProductMedia } from './admin-station-product-media.js';
@@ -76,7 +77,7 @@ export function mountAddNewSection(shell, id, label) {
   body.replaceChildren(...(id === 'presentation'
     ? [
       createProductSections(body, nextButton, previousButton),
-      mainShell(document, [createProductSummary(shell), createProductPricing(shell), createProductDescription(shell), createProductMedia(shell), createProductSnapshot(shell), createProductMeeting(shell), createProductItinerary(shell), createProductInfo(shell), createProductKeywords(shell), createProductFaqBooking(shell)]),
+      mainShell(document, [createProductSummary(shell), createProductPricing(shell), createProductDescription(shell), createProductMedia(shell), createProductSnapshot(shell), createProductMeeting(shell), createProductItinerary(shell), createProductInfo(shell), createProductKeywords(shell), createProductFaqBooking(shell), createProductOverviewEditor(shell)]),
       connectionsShell(document, [
         sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
         sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),

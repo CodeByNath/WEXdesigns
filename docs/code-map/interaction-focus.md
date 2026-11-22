@@ -3,11 +3,13 @@
 ## Current operating status
 
 - Last visited: 2026-10-27
-- Last updated: 2026-10-27
+- Last updated: 2026-11-22
 - Verified against: `main` at `103188063d41aff738a5c0eb6e9f9a91be91e061`
 
 ### Recent work (newest first)
 
+- 2026-11-22 (Owner-directed): states for a new element copy the named existing
+  component; see "States for a new element" below.
 - Theme-dependent Action backgrounds are routed to the Button system and ADR
   0005. Application appearances are evidence only; they do not establish a
   reusable hover, pressed, or selected mapping.
@@ -63,6 +65,22 @@ authorisation. The runtime boundary is governed by ADR 0008, not this map.
 For ordinary Actions, use the Button system map before choosing a state
 treatment. Toggle selection and application-specific surfaces are not ordinary
 Button state authority and require their own demonstrated route.
+
+## States for a new element
+
+When asked for hover, focus, pressed or selected states on a new element:
+
+- Name the reference the Owner points at (Search Input for text fields, Button
+  for actions) and reproduce exactly the states its own CSS and ADR have. If the
+  reference has no hover, the new element has none. Do not borrow a state, token
+  or colour from another family; a missing state is an Owner decision.
+- Focused, Pressed and Selected share one outer-state boundary on the outer edge
+  with its inset gap (`--wex-outer-ring-*`, ADR 0010), drawn as `buttons.css` and
+  `search-input.css` draw it. A text field follows the Search Input
+  (`search-input.css`: border, then ring on `:focus-within`).
+- Check shell-level rules for a second outline (`layout.css`
+  `.wex-admin-shell :focus-visible`) and the cascade for `:active`: a hover rule
+  with higher specificity beats Pressed and shows two colours.
 
 ## Related documents
 

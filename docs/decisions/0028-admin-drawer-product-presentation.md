@@ -382,4 +382,29 @@ are unsaved changes. The Drawer carries `data-admin-drawer-editing`;
 `admin-station-drawer-editor.css` then keeps the navigation shell, empties the
 connections shell (Promotions and Activity hidden, shell kept) and turns the main
 content shell into the editor, keeping only each section heading. The editor
-content is not built yet. Reopening starts in view. No new token or visual value.
+content is built per section, Overview first (below). Reopening starts in view. No new token or visual value.
+
+Editor proportion (Owner-directed, 2026-11-22): in desktop Full the editor's main content
+shell takes the room up to the content maximum (the same maximum the view's main shell stops
+at, 11 x the 64px space plus the 16px space), the navigation keeps its width and the connections
+shell (kept, empty) takes what is left, instead of the view's 2 : 5 : 3 split. In every layout the
+editor's main content shell never passes that maximum (`admin-station-drawer-editor.css`).
+
+### Overview editor
+
+From the Owner's "Outlined (adaptive label)" design: one outlined field per
+value, the label a pill on the top border at the right (the section step count pill,
+centred on the border by its own height;
+`admin-station-outlined-field.js`/`.css`). The field follows the Search Input states: the stable border, and Focused and
+Pressed with the shared outer-state boundary on the outer edge plus its inset gap
+(`--wex-outer-ring-*`), drawn as `search-input.css` draws it. There is no hover
+colour, so Pressed never shows two colours. The value is a textarea that grows to show its full content (a hidden copy of the text
+gives it its height), so long values wrap and are never clipped. Border, Large radius, spacing
+4 and 12 and type are existing WEX values only. Selected is not offered (a field
+has no persistent selection). The field is not a registered Global Component or
+token family. Fields: Name, Platform ID (read
+only), Booking ID, Marketing Title, Tagline, Price, Duration, Language and
+Category (`admin-station-product-overview-editor.js`); Rating, Type and Labels are
+not edited yet. The label stays on the border when a field is empty (the
+adaptive in-field label needs positioning values that do not exist). No
+persistence or provider integration.
