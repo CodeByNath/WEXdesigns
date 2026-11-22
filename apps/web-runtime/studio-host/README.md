@@ -85,6 +85,11 @@ file. A consumer must pin the release ID and manifest digest; it must not load
 `main`, `latest`, or a mutable host directory. A retained release is created
 only once and validates exactly on repeat builds, preserving explicit rollback.
 
+If a Pages run fails (for example at Deploy Pages), do not re-run it: the re-run uploads a
+second `github-pages` artifact and deploy then fails with "Multiple artifacts". Push a new
+commit under a watched path instead; the unchanged release and pointer are redeployed by the
+fresh run.
+
 The existing plugin-local installation above remains the historical QSD host
 path until QSD separately accepts and implements its release lock/loader.
 
