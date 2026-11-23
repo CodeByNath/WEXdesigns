@@ -438,7 +438,10 @@ Drawer section unit, so it takes the unit gap, the connections shell gap and the
 inset, and its label row is as tall as the Promotions row (`--wex-button-small-target-size`), so it
 sits on the same line as the navigation's first item and the section heading. Clicking the card
 toggles the builder (`aria-pressed`). While active the form fields and the product navigation tabs
-drop to `--wex-opacity-disabled` and the hovered one returns to full opacity. The builder switches off when the editor is left (Cancel, reopening). The card copy and the `columns`
+drop to `--wex-opacity-disabled` and the hovered one returns to full opacity; every value is
+disabled (locked, dimmed, never focused or edited, hovered or pressed) because the builder edits the
+form, not its values; a pressed field never shows the 8px selected padding of the value editor. The
+builder switches off when the editor is left (Cancel, reopening). The card copy and the `columns`
 icon are placeholders pending Owner wording. Existing tokens only
 (`admin-station-form-builder.js`/`.css`); it is not a registered Global Component or token family.
 

@@ -82,7 +82,8 @@ test('the Form Builder card (icon tile, title, description) shows only in the ed
   assert.match(js, /createElement\('button'\)/);
   assert.match(js, /createSystemIcon\(document, 'columns'\)/);
   assert.match(js, /title\.textContent = 'Form Builder'/);
-  assert.match(js, /card\.addEventListener\('click', \(\) => card\.setAttribute\('aria-pressed', String\(card\.getAttribute\('aria-pressed'\) !== 'true'\)\)\)/);
+  assert.match(js, /card\.addEventListener\('click', \(\) => setFormBuilder\(card, card\.getAttribute\('aria-pressed'\) !== 'true'\)\)/);
+  assert.match(js, /card\.setAttribute\('aria-pressed', String\(active\)\)/);
   assert.match(read('admin-station-add-new-sections.js'), /createActivityCards\(document\)\]\),\s*createQuickActions\(document\),\s*\]\)/);
   assert.match(read('admin-station-drawer-footer.js'), /export function exitAdminDrawerEditor[\s\S]*resetFormBuilder\(parts\.drawer\)/);
   const css = read('admin-station-form-builder.css');
@@ -93,4 +94,17 @@ test('the Form Builder card (icon tile, title, description) shows only in the ed
   assert.match(css, /:hover \{\s*opacity: 1;/);
   assert.doesNotMatch(css, /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-form-builder\.css";/);
+});
+
+test('while the Form Builder is active every value is locked and dimmed, hovered or selected', () => {
+  const js = read('admin-station-form-builder.js');
+  assert.match(js, /if \(active\) input\.blur\(\);\s*input\.disabled = active;/);
+  assert.match(js, /setFormBuilder\(card, false\)/);
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /\.wex-admin-outlined-field__input \{\s*opacity: var\(--wex-opacity-disabled\);\s*pointer-events: none;/);
+});
+
+test('while the Form Builder is active a pressed field never shows the selected padding', () => {
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /\.wex-admin-outlined-field:active \.wex-admin-outlined-field__input \{\s*padding-block: var\(--wex-space-12\);/);
 });

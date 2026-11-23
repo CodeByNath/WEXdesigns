@@ -70,3 +70,15 @@
 .wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-outlined-field, .wex-admin-product-sections__tab):hover {
   opacity: 1;
 }
+
+/* The values stay locked and dimmed while the builder is active, hovered or not: the field's frame and label return on hover, the value does not. */
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field__input {
+  opacity: var(--wex-opacity-disabled);
+  pointer-events: none;
+}
+
+/* The extra selected padding of the value editor is for editing a value; the locked values never show it. */
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field:active .wex-admin-outlined-field__control::after,
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field:active .wex-admin-outlined-field__input {
+  padding-block: var(--wex-space-12);
+}

@@ -45,11 +45,30 @@ function createFormBuilderCard(document) {
   description.textContent = 'Choose a field or section to build.';
   text.append(title, description);
   card.append(tile, text);
-  card.addEventListener('click', () => card.setAttribute('aria-pressed', String(card.getAttribute('aria-pressed') !== 'true')));
+  card.addEventListener('click', () => setFormBuilder(card, card.getAttribute('aria-pressed') !== 'true'));
   return card;
+}
+
+/**
+ * Turns the builder on or off. The builder edits the form, not its values: while on, every value is
+ * disabled, so it cannot be focused, typed into or reached through its label, and stays locked whether
+ * hovered or selected. The value keeps its text.
+ * @param {HTMLElement} card @param {boolean} active
+ */
+function setFormBuilder(card, active) {
+  card.setAttribute('aria-pressed', String(active));
+  const drawer = card.closest('[data-admin-drawer-shell]');
+  if (!drawer) return;
+  for (const input of drawer.querySelectorAll('.wex-admin-product-editor textarea')) {
+    if (!(input instanceof HTMLTextAreaElement)) continue;
+    if (active) input.blur();
+    input.disabled = active;
+  }
 }
 
 /** The builder is off whenever the editor is left. @param {HTMLElement} drawer */
 export function resetFormBuilder(drawer) {
-  for (const card of drawer.querySelectorAll('[data-admin-form-builder]')) card.setAttribute('aria-pressed', 'false');
+  for (const card of drawer.querySelectorAll('[data-admin-form-builder]')) {
+    if (card instanceof HTMLElement) setFormBuilder(card, false);
+  }
 }
