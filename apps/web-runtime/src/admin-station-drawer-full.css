@@ -147,11 +147,11 @@
     overscroll-behavior: contain;
   }
 
-  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-drawer-main, [data-admin-drawer-unit="promotions"]) {
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-drawer-main, [data-admin-drawer-unit="promotions"], [data-admin-drawer-unit="quick-actions"]) {
     padding-block-start: var(--wex-space-16);
   }
 
-  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-drawer-main, [data-admin-drawer-unit="activity"]) {
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-drawer-main, [data-admin-drawer-unit="activity"], [data-admin-drawer-unit="quick-actions"]) {
     padding-block-end: var(--wex-space-16);
   }
 

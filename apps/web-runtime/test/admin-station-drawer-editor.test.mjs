@@ -23,7 +23,7 @@ test('the Overview editor reports dirty and publishable to the footer: every edi
 
 test('editor view empties the connections shell and keeps the navigation and each section heading', () => {
   const css = read('admin-station-drawer-editor.css');
-  assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-connections > \* \{\s*display: none;/);
+  assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-connections > :not\(\[data-admin-drawer-unit="quick-actions"\]\) \{\s*display: none;/);
   assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-main > :not\(\.wex-admin-product-editor\) > :not\(\.wex-admin-product-section-head\) \{\s*display: none;/);
   assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /wex-admin-product-sections|drawer-connections \{|#[0-9a-f]{3,8}\b|\d+px/i);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-drawer-editor\.css";/);
@@ -75,4 +75,22 @@ test('editor with the top navigation (Drawer below 840px) centres the main conte
 
 test('the editor main content shell never passes the content maximum in any layout', () => {
   assert.match(read('admin-station-drawer-editor.css'), /\[data-admin-drawer-editing\] \.wex-admin-drawer-main \{\s*max-inline-size: var\(--wex-admin-shell-drawer-column-max-inline-size\);/);
+});
+
+test('the Form Builder card (icon tile, title, description) shows only in the editor view; clicking it dims the form and navigation and the hovered one returns', () => {
+  const js = read('admin-station-form-builder.js');
+  assert.match(js, /createElement\('button'\)/);
+  assert.match(js, /createSystemIcon\(document, 'columns'\)/);
+  assert.match(js, /title\.textContent = 'Form Builder'/);
+  assert.match(js, /card\.addEventListener\('click', \(\) => card\.setAttribute\('aria-pressed', String\(card\.getAttribute\('aria-pressed'\) !== 'true'\)\)\)/);
+  assert.match(read('admin-station-add-new-sections.js'), /createActivityCards\(document\)\]\),\s*createQuickActions\(document\),\s*\]\)/);
+  assert.match(read('admin-station-drawer-footer.js'), /export function exitAdminDrawerEditor[\s\S]*resetFormBuilder\(parts\.drawer\)/);
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /\[data-admin-drawer-unit="quick-actions"\] \{\s*display: none;/);
+  assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-section\[data-admin-drawer-unit="quick-actions"\] \{\s*display: grid;/);
+  assert.match(js, /heading\.textContent = 'Quick actions'/);
+  assert.match(css, /:is\(\.wex-admin-outlined-field, \.wex-admin-product-sections__tab\) \{\s*opacity: var\(--wex-opacity-disabled\);/);
+  assert.match(css, /:hover \{\s*opacity: 1;/);
+  assert.doesNotMatch(css, /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
+  assert.match(read('admin-station.css'), /@import "\.\/admin-station-form-builder\.css";/);
 });

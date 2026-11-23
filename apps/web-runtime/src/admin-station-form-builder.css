@@ -1,0 +1,72 @@
+/* Quick actions unit: the label, then the action cards, shown only in the editor view in the connections
+ * shell; it is a Drawer section unit, so it takes the unit spacing. */
+.wex-admin-drawer-section[data-admin-drawer-unit="quick-actions"] {
+  display: none;
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-section[data-admin-drawer-unit="quick-actions"] {
+  display: grid;
+}
+
+/* The label row is as tall as the Promotions row (the small Button target size), so it sits on the same line. */
+.wex-admin-quick-actions__heading {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--wex-button-small-target-size);
+  margin: 0;
+}
+
+/* Form Builder action card, inside the unit. An icon tile
+ * beside a title and a description; the card look follows the promotion card. While the builder is
+ * active (`aria-pressed="true"` on the card) the form fields and the product navigation tabs drop to
+ * the disabled opacity and the hovered one returns. */
+.wex-admin-form-builder {
+  display: flex;
+  align-items: center;
+  gap: var(--wex-space-12);
+  box-sizing: border-box;
+  inline-size: 100%;
+  margin: 0;
+  padding: calc(var(--wex-space-16) - var(--wex-border-width-default));
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-large);
+  background: var(--wex-color-background-primary);
+  color: var(--wex-color-text-primary);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.wex-admin-form-builder__tile {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  inline-size: var(--wex-space-48);
+  block-size: var(--wex-space-48);
+  border-radius: var(--wex-radius-large);
+  background: var(--wex-color-background-secondary);
+  color: var(--wex-color-icon-primary);
+}
+
+.wex-admin-form-builder__tile > svg {
+  inline-size: var(--wex-icon-size-24);
+  block-size: var(--wex-icon-size-24);
+}
+
+.wex-admin-form-builder__text {
+  display: grid;
+  gap: var(--wex-space-4);
+  min-inline-size: 0;
+}
+
+.wex-admin-form-builder__description {
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-outlined-field, .wex-admin-product-sections__tab) {
+  opacity: var(--wex-opacity-disabled);
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-outlined-field, .wex-admin-product-sections__tab):hover {
+  opacity: 1;
+}

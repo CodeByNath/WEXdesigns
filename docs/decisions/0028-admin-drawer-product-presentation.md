@@ -429,3 +429,16 @@ Category (`admin-station-product-overview-editor.js`); Rating, Type and Labels a
 not edited yet. The label stays on the border when a field is empty (the
 adaptive in-field label needs positioning values that do not exist). No
 persistence or provider integration.
+
+### Form Builder (Owner-directed, 2026-11-23)
+
+In the editor view the connections shell holds one unit, Quick actions: a label, then the Form
+Builder action card (icon tile, title, description; the whole card is the action). The unit is a
+Drawer section unit, so it takes the unit gap, the connections shell gap and the first-unit top
+inset, and its label row is as tall as the Promotions row (`--wex-button-small-target-size`), so it
+sits on the same line as the navigation's first item and the section heading. Clicking the card
+toggles the builder (`aria-pressed`). While active the form fields and the product navigation tabs
+drop to `--wex-opacity-disabled` and the hovered one returns to full opacity. The builder switches off when the editor is left (Cancel, reopening). The card copy and the `columns`
+icon are placeholders pending Owner wording. Existing tokens only
+(`admin-station-form-builder.js`/`.css`); it is not a registered Global Component or token family.
+

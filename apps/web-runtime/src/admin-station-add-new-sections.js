@@ -16,6 +16,7 @@ import { createProductFaqBooking } from './admin-station-product-faq-booking.js'
 import { activityCount, createActivityCards, createActivityHeading } from './admin-station-activity.js';
 import { activePromotionCount, createPromotionCards, createPromotionsHeading } from './admin-station-promotions.js';
 import { createProductSections } from './admin-station-product-sections.js';
+import { createQuickActions } from './admin-station-form-builder.js';
 
 /**
  * Add New Drawer sections. Each Sidebar tab owns one section: its name prints in
@@ -81,6 +82,7 @@ export function mountAddNewSection(shell, id, label) {
       connectionsShell(document, [
         sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
         sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),
+        createQuickActions(document),
       ]),
     ]
     : []));

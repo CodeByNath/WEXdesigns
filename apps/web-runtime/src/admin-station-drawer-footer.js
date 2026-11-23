@@ -1,4 +1,5 @@
 import { createSystemIcon } from './admin-station-system-icons.js';
+import { resetFormBuilder } from './admin-station-form-builder.js';
 
 export const ADMIN_DRAWER_SAVE_EVENT = 'wex:admin-drawer-save';
 export const ADMIN_DRAWER_DISCARD_EVENT = 'wex:admin-drawer-discard';
@@ -128,6 +129,7 @@ export function setAdminDrawerViewEdit(shell, enabled) {
   if (!parts) return;
   parts.drawer.toggleAttribute('data-admin-drawer-view-edit', enabled);
   parts.drawer.toggleAttribute('data-admin-drawer-editing', false);
+  resetFormBuilder(parts.drawer);
   refreshAdminDrawerFooter(shell);
 }
 
@@ -138,6 +140,7 @@ export function exitAdminDrawerEditor(shell) {
   const parts = footerParts(shell);
   if (!parts) return;
   parts.drawer.toggleAttribute('data-admin-drawer-editing', false);
+  resetFormBuilder(parts.drawer);
   setAdminDrawerActionState(shell, { dirty: false, publishable: false });
 }
 

@@ -109,6 +109,8 @@
 - 2026-11-22: Overview editor: outlined fields, label pill on the border, Search Input states (Focused, Pressed, no hover), full-content textarea values
   (`admin-station-outlined-field.js`/`.css`, `admin-station-product-overview-editor.js`,
   ADR 0028 Overview editor; proof `admin-station-drawer-editor.test.mjs`). Other sections not built.
+- 2026-11-23: Editor view Quick actions unit with the Form Builder card: dims the form and navigation (hovered returns) (`admin-station-form-builder.js`/`.css`, `admin-station-drawer-editor.css`, `admin-station-drawer-full.css`,
+  ADR 0028 Form Builder; proof `admin-station-drawer-editor.test.mjs`).
 
 - 2026-11-18: (superseded by the footer View) Product Summary offered the See all action
   with product content and an open-view handler, outside Full. It opened existing
