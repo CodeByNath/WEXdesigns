@@ -57,7 +57,7 @@ test('the Overview editor is one outlined field per value, label on the border, 
   assert.match(css, /:focus-within::before \{[^}]*inset: var\(--wex-outer-ring-inner-width\);[^}]*border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/);
   assert.match(css, /__label \{[^}]*inset-block-start: 0;[^}]*block-size: var\(--wex-space-24\);[^}]*padding-inline: var\(--wex-pill-notification-status-padding-inline\);[^}]*border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);[^}]*border-radius: var\(--wex-pill-notification-status-radius\);[^}]*background: var\(--wex-color-background-secondary\);[^}]*transform: translateY\(-50%\);/);
   assert.match(css, /\.wex-admin-outlined-field \.wex-admin-outlined-field__input:focus-visible \{\s*outline: none;/);
-  assert.doesNotMatch(css, /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
+  assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
   const editorCss = read('admin-station-drawer-editor.css');
   assert.match(editorCss, /\.wex-admin-product-editor \{\s*display: none;/);
   assert.match(editorCss, /\[data-admin-product-section="overview"\] \.wex-admin-product-editor\[data-admin-product-editor="overview"\] \{\s*display: grid;\s*gap: var\(--wex-space-24\);\s*(?:\/\*[^*]*\*\/\s*)?margin-block-start: var\(--wex-space-12\);/);
@@ -81,7 +81,7 @@ test('the Form Builder card (icon tile, title, description) shows only in the ed
   const js = read('admin-station-form-builder.js');
   assert.match(js, /createElement\('button'\)/);
   assert.match(js, /createSystemIcon\(document, 'columns'\)/);
-  assert.match(js, /title\.textContent = 'Form Builder'/);
+  assert.match(js, /title\.textContent = 'Form Editor'/);
   assert.match(js, /card\.addEventListener\('click', \(\) => setFormBuilder\(card, card\.getAttribute\('aria-pressed'\) !== 'true'\)\)/);
   assert.match(js, /card\.setAttribute\('aria-pressed', String\(active\)\)/);
   assert.match(read('admin-station-add-new-sections.js'), /createActivityCards\(document\)\]\),\s*createQuickActions\(document\),\s*\]\)/);
@@ -92,7 +92,7 @@ test('the Form Builder card (icon tile, title, description) shows only in the ed
   assert.match(js, /heading\.textContent = 'Quick actions'/);
   assert.match(css, /:is\(\.wex-admin-outlined-field, \.wex-admin-product-sections__tab\) \{\s*opacity: var\(--wex-opacity-disabled\);/);
   assert.match(css, /:hover \{\s*opacity: 1;/);
-  assert.doesNotMatch(css, /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
+  assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-form-builder\.css";/);
 });
 
@@ -107,4 +107,44 @@ test('while the Form Builder is active every value is locked and dimmed, hovered
 test('while the Form Builder is active a pressed field never shows the selected padding', () => {
   const css = read('admin-station-form-builder.css');
   assert.match(css, /\.wex-admin-outlined-field:active \.wex-admin-outlined-field__input \{\s*padding-block: var\(--wex-space-12\);/);
+});
+
+test('while the Form Builder is active the first field shows the hover look by default and a clicked field is selected with an accent label', () => {
+  const js = read('admin-station-form-builder.js');
+  assert.match(js, /closest\('\.wex-admin-product-editor > \.wex-admin-outlined-field'\)/);
+  assert.match(js, /field\.setAttribute\('data-form-builder-selected', ''\)/);
+  assert.match(js, /if \(!active\) clearSelection\(drawer\)/);
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /\.wex-admin-product-editor > \.wex-admin-outlined-field:first-child \{\s*opacity: 1;/);
+  assert.match(css, /\[data-form-builder-selected\] \.wex-admin-outlined-field__label \{\s*background: var\(--wex-color-background-accent\);\s*color: var\(--wex-color-text-inverse\);/);
+  assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
+});
+
+test('activating the builder hides the card, reads Editor and shows the two Editor tabs (General, Global) in the Tab Navigation Toggle', () => {
+  const js = read('admin-station-form-builder.js');
+  assert.match(js, /description\.textContent = 'Choose a field or section to edit\.'/);
+  assert.match(js, /\['General', 'Global'\]/);
+  assert.match(js, /wex-admin-notifications__filters wex-admin-notifications__filters--toggle wex-admin-notifications__filters--toggle-stretched wex-admin-form-tabs/);
+  assert.match(js, /wex-admin-notifications__tab wex-admin-notifications__tab--small-horizontal/);
+  assert.match(js, /const label = open \? 'Editor' : 'Quick actions'/);
+  assert.match(js, /part\.hidden = !open/);
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /\[data-editor-active\] > \.wex-admin-form-builder \{\s*display: none;/);
+  assert.match(css, /\.wex-admin-form-tabs\[hidden\] \{\s*display: none;/);
+});
+
+test('side by side the Editor tab track spans the whole connections shell and the tabs keep their position', () => {
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /@container wex-admin-drawer \(width >= 840px\) \{\s*\.wex-admin-shell\[data-admin-drawer-mode="full"\] \.wex-admin-drawer-section > \.wex-admin-form-tabs \{\s*margin-inline: calc\(-1 \* var\(--wex-space-24\)\) calc\(-1 \* var\(--wex-space-16\)\);\s*padding-inline: calc\(var\(--wex-space-24\) \+ var\(--wex-tab-navigation-toggle-padding\)\) calc\(var\(--wex-space-16\) \+ var\(--wex-tab-navigation-toggle-padding\)\);/);
+});
+
+test('the Editor opens only once a field is selected; its General tab holds the Layout and Label accordion; the builder disables the footer', () => {
+  const js = read('admin-station-form-builder.js');
+  assert.match(js, /field\.setAttribute\('data-form-builder-selected', ''\);\s*syncEditor\(drawer\);/);
+  assert.match(js, /const generalSections = \['Layout', 'Label'\]/);
+  assert.match(js, /aria-expanded/);
+  assert.match(js, /footer\.inert = active/);
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /\.wex-admin-accordion \{\s*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.match(css, /\[data-admin-drawer-compartment="footer"\] \{\s*opacity: var\(--wex-opacity-disabled\);/);
 });

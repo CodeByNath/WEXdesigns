@@ -9,6 +9,60 @@
 }
 
 /* The label row is as tall as the Promotions row (the small Button target size), so it sits on the same line. */
+/* Once a field is selected the unit is the Editor: the card is hidden (it keeps the state) and the tabs with their panels show right below the label. */
+[data-editor-active] > .wex-admin-form-builder {
+  display: none;
+}
+
+.wex-admin-form-tab-panels[hidden],
+.wex-admin-form-tab-panel[hidden],
+.wex-admin-accordion__panel[hidden] {
+  display: none;
+}
+
+/* The General tab accordion: a header (chevron and title) per section and a line under each section. */
+.wex-admin-accordion {
+  border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+}
+
+.wex-admin-accordion__header {
+  display: flex;
+  align-items: center;
+  gap: var(--wex-space-8);
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: var(--wex-button-small-target-size);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--wex-color-text-primary);
+  text-align: start;
+  cursor: pointer;
+}
+
+.wex-admin-accordion__header > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-icon-size-16);
+  block-size: var(--wex-icon-size-16);
+}
+
+.wex-admin-drawer-section > .wex-admin-form-tabs {
+  margin-block-start: 0;
+}
+
+/* Side by side (the Drawer container breakpoint of drawer-full.css) the Editor track spans the whole connections shell: it reaches the shell's start line and the Drawer end by the unit insets (the unit padding of drawer-full.css: spacing 24 start, 16 end), and the tabs keep their position. */
+@container wex-admin-drawer (width >= 840px) {
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-drawer-section > .wex-admin-form-tabs {
+    margin-inline: calc(-1 * var(--wex-space-24)) calc(-1 * var(--wex-space-16));
+    padding-inline: calc(var(--wex-space-24) + var(--wex-tab-navigation-toggle-padding)) calc(var(--wex-space-16) + var(--wex-tab-navigation-toggle-padding));
+  }
+}
+
+.wex-admin-form-tabs[hidden] {
+  display: none;
+}
+
 .wex-admin-quick-actions__heading {
   display: flex;
   align-items: center;
@@ -81,4 +135,24 @@
 .wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field:active .wex-admin-outlined-field__control::after,
 .wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field:active .wex-admin-outlined-field__input {
   padding-block: var(--wex-space-12);
+}
+
+/* When the builder activates the first field shows the hover look; it gives it up as soon as the pointer is over another field or a navigation tab, or when a field is selected. */
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]):not(:has(:is(.wex-admin-outlined-field, .wex-admin-product-sections__tab):hover, [data-form-builder-selected])) .wex-admin-product-editor > .wex-admin-outlined-field:first-child {
+  opacity: 1;
+}
+
+/* A selected field (a click while the builder is active): full opacity, its label on the blue accent background with the inverse (white) text colour. */
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field[data-form-builder-selected] {
+  opacity: 1;
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field[data-form-builder-selected] .wex-admin-outlined-field__label {
+  background: var(--wex-color-background-accent);
+  color: var(--wex-color-text-inverse);
+}
+
+/* The builder disables the footer as well as the form and the navigation (the footer is inert in script). */
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) [data-admin-drawer-compartment="footer"] {
+  opacity: var(--wex-opacity-disabled);
 }

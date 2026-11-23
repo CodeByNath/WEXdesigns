@@ -430,18 +430,27 @@ not edited yet. The label stays on the border when a field is empty (the
 adaptive in-field label needs positioning values that do not exist). No
 persistence or provider integration.
 
-### Form Builder (Owner-directed, 2026-11-23)
+### Form Builder (Owner-directed, 2026-11-23 and 2026-11-24)
 
 In the editor view the connections shell holds one unit, Quick actions: a label, then the Form
-Builder action card (icon tile, title, description; the whole card is the action). The unit is a
-Drawer section unit, so it takes the unit gap, the connections shell gap and the first-unit top
-inset, and its label row is as tall as the Promotions row (`--wex-button-small-target-size`), so it
-sits on the same line as the navigation's first item and the section heading. Clicking the card
-toggles the builder (`aria-pressed`). While active the form fields and the product navigation tabs
-drop to `--wex-opacity-disabled` and the hovered one returns to full opacity; every value is
-disabled (locked, dimmed, never focused or edited, hovered or pressed) because the builder edits the
-form, not its values; a pressed field never shows the 8px selected padding of the value editor. The
-builder switches off when the editor is left (Cancel, reopening). The card copy and the `columns`
-icon are placeholders pending Owner wording. Existing tokens only
-(`admin-station-form-builder.js`/`.css`); it is not a registered Global Component or token family.
-
+Editor action card (the `columns` icon tile, the title and the description "Choose a field or
+section to edit."; the whole card is the action; the copy and icon are placeholders pending Owner
+wording). The unit is a Drawer section unit, so it takes the unit gap, the connections shell gap and
+the first-unit top inset, and its label row is as tall as the Promotions row
+(`--wex-button-small-target-size`), so it sits on the same line as the navigation's first item and
+the section heading. Clicking the card turns the builder on (`aria-pressed`): the form fields, the
+product navigation tabs and the Drawer footer drop to `--wex-opacity-disabled` (the footer is also
+inert) and the hovered field or tab returns to full opacity; every value is disabled (locked,
+dimmed, never focused or edited, hovered or pressed) because the builder edits the form, not its
+values; a pressed field never shows the 8px selected padding of the value editor. The first field
+shows the hover look by default until the pointer is over another field or tab or a field is
+selected. Clicking a field selects it (one at a time): full opacity, its label on
+`--wex-color-background-accent` with `--wex-color-text-inverse`. Selecting a field opens the Editor in
+the same unit: the label reads Editor, the card hides, and two tabs, General and Global, show in the
+existing Tab Navigation Toggle in its Stretched mode (side by side, from the Drawer container
+breakpoint of `drawer-full.css`, the track spans the whole connections shell by the unit insets,
+24 start and 16 end, and the tabs keep their position). General holds Layout and Label as
+accordion sections (a header with a chevron and a title, a panel, a line under each section; panels
+are empty for now); Global is empty. The builder switches off when the editor is left or Cancel in
+the Editor footer is pressed. Existing tokens only (`admin-station-form-builder.js`/`.css`); it is
+not a registered Global Component or token family.
