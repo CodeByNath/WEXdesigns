@@ -454,3 +454,17 @@ accordion sections (a header with a chevron and a title, a panel, a line under e
 are empty for now); Global is empty. The builder switches off when the editor is left or Cancel in
 the Editor footer is pressed. Existing tokens only (`admin-station-form-builder.js`/`.css`); it is
 not a registered Global Component or token family.
+
+### Editor footer (Owner-directed, 2026-11-24)
+
+While the Editor is open the connections shell ends with its own footer on the Drawer footer line
+(same height, a top line, and a left line continuing the divider): Cancel at the start and one
+split button at the end, a label and chevron whose menu lists Publish, Save and Discard
+(`admin-station-editor-footer.js`/`.css`). It follows the Drawer footer's editor action logic
+(`drawerActionChoices`, editing): untouched, only a disabled Publish is offered and the button is
+disabled; once edited, Publish leads when publishable, otherwise Save leads and Publish stays listed,
+disabled. The Editor supplies availability with `setEditorFooterState`; nothing in the Editor edits
+a value yet, so it stays disabled. The items emit `wex:admin-editor-publish`, `-save` and `-discard`.
+Cancel turns the builder off, which re-enables the Drawer footer and the values. The menu reuses the
+Drawer action menu and Dropdown Menu classes; it has click, Escape and outside-click handling and no
+arrow-key navigation yet. Existing tokens only.

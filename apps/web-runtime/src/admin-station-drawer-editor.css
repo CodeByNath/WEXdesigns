@@ -1,7 +1,7 @@
 /* Editor view (Drawer `data-admin-drawer-editing`): the navigation shell stays, the connections shell
  * stays but is empty (Promotions and Activity are hidden), and the main content shell becomes the editor:
  * only the section heading remains, then the section's editor (Overview only so far). */
-.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections > :not([data-admin-drawer-unit="quick-actions"]) {
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections > :not([data-admin-drawer-unit="quick-actions"], .wex-admin-editor-footer) {
   display: none;
 }
 

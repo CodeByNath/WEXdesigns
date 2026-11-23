@@ -1,0 +1,33 @@
+/* Editor footer: the last row of the connections shell in the editor view, shown while the Editor is
+ * open. It follows the Drawer footer look: Cancel at the start, the split button at the end, a line
+ * above, the same padding, on the Drawer layer. Its menu reuses the Drawer action menu classes. */
+.wex-admin-editor-footer {
+  display: none;
+  position: sticky;
+  inset-block-end: 0;
+  z-index: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
+  padding: var(--wex-space-12) var(--wex-space-16);
+  border-block-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-inline-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  background: var(--wex-color-layer-02);
+}
+
+.wex-admin-editor-footer [hidden] {
+  display: none;
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections:has([data-editor-active]) > .wex-admin-editor-footer {
+  display: flex;
+}
+
+/* The unit takes the first row and the footer the last, so the footer sits at the bottom of the shell. */
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections {
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.wex-admin-drawer-section[data-admin-drawer-unit="quick-actions"] {
+  align-content: start;
+}

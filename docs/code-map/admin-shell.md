@@ -112,6 +112,8 @@
 - 2026-11-24: Editor view Quick actions unit with the Form Editor card: turns the builder on (form, navigation and footer dimmed, hovered returns, first field hover look by default, values locked,
   no selected padding); clicking a field selects it (accent label) and opens the Editor (label Editor, General/Global Toggle tabs stretched across the shell, Layout/Label accordion)
   (`admin-station-form-builder.js`/`.css`, `admin-station-drawer-editor.css`, `admin-station-drawer-full.css`, ADR 0028 Form Builder; proof `admin-station-drawer-editor.test.mjs`).
+- 2026-11-24: Editor footer in the connections shell: Cancel (turns the builder off) and a Publish/Save/Discard split button, disabled until edited, Drawer footer logic
+  (`admin-station-editor-footer.js`/`.css`, ADR 0028 Editor footer; proof `admin-station-drawer-editor.test.mjs`).
 
 - 2026-11-18: (superseded by the footer View) Product Summary offered the See all action
   with product content and an open-view handler, outside Full. It opened existing

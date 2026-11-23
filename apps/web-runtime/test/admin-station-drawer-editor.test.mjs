@@ -23,7 +23,7 @@ test('the Overview editor reports dirty and publishable to the footer: every edi
 
 test('editor view empties the connections shell and keeps the navigation and each section heading', () => {
   const css = read('admin-station-drawer-editor.css');
-  assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-connections > :not\(\[data-admin-drawer-unit="quick-actions"\]\) \{\s*display: none;/);
+  assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-connections > :not\(\[data-admin-drawer-unit="quick-actions"\], \.wex-admin-editor-footer\) \{\s*display: none;/);
   assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-main > :not\(\.wex-admin-product-editor\) > :not\(\.wex-admin-product-section-head\) \{\s*display: none;/);
   assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /wex-admin-product-sections|drawer-connections \{|#[0-9a-f]{3,8}\b|\d+px/i);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-drawer-editor\.css";/);
@@ -84,7 +84,7 @@ test('the Form Builder card (icon tile, title, description) shows only in the ed
   assert.match(js, /title\.textContent = 'Form Editor'/);
   assert.match(js, /card\.addEventListener\('click', \(\) => setFormBuilder\(card, card\.getAttribute\('aria-pressed'\) !== 'true'\)\)/);
   assert.match(js, /card\.setAttribute\('aria-pressed', String\(active\)\)/);
-  assert.match(read('admin-station-add-new-sections.js'), /createActivityCards\(document\)\]\),\s*createQuickActions\(document\),\s*\]\)/);
+  assert.match(read('admin-station-add-new-sections.js'), /createActivityCards\(document\)\]\),\s*createQuickActions\(document\),\s*createEditorFooter\(document\),\s*\]\)/);
   assert.match(read('admin-station-drawer-footer.js'), /export function exitAdminDrawerEditor[\s\S]*resetFormBuilder\(parts\.drawer\)/);
   const css = read('admin-station-form-builder.css');
   assert.match(css, /\[data-admin-drawer-unit="quick-actions"\] \{\s*display: none;/);
@@ -148,3 +148,21 @@ test('the Editor opens only once a field is selected; its General tab holds the 
   assert.match(css, /\.wex-admin-accordion \{\s*border-block-end: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
   assert.match(css, /\[data-admin-drawer-compartment="footer"\] \{\s*opacity: var\(--wex-opacity-disabled\);/);
 });
+
+test('the Editor footer: Cancel at the start, one split button of Publish, Save and Discard at the end, disabled until edited, Drawer footer logic', () => {
+  const js = read('admin-station-editor-footer.js');
+  assert.match(js, /import \{ drawerActionChoices \} from '\.\/admin-station-drawer-footer\.js'/);
+  assert.match(js, /cancel\.textContent = 'Cancel'/);
+  assert.match(js, /\['publish', 'Publish', ADMIN_EDITOR_PUBLISH_EVENT\],\s*\['save', 'Save', ADMIN_EDITOR_SAVE_EVENT\],\s*\['discard', 'Discard', ADMIN_EDITOR_DISCARD_EVENT\]/);
+  assert.match(js, /viewEdit: true, editing: true/);
+  assert.match(js, /toggle\.disabled = enabled\.length === 0/);
+  assert.match(js, /resetFormBuilder\(drawer\)/);
+  assert.doesNotMatch(js, /data-admin-drawer-(action-menu|action-toggle|footer-close|close|publish|save|discard)\b/);
+  const css = read('admin-station-editor-footer.css');
+  assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-connections:has\(\[data-editor-active\]\) > \.wex-admin-editor-footer \{\s*display: flex;/);
+  assert.match(css, /border-inline-start: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);/);
+  assert.match(css, /grid-template-rows: minmax\(0, 1fr\) auto;/);
+  assert.doesNotMatch(css, /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
+  assert.match(read('admin-station.css'), /@import "\.\/admin-station-editor-footer\.css";/);
+});
+
