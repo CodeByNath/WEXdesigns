@@ -138,19 +138,31 @@ function clearSelection(drawer) {
 }
 
 /**
- * The Editor is open only while a field is selected: then the label reads Editor, the card hides and
+ * The Editor is open only while a field is selected: its heading names the field, the card hides and
  * the tabs and their panels show; otherwise the unit shows Quick actions and the card.
  * @param {Element} drawer
  */
 function syncEditor(drawer) {
   const unit = drawer.querySelector('[data-admin-drawer-unit="quick-actions"]');
   if (!unit) return;
-  const open = drawer.querySelector('[data-form-builder-selected]') !== null;
+  const selected = drawer.querySelector('[data-form-builder-selected]');
+  const open = selected !== null;
   const label = open ? 'Editor' : 'Quick actions';
   unit.setAttribute('aria-label', label);
   unit.toggleAttribute('data-editor-active', open);
   const heading = unit.querySelector('.wex-admin-quick-actions__heading');
-  if (heading) heading.textContent = label;
+  if (heading) {
+    heading.replaceChildren();
+    if (selected) {
+      const name = heading.ownerDocument.createElement('span');
+      name.textContent = `${selected.querySelector('.wex-admin-outlined-field__label')?.textContent ?? ''} (Field)`;
+      const icon = createSystemIcon(heading.ownerDocument, 'pencil-square');
+      icon.setAttribute('aria-hidden', 'false');
+      icon.setAttribute('role', 'img');
+      icon.setAttribute('aria-label', 'Edit');
+      heading.append(name, icon);
+    } else heading.textContent = label;
+  }
   for (const part of unit.querySelectorAll('.wex-admin-form-tabs, .wex-admin-form-tab-panels')) {
     if (part instanceof HTMLElement) part.hidden = !open;
   }

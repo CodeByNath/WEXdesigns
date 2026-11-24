@@ -57,6 +57,15 @@
     margin-inline: calc(-1 * var(--wex-space-24)) calc(-1 * var(--wex-space-16));
     padding-inline: calc(var(--wex-space-24) + var(--wex-tab-navigation-toggle-padding)) calc(var(--wex-space-16) + var(--wex-tab-navigation-toggle-padding));
   }
+
+  /* Stretch section lines through the unit insets; keep the header and panel content aligned. */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-form-tab-panels {
+    margin-inline: calc(-1 * var(--wex-space-24)) calc(-1 * var(--wex-space-16));
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-accordion__header, .wex-admin-accordion__panel) {
+    padding-inline: var(--wex-space-24) var(--wex-space-16);
+  }
 }
 
 .wex-admin-form-tabs[hidden] {
@@ -66,8 +75,16 @@
 .wex-admin-quick-actions__heading {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
   min-block-size: var(--wex-button-small-target-size);
   margin: 0;
+}
+
+.wex-admin-quick-actions__heading > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-icon-size-16);
+  block-size: var(--wex-icon-size-16);
 }
 
 /* Form Builder action card, inside the unit. An icon tile

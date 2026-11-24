@@ -455,6 +455,13 @@ are empty for now); Global is empty. The builder switches off when the editor is
 the Editor footer is pressed. Existing tokens only (`admin-station-form-builder.js`/`.css`); it is
 not a registered Global Component or token family.
 
+Owner refinement (2026-11-24): in side-by-side Full mode, accordion section borders span the
+connections shell, using the same existing 24px start / 16px end unit insets as the tab track.
+Header labels and panel content retain their original content alignment.
+The selected-field heading shows its existing label followed by “(Field)” at the start and
+the Heroicons outline pencil-square edit glyph at the end, replacing the visible Editor text.
+It updates when another field is selected; the unselected unit still reads Quick actions.
+
 ### Editor footer (Owner-directed, 2026-11-24)
 
 While the Editor is open the connections shell ends with its own footer on the Drawer footer line

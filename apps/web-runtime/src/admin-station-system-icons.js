@@ -1,11 +1,14 @@
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const OUTLINE_STROKE_WIDTH = '1.5';
 
-/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'x' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'calendar' | 'clock' | 'tag' | 'layers' | 'tool' | 'cart' | 'user-group' | 'presentation-chart-bar'} SystemIconName */
+/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'x' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'calendar' | 'clock' | 'tag' | 'layers' | 'tool' | 'cart' | 'user-group' | 'presentation-chart-bar' | 'pencil-square'} SystemIconName */
 
 /* Heroicons 24/outline system glyphs, MIT License, Copyright Tailwind Labs. */
 /** @type {Record<SystemIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const systemIconShapes = {
+  'pencil-square': [
+    ['path', { d: 'm16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125M18 14.25v4.875A3.375 3.375 0 0 1 14.625 22.5h-9.75A3.375 3.375 0 0 1 1.5 19.125v-9.75A3.375 3.375 0 0 1 4.875 6H9.75' }],
+  ],
   list: [
     ['path', { d: 'M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75ZM3.75 12h.007v.008H3.75V12Zm0 5.25h.007v.008H3.75V17.25Z' }],
   ],

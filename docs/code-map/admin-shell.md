@@ -12,6 +12,11 @@
 
 ### Recent work (newest first)
 
+- 2026-11-24: Editor heading follows the selected field label, with “(Field)”
+  and an end-aligned edit glyph. Desktop accordion borders span the connections
+  shell while labels keep their content insets (`admin-station-form-builder.js`
+  and `.css`, `admin-station-system-icons.js`; ADR 0028 Form Builder).
+
 - 2026-11-20: Owner-directed Overview fields, all-width wrapping and View-to-Full
   action; spacing refinements; combo-only two-activity tabs in Description,
   Snapshot, Meeting, Itinerary, Info and FAQ / Booking. Released through pointer
