@@ -23,6 +23,84 @@
 /* The General tab accordion: a header (chevron and title) per section and a full-shell line under each section. */
 .wex-admin-accordion {
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  padding-block-end: var(--wex-space-12);
+}
+
+.wex-admin-accordion + .wex-admin-accordion {
+  padding-block-start: var(--wex-space-12);
+}
+
+.wex-admin-field-options {
+  display: grid;
+  gap: var(--wex-space-12);
+  padding-block-start: var(--wex-space-12);
+}
+
+.wex-admin-field-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-12);
+}
+
+/* Width uses the registered Small Dropdown Menu surface and rows. */
+.wex-admin-field-layout__width-control {
+  position: relative;
+}
+
+.wex-admin-field-layout__width-options {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: calc(100% + var(--wex-space-4));
+  inset-inline-end: 0;
+}
+
+.wex-admin-field-layout__width-options[hidden] {
+  display: none;
+}
+
+.wex-admin-field-layout__width-inputs {
+  display: flex;
+  inline-size: max-content;
+  align-items: center;
+  gap: var(--wex-space-8);
+}
+
+.wex-admin-field-layout__width-inputs > .wex-search-input {
+  flex: 0 0 auto;
+}
+
+.wex-admin-field-layout__range-group {
+  display: grid;
+  gap: var(--wex-space-4);
+  min-inline-size: 0;
+}
+
+.wex-admin-field-layout__range-group input {
+  margin: 0;
+  accent-color: var(--wex-color-background-accent);
+}
+
+.wex-admin-field-layout__range-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--wex-color-text-secondary);
+}
+
+.wex-admin-field-layout__choices {
+  min-inline-size: 0;
+}
+
+.wex-admin-field-layout__choices > .wex-admin-field-layout__button {
+  justify-content: center;
+  inline-size: var(--wex-action-button-icon-only-small-target-size);
+  min-inline-size: var(--wex-action-button-icon-only-small-target-size);
+  padding-inline: 0;
+}
+
+.wex-admin-field-layout__button > svg {
+  inline-size: var(--wex-action-button-icon-only-small-icon-size);
+  block-size: var(--wex-action-button-icon-only-small-icon-size);
 }
 
 .wex-admin-accordion__header {
@@ -134,28 +212,28 @@
   color: var(--wex-color-text-secondary);
 }
 
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-outlined-field, .wex-admin-product-sections__tab) {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-product-editor > .wex-admin-outlined-field, .wex-admin-product-sections__tab) {
   opacity: var(--wex-opacity-disabled);
 }
 
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-outlined-field, .wex-admin-product-sections__tab):hover {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-product-editor > .wex-admin-outlined-field, .wex-admin-product-sections__tab):hover {
   opacity: 1;
 }
 
 /* The values stay locked and dimmed while the builder is active, hovered or not: the field's frame and label return on hover, the value does not. */
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field__input {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor .wex-admin-outlined-field__input {
   opacity: var(--wex-opacity-disabled);
   pointer-events: none;
 }
 
 /* The extra selected padding of the value editor is for editing a value; the locked values never show it. */
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field:active .wex-admin-outlined-field__control::after,
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field:active .wex-admin-outlined-field__input {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > .wex-admin-outlined-field:active .wex-admin-outlined-field__control::after,
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > .wex-admin-outlined-field:active .wex-admin-outlined-field__input {
   padding-block: var(--wex-space-12);
 }
 
 /* When the builder activates the first field shows the hover look; it gives it up as soon as the pointer is over another field or a navigation tab, or when a field is selected. */
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]):not(:has(:is(.wex-admin-outlined-field, .wex-admin-product-sections__tab):hover, [data-form-builder-selected])) .wex-admin-product-editor > .wex-admin-outlined-field:first-child {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]):not(:has(:is(.wex-admin-product-editor > .wex-admin-outlined-field, .wex-admin-product-sections__tab):hover, [data-form-builder-selected])) .wex-admin-product-editor > .wex-admin-outlined-field:first-child {
   opacity: 1;
 }
 

@@ -12,6 +12,18 @@
 
 ### Recent work (newest first)
 
+- 2026-11-24: Layout has Width, Position and Alignment. Width starts at
+  Default and opens a compact Small Dropdown surface with a 0–100 slider,
+  editable percentage input and Default reset. Exact whole percentages use
+  fixed CSS rules; invalid input cannot alter the field. Position affects the
+  frame; alignment affects text/placeholder. Source: `admin-station-field-options.js`,
+  `admin-station-field-layout.css`, composed by `admin-station-form-builder.js`.
+  Small Dropdown, Label Only Small Menu and Search Input tokens are reused.
+  Settings apply locally per field, without inline styles or persistence.
+  Advanced remains empty. Browser verified manual 37%, endpoints, invalid 101%,
+  Default reset and popup fit; typecheck and 17 focused tests pass, including
+  `admin-station-field-options.test.mjs`. Earlier position/alignment proof retained.
+
 - 2026-11-24: Editor heading follows the selected field label, with “(Field)”
   and an end-aligned edit glyph. Desktop accordion borders span the connections
   shell while labels keep their content insets (`admin-station-form-builder.js`

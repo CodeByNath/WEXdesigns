@@ -1,11 +1,19 @@
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const OUTLINE_STROKE_WIDTH = '1.5';
 
-/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'x' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'calendar' | 'clock' | 'tag' | 'layers' | 'tool' | 'cart' | 'user-group' | 'presentation-chart-bar' | 'pencil-square'} SystemIconName */
+/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'x' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'calendar' | 'clock' | 'tag' | 'layers' | 'tool' | 'cart' | 'user-group' | 'presentation-chart-bar' | 'pencil-square' | 'position-start' | 'position-center' | 'position-end' | 'position-stretch' | 'alignment-left' | 'alignment-center' | 'alignment-right' | 'alignment-justify'} SystemIconName */
 
 /* Heroicons 24/outline system glyphs, MIT License, Copyright Tailwind Labs. */
 /** @type {Record<SystemIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const systemIconShapes = {
+  'position-start': [['path', { d: 'M4.5 3.75v16.5M19.5 12H9m3.75-3.75L9 12l3.75 3.75' }]],
+  'position-center': [['path', { d: 'M12 3.75v16.5M3 12h5.25m-2.25-2.25L8.25 12 6 14.25M21 12h-5.25M18 9.75 15.75 12 18 14.25' }]],
+  'position-end': [['path', { d: 'M19.5 3.75v16.5M4.5 12H15m-3.75-3.75L15 12l-3.75 3.75' }]],
+  'position-stretch': [['path', { d: 'M3.75 3.75v16.5M20.25 3.75v16.5M9.75 12H5.25m2.25-2.25L5.25 12l2.25 2.25m6.75-2.25h4.5m-2.25-2.25L18.75 12l-2.25 2.25' }]],
+  'alignment-left': [['path', { d: 'M3.75 6h16.5M3.75 10h10.5M3.75 14h16.5M3.75 18h10.5' }]],
+  'alignment-center': [['path', { d: 'M3.75 6h16.5M6.75 10h10.5M3.75 14h16.5M6.75 18h10.5' }]],
+  'alignment-right': [['path', { d: 'M3.75 6h16.5M9.75 10h10.5M3.75 14h16.5M9.75 18h10.5' }]],
+  'alignment-justify': [['path', { d: 'M3.75 6h16.5M3.75 10h16.5M3.75 14h16.5M3.75 18h16.5' }]],
   'pencil-square': [
     ['path', { d: 'm16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125M18 14.25v4.875A3.375 3.375 0 0 1 14.625 22.5h-9.75A3.375 3.375 0 0 1 1.5 19.125v-9.75A3.375 3.375 0 0 1 4.875 6H9.75' }],
   ],

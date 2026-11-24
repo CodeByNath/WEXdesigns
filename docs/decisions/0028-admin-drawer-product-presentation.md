@@ -449,7 +449,7 @@ selected. Clicking a field selects it (one at a time): full opacity, its label o
 the same unit: the label reads Editor, the card hides, and two tabs, General and Global, show in the
 existing Tab Navigation Toggle in its Stretched mode (side by side, from the Drawer container
 breakpoint of `drawer-full.css`, the track spans the whole connections shell by the unit insets,
-24 start and 16 end, and the tabs keep their position). General holds Layout and Label as
+24 start and 16 end, and the tabs keep their position). General holds Layout and Advanced as
 accordion sections (a header with a chevron and a title, a panel, a line under each section; panels
 are empty for now); Global is empty. The builder switches off when the editor is left or Cancel in
 the Editor footer is pressed. Existing tokens only (`admin-station-form-builder.js`/`.css`); it is
@@ -461,6 +461,36 @@ Header labels and panel content retain their original content alignment.
 The selected-field heading shows its existing label followed by “(Field)” at the start and
 the Heroicons outline pencil-square edit glyph at the end, replacing the visible Editor text.
 It updates when another field is selected; the unselected unit still reads Quick actions.
+The first General accordion section (Layout) starts expanded;
+Advanced (renamed from Label) starts collapsed and remains empty.
+Accordion sections reuse the tabs-to-panel gap token (`--wex-space-12`) below their content
+and above each following section, keeping the full-width divider between those insets.
+
+Owner-directed replacement Layout controls (2026-11-24): remove Label, Placeholder,
+Required and Column Width; rename Main back to Layout. The property/value rows are Width,
+Position and Alignment. Width starts at Default. Its existing Small Dropdown Menu surface
+(ADR 0033), with Label Only Small Menu neutral trigger (ADR 0038), now holds a compact
+0–100% native slider and a small editable percentage field instead of the long options list.
+Whole percentages (step 1) apply immediately; manual input outside 0–100 or incomplete input
+does not change the applied width and is restored on blur/close. The number and slider stay
+synchronized. Default resets automatic inline sizing, displayed as 100% inside the control.
+Escape closes with focus return; outside click/focus dismisses. Slider arrow/Home/End and
+manual typing remain native. The Small Search Input field uses its existing focus treatment.
+Position offers start, center, end
+and stretch for the field frame; an explicit percentage width still constrains stretching.
+Alignment offers left, center, right and justify for textarea values and their sizing copy;
+native placeholder text inherits it. Position does not set text alignment.
+Property rows use space-between: labels at the start, controllers at the end,
+with the existing 12px gap as their minimum separation.
+Controls consume the existing Small Horizontal Toggle presentation and Small icon allocation.
+The Owner-authorised 0–100 whole-percentage range uses fixed consumer CSS rules, not new
+root tokens. `admin-station-field-options.js` selects fixed data attributes and
+`admin-station-field-layout.css` maps them to CSS, without inline styles or runtime injection.
+Settings remain local to each selected field and apply immediately to its editor preview.
+No product-value mutation, persistence, host integration or Save/Publish binding is added.
+Advanced stays empty. Browser verified manual 37%, both slider endpoints, invalid 101%,
+Default reset and the popup fitting above the footer. Typecheck and 17 focused tests pass;
+previous browser proof covers all original percentages and independent position/alignment.
 
 ### Editor footer (Owner-directed, 2026-11-24)
 

@@ -90,7 +90,7 @@ test('the Form Builder card (icon tile, title, description) shows only in the ed
   assert.match(css, /\[data-admin-drawer-unit="quick-actions"\] \{\s*display: none;/);
   assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-section\[data-admin-drawer-unit="quick-actions"\] \{\s*display: grid;/);
   assert.match(js, /heading\.textContent = 'Quick actions'/);
-  assert.match(css, /:is\(\.wex-admin-outlined-field, \.wex-admin-product-sections__tab\) \{\s*opacity: var\(--wex-opacity-disabled\);/);
+  assert.match(css, /:is\(\.wex-admin-product-editor > \.wex-admin-outlined-field, \.wex-admin-product-sections__tab\) \{\s*opacity: var\(--wex-opacity-disabled\);/);
   assert.match(css, /:hover \{\s*opacity: 1;/);
   assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-form-builder\.css";/);
@@ -138,10 +138,10 @@ test('side by side the Editor tab track spans the whole connections shell and th
   assert.match(css, /@container wex-admin-drawer \(width >= 840px\) \{\s*\.wex-admin-shell\[data-admin-drawer-mode="full"\] \.wex-admin-drawer-section > \.wex-admin-form-tabs \{\s*margin-inline: calc\(-1 \* var\(--wex-space-24\)\) calc\(-1 \* var\(--wex-space-16\)\);\s*padding-inline: calc\(var\(--wex-space-24\) \+ var\(--wex-tab-navigation-toggle-padding\)\) calc\(var\(--wex-space-16\) \+ var\(--wex-tab-navigation-toggle-padding\)\);/);
 });
 
-test('the Editor opens only once a field is selected; its General tab holds the Layout and Label accordion; the builder disables the footer', () => {
+test('the Editor opens only once a field is selected; its General tab holds the Layout and Advanced accordion; the builder disables the footer', () => {
   const js = read('admin-station-form-builder.js');
   assert.match(js, /field\.setAttribute\('data-form-builder-selected', ''\);\s*syncEditor\(drawer\);/);
-  assert.match(js, /const generalSections = \['Layout', 'Label'\]/);
+  assert.match(js, /const generalSections = \['Layout', 'Advanced'\]/);
   assert.match(js, /aria-expanded/);
   assert.match(js, /footer\.inert = active/);
   const css = read('admin-station-form-builder.css');

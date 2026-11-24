@@ -1,7 +1,8 @@
 import { createSystemIcon } from './admin-station-system-icons.js';
+import { createFieldOptions } from './admin-station-field-options.js';
 
-/** The accordion sections of the General tab; they hold no content yet. */
-const generalSections = ['Layout', 'Label'];
+/** Layout holds selected-field options; Advanced remains empty. */
+const generalSections = ['Layout', 'Advanced'];
 
 /**
  * The Quick actions unit (connections shell, editor view only): the label, then the action card below
@@ -70,16 +71,17 @@ function createGeneralPanel(document) {
   const panel = document.createElement('div');
   panel.className = 'wex-admin-form-tab-panel';
   panel.dataset.formTab = 'general';
-  for (const title of generalSections) {
+  for (const [index, title] of generalSections.entries()) {
     const section = document.createElement('div');
     section.className = 'wex-admin-accordion';
     const header = document.createElement('button');
     header.type = 'button';
     header.className = 'wex-admin-accordion__header wex-type-navigation-small-semibold';
-    header.setAttribute('aria-expanded', 'false');
+    header.setAttribute('aria-expanded', String(index === 0));
     const body = document.createElement('div');
     body.className = 'wex-admin-accordion__panel';
-    body.hidden = true;
+    body.dataset.fieldOptionsSection = title.toLowerCase();
+    body.hidden = index !== 0;
     const label = document.createElement('span');
     label.textContent = title;
     const draw = () => header.replaceChildren(createSystemIcon(document, header.getAttribute('aria-expanded') === 'true' ? 'chevron-down' : 'chevron-right'), label);
@@ -150,6 +152,11 @@ function syncEditor(drawer) {
   const label = open ? 'Editor' : 'Quick actions';
   unit.setAttribute('aria-label', label);
   unit.toggleAttribute('data-editor-active', open);
+  const main = unit.querySelector('[data-field-options-section="layout"]');
+  if (main) {
+    main.replaceChildren();
+    if (selected) main.append(createFieldOptions(main.ownerDocument, selected));
+  }
   const heading = unit.querySelector('.wex-admin-quick-actions__heading');
   if (heading) {
     heading.replaceChildren();
