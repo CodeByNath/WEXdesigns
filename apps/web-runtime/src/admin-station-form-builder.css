@@ -20,7 +20,7 @@
   display: none;
 }
 
-/* The General tab accordion: a header (chevron and title) per section and a line under each section. */
+/* The General tab accordion: a header (chevron and title) per section and a full-shell line under each section. */
 .wex-admin-accordion {
   border-block-end: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
 }
