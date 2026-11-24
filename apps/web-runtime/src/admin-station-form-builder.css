@@ -43,7 +43,7 @@
   gap: var(--wex-space-12);
 }
 
-/* Width uses the registered Small Dropdown Menu surface and rows. */
+/* Width's compact controls use the registered Small Dropdown Menu surface. */
 .wex-admin-field-layout__width-control {
   position: relative;
 }
