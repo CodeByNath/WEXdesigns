@@ -109,13 +109,13 @@ test('while the Form Builder is active a pressed field never shows the selected 
   assert.match(css, /\.wex-admin-outlined-field:active \.wex-admin-outlined-field__input \{\s*padding-block: var\(--wex-space-12\);/);
 });
 
-test('while the Form Builder is active the first field shows the hover look by default and a clicked field is selected with an accent label', () => {
+test('activating the Form Builder selects the first field (no hover step) and a clicked field is selected with an accent label', () => {
   const js = read('admin-station-form-builder.js');
   assert.match(js, /closest\('\.wex-admin-product-editor > \.wex-admin-outlined-field'\)/);
   assert.match(js, /field\.setAttribute\('data-form-builder-selected', ''\)/);
-  assert.match(js, /if \(!active\) clearSelection\(drawer\)/);
+  assert.match(js, /clearSelection\(drawer\);\n\s*\/\*[^\n]*\*\/\n\s*if \(active\) drawer\.querySelector\('\.wex-admin-product-editor > \.wex-admin-outlined-field'\)\?\.setAttribute\('data-form-builder-selected', ''\)/);
   const css = read('admin-station-form-builder.css');
-  assert.match(css, /\.wex-admin-product-editor > \.wex-admin-outlined-field:first-child \{\s*opacity: 1;/);
+  assert.doesNotMatch(css, /:first-child/);
   assert.match(css, /\[data-form-builder-selected\] \.wex-admin-outlined-field__label \{\s*background: var\(--wex-color-background-accent\);\s*color: var\(--wex-color-text-inverse\);/);
   assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
 });
@@ -166,3 +166,14 @@ test('the Editor footer: Cancel at the start, one split button of Publish, Save 
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-editor-footer\.css";/);
 });
 
+
+test('the Editor unit keeps its heading and tabs at full height and scrolls only the panel, so an open accordion never squeezes the tabs', () => {
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /\[data-editor-active\] \{\s*grid-template-rows: auto auto minmax\(0, 1fr\);/);
+  assert.match(css, /\[data-editor-active\] > \.wex-admin-form-tab-panels \{\s*min-block-size: 0;\s*overflow-y: auto;/);
+});
+
+test('the whole accordion row toggles its section, not only the header button', () => {
+  assert.match(read('admin-station-form-builder.js'), /section\.addEventListener\('click', \(event\) => \{ if \(event\.target === section\) header\.click\(\); \}\)/);
+  assert.match(read('admin-station-form-builder.css'), /\.wex-admin-accordion \{\s*cursor: pointer;/);
+});

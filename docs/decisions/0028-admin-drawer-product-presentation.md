@@ -442,9 +442,9 @@ the section heading. Clicking the card turns the builder on (`aria-pressed`): th
 product navigation tabs and the Drawer footer drop to `--wex-opacity-disabled` (the footer is also
 inert) and the hovered field or tab returns to full opacity; every value is disabled (locked,
 dimmed, never focused or edited, hovered or pressed) because the builder edits the form, not its
-values; a pressed field never shows the 8px selected padding of the value editor. The first field
-shows the hover look by default until the pointer is over another field or tab or a field is
-selected. Clicking a field selects it (one at a time): full opacity, its label on
+values; a pressed field never shows the 8px selected padding of the value editor. Activating the
+builder skips the hover step: the first field is selected and the Editor opens on it at once (the
+first-field hover look is removed). Clicking a field selects it (one at a time): full opacity, its label on
 `--wex-color-background-accent` with `--wex-color-text-inverse`. Selecting a field opens the Editor in
 the same unit: the label reads Editor, the card hides, and two tabs, General and Global, show in the
 existing Tab Navigation Toggle in its Stretched mode (side by side, from the Drawer container
@@ -548,3 +548,14 @@ now one such tab showing its value and a chevron instead of a neutral Button, so
 reads like its neighbours; its Small Dropdown Menu popup, slider and percentage input are
 unchanged. The icon controllers keep their size and spacing. Hover, pressed and focus follow the
 Toggle and Small Horizontal states; a disabled tab still has no look of its own.
+
+### Editor unit scrolling (2026-11-25)
+
+The Editor unit is as tall as the connections shell leaves it. Its rows are the heading, the tabs and
+the panel (`auto auto minmax(0, 1fr)`), and only the panel scrolls (`overflow-y: auto`). Before, an open
+accordion made the content taller than the unit, and the tabs (an `overflow: auto` strip, so allowed to
+shrink to nothing) were squeezed to their 4px padding and seemed to disappear.
+
+The whole accordion row toggles its section: a click on the section's own padding (around the header,
+not inside an open panel) acts as a click on the header, so the row is as tall as it looks. The header
+stays the keyboard and screen reader control.

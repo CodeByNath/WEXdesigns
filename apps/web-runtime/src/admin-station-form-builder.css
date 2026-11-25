@@ -14,6 +14,16 @@
   display: none;
 }
 
+/* The Editor unit is as tall as the shell leaves it: the heading and the tabs keep their height and the panel takes the rest and scrolls, so opening an accordion never squeezes the tabs away. */
+[data-editor-active] {
+  grid-template-rows: auto auto minmax(0, 1fr);
+}
+
+[data-editor-active] > .wex-admin-form-tab-panels {
+  min-block-size: 0;
+  overflow-y: auto;
+}
+
 .wex-admin-form-tab-panels[hidden],
 .wex-admin-form-tab-panel[hidden],
 .wex-admin-accordion__panel[hidden] {
@@ -28,6 +38,15 @@
 
 .wex-admin-accordion + .wex-admin-accordion {
   padding-block-start: var(--wex-space-12);
+}
+
+/* The section's own padding toggles it like the header, so the whole row between the lines is the target; the open panel keeps its normal cursor. */
+.wex-admin-accordion {
+  cursor: pointer;
+}
+
+.wex-admin-accordion__panel {
+  cursor: auto;
 }
 
 .wex-admin-field-options {
@@ -230,12 +249,7 @@
   padding-block: var(--wex-space-12);
 }
 
-/* When the builder activates the first field shows the hover look; it gives it up as soon as the pointer is over another field or a navigation tab, or when a field is selected. */
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]):not(:has(:is(.wex-admin-product-editor > .wex-admin-outlined-field, .wex-admin-product-sections__tab):hover, [data-form-builder-selected])) .wex-admin-product-editor > .wex-admin-outlined-field:first-child {
-  opacity: 1;
-}
-
-/* A selected field (a click while the builder is active): full opacity, its label on the blue accent background with the inverse (white) text colour. */
+/* A selected field (the first on activation, then a click while the builder is active): full opacity, its label on the blue accent background with the inverse (white) text colour. */
 .wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field[data-form-builder-selected] {
   opacity: 1;
 }

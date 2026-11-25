@@ -93,6 +93,8 @@ function createGeneralPanel(document) {
       body.hidden = !open;
       draw();
     });
+    /* The whole section row is the target: the space around the header (the section's own padding) toggles it too. */
+    section.addEventListener('click', (event) => { if (event.target === section) header.click(); });
     section.append(header, body);
     panel.append(section);
   }
@@ -104,8 +106,8 @@ function createGeneralPanel(document) {
  * short description, the whole card being the action. Clicking it activates the builder: the whole form,
  * the product navigation and the footer drop to the disabled opacity, every value is locked and the field
  * the pointer is over returns to full opacity (`admin-station-form-builder.css`). `aria-pressed` carries
- * the mode and the stylesheet reads it, so the state lives in one place. Selecting a field then opens the
- * Editor in the same unit.
+ * the mode and the stylesheet reads it, so the state lives in one place. Activating selects the first
+ * field and opens the Editor on it (no hover step); selecting another field moves the Editor to it.
  * Built only from existing tokens; it is not a registered Global Component.
  * @param {Document} document
  */
@@ -205,7 +207,9 @@ function setFormBuilder(card, active) {
   const drawer = card.closest('[data-admin-drawer-shell]');
   if (!drawer) return;
   listenForSelection(drawer);
-  if (!active) clearSelection(drawer);
+  clearSelection(drawer);
+  /* Activating skips the hover step: the first field is selected and the Editor opens on it. */
+  if (active) drawer.querySelector('.wex-admin-product-editor > .wex-admin-outlined-field')?.setAttribute('data-form-builder-selected', '');
   syncEditor(drawer);
   const footer = drawer.querySelector('[data-admin-drawer-compartment="footer"]');
   if (footer instanceof HTMLElement) footer.inert = active;
