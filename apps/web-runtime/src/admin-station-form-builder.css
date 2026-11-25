@@ -8,7 +8,7 @@
   display: grid;
 }
 
-/* The label row is as tall as the Promotions row (the small Button target size), so it sits on the same line (retry trigger for the Pages deploy). */
+/* The label row is as tall as the Promotions row (the small Button target size), so it sits on the same line (second retry trigger for the Pages deploy). */
 /* Once a field is selected the unit is the Editor: the card is hidden (it keeps the state) and the tabs with their panels show right below the label. */
 [data-editor-active] > .wex-admin-form-builder {
   display: none;
