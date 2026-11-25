@@ -113,3 +113,11 @@
 .wex-admin-product-editor > [data-field-alignment="right"] { text-align: right; }
 .wex-admin-product-editor > [data-field-alignment="justify"] { text-align: justify; }
 .wex-admin-product-editor > [data-field-alignment] .wex-admin-outlined-field__input { text-align: inherit; }
+
+/* Row: a form is two equal columns; a field spans both unless it shares its row (50% and 50%). Reverse swaps the two columns. */
+.wex-admin-product-editor { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row dense; }
+.wex-admin-product-editor > .wex-admin-outlined-field { grid-column: 1 / -1; }
+.wex-admin-product-editor > [data-field-row="first"] { grid-column: 1; }
+.wex-admin-product-editor > [data-field-row="second"] { grid-column: 2; }
+.wex-admin-product-editor > [data-field-row="first"][data-field-row-reverse] { grid-column: 2; }
+.wex-admin-product-editor > [data-field-row="second"][data-field-row-reverse] { grid-column: 1; }

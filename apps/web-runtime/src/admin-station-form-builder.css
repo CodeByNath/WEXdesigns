@@ -44,18 +44,27 @@
 }
 
 /* Width's compact controls use the registered Small Dropdown Menu surface. */
-.wex-admin-field-layout__width-control {
+.wex-admin-field-layout__width-control,
+.wex-admin-field-layout__row-control {
   position: relative;
 }
 
-.wex-admin-field-layout__width-options {
+.wex-admin-field-layout__width-options,
+.wex-admin-field-layout__row-options {
   position: absolute;
   z-index: 1;
   inset-block-start: calc(100% + var(--wex-space-4));
   inset-inline-end: 0;
 }
 
-.wex-admin-field-layout__width-options[hidden] {
+.wex-admin-field-layout__row-options {
+  inline-size: max-content;
+  inset-block-start: auto;
+  inset-block-end: calc(100% + var(--wex-space-4));
+}
+
+.wex-admin-field-layout__width-options[hidden],
+.wex-admin-field-layout__row-options[hidden] {
   display: none;
 }
 
@@ -87,20 +96,9 @@
   color: var(--wex-color-text-secondary);
 }
 
-.wex-admin-field-layout__choices {
-  min-inline-size: 0;
-}
-
-.wex-admin-field-layout__choices > .wex-admin-field-layout__button {
-  justify-content: center;
-  inline-size: var(--wex-action-button-icon-only-small-target-size);
-  min-inline-size: var(--wex-action-button-icon-only-small-target-size);
-  padding-inline: 0;
-}
-
-.wex-admin-field-layout__button > svg {
-  inline-size: var(--wex-action-button-icon-only-small-icon-size);
-  block-size: var(--wex-action-button-icon-only-small-icon-size);
+/* The three icon controllers keep their established space above (Width's value tab sits on the label line). */
+.wex-admin-field-option > .wex-admin-editor-control {
+  margin-block-start: var(--wex-space-12);
 }
 
 .wex-admin-accordion__header {

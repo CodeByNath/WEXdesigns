@@ -1,5 +1,6 @@
 import { createSystemIcon } from './admin-station-system-icons.js';
 import { createFieldOptions } from './admin-station-field-options.js';
+import { ADMIN_FIELD_HISTORY_EVENT } from './admin-station-field-history.js';
 
 /** Layout holds selected-field options; Advanced remains empty. */
 const generalSections = ['Layout', 'Advanced'];
@@ -179,6 +180,10 @@ function syncEditor(drawer) {
 function listenForSelection(drawer) {
   if (listening.has(drawer)) return;
   listening.add(drawer);
+  /* Going back a step restores attributes and order, so the selected field's controls are rebuilt from them. */
+  drawer.addEventListener(ADMIN_FIELD_HISTORY_EVENT, (event) => {
+    if (event instanceof CustomEvent && event.detail?.restored) syncEditor(drawer);
+  });
   drawer.addEventListener('click', (event) => {
     if (!drawer.querySelector('[data-admin-form-builder][aria-pressed="true"]')) return;
     const field = event.target instanceof Element ? event.target.closest('.wex-admin-product-editor > .wex-admin-outlined-field') : null;

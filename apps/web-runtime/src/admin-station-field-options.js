@@ -1,4 +1,6 @@
 import { createSystemIcon } from './admin-station-system-icons.js';
+import { createRowControl } from './admin-station-field-row-control.js';
+import { endChangeGroup, trackFieldChange } from './admin-station-field-history.js';
 
 /** Whole percentage values are applied through fixed CSS rules, never inline styles.
  * @param {string} value */
@@ -8,18 +10,16 @@ export function parseFieldWidth(value) {
   return number >= 0 && number <= 100 ? number : null;
 }
 /** @typedef {{ width: string, position: string, alignment: string }} FieldLayout */
-/** Local preview layout, isolated by selected field. @type {WeakMap<Element, FieldLayout>} */
-const layouts = new WeakMap();
-
 /** Layout controls apply only closed, Owner-approved attribute values; no inline styles or host writes.
  * @param {Document} document @param {Element} selected */
 export function createFieldOptions(document, selected) {
-  let state = layouts.get(selected);
-  if (!state) {
-    state = { width: 'default', position: 'stretch', alignment: 'left' };
-    layouts.set(selected, state);
-  }
-  const layout = state;
+  /* The data attributes are the one source of truth (so going back a step needs no second copy). */
+  const layout = {
+    width: selected.getAttribute('data-field-width') ?? 'default',
+    position: selected.getAttribute('data-field-position') ?? 'stretch',
+    alignment: selected.getAttribute('data-field-alignment') ?? 'left',
+  };
+  const editor = selected.parentElement;
   const apply = () => {
     selected.setAttribute('data-field-width', layout.width);
     selected.setAttribute('data-field-position', layout.position);
@@ -28,34 +28,50 @@ export function createFieldOptions(document, selected) {
   apply();
   const group = document.createElement('div');
   group.className = 'wex-admin-field-options';
-  group.append(row(document, 'Width', createWidthDropdown(document, layout, apply)));
+  group.append(row(document, 'Width', createWidthDropdown(document, layout, apply, editor, selected)));
 
   /** @param {'position' | 'alignment'} key @param {string} title @param {string[]} values */
   const choices = (key, title, values) => {
     const controls = document.createElement('div');
-    controls.className = 'wex-admin-notifications__filters wex-admin-notifications__filters--toggle wex-admin-field-layout__choices';
+    controls.className = 'wex-admin-editor-control';
     controls.setAttribute('role', 'group');
     controls.setAttribute('aria-label', title);
     for (const value of values) {
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'wex-admin-notifications__tab wex-admin-notifications__tab--small-horizontal wex-admin-field-layout__button';
+      button.className = 'wex-admin-editor-control__item wex-admin-editor-control__item--icon';
       const label = `${title}: ${value.charAt(0).toUpperCase()}${value.slice(1)}`;
       button.setAttribute('aria-label', label);
       button.title = label;
       button.setAttribute('aria-pressed', String(layout[key] === value));
       button.append(createSystemIcon(document, /** @type {import('./admin-station-system-icons.js').SystemIconName} */ (`${key}-${value}`)));
       button.addEventListener('click', () => {
-        layout[key] = value;
+        trackFieldChange(editor, () => {
+          layout[key] = value;
+          apply();
+        });
         for (const other of controls.querySelectorAll('button')) other.setAttribute('aria-pressed', String(other === button));
-        apply();
       });
       controls.append(button);
     }
     return row(document, title, controls);
   };
   group.append(choices('position', 'Position', ['start', 'center', 'end', 'stretch']), choices('alignment', 'Alignment', ['left', 'center', 'right', 'justify']));
+  /** Moving a field rebuilds the controls (their enabled state follows the new rows) and keeps focus on the pressed one. @param {string} focus */
+  const rebuild = (focus) => {
+    const next = createFieldOptions(document, selected);
+    group.replaceWith(next);
+    /** @type {HTMLElement | null} */
+    const target = next.querySelector(`[data-field-row-control="${focus}"]:not(:disabled)`) ?? next.querySelector('[data-field-row-control]:not(:disabled)');
+    target?.focus();
+  };
+  group.append(row(document, 'Row', createRowControl(document, selected, resetFieldWidth, rebuild)));
   return group;
+}
+
+/** Joining or leaving a row sets the field's Width back to Default. @param {Element} field */
+function resetFieldWidth(field) {
+  field.setAttribute('data-field-width', 'default');
 }
 
 /** @param {Document} document @param {string} title @param {HTMLElement} control */
@@ -70,13 +86,14 @@ function row(document, title, control) {
 }
 
 /** Compact width slider and editable percentage, using the existing Small dropdown surface.
- * @param {Document} document @param {FieldLayout} layout @param {() => void} apply */
-function createWidthDropdown(document, layout, apply) {
+ * Changes while the popup is open (a slider drag, typing) are one history step per field.
+ * @param {Document} document @param {FieldLayout} layout @param {() => void} apply @param {Element | null} editor @param {Element} selected */
+function createWidthDropdown(document, layout, apply, editor, selected) {
   const root = document.createElement('div');
   root.className = 'wex-admin-field-layout__width-control';
   const toggle = document.createElement('button');
   toggle.type = 'button';
-  toggle.className = 'wex-button wex-button--small wex-button--neutral wex-action-button-label-only--small-menu';
+  toggle.className = 'wex-admin-editor-control__item wex-admin-editor-control__item--value';
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-controls', 'wex-field-layout-width-options');
   const text = document.createElement('span');
@@ -133,18 +150,18 @@ function createWidthDropdown(document, layout, apply) {
     const parsed = parseFieldWidth(value);
     input.setAttribute('aria-invalid', String(parsed === null));
     if (parsed === null) return;
-    layout.width = String(parsed);
-    apply();
+    trackFieldChange(editor, () => { layout.width = String(parsed); apply(); }, selected);
     refresh();
   };
   range.addEventListener('input', () => update(range.value));
   input.addEventListener('input', () => update(input.value));
   input.addEventListener('blur', refresh);
-  reset.addEventListener('click', () => { layout.width = 'default'; apply(); refresh(); });
+  reset.addEventListener('click', () => { trackFieldChange(editor, () => { layout.width = 'default'; apply(); }); refresh(); });
   menu.append(controls, reset);
   /** @type {AbortController | undefined} */
   let dismissal;
   const close = () => {
+    endChangeGroup(editor);
     refresh();
     menu.hidden = true;
     toggle.setAttribute('aria-expanded', 'false');
@@ -170,7 +187,10 @@ function createWidthDropdown(document, layout, apply) {
       event.preventDefault(); if (menu.hidden) open();
     }
   });
-  root.append(toggle, menu);
+  const track = document.createElement('div');
+  track.className = 'wex-admin-editor-control';
+  track.append(toggle);
+  root.append(track, menu);
   refresh();
   return root;
 }

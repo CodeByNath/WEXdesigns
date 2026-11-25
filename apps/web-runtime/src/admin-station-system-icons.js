@@ -1,11 +1,14 @@
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const OUTLINE_STROKE_WIDTH = '1.5';
 
-/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'x' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'calendar' | 'clock' | 'tag' | 'layers' | 'tool' | 'cart' | 'user-group' | 'presentation-chart-bar' | 'pencil-square' | 'position-start' | 'position-center' | 'position-end' | 'position-stretch' | 'alignment-left' | 'alignment-center' | 'alignment-right' | 'alignment-justify'} SystemIconName */
+/** @typedef {'list' | 'table' | 'columns' | 'filter' | 'plus' | 'user' | 'x' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'calendar' | 'clock' | 'tag' | 'layers' | 'tool' | 'cart' | 'user-group' | 'presentation-chart-bar' | 'pencil-square' | 'position-start' | 'position-center' | 'position-end' | 'position-stretch' | 'alignment-left' | 'alignment-center' | 'alignment-right' | 'alignment-justify' | 'row-up' | 'row-down' | 'row-reverse'} SystemIconName */
 
 /* Heroicons 24/outline system glyphs, MIT License, Copyright Tailwind Labs. */
 /** @type {Record<SystemIconName, ReadonlyArray<readonly [string, Readonly<Record<string, string>>]>>} */
 const systemIconShapes = {
+  'row-up': [['path', { d: 'M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18' }]],
+  'row-down': [['path', { d: 'M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3' }]],
+  'row-reverse': [['path', { d: 'M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5' }]],
   'position-start': [['path', { d: 'M4.5 3.75v16.5M19.5 12H9m3.75-3.75L9 12l3.75 3.75' }]],
   'position-center': [['path', { d: 'M12 3.75v16.5M3 12h5.25m-2.25-2.25L8.25 12 6 14.25M21 12h-5.25M18 9.75 15.75 12 18 14.25' }]],
   'position-end': [['path', { d: 'M19.5 3.75v16.5M4.5 12H15m-3.75-3.75L15 12l-3.75 3.75' }]],

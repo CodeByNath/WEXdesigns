@@ -12,6 +12,25 @@
 
 ### Recent work (newest first)
 
+- 2026-11-24: Width, Position, Alignment and Row use the new Tab Navigation Editor mode
+  (`wex-admin-editor-control` track, `wex-admin-editor-control__item` tabs;
+  `admin-station-field-controls.css`). Width is one value tab with a chevron in the same
+  grey track, no longer a Button; the Small Dropdown Menu popup is unchanged.
+
+- 2026-11-24: Field layout changes (Width, Position, Alignment, Row) are now steps in a
+  change history (`admin-station-field-history.js`). The Editor footer reads it: untouched
+  keeps the button disabled, a change enables Publish, Save and Discard, one left chevron
+  goes back a step at a time (a width drag is one step), Discard goes back to the start, and
+  with no steps left the button is disabled again. Tests: `admin-station-field-history.test.mjs`.
+
+- 2026-11-24: Layout adds Row (Up, Down, Reverse) in the same Small Horizontal Toggle
+  as Position and Alignment. Up/Down move the selected field between rows; passing a lone
+  neighbour asks Share row or Swap position (Small Dropdown Menu surface), passing a shared
+  row or leaving one asks nothing. Sharing gives each field half the row (Width Default);
+  Reverse swaps the two columns. Source: `admin-station-field-rows.js` (pure model),
+  `admin-station-field-row-control.js`, rules in `admin-station-field-layout.css`; tests in
+  `admin-station-field-rows.test.mjs`. Local preview only, no inline styles or persistence.
+
 - 2026-11-24: Layout has Width, Position and Alignment. Width starts at
   Default and opens a compact Small Dropdown surface with a 0–100 slider,
   editable percentage input and Default reset. Exact whole percentages use

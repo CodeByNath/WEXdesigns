@@ -505,3 +505,46 @@ a value yet, so it stays disabled. The items emit `wex:admin-editor-publish`, `-
 Cancel turns the builder off, which re-enables the Drawer footer and the values. The menu reuses the
 Drawer action menu and Dropdown Menu classes; it has click, Escape and outside-click handling and no
 arrow-key navigation yet. Existing tokens only.
+
+### Row property (Owner-directed, 2026-11-24)
+
+Layout gains a fourth property, Row, after Alignment: three icon controls (Up, Down, Reverse) in
+the existing Small Horizontal Toggle, identical to Position and Alignment. The form is two equal
+columns; a field spans both unless it shares its row, and a shared row holds exactly two adjacent
+fields, each at half the row (Width Default; the grid gap is the existing form gap).
+
+Up and Down move the selected field one row. A field on its own row passing a lone neighbour asks
+Share row or Swap position in the existing Small Dropdown Menu surface, opened above the control
+so the footer does not clip it: Share row makes both fields one row, Swap position exchanges the
+two. Passing a shared row asks nothing and moves the field above or below it. A field in a shared
+row leaves it above or below its partner, also without a question. Joining or leaving a row sets
+the field's Width to Default. Up is disabled for the first row of own-row fields and Down for the
+last. Reverse is enabled only on a shared row and swaps its two columns without changing the field
+order (the DOM and tab order stay as is).
+
+The row model is pure (`admin-station-field-rows.js`); the control writes closed data attributes
+(`data-field-row`, `data-field-row-reverse`) and reorders the fields, and the stylesheet maps them
+to grid columns. No inline CSS, root or Global Token change, persistence, host integration or
+Save/Publish binding. The toggle has no disabled presentation of its own, so a disabled Row
+control currently looks like an enabled one until the Owner decides one.
+
+### Layout change history and Editor footer (Owner-directed, 2026-11-24)
+
+Changes to a field's Width, Position, Alignment or Row activate the Editor footer. Each change is
+one step in a history kept per Editor (`admin-station-field-history.js`); a step is a snapshot of
+the closed layout attributes and the field order, so going back needs no second copy of the state.
+A change that leaves the layout as it was is not a step, and a slider drag or typing in one field's
+Width counts as one step until the popup closes. While there are steps the footer button offers
+Publish (main), Save and Discard; a single left chevron before it goes back one step at a time;
+Discard goes back to the starting layout; with no steps left the chevron and the button are
+disabled again. Publish and Save only emit their events, as before: the requester reports
+completion, so the steps stay until then. Cancel is unchanged. No persistence or host integration.
+
+### Editor mode controllers (Owner-directed, 2026-11-24)
+
+Width, Position, Alignment and Row share one look, the Tab Navigation Editor mode (ADR 0027):
+a grey track holding tabs, the pressed tab drawn as the selected white tab. The Width control is
+now one such tab showing its value and a chevron instead of a neutral Button, so the dropdown
+reads like its neighbours; its Small Dropdown Menu popup, slider and percentage input are
+unchanged. The icon controllers keep their size and spacing. Hover, pressed and focus follow the
+Toggle and Small Horizontal states; a disabled tab still has no look of its own.

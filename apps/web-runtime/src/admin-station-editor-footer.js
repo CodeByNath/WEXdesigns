@@ -1,6 +1,7 @@
 import { createSystemIcon } from './admin-station-system-icons.js';
 import { drawerActionChoices } from './admin-station-drawer-footer.js';
 import { resetFormBuilder } from './admin-station-form-builder.js';
+import { ADMIN_FIELD_HISTORY_EVENT, undoAllFieldChanges, undoFieldChange } from './admin-station-field-history.js';
 
 export const ADMIN_EDITOR_SAVE_EVENT = 'wex:admin-editor-save';
 export const ADMIN_EDITOR_DISCARD_EVENT = 'wex:admin-editor-discard';
@@ -14,13 +15,20 @@ const EDITOR_ACTIONS = [
   ['discard', 'Discard', ADMIN_EDITOR_DISCARD_EVENT],
 ];
 
+/** The Editor of the Drawer this footer belongs to. @param {HTMLElement} footer */
+function editorOf(footer) {
+  return footer.closest('[data-admin-drawer-shell]')?.querySelector('[data-admin-product-editor]') ?? null;
+}
+
 /**
- * The Editor footer (connections shell, shown while the Editor is open): Cancel at the start and one
- * split button at the end, a label plus chevron whose menu lists Publish, Save and Discard. It follows
+ * The Editor footer (connections shell, shown while the Editor is open): Cancel at the start and, at
+ * the end, a single left chevron that goes back one change at a time and one split button, a label plus chevron whose menu lists Publish, Save and Discard. It follows
  * the Drawer footer's editor action logic (`drawerActionChoices`, editing): untouched, only a disabled
  * Publish is offered, so the button starts disabled; once edited, Publish leads when publishable,
  * otherwise Save leads and Publish stays listed, disabled. Cancel leaves the builder. The Editor
- * supplies availability with `setEditorFooterState`; the footer never infers readiness.
+ * supplies availability with `setEditorFooterState`; the footer never infers readiness. Field layout
+ * changes are reported by the change history (`admin-station-field-history.js`): each change is a step,
+ * the chevron undoes one step, Discard undoes them all, and with no steps left the button is disabled.
  * Built from the existing Button, Action Button Label Only Small Menu and Dropdown Menu classes.
  * @param {Document} document
  */
@@ -64,8 +72,31 @@ export function createEditorFooter(document) {
     menu.append(item);
   }
   root.append(toggle, menu);
-  footer.append(cancel, root);
+  const undo = document.createElement('button');
+  undo.type = 'button';
+  undo.className = 'wex-button wex-button--small wex-button--neutral wex-action-button-icon-only--small';
+  undo.dataset.adminEditorUndo = '';
+  undo.setAttribute('aria-label', 'Undo last change');
+  undo.title = 'Undo last change';
+  undo.disabled = true;
+  undo.append(createSystemIcon(document, 'chevron-left'));
+  const actions = document.createElement('div');
+  actions.className = 'wex-admin-editor-footer__actions';
+  actions.append(undo, root);
+  footer.append(cancel, actions);
   refreshEditorFooter(footer);
+  undo.addEventListener('click', () => {
+    const editor = editorOf(footer);
+    if (editor) undoFieldChange(editor);
+  });
+  document.addEventListener(ADMIN_FIELD_HISTORY_EVENT, (event) => {
+    const editor = editorOf(footer);
+    if (!editor || !(event.target instanceof Node) || !editor.contains(event.target) && event.target !== editor) return;
+    const steps = event instanceof CustomEvent ? Number(event.detail?.steps ?? 0) : 0;
+    setEditorFooterState(footer, { dirty: steps > 0, publishable: steps > 0 });
+    undo.disabled = steps === 0;
+    if (steps === 0) close();
+  });
 
   const close = () => { menu.hidden = true; toggle.setAttribute('aria-expanded', 'false'); };
   toggle.addEventListener('click', () => {
@@ -84,6 +115,8 @@ export function createEditorFooter(document) {
       close();
       const found = EDITOR_ACTIONS.find(([action]) => action === item.dataset.adminEditorAction);
       if (found) footer.dispatchEvent(new CustomEvent(found[2], { bubbles: true }));
+      const editor = editorOf(footer);
+      if (item.dataset.adminEditorAction === 'discard' && editor) undoAllFieldChanges(editor);
       toggle.focus();
     });
   }
