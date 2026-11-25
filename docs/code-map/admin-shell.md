@@ -14,8 +14,10 @@
 
 - 2026-11-24: Width, Position, Alignment and Row use the new Tab Navigation Editor mode
   (`wex-admin-editor-control` track, `wex-admin-editor-control__item` tabs;
-  `admin-station-field-controls.css`). Width is one value tab with a chevron in the same
-  grey track, no longer a Button; the Small Dropdown Menu popup is unchanged.
+  `admin-station-field-controls.css`). Width is a progress bar on the same grey track
+  (2026-11-25): selected-look fill plus a travelling value popover, no dropdown, input or Default
+  button (`admin-station-field-width-progress.css`; Delete/Backspace resets to Default); the
+  popover is an editable percentage field.
 
 - 2026-11-24: Field layout changes (Width, Position, Alignment, Row) are now steps in a
   change history (`admin-station-field-history.js`). The Editor footer reads it: untouched

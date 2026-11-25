@@ -533,8 +533,8 @@ control currently looks like an enabled one until the Owner decides one.
 Changes to a field's Width, Position, Alignment or Row activate the Editor footer. Each change is
 one step in a history kept per Editor (`admin-station-field-history.js`); a step is a snapshot of
 the closed layout attributes and the field order, so going back needs no second copy of the state.
-A change that leaves the layout as it was is not a step, and a slider drag or typing in one field's
-Width counts as one step until the popup closes. While there are steps the footer button offers
+A change that leaves the layout as it was is not a step, and a drag of the Width bar in one field's
+Width counts as one step until the pointer or key is released. While there are steps the footer button offers
 Publish (main), Save and Discard; a single left chevron before it goes back one step at a time;
 Discard goes back to the starting layout; with no steps left the chevron and the button are
 disabled again. Publish and Save only emit their events, as before: the requester reports
@@ -544,9 +544,19 @@ completion, so the steps stay until then. Cancel is unchanged. No persistence or
 
 Width, Position, Alignment and Row share one look, the Tab Navigation Editor mode (ADR 0027):
 a grey track holding tabs, the pressed tab drawn as the selected white tab. The Width control is
-now one such tab showing its value and a chevron instead of a neutral Button, so the dropdown
-reads like its neighbours; its Small Dropdown Menu popup, slider and percentage input are
-unchanged. The icon controllers keep their size and spacing. Hover, pressed and focus follow the
+a progress bar on that track (2026-11-25): the fill is the selected look, and a value popover, also
+the selected look with a tip, travels along the end of the fill (left-aligned at 0%, right-aligned
+at 100%, so the tip always meets the fill end). It replaces the Default dropdown with its slider,
+percentage input and Default button. A hidden native range input on the track takes the drag and
+the keys; the popover is also a text field (click it, type a whole percentage 0 to 100; invalid text is
+ignored and restored on leaving; Enter or Escape leaves it). Editing has no focus outline: the number
+and its % (as wide as the digits, so the % stays next to the cursor) take the light accent
+background with the small radius (4px), and the text cursor starts at the end of the number. The
+row is a two-row grid so the label sits on the bar's centre and the popover tip meets the fill end
+(the tip stays inside the popover's corners at 0% and 100%). Default shows the full bar and 100% (no separate Default label), and Delete or Backspace
+returns to it. The bar is thin: the grey track keeps the Editor tab's 4px block padding
+(`--wex-tab-navigation-editor-padding-block`) around a fill as tall as `--wex-tab-navigation-editor-gap`. The fill and popover are placed by `data-width-progress` rules (0 to 100), no inline
+styles, `admin-station-field-width-progress.css`. The icon controllers keep their size and spacing. Hover, pressed and focus follow the
 Toggle and Small Horizontal states; a disabled tab still has no look of its own.
 
 ### Editor unit scrolling (2026-11-25)

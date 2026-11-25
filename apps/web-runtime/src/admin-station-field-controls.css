@@ -1,5 +1,6 @@
 /* Editor mode of WEX Tab Navigation (ADR 0027): the Editor's Width, Position, Alignment and Row controllers.
- * A track holding tabs; the pressed tab is the selected look, and Width is one tab showing its value. */
+ * A track holding tabs; the pressed tab is the selected look, and Width is a progress bar on the same track
+ * (admin-station-field-width-progress.css). */
 .wex-admin-editor-control {
   display: inline-flex;
   align-items: center;
@@ -43,26 +44,19 @@
   block-size: var(--wex-tab-navigation-editor-icon-size);
 }
 
-.wex-admin-editor-control__item--value > svg {
-  inline-size: var(--wex-tab-navigation-editor-icon-size);
-  block-size: var(--wex-tab-navigation-editor-icon-size);
-}
-
-.wex-admin-editor-control__item:not([aria-pressed="true"], .wex-admin-editor-control__item--value):hover {
+.wex-admin-editor-control__item:not([aria-pressed="true"]):hover {
   background: var(--wex-tab-navigation-editor-hover-background);
   border-color: var(--wex-tab-navigation-editor-hover-border-color);
   color: var(--wex-tab-navigation-editor-hover-foreground);
 }
 
-.wex-admin-editor-control__item[aria-pressed="true"]:not(:focus):not(:active),
-.wex-admin-editor-control__item--value:not(:focus):not(:active) {
+.wex-admin-editor-control__item[aria-pressed="true"]:not(:focus):not(:active) {
   background: var(--wex-tab-navigation-editor-selected-background);
   border-color: var(--wex-tab-navigation-editor-selected-border-color);
   color: var(--wex-tab-navigation-editor-selected-foreground);
 }
 
-.wex-admin-editor-control__item[aria-pressed="true"],
-.wex-admin-editor-control__item--value {
+.wex-admin-editor-control__item[aria-pressed="true"] {
   box-shadow: var(--wex-tab-navigation-editor-selected-shadow);
 }
 

@@ -29,8 +29,8 @@ test('Width, Position, Alignment and Row all consume the Editor mode through one
   assert.match(css, /\.wex-admin-editor-control__item\[aria-pressed="true"\]:not\(:focus\):not\(:active\)/);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-field-controls\.css";/);
   const options = read('admin-station-field-options.js');
-  assert.equal((options.match(/className = 'wex-admin-editor-control'/g) ?? []).length, 2);
-  assert.match(options, /wex-admin-editor-control__item wex-admin-editor-control__item--value/);
+  assert.equal((options.match(/className = 'wex-admin-editor-control'/g) ?? []).length, 1);
+  assert.match(options, /className = 'wex-admin-editor-control wex-admin-editor-progress'/);
   assert.match(options, /wex-admin-editor-control__item wex-admin-editor-control__item--icon/);
   assert.match(read('admin-station-field-row-control.js'), /className = 'wex-admin-editor-control'/);
   assert.doesNotMatch(options + read('admin-station-field-row-control.js'), /wex-admin-notifications__|wex-button--neutral/);

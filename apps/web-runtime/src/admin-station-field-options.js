@@ -2,13 +2,6 @@ import { createSystemIcon } from './admin-station-system-icons.js';
 import { createRowControl } from './admin-station-field-row-control.js';
 import { endChangeGroup, trackFieldChange } from './admin-station-field-history.js';
 
-/** Whole percentage values are applied through fixed CSS rules, never inline styles.
- * @param {string} value */
-export function parseFieldWidth(value) {
-  if (!/^\d{1,3}$/.test(value)) return null;
-  const number = Number(value);
-  return number >= 0 && number <= 100 ? number : null;
-}
 /** @typedef {{ width: string, position: string, alignment: string }} FieldLayout */
 /** Layout controls apply only closed, Owner-approved attribute values; no inline styles or host writes.
  * @param {Document} document @param {Element} selected */
@@ -28,7 +21,9 @@ export function createFieldOptions(document, selected) {
   apply();
   const group = document.createElement('div');
   group.className = 'wex-admin-field-options';
-  group.append(row(document, 'Width', createWidthDropdown(document, layout, apply, editor, selected)));
+  const widthRow = row(document, 'Width', createWidthProgress(document, layout, apply, editor, selected));
+  widthRow.classList.add('wex-admin-field-option--progress');
+  group.append(widthRow);
 
   /** @param {'position' | 'alignment'} key @param {string} title @param {string[]} values */
   const choices = (key, title, values) => {
@@ -85,112 +80,94 @@ function row(document, title, control) {
   return row;
 }
 
-/** Compact width slider and editable percentage, using the existing Small dropdown surface.
- * Changes while the popup is open (a slider drag, typing) are one history step per field.
- * @param {Document} document @param {FieldLayout} layout @param {() => void} apply @param {Element | null} editor @param {Element} selected */
-function createWidthDropdown(document, layout, apply, editor, selected) {
+/**
+ * Width as a progress bar in the Editor mode: the grey Editor track, the selected-look fill growing with the
+ * value and a value popover that travels along the end of the fill. A visually hidden range input on the track
+ * takes the drag and the keys (arrows, Home, End), so it stays native and accessible. The popover is a text
+ * field holding the whole percentage, so a value can be typed. Default shows the full bar (100%, no separate
+ * Default label); Delete or Backspace on the bar goes back to it. The fill and popover position are
+ * drawn from `data-width-progress` by fixed rules (no inline styles). A drag is one history step per field.
+ * @param {Document} document @param {FieldLayout} layout @param {() => void} apply @param {Element | null} editor @param {Element} selected
+ */
+function createWidthProgress(document, layout, apply, editor, selected) {
   const root = document.createElement('div');
   root.className = 'wex-admin-field-layout__width-control';
-  const toggle = document.createElement('button');
-  toggle.type = 'button';
-  toggle.className = 'wex-admin-editor-control__item wex-admin-editor-control__item--value';
-  toggle.setAttribute('aria-expanded', 'false');
-  toggle.setAttribute('aria-controls', 'wex-field-layout-width-options');
-  const text = document.createElement('span');
-  const menu = document.createElement('div');
-  menu.id = 'wex-field-layout-width-options';
-  menu.className = 'wex-dropdown-menu--small wex-admin-field-layout__width-options';
-  menu.setAttribute('role', 'group');
-  menu.setAttribute('aria-label', 'Width controls');
-  menu.hidden = true;
-  const controls = document.createElement('div');
-  controls.className = 'wex-admin-field-layout__width-inputs';
-  const rangeGroup = document.createElement('div');
-  rangeGroup.className = 'wex-admin-field-layout__range-group';
+  const rail = document.createElement('div');
+  rail.className = 'wex-admin-editor-progress__rail';
+  const bubble = document.createElement('div');
+  bubble.className = 'wex-admin-editor-progress__bubble';
+  const value = document.createElement('input');
+  value.type = 'text';
+  value.inputMode = 'numeric';
+  value.size = 3;
+  value.maxLength = 3;
+  value.pattern = '[0-9]{1,3}';
+  value.className = 'wex-admin-editor-progress__value';
+  value.setAttribute('aria-label', 'Width percentage');
+  const unit = document.createElement('span');
+  unit.textContent = '%';
+  unit.setAttribute('aria-hidden', 'true');
+  const edit = document.createElement('span');
+  edit.className = 'wex-admin-editor-progress__edit';
+  edit.append(value, unit);
+  bubble.append(edit);
+  rail.append(bubble);
+  const track = document.createElement('div');
+  track.className = 'wex-admin-editor-control wex-admin-editor-progress';
+  const fill = document.createElement('span');
+  fill.className = 'wex-admin-editor-progress__fill';
   const range = document.createElement('input');
   range.type = 'range';
+  range.className = 'wex-admin-editor-progress__input';
   range.min = '0';
   range.max = '100';
   range.step = '1';
-  range.setAttribute('aria-label', 'Width percentage slider');
-  const endpoints = document.createElement('div');
-  endpoints.className = 'wex-admin-field-layout__range-labels wex-type-body-small-regular';
-  for (const value of ['0%', '100%']) {
-    const label = document.createElement('span');
-    label.textContent = value;
-    endpoints.append(label);
-  }
-  rangeGroup.append(range, endpoints);
-  const valueFrame = document.createElement('div');
-  valueFrame.className = 'wex-search-input wex-search-input--small';
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.inputMode = 'numeric';
-  input.size = 3;
-  input.pattern = '[0-9]{1,3}';
-  input.setAttribute('aria-label', 'Width percentage');
-  const percent = document.createElement('span');
-  percent.textContent = '%';
-  percent.setAttribute('aria-hidden', 'true');
-  valueFrame.append(input, percent);
-  controls.append(rangeGroup, valueFrame);
-  const reset = document.createElement('button');
-  reset.type = 'button';
-  reset.className = 'wex-dropdown-menu__item--small';
-  reset.textContent = 'Default';
+  track.append(fill, range);
+  root.append(rail, track);
   const refresh = () => {
-    text.textContent = layout.width === 'default' ? 'Default' : `${layout.width}%`;
-    toggle.setAttribute('aria-label', `Width: ${text.textContent}`);
-    input.value = range.value = layout.width === 'default' ? '100' : layout.width;
-    range.setAttribute('aria-valuetext', `${range.value}%`);
-    input.setAttribute('aria-invalid', 'false');
-    reset.setAttribute('aria-pressed', String(layout.width === 'default'));
+    const isDefault = layout.width === 'default';
+    const percent = isDefault ? 100 : Number(layout.width);
+    const text = `${percent}%`;
+    root.setAttribute('data-width-progress', String(percent));
+    if (document.activeElement !== value) value.value = String(percent);
+    value.size = Math.max(1, value.value.length);
+    value.setAttribute('aria-invalid', 'false');
+    range.value = String(percent);
+    range.setAttribute('aria-label', `Width: ${text}`);
+    range.setAttribute('aria-valuetext', isDefault ? `${text}, default` : text);
   };
-  const update = (/** @type {string} */ value) => {
-    const parsed = parseFieldWidth(value);
-    input.setAttribute('aria-invalid', String(parsed === null));
-    if (parsed === null) return;
-    trackFieldChange(editor, () => { layout.width = String(parsed); apply(); }, selected);
+  range.addEventListener('input', () => {
+    trackFieldChange(editor, () => { layout.width = range.value; apply(); }, selected);
     refresh();
-  };
-  range.addEventListener('input', () => update(range.value));
-  input.addEventListener('input', () => update(input.value));
-  input.addEventListener('blur', refresh);
-  reset.addEventListener('click', () => { trackFieldChange(editor, () => { layout.width = 'default'; apply(); }); refresh(); });
-  menu.append(controls, reset);
-  /** @type {AbortController | undefined} */
-  let dismissal;
-  const close = () => {
-    endChangeGroup(editor);
-    refresh();
-    menu.hidden = true;
-    toggle.setAttribute('aria-expanded', 'false');
-    dismissal?.abort();
-  };
-  const open = () => {
-    refresh();
-    menu.hidden = false;
-    toggle.setAttribute('aria-expanded', 'true');
-    range.focus();
-    dismissal = new AbortController();
-    const outside = (/** @type {Event} */ event) => { if (!(event.target instanceof Node) || !root.contains(event.target)) close(); };
-    document.addEventListener('click', outside, { signal: dismissal.signal });
-    document.addEventListener('focusin', outside, { signal: dismissal.signal });
-  };
-  toggle.append(text, createSystemIcon(document, 'chevron-down'));
-  toggle.addEventListener('click', () => { if (menu.hidden) open(); else close(); });
-  root.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' || event.key === 'Enter' && event.target === input) {
-      event.preventDefault(); close(); toggle.focus(); return;
-    }
-    if (event.target === toggle && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
-      event.preventDefault(); if (menu.hidden) open();
-    }
   });
-  const track = document.createElement('div');
-  track.className = 'wex-admin-editor-control';
-  track.append(toggle);
-  root.append(track, menu);
+  range.addEventListener('change', () => endChangeGroup(editor));
+  range.addEventListener('blur', () => endChangeGroup(editor));
+  /* The popover is a field: type a whole percentage from 0 to 100; anything else is ignored and restored on leaving it. */
+  value.addEventListener('input', () => {
+    const typed = /^\d{1,3}$/.test(value.value) ? Number(value.value) : null;
+    value.size = Math.max(1, value.value.length);
+    value.setAttribute('aria-invalid', String(typed === null || typed > 100));
+    if (typed === null || typed > 100) return;
+    trackFieldChange(editor, () => { layout.width = String(typed); apply(); }, selected);
+    refresh();
+  });
+  /* Editing starts with the text cursor at the end of the number (before the %), wherever the popover is clicked. */
+  const caretToEnd = () => value.setSelectionRange(value.value.length, value.value.length);
+  value.addEventListener('focus', caretToEnd);
+  bubble.addEventListener('mousedown', (event) => {
+    if (document.activeElement === value && event.target === value) return;
+    event.preventDefault();
+    value.focus();
+    caretToEnd();
+  });
+  value.addEventListener('blur', () => { endChangeGroup(editor); refresh(); });
+  value.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === 'Escape') { event.preventDefault(); value.blur(); } });
+  range.addEventListener('keydown', (event) => {
+    if (event.key !== 'Delete' && event.key !== 'Backspace') return;
+    event.preventDefault();
+    trackFieldChange(editor, () => { layout.width = 'default'; apply(); });
+    refresh();
+  });
   refresh();
   return root;
 }

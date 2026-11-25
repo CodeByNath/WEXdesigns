@@ -1,0 +1,265 @@
+/* Width as an Editor-mode progress bar: the grey Editor track (kept, with the block padding of the Editor tab), a thin selected-look fill and a value popover that travels with the end of the fill.
+ * Built only from --wex-tab-navigation-editor-* tokens. The value position is a closed set of rules below (no inline styles). */
+/* The Width row is a two-row grid: the popover above the bar, and the label centred on the bar (the root only passes its parts to the row). */
+.wex-admin-field-option--progress {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: var(--wex-space-12);
+  row-gap: var(--wex-tab-navigation-editor-padding-block);
+  align-items: center;
+}
+
+.wex-admin-field-option--progress > span:first-child {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.wex-admin-field-layout__width-control {
+  display: contents;
+}
+
+.wex-admin-editor-progress__rail {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.wex-admin-editor-progress {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.wex-admin-editor-progress {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  padding-block: var(--wex-tab-navigation-editor-padding-block);
+  inline-size: calc(4 * var(--wex-tab-navigation-editor-icon-target-size) + 3 * var(--wex-tab-navigation-editor-track-gap) + 2 * var(--wex-tab-navigation-editor-track-padding));
+}
+
+.wex-admin-editor-progress__fill {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  inline-size: var(--wex-admin-width-progress, 100%);
+  block-size: var(--wex-tab-navigation-editor-gap);
+  border: var(--wex-tab-navigation-editor-border-width) solid var(--wex-tab-navigation-editor-selected-border-color);
+  border-radius: var(--wex-tab-navigation-editor-radius);
+  background: var(--wex-tab-navigation-editor-selected-background);
+  box-shadow: var(--wex-tab-navigation-editor-selected-shadow);
+}
+
+/* The range input is the hit area: invisible, over the track's content box and a block padding beyond it (the bar is thin), with no thumb width so a pointer maps exactly to the fill. */
+.wex-admin-editor-progress__input {
+  position: absolute;
+  inset-block: calc(-1 * var(--wex-tab-navigation-editor-padding-block));
+  inset-inline: var(--wex-tab-navigation-editor-track-padding);
+  inline-size: calc(100% - 2 * var(--wex-tab-navigation-editor-track-padding));
+  block-size: calc(100% + 2 * var(--wex-tab-navigation-editor-padding-block));
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+}
+
+.wex-admin-editor-progress__input::-webkit-slider-thumb {
+  inline-size: 0;
+  block-size: 0;
+  appearance: none;
+}
+
+.wex-admin-editor-progress__input::-moz-range-thumb {
+  inline-size: 0;
+  block-size: 0;
+  border: 0;
+}
+
+.wex-admin-editor-progress:has(.wex-admin-editor-progress__input:active) .wex-admin-editor-progress__fill {
+  background: var(--wex-button-neutral-background-pressed);
+}
+
+.wex-admin-editor-progress:has(.wex-admin-editor-progress__input:focus-visible) .wex-admin-editor-progress__fill {
+  border-color: var(--wex-tab-navigation-editor-focus-color);
+  outline: var(--wex-tab-navigation-editor-focus-outer-width) solid var(--wex-tab-navigation-editor-focus-color);
+  outline-offset: calc(-1 * var(--wex-tab-navigation-editor-focus-outer-width));
+}
+
+/* The popover is an editable field. It sits above the track on the track's content width, so its tip lands on the end of the fill: it is left-aligned at 0%, centred at 50% and right-aligned at 100%. */
+.wex-admin-editor-progress__rail {
+  padding-inline: var(--wex-tab-navigation-editor-track-padding);
+  pointer-events: none;
+}
+
+.wex-admin-editor-progress__bubble {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  inline-size: max-content;
+  pointer-events: auto;
+  cursor: text;
+  inset-inline-start: var(--wex-admin-width-progress, 100%);
+  transform: translateX(calc(-1 * var(--wex-admin-width-progress, 100%)));
+  padding: var(--wex-tab-navigation-editor-padding-block) var(--wex-tab-navigation-editor-padding-inline);
+  border: var(--wex-tab-navigation-editor-border-width) solid var(--wex-tab-navigation-editor-selected-border-color);
+  border-radius: var(--wex-tab-navigation-editor-radius);
+  background: var(--wex-tab-navigation-editor-selected-background);
+  box-shadow: var(--wex-tab-navigation-editor-selected-shadow);
+  color: var(--wex-tab-navigation-editor-selected-foreground);
+  font-family: var(--wex-tab-navigation-editor-font-family);
+  font-size: var(--wex-tab-navigation-editor-font-size);
+  font-weight: var(--wex-tab-navigation-editor-font-weight);
+  letter-spacing: var(--wex-tab-navigation-editor-letter-spacing);
+  line-height: var(--wex-tab-navigation-editor-line-height);
+}
+
+.wex-admin-editor-progress__bubble::after {
+  position: absolute;
+  inset-block-end: calc(-0.5 * var(--wex-tab-navigation-editor-padding-block) - var(--wex-tab-navigation-editor-border-width));
+  inset-inline-start: clamp(var(--wex-tab-navigation-editor-radius), var(--wex-admin-width-progress, 100%), calc(100% - var(--wex-tab-navigation-editor-radius)));
+  inline-size: var(--wex-tab-navigation-editor-padding-block);
+  block-size: var(--wex-tab-navigation-editor-padding-block);
+  transform: translateX(-50%) rotate(45deg);
+  border-inline-end: var(--wex-tab-navigation-editor-border-width) solid var(--wex-tab-navigation-editor-selected-border-color);
+  border-block-end: var(--wex-tab-navigation-editor-border-width) solid var(--wex-tab-navigation-editor-selected-border-color);
+  background: var(--wex-tab-navigation-editor-selected-background);
+  content: '';
+}
+
+/* The popover's number and % are one editable unit. While it is edited the unit takes the light accent background (Editor mode edit tokens, small radius) and the text cursor sits at the end of the number, right before the %; there is no focus outline. The field is as wide as its digits so the % stays next to the cursor. */
+.wex-admin-editor-progress__edit {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--wex-tab-navigation-editor-track-padding);
+  border-radius: var(--wex-tab-navigation-editor-edit-radius);
+}
+
+.wex-admin-editor-progress__edit:focus-within {
+  background: var(--wex-tab-navigation-editor-edit-background);
+  color: var(--wex-tab-navigation-editor-edit-foreground);
+}
+
+.wex-admin-editor-progress__value {
+  box-sizing: content-box;
+  field-sizing: content;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: end;
+  outline: none;
+}
+
+/* The shell's generic focus outline is not drawn here: the light accent background is the editing look. */
+.wex-admin-shell .wex-admin-editor-progress__value:focus-visible {
+  outline: none;
+}
+
+.wex-admin-editor-progress__bubble:has(.wex-admin-editor-progress__value[aria-invalid="true"]) {
+  border-color: var(--wex-tab-navigation-editor-hover-border-color);
+}
+
+/* One rule per whole percentage (0 to 100), like the field widths in admin-station-field-layout.css. */
+.wex-admin-field-layout__width-control[data-width-progress="0"] { --wex-admin-width-progress: 0%; }
+.wex-admin-field-layout__width-control[data-width-progress="1"] { --wex-admin-width-progress: 1%; }
+.wex-admin-field-layout__width-control[data-width-progress="2"] { --wex-admin-width-progress: 2%; }
+.wex-admin-field-layout__width-control[data-width-progress="3"] { --wex-admin-width-progress: 3%; }
+.wex-admin-field-layout__width-control[data-width-progress="4"] { --wex-admin-width-progress: 4%; }
+.wex-admin-field-layout__width-control[data-width-progress="5"] { --wex-admin-width-progress: 5%; }
+.wex-admin-field-layout__width-control[data-width-progress="6"] { --wex-admin-width-progress: 6%; }
+.wex-admin-field-layout__width-control[data-width-progress="7"] { --wex-admin-width-progress: 7%; }
+.wex-admin-field-layout__width-control[data-width-progress="8"] { --wex-admin-width-progress: 8%; }
+.wex-admin-field-layout__width-control[data-width-progress="9"] { --wex-admin-width-progress: 9%; }
+.wex-admin-field-layout__width-control[data-width-progress="10"] { --wex-admin-width-progress: 10%; }
+.wex-admin-field-layout__width-control[data-width-progress="11"] { --wex-admin-width-progress: 11%; }
+.wex-admin-field-layout__width-control[data-width-progress="12"] { --wex-admin-width-progress: 12%; }
+.wex-admin-field-layout__width-control[data-width-progress="13"] { --wex-admin-width-progress: 13%; }
+.wex-admin-field-layout__width-control[data-width-progress="14"] { --wex-admin-width-progress: 14%; }
+.wex-admin-field-layout__width-control[data-width-progress="15"] { --wex-admin-width-progress: 15%; }
+.wex-admin-field-layout__width-control[data-width-progress="16"] { --wex-admin-width-progress: 16%; }
+.wex-admin-field-layout__width-control[data-width-progress="17"] { --wex-admin-width-progress: 17%; }
+.wex-admin-field-layout__width-control[data-width-progress="18"] { --wex-admin-width-progress: 18%; }
+.wex-admin-field-layout__width-control[data-width-progress="19"] { --wex-admin-width-progress: 19%; }
+.wex-admin-field-layout__width-control[data-width-progress="20"] { --wex-admin-width-progress: 20%; }
+.wex-admin-field-layout__width-control[data-width-progress="21"] { --wex-admin-width-progress: 21%; }
+.wex-admin-field-layout__width-control[data-width-progress="22"] { --wex-admin-width-progress: 22%; }
+.wex-admin-field-layout__width-control[data-width-progress="23"] { --wex-admin-width-progress: 23%; }
+.wex-admin-field-layout__width-control[data-width-progress="24"] { --wex-admin-width-progress: 24%; }
+.wex-admin-field-layout__width-control[data-width-progress="25"] { --wex-admin-width-progress: 25%; }
+.wex-admin-field-layout__width-control[data-width-progress="26"] { --wex-admin-width-progress: 26%; }
+.wex-admin-field-layout__width-control[data-width-progress="27"] { --wex-admin-width-progress: 27%; }
+.wex-admin-field-layout__width-control[data-width-progress="28"] { --wex-admin-width-progress: 28%; }
+.wex-admin-field-layout__width-control[data-width-progress="29"] { --wex-admin-width-progress: 29%; }
+.wex-admin-field-layout__width-control[data-width-progress="30"] { --wex-admin-width-progress: 30%; }
+.wex-admin-field-layout__width-control[data-width-progress="31"] { --wex-admin-width-progress: 31%; }
+.wex-admin-field-layout__width-control[data-width-progress="32"] { --wex-admin-width-progress: 32%; }
+.wex-admin-field-layout__width-control[data-width-progress="33"] { --wex-admin-width-progress: 33%; }
+.wex-admin-field-layout__width-control[data-width-progress="34"] { --wex-admin-width-progress: 34%; }
+.wex-admin-field-layout__width-control[data-width-progress="35"] { --wex-admin-width-progress: 35%; }
+.wex-admin-field-layout__width-control[data-width-progress="36"] { --wex-admin-width-progress: 36%; }
+.wex-admin-field-layout__width-control[data-width-progress="37"] { --wex-admin-width-progress: 37%; }
+.wex-admin-field-layout__width-control[data-width-progress="38"] { --wex-admin-width-progress: 38%; }
+.wex-admin-field-layout__width-control[data-width-progress="39"] { --wex-admin-width-progress: 39%; }
+.wex-admin-field-layout__width-control[data-width-progress="40"] { --wex-admin-width-progress: 40%; }
+.wex-admin-field-layout__width-control[data-width-progress="41"] { --wex-admin-width-progress: 41%; }
+.wex-admin-field-layout__width-control[data-width-progress="42"] { --wex-admin-width-progress: 42%; }
+.wex-admin-field-layout__width-control[data-width-progress="43"] { --wex-admin-width-progress: 43%; }
+.wex-admin-field-layout__width-control[data-width-progress="44"] { --wex-admin-width-progress: 44%; }
+.wex-admin-field-layout__width-control[data-width-progress="45"] { --wex-admin-width-progress: 45%; }
+.wex-admin-field-layout__width-control[data-width-progress="46"] { --wex-admin-width-progress: 46%; }
+.wex-admin-field-layout__width-control[data-width-progress="47"] { --wex-admin-width-progress: 47%; }
+.wex-admin-field-layout__width-control[data-width-progress="48"] { --wex-admin-width-progress: 48%; }
+.wex-admin-field-layout__width-control[data-width-progress="49"] { --wex-admin-width-progress: 49%; }
+.wex-admin-field-layout__width-control[data-width-progress="50"] { --wex-admin-width-progress: 50%; }
+.wex-admin-field-layout__width-control[data-width-progress="51"] { --wex-admin-width-progress: 51%; }
+.wex-admin-field-layout__width-control[data-width-progress="52"] { --wex-admin-width-progress: 52%; }
+.wex-admin-field-layout__width-control[data-width-progress="53"] { --wex-admin-width-progress: 53%; }
+.wex-admin-field-layout__width-control[data-width-progress="54"] { --wex-admin-width-progress: 54%; }
+.wex-admin-field-layout__width-control[data-width-progress="55"] { --wex-admin-width-progress: 55%; }
+.wex-admin-field-layout__width-control[data-width-progress="56"] { --wex-admin-width-progress: 56%; }
+.wex-admin-field-layout__width-control[data-width-progress="57"] { --wex-admin-width-progress: 57%; }
+.wex-admin-field-layout__width-control[data-width-progress="58"] { --wex-admin-width-progress: 58%; }
+.wex-admin-field-layout__width-control[data-width-progress="59"] { --wex-admin-width-progress: 59%; }
+.wex-admin-field-layout__width-control[data-width-progress="60"] { --wex-admin-width-progress: 60%; }
+.wex-admin-field-layout__width-control[data-width-progress="61"] { --wex-admin-width-progress: 61%; }
+.wex-admin-field-layout__width-control[data-width-progress="62"] { --wex-admin-width-progress: 62%; }
+.wex-admin-field-layout__width-control[data-width-progress="63"] { --wex-admin-width-progress: 63%; }
+.wex-admin-field-layout__width-control[data-width-progress="64"] { --wex-admin-width-progress: 64%; }
+.wex-admin-field-layout__width-control[data-width-progress="65"] { --wex-admin-width-progress: 65%; }
+.wex-admin-field-layout__width-control[data-width-progress="66"] { --wex-admin-width-progress: 66%; }
+.wex-admin-field-layout__width-control[data-width-progress="67"] { --wex-admin-width-progress: 67%; }
+.wex-admin-field-layout__width-control[data-width-progress="68"] { --wex-admin-width-progress: 68%; }
+.wex-admin-field-layout__width-control[data-width-progress="69"] { --wex-admin-width-progress: 69%; }
+.wex-admin-field-layout__width-control[data-width-progress="70"] { --wex-admin-width-progress: 70%; }
+.wex-admin-field-layout__width-control[data-width-progress="71"] { --wex-admin-width-progress: 71%; }
+.wex-admin-field-layout__width-control[data-width-progress="72"] { --wex-admin-width-progress: 72%; }
+.wex-admin-field-layout__width-control[data-width-progress="73"] { --wex-admin-width-progress: 73%; }
+.wex-admin-field-layout__width-control[data-width-progress="74"] { --wex-admin-width-progress: 74%; }
+.wex-admin-field-layout__width-control[data-width-progress="75"] { --wex-admin-width-progress: 75%; }
+.wex-admin-field-layout__width-control[data-width-progress="76"] { --wex-admin-width-progress: 76%; }
+.wex-admin-field-layout__width-control[data-width-progress="77"] { --wex-admin-width-progress: 77%; }
+.wex-admin-field-layout__width-control[data-width-progress="78"] { --wex-admin-width-progress: 78%; }
+.wex-admin-field-layout__width-control[data-width-progress="79"] { --wex-admin-width-progress: 79%; }
+.wex-admin-field-layout__width-control[data-width-progress="80"] { --wex-admin-width-progress: 80%; }
+.wex-admin-field-layout__width-control[data-width-progress="81"] { --wex-admin-width-progress: 81%; }
+.wex-admin-field-layout__width-control[data-width-progress="82"] { --wex-admin-width-progress: 82%; }
+.wex-admin-field-layout__width-control[data-width-progress="83"] { --wex-admin-width-progress: 83%; }
+.wex-admin-field-layout__width-control[data-width-progress="84"] { --wex-admin-width-progress: 84%; }
+.wex-admin-field-layout__width-control[data-width-progress="85"] { --wex-admin-width-progress: 85%; }
+.wex-admin-field-layout__width-control[data-width-progress="86"] { --wex-admin-width-progress: 86%; }
+.wex-admin-field-layout__width-control[data-width-progress="87"] { --wex-admin-width-progress: 87%; }
+.wex-admin-field-layout__width-control[data-width-progress="88"] { --wex-admin-width-progress: 88%; }
+.wex-admin-field-layout__width-control[data-width-progress="89"] { --wex-admin-width-progress: 89%; }
+.wex-admin-field-layout__width-control[data-width-progress="90"] { --wex-admin-width-progress: 90%; }
+.wex-admin-field-layout__width-control[data-width-progress="91"] { --wex-admin-width-progress: 91%; }
+.wex-admin-field-layout__width-control[data-width-progress="92"] { --wex-admin-width-progress: 92%; }
+.wex-admin-field-layout__width-control[data-width-progress="93"] { --wex-admin-width-progress: 93%; }
+.wex-admin-field-layout__width-control[data-width-progress="94"] { --wex-admin-width-progress: 94%; }
+.wex-admin-field-layout__width-control[data-width-progress="95"] { --wex-admin-width-progress: 95%; }
+.wex-admin-field-layout__width-control[data-width-progress="96"] { --wex-admin-width-progress: 96%; }
+.wex-admin-field-layout__width-control[data-width-progress="97"] { --wex-admin-width-progress: 97%; }
+.wex-admin-field-layout__width-control[data-width-progress="98"] { --wex-admin-width-progress: 98%; }
+.wex-admin-field-layout__width-control[data-width-progress="99"] { --wex-admin-width-progress: 99%; }
+.wex-admin-field-layout__width-control[data-width-progress="100"] { --wex-admin-width-progress: 100%; }

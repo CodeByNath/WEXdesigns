@@ -76,11 +76,15 @@ Toggle track (background, padding, gap, radius), the Small Horizontal tab
 (typography, target size, padding, border, states, focus rings), the Toggle
 selected surface, border and shadow, and the Action Button Icon Only Small
 target and icon sizes for the icon tabs. Modes are selected by token name.
-A track holds tabs; the pressed tab is the selected look. Width is one tab that
-shows its value and a chevron, so the dropdown matches the other controllers.
-The Width popup keeps the Small Dropdown Menu surface. Consumer rules are in
-`apps/web-runtime/src/admin-station-field-controls.css`. No raw value is added
-and no existing mode changes.
+A track holds tabs; the pressed tab is the selected look. Width is a progress bar on
+the same track: the selected look is the fill and a value popover (also the selected
+look) travels along the end of the fill and becomes an editable field. Its editing look uses three
+Editor tokens added on the Owner's request (2026-11-25): `--wex-tab-navigation-editor-edit-background`
+(`--wex-color-background-accent-selected`), `-edit-foreground` (`--wex-color-on-accent-selected`) and
+`-edit-radius` (`--wex-radius-small`). Consumer rules are in
+`apps/web-runtime/src/admin-station-field-controls.css` and
+`admin-station-field-width-progress.css`. No raw value is added to the tokens and no
+existing mode changes.
 
 ## Component boundaries
 

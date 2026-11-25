@@ -171,6 +171,9 @@
   --wex-tab-navigation-editor-selected-foreground: var(--wex-tab-navigation-small-horizontal-selected-foreground);
   --wex-tab-navigation-editor-selected-border-color: var(--wex-tab-navigation-toggle-selected-border-color);
   --wex-tab-navigation-editor-selected-shadow: var(--wex-tab-navigation-toggle-selected-shadow);
+  --wex-tab-navigation-editor-edit-background: var(--wex-color-background-accent-selected);
+  --wex-tab-navigation-editor-edit-foreground: var(--wex-color-on-accent-selected);
+  --wex-tab-navigation-editor-edit-radius: var(--wex-radius-small);
   --wex-tab-navigation-editor-focus-color: var(--wex-tab-navigation-small-horizontal-focus-color);
   --wex-tab-navigation-editor-focus-outer-width: var(--wex-tab-navigation-small-horizontal-focus-outer-width);
   --wex-tab-navigation-editor-focus-inner-width: var(--wex-tab-navigation-small-horizontal-focus-inner-width);

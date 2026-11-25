@@ -62,60 +62,24 @@
   gap: var(--wex-space-12);
 }
 
-/* Width's compact controls use the registered Small Dropdown Menu surface. */
-.wex-admin-field-layout__width-control,
+/* Row's prompt uses the registered Small Dropdown Menu surface. */
 .wex-admin-field-layout__row-control {
   position: relative;
 }
 
-.wex-admin-field-layout__width-options,
 .wex-admin-field-layout__row-options {
   position: absolute;
   z-index: 1;
-  inset-block-start: calc(100% + var(--wex-space-4));
   inset-inline-end: 0;
-}
-
-.wex-admin-field-layout__row-options {
   inline-size: max-content;
-  inset-block-start: auto;
   inset-block-end: calc(100% + var(--wex-space-4));
 }
 
-.wex-admin-field-layout__width-options[hidden],
 .wex-admin-field-layout__row-options[hidden] {
   display: none;
 }
 
-.wex-admin-field-layout__width-inputs {
-  display: flex;
-  inline-size: max-content;
-  align-items: center;
-  gap: var(--wex-space-8);
-}
-
-.wex-admin-field-layout__width-inputs > .wex-search-input {
-  flex: 0 0 auto;
-}
-
-.wex-admin-field-layout__range-group {
-  display: grid;
-  gap: var(--wex-space-4);
-  min-inline-size: 0;
-}
-
-.wex-admin-field-layout__range-group input {
-  margin: 0;
-  accent-color: var(--wex-color-background-accent);
-}
-
-.wex-admin-field-layout__range-labels {
-  display: flex;
-  justify-content: space-between;
-  color: var(--wex-color-text-secondary);
-}
-
-/* The three icon controllers keep their established space above (Width's value tab sits on the label line). */
+/* The three icon controllers keep their established space above (Width's progress bar brings its own popover room). */
 .wex-admin-field-option > .wex-admin-editor-control {
   margin-block-start: var(--wex-space-12);
 }

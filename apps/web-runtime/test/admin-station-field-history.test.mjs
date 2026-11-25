@@ -6,9 +6,9 @@ const read = (name) => readFileSync(new URL(`../src/${name}`, import.meta.url), 
 
 test('every layout control records its change as a history step; a width drag is one step per field', () => {
   const options = read('admin-station-field-options.js');
-  assert.equal((options.match(/trackFieldChange\(/g) ?? []).length, 3);
-  assert.match(options, /trackFieldChange\(editor, \(\) => \{ layout\.width = String\(parsed\); apply\(\); \}, selected\)/);
-  assert.match(options, /endChangeGroup\(editor\);\s*refresh\(\);/);
+  assert.equal((options.match(/trackFieldChange\(/g) ?? []).length, 4);
+  assert.match(options, /trackFieldChange\(editor, \(\) => \{ layout\.width = range\.value; apply\(\); \}, selected\)/);
+  assert.match(options, /addEventListener\('change', \(\) => endChangeGroup\(editor\)\)/);
   assert.match(read('admin-station-field-row-control.js'), /trackFieldChange\(editor, \(\) => writeItems\(editor, next, resetWidth\)\)/);
 });
 
