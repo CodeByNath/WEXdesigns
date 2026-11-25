@@ -67,6 +67,21 @@ tabs keep their position and radius. The Drawer notifications opt in with
 that the selected tab moves to the first place once its notifications load,
 opted into by the Drawer only.
 
+## Owner-directed Editor mode — 2026-11-24
+
+The Owner asked for one look for the Drawer Editor's four property controllers
+(Width, Position, Alignment and Row) and authorised a new Editor mode of this
+family. `--wex-tab-navigation-editor-*` points only at existing tokens: the
+Toggle track (background, padding, gap, radius), the Small Horizontal tab
+(typography, target size, padding, border, states, focus rings), the Toggle
+selected surface, border and shadow, and the Action Button Icon Only Small
+target and icon sizes for the icon tabs. Modes are selected by token name.
+A track holds tabs; the pressed tab is the selected look. Width is one tab that
+shows its value and a chevron, so the dropdown matches the other controllers.
+The Width popup keeps the Small Dropdown Menu surface. Consumer rules are in
+`apps/web-runtime/src/admin-station-field-controls.css`. No raw value is added
+and no existing mode changes.
+
 ## Component boundaries
 
 This registers a presentation token family only. It does not register a Global

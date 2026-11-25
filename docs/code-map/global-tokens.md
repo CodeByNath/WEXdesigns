@@ -18,6 +18,12 @@
   `packages/wex/test/action-button-label-only-foundation.test.mjs`. The Drawer
   consumes primary accent and the existing Dropdown Menu Default.
 
+- 2026-11-24: Tab Navigation gains mode Editor: `--wex-tab-navigation-editor-*` in
+  `packages/wex/src/foundations/tab-navigation.css` (ADR 0027), all pointing at existing
+  Toggle, Small Horizontal and Action Button Icon Only Small tokens. The Drawer Editor's
+  Width, Position, Alignment and Row controllers consume it through
+  `apps/web-runtime/src/admin-station-field-controls.css`; Width is one value tab with a
+  chevron. Test: `admin-station-field-controls.test.mjs`.
 - 2026-11-10: WEX Overlay, mode Glass: `--wex-overlay-glass-tint` (35%),
   `-background`, `-blur` (1px) and `-radius` in
   `packages/wex/src/foundations/overlay.css` (ADR 0036). The Drawer overlay

@@ -140,6 +140,43 @@
   --wex-tab-navigation-small-dropdown-focus-gap: var(--wex-tab-navigation-small-focus-gap);
   --wex-tab-navigation-small-dropdown-focus-gap-color: var(--wex-tab-navigation-small-focus-gap-color);
 
+  /* WEX Tab Navigation Editor mode (Owner-directed, 2026-11-24): the Editor's property controllers
+   * (Width, Position, Alignment, Row). A Toggle track holding Small Horizontal tabs; Width is one tab
+   * that shows its value and a chevron. Every token points to an existing Tab Navigation, Toggle or
+   * Action Button Icon Only token. */
+  --wex-tab-navigation-editor-track-background: var(--wex-tab-navigation-toggle-track-background);
+  --wex-tab-navigation-editor-track-padding: var(--wex-tab-navigation-toggle-padding);
+  --wex-tab-navigation-editor-track-gap: var(--wex-tab-navigation-toggle-gap);
+  --wex-tab-navigation-editor-track-radius: var(--wex-tab-navigation-toggle-radius);
+  --wex-tab-navigation-editor-font-family: var(--wex-tab-navigation-small-horizontal-font-family);
+  --wex-tab-navigation-editor-font-size: var(--wex-tab-navigation-small-horizontal-font-size);
+  --wex-tab-navigation-editor-line-height: var(--wex-tab-navigation-small-horizontal-line-height);
+  --wex-tab-navigation-editor-letter-spacing: var(--wex-tab-navigation-small-horizontal-letter-spacing);
+  --wex-tab-navigation-editor-font-weight: var(--wex-tab-navigation-small-horizontal-font-weight);
+  --wex-tab-navigation-editor-target-size: var(--wex-tab-navigation-small-horizontal-target-size);
+  --wex-tab-navigation-editor-icon-target-size: var(--wex-action-button-icon-only-small-target-size);
+  --wex-tab-navigation-editor-icon-size: var(--wex-action-button-icon-only-small-icon-size);
+  --wex-tab-navigation-editor-gap: var(--wex-tab-navigation-small-horizontal-gap);
+  --wex-tab-navigation-editor-padding-block: var(--wex-tab-navigation-small-horizontal-padding-block);
+  --wex-tab-navigation-editor-padding-inline: var(--wex-tab-navigation-small-horizontal-padding-inline);
+  --wex-tab-navigation-editor-radius: var(--wex-tab-navigation-toggle-radius);
+  --wex-tab-navigation-editor-border-width: var(--wex-tab-navigation-small-horizontal-border-width);
+  --wex-tab-navigation-editor-background: var(--wex-tab-navigation-small-horizontal-background);
+  --wex-tab-navigation-editor-foreground: var(--wex-tab-navigation-small-horizontal-foreground);
+  --wex-tab-navigation-editor-border-color: var(--wex-tab-navigation-small-horizontal-border-color);
+  --wex-tab-navigation-editor-hover-background: var(--wex-tab-navigation-small-horizontal-hover-background);
+  --wex-tab-navigation-editor-hover-foreground: var(--wex-tab-navigation-small-horizontal-hover-foreground);
+  --wex-tab-navigation-editor-hover-border-color: var(--wex-tab-navigation-small-horizontal-hover-border-color);
+  --wex-tab-navigation-editor-selected-background: var(--wex-tab-navigation-toggle-selected-background);
+  --wex-tab-navigation-editor-selected-foreground: var(--wex-tab-navigation-small-horizontal-selected-foreground);
+  --wex-tab-navigation-editor-selected-border-color: var(--wex-tab-navigation-toggle-selected-border-color);
+  --wex-tab-navigation-editor-selected-shadow: var(--wex-tab-navigation-toggle-selected-shadow);
+  --wex-tab-navigation-editor-focus-color: var(--wex-tab-navigation-small-horizontal-focus-color);
+  --wex-tab-navigation-editor-focus-outer-width: var(--wex-tab-navigation-small-horizontal-focus-outer-width);
+  --wex-tab-navigation-editor-focus-inner-width: var(--wex-tab-navigation-small-horizontal-focus-inner-width);
+  --wex-tab-navigation-editor-focus-gap: var(--wex-tab-navigation-small-horizontal-focus-gap);
+  --wex-tab-navigation-editor-focus-gap-color: var(--wex-tab-navigation-small-horizontal-focus-gap-color);
+
   /* WEX Tab Navigation Large */
   --wex-tab-navigation-large-font-family: var(--wex-type-navigation-large-font-family);
   --wex-tab-navigation-large-font-size: var(--wex-type-navigation-large-font-size);
