@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
+import { commitFieldChanges, fieldChangeCount, trackFieldChange, undoFieldChange } from '../src/admin-station-field-history.js';
 
 const read = (name) => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8');
 
@@ -29,5 +30,29 @@ test('the Editor footer follows the steps: one left chevron goes back a step, Di
   assert.match(footer, /undoFieldChange\(editor\)/);
   assert.match(footer, /setEditorFooterState\(footer, \{ dirty: steps > 0, publishable: steps > 0 \}\);\s*undo\.disabled = steps === 0;\s*if \(steps === 0\) close\(\);/);
   assert.match(footer, /=== 'discard' && editor\) undoAllFieldChanges\(editor\)/);
+  assert.match(footer, /=== 'publish' && editor\) commitFieldChanges\(editor\)/);
   assert.match(read('admin-station-form-builder.js'), /ADMIN_FIELD_HISTORY_EVENT[\s\S]*event\.detail\?\.restored\) syncEditor\(drawer\)/);
+});
+
+test('Publish keeps the layout as the new starting point and leaves no steps', () => {
+  const attributes = new Map();
+  const field = {
+    nextSibling: null,
+    getAttribute: (name) => attributes.get(name) ?? null,
+    setAttribute: (name, value) => attributes.set(name, value),
+    removeAttribute: (name) => attributes.delete(name),
+  };
+  const seen = [];
+  const editor = {
+    querySelectorAll: () => [field],
+    insertBefore: () => {},
+    dispatchEvent: (event) => seen.push(event.detail),
+  };
+  trackFieldChange(editor, () => field.setAttribute('data-field-alignment', 'center'));
+  assert.equal(fieldChangeCount(editor), 1);
+  commitFieldChanges(editor);
+  assert.equal(fieldChangeCount(editor), 0);
+  assert.deepEqual(seen.at(-1), { steps: 0, restored: false });
+  assert.equal(field.getAttribute('data-field-alignment'), 'center');
+  assert.equal(undoFieldChange(editor), false);
 });

@@ -95,6 +95,15 @@ export function undoAllFieldChanges(editor) {
   notify(editor, true);
 }
 
+/** The current layout becomes the new starting point (Publish): no steps left, nothing is restored.
+ * @param {Element} editor */
+export function commitFieldChanges(editor) {
+  const history = historyOf(editor);
+  history.steps = [];
+  history.group = null;
+  notify(editor, false);
+}
+
 /** @param {Element} editor */
 export function fieldChangeCount(editor) {
   return historyOf(editor).steps.length;

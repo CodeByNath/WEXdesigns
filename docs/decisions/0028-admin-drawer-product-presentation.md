@@ -537,8 +537,8 @@ A change that leaves the layout as it was is not a step, and a drag of the Width
 Width counts as one step until the pointer or key is released. While there are steps the footer button offers
 Publish (main), Save and Discard; a single left chevron before it goes back one step at a time;
 Discard goes back to the starting layout; with no steps left the chevron and the button are
-disabled again. Publish and Save only emit their events, as before: the requester reports
-completion, so the steps stay until then. Cancel is unchanged. No persistence or host integration.
+disabled again. Publish emits its event, then the published layout is the new starting point: no
+steps, button disabled (Owner-directed, 2026-11-26). Save only emits; Cancel unchanged. No persistence.
 
 ### Editor mode controllers (Owner-directed, 2026-11-24)
 

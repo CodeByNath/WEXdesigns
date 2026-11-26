@@ -23,7 +23,7 @@
   change history (`admin-station-field-history.js`). The Editor footer reads it: untouched
   keeps the button disabled, a change enables Publish, Save and Discard, one left chevron
   goes back a step at a time (a width drag is one step), Discard goes back to the start, and
-  with no steps left the button is disabled again. Tests: `admin-station-field-history.test.mjs`.
+  with no steps left (also after Publish) the button is disabled. Tests: `admin-station-field-history.test.mjs`.
 
 - 2026-11-24: Layout adds Row (Up, Down, Reverse) in the same Small Horizontal Toggle
   as Position and Alignment. Up/Down move the selected field between rows; passing a lone

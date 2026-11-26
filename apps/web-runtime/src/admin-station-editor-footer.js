@@ -1,7 +1,7 @@
 import { createSystemIcon } from './admin-station-system-icons.js';
 import { drawerActionChoices } from './admin-station-drawer-footer.js';
 import { resetFormBuilder } from './admin-station-form-builder.js';
-import { ADMIN_FIELD_HISTORY_EVENT, undoAllFieldChanges, undoFieldChange } from './admin-station-field-history.js';
+import { ADMIN_FIELD_HISTORY_EVENT, commitFieldChanges, undoAllFieldChanges, undoFieldChange } from './admin-station-field-history.js';
 
 export const ADMIN_EDITOR_SAVE_EVENT = 'wex:admin-editor-save';
 export const ADMIN_EDITOR_DISCARD_EVENT = 'wex:admin-editor-discard';
@@ -28,7 +28,8 @@ function editorOf(footer) {
  * otherwise Save leads and Publish stays listed, disabled. Cancel leaves the builder. The Editor
  * supplies availability with `setEditorFooterState`; the footer never infers readiness. Field layout
  * changes are reported by the change history (`admin-station-field-history.js`): each change is a step,
- * the chevron undoes one step, Discard undoes them all, and with no steps left the button is disabled.
+ * the chevron undoes one step, Discard undoes them all, Publish keeps the layout as the new starting
+ * point, and with no steps left the button is disabled.
  * Built from the existing Button, Action Button Label Only Small Menu and Dropdown Menu classes.
  * @param {Document} document
  */
@@ -117,6 +118,7 @@ export function createEditorFooter(document) {
       if (found) footer.dispatchEvent(new CustomEvent(found[2], { bubbles: true }));
       const editor = editorOf(footer);
       if (item.dataset.adminEditorAction === 'discard' && editor) undoAllFieldChanges(editor);
+      if (item.dataset.adminEditorAction === 'publish' && editor) commitFieldChanges(editor);
       toggle.focus();
     });
   }
