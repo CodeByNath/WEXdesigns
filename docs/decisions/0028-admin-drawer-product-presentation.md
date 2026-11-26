@@ -569,3 +569,8 @@ shrink to nothing) were squeezed to their 4px padding and seemed to disappear.
 The whole accordion row toggles its section: a click on the section's own padding (around the header,
 not inside an open panel) acts as a click on the header, so the row is as tall as it looks. The header
 stays the keyboard and screen reader control.
+
+### Editor unit reaches its footer (2026-11-26)
+
+The Editor unit runs down to the Editor footer: no shell gap or unit padding below it. That empty
+band clipped the scrolling panel (`admin-station-editor-footer.css`).

@@ -177,3 +177,9 @@ test('the whole accordion row toggles its section, not only the header button', 
   assert.match(read('admin-station-form-builder.js'), /section\.addEventListener\('click', \(event\) => \{ if \(event\.target === section\) header\.click\(\); \}\)/);
   assert.match(read('admin-station-form-builder.css'), /\.wex-admin-accordion \{\s*cursor: pointer;/);
 });
+
+test('the Editor unit runs down to the footer, with no empty band above it', () => {
+  const css = read('admin-station-editor-footer.css');
+  assert.match(css, /drawer-connections:has\(\[data-editor-active\]\) \{\s*row-gap: 0;/);
+  assert.match(css, /\.wex-admin-drawer-section\[data-editor-active\] \{\s*padding-block-end: 0;/);
+});

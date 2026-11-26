@@ -37,3 +37,13 @@
 .wex-admin-drawer-section[data-admin-drawer-unit="quick-actions"] {
   align-content: start;
 }
+
+/* With the Editor open the unit runs down to the footer: no shell gap or unit padding below it, so the
+ * scrolling panel is not clipped by an empty band above the footer line. */
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections:has([data-editor-active]) {
+  row-gap: 0;
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections > .wex-admin-drawer-section[data-editor-active] {
+  padding-block-end: 0;
+}
