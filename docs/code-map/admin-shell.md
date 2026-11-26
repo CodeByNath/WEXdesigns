@@ -46,7 +46,7 @@
   `admin-station-field-options.test.mjs`. Earlier position/alignment proof retained.
 
 - 2026-11-24: Editor heading follows the selected field label, with “(Field)”
-  and the edit glyph before it; an On/Off switch ends the row
+  and the edit glyph before it; an On/Off switch ends the row (Off: per service)
   (`admin-station-field-status.js`/`.css`, its test). Desktop accordion borders span the connections
   shell while labels keep their content insets (`admin-station-form-builder.js`
   and `.css`, `admin-station-system-icons.js`; ADR 0028 Form Builder).

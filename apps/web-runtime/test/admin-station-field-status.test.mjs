@@ -27,3 +27,50 @@ test('On takes the blue accent, Off is grey with the knob first, existing tokens
   assert.doesNotMatch(css, /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-field-status\.css";/);
 });
+
+const fakeForm = (names) => {
+  const fields = names.map((name) => {
+    const attributes = new Map();
+    return {
+      name,
+      querySelector: () => ({ getAttribute: () => name }),
+      getAttribute: (key) => attributes.get(key) ?? null,
+      setAttribute: (key, value) => attributes.set(key, value),
+    };
+  });
+  const listeners = [];
+  return {
+    fields,
+    querySelectorAll: () => fields,
+    addEventListener: (_, listener) => listeners.push(listener),
+    report: () => listeners.forEach((listener) => listener()),
+  };
+};
+
+test('an off field is kept for its own service only: another service on the same form still has it', async () => {
+  const { keepFieldStatus } = await import('../src/admin-station-field-status.js');
+  const status = (form) => form.fields.map((field) => field.getAttribute('data-field-status'));
+  const first = fakeForm(['name', 'price']);
+  keepFieldStatus(first, 'service-a');
+  first.fields[1].setAttribute('data-field-status', 'off');
+  first.report();
+  const reopened = fakeForm(['name', 'price']);
+  keepFieldStatus(reopened, 'service-a');
+  assert.deepEqual(status(reopened), [null, 'off']);
+  const other = fakeForm(['name', 'price']);
+  keepFieldStatus(other, 'service-b');
+  assert.deepEqual(status(other), [null, null]);
+  reopened.fields[1].setAttribute('data-field-status', 'on');
+  reopened.report();
+  const back = fakeForm(['name', 'price']);
+  keepFieldStatus(back, 'service-a');
+  assert.deepEqual(status(back), [null, null]);
+});
+
+test('off disables the Editor, leaves the form and stays faint in Form Editor', () => {
+  assert.match(read('admin-station-form-builder.js'), /unit\.toggleAttribute\('data-field-off', off\);[\s\S]*part\.inert = off;/);
+  assert.match(read('admin-station-product-overview-editor.js'), /keepFieldStatus\(section, product\.id\);/);
+  const css = read('admin-station-field-status.css');
+  assert.match(css, /\[data-field-off\] > :is\(\.wex-admin-form-tabs, \.wex-admin-form-tab-panels\) \{\s*opacity: var\(--wex-opacity-disabled\);/);
+  assert.match(css, /:not\(:has\(\.wex-admin-form-builder\[aria-pressed="true"\]\)\) \.wex-admin-product-editor > \[data-field-status="off"\] \{\s*display: none;/);
+});

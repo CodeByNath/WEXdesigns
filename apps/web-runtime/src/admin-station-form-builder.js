@@ -183,6 +183,18 @@ function syncEditor(drawer) {
   for (const part of unit.querySelectorAll('.wex-admin-form-tabs, .wex-admin-form-tab-panels')) {
     if (part instanceof HTMLElement) part.hidden = !open;
   }
+  syncFieldOff(drawer);
+}
+
+/** A field switched off has its Editor tabs and panels disabled; its switch stays live. @param {Element} drawer */
+function syncFieldOff(drawer) {
+  const unit = drawer.querySelector('[data-admin-drawer-unit="quick-actions"]');
+  if (!unit) return;
+  const off = drawer.querySelector('[data-form-builder-selected]')?.getAttribute('data-field-status') === 'off';
+  unit.toggleAttribute('data-field-off', off);
+  for (const part of unit.querySelectorAll('.wex-admin-form-tabs, .wex-admin-form-tab-panels')) {
+    if (part instanceof HTMLElement) part.inert = off;
+  }
 }
 
 /** While the builder is active a click on a field selects it (one at a time); the stylesheet draws it. @param {Element} drawer */
@@ -192,6 +204,7 @@ function listenForSelection(drawer) {
   /* Going back a step restores attributes and order, so the selected field's controls are rebuilt from them. */
   drawer.addEventListener(ADMIN_FIELD_HISTORY_EVENT, (event) => {
     if (event instanceof CustomEvent && event.detail?.restored) syncEditor(drawer);
+    else syncFieldOff(drawer);
   });
   drawer.addEventListener('click', (event) => {
     if (!drawer.querySelector('[data-admin-form-builder][aria-pressed="true"]')) return;

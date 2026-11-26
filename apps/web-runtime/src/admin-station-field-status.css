@@ -71,3 +71,18 @@
   inset: var(--wex-tab-navigation-editor-focus-inner-width);
   border: var(--wex-tab-navigation-editor-focus-gap) solid var(--wex-tab-navigation-editor-focus-gap-color);
 }
+
+/* A field switched off: its Editor is disabled (also inert in script). */
+[data-field-off] > :is(.wex-admin-form-tabs, .wex-admin-form-tab-panels) {
+  opacity: var(--wex-opacity-disabled);
+}
+
+/* An off field leaves the form. While Form Editor is on it stays, faint even when hovered or selected,
+ * so it can be selected and switched back on. */
+.wex-admin-shell__drawer:not(:has(.wex-admin-form-builder[aria-pressed="true"])) .wex-admin-product-editor > [data-field-status="off"] {
+  display: none;
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > .wex-admin-outlined-field[data-field-status="off"] {
+  opacity: var(--wex-opacity-disabled);
+}
