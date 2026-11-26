@@ -1,0 +1,73 @@
+/* The selected field's On / Off switch (WEX Tab Navigation Editor mode type, shadow and focus ring): a small
+ * pill holding the state word and a round knob. Off puts the knob first, so it moves across with the state. */
+.wex-admin-field-status {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  inline-size: var(--wex-space-64);
+  block-size: var(--wex-space-24);
+  margin: 0;
+  padding: 0 calc(var(--wex-space-4) - var(--wex-tab-navigation-editor-border-width));
+  border: var(--wex-tab-navigation-editor-border-width) solid var(--wex-tab-navigation-editor-border-color);
+  border-radius: calc(var(--wex-space-24) / 2);
+  background: var(--wex-color-background-accent);
+  color: var(--wex-color-on-accent);
+  font-family: var(--wex-tab-navigation-editor-font-family);
+  font-size: var(--wex-tab-navigation-editor-font-size);
+  font-weight: var(--wex-tab-navigation-editor-font-weight);
+  letter-spacing: var(--wex-tab-navigation-editor-letter-spacing);
+  line-height: var(--wex-tab-navigation-editor-line-height);
+  outline: none;
+  cursor: pointer;
+}
+
+.wex-admin-field-status[aria-checked="false"] {
+  flex-direction: row-reverse;
+  background: var(--wex-color-surface-selected);
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-field-status__word {
+  flex: 1 1 auto;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.wex-admin-field-status__knob {
+  flex: 0 0 auto;
+  inline-size: var(--wex-space-16);
+  block-size: var(--wex-space-16);
+  border-radius: var(--wex-action-button-icon-only-circular-radius);
+  background: var(--wex-color-on-accent);
+  box-shadow: var(--wex-tab-navigation-editor-selected-shadow);
+}
+
+.wex-admin-field-status:active,
+.wex-admin-field-status:focus-visible {
+  border-color: var(--wex-tab-navigation-editor-focus-color);
+}
+
+.wex-admin-field-status:active::after,
+.wex-admin-field-status:focus-visible::after,
+.wex-admin-field-status:active::before,
+.wex-admin-field-status:focus-visible::before {
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+  border-radius: inherit;
+  content: '';
+}
+
+.wex-admin-field-status:active::after,
+.wex-admin-field-status:focus-visible::after {
+  inset: 0;
+  border: var(--wex-tab-navigation-editor-focus-inner-width) solid var(--wex-tab-navigation-editor-focus-color);
+}
+
+.wex-admin-field-status:active::before,
+.wex-admin-field-status:focus-visible::before {
+  inset: var(--wex-tab-navigation-editor-focus-inner-width);
+  border: var(--wex-tab-navigation-editor-focus-gap) solid var(--wex-tab-navigation-editor-focus-gap-color);
+}

@@ -1,14 +1,14 @@
 /**
- * Change history for the Editor's field layout (Width, Position, Alignment, Row). Each change is one
+ * Change history for the Editor's field layout (Width, Position, Alignment, Row) and status. Each change is one
  * step; the Editor footer reads the step count (steps = edited, none = untouched) and goes back one
  * step at a time. The state lives in closed data attributes and the field order, so a step is a
  * snapshot of those: no inline CSS, nothing is persisted.
  */
 export const ADMIN_FIELD_HISTORY_EVENT = 'wex:admin-field-history';
 
-const ATTRIBUTES = ['data-field-width', 'data-field-position', 'data-field-alignment', 'data-field-row', 'data-field-row-reverse'];
+const ATTRIBUTES = ['data-field-width', 'data-field-position', 'data-field-alignment', 'data-field-row', 'data-field-row-reverse', 'data-field-status'];
 /** A missing attribute means the default, so selecting a field (which writes defaults) is not a change. */
-const DEFAULTS = ['default', 'stretch', 'left', null, null];
+const DEFAULTS = ['default', 'stretch', 'left', null, null, 'on'];
 
 /** @typedef {{ field: Element, values: Array<string | null> }[]} Snapshot */
 /** @type {WeakMap<Element, { steps: Snapshot[], group: unknown }>} */

@@ -15,7 +15,7 @@ test('every layout control records its change as a history step; a width drag is
 test('a step is a snapshot of the closed layout attributes and the field order; defaults are not changes', () => {
   const history = read('admin-station-field-history.js');
   assert.match(history, /'data-field-width', 'data-field-position', 'data-field-alignment', 'data-field-row', 'data-field-row-reverse'/);
-  assert.match(history, /DEFAULTS = \['default', 'stretch', 'left', null, null\]/);
+  assert.match(history, /DEFAULTS = \['default', 'stretch', 'left', null, null, 'on'\]/);
   assert.match(history, /if \(same\(before, snapshot\(editor\)\)\) return;/);
   assert.match(history, /editor\.insertBefore\(field, anchor\)/);
   assert.doesNotMatch(history, /\.style\b|style=|cssText/);

@@ -1,6 +1,7 @@
 import { createSystemIcon } from './admin-station-system-icons.js';
 import { createFieldOptions } from './admin-station-field-options.js';
 import { ADMIN_FIELD_HISTORY_EVENT } from './admin-station-field-history.js';
+import { createFieldStatus } from './admin-station-field-status.js';
 
 /** Layout holds selected-field options; Advanced remains empty. */
 const generalSections = ['Layout', 'Advanced'];
@@ -20,6 +21,10 @@ export function createQuickActions(document) {
   const heading = document.createElement('h2');
   heading.className = 'wex-admin-quick-actions__heading wex-type-navigation-small-semibold';
   heading.textContent = 'Quick actions';
+  /* The label row: the heading, and the selected field's status switch at its end. */
+  const header = document.createElement('div');
+  header.className = 'wex-admin-quick-actions__header';
+  header.append(heading);
   const general = createGeneralPanel(document);
   const global = document.createElement('div');
   global.className = 'wex-admin-form-tab-panel';
@@ -29,7 +34,7 @@ export function createQuickActions(document) {
   panels.className = 'wex-admin-form-tab-panels';
   panels.hidden = true;
   panels.append(general, global);
-  unit.append(heading, createFormBuilderCard(document), createEditorTabs(document, panels), panels);
+  unit.append(header, createFormBuilderCard(document), createEditorTabs(document, panels), panels);
   return unit;
 }
 
@@ -170,8 +175,10 @@ function syncEditor(drawer) {
       icon.setAttribute('aria-hidden', 'false');
       icon.setAttribute('role', 'img');
       icon.setAttribute('aria-label', 'Edit');
-      heading.append(name, icon);
+      heading.append(icon, name);
     } else heading.textContent = label;
+    heading.parentElement?.querySelector('.wex-admin-field-status')?.remove();
+    if (selected) heading.after(createFieldStatus(heading.ownerDocument, selected));
   }
   for (const part of unit.querySelectorAll('.wex-admin-form-tabs, .wex-admin-form-tab-panels')) {
     if (part instanceof HTMLElement) part.hidden = !open;

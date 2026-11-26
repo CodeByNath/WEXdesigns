@@ -131,10 +131,19 @@
   display: none;
 }
 
-.wex-admin-quick-actions__heading {
+.wex-admin-quick-actions__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--wex-space-8);
+}
+
+/* The edit icon leads the field label, both at the start of the row. */
+.wex-admin-quick-actions__heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-inline-size: 0;
   gap: var(--wex-space-8);
   min-block-size: var(--wex-button-small-target-size);
   margin: 0;

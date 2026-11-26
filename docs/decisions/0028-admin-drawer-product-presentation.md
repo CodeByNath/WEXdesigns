@@ -574,3 +574,14 @@ stays the keyboard and screen reader control.
 
 The Editor unit runs down to the Editor footer: no shell gap or unit padding below it. That empty
 band clipped the scrolling panel (`admin-station-editor-footer.css`).
+
+### Selected-field label row and status switch (2026-11-26)
+
+Owner refinement: the edit glyph moves from the end of the row to before the selected field's label,
+`--wex-space-8` apart, both aligned at the start. The row ends with a small On/Off switch in the WEX
+Tab Navigation Editor mode (type, selected shadow, focus ring): one pill `--wex-space-64` by
+`--wex-space-24` holding the state word (shown in uppercase) and a round `--wex-space-16` knob, with no track space outside
+it. On (the default): `--wex-color-background-accent`, the word first and the knob at the end. Off:
+`--wex-color-surface-selected` with primary text, the knob at the start and the word after it. The
+state is `data-field-status` on the field; a press is one history step, so the Editor footer enables
+and can go back. No new token or Global Component (`admin-station-field-status.js`/`.css`).
