@@ -29,8 +29,8 @@ test('the Editor footer follows the steps: one left chevron goes back a step, Di
   assert.match(footer, /undo\.disabled = true;/);
   assert.match(footer, /undoFieldChange\(editor\)/);
   assert.match(footer, /setEditorFooterState\(footer, \{ dirty: steps > 0, publishable: steps > 0 \}\);\s*undo\.disabled = steps === 0;\s*if \(steps === 0\) close\(\);/);
-  assert.match(footer, /=== 'discard' && editor\) undoAllFieldChanges\(editor\)/);
-  assert.match(footer, /=== 'publish' && editor\) commitFieldChanges\(editor\)/);
+  assert.match(footer, /if \(found\[0\] === 'discard'\) \{[\s\S]*?undoAllFieldChanges\(editor\);/);
+  assert.match(footer, /result\.ok && action === 'publish' && sameConfiguration\(editor, result\.configuration\)\) commitFieldChanges\(editor\)/);
   assert.match(read('admin-station-form-builder.js'), /ADMIN_FIELD_HISTORY_EVENT[\s\S]*event\.detail\?\.restored\) syncEditor\(drawer\)/);
 });
 

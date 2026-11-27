@@ -104,6 +104,16 @@ export function commitFieldChanges(editor) {
   notify(editor, false);
 }
 
+/** A restored configuration becomes the starting point: the change runs, no steps are kept, and listeners
+ * rebuild from it as after a step back. @param {Element} editor @param {() => void} change */
+export function replaceFieldBaseline(editor, change) {
+  const history = historyOf(editor);
+  change();
+  history.steps = [];
+  history.group = null;
+  notify(editor, true);
+}
+
 /** @param {Element} editor */
 export function fieldChangeCount(editor) {
   return historyOf(editor).steps.length;

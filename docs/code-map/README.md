@@ -45,6 +45,8 @@ If source moves or a map becomes stale, source and governing authority win. Corr
   Admin Station shell and its first reusable child component.
 - [Admin Shell](admin-shell.md) — navigation to the Admin Station runtime
   layout.
+- [Form configuration](form-configuration.md) — Form Editor / Renderer
+  configuration schema and host storage adapter contract.
 - [Drawer product preview](admin-drawer-product-preview.md) — current combo and
   Single sections, content provenance, styling audit and released preview evidence.
 - [Identity Station](identity-station.md) — navigation to the WEX UI

@@ -2,6 +2,7 @@ import { createOutlinedField } from './admin-station-outlined-field.js';
 import { setAdminDrawerActionState } from './admin-station-drawer-footer.js';
 import { productSummaryFixture } from './admin-station-product-summary.js';
 import { keepFieldStatus } from './admin-station-field-status.js';
+import { formConfigurationAdapterFor, restoreFormConfiguration } from './admin-station-form-configuration.js';
 
 /** The Overview fields the editor offers, from the Product Summary values. Platform ID is system-owned (read only); Rating, Type and Labels are not edited here yet. Every editable field is required: Publish stays disabled while one is empty. */
 const overviewFields = [
@@ -28,10 +29,14 @@ export function createProductOverviewEditor(shell, product = productSummaryFixtu
   section.className = 'wex-admin-product-editor';
   section.dataset.adminProductEditor = 'overview';
   section.setAttribute('aria-label', 'Overview editor');
+  /* The Form configuration key: this form, for this record. The published configuration is restored from the host adapter. */
+  section.dataset.formId = 'overview';
+  section.dataset.formScope = product.id;
   for (const { key, ...field } of overviewFields) {
     section.append(createOutlinedField(document, { ...field, value: String(product[/** @type {keyof typeof product} */ (key)] ?? '') }));
   }
   keepFieldStatus(section, product.id);
+  void restoreFormConfiguration(section, formConfigurationAdapterFor(shell));
   const sync = () => {
     for (const input of section.querySelectorAll('textarea')) input.setAttribute('aria-invalid', String(input.required && input.value.trim() === ''));
     setAdminDrawerActionState(shell, overviewEditorState(section));

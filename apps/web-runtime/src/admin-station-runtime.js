@@ -2,6 +2,7 @@ import { createLogoRenderDescription } from '@weerax/ui';
 
 import { mountAdminBodyShell } from './admin-station-body.js';
 import { mountAdminDrawerShell } from './admin-station-drawer.js';
+import { setFormConfigurationAdapter } from './admin-station-form-configuration.js';
 import { mountHeaderResultsShell } from './admin-station-header-results.js';
 import { mountHeaderLocation } from './admin-station-location.js';
 import { mountHeaderNavActions } from './admin-station-nav-actions.js';
@@ -15,14 +16,17 @@ const logoFixture = { label: 'Logo' };
 /**
  * Applies the existing WEX Admin Station behaviour to one already-mounted
  * shell. It owns presentation mechanics only; it has no host, identity, or
- * persistence behaviour.
+ * persistence behaviour. A host may supply a Form configuration storage adapter;
+ * WEX only calls it (`admin-station-form-configuration.js`).
  * @param {HTMLElement} shell
  * @param {{
  *   logoProperties?: import('@weerax/schemas').LogoPresentationPropertiesInput,
  *   primaryActionProperties?: import('@weerax/schemas').HeaderPrimaryActionPresentationPropertiesInput,
+ *   formConfigurationAdapter?: unknown,
  * }} [options]
  */
 export function initialiseAdminStation(shell, options = {}) {
+  setFormConfigurationAdapter(shell, options.formConfigurationAdapter);
   const documentRoot = shell.ownerDocument.documentElement;
   const view = shell.ownerDocument.defaultView;
   mountAdminBodyShell(shell);

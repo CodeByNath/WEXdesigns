@@ -29,6 +29,7 @@ presentation authority and explicit domain ownership.
 - [0036: WEX Overlay Global Tokens](0036-wex-overlay-global-tokens.md)
 
 - [0038: WEX Action Button Label Only Global Tokens](0038-wex-action-button-label-only-global-tokens.md)
+- [0039: WEX Form Configuration Contract](0039-wex-form-configuration-contract.md)
 
 ## Proposed
 

@@ -30,6 +30,13 @@
         if (shell instanceof HTMLElement) queueMicrotask(() => setAdminDrawerActionState(shell, actionState));
       }, true);
     </script>
+    <script type="module">
+      // Fixture-only Form configuration storage: the test adapter over sessionStorage, so a published
+      // configuration survives a refresh. ?formStorage=fail rejects Save/Publish; ?formStorage=off supplies none.
+      import { createTestFormConfigurationAdapter } from './form-configuration-test-adapter.js';
+      const formStorage = new URLSearchParams(location.search).get('formStorage');
+      if (formStorage !== 'off') globalThis.wexStudioHostOptions.formConfigurationAdapter = createTestFormConfigurationAdapter(sessionStorage, { fail: formStorage === 'fail' });
+    </script>
     <script type="module" src="../src/studio-host.js"></script>
   </body>
 </html>

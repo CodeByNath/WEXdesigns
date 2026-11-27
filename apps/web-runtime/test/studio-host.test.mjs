@@ -48,7 +48,7 @@ test('mounts the Admin Station shell with local Sidebar navigation presentation 
   assert.match(source, /resolveLogoImagePropertyBinding/);
   assert.match(source, /resolveHeaderPrimaryActionProperties/);
   assert.match(source, /primaryActionImageBinding/);
-  assert.match(source, /mountAdminStation\(mount, \{ logoProperties, primaryActionProperties \}\)/);
+  assert.match(source, /mountAdminStation\(mount, \{ logoProperties, primaryActionProperties, formConfigurationAdapter: options\.formConfigurationAdapter \}\)/);
   assert.match(source, /mount-unavailable/);
   assert.match(source, /mount-error/);
   assert.match(shell, /data-admin-station-layout/);

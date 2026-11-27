@@ -2,10 +2,13 @@ import { createSystemIcon } from './admin-station-system-icons.js';
 import { drawerActionChoices } from './admin-station-drawer-footer.js';
 import { resetFormBuilder } from './admin-station-form-builder.js';
 import { ADMIN_FIELD_HISTORY_EVENT, commitFieldChanges, undoAllFieldChanges, undoFieldChange } from './admin-station-field-history.js';
+import { formConfigurationAdapterFor, persistFormConfiguration, readFormConfiguration } from './admin-station-form-configuration.js';
 
 export const ADMIN_EDITOR_SAVE_EVENT = 'wex:admin-editor-save';
 export const ADMIN_EDITOR_DISCARD_EVENT = 'wex:admin-editor-discard';
 export const ADMIN_EDITOR_PUBLISH_EVENT = 'wex:admin-editor-publish';
+/** Save or Publish could not be confirmed by the host adapter; `detail` = { action, error }. */
+export const ADMIN_EDITOR_PERSIST_FAILED_EVENT = 'wex:admin-editor-persist-failed';
 
 /** @typedef {'publish' | 'save' | 'discard'} EditorAction */
 /** @type {ReadonlyArray<readonly [EditorAction, string, string]>} */
@@ -28,8 +31,9 @@ function editorOf(footer) {
  * otherwise Save leads and Publish stays listed, disabled. Cancel leaves the builder. The Editor
  * supplies availability with `setEditorFooterState`; the footer never infers readiness. Field layout
  * changes are reported by the change history (`admin-station-field-history.js`): each change is a step,
- * the chevron undoes one step, Discard undoes them all, Publish keeps the layout as the new starting
- * point, and with no steps left the button is disabled.
+ * the chevron undoes one step, Discard undoes them all, and with no steps left the button is disabled.
+ * Save and Publish persist the Form configuration through the host adapter (`persist`); Publish keeps the
+ * layout as the new starting point only once the adapter confirms it.
  * Built from the existing Button, Action Button Label Only Small Menu and Dropdown Menu classes.
  * @param {Document} document
  */
@@ -115,17 +119,48 @@ export function createEditorFooter(document) {
       if (item.disabled || item.hidden) return;
       close();
       const found = EDITOR_ACTIONS.find(([action]) => action === item.dataset.adminEditorAction);
-      if (found) footer.dispatchEvent(new CustomEvent(found[2], { bubbles: true }));
       const editor = editorOf(footer);
-      if (item.dataset.adminEditorAction === 'discard' && editor) undoAllFieldChanges(editor);
-      if (item.dataset.adminEditorAction === 'publish' && editor) commitFieldChanges(editor);
-      toggle.focus();
+      if (!found || !editor) return;
+      if (found[0] === 'discard') {
+        footer.dispatchEvent(new CustomEvent(found[2], { bubbles: true }));
+        undoAllFieldChanges(editor);
+        toggle.focus();
+        return;
+      }
+      void persist(footer, editor, found[0], found[2]);
     });
   }
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Node) || !root.contains(event.target)) close();
   });
   return footer;
+}
+
+/**
+ * Save and Publish go through the host's Form configuration adapter. While the request runs the action button is
+ * disabled (its existing disabled state). Only a confirmed receipt reports success: the event carries the
+ * configuration and receipt, and Publish then makes the layout the new starting point. A failure keeps every
+ * change and step, re-enables the button and emits `ADMIN_EDITOR_PERSIST_FAILED_EVENT`.
+ * @param {HTMLElement} footer @param {Element} editor @param {'publish' | 'save'} action @param {string} eventName
+ */
+async function persist(footer, editor, action, eventName) {
+  if (footer.hasAttribute('aria-busy')) return;
+  const toggle = footer.querySelector('[aria-haspopup="menu"]');
+  footer.setAttribute('aria-busy', 'true');
+  if (toggle instanceof HTMLButtonElement) toggle.disabled = true;
+  const result = await persistFormConfiguration(editor, action, formConfigurationAdapterFor(editor));
+  footer.removeAttribute('aria-busy');
+  /* Changes made while the request ran were not published, so they stay as steps. */
+  if (result.ok && action === 'publish' && sameConfiguration(editor, result.configuration)) commitFieldChanges(editor);
+  refreshEditorFooter(footer);
+  if (result.ok) footer.dispatchEvent(new CustomEvent(eventName, { bubbles: true, detail: { configuration: result.configuration, receipt: result.receipt } }));
+  else footer.dispatchEvent(new CustomEvent(ADMIN_EDITOR_PERSIST_FAILED_EVENT, { bubbles: true, detail: { action, error: result.error } }));
+  if (toggle instanceof HTMLButtonElement && !toggle.disabled) toggle.focus();
+}
+
+/** @param {Element} editor @param {import('@weerax/schemas').WexFormConfiguration} configuration */
+function sameConfiguration(editor, configuration) {
+  try { return JSON.stringify(readFormConfiguration(editor)) === JSON.stringify(configuration); } catch { return false; }
 }
 
 /**
@@ -150,7 +185,7 @@ function refreshEditorFooter(footer) {
     item.toggleAttribute('data-admin-drawer-action-main', main?.action === item.dataset.adminEditorAction);
   }
   label.textContent = main?.label ?? '';
-  toggle.disabled = enabled.length === 0;
+  toggle.disabled = enabled.length === 0 || footer.hasAttribute('aria-busy');
 }
 
 /**

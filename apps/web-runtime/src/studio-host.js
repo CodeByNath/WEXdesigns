@@ -17,13 +17,15 @@ function readStudioHostOptions() {
 /**
  * Mounts the WEX-owned Dashboard only when the host has supplied its approved
  * mount point. Its caller owns external record resolution and may supply the
- * approved Logo and Header primary-action presentation values; this module has
- * no QSD API, storage, or identity integration.
+ * approved Logo and Header primary-action presentation values, and a Form
+ * configuration storage adapter (load, save, publish) that WEX only calls; this
+ * module has no QSD API, storage, or identity integration.
  * @param {{
  *   logoImageBinding?: unknown,
  *   primaryActionIcon?: unknown,
  *   primaryActionImageBinding?: unknown,
  *   sourceValues?: unknown,
+ *   formConfigurationAdapter?: unknown,
  * }} [options]
  */
 export function mountStudioHost(options = {}) {
@@ -43,7 +45,7 @@ export function mountStudioHost(options = {}) {
       options.primaryActionImageBinding,
       options.sourceValues,
     );
-    mountAdminStation(mount, { logoProperties, primaryActionProperties });
+    mountAdminStation(mount, { logoProperties, primaryActionProperties, formConfigurationAdapter: options.formConfigurationAdapter });
     mount.dataset.wexStudioHost = 'mounted';
     return { state: 'mounted' };
   } catch {
