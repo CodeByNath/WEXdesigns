@@ -11,6 +11,9 @@
   [Drawer product preview Code Map](admin-drawer-product-preview.md).
 
 ### Recent work (newest first)
+- 2026-11-27: Off fields stay visible, disabled in content editor; presentation stays muted and replaces the value with (inactive);
+  Form Editor unchanged. Per-service memory/history: `admin-station-field-status.js`/`.css`,
+  `admin-station-form-builder.js`, `admin-station-product-summary.js`; test: `admin-station-field-status.test.mjs`.
 
 - 2026-11-24: Width, Position, Alignment and Row use the new Tab Navigation Editor mode
   (`wex-admin-editor-control` track, `wex-admin-editor-control__item` tabs;

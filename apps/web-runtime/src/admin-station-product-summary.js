@@ -1,3 +1,4 @@
+import { syncPresentationFieldStatus } from './admin-station-field-status.js';
 import { createProductSectionHead } from './admin-station-product-sections.js';
 import { allServicesPreviewSnapshot } from './admin-station-services.js';
 
@@ -125,9 +126,19 @@ export function createProductSummary(shell, product = productSummaryFixture) {
   ];
   if (product.isCombo === true) entries.splice(8, 0, ['Type', node(document, 'span', 'wex-type-navigation-small-semibold', 'Combo')]);
   const facts = labelledRows(document, entries);
+  identity.querySelector('h3')?.setAttribute('data-presentation-field', 'name');
+  const fieldNames = new Map([
+    ['Platform ID', 'platform-id'], ['Booking ID', 'booking-id'], ['Marketing Title', 'marketing-title'],
+    ['Tagline', 'tagline'], ['Price', 'price'], ['Duration', 'duration'], ['Language', 'language'], ['Category', 'category'],
+  ]);
+  for (const row of facts.children) {
+    const name = fieldNames.get(row.querySelector('dt')?.textContent ?? '');
+    if (name) row.setAttribute('data-presentation-field', name);
+  }
   details.append(identity, facts);
   const media = node(document, 'div', 'wex-admin-product-summary__media');
   media.append(picture);
   section.append(createProductSectionHead(document, 'overview', 'wex-admin-product-summary__heading'), media, details);
+  syncPresentationFieldStatus(section, product.id);
   return section;
 }

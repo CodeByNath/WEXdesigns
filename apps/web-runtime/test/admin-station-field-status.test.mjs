@@ -67,10 +67,55 @@ test('an off field is kept for its own service only: another service on the same
   assert.deepEqual(status(back), [null, null]);
 });
 
-test('off disables the Editor, leaves the form and stays faint in Form Editor', () => {
+test('off disables the Editor and stays visible and faint in content and Form Editor', () => {
   assert.match(read('admin-station-form-builder.js'), /unit\.toggleAttribute\('data-field-off', off\);[\s\S]*part\.inert = off;/);
   assert.match(read('admin-station-product-overview-editor.js'), /keepFieldStatus\(section, product\.id\);/);
   const css = read('admin-station-field-status.css');
   assert.match(css, /\[data-field-off\] > :is\(\.wex-admin-form-tabs, \.wex-admin-form-tab-panels\) \{\s*opacity: var\(--wex-opacity-disabled\);/);
-  assert.match(css, /:not\(:has\(\.wex-admin-form-builder\[aria-pressed="true"\]\)\) \.wex-admin-product-editor > \[data-field-status="off"\] \{\s*display: none;/);
+  assert.doesNotMatch(css, /product-editor[^}]*display: none/);
+  assert.match(css, /data-presentation-field/);
+});
+
+test('Off locks only its content value and mutes only its matching presentation, undo restores both', async () => {
+  const { keepFieldStatus, syncContentFieldStatus, syncPresentationFieldStatus } = await import('../src/admin-station-field-status.js');
+  const form = fakeForm(['name', 'price']);
+  const inputs = form.fields.map(() => ({ disabled: false }));
+  form.fields.forEach((field, index) => {
+    inputs[index].getAttribute = () => field.name;
+    field.querySelector = () => inputs[index];
+  });
+  let builderActive = false;
+  form.closest = () => ({ querySelector: () => builderActive ? {} : null });
+  keepFieldStatus(form, 'status-content-test');
+  const presentationFields = ['name', 'price'].map((name) => {
+    const attributes = new Map([['data-presentation-field', name]]);
+    const label = { textContent: name === 'price' ? 'Price' : 'Name' };
+    const value = { textContent: name === 'price' ? '$425.00' : 'Course', setAttribute: () => {} };
+    return { label, value, querySelector: (selector) => selector === 'dt' ? label : value,
+      getAttribute: (key) => attributes.get(key), setAttribute: (key, value) => attributes.set(key, value) };
+  });
+  const summary = { querySelectorAll: () => presentationFields };
+  form.fields[1].setAttribute('data-field-status', 'off');
+  form.report();
+  syncPresentationFieldStatus(summary, 'status-content-test');
+  assert.deepEqual(inputs.map((input) => input.disabled), [false, true]);
+  assert.equal(presentationFields[1].value.textContent, '(inactive)');
+  assert.equal(presentationFields[1].label.textContent, 'Price');
+  assert.equal(presentationFields[1].value.textContent, '(inactive)');
+  syncPresentationFieldStatus(summary, 'status-content-test');
+  assert.equal(presentationFields[1].label.textContent, 'Price');
+  assert.equal(presentationFields[1].value.textContent, '(inactive)');
+  assert.equal(presentationFields[1].getAttribute('aria-disabled'), 'true');
+  builderActive = true;
+  syncContentFieldStatus(form);
+  assert.deepEqual(inputs.map((input) => input.disabled), [true, true]);
+  builderActive = false;
+  syncContentFieldStatus(form);
+  assert.deepEqual(inputs.map((input) => input.disabled), [false, true]);
+  form.fields[1].setAttribute('data-field-status', 'on');
+  form.report();
+  syncPresentationFieldStatus(summary, 'status-content-test');
+  assert.deepEqual(inputs.map((input) => input.disabled), [false, false]);
+  assert.equal(presentationFields[1].value.textContent, '$425.00');
+  assert.equal(presentationFields[1].label.textContent, 'Price');
 });

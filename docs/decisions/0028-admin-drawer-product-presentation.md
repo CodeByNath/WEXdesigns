@@ -587,7 +587,8 @@ state is `data-field-status` on the field; a press is one history step, so the E
 and can go back. No new token or Global Component (`admin-station-field-status.js`/`.css`).
 
 Off (Owner-directed): the selected field's Editor tabs and panels are disabled (inert,
-`--wex-opacity-disabled`) while the switch stays live, and the field is hidden from this service's
-form. While Form Editor is on it stays there, faint even when hovered or selected, so it can be
+`--wex-opacity-disabled`) while the switch stays live. The field stays visible but disabled in this service's
+content editor (no value editing), and presentation keeps its label unchanged and replaces its value with muted “(inactive)”.
+Switching On or restoring history returns the original value. While Form Editor is on it stays there, faint even when hovered or selected, so it can be
 switched back on. The off fields are kept per service id, in memory only: the shared form is not
 changed, so another service on it has every field. No persistence or host integration.

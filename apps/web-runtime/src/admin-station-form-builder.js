@@ -1,7 +1,7 @@
 import { createSystemIcon } from './admin-station-system-icons.js';
 import { createFieldOptions } from './admin-station-field-options.js';
 import { ADMIN_FIELD_HISTORY_EVENT } from './admin-station-field-history.js';
-import { createFieldStatus } from './admin-station-field-status.js';
+import { createFieldStatus, syncContentFieldStatus } from './admin-station-field-status.js';
 
 /** Layout holds selected-field options; Advanced remains empty. */
 const generalSections = ['Layout', 'Advanced'];
@@ -238,6 +238,8 @@ function setFormBuilder(card, active) {
     if (active) input.blur();
     input.disabled = active;
   }
+  const editor = drawer.querySelector('.wex-admin-product-editor');
+  if (editor) syncContentFieldStatus(editor);
 }
 
 /** The builder is off whenever the editor is left. @param {HTMLElement} drawer */
