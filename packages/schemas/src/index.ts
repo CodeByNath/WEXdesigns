@@ -74,3 +74,22 @@ export {
   type HeaderPrimaryActionPresentationProperties,
   type HeaderPrimaryActionPresentationPropertiesInput,
 } from './components/header-primary-action.schema.js';
+export {
+  WEX_FORM_CONFIGURATION_SCHEMA,
+  WexFormConfigurationKeySchema,
+  WexFormConfigurationLoadResultSchema,
+  WexFormConfigurationReceiptSchema,
+  WexFormConfigurationSchema,
+  WexFormFieldAlignmentSchema,
+  WexFormFieldConfigurationSchema,
+  WexFormFieldPositionSchema,
+  WexFormFieldRowSchema,
+  WexFormFieldStatusSchema,
+  WexFormFieldWidthSchema,
+  type WexFormConfiguration,
+  type WexFormConfigurationAdapter,
+  type WexFormConfigurationKey,
+  type WexFormConfigurationLoadResult,
+  type WexFormConfigurationReceipt,
+  type WexFormFieldConfiguration,
+} from './forms/form-configuration.schema.js';
