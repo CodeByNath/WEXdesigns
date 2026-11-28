@@ -335,12 +335,13 @@ export function mountAdminDrawerShell(shell) {
     if (event instanceof CustomEvent) openAdminDrawer(shell, event.detail);
   });
 
-  // A drag or flick that began on the handle ends in a click that can land
-  // outside the Drawer, because the handle moves out from under the pointer. That
-  // click is part of the gesture, never an outside click.
+  // A drag or flick that began on the handle, or a press that began inside the Drawer (a control such
+  // as the Width bar, dragged and released outside), ends in a click that can land outside the Drawer.
+  // That click is part of the gesture, never an outside click.
   let pressedHandle = false;
   shell.ownerDocument.addEventListener('pointerdown', (event) => {
-    pressedHandle = handle instanceof HTMLElement && event.target instanceof Node && handle.contains(event.target);
+    pressedHandle = (handle instanceof HTMLElement && event.target instanceof Node && handle.contains(event.target))
+      || event.composedPath().includes(drawer);
   }, true);
 
   shell.ownerDocument.addEventListener('click', (event) => {

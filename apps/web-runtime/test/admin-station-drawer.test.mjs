@@ -61,7 +61,7 @@ test('provides one standalone pill handle that drags the Drawer one approved mod
   assert.match(drawer, /handle\.addEventListener\('pointerup', endDrag\);[\s\S]*handle\.addEventListener\('pointercancel', endDrag\);/);
   assert.match(drawer, /event\.key === 'ArrowLeft' \? 'decrease' : 'increase'/);
   assert.doesNotMatch(drawer, /ownerDocument\.addEventListener\('click', \(event\) => \{[\s\S]*changeMode\(/);
-  assert.match(drawer, /let pressedHandle = false;\s*shell\.ownerDocument\.addEventListener\('pointerdown', \(event\) => \{\s*pressedHandle = handle instanceof HTMLElement && event\.target instanceof Node && handle\.contains\(event\.target\);\s*\}, true\);/);
+  assert.match(drawer, /let pressedHandle = false;\s*shell\.ownerDocument\.addEventListener\('pointerdown', \(event\) => \{\s*pressedHandle = \(handle instanceof HTMLElement && event\.target instanceof Node && handle\.contains\(event\.target\)\)\s*\|\| event\.composedPath\(\)\.includes\(drawer\);\s*\}, true\);/);
   assert.match(drawer, /ownerDocument\.addEventListener\('click', \(event\) => \{\s*if \(pressedHandle\) \{\s*pressedHandle = false;\s*return;\s*\}/);
   assert.match(layout, /\.wex-admin-shell__drawer \{[\s\S]*position: relative;[\s\S]*overflow: visible;/);
   assert.match(layout, /\.wex-admin-shell__drawer-frame \{[\s\S]*overflow: hidden;/);

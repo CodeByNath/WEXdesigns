@@ -535,3 +535,12 @@ responsive boundary notes, plus the Owner-directed Description presentation.
 
 See the [ADR 0028 section editors companion](0028-admin-drawer-section-editors.md)
 for the shared section editor behaviour and the Pricing editor (27 November 2026).
+
+## Presses that begin inside the Drawer (28 November 2026)
+
+Owner-reported fix: a press that begins inside the Drawer (for example
+dragging the Form Editor's Width bar) and is released outside it ends in a
+click outside the Drawer; that click is part of the gesture and no longer
+closes the Drawer, as was already true for the drag handle. A plain click
+outside still closes it. Source: `admin-station-drawer.js`; test in
+`admin-station-drawer.test.mjs`.
