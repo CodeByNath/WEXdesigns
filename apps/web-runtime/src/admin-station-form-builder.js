@@ -2,7 +2,7 @@ import { createSystemIcon } from './admin-station-system-icons.js';
 import { createFieldOptions } from './admin-station-field-options.js';
 import { ADMIN_FIELD_HISTORY_EVENT } from './admin-station-field-history.js';
 import { createFieldStatus, syncContentFieldStatus } from './admin-station-field-status.js';
-import { activeProductEditor } from './admin-station-product-editors.js';
+import { activeProductEditor, showEditorFromTop } from './admin-station-product-editors.js';
 
 /** Layout holds selected-field options; Advanced remains empty. */
 const generalSections = ['Layout', 'Advanced'];
@@ -239,6 +239,9 @@ function setFormBuilder(card, active) {
   clearSelection(drawer);
   /* Activating skips the hover step: the first field is selected and the Editor opens on it. */
   if (active) firstField(drawer)?.setAttribute('data-form-builder-selected', '');
+  /* Either way the editor opens from the top (Owner rule): the Form Editor on that first field, and the value
+   * editor when the Form Editor closes. */
+  showEditorFromTop(drawer);
   syncEditor(drawer);
   const footer = drawer.querySelector('[data-admin-drawer-compartment="footer"]');
   if (footer instanceof HTMLElement) footer.inert = active;

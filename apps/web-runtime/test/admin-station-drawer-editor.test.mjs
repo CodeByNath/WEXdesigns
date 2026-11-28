@@ -104,6 +104,14 @@ test('while the Form Builder is active every value is locked and dimmed, hovered
   assert.match(css, /\.wex-admin-outlined-field__input \{\s*opacity: var\(--wex-opacity-disabled\);\s*pointer-events: none;/);
 });
 
+test('an editor always opens from the top: Edit, choosing a section while editing, and the Form Editor', () => {
+  assert.match(read('admin-station-product-editors.js'), /export function showEditorFromTop\(drawer\) \{\s*drawer\.querySelector\('\.wex-admin-drawer-main'\)\?\.scrollTo\(\{ top: 0 \}\);/);
+  const sections = read('admin-station-add-new-sections.js');
+  assert.match(sections, /setAdminDrawerActionState\(shell, productEditorsState\(shell\)\);\s*showEditorFromTop\(drawer\);/);
+  assert.match(sections, /!drawer\.hasAttribute\('data-admin-drawer-editing'\)\) return;\s*if \(event\.target instanceof Element && event\.target\.closest\('\.wex-admin-product-sections__tab'\)\) showEditorFromTop\(drawer\);/);
+  assert.match(read('admin-station-form-builder.js'), /\*\/\n\s*showEditorFromTop\(drawer\);\n\s*syncEditor\(drawer\);/);
+});
+
 test('Publish makes the published values every editor\'s starting values, so Publish returns to disabled', () => {
   assert.match(read('admin-station-add-new-sections.js'), /addEventListener\(ADMIN_DRAWER_PUBLISH_EVENT[\s\S]*adminDrawerOwner !== owner\) return;\s*publishProductEditors\(shell\);\s*setAdminDrawerActionState\(shell, productEditorsState\(shell\)\);/);
   assert.match(read('admin-station-product-editors.js'), /export function publishProductEditors\(root\)/);

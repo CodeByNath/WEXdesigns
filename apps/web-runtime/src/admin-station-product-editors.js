@@ -35,6 +35,12 @@ export function publishProductEditors(root) {
   for (const editor of editorsIn(root)) /** @type {EditorBehaviour} */ (behaviours.get(editor)).publish(editor);
 }
 
+/** An editor always opens from the top (Owner rule): the main content shell drops the scroll position it kept
+ * from the presentation or from another section. @param {Element} drawer */
+export function showEditorFromTop(drawer) {
+  drawer.querySelector('.wex-admin-drawer-main')?.scrollTo({ top: 0 });
+}
+
 /** The editor of the selected product section (a hovered section only previews), or null. @param {Element} drawer */
 export function activeProductEditor(drawer) {
   const body = drawer.querySelector('[data-admin-product-section]');

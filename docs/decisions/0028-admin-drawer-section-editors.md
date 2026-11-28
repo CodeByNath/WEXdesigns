@@ -31,6 +31,11 @@ everything" as Overview, starting with Pricing.
   each editor registers `publish`), so the state reports clean and Publish
   returns to disabled until the next edit (Owner fix, 28 November 2026; before,
   Publish stayed active after publishing).
+- **An editor always opens from the top** (Owner rule, 28 November 2026): the
+  main content shell scrolls to the top when Edit opens the editor view, when a
+  section is chosen while editing, and when the Form Editor turns on or off
+  (back to the value editor; `showEditorFromTop`). Before, it kept the scroll position of the
+  presentation or of the previous section.
 - Off status is kept per record and per form, and mutes the matching
   presentation row in Overview and Pricing ("(inactive)", original value
   nodes restored on On).

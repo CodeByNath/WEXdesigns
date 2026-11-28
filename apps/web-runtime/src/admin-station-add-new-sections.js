@@ -6,7 +6,7 @@ import { createProductSummary } from './admin-station-product-summary.js';
 import { createProductOverviewEditor } from './admin-station-product-overview-editor.js';
 import { createProductPricingEditor } from './admin-station-product-pricing-editor.js';
 import { createConnectionsToggle } from './admin-station-connections-toggle.js';
-import { discardProductEditors, productEditorsState, publishProductEditors } from './admin-station-product-editors.js';
+import { discardProductEditors, productEditorsState, publishProductEditors, showEditorFromTop } from './admin-station-product-editors.js';
 import { createProductPricing } from './admin-station-product-pricing.js';
 import { createProductDescription } from './admin-station-product-description.js';
 import { createProductMedia } from './admin-station-product-media.js';
@@ -117,6 +117,13 @@ export function listenAddNewSections(shell, tabs, owner) {
     if (!(drawer instanceof HTMLElement) || drawer.dataset.adminDrawerOwner !== owner) return;
     setAdminDrawerMode(shell, 'full');
     setAdminDrawerActionState(shell, productEditorsState(shell));
+    showEditorFromTop(drawer);
+  });
+  // Choosing a section in the editor view opens its editor from the top as well.
+  shell.addEventListener('click', (event) => {
+    const drawer = shell.querySelector('[data-admin-drawer-shell]');
+    if (!(drawer instanceof HTMLElement) || drawer.dataset.adminDrawerOwner !== owner || !drawer.hasAttribute('data-admin-drawer-editing')) return;
+    if (event.target instanceof Element && event.target.closest('.wex-admin-product-sections__tab')) showEditorFromTop(drawer);
   });
   // Discard returns every section editor's fields to their starting values; the state then reports clean.
   shell.addEventListener(ADMIN_DRAWER_DISCARD_EVENT, () => {
