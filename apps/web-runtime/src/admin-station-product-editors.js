@@ -4,7 +4,7 @@
  * publishable when every editor is) and Discard resets them all. The active editor is the one of the selected
  * product section: the Form Editor and the Editor footer work on it.
  * @typedef {{ dirty: boolean, publishable: boolean }} EditorState
- * @typedef {{ state: (editor: HTMLElement) => EditorState, discard: (editor: HTMLElement) => void }} EditorBehaviour
+ * @typedef {{ state: (editor: HTMLElement) => EditorState, discard: (editor: HTMLElement) => void, publish: (editor: HTMLElement) => void }} EditorBehaviour
  */
 
 /** @type {WeakMap<Element, EditorBehaviour>} */
@@ -27,6 +27,12 @@ export function productEditorsState(root) {
 /** Discard: every editor returns to its starting values. @param {ParentNode} root */
 export function discardProductEditors(root) {
   for (const editor of editorsIn(root)) /** @type {EditorBehaviour} */ (behaviours.get(editor)).discard(editor);
+}
+
+/** Publish: every editor takes its current values as the new starting values, so nothing is edited any more
+ * and Publish returns to disabled until the next edit. @param {ParentNode} root */
+export function publishProductEditors(root) {
+  for (const editor of editorsIn(root)) /** @type {EditorBehaviour} */ (behaviours.get(editor)).publish(editor);
 }
 
 /** The editor of the selected product section (a hovered section only previews), or null. @param {Element} drawer */

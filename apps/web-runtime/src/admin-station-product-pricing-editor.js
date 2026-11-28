@@ -50,8 +50,16 @@ export function createProductPricingEditor(shell, pricing = productPricingFixtur
   /* Currency and Advertised price share the first row (Owner-directed), the existing Row share (50% / 50%). */
   section.querySelector(':scope > [data-field-name="currency"]')?.setAttribute('data-field-row', 'first');
   section.querySelector(':scope > [data-field-name="advertised-price"]')?.setAttribute('data-field-row', 'second');
-  const initial = pricingEditorValues(section);
-  registerProductEditor(section, { state: (editor) => pricingEditorState(editor, initial), discard: (editor) => discardPricingEditor(editor, initial) });
+  let initial = pricingEditorValues(section);
+  registerProductEditor(section, {
+    state: (editor) => pricingEditorState(editor, initial),
+    discard: (editor) => discardPricingEditor(editor, initial),
+    /* Publish: the published values become the starting values (Discard then returns to them). */
+    publish: (editor) => {
+      initial = pricingEditorValues(editor);
+      for (const input of editor.querySelectorAll('textarea')) input.defaultValue = input.value;
+    },
+  });
   keepFieldStatus(section, scopeId);
   void restoreFormConfiguration(section, formConfigurationAdapterFor(shell));
   const sync = () => {

@@ -104,6 +104,13 @@ test('while the Form Builder is active every value is locked and dimmed, hovered
   assert.match(css, /\.wex-admin-outlined-field__input \{\s*opacity: var\(--wex-opacity-disabled\);\s*pointer-events: none;/);
 });
 
+test('Publish makes the published values every editor\'s starting values, so Publish returns to disabled', () => {
+  assert.match(read('admin-station-add-new-sections.js'), /addEventListener\(ADMIN_DRAWER_PUBLISH_EVENT[\s\S]*adminDrawerOwner !== owner\) return;\s*publishProductEditors\(shell\);\s*setAdminDrawerActionState\(shell, productEditorsState\(shell\)\);/);
+  assert.match(read('admin-station-product-editors.js'), /export function publishProductEditors\(root\)/);
+  assert.match(read('admin-station-product-overview-editor.js'), /input\.defaultValue = input\.value;/);
+  assert.match(read('admin-station-product-pricing-editor.js'), /publish: \(editor\) => \{\s*initial = pricingEditorValues\(editor\);/);
+});
+
 test('Form Editor names a field by its form label (never a value) and a click on any field selects it', () => {
   for (const name of ['admin-station-outlined-field.js', 'admin-station-currency-field.js', 'admin-station-field-repeater.js']) {
     assert.match(read(name), /box\.dataset\.fieldLabel = (options\.)?label;/);

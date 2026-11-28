@@ -1,12 +1,12 @@
 import { ADMIN_DRAWER_TAB_EVENT } from './admin-station-drawer-sidebar.js';
 import { adminDrawerCompartment, setAdminDrawerMode } from './admin-station-drawer.js';
-import { ADMIN_DRAWER_DISCARD_EVENT, ADMIN_DRAWER_EDIT_EVENT, setAdminDrawerActionState } from './admin-station-drawer-footer.js';
+import { ADMIN_DRAWER_DISCARD_EVENT, ADMIN_DRAWER_EDIT_EVENT, ADMIN_DRAWER_PUBLISH_EVENT, setAdminDrawerActionState } from './admin-station-drawer-footer.js';
 import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
 import { createProductOverviewEditor } from './admin-station-product-overview-editor.js';
 import { createProductPricingEditor } from './admin-station-product-pricing-editor.js';
 import { createConnectionsToggle } from './admin-station-connections-toggle.js';
-import { discardProductEditors, productEditorsState } from './admin-station-product-editors.js';
+import { discardProductEditors, productEditorsState, publishProductEditors } from './admin-station-product-editors.js';
 import { createProductPricing } from './admin-station-product-pricing.js';
 import { createProductDescription } from './admin-station-product-description.js';
 import { createProductMedia } from './admin-station-product-media.js';
@@ -123,5 +123,13 @@ export function listenAddNewSections(shell, tabs, owner) {
     const drawer = shell.querySelector('[data-admin-drawer-shell]');
     if (!(drawer instanceof HTMLElement) || drawer.dataset.adminDrawerOwner !== owner) return;
     discardProductEditors(shell);
+  });
+  // Publish: the published values become every editor's starting values, so the state reports clean and
+  // Publish returns to disabled until the next edit.
+  shell.addEventListener(ADMIN_DRAWER_PUBLISH_EVENT, () => {
+    const drawer = shell.querySelector('[data-admin-drawer-shell]');
+    if (!(drawer instanceof HTMLElement) || drawer.dataset.adminDrawerOwner !== owner) return;
+    publishProductEditors(shell);
+    setAdminDrawerActionState(shell, productEditorsState(shell));
   });
 }

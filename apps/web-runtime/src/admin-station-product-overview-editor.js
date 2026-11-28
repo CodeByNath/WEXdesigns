@@ -36,7 +36,7 @@ export function createProductOverviewEditor(shell, product = productSummaryFixtu
   for (const { key, ...field } of overviewFields) {
     section.append(createOutlinedField(document, { ...field, value: String(product[/** @type {keyof typeof product} */ (key)] ?? '') }));
   }
-  registerProductEditor(section, { state: overviewEditorState, discard: discardOverviewEditor });
+  registerProductEditor(section, { state: overviewEditorState, discard: discardOverviewEditor, publish: publishOverviewEditor });
   keepFieldStatus(section, product.id);
   void restoreFormConfiguration(section, formConfigurationAdapterFor(shell));
   const sync = () => {
@@ -55,6 +55,12 @@ export function overviewEditorState(editor) {
     dirty: inputs.some((input) => input.value !== input.defaultValue),
     publishable: inputs.every((input) => !input.required || input.value.trim() !== ''),
   };
+}
+
+/** Publish: the published values become the starting values (Discard then returns to them).
+ * @param {HTMLElement} editor */
+export function publishOverviewEditor(editor) {
+  for (const input of editor.querySelectorAll('textarea')) input.defaultValue = input.value;
 }
 
 /** Discard: every field returns to its starting value.

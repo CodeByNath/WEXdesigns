@@ -26,7 +26,11 @@ everything" as Overview, starting with Pricing.
   first field is the same for every section: 28px (16 + 12) on desktop. A new
   section editor never sets its own top spacing (`admin-station-drawer-editor.css`).
 - The Drawer footer's content state combines every section editor (edited if
-  any is, publishable if all are); Discard resets all of them.
+  any is, publishable if all are); Discard resets all of them. Publish makes
+  every editor's current values its starting values (`publishProductEditors`;
+  each editor registers `publish`), so the state reports clean and Publish
+  returns to disabled until the next edit (Owner fix, 28 November 2026; before,
+  Publish stayed active after publishing).
 - Off status is kept per record and per form, and mutes the matching
   presentation row in Overview and Pricing ("(inactive)", original value
   nodes restored on On).
