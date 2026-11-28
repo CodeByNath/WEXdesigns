@@ -21,6 +21,7 @@ export function createFieldRepeater(document, options) {
   const box = document.createElement('div');
   box.className = 'wex-admin-field-repeater';
   box.dataset.fieldName = options.name;
+  box.dataset.fieldLabel = options.label;
   box.setAttribute('role', 'group');
   const label = document.createElement('span');
   label.className = 'wex-admin-outlined-field__label wex-type-body-small-regular';

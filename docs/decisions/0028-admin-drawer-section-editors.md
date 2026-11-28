@@ -117,3 +117,20 @@ is full width (`inline-size: 100%`, was `auto`). Position therefore has no
 effect until the width is below 100%; before, Center shrank a default-width
 field to its content. Source: `admin-station-field-layout.css`; test in
 `admin-station-field-rows.test.mjs`.
+
+## Form Editor names fields by label and selects any field (28 November 2026)
+
+Owner rules, global for every field:
+
+- The Editor heading uses the field's form label name (`data-field-label`, set
+  by the outlined, Currency and repeater field builders), never its value
+  ("Advertised price (Field)"). No label, in the form or the Editor, ever
+  carries a value.
+- While the Form Editor is active every value control inside a field (text
+  values, the Currency trigger, a repeater's Add and Remove) is disabled and
+  takes no pointer, so a click anywhere on any field, alone or sharing a row,
+  selects it. Before, the disabled Currency trigger swallowed the click. The
+  selected field's hidden value covers the Currency value too.
+
+Sources: `admin-station-form-builder.js`, `admin-station-form-builder.css`, the
+three field builders; tests in `admin-station-drawer-editor.test.mjs`.

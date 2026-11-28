@@ -104,6 +104,17 @@ test('while the Form Builder is active every value is locked and dimmed, hovered
   assert.match(css, /\.wex-admin-outlined-field__input \{\s*opacity: var\(--wex-opacity-disabled\);\s*pointer-events: none;/);
 });
 
+test('Form Editor names a field by its form label (never a value) and a click on any field selects it', () => {
+  for (const name of ['admin-station-outlined-field.js', 'admin-station-currency-field.js', 'admin-station-field-repeater.js']) {
+    assert.match(read(name), /box\.dataset\.fieldLabel = (options\.)?label;/);
+  }
+  assert.match(read('admin-station-form-builder.js'), /name\.textContent = `\$\{selected\.getAttribute\('data-field-label'\) \?\? ''\} \(Field\)`;/);
+  assert.doesNotMatch(read('admin-station-form-builder.js'), /outlined-field__label'\)\?\.textContent/);
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /\.wex-admin-product-editor > \[data-field-name\] :is\(textarea, button, input, select\) \{\s*pointer-events: none;/);
+  assert.match(css, /\[data-form-builder-selected\] :is\(\.wex-admin-outlined-field__input, \.wex-admin-currency-field__control\) \{\s*visibility: hidden;/);
+});
+
 test('while the Form Builder is active a pressed field never shows the selected padding', () => {
   const css = read('admin-station-form-builder.css');
   assert.match(css, /\[data-field-name\]:active \.wex-admin-outlined-field__input \{\s*padding-block: var\(--wex-space-12\);/);
@@ -187,5 +198,4 @@ test('the Editor unit runs down to the footer, with no empty band above it', () 
 test('Form Editor: the selected field is at full opacity and its value is hidden', () => {
   const css = read('admin-station-form-builder.css');
   assert.match(css, /:is\(\.wex-admin-product-editor > \[data-field-name\], \.wex-admin-product-sections__tab\)\[data-form-builder-selected\] \{\s*opacity: 1;/);
-  assert.match(css, /\.wex-admin-product-editor > \[data-form-builder-selected\] \.wex-admin-outlined-field__input \{\s*visibility: hidden;/);
 });

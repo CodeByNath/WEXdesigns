@@ -216,6 +216,13 @@
   pointer-events: none;
 }
 
+/* Every value control inside a field (text values, the Currency trigger, a repeater's Add and Remove) is
+ * disabled while the builder is active, and a disabled control swallows the click: none takes the pointer,
+ * so a click anywhere on any field, alone or sharing a row, reaches the field and selects it (Owner rule). */
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > [data-field-name] :is(textarea, button, input, select) {
+  pointer-events: none;
+}
+
 /* The extra selected padding of the value editor is for editing a value; the locked values never show it. */
 .wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > [data-field-name]:active .wex-admin-outlined-field__control::after,
 .wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > [data-field-name]:active .wex-admin-outlined-field__input {
@@ -229,7 +236,7 @@
 
 /* The selected field is not shown disabled, and its value is hidden (Owner-directed): the Editor edits the
  * field, not its value. The field keeps its height. */
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > [data-form-builder-selected] .wex-admin-outlined-field__input {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > [data-form-builder-selected] :is(.wex-admin-outlined-field__input, .wex-admin-currency-field__control) {
   visibility: hidden;
 }
 

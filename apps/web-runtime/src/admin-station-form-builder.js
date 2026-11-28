@@ -171,7 +171,8 @@ function syncEditor(drawer) {
     heading.replaceChildren();
     if (selected) {
       const name = heading.ownerDocument.createElement('span');
-      name.textContent = `${selected.querySelector('.wex-admin-outlined-field__label')?.textContent ?? ''} (Field)`;
+      /* The form label name, never a value: a shown label may carry one, such as the currency "(A$)" (Owner rule). */
+      name.textContent = `${selected.getAttribute('data-field-label') ?? ''} (Field)`;
       const icon = createSystemIcon(heading.ownerDocument, 'pencil-square');
       icon.setAttribute('aria-hidden', 'false');
       icon.setAttribute('role', 'img');
