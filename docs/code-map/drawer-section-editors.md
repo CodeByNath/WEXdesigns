@@ -36,3 +36,10 @@ Admin Shell map ([admin-shell.md](admin-shell.md)) is at its line limit.
 5. Do not add spacing for the new editor: the shared editor gap rule in
    `admin-station-drawer-editor.css` already gives every section the same
    heading-to-first-field gap.
+6. Build every field with the shared builders (`createOutlinedField`,
+   `createCurrencyField`, `createFieldRepeater`); the global field rules then
+   apply with no per-section work (Owner rule, 28 November 2026): Form Editor
+   names a field by its form label (`data-field-label`), never a value; a click
+   anywhere on any field selects it, alone or in a row; a repeater's wrapper
+   label keeps clear of its fields' label pills. Never re-solve these per
+   section; fix the shared rule instead.

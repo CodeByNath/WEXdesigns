@@ -11,7 +11,9 @@
   justify-items: start;
   gap: var(--wex-space-16);
   min-inline-size: 0;
-  padding: var(--wex-space-24) var(--wex-space-12) var(--wex-space-12);
+  /* The top adds the label pill room the items keep between them (spacing 12 under the wrapper's label to the first
+   * items' label pills; Owner-directed), so the wrapped fields and their labels never touch the wrapper label. */
+  padding: calc(var(--wex-space-24) + var(--wex-space-12)) var(--wex-space-12) var(--wex-space-12);
   border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
   border-radius: var(--wex-radius-large);
 }

@@ -55,6 +55,7 @@ test('repeater: outlined box and label pill, Remove per item and Add at the end,
   const css = read('admin-station-product-editor-fields.css');
   assert.doesNotMatch(css, /#[0-9a-f]{3,8}\b|\b\d+(?:px|rem)\b(?![^@]*\{)/i);
   assert.match(css, /\.wex-admin-field-repeater \{[^}]*border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);[^}]*border-radius: var\(--wex-radius-large\);/);
+  assert.match(css, /\.wex-admin-field-repeater \{[^}]*padding: calc\(var\(--wex-space-24\) \+ var\(--wex-space-12\)\) var\(--wex-space-12\) var\(--wex-space-12\);/);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-product-editor-fields\.css";/);
 });
 

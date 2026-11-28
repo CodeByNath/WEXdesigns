@@ -53,7 +53,9 @@ Currency and Advertised price share the first row (the existing Row share,
 50% / 50%; Owner-directed 27 November 2026).
 
 Repeater: the outlined field's box and label pill around its items (24px
-between items for their label pills, items' fields side by side, one column
+between items for their label pills; the top padding adds the same 12px so the
+first items' fields and label pills never touch the wrapper label, 28 November
+2026, Owner-directed; items' fields side by side, one column
 below 768px), a Remove button per item and Add at the end: existing Action
 Button Icon Only Small with the system x and plus icons. Add/Remove and typing
 are content changes, not Form configuration. Required: Currency, Advertised
