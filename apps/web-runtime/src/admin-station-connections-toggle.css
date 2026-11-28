@@ -1,0 +1,93 @@
+/* Editor view, desktop Full: the connections shell as a small side drawer (`admin-station-connections-toggle.js`).
+ * Collapsed (Owner-directed), the strip is half the chevron's button (Action Button Icon Only Small,
+ * Circular) plus the 16px end inset counted from that shell, right against the main content shell: half the chevron sits inside the strip and half
+ * outside it, over the main content shell's end line; the main content shell takes the rest; opened, the shell lies over the content at its own 3-part width, ending where
+ * the strip ends. Existing tokens and Drawer values only. */
+.wex-admin-connections-toggle {
+  display: none;
+}
+
+@container wex-admin-drawer (width >= 840px) {
+  .wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-shell__drawer-frame {
+    grid-template-columns: var(--wex-space-16) min(calc(var(--wex-admin-shell-drawer-full-part) * 2), var(--wex-admin-shell-drawer-full-navigation-max-inline-size)) var(--wex-space-24) minmax(0, 1fr) 0 calc(var(--wex-action-button-icon-only-small-target-size) / 2) var(--wex-space-16) 0;
+  }
+
+  /* The collapsed shell's space goes to the main content shell, so no empty shell is left; the content inside
+   * it keeps the 720px content maximum (the shell's own padding excluded). */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main {
+    max-inline-size: none;
+  }
+
+  /* The chevron's inner half lies over the main content shell's end, so its content stops 16px before the
+   * icon shell: end padding = half the icon shell + 16px, mirroring the strip. */
+  .wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main {
+    padding-inline-end: calc(var(--wex-action-button-icon-only-small-target-size) / 2 + var(--wex-space-16));
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main > * {
+    max-inline-size: calc(var(--wex-admin-shell-drawer-column-max-inline-size) - var(--wex-admin-shell-drawer-body-start-inset) - var(--wex-admin-shell-drawer-body-end-inset));
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-shell__drawer-body {
+    position: relative;
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections {
+    position: relative;
+  }
+
+  /* Half the chevron sits outside the shell, over the main content shell's end line, in every state. */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections {
+    overflow: visible;
+  }
+
+  /* The chevron sits on the section heading line, at the shell's start line. */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-connections-toggle {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: var(--wex-space-16);
+    /* Always at the shell's start (Owner-directed): the button's centre on the shell's start line, collapsed,
+     * open or fixed; half over the main content shell, whose end padding keeps its content clear. */
+    inset-inline-start: calc(var(--wex-action-button-icon-only-small-target-size) / -2);
+    display: flex;
+  }
+
+  /* Collapsed: only the chevron remains. */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing]:not([data-admin-connections-open]) .wex-admin-drawer-connections > :not(.wex-admin-connections-toggle) {
+    display: none;
+  }
+
+  /* Open: the shell lies over the content from the strip end at its own width, with its start line. */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing][data-admin-connections-open] .wex-admin-drawer-connections {
+    position: absolute;
+    z-index: 2;
+    inset-block: 0;
+    inset-inline-end: 0;
+    inline-size: calc(var(--wex-admin-shell-drawer-full-part) * 3 + var(--wex-space-24) + var(--wex-space-16));
+    box-sizing: border-box;
+    border-inline-start: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+    background: var(--wex-color-layer-02);
+  }
+
+  /* Form Editor active (Owner-directed): the open shell is fixed in the frame, not over the content; the main
+   * content shell narrows to the rest, so the editor and its fields are never covered. Same width and place. */
+  .wex-admin-shell[data-admin-drawer-mode="full"]:has([data-admin-drawer-section="presentation"]) .wex-admin-shell__drawer[data-admin-drawer-editing][data-admin-connections-open]:has([data-editor-active]) .wex-admin-shell__drawer-frame {
+    grid-template-columns: var(--wex-space-16) min(calc(var(--wex-admin-shell-drawer-full-part) * 2), var(--wex-admin-shell-drawer-full-navigation-max-inline-size)) var(--wex-space-24) minmax(0, 1fr) 0 calc(var(--wex-admin-shell-drawer-full-part) * 3 + var(--wex-space-24) + var(--wex-space-16)) 0 0;
+  }
+
+  /* Form Editor active, the x (Owner-directed): centred on the shell's top-start corner, half outside its top. */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing]:has([data-editor-active]) .wex-admin-connections-toggle {
+    inset-block-start: calc(var(--wex-action-button-icon-only-small-target-size) / -2);
+  }
+
+  /* The body would clip the half above its top. */
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing]:has([data-editor-active]) .wex-admin-shell__drawer-body {
+    overflow: visible;
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"] .wex-admin-shell__drawer[data-admin-drawer-editing][data-admin-connections-open]:has([data-editor-active]) .wex-admin-drawer-connections {
+    position: relative;
+    inset: auto;
+    inline-size: auto;
+  }
+}

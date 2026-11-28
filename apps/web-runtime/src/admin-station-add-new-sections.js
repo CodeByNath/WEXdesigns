@@ -5,6 +5,7 @@ import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
 import { createProductOverviewEditor } from './admin-station-product-overview-editor.js';
 import { createProductPricingEditor } from './admin-station-product-pricing-editor.js';
+import { createConnectionsToggle } from './admin-station-connections-toggle.js';
 import { discardProductEditors, productEditorsState } from './admin-station-product-editors.js';
 import { createProductPricing } from './admin-station-product-pricing.js';
 import { createProductDescription } from './admin-station-product-description.js';
@@ -87,6 +88,7 @@ export function mountAddNewSection(shell, id, label) {
         sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),
         createQuickActions(document),
         createEditorFooter(document),
+        createConnectionsToggle(document),
       ]),
     ]
     : []));

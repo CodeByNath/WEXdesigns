@@ -84,7 +84,7 @@ test('the Form Builder card (icon tile, title, description) shows only in the ed
   assert.match(js, /title\.textContent = 'Form Editor'/);
   assert.match(js, /card\.addEventListener\('click', \(\) => setFormBuilder\(card, card\.getAttribute\('aria-pressed'\) !== 'true'\)\)/);
   assert.match(js, /card\.setAttribute\('aria-pressed', String\(active\)\)/);
-  assert.match(read('admin-station-add-new-sections.js'), /createActivityCards\(document\)\]\),\s*createQuickActions\(document\),\s*createEditorFooter\(document\),\s*\]\)/);
+  assert.match(read('admin-station-add-new-sections.js'), /createActivityCards\(document\)\]\),\s*createQuickActions\(document\),\s*createEditorFooter\(document\),\s*createConnectionsToggle\(document\),\s*\]\)/);
   assert.match(read('admin-station-drawer-footer.js'), /export function exitAdminDrawerEditor[\s\S]*resetFormBuilder\(parts\.drawer\)/);
   const css = read('admin-station-form-builder.css');
   assert.match(css, /\[data-admin-drawer-unit="quick-actions"\] \{\s*display: none;/);

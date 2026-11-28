@@ -79,3 +79,31 @@ the field's height. It takes the outlined field's own Focused (clicked) state,
 the border and the outer ring, without the extra value space. The other fields
 stay at the disabled opacity. Sources: `admin-station-form-builder.css`,
 `admin-station-outlined-field.css`; tests in `admin-station-drawer-editor.test.mjs`.
+
+## Connections shell as a small side drawer (28 November 2026)
+
+Owner-directed, editor view on desktop Full (Drawer frame 840px and wider):
+the connections shell (Quick actions, Editor, Editor footer) collapses to a
+strip that keeps only a chevron, by default. The strip is half the chevron's
+button (36px, so 18px) plus the 16px end inset counted
+from that button, right against the main content shell:
+half the chevron sits inside the strip, half outside over the main content
+shell's end line (Owner-directed). It is at the Drawer end; the
+main content shell takes the rest (no empty shell is left) while its content
+keeps the 720px content maximum; the main content shell's end padding is half
+the button plus 16px, so its content stops 16px before the chevron. The chevron
+is Action Button Icon Only Small, Circular, Neutral (Owner-directed): chevron-left collapsed, an x
+open (Owner-directed; same place, not the Form Editor's position or fixed shell), on the section heading line, always centred on the shell's start line
+(collapsed, open or fixed; Owner-directed), so the shell's heading needs no room
+for it. While the Form Editor is active it is an x that cancels the editor workflow
+(the Editor footer's Cancel, `resetFormBuilder`), centred on the shell's
+top-start corner, half outside its top (the body stops clipping meanwhile);
+otherwise the chevron. Closing the Form Editor (the x or the Editor footer's
+Cancel) collapses the shell with it; a click outside the open shell collapses
+it too while the Form Editor is not active (Owner-directed). Open, the shell lies over
+the content from the strip end at its own 3-part width, with the subtle start
+line and the layer-02 background. With the Form Editor active the open shell is
+fixed in the frame at the same width (Owner-directed): the main content shell
+narrows to the rest, so the editor and its fields are never covered. Below 840px nothing changes. State:
+`data-admin-connections-open` on the Drawer. Pricing editor work is paused.
+Note: while open, the panel covers the Drawer footer's end (Publish).
