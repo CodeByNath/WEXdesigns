@@ -22,6 +22,12 @@
 [data-editor-active] > .wex-admin-form-tab-panels {
   min-block-size: 0;
   overflow-y: auto;
+  /* The Editor panel scrolls with no visible scrollbar (Owner-directed). */
+  scrollbar-width: none;
+}
+
+[data-editor-active] > .wex-admin-form-tab-panels::-webkit-scrollbar {
+  display: none;
 }
 
 .wex-admin-form-tab-panels[hidden],

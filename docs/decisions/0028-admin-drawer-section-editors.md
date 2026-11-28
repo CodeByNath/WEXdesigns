@@ -34,7 +34,12 @@ everything" as Overview, starting with Pricing.
 - **An editor always opens from the top** (Owner rule, 28 November 2026): the
   main content shell scrolls to the top when Edit opens the editor view, when a
   section is chosen while editing, and when the Form Editor turns on or off
-  (back to the value editor; `showEditorFromTop`). Before, it kept the scroll position of the
+  (back to the value editor; `showEditorFromTop`).
+- **No visible scrollbar** (Owner-directed, 28 November 2026): in Full the
+  main content and connections shells, and the Editor panel, scroll with the
+  scrollbar hidden (`scrollbar-width: none` and `::-webkit-scrollbar`), the
+  same as the product navigation (`admin-station-drawer-full.css`,
+  `admin-station-form-builder.css`). Before, it kept the scroll position of the
   presentation or of the previous section.
 - Off status is kept per record and per form, and mutes the matching
   presentation row in Overview and Pricing ("(inactive)", original value

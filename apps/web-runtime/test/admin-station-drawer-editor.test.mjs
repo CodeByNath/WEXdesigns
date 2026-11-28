@@ -104,6 +104,15 @@ test('while the Form Builder is active every value is locked and dimmed, hovered
   assert.match(css, /\.wex-admin-outlined-field__input \{\s*opacity: var\(--wex-opacity-disabled\);\s*pointer-events: none;/);
 });
 
+test('the content, connections and Editor panel shells scroll with no visible scrollbar', () => {
+  const full = read('admin-station-drawer-full.css');
+  assert.match(full, /:is\(\.wex-admin-drawer-main, \.wex-admin-drawer-connections\) \{\s*scrollbar-width: none;/);
+  assert.match(full, /:is\(\.wex-admin-drawer-main, \.wex-admin-drawer-connections\)::-webkit-scrollbar \{\s*display: none;/);
+  const builder = read('admin-station-form-builder.css');
+  assert.match(builder, /\.wex-admin-form-tab-panels \{[^}]*overflow-y: auto;[^}]*scrollbar-width: none;/);
+  assert.match(builder, /\.wex-admin-form-tab-panels::-webkit-scrollbar \{\s*display: none;/);
+});
+
 test('an editor always opens from the top: Edit, choosing a section while editing, and the Form Editor', () => {
   assert.match(read('admin-station-product-editors.js'), /export function showEditorFromTop\(drawer\) \{\s*drawer\.querySelector\('\.wex-admin-drawer-main'\)\?\.scrollTo\(\{ top: 0 \}\);/);
   const sections = read('admin-station-add-new-sections.js');

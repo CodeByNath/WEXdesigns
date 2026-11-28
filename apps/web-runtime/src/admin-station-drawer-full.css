@@ -147,6 +147,16 @@
     overscroll-behavior: contain;
   }
 
+  /* The content and connections (editor) shells scroll with no visible scrollbar (Owner-directed), the same as
+   * the product navigation. */
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-drawer-main, .wex-admin-drawer-connections) {
+    scrollbar-width: none;
+  }
+
+  .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-drawer-main, .wex-admin-drawer-connections)::-webkit-scrollbar {
+    display: none;
+  }
+
   .wex-admin-shell[data-admin-drawer-mode="full"] :is(.wex-admin-product-sections, .wex-admin-drawer-main, [data-admin-drawer-unit="promotions"], [data-admin-drawer-unit="quick-actions"]) {
     padding-block-start: var(--wex-space-16);
   }
