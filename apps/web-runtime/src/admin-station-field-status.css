@@ -79,11 +79,12 @@
 
 /* Off content fields remain visible and disabled. Presentation uses the same muted state. */
 .wex-admin-product-editor > [data-field-status="off"],
-.wex-admin-product-summary [data-presentation-field][data-field-status="off"] {
+.wex-admin-product-summary [data-presentation-field][data-field-status="off"],
+.wex-admin-product-pricing [data-presentation-field][data-field-status="off"] {
   opacity: var(--wex-opacity-disabled);
 }
 
 /* Form Editor keeps Off fields selectable, faint even when hovered or selected. */
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > .wex-admin-outlined-field[data-field-status="off"] {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > [data-field-name][data-field-status="off"] {
   opacity: var(--wex-opacity-disabled);
 }

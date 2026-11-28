@@ -1,8 +1,9 @@
 import { createSystemIcon } from './admin-station-system-icons.js';
 import { drawerActionChoices } from './admin-station-drawer-footer.js';
 import { resetFormBuilder } from './admin-station-form-builder.js';
-import { ADMIN_FIELD_HISTORY_EVENT, commitFieldChanges, undoAllFieldChanges, undoFieldChange } from './admin-station-field-history.js';
+import { ADMIN_FIELD_HISTORY_EVENT, commitFieldChanges, fieldChangeCount, undoAllFieldChanges, undoFieldChange } from './admin-station-field-history.js';
 import { formConfigurationAdapterFor, persistFormConfiguration, readFormConfiguration } from './admin-station-form-configuration.js';
+import { activeProductEditor } from './admin-station-product-editors.js';
 
 export const ADMIN_EDITOR_SAVE_EVENT = 'wex:admin-editor-save';
 export const ADMIN_EDITOR_DISCARD_EVENT = 'wex:admin-editor-discard';
@@ -18,9 +19,10 @@ const EDITOR_ACTIONS = [
   ['discard', 'Discard', ADMIN_EDITOR_DISCARD_EVENT],
 ];
 
-/** The Editor of the Drawer this footer belongs to. @param {HTMLElement} footer */
+/** The Editor of the Drawer this footer belongs to: the form of the selected section. @param {HTMLElement} footer */
 function editorOf(footer) {
-  return footer.closest('[data-admin-drawer-shell]')?.querySelector('[data-admin-product-editor]') ?? null;
+  const drawer = footer.closest('[data-admin-drawer-shell]');
+  return drawer ? activeProductEditor(drawer) : null;
 }
 
 /**
@@ -132,6 +134,13 @@ export function createEditorFooter(document) {
   }
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Node) || !root.contains(event.target)) close();
+    /* Selecting another section moves the footer to that section's form and its own steps. */
+    if (event.target instanceof Element && event.target.closest('.wex-admin-product-sections__tab, [data-admin-drawer-next], [data-admin-drawer-previous]') && footer.isConnected) {
+      const editor = editorOf(footer);
+      const steps = editor ? fieldChangeCount(editor) : 0;
+      setEditorFooterState(footer, { dirty: steps > 0, publishable: steps > 0 });
+      undo.disabled = steps === 0;
+    }
   });
   return footer;
 }

@@ -3,7 +3,7 @@ import { trackFieldChange } from './admin-station-field-history.js';
 /** @typedef {import('./admin-station-field-rows.js').RowItem} RowItem */
 import { canMoveField, moveField, needsShareChoice, rowsOf, setRowReverse } from './admin-station-field-rows.js';
 
-const FIELD = ':scope > .wex-admin-outlined-field';
+const FIELD = ':scope > [data-field-name]';
 
 /** Reads the form's fields and their row state from closed data attributes. @param {Element} editor @returns {RowItem[]} */
 function readItems(editor) {

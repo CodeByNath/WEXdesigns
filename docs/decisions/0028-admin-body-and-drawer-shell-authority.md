@@ -530,3 +530,8 @@ Summary of the Owner-directed Drawer width work, so the sections above need not 
 See the [ADR 0028 product-presentation companion](0028-admin-drawer-product-presentation.md)
 for the existing Full Drawer composition, shell allocation, Pricing and
 responsive boundary notes, plus the Owner-directed Description presentation.
+
+## Section editors
+
+See the [ADR 0028 section editors companion](0028-admin-drawer-section-editors.md)
+for the shared section editor behaviour and the Pricing editor (27 November 2026).

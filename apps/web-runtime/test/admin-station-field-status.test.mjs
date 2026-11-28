@@ -34,6 +34,7 @@ const fakeForm = (names) => {
     return {
       name,
       querySelector: () => ({ getAttribute: () => name }),
+      querySelectorAll: () => [],
       getAttribute: (key) => attributes.get(key) ?? null,
       setAttribute: (key, value) => attributes.set(key, value),
     };
@@ -83,14 +84,17 @@ test('Off locks only its content value and mutes only its matching presentation,
   form.fields.forEach((field, index) => {
     inputs[index].getAttribute = () => field.name;
     field.querySelector = () => inputs[index];
+    field.querySelectorAll = () => [inputs[index]];
   });
   let builderActive = false;
-  form.closest = () => ({ querySelector: () => builderActive ? {} : null });
+  form.closest = (selector) => (selector === '[data-admin-drawer-shell]' ? { querySelector: () => builderActive ? {} : null } : null);
   keepFieldStatus(form, 'status-content-test');
   const presentationFields = ['name', 'price'].map((name) => {
     const attributes = new Map([['data-presentation-field', name]]);
     const label = { textContent: name === 'price' ? 'Price' : 'Name' };
-    const value = { textContent: name === 'price' ? '$425.00' : 'Course', setAttribute: () => {} };
+    const original = name === 'price' ? '$425.00' : 'Course';
+    const value = { textContent: original, childNodes: [{ textContent: original }], setAttribute: () => {},
+      replaceChildren(...nodes) { this.textContent = nodes.map((node) => (typeof node === 'string' ? node : node.textContent)).join(''); } };
     return { label, value, querySelector: (selector) => selector === 'dt' ? label : value,
       getAttribute: (key) => attributes.get(key), setAttribute: (key, value) => attributes.set(key, value) };
   });

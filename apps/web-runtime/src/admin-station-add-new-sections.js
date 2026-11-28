@@ -3,7 +3,9 @@ import { adminDrawerCompartment, setAdminDrawerMode } from './admin-station-draw
 import { ADMIN_DRAWER_DISCARD_EVENT, ADMIN_DRAWER_EDIT_EVENT, setAdminDrawerActionState } from './admin-station-drawer-footer.js';
 import { setAdminDrawerHeaderLocation } from './admin-station-drawer-header.js';
 import { createProductSummary } from './admin-station-product-summary.js';
-import { createProductOverviewEditor, discardOverviewEditor, overviewEditorState } from './admin-station-product-overview-editor.js';
+import { createProductOverviewEditor } from './admin-station-product-overview-editor.js';
+import { createProductPricingEditor } from './admin-station-product-pricing-editor.js';
+import { discardProductEditors, productEditorsState } from './admin-station-product-editors.js';
 import { createProductPricing } from './admin-station-product-pricing.js';
 import { createProductDescription } from './admin-station-product-description.js';
 import { createProductMedia } from './admin-station-product-media.js';
@@ -79,7 +81,7 @@ export function mountAddNewSection(shell, id, label) {
   body.replaceChildren(...(id === 'presentation'
     ? [
       createProductSections(body, nextButton, previousButton),
-      mainShell(document, [createProductSummary(shell), createProductPricing(shell), createProductDescription(shell), createProductMedia(shell), createProductSnapshot(shell), createProductMeeting(shell), createProductItinerary(shell), createProductInfo(shell), createProductKeywords(shell), createProductFaqBooking(shell), createProductOverviewEditor(shell)]),
+      mainShell(document, [createProductSummary(shell), createProductPricing(shell), createProductDescription(shell), createProductMedia(shell), createProductSnapshot(shell), createProductMeeting(shell), createProductItinerary(shell), createProductInfo(shell), createProductKeywords(shell), createProductFaqBooking(shell), createProductOverviewEditor(shell), createProductPricingEditor(shell)]),
       connectionsShell(document, [
         sectionUnit(document, 'promotions', 'Promotions', [createPromotionsHeading(document, activePromotionCount), ...(activePromotionCount > 0 ? [createPromotionCards(document)] : [])]),
         sectionUnit(document, 'activity', 'Activity', [createActivityHeading(document, activityCount), createActivityCards(document)]),
@@ -112,14 +114,12 @@ export function listenAddNewSections(shell, tabs, owner) {
     const drawer = shell.querySelector('[data-admin-drawer-shell]');
     if (!(drawer instanceof HTMLElement) || drawer.dataset.adminDrawerOwner !== owner) return;
     setAdminDrawerMode(shell, 'full');
-    const editor = shell.querySelector('[data-admin-product-editor="overview"]');
-    setAdminDrawerActionState(shell, editor instanceof HTMLElement ? overviewEditorState(editor) : { dirty: false, publishable: true });
+    setAdminDrawerActionState(shell, productEditorsState(shell));
   });
-  // Discard returns the editor's fields to their starting values; its state then reports clean.
+  // Discard returns every section editor's fields to their starting values; the state then reports clean.
   shell.addEventListener(ADMIN_DRAWER_DISCARD_EVENT, () => {
     const drawer = shell.querySelector('[data-admin-drawer-shell]');
     if (!(drawer instanceof HTMLElement) || drawer.dataset.adminDrawerOwner !== owner) return;
-    const editor = shell.querySelector('[data-admin-product-editor="overview"]');
-    if (editor instanceof HTMLElement) discardOverviewEditor(editor);
+    discardProductEditors(shell);
   });
 }

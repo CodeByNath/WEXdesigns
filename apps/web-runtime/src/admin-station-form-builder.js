@@ -2,6 +2,7 @@ import { createSystemIcon } from './admin-station-system-icons.js';
 import { createFieldOptions } from './admin-station-field-options.js';
 import { ADMIN_FIELD_HISTORY_EVENT } from './admin-station-field-history.js';
 import { createFieldStatus, syncContentFieldStatus } from './admin-station-field-status.js';
+import { activeProductEditor } from './admin-station-product-editors.js';
 
 /** Layout holds selected-field options; Advanced remains empty. */
 const generalSections = ['Layout', 'Advanced'];
@@ -208,7 +209,14 @@ function listenForSelection(drawer) {
   });
   drawer.addEventListener('click', (event) => {
     if (!drawer.querySelector('[data-admin-form-builder][aria-pressed="true"]')) return;
-    const field = event.target instanceof Element ? event.target.closest('.wex-admin-product-editor > .wex-admin-outlined-field') : null;
+    /* Another section selected: the Editor moves to the first field of that section's form. */
+    if (event.target instanceof Element && event.target.closest('.wex-admin-product-sections__tab')) {
+      clearSelection(drawer);
+      firstField(drawer)?.setAttribute('data-form-builder-selected', '');
+      syncEditor(drawer);
+      return;
+    }
+    const field = event.target instanceof Element ? event.target.closest('.wex-admin-product-editor > [data-field-name]') : null;
     if (!field) return;
     clearSelection(drawer);
     field.setAttribute('data-form-builder-selected', '');
@@ -229,7 +237,7 @@ function setFormBuilder(card, active) {
   listenForSelection(drawer);
   clearSelection(drawer);
   /* Activating skips the hover step: the first field is selected and the Editor opens on it. */
-  if (active) drawer.querySelector('.wex-admin-product-editor > .wex-admin-outlined-field')?.setAttribute('data-form-builder-selected', '');
+  if (active) firstField(drawer)?.setAttribute('data-form-builder-selected', '');
   syncEditor(drawer);
   const footer = drawer.querySelector('[data-admin-drawer-compartment="footer"]');
   if (footer instanceof HTMLElement) footer.inert = active;
@@ -238,8 +246,12 @@ function setFormBuilder(card, active) {
     if (active) input.blur();
     input.disabled = active;
   }
-  const editor = drawer.querySelector('.wex-admin-product-editor');
-  if (editor) syncContentFieldStatus(editor);
+  for (const editor of drawer.querySelectorAll('.wex-admin-product-editor')) syncContentFieldStatus(editor);
+}
+
+/** The first field of the selected section's form. @param {Element} drawer */
+function firstField(drawer) {
+  return activeProductEditor(drawer)?.querySelector(':scope > [data-field-name]') ?? null;
 }
 
 /** The builder is off whenever the editor is left. @param {HTMLElement} drawer */

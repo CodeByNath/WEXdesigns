@@ -1,0 +1,105 @@
+/* Repeater and Currency fields of the product section editors. Existing tokens only, the outlined field's own
+ * values (border, Large radius, space-12 value padding, the label pill) and the Drawer's established spacing
+ * (8px inner rows, 16px groups, the editor's 24px between fields for the label pills). */
+
+/* Repeater: the outlined field's box and label pill around a list of items, Add at the end. */
+.wex-admin-field-repeater {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: grid;
+  justify-items: start;
+  gap: var(--wex-space-16);
+  min-inline-size: 0;
+  padding: var(--wex-space-24) var(--wex-space-12) var(--wex-space-12);
+  border: var(--wex-border-width-default) solid var(--wex-color-border-subtle);
+  border-radius: var(--wex-radius-large);
+}
+
+.wex-admin-field-repeater__items {
+  display: grid;
+  gap: var(--wex-space-24);
+  justify-self: stretch;
+  min-inline-size: 0;
+}
+
+/* An item: its fields side by side, then Remove. */
+.wex-admin-field-repeater__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--wex-space-8);
+  min-inline-size: 0;
+}
+
+.wex-admin-field-repeater__item[data-repeater-parts="3"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+}
+
+@media (max-width: 767px) {
+  .wex-admin-field-repeater__item[data-repeater-parts="3"] {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: var(--wex-space-24);
+  }
+
+  .wex-admin-field-repeater__item[data-repeater-parts="3"] > .wex-admin-field-repeater__action {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+
+/* Currency: the chosen currency is a button laid out like the outlined value; Custom adds the typed value. */
+.wex-admin-currency-field__control {
+  position: relative;
+  display: grid;
+}
+
+.wex-admin-currency-field__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wex-space-8);
+  box-sizing: border-box;
+  inline-size: 100%;
+  margin: 0;
+  padding: var(--wex-space-12);
+  border: 0;
+  background: transparent;
+  color: var(--wex-color-text-secondary);
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.wex-admin-currency-field__trigger:focus-visible {
+  outline: none;
+}
+
+.wex-admin-currency-field:focus-within .wex-admin-currency-field__trigger {
+  color: var(--wex-color-text-primary);
+}
+
+.wex-admin-currency-field__trigger > svg {
+  flex: 0 0 auto;
+  inline-size: var(--wex-icon-size-14);
+  block-size: var(--wex-icon-size-14);
+}
+
+.wex-admin-currency-field__control > .wex-admin-outlined-field__input[hidden],
+.wex-admin-currency-field__menu[hidden] {
+  display: none;
+}
+
+/* Every field is its own stacking context (outlined field), so the later fields' borders and label pills
+ * would paint over the open menu; the Currency field rises above its siblings while its menu is open. */
+.wex-admin-currency-field:has(> .wex-admin-currency-field__control > .wex-admin-currency-field__menu:not([hidden])) {
+  z-index: 2;
+}
+
+.wex-admin-currency-field__menu {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: calc(100% + var(--wex-space-4));
+  inset-inline-start: 0;
+}

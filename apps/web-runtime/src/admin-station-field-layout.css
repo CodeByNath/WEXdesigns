@@ -116,7 +116,7 @@
 
 /* Row: a form is two equal columns; a field spans both unless it shares its row (50% and 50%). Reverse swaps the two columns. */
 .wex-admin-product-editor { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row dense; }
-.wex-admin-product-editor > .wex-admin-outlined-field { grid-column: 1 / -1; }
+.wex-admin-product-editor > [data-field-name] { grid-column: 1 / -1; }
 .wex-admin-product-editor > [data-field-row="first"] { grid-column: 1; }
 .wex-admin-product-editor > [data-field-row="second"] { grid-column: 2; }
 .wex-admin-product-editor > [data-field-row="first"][data-field-row-reverse] { grid-column: 2; }

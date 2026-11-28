@@ -202,11 +202,11 @@
   color: var(--wex-color-text-secondary);
 }
 
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-product-editor > .wex-admin-outlined-field, .wex-admin-product-sections__tab) {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-product-editor > [data-field-name], .wex-admin-product-sections__tab) {
   opacity: var(--wex-opacity-disabled);
 }
 
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-product-editor > .wex-admin-outlined-field, .wex-admin-product-sections__tab):hover {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-product-editor > [data-field-name], .wex-admin-product-sections__tab):hover {
   opacity: 1;
 }
 
@@ -217,8 +217,8 @@
 }
 
 /* The extra selected padding of the value editor is for editing a value; the locked values never show it. */
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > .wex-admin-outlined-field:active .wex-admin-outlined-field__control::after,
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > .wex-admin-outlined-field:active .wex-admin-outlined-field__input {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > [data-field-name]:active .wex-admin-outlined-field__control::after,
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > [data-field-name]:active .wex-admin-outlined-field__input {
   padding-block: var(--wex-space-12);
 }
 
@@ -227,7 +227,7 @@
   opacity: 1;
 }
 
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field[data-form-builder-selected] .wex-admin-outlined-field__label {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) [data-form-builder-selected] > .wex-admin-outlined-field__label {
   background: var(--wex-color-background-accent);
   color: var(--wex-color-text-inverse);
 }

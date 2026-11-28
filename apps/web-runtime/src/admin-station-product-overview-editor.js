@@ -3,6 +3,7 @@ import { setAdminDrawerActionState } from './admin-station-drawer-footer.js';
 import { productSummaryFixture } from './admin-station-product-summary.js';
 import { keepFieldStatus } from './admin-station-field-status.js';
 import { formConfigurationAdapterFor, restoreFormConfiguration } from './admin-station-form-configuration.js';
+import { productEditorsState, registerProductEditor } from './admin-station-product-editors.js';
 
 /** The Overview fields the editor offers, from the Product Summary values. Platform ID is system-owned (read only); Rating, Type and Labels are not edited here yet. Every editable field is required: Publish stays disabled while one is empty. */
 const overviewFields = [
@@ -35,11 +36,12 @@ export function createProductOverviewEditor(shell, product = productSummaryFixtu
   for (const { key, ...field } of overviewFields) {
     section.append(createOutlinedField(document, { ...field, value: String(product[/** @type {keyof typeof product} */ (key)] ?? '') }));
   }
+  registerProductEditor(section, { state: overviewEditorState, discard: discardOverviewEditor });
   keepFieldStatus(section, product.id);
   void restoreFormConfiguration(section, formConfigurationAdapterFor(shell));
   const sync = () => {
     for (const input of section.querySelectorAll('textarea')) input.setAttribute('aria-invalid', String(input.required && input.value.trim() === ''));
-    setAdminDrawerActionState(shell, overviewEditorState(section));
+    setAdminDrawerActionState(shell, productEditorsState(shell));
   };
   section.addEventListener('input', sync);
   return section;

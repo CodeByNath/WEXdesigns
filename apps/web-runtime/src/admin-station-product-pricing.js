@@ -1,18 +1,22 @@
 import { createProductSectionHead } from './admin-station-product-sections.js';
-import { chips, labelledRows, node } from './admin-station-product-summary.js';
+import { chips, labelledRows, node, productSummaryFixture } from './admin-station-product-summary.js';
+import { formatPrice } from './admin-station-currency-field.js';
+import { syncPresentationFieldStatus } from './admin-station-field-status.js';
 
 /** @typedef {{ type: string, customLabel: string, price: string, note: string }} PriceRow */
-/** @typedef {{ priceFrom: string, prices: ReadonlyArray<PriceRow>, badges: ReadonlyArray<{ value: string, featured: boolean }> }} ProductPricing */
+/** @typedef {{ currency: import('./admin-station-currency-field.js').Currency, priceFrom: string, prices: ReadonlyArray<PriceRow>, badges: ReadonlyArray<{ value: string, featured: boolean }> }} ProductPricing */
 
-/* Preview values copied from the Owner's reference (Tour Product Editor, Pricing): Price (From), the Price list rows (Type, Price, Note; a custom label only when Type is Other) and the Badges / Chips with their Featured flag. */
+/* Preview values copied from the Owner's reference (Tour Product Editor, Pricing): Price (From), the Price list rows (Type, Price, Note; a custom label only when Type is Other) and the Badges / Chips with their Featured flag.
+ * Prices are amounts; the one Currency (AUD, shown as A$) is written before each price in presentation. */
 /** @type {ProductPricing} */
-const productPricingFixture = Object.freeze({
-  priceFrom: 'A$259',
+export const productPricingFixture = Object.freeze({
+  currency: Object.freeze({ mode: /** @type {const} */ ('list'), value: 'AUD' }),
+  priceFrom: '259',
   prices: Object.freeze([
-    { type: 'Adult', customLabel: '', price: 'A$259', note: '' },
-    { type: 'Child', customLabel: '', price: 'A$207', note: '2-16' },
-    { type: 'Concession / Senior', customLabel: '', price: 'A$246', note: '' },
-    { type: 'Infant', customLabel: '', price: 'A$129', note: 'must be pre-booked' },
+    { type: 'Adult', customLabel: '', price: '259', note: '' },
+    { type: 'Child', customLabel: '', price: '207', note: '2-16' },
+    { type: 'Concession / Senior', customLabel: '', price: '246', note: '' },
+    { type: 'Infant', customLabel: '', price: '129', note: 'must be pre-booked' },
   ]),
   badges: Object.freeze([
     { value: 'Free cancellation', featured: false },
@@ -45,18 +49,23 @@ export function createProductPricing(shell, pricing = productPricingFixture) {
     const kind = node(document, 'span', 'wex-admin-product-pricing__kind');
     kind.append(node(document, 'span', 'wex-type-body-small-regular', row.type === 'Other' && row.customLabel !== '' ? row.customLabel : row.type));
     if (row.note !== '') kind.append(node(document, 'small', 'wex-admin-product-pricing__note wex-type-body-small-light', '(' + row.note + ')'));
-    fare.append(node(document, 'span', 'wex-type-navigation-small-semibold', row.price), kind);
+    fare.append(node(document, 'span', 'wex-type-navigation-small-semibold', formatPrice(pricing.currency, row.price)), kind);
     fares.append(fare);
   });
 
-  section.append(
-    createProductSectionHead(document, 'pricing'),
-    labelledRows(document, [
-      ['Advertised price', node(document, 'span', 'wex-type-navigation-small-semibold', pricing.priceFrom)],
+  const rows = labelledRows(document, [
+      ['Advertised price', node(document, 'span', 'wex-type-navigation-small-semibold', formatPrice(pricing.currency, pricing.priceFrom))],
       ['Price list', fares],
       ['Badges', chips(document, pricing.badges.map((badge) => badge.value))],
       ...(featured.length > 0 ? [/** @type {readonly [string, Node]} */ (['Featured', chips(document, featured)])] : []),
-    ]),
-  );
+  ]);
+  /* Each row is its Pricing editor field, so an Off field reads "(inactive)" here (Currency has no row). */
+  const fieldNames = new Map([['Advertised price', 'advertised-price'], ['Price list', 'price-list'], ['Badges', 'badges'], ['Featured', 'featured']]);
+  for (const row of rows.children) {
+    const name = fieldNames.get(row.querySelector('dt')?.textContent ?? '');
+    if (name) row.setAttribute('data-presentation-field', name);
+  }
+  section.append(createProductSectionHead(document, 'pricing'), rows);
+  syncPresentationFieldStatus(section, productSummaryFixture.id);
   return section;
 }

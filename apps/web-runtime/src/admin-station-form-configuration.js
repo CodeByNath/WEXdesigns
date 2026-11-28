@@ -41,9 +41,9 @@ export function formConfigurationAdapterFor(element) {
 }
 
 /** @param {Element} form */
-const fieldsOf = (form) => [...form.querySelectorAll(':scope > .wex-admin-outlined-field')];
+const fieldsOf = (form) => [...form.querySelectorAll(':scope > [data-field-name]')];
 /** @param {Element} field */
-const nameOf = (field) => field.querySelector('textarea')?.getAttribute('name') ?? '';
+const nameOf = (field) => field.getAttribute('data-field-name') ?? field.querySelector('textarea')?.getAttribute('name') ?? '';
 
 /** The form's key, from the host-supplied ids on the form element. @param {Element} form */
 export function formConfigurationKey(form) {

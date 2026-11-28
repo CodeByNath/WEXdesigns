@@ -46,11 +46,14 @@ export function createProductSections(body, nextButton, previousButton) {
   const list = document.createElement('ol');
   list.className = 'wex-admin-product-sections__list';
   body.dataset.adminProductSection = 'overview';
+  /* The selected section stays readable while another one is previewed (the section editors follow it). */
+  body.dataset.adminProductSelected = 'overview';
   /** The selected section; the one in the main content shell follows it, or the hovered or focused one while previewing (same as the Drawer Sidebar tabs). */
   let selected = 'overview';
   /** @param {string} id */
   const select = (id) => {
     selected = id;
+    body.dataset.adminProductSelected = id;
     buttons.forEach((button, index) => button.setAttribute('aria-pressed', String(productSections[index]?.id === id)));
     if (nextButton) nextButton.disabled = productSections.at(-1)?.id === selected;
     if (previousButton) previousButton.disabled = productSections[0]?.id === selected;

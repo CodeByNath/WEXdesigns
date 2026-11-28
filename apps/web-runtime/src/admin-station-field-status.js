@@ -1,11 +1,15 @@
 import { ADMIN_FIELD_HISTORY_EVENT, trackFieldChange } from './admin-station-field-history.js';
 
-/** The fields switched off, per service. The form is shared and never changes; kept in memory only. */
-/** @type {Map<string, Set<string>>} */
+/** The fields switched off, per service and per form (Overview, Pricing, ...). Kept in memory only; the Form
+ * configuration restores them through the host adapter. */
+/** @type {Map<string, Map<string, Set<string>>>} */
 const offByService = new Map();
 
 /** @param {Element} field */
-const fieldName = (field) => field.querySelector('textarea')?.getAttribute('name') ?? '';
+const fieldName = (field) => field.getAttribute('data-field-name') ?? field.querySelector('textarea')?.getAttribute('name') ?? '';
+
+/** @param {string} serviceId @param {string} name */
+const isOff = (serviceId, name) => [...(offByService.get(serviceId)?.values() ?? [])].some((off) => off.has(name));
 
 /**
  * Gives a newly built form its own service's off fields, then keeps them up to date: a press, a step back
@@ -13,17 +17,20 @@ const fieldName = (field) => field.querySelector('textarea')?.getAttribute('name
  * @param {Element} editor @param {string} serviceId
  */
 export function keepFieldStatus(editor, serviceId) {
-  const fields = () => [...editor.querySelectorAll(':scope > .wex-admin-outlined-field')];
-  const off = offByService.get(serviceId);
+  const formId = editor.getAttribute?.('data-form-id') ?? '';
+  const fields = () => [...editor.querySelectorAll(':scope > [data-field-name]')];
+  const off = offByService.get(serviceId)?.get(formId);
   for (const field of fields()) {
     if (off?.has(fieldName(field))) field.setAttribute('data-field-status', 'off');
   }
   syncContentFieldStatus(editor);
   editor.addEventListener(ADMIN_FIELD_HISTORY_EVENT, () => {
-    offByService.set(serviceId, new Set(fields().filter((field) => field.getAttribute('data-field-status') === 'off').map(fieldName)));
+    const forms = offByService.get(serviceId) ?? new Map();
+    forms.set(formId, new Set(fields().filter((field) => field.getAttribute('data-field-status') === 'off').map(fieldName)));
+    offByService.set(serviceId, forms);
     syncContentFieldStatus(editor);
-    const summary = editor.closest?.('[data-admin-drawer-shell]')?.querySelector('.wex-admin-product-summary');
-    if (summary) syncPresentationFieldStatus(summary, serviceId);
+    const main = editor.closest?.('.wex-admin-drawer-main');
+    if (main) syncPresentationFieldStatus(main, serviceId);
   });
 }
 
@@ -63,28 +70,35 @@ export function createFieldStatus(document, selected) {
   return button;
 }
 
-/** Keeps content values locked while Form Editor is active or their own status is Off. @param {Element} editor */
+/** Keeps content values (and a field's own controls, such as a repeater's Add and Remove) locked while Form
+ * Editor is active or the field's status is Off. @param {Element} editor */
 export function syncContentFieldStatus(editor) {
   const active = !!editor.closest?.('[data-admin-drawer-shell]')?.querySelector('.wex-admin-form-builder[aria-pressed="true"]');
-  for (const field of editor.querySelectorAll(':scope > .wex-admin-outlined-field')) {
-    const input = field.querySelector('textarea');
-    if (input && 'disabled' in input) input.disabled = active || field.getAttribute('data-field-status') === 'off';
+  for (const field of editor.querySelectorAll(':scope > [data-field-name]')) {
+    for (const control of field.querySelectorAll('textarea, button')) {
+      if ('disabled' in control) control.disabled = active || field.getAttribute('data-field-status') === 'off';
+    }
   }
 }
 
 /** Original presentation values are retained so On and history restore the presentation exactly. */
-/** @type {WeakMap<Element, string>} */
+/** @type {WeakMap<Element, Node[]>} */
 const presentationValues = new WeakMap();
 
-/** Applies the same service-local status to corresponding presentation values. @param {Element} summary @param {string} serviceId */
-export function syncPresentationFieldStatus(summary, serviceId) {
-  for (const field of summary.querySelectorAll('[data-presentation-field]')) {
-    const off = offByService.get(serviceId)?.has(field.getAttribute('data-presentation-field') ?? '') ?? false;
+/**
+ * Applies the same service-local status to the corresponding presentation values (Overview summary, Pricing,
+ * ...): an off value is replaced with "(inactive)"; On restores the original value nodes.
+ * @param {Element} root @param {string} serviceId
+ */
+export function syncPresentationFieldStatus(root, serviceId) {
+  for (const field of root.querySelectorAll('[data-presentation-field]')) {
+    const off = isOff(serviceId, field.getAttribute('data-presentation-field') ?? '');
     field.setAttribute('data-field-status', off ? 'off' : 'on');
     field.setAttribute('aria-disabled', String(off));
-    const value = field.querySelector('dd > span') ?? field;
-    if (!presentationValues.has(value)) presentationValues.set(value, value.textContent ?? '');
-    value.textContent = off ? '(inactive)' : presentationValues.get(value) ?? '';
-    field.querySelector('dd')?.setAttribute('title', value.textContent);
+    const value = field.querySelector('dd > span') ?? field.querySelector('dd') ?? field;
+    if (!presentationValues.has(value)) presentationValues.set(value, [...value.childNodes]);
+    if (off) value.replaceChildren('(inactive)');
+    else value.replaceChildren(...(presentationValues.get(value) ?? []));
+    field.querySelector('dd')?.setAttribute('title', value.textContent ?? '');
   }
 }

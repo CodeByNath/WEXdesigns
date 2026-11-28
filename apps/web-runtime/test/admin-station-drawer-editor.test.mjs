@@ -6,8 +6,8 @@ const read = (name) => readFileSync(new URL(`../src/${name}`, import.meta.url), 
 
 test('Edit opens the editor view: Full, Publish as the main action, owner-checked', () => {
   const js = read('admin-station-add-new-sections.js');
-  assert.match(js, /addEventListener\(ADMIN_DRAWER_EDIT_EVENT, \(\) => \{[\s\S]*adminDrawerOwner !== owner\) return;\s*setAdminDrawerMode\(shell, 'full'\);\s*const editor = shell\.querySelector\('\[data-admin-product-editor="overview"\]'\);\s*setAdminDrawerActionState\(shell, editor instanceof HTMLElement \? overviewEditorState\(editor\)/);
-  assert.match(js, /addEventListener\(ADMIN_DRAWER_DISCARD_EVENT[\s\S]*adminDrawerOwner !== owner\) return;[\s\S]*discardOverviewEditor\(editor\)/);
+  assert.match(js, /addEventListener\(ADMIN_DRAWER_EDIT_EVENT, \(\) => \{[\s\S]*adminDrawerOwner !== owner\) return;\s*setAdminDrawerMode\(shell, 'full'\);\s*setAdminDrawerActionState\(shell, productEditorsState\(shell\)\);/);
+  assert.match(js, /addEventListener\(ADMIN_DRAWER_DISCARD_EVENT[\s\S]*adminDrawerOwner !== owner\) return;\s*discardProductEditors\(shell\);/);
 });
 
 test('the Overview editor reports dirty and publishable to the footer: every editable field is required, Discard restores the starting values', () => {
@@ -38,7 +38,7 @@ test('the Overview editor is one outlined field per value, label on the border, 
   const editor = read('admin-station-product-overview-editor.js');
   for (const label of ['Name', 'Platform ID', 'Booking ID', 'Marketing Title', 'Tagline', 'Price', 'Duration', 'Language', 'Category']) assert.match(editor, new RegExp(`label: '${label}'`));
   assert.match(editor, /name: 'platform-id', label: 'Platform ID', key: 'id', readOnly: true/);
-  assert.match(read('admin-station-add-new-sections.js'), /createProductFaqBooking\(shell\), createProductOverviewEditor\(shell\)\]/);
+  assert.match(read('admin-station-add-new-sections.js'), /createProductFaqBooking\(shell\), createProductOverviewEditor\(shell\), createProductPricingEditor\(shell\)\]/);
   const css = read('admin-station-outlined-field.css');
   assert.match(css, /border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);\s*border-radius: var\(--wex-radius-large\);/);
   assert.doesNotMatch(css, /:hover/);
@@ -60,7 +60,7 @@ test('the Overview editor is one outlined field per value, label on the border, 
   assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
   const editorCss = read('admin-station-drawer-editor.css');
   assert.match(editorCss, /\.wex-admin-product-editor \{\s*display: none;/);
-  assert.match(editorCss, /\[data-admin-product-section="overview"\] \.wex-admin-product-editor\[data-admin-product-editor="overview"\] \{\s*display: grid;\s*gap: var\(--wex-space-24\);\s*(?:\/\*[^*]*\*\/\s*)?margin-block-start: var\(--wex-space-12\);/);
+  assert.match(editorCss, /\[data-admin-product-section="overview"\] \.wex-admin-product-editor\[data-admin-product-editor="overview"\],\s*[^{]*\[data-admin-product-section="pricing"\] \.wex-admin-product-editor\[data-admin-product-editor="pricing"\] \{\s*display: grid;\s*gap: var\(--wex-space-24\);\s*(?:\/\*[^*]*\*\/\s*)?margin-block-start: var\(--wex-space-12\);/);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-outlined-field\.css";/);
 });
 
@@ -90,7 +90,7 @@ test('the Form Builder card (icon tile, title, description) shows only in the ed
   assert.match(css, /\[data-admin-drawer-unit="quick-actions"\] \{\s*display: none;/);
   assert.match(css, /\[data-admin-drawer-editing\] \.wex-admin-drawer-section\[data-admin-drawer-unit="quick-actions"\] \{\s*display: grid;/);
   assert.match(js, /heading\.textContent = 'Quick actions'/);
-  assert.match(css, /:is\(\.wex-admin-product-editor > \.wex-admin-outlined-field, \.wex-admin-product-sections__tab\) \{\s*opacity: var\(--wex-opacity-disabled\);/);
+  assert.match(css, /:is\(\.wex-admin-product-editor > \[data-field-name\], \.wex-admin-product-sections__tab\) \{\s*opacity: var\(--wex-opacity-disabled\);/);
   assert.match(css, /:hover \{\s*opacity: 1;/);
   assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
   assert.match(read('admin-station.css'), /@import "\.\/admin-station-form-builder\.css";/);
@@ -106,17 +106,17 @@ test('while the Form Builder is active every value is locked and dimmed, hovered
 
 test('while the Form Builder is active a pressed field never shows the selected padding', () => {
   const css = read('admin-station-form-builder.css');
-  assert.match(css, /\.wex-admin-outlined-field:active \.wex-admin-outlined-field__input \{\s*padding-block: var\(--wex-space-12\);/);
+  assert.match(css, /\[data-field-name\]:active \.wex-admin-outlined-field__input \{\s*padding-block: var\(--wex-space-12\);/);
 });
 
 test('activating the Form Builder selects the first field (no hover step) and a clicked field is selected with an accent label', () => {
   const js = read('admin-station-form-builder.js');
-  assert.match(js, /closest\('\.wex-admin-product-editor > \.wex-admin-outlined-field'\)/);
+  assert.match(js, /closest\('\.wex-admin-product-editor > \[data-field-name\]'\)/);
   assert.match(js, /field\.setAttribute\('data-form-builder-selected', ''\)/);
-  assert.match(js, /clearSelection\(drawer\);\n\s*\/\*[^\n]*\*\/\n\s*if \(active\) drawer\.querySelector\('\.wex-admin-product-editor > \.wex-admin-outlined-field'\)\?\.setAttribute\('data-form-builder-selected', ''\)/);
+  assert.match(js, /clearSelection\(drawer\);\n\s*\/\*[^\n]*\*\/\n\s*if \(active\) firstField\(drawer\)\?\.setAttribute\('data-form-builder-selected', ''\)/);
   const css = read('admin-station-form-builder.css');
   assert.doesNotMatch(css, /:first-child/);
-  assert.match(css, /\[data-form-builder-selected\] \.wex-admin-outlined-field__label \{\s*background: var\(--wex-color-background-accent\);\s*color: var\(--wex-color-text-inverse\);/);
+  assert.match(css, /\[data-form-builder-selected\] > \.wex-admin-outlined-field__label \{\s*background: var\(--wex-color-background-accent\);\s*color: var\(--wex-color-text-inverse\);/);
   assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
 });
 

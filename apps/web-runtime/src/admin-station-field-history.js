@@ -26,7 +26,7 @@ function historyOf(editor) {
 
 /** @param {Element} editor @returns {Snapshot} */
 function snapshot(editor) {
-  return [...editor.querySelectorAll(':scope > .wex-admin-outlined-field')].map((field) => ({ field, values: ATTRIBUTES.map((name) => field.getAttribute(name)) }));
+  return [...editor.querySelectorAll(':scope > [data-field-name]')].map((field) => ({ field, values: ATTRIBUTES.map((name) => field.getAttribute(name)) }));
 }
 
 /** @param {Snapshot} a @param {Snapshot} b */

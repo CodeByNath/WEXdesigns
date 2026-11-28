@@ -10,6 +10,8 @@
 export function createOutlinedField(document, { name, label, value = '', readOnly = false, required = false }) {
   const box = document.createElement('div');
   box.className = 'wex-admin-outlined-field';
+  /* The field's name: Form Editor, history and the Form configuration identify a field by it. */
+  box.dataset.fieldName = name;
   const text = document.createElement('label');
   text.className = 'wex-admin-outlined-field__label wex-type-body-small-regular';
   text.htmlFor = `wex-admin-field-${name}`;

@@ -1,6 +1,6 @@
 /* Editor view (Drawer `data-admin-drawer-editing`): the navigation shell stays, the connections shell
  * stays but is empty (Promotions and Activity are hidden), and the main content shell becomes the editor:
- * only the section heading remains, then the section's editor (Overview only so far). */
+ * only the section heading remains, then the section's editor (Overview and Pricing so far). */
 .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-connections > :not([data-admin-drawer-unit="quick-actions"], .wex-admin-editor-footer) {
   display: none;
 }
@@ -9,17 +9,30 @@
   display: none;
 }
 
+/* One gap for every section (Owner rule, 27 November 2026): in the editor view the section heading is the
+ * only thing left of a section, it always ends with the Drawer heading gap and nothing else, and the editor
+ * adds its own space-12 below it. Section heading to first field = heading gap + space-12, whichever section. */
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main > :not(.wex-admin-product-editor) {
+  margin-block: 0;
+  padding-block: 0;
+}
+
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main > :not(.wex-admin-product-editor) > .wex-admin-product-section-head {
+  margin-block: 0 var(--wex-admin-shell-drawer-heading-gap);
+}
+
 /* The editor keeps the view's 2 : 5 : 3 proportion (no editor grid of its own); its main content shell never passes the content maximum, in any layout. */
 .wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-drawer-main {
   max-inline-size: var(--wex-admin-shell-drawer-column-max-inline-size);
 }
 
-/* The editor shows only in the editor view, for the section the navigation holds. Overview is built. */
+/* The editor shows only in the editor view, for the section the navigation holds. Overview and Pricing are built. */
 .wex-admin-product-editor {
   display: none;
 }
 
-.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-shell__drawer-body[data-admin-product-section="overview"] .wex-admin-product-editor[data-admin-product-editor="overview"] {
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-shell__drawer-body[data-admin-product-section="overview"] .wex-admin-product-editor[data-admin-product-editor="overview"],
+.wex-admin-shell__drawer[data-admin-drawer-editing] .wex-admin-shell__drawer-body[data-admin-product-section="pricing"] .wex-admin-product-editor[data-admin-product-editor="pricing"] {
   display: grid;
   gap: var(--wex-space-24);
   /* More room under the section heading, for the first field's label pill (editor only). */
