@@ -101,7 +101,8 @@
 .wex-admin-product-editor > [data-field-width="98"] { inline-size: 98%; }
 .wex-admin-product-editor > [data-field-width="99"] { inline-size: 99%; }
 .wex-admin-product-editor > [data-field-width="100"] { inline-size: 100%; }
-.wex-admin-product-editor > [data-field-width="default"] { inline-size: auto; }
+/* Default shows as 100%, so it is a full-width field: Position has no effect until the width is below 100%. */
+.wex-admin-product-editor > [data-field-width="default"] { inline-size: 100%; }
 .wex-admin-product-editor > [data-field-position="start"] { justify-self: start; }
 .wex-admin-product-editor > [data-field-position="center"] { justify-self: center; }
 .wex-admin-product-editor > [data-field-position="end"] { justify-self: end; }

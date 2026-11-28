@@ -107,3 +107,11 @@ fixed in the frame at the same width (Owner-directed): the main content shell
 narrows to the rest, so the editor and its fields are never covered. Below 840px nothing changes. State:
 `data-admin-connections-open` on the Drawer. Pricing editor work is paused.
 Note: while open, the panel covers the Drawer footer's end (Publish).
+
+## Default width is full width (28 November 2026)
+
+Owner-directed fix: the Width default shows as 100%, so a field at its default
+is full width (`inline-size: 100%`, was `auto`). Position therefore has no
+effect until the width is below 100%; before, Center shrank a default-width
+field to its content. Source: `admin-station-field-layout.css`; test in
+`admin-station-field-rows.test.mjs`.

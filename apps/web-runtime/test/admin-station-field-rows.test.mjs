@@ -67,3 +67,8 @@ test('Row uses the Editor mode controller, data attributes and the Small Dropdow
   assert.match(css, /\[data-field-row="first"\]\[data-field-row-reverse\] \{ grid-column: 2; \}/);
   assert.match(css, /\[data-field-row="second"\]\[data-field-row-reverse\] \{ grid-column: 1; \}/);
 });
+
+test('Width at its default (shown as 100%) is a full-width field, so Position has no effect', () => {
+  const css = readFileSync(new URL('../src/admin-station-field-layout.css', import.meta.url), 'utf8');
+  assert.match(css, /\[data-field-width="default"\] \{ inline-size: 100%; \}/);
+});
