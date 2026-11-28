@@ -52,9 +52,9 @@ test('the Overview editor is one outlined field per value, label on the border, 
   assert.match(css, /__input \{[^}]*color: var\(--wex-color-text-secondary\);/);
   assert.match(css, /:focus-within \.wex-admin-outlined-field__label \{\s*color: var\(--wex-color-text-secondary\);/);
   assert.match(css, /:focus-within \.wex-admin-outlined-field__input \{\s*color: var\(--wex-color-text-primary\);/);
-  assert.match(css, /:active,\s*\.wex-admin-outlined-field:focus-within \{[^}]*border-color: var\(--wex-outer-ring-color\);/);
-  assert.match(css, /:focus-within::after \{[^}]*inset: 0;[^}]*border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
-  assert.match(css, /:focus-within::before \{[^}]*inset: var\(--wex-outer-ring-inner-width\);[^}]*border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/);
+  assert.match(css, /:active,\s*\.wex-admin-outlined-field:focus-within,\s*\.wex-admin-outlined-field\[data-form-builder-selected\] \{[^}]*border-color: var\(--wex-outer-ring-color\);/);
+  assert.match(css, /:focus-within::after,\s*\.wex-admin-outlined-field\[data-form-builder-selected\]::after \{[^}]*inset: 0;[^}]*border: var\(--wex-outer-ring-inner-width\) solid var\(--wex-outer-ring-color\);/);
+  assert.match(css, /:focus-within::before,\s*\.wex-admin-outlined-field\[data-form-builder-selected\]::before \{[^}]*inset: var\(--wex-outer-ring-inner-width\);[^}]*border: var\(--wex-outer-ring-gap\) solid var\(--wex-outer-ring-gap-color\);/);
   assert.match(css, /__label \{[^}]*inset-block-start: 0;[^}]*block-size: var\(--wex-space-24\);[^}]*padding-inline: var\(--wex-pill-notification-status-padding-inline\);[^}]*border: var\(--wex-border-width-default\) solid var\(--wex-color-border-subtle\);[^}]*border-radius: var\(--wex-pill-notification-status-radius\);[^}]*background: var\(--wex-color-background-secondary\);[^}]*transform: translateY\(-50%\);/);
   assert.match(css, /\.wex-admin-outlined-field \.wex-admin-outlined-field__input:focus-visible \{\s*outline: none;/);
   assert.doesNotMatch(css.replace(/@container[^{]*/, ''), /#[0-9a-f]{3,8}\b|\d+(px|rem)/i);
@@ -182,4 +182,10 @@ test('the Editor unit runs down to the footer, with no empty band above it', () 
   const css = read('admin-station-editor-footer.css');
   assert.match(css, /drawer-connections:has\(\[data-editor-active\]\) \{\s*row-gap: 0;/);
   assert.match(css, /\.wex-admin-drawer-section\[data-editor-active\] \{\s*padding-block-end: 0;/);
+});
+
+test('Form Editor: the selected field is at full opacity and its value is hidden', () => {
+  const css = read('admin-station-form-builder.css');
+  assert.match(css, /:is\(\.wex-admin-product-editor > \[data-field-name\], \.wex-admin-product-sections__tab\)\[data-form-builder-selected\] \{\s*opacity: 1;/);
+  assert.match(css, /\.wex-admin-product-editor > \[data-form-builder-selected\] \.wex-admin-outlined-field__input \{\s*visibility: hidden;/);
 });

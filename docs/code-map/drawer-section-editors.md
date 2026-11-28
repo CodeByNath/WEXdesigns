@@ -17,6 +17,7 @@ Admin Shell map ([admin-shell.md](admin-shell.md)) is at its line limit.
 | Editor visibility per section | `admin-station-drawer-editor.css` | `admin-station-drawer-editor.test.mjs` |
 | Selected section (`data-admin-product-selected`) | `admin-station-product-sections.js` | same |
 | Form Editor / Editor footer follow the active editor | `admin-station-form-builder.js`, `admin-station-editor-footer.js` | `admin-station-drawer-editor.test.mjs` |
+| Form Editor active field (Focused state, value hidden) | `admin-station-form-builder.css`, `admin-station-outlined-field.css` | `admin-station-drawer-editor.test.mjs` |
 | Off status per record and form, presentation mute | `admin-station-field-status.js`, `admin-station-field-status.css` | `admin-station-field-status.test.mjs` |
 
 ## Safe change route for the next section

@@ -69,3 +69,13 @@ and amounts, and the presentation writes the symbol before each price.
   Editor on Pricing selects Currency first, selects the Price list, Off shows
   "(inactive)" in Pricing presentation; Publish then refresh restores Off and
   Center; switching Overview/Pricing moves the Editor to each first field.
+
+## Form Editor active field (28 November 2026)
+
+Owner-directed: while the Form Editor is active, the selected field
+(`data-form-builder-selected`) is not shown disabled (full opacity; the
+selected rule now outranks the dimming rule) and its value is hidden, keeping
+the field's height. It takes the outlined field's own Focused (clicked) state,
+the border and the outer ring, without the extra value space. The other fields
+stay at the disabled opacity. Sources: `admin-station-form-builder.css`,
+`admin-station-outlined-field.css`; tests in `admin-station-drawer-editor.test.mjs`.

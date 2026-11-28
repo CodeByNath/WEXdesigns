@@ -223,8 +223,14 @@
 }
 
 /* A selected field (the first on activation, then a click while the builder is active): full opacity, its label on the blue accent background with the inverse (white) text colour. */
-.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-outlined-field[data-form-builder-selected] {
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) :is(.wex-admin-product-editor > [data-field-name], .wex-admin-product-sections__tab)[data-form-builder-selected] {
   opacity: 1;
+}
+
+/* The selected field is not shown disabled, and its value is hidden (Owner-directed): the Editor edits the
+ * field, not its value. The field keeps its height. */
+.wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) .wex-admin-product-editor > [data-form-builder-selected] .wex-admin-outlined-field__input {
+  visibility: hidden;
 }
 
 .wex-admin-shell__drawer[data-admin-drawer-editing]:has(.wex-admin-form-builder[aria-pressed="true"]) [data-form-builder-selected] > .wex-admin-outlined-field__label {

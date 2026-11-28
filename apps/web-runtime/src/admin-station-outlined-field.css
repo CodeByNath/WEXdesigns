@@ -16,10 +16,13 @@
 }
 
 .wex-admin-outlined-field:active,
-.wex-admin-outlined-field:focus-within {
+.wex-admin-outlined-field:focus-within,
+.wex-admin-outlined-field[data-form-builder-selected] {
   border-color: var(--wex-outer-ring-color);
 }
 
+/* The Form Editor's active field (`data-form-builder-selected`) takes the same Focused (clicked) state
+ * (Owner-directed): the border and the outer ring, not the extra value space. */
 /* Clicked (Pressed or Focused), the value adds another space-8 at its top and at its bottom (Owner-directed). */
 .wex-admin-outlined-field:active .wex-admin-outlined-field__control::after,
 .wex-admin-outlined-field:focus-within .wex-admin-outlined-field__control::after,
@@ -29,7 +32,8 @@
 }
 
 .wex-admin-outlined-field:active::after,
-.wex-admin-outlined-field:focus-within::after {
+.wex-admin-outlined-field:focus-within::after,
+.wex-admin-outlined-field[data-form-builder-selected]::after {
   position: absolute;
   inset: 0;
   box-sizing: border-box;
@@ -40,7 +44,8 @@
 }
 
 .wex-admin-outlined-field:active::before,
-.wex-admin-outlined-field:focus-within::before {
+.wex-admin-outlined-field:focus-within::before,
+.wex-admin-outlined-field[data-form-builder-selected]::before {
   position: absolute;
   inset: var(--wex-outer-ring-inner-width);
   box-sizing: border-box;
