@@ -29,7 +29,11 @@ test('the Pricing editor fields, in order: Currency, Advertised price, Price lis
   assert.match(js, /\[data-field-name="currency"\]'\)\?\.setAttribute\('data-field-row', 'first'\);\s*section\.querySelector\(':scope > \[data-field-name="advertised-price"\]'\)\?\.setAttribute\('data-field-row', 'second'\);/);
   assert.match(js, /registerProductEditor\(section,/);
   assert.match(js, /keepFieldStatus\(section, scopeId\);\s*void restoreFormConfiguration\(section, formConfigurationAdapterFor\(shell\)\);/);
-  assert.match(js, /label\.textContent = symbol === '' \? base : `\$\{base\} \(\$\{symbol\}\)`;/);
+  /* Labels never carry values (Owner rule): no currency symbol, nor any value, is written into a label. */
+  assert.doesNotMatch(js, /currencySymbol|label\.textContent =/);
+  for (const name of ['admin-station-outlined-field.js', 'admin-station-currency-field.js', 'admin-station-field-repeater.js']) {
+    assert.match(read(name), /(text|label)\.textContent = (options\.)?label;/);
+  }
 });
 
 test('Currency is not presented; presentation writes the symbol before each price and marks the field rows', () => {

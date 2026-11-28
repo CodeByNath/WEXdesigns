@@ -38,9 +38,11 @@ Fields, in order (Owner-directed):
 1. **Currency** — editor and form only, never in presentation. An outlined
    field whose value is chosen in the existing Dropdown Menu Default: AUD (A$,
    default), NZD (NZ$), USD (US$), EUR (€), GBP (£), then Custom, which shows
-   a text value to type the currency manually. The chosen symbol follows the
-   Advertised price and every Price list price, in the editor labels
-   ("Advertised price (A$)", "Price (A$)") and in presentation ("A$259").
+   a text value to type the currency manually. The chosen symbol is written
+   only in presentation, before each price ("A$259"). **Labels never carry
+   values** (Owner rule, 28 November 2026, global): editor labels are the field
+   names only ("Advertised price", "Price"); the earlier "(A$)" label suffix is
+   removed.
 2. **Advertised price** — single field (amount).
 3. **Price list** — repeater; each item is Price, Label and Note (Label is the
    fare type, or the custom label for Other).
